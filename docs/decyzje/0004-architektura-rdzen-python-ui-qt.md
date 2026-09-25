@@ -1,6 +1,7 @@
 ---
+noteId: "0ecfc22f03a54724b3d336cfb9cbb87b"
 tytul: Architektura — rdzeń w czystym Pythonie, Qt tylko w interfejsie
-tagi: [adr, architektura, http, sekrety, ui]
+tags: [adr, architektura, http, sekrety, ui]
 status: zaakceptowana
 zastapiona_przez:
 utworzono: 2026-09-25

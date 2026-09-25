@@ -1,3 +1,8 @@
+---
+noteId: "adaba4cf17954899958b5f923de2f32d"
+tags: []
+---
+
 # CLAUDE.md
 
 @AGENTS.md

@@ -1,6 +1,7 @@
 ---
+noteId: "699cd1d009a74268895b9f512eba7059"
 tytul: StatusNotifierItem (tacka systemowa)
-tagi: [integracja, tray, dbus, kde, gnome]
+tags: [integracja, tray, dbus, kde, gnome]
 status_integracji: planowana
 wersja: specyfikacja freedesktop (draft), w KDE Plasma 5/6
 utworzono: 2026-09-25

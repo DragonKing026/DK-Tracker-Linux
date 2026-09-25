@@ -1,9 +1,10 @@
 ---
+noteId: "{{NOTEID}}"
 tytul: "{{TYTUL}}"
 numer: "{{NNNN}}"
 status: do-zrobienia
 priorytet: p2
-tagi: [todo]
+tags: [todo]
 zalezy_od: []
 utworzono: {{DATA}}
 zaktualizowano: {{DATA}}

@@ -1,9 +1,10 @@
 ---
+noteId: "f3480932d7974c7883f3c1e0dc5cc63a"
 tytul: "Struktura agenta i dokumentacji"
 numer: "0001"
 status: zrobione
 priorytet: p0
-tagi: [todo, dokumentacja, agent]
+tags: [todo, dokumentacja, agent]
 zalezy_od: []
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25

@@ -1,6 +1,7 @@
 ---
+noteId: "05566ff2ce6741389c097298fd129518"
 tytul: WS Tracker (projekt referencyjny)
-tagi: [integracja, referencja, kimai]
+tags: [integracja, referencja, kimai]
 status_integracji: referencja
 wersja: 1.5.1
 utworzono: 2026-09-25

@@ -1,6 +1,7 @@
 ---
+noteId: "943463671c584b9cbe37a0def43c94a7"
 tytul: Flatpak
-tagi: [integracja, flatpak, dystrybucja, build]
+tags: [integracja, flatpak, dystrybucja, build]
 status_integracji: planowana
 wersja: Flatpak 1.18 (lokalnie); runtime'y na Flathub stan 2026-09-25
 utworzono: 2026-09-25

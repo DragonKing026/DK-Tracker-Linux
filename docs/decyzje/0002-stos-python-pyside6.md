@@ -1,6 +1,7 @@
 ---
+noteId: "88803f062d77411790e9a0c0cbd856bd"
 tytul: Stos technologiczny — Python + PySide6 (Qt 6) na runtime KDE
-tagi: [adr, stos, qt, python, flatpak]
+tags: [adr, stos, qt, python, flatpak]
 status: zaakceptowana
 zastapiona_przez:
 utworzono: 2026-09-25

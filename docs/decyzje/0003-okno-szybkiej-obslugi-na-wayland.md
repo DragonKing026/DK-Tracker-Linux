@@ -1,6 +1,7 @@
 ---
+noteId: "52881c915ddd4b6b9caca3b509b690db"
 tytul: Forma okna szybkiej obsługi na Waylandzie
-tagi: [adr, ui, wayland, tray]
+tags: [adr, ui, wayland, tray]
 status: zaakceptowana
 zastapiona_przez:
 utworzono: 2026-09-25

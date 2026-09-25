@@ -1,6 +1,7 @@
 ---
+noteId: "0468458e1b6544d9aea0fe637af1ce0e"
 tytul: Zadania w folderze TODO
-tagi: [proces, todo]
+tags: [proces, todo]
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
 ---

@@ -1,6 +1,7 @@
 ---
+noteId: "2dcfa4f4816f4eecb898e4a9cdcd479c"
 tytul: Zasady dokumentowania
-tagi: [proces, dokumentacja, obsidian]
+tags: [proces, dokumentacja, obsidian]
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
 ---

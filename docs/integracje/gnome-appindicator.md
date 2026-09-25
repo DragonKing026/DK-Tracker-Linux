@@ -1,6 +1,7 @@
 ---
+noteId: "ce39a8965b5b4dcfa56ff511b6aaaf7e"
 tytul: GNOME — rozszerzenie AppIndicator
-tagi: [integracja, gnome, tray]
+tags: [integracja, gnome, tray]
 status_integracji: planowana
 wersja: rozszerzenie v66 (GNOME Shell 45–51)
 utworzono: 2026-09-25

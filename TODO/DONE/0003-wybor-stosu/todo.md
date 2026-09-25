@@ -1,9 +1,10 @@
 ---
+noteId: "ee759e74dcc944e09febd43ecf716b7a"
 tytul: "Wybór stosu technologicznego"
 numer: "0003"
 status: zrobione
 priorytet: p0
-tagi: [todo, planowanie, adr]
+tags: [todo, planowanie, adr]
 zalezy_od: []
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25

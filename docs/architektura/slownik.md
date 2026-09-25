@@ -1,6 +1,7 @@
 ---
+noteId: "5f84d0b2b6864016bf5680a36e55c158"
 tytul: Słownik pojęć
-tagi: [architektura, slownik]
+tags: [architektura, slownik]
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
 ---

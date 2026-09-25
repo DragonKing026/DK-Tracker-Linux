@@ -1,9 +1,10 @@
 ---
+noteId: "e731518efd584a658c5e1da8c9e7d5d8"
 tytul: "Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku"
 numer: "0004"
 status: do-zrobienia
 priorytet: p1
-tagi: [todo, spike, tray, wayland]
+tags: [todo, spike, tray, wayland]
 zalezy_od: ["0003-wybor-stosu"]
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25

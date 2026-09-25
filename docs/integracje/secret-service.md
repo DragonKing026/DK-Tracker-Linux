@@ -1,6 +1,7 @@
 ---
+noteId: "64e8b2ce2c394e8a853893b2d27a8932"
 tytul: Przechowywanie tokenu — Secret Service i portal Secret
-tagi: [integracja, bezpieczenstwo, sekrety, dbus]
+tags: [integracja, bezpieczenstwo, sekrety, dbus]
 status_integracji: planowana (wybrana droga B)
 wersja: Secret Service API; portal Secret v1; KWallet ≥ KF 5.97 / Plasma 6 (ksecretd)
 utworzono: 2026-09-25

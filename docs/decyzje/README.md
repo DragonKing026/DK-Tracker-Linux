@@ -1,6 +1,7 @@
 ---
+noteId: "fe070578d08a4c01b54d7b7aac7fb9f1"
 tytul: Rejestr decyzji (ADR)
-tagi: [adr, indeks]
+tags: [adr, indeks]
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
 ---

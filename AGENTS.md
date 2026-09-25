@@ -1,3 +1,8 @@
+---
+noteId: "89dff851412245e891d8c9747315e23d"
+tags: []
+---
+
 # AGENTS.md — instrukcje dla agentów AI
 
 > Plik kanoniczny dla wszystkich agentów (Claude Code, Codex, Gemini itp.).

@@ -1,6 +1,7 @@
 ---
+noteId: "c4cae3aae36d410786652c4a79b786cf"
 tytul: Dokumentacja i zadania w repo jako vault Obsidiana
-tagi: [adr, dokumentacja, proces]
+tags: [adr, dokumentacja, proces]
 status: zaakceptowana
 zastapiona_przez:
 utworzono: 2026-09-25

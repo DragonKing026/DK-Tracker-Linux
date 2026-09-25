@@ -1,6 +1,7 @@
 ---
+noteId: "0011a9e6b88646238c8e2c7b3f01fddc"
 tytul: Dokumentacja — indeks
-tagi: [indeks, moc]
+tags: [indeks, moc]
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
 ---

@@ -1,6 +1,7 @@
 ---
+noteId: "e2a2269367b546b8867d23207ac437c4"
 tytul: httpx
-tagi: [integracja, http, python]
+tags: [integracja, http, python]
 status_integracji: planowana
 wersja: 0.28.1 (PyPI, 2026-09-25)
 utworzono: 2026-09-25

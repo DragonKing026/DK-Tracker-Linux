@@ -1,6 +1,7 @@
 ---
+noteId: "818b377efb214ce0a09fb41703946dfa"
 tytul: Integracje — indeks
-tagi: [integracja, indeks]
+tags: [integracja, indeks]
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
 ---

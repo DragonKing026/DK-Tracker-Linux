@@ -1,6 +1,7 @@
 ---
+noteId: "37087e28b1424401b8b40e0978e26b37"
 tytul: Architektura aplikacji
-tagi: [architektura, komponenty, przeplywy]
+tags: [architektura, komponenty, przeplywy]
 status_dokumentu: szkic
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25

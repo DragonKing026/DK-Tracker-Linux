@@ -1,6 +1,7 @@
 ---
+noteId: "d4ca0ed1ee384a2392516906d96bbf7b"
 tytul: Kimai REST API
-tagi: [integracja, kimai, api, http]
+tags: [integracja, kimai, api, http]
 status_integracji: planowana
 wersja: Kimai 2.x (dokumentacja 2.67.0; wtyczka deklaruje zgodność z nowoczesnym tokenem Bearer)
 utworzono: 2026-09-25

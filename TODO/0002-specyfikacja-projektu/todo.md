@@ -1,9 +1,10 @@
 ---
+noteId: "6378874d09904eb8a9941af1a59ce41c"
 tytul: "Specyfikacja projektu (design) i plan implementacji"
 numer: "0002"
 status: w-toku
 priorytet: p0
-tagi: [todo, planowanie, spec]
+tags: [todo, planowanie, spec]
 zalezy_od: []
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
