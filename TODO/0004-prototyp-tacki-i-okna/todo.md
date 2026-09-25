@@ -48,6 +48,6 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 ### 2026-09-25
 - Utworzono zadanie.
 - Stos wybrany (0003 zamknięte) → status do-zrobienia.
-- ADR-0003: dodano pytania o wariant A i B okna.
+- [ADR-0003](../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md): dodano pytania o wariant A i B okna.
 
 ## Wynik

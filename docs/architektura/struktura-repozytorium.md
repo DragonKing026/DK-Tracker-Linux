@@ -50,7 +50,7 @@ zaktualizowano: 2026-09-25
 
 ## Opis elementów
 
-### `AGENTS.md` / `CLAUDE.md`
+### [AGENTS.md](../../AGENTS.md) / [CLAUDE.md](../../CLAUDE.md)
 Jedno źródło prawdy dla reguł pracy agentów. `CLAUDE.md` zawiera `@AGENTS.md`, więc
 Claude Code wczytuje oba; inne narzędzia (Codex, Gemini) czytają `AGENTS.md` bezpośrednio.
 

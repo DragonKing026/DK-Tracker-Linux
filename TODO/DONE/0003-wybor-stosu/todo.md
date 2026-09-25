@@ -52,7 +52,7 @@ Wstępni kandydaci (do porównania w ADR):
 - [x] Porównanie opcji ze źródłami
 - [x] ADR `docs/decyzje/0002-*.md` zaakceptowany przez użytkownika
 - [x] Dokumenty integracji dla wybranych bibliotek (Qt/PySide6; HTTP i sekrety — przy wyborze tych bibliotek)
-- [ ] ~~Sekcja „Komendy” w `AGENTS.md` uzupełniona~~ → przeniesione do zadania 0002 (wymaga szkieletu projektu)
+- [ ] ~~Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) uzupełniona~~ → przeniesione do zadania [0002](../../0002-specyfikacja-projektu/todo.md) (wymaga szkieletu projektu)
 
 ## Dziennik
 
@@ -70,4 +70,4 @@ Wstępni kandydaci (do porównania w ADR):
 - Integracja: [Qt 6 / PySide6](../../../docs/integracje/qt-pyside6.md).
 - Na później: UI w Widgets czy QML, biblioteka HTTP, biblioteka sekretów, forma okna na
   Waylandzie — w specyfikacji ([0002](../../0002-specyfikacja-projektu/todo.md)); sekcja
-  „Komendy” w `AGENTS.md` — przy szkielecie projektu.
+  „Komendy” w [AGENTS.md](../../../AGENTS.md) — przy szkielecie projektu.

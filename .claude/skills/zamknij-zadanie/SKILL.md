@@ -29,7 +29,7 @@ description: Use when a task in TODO/ is finished, abandoned or its status chang
    grep -rn "TODO/NNNN-slug" --include=*.md . | grep -v '^./.git'
    ```
    (wikilinki `[[TODO/NNNN-slug/...` → `[[TODO/DONE/NNNN-slug/...`).
-7. **Tablica** `TODO/README.md`: przy zamknięciu przenieś wiersz z „Aktywne” do
+7. **Tablica** [TODO/README.md](../../../TODO/README.md): przy zamknięciu przenieś wiersz z „Aktywne” do
    „Zakończone” z linkiem `[Tytuł](DONE/NNNN-slug/todo.md)`
    (`| Nr | Zadanie | Status | Zamknięto |`); przy innej zmianie statusu —
    zaktualizuj kolumnę Status. W „Aktywne” zostają wyłącznie zadania leżące w `TODO/`.

@@ -33,7 +33,7 @@ flowchart LR
 | Secret Service / portal Secret | przechowywanie tokenu | planowana | [secret-service](secret-service.md) |
 | Portale XDG | autostart, powiadomienia, linki, skróty | planowana | [xdg-portale](xdg-portale.md) |
 | Flatpak | budowanie i dystrybucja | planowana | [flatpak](flatpak.md) |
-| Qt 6 / PySide6 | UI, tacka, pętla zdarzeń | w użyciu (ADR-0002) | [qt-pyside6](qt-pyside6.md) |
+| Qt 6 / PySide6 | UI, tacka, pętla zdarzeń | w użyciu ([ADR-0002](../decyzje/0002-stos-python-pyside6.md)) | [qt-pyside6](qt-pyside6.md) |
 
 > [!todo] Do dopisania
 > Biblioteka HTTP i biblioteka sekretów, gdy zostaną wybrane.

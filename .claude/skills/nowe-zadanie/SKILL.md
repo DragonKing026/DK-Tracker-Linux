@@ -5,7 +5,7 @@ description: Use before starting any new piece of work in this repo, or when the
 
 # nowe-zadanie — nowe zadanie w `TODO/`
 
-Proces: `docs/procesy/zadania.md`. Szablon: `TODO/_szablon/todo.md`.
+Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md). Szablon: [TODO/_szablon/todo.md](../../../TODO/_szablon/todo.md).
 
 ## Kroki
 
@@ -28,7 +28,7 @@ Proces: `docs/procesy/zadania.md`. Szablon: `TODO/_szablon/todo.md`.
    **Wszystkie materiały zadania** w jego folderze, w podfolderach według rodzaju
    (tworzonych, gdy jest co położyć): `zrzuty/`, `diagramy/`, `testy/`, `prototyp/`,
    `notatki/`, `dane/`. Każdy materiał podlinkuj/osadź w sekcji „Materiały” todo.md,
-   np. `![[TODO/NNNN-slug/zrzuty/plik.png]]`. Zasady: `docs/procesy/zadania.md`.
+   np. `![[TODO/NNNN-slug/zrzuty/plik.png]]`. Zasady: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
 6. **Tablica** — dodaj wiersz z **linkiem** w sekcji „Aktywne” w `TODO/README.md`:
    ```markdown
    | 0005 | [Klient API Kimai](0005-klient-api-kimai/todo.md) | 📋 do-zrobienia | p1 | 0003 |

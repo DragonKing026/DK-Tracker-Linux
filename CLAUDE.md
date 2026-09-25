@@ -4,7 +4,7 @@
 
 ## Specyfika Claude Code
 
-- Wszystkie reguły projektu są w `AGENTS.md` (zaimportowany powyżej). Tu tylko to,
+- Wszystkie reguły projektu są w [AGENTS.md](AGENTS.md) (zaimportowany powyżej). Tu tylko to,
   co dotyczy wyłącznie Claude Code.
 - Skille projektu leżą w `.claude/skills/` — używaj ich zamiast robić powtarzalne kroki
   ręcznie (tworzenie zadania, integracji, ADR, commit).

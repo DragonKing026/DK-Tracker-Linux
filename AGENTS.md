@@ -1,7 +1,7 @@
 # AGENTS.md — instrukcje dla agentów AI
 
 > Plik kanoniczny dla wszystkich agentów (Claude Code, Codex, Gemini itp.).
-> `CLAUDE.md` importuje ten plik — **zmiany reguł wprowadzaj tutaj**, nie w `CLAUDE.md`.
+> [CLAUDE.md](CLAUDE.md) importuje ten plik — **zmiany reguł wprowadzaj tutaj**, nie w [CLAUDE.md](CLAUDE.md).
 
 ## 1. Czym jest ten projekt
 
@@ -53,7 +53,7 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
    Kod bez dokumentacji = zadanie nieskończone.
 4. **Każde zadanie ma folder w `TODO/`.** Zanim zaczniesz pracę — utwórz/zaktualizuj
    zadanie (skill `nowe-zadanie`). Po skończeniu — zmień status, opisz wynik i przenieś
-   folder do `TODO/DONE/` (skill `zamknij-zadanie`). `TODO/README.md` zawsze linkuje
+   folder do [TODO/DONE/](TODO/DONE/) (skill `zamknij-zadanie`). [TODO/README.md](TODO/README.md) zawsze linkuje
    do każdego aktywnego zadania.
 5. **Każda integracja ma plik w `docs/integracje/`** z linkami do oficjalnej dokumentacji
    (skill `nowa-integracja`). Nie wolno dodać zależności zewnętrznej bez tego pliku.
@@ -87,11 +87,11 @@ Szczegóły: [docs/procesy/dokumentowanie.md](docs/procesy/dokumentowanie.md).
 
 | Skill | Kiedy użyć |
 |---|---|
-| `nowe-zadanie` | tworzenie zadania w `TODO/` z szablonu |
-| `zamknij-zadanie` | zamknięcie zadania: status, wynik, przeniesienie do `TODO/DONE/`, tablica, commit |
-| `nowa-integracja` | dodanie pliku integracji w `docs/integracje/` |
-| `nowa-decyzja` | zapis decyzji architektonicznej (ADR) |
-| `commit` | przygotowanie małego commita zgodnego z konwencją |
+| [nowe-zadanie](.claude/skills/nowe-zadanie/SKILL.md) | tworzenie zadania w `TODO/` z szablonu |
+| [zamknij-zadanie](.claude/skills/zamknij-zadanie/SKILL.md) | zamknięcie zadania: status, wynik, przeniesienie do `TODO/DONE/`, tablica, commit |
+| [nowa-integracja](.claude/skills/nowa-integracja/SKILL.md) | dodanie pliku integracji w `docs/integracje/` |
+| [nowa-decyzja](.claude/skills/nowa-decyzja/SKILL.md) | zapis decyzji architektonicznej (ADR) |
+| [commit](.claude/skills/commit/SKILL.md) | przygotowanie małego commita zgodnego z konwencją |
 
 ## 6. Workflow pracy agenta
 
@@ -111,5 +111,5 @@ flowchart LR
 
 ## 7. Komendy
 
-> [!todo] Uzupełnić przy szkielecie projektu (zadanie `TODO/0002-specyfikacja-projektu`).
+> [!todo] Uzupełnić przy szkielecie projektu (zadanie [0002](TODO/0002-specyfikacja-projektu/todo.md)).
 > Tu trafią: uruchomienie w trybie dev, testy (pytest, pytest-qt), lint, budowa Flatpaka.

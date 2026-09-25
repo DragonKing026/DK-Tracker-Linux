@@ -37,7 +37,7 @@ agent czyta ją bez dodatkowych narzędzi; użytkownik przegląda ją w Obsidian
 
 - Wikilinki na GitHubie wyświetlają się jako tekst — akceptowalne; README dla ludzi
   używa zwykłych linków markdown.
-- Każda zmiana zachowania wymaga aktualizacji docs (reguła w `AGENTS.md`).
+- Każda zmiana zachowania wymaga aktualizacji docs (reguła w [AGENTS.md](../../AGENTS.md)).
 - Zrzuty ekranu zwiększają rozmiar repo — trzymamy PNG w rozsądnej rozdzielczości.
 
 ## Powiązane

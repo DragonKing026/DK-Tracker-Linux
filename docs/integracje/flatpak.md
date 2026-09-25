@@ -75,7 +75,7 @@ Autostart i powiadomienia idą przez portale i **nie** wymagają `finish-args`
 > Na innej maszynie: `sudo dnf install flatpak-builder` albo
 > `flatpak install flathub org.flatpak.Builder`.
 
-Szkic (dokładne komendy trafią do `AGENTS.md` → „Komendy” po wyborze stosu):
+Szkic (dokładne komendy trafią do [AGENTS.md](../../AGENTS.md) → „Komendy” przy szkielecie projektu):
 
 ```bash
 flatpak-builder --user --install --force-clean build-dir pl.websystems.KimaiTray.yml

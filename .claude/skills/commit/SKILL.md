@@ -5,7 +5,7 @@ description: Use after every small completed change in this repo (one doc file, 
 
 # commit — mały commit zgodny z konwencją
 
-Konwencja: `docs/procesy/commity.md`.
+Konwencja: [docs/procesy/commity.md](../../../docs/procesy/commity.md).
 
 ## Kroki
 

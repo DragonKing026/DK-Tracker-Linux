@@ -13,7 +13,7 @@ miejscem na wszystko, co z nim związane: zrzuty ekranu, szkice, logi, notatki b
 - **Aktywne** zadania leżą bezpośrednio w `TODO/`.
 - **Zakończone** (`zrobione` albo `porzucone`) przenosimy w całości do `TODO/DONE/`
   (`git mv`, żeby historia pliku została zachowana).
-- `TODO/README.md` zawiera **linki do wszystkich aktywnych zadań** i do zakończonych.
+- [TODO/README.md](../../TODO/README.md) zawiera **linki do wszystkich aktywnych zadań** i do zakończonych.
 
 ## Materiały zadania — wszystko w folderze zadania
 
@@ -98,7 +98,7 @@ Priorytety: `p0` (krytyczne, blokuje inne), `p1` (ważne), `p2` (normalne), `p3`
 ## Reguły
 
 - Zadanie zakładamy **przed** rozpoczęciem pracy (skill `nowe-zadanie`).
-- Każda zmiana statusu = aktualizacja `TODO/README.md` + commit `todo: ...`.
+- Każda zmiana statusu = aktualizacja [TODO/README.md](../../TODO/README.md) + commit `todo: ...`.
 - Zadanie zamykamy skillem `zamknij-zadanie` — wypełnia „Wynik”, przenosi folder
   do `TODO/DONE/`, przenosi wiersz w tablicy do sekcji zakończonych i poprawia linki
   prowadzące do zadania.

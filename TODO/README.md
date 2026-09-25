@@ -20,7 +20,7 @@ Legenda statusów: 💡 `pomysl` · 📋 `do-zrobienia` · 🔨 `w-toku` · ⛔ 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0002 | [Specyfikacja projektu i plan](0002-specyfikacja-projektu/todo.md) | 🔨 w-toku | p0 | — |
-| 0004 | [Prototyp tacki i okna (spike)](0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | 0003 ✅ |
+| 0004 | [Prototyp tacki i okna (spike)](0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](DONE/0003-wybor-stosu/todo.md) ✅ |
 
 ## Zakończone (`TODO/DONE/`)
 
