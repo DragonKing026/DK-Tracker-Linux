@@ -1,37 +1,38 @@
 ---
-noteId: "c19411043b0d4fe6bf7c0441143dbbbc"
-tytul: "Plan 3 · Zadanie 2: Teksty tacki i listy w rdzeniu (`core/presentation.py`)"
-numer: "0030"
+noteId: "fa2b80e9295c475a83706cfadca938e2"
+tytul: "Plan 3 · Zadanie 3: Motyw i ikony (`ui/theme.py`, `ui/icons.py`)"
+numer: "0031"
 status: w-trakcie
 priorytet: p1
 tags: [todo, plan-3, ui]
-zalezy_od: ["0029"]
+zalezy_od: ["0030"]
 utworzono: 2026-09-25 23:07
 zaktualizowano: 2026-09-25 23:08
 ---
 
-# 0030 — Plan 3 · Zadanie 2: Teksty tacki i listy w rdzeniu (`core/presentation.py`)
+# 0031 — Plan 3 · Zadanie 3: Motyw i ikony (`ui/theme.py`, `ui/icons.py`)
 
 > [!info] Status
 > **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
-Wykonać **zadanie 2** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-plan-3-ui.md)
-(sekcja „Task 2: Teksty tacki i listy w rdzeniu (`core/presentation.py`)”) dokładnie według kroków planu, metodą TDD.
+Wykonać **zadanie 3** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-plan-3-ui.md)
+(sekcja „Task 3: Motyw i ikony (`ui/theme.py`, `ui/icons.py`)”) dokładnie według kroków planu, metodą TDD.
 
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../../ZROBIONE/0028-plan3-projekt-ui/todo.md).
 - Pliki:
-- Create: `src/kimai_tray/core/presentation.py`
-- Test: `tests/core/test_presentation.py`
+- Create: `src/kimai_tray/ui/__init__.py`, `src/kimai_tray/ui/theme.py`, `src/kimai_tray/ui/icons.py`
+- Modify: `pyproject.toml` (wyjątek E501 dla danych SVG/QSS)
+- Test: `tests/ui/test_theme_icons.py`
 
 ## Kryteria akceptacji
 
 - [ ] Każdy test z zadania napisany przed kodem i widziany jako padający
-- [ ] Wynik planu: 10 PASS, całość 237.
+- [ ] Wynik planu: 9 PASS, całość 246.
 - [ ] Pełny `.venv/bin/pytest` zielony, `ruff format` + `ruff check` bez uwag
 - [ ] Commit(y) zgodne z planem; odchylenia zapisane jako „Ruling” w dzienniku
 
