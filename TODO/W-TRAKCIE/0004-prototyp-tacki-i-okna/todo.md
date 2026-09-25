@@ -2,19 +2,19 @@
 noteId: "e731518efd584a658c5e1da8c9e7d5d8"
 tytul: "Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku"
 numer: "0004"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, spike, tray, wayland]
 zalezy_od: ["0003-wybor-stosu"]
 utworzono: 2026-09-25 17:24
-zaktualizowano: 2026-09-25 17:55
+zaktualizowano: 2026-09-25 19:56
 zamknieto:
 ---
 
 # 0004 — Prototyp tacki i okna (spike)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -50,5 +50,6 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 - Utworzono zadanie.
 - Stos wybrany (0003 zamknięte) → status do-zrobienia.
 - [ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md): dodano pytania o wariant A i B okna.
+- **19:56** Start spike'a: PySide6 lokalnie na Plasmie 6.7.5 Wayland, potem Flatpak.
 
 ## Wynik

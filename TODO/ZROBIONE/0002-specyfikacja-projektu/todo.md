@@ -56,7 +56,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 ### 2026-09-25
 - Utworzono zadanie.
 - Rozpoczęto brainstorming. Pytanie 1 (stos) → Python + PySide6 ([ADR-0002](../../../docs/decyzje/0002-stos-python-pyside6.md)).
-- Pytanie 2 (okno) → wariant A + menu kontekstowe, B do prototypu ([ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md), [0004](../../DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md)).
+- Pytanie 2 (okno) → wariant A + menu kontekstowe, B do prototypu ([ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md), [0004](../../W-TRAKCIE/0004-prototyp-tacki-i-okna/todo.md)).
 - Pytanie 3 (zakres) → autostart i powiadomienia w 1.0; bezczynność i skrót później.
 - Pytanie 4 (powiadomienia) → długi timer, utrata połączenia, potwierdzenie z menu ([F-21](../../../docs/architektura/funkcje.md)).
 - Podejście → 1: rdzeń w czystym Pythonie, httpx, jeepney, Qt Widgets ([ADR-0004](../../../docs/decyzje/0004-architektura-rdzen-python-ui-qt.md)).
