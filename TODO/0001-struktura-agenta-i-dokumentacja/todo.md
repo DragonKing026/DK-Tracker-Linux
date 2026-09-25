@@ -53,7 +53,7 @@ Wzorzec UI, do którego odnosi się dokumentacja:
 - Zrzuty wtyczki wykonane z kopii z atrapą `chrome.*` i Kimai API (dane fikcyjne).
 - Zweryfikowano na stacji: Fedora 44, Plasma 6.7.5 Wayland, `org.kde.StatusNotifierWatcher`
   (kded6), portal Secret przez `kwallet.portal`/`ksecretd`, powiadomienia `plasmanotify`,
-  Flatpak 1.18.2, brak `flatpak-builder`.
+  Flatpak 1.18.2, flatpak-builder 1.4.10 (początkowo niewykryty — użytkownik doinstalował w trakcie sesji).
 - Commity:
   - a0fdcb2 docs: dodaj AGENTS.md, CLAUDE.md i .gitignore
   - cf591f8 docs(procesy): opisz konwencję commitów

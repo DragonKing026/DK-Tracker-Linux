@@ -70,10 +70,10 @@ Autostart i powiadomienia idą przez portale i **nie** wymagają `finish-args`
 
 ## Budowanie lokalnie
 
-> [!warning] Brak `flatpak-builder` na maszynie deweloperskiej
-> Na stacji użytkownika (Fedora 44, Flatpak 1.18.2) nie ma `flatpak-builder` w `PATH`.
-> Instalacja: `sudo dnf install flatpak-builder` albo jako Flatpak
-> `flatpak install flathub org.flatpak.Builder` (uruchamiany `flatpak run org.flatpak.Builder`).
+> [!note] Narzędzia na maszynie deweloperskiej
+> Fedora 44: Flatpak 1.18.2, **flatpak-builder 1.4.10** (`/usr/bin/flatpak-builder`).
+> Na innej maszynie: `sudo dnf install flatpak-builder` albo
+> `flatpak install flathub org.flatpak.Builder`.
 
 Szkic (dokładne komendy trafią do `AGENTS.md` → „Komendy” po wyborze stosu):
 
