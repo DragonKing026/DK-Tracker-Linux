@@ -183,6 +183,25 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 
 Źródło: `lib/i18n.js`, `_locales/*/messages.json`.
 
+**W aplikacji (wymóg 1.0, potwierdzony przez użytkownika 2026-09-25): pełna wersja
+polska i angielska.**
+
+| Element | Jak tłumaczymy |
+|---|---|
+| Okno, menu tacki, tooltip, ustawienia, komunikaty błędów, powiadomienia N-01…N-03 | własne teksty w `core/i18n` — pliki PL i EN, klucze przeniesione z `_locales` wtyczki i uzupełnione o nowe (menu, powiadomienia, autostart) |
+| Standardowe elementy Qt (przyciski „OK/Anuluj”, menu kontekstowe pól tekstowych) | `QTranslator` z `qtbase_<lang>.qm` z katalogu tłumaczeń Qt. Runtime `org.kde.Platform` 6.11 zawiera `translations/qtbase_pl.qm` (sprawdzone 2026-09-25) |
+| Nazwy dni i daty na liście wpisów | locale wybranego języka (`QLocale`) |
+| Plik `.desktop` (nazwa, komentarz) | klucze `Name[pl]`, `Comment[pl]` |
+| MetaInfo (AppStream: opis, podsumowanie) | `xml:lang="pl"` |
+
+Zasady:
+- **Każdy tekst widoczny dla użytkownika idzie przez `t(klucz)`.** Żadnych napisów
+  wpisanych na sztywno w kodzie UI.
+- Test pilnuje, że zestawy kluczy PL i EN są identyczne, a wszystkie klucze użyte
+  w kodzie istnieją.
+- Zmiana języka w ustawieniach działa od razu, bez restartu (przebudowa tekstów okna,
+  menu i tooltipa).
+
 ## F-14 Obsługa błędów
 
 | Sytuacja | Komunikat |
