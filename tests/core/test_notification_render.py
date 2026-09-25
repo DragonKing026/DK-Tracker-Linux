@@ -27,3 +27,8 @@ def test_entry_id_from_notification_id():
     assert entry_id_from("long-timer-123") == 123
     assert entry_id_from("connection") is None
     assert entry_id_from("long-timer-abc") is None
+
+
+def test_entry_id_from_ignores_non_ascii_digits():
+    assert entry_id_from("long-timer-²") is None
+    assert entry_id_from("long-timer-٣") is None

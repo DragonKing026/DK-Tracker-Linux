@@ -5,6 +5,7 @@ A pure function of the snapshot, the settings and a small state, so it is tested
 
 from __future__ import annotations
 
+import re
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -128,6 +129,7 @@ def render(notification: Notification, t: Callable[..., str]) -> RenderedNotific
 def entry_id_from(notification_id: str) -> int | None:
     """The portal returns our id with a click; long-timer ids carry the entry number."""
     prefix = f"{LONG_TIMER}-"
-    if notification_id.startswith(prefix) and notification_id[len(prefix) :].isdigit():
-        return int(notification_id[len(prefix) :])
+    number = notification_id.removeprefix(prefix)
+    if notification_id.startswith(prefix) and re.fullmatch(r"[0-9]+", number):
+        return int(number)
     return None
