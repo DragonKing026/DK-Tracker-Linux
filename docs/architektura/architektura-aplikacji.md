@@ -127,9 +127,9 @@ sequenceDiagram
 
 ## Otwarte kwestie architektoniczne
 
-- [ ] Stos technologiczny (język, UI toolkit, tray) — ADR
+- [x] Stos technologiczny — [[docs/decyzje/0002-stos-python-pyside6|ADR-0002: Python + PySide6]]
 - [ ] Forma „popupu” na Waylandzie (okno, okno bez ramki, panel, samo menu) — ADR
-- [ ] Runtime Flatpaka (KDE vs GNOME vs Freedesktop) — wynika ze stosu
+- [x] Runtime Flatpaka — `org.kde.Platform` 6.11 + `io.qt.PySide.BaseApp`
 - [ ] Sposób przechowywania tokenu (Secret Service bezpośrednio vs portal Secret)
 
 ## Powiązane
