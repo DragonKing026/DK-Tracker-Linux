@@ -65,8 +65,24 @@ def load_json[T](cls: type[T], path: Path) -> T:
         return cls()
     if not isinstance(data, dict):
         return cls()
-    known = {field.name for field in fields(cls)}  # type: ignore[arg-type]
-    return cls(**{key: value for key, value in data.items() if key in known})
+    defaults = cls()
+    accepted = {
+        field.name: data[field.name]
+        for field in fields(cls)  # type: ignore[arg-type]
+        if field.name in data and _fits(getattr(defaults, field.name), data[field.name])
+    }
+    return cls(**accepted)
+
+
+def _fits(default: object, value: object) -> bool:
+    """A hand-edited field of the wrong type falls back to its default, not the whole file."""
+    if isinstance(default, bool) or isinstance(value, bool):
+        return isinstance(default, bool) and isinstance(value, bool)
+    if default is None:  # optional ids
+        return value is None or isinstance(value, int)
+    if isinstance(default, float):
+        return isinstance(value, int | float)
+    return isinstance(value, type(default))
 
 
 def save_json(value: object, path: Path) -> None:

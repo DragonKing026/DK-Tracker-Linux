@@ -50,3 +50,20 @@ def test_settings_file_never_contains_a_token(tmp_path):
     path = tmp_path / "settings.json"
     save_json(Settings(url="https://k.test"), path)
     assert "token" not in path.read_text(encoding="utf-8").lower()
+
+
+def test_fields_with_wrong_types_fall_back_one_by_one(tmp_path):
+    path = tmp_path / "settings.json"
+    path.write_text(json.dumps({"min_description": "abc", "url": None, "language": "pl", "autostart": "yes"}))
+    assert load_json(Settings, path) == Settings(language="pl")
+    state = tmp_path / "state.json"
+    state.write_text(json.dumps({"last_project": "x", "billable_allowed": "no", "last_activity": 4}))
+    assert load_json(Memory, state) == Memory(last_activity=4)
+
+
+def test_broken_settings_file_still_builds_a_tracker(tmp_path):
+    from kimai_tray.core.tracker import Tracker
+
+    path = tmp_path / "settings.json"
+    path.write_text(json.dumps({"min_description": "abc", "url": None, "long_timer_hours": True}))
+    Tracker(object(), load_json(Settings, path), Memory())
