@@ -15,8 +15,10 @@ Konwencja: [docs/procesy/commity.md](../../../docs/procesy/commity.md).
 3. Sprawdź, czy zmiana kodu wymaga aktualizacji `docs/` — jeśli tak, zrób to najpierw
    albo od razu w następnym commicie.
 4. Jeśli zmieniłeś plik w `docs/` lub `TODO/` — podbij pole `zaktualizowano:` we frontmatterze.
-5. Dobierz typ: `feat` `fix` `docs` `todo` `refactor` `test` `build` `ci` `chore`.
-6. Commit:
+5. Jeśli zmiana dotyka `docs/`, `TODO/` lub plików `.md` — sprawdź linki:
+   `python3 .claude/skills/sprawdz-linki/linki.py sprawdz` (musi być „Wszystkie linki OK.”).
+6. Dobierz typ: `feat` `fix` `docs` `todo` `refactor` `test` `build` `ci` `chore`.
+7. Commit:
    ```bash
    git commit -m "<typ>(<zakres>): <opis w trybie rozkazującym, małą literą>
 
@@ -26,7 +28,7 @@ Konwencja: [docs/procesy/commity.md](../../../docs/procesy/commity.md).
 
    Co-Authored-By: <linia z system-reminder środowiska>"
    ```
-7. Jeśli commit dotyczy zadania — dopisz w jego `todo.md` w sekcji **Dziennik** skrót
+8. Jeśli commit dotyczy zadania — dopisz w jego `todo.md` w sekcji **Dziennik** skrót
    hasha i opis (`git log -1 --format=%h`), i zacommituj to razem z następną zmianą.
 
 ## Nie rób
