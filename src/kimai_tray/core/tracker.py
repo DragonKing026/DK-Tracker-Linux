@@ -12,12 +12,22 @@ from dataclasses import dataclass, replace
 from datetime import UTC, datetime, tzinfo
 from typing import Any
 
-from .billable import default_billable
-from .errors import ApiError
+from .billable import default_billable, is_billable_rejected
+from .errors import ApiError, ErrorKind, TrackerError
 from .grouping import sort_key
 from .models import Activity, Entry, Project, User
 from .settings import Memory, Settings
-from .timefmt import day_end, elapsed_seconds, kimai_stamp, local_day, week_start, zone
+from .timefmt import (
+    at_wall_clock,
+    day_end,
+    elapsed_seconds,
+    kimai_stamp,
+    local_day,
+    start_stamp,
+    week_start,
+    zone,
+)
+from .validation import check_description
 
 RECENT_SIZE = 20
 
@@ -145,6 +155,110 @@ class Tracker:
             self._set(user=user)
         return self._zone_for(user)
 
+    # -- actions ---------------------------------------------------------------
+
+    def start(
+        self,
+        *,
+        project_id: int | None,
+        activity_id: int | None,
+        description: str,
+        billable: bool | None,
+    ) -> Snapshot:
+        """F-04. `billable` is None unless the user flipped the switch."""
+        project, activity = self._require_choice(project_id, activity_id)
+        text = description.strip()
+        self._check(text)
+        tz = self.kimai_tz()
+        begin = start_stamp(self._now(), tz)
+        wanted = billable if self._snapshot.billable_allowed else None
+        notice = None
+        try:
+            self._start_once(project, activity, text, begin, wanted)
+        except ApiError as error:
+            if wanted is None or not is_billable_rejected(error):
+                raise
+            # The choice cannot be honoured, but the entry must not be lost.
+            self._lock_billable()
+            self._start_once(project, activity, text, begin, None)
+            notice = "errBillableDenied"
+        self._update_memory(last_project=project, last_activity=activity)
+        self.refresh_full()
+        return self._set(notice=notice)
+
+    def stop(self, *, end: str | None = None) -> Snapshot:
+        """F-05. An end typed as HH:MM closes the entry there instead of now."""
+        current = self._require_running()
+        if end:
+            tz = self.kimai_tz()
+            end_at = self._wall_clock(current.begin, end, tz)
+            if end_at <= current.begin:
+                raise TrackerError("errEndBeforeBegin")
+            self._client.update(current.id, {"end": kimai_stamp(end_at, tz)})
+        else:
+            self._client.stop(current.id)
+        return self.refresh_full()
+
+    def resume(self, entry: Entry) -> Snapshot:
+        """F-10. Checked first, so a refused resume never stops the running entry."""
+        self._require_choice(entry.project_id, entry.activity_id)
+        self._check(entry.description.strip())
+        current = self._snapshot.current
+        if current is not None:
+            self._client.stop(current.id)
+        # Repeating an entry repeats how it was billed, not the project default.
+        return self.start(
+            project_id=entry.project_id,
+            activity_id=entry.activity_id,
+            description=entry.description,
+            billable=entry.billable,
+        )
+
+    def update_description(self, text: str, *, quiet: bool = False) -> Snapshot | None:
+        """F-07. `quiet` is the save-while-typing path: an invalid text is just not saved."""
+        current = self._require_running()
+        text = text.strip()
+        if text == current.description:
+            return None
+        check = check_description(text, self._settings.min_description)
+        if not check.ok:
+            if quiet:
+                return None
+            raise self._description_error(check.reason, check.word)
+        updated = self._client.update(current.id, {"description": text})
+        return self._merge(updated, notice="savedDescription")
+
+    def update_begin(self, hhmm_value: str) -> Snapshot:
+        """F-07. Same day as the original start, never in the future."""
+        current = self._require_running()
+        tz = self.kimai_tz()
+        begin = self._wall_clock(current.begin, hhmm_value, tz)
+        if begin > self._now():
+            raise TrackerError("errBeginFuture")
+        updated = self._client.update(current.id, {"begin": kimai_stamp(begin, tz)})
+        return self._merge(updated, notice="savedTime")
+
+    def set_billable(self, entry_id: int, value: bool) -> Snapshot:
+        """F-09. The `$` on a running or a recent entry."""
+        if not self._snapshot.billable_allowed:
+            raise TrackerError("billableLocked")
+        try:
+            updated = self._client.update(entry_id, {"billable": value})
+        except ApiError as error:
+            if is_billable_rejected(error):
+                self._lock_billable()
+                raise TrackerError("errBillableDenied") from error
+            raise
+        return self._merge(updated, notice="savedBillable")
+
+    def apply_settings(self, settings: Settings, client: Any) -> Snapshot:
+        """Saving the settings is the moment to look at the billable permission again."""
+        self._settings = settings.normalized()
+        self._client = client
+        self._update_memory(billable_allowed=True)
+        self._snapshot = Snapshot(billable_allowed=True)
+        return self.refresh_full()
+
     # -- internals ---------------------------------------------------------------
 
     def _set(self, **changes: Any) -> Snapshot:
@@ -202,3 +316,78 @@ class Tracker:
     def _update_memory(self, **changes: Any) -> None:
         self._memory = replace(self._memory, **changes)
         self._save_memory(self._memory)
+
+    def _require_choice(self, project_id: int | None, activity_id: int | None) -> tuple[int, int]:
+        if not project_id:
+            raise TrackerError("errNoProject")
+        if not activity_id:
+            raise TrackerError("errNoActivity")
+        return project_id, activity_id
+
+    def _require_running(self) -> Entry:
+        current = self._snapshot.current
+        if current is None:
+            raise TrackerError("errNothingRunning")
+        return current
+
+    def _check(self, text: str) -> None:
+        check = check_description(text, self._settings.min_description)
+        if not check.ok:
+            raise self._description_error(check.reason, check.word)
+
+    def _description_error(self, reason: str | None, word: str | None) -> TrackerError:
+        if reason == "generic":
+            return TrackerError("errDescGeneric", word=word)
+        return TrackerError("errDescShort", chars=self._settings.min_description)
+
+    @staticmethod
+    def _wall_clock(anchor: datetime, hhmm_value: str, tz: tzinfo) -> datetime:
+        try:
+            return at_wall_clock(anchor, hhmm_value, tz)
+        except ValueError:
+            raise TrackerError("errInvalidTime") from None
+
+    def _start_once(self, project: int, activity: int, text: str, begin: str, billable: bool | None) -> None:
+        try:
+            self._client.start(
+                project_id=project, activity_id=activity, description=text, begin=begin, billable=billable
+            )
+        except ApiError as error:
+            # A timed-out POST may still have reached Kimai: look before reporting a failure,
+            # and never post again — that would book the time twice.
+            if error.kind is not ErrorKind.TIMEOUT or not self._started_anyway(project, activity, text):
+                raise
+
+    def _started_anyway(self, project: int, activity: int, text: str) -> bool:
+        try:
+            running = self._client.active()
+        except ApiError:
+            return False
+        return any(
+            e.project_id == project and e.activity_id == activity and e.description == text for e in running
+        )
+
+    def _lock_billable(self) -> None:
+        self._update_memory(billable_allowed=False)
+        self._set(billable_allowed=False)
+
+    def _merge(self, updated: Entry, *, notice: str) -> Snapshot:
+        """PATCH replies carry related objects as ids; keep the names and colours we had."""
+
+        def merge(entry: Entry) -> Entry:
+            if entry.id != updated.id:
+                return entry
+            return replace(
+                entry,
+                begin=updated.begin,
+                end=updated.end,
+                duration=updated.duration,
+                description=updated.description,
+                billable=updated.billable,
+            )
+
+        return self._set(
+            running=tuple(merge(e) for e in self._snapshot.running),
+            recent=tuple(merge(e) for e in self._snapshot.recent),
+            notice=notice,
+        )
