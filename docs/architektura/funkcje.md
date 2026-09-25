@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 22:03
+zaktualizowano: 2026-09-26 00:22
 ---
 
 # Katalog funkcji
@@ -102,6 +102,10 @@ stateDiagram-v2
 - Ostatni wybór pamiętany lokalnie i przywracany, jeśli nadal istnieje na liście.
 - W trakcie trwania wpisu projekt i czynność są **zablokowane** (zmiana = inny wpis,
   nie korekta).
+
+- **W aplikacji (prośba użytkownika, poza wtyczką):** lista projektów otwiera się z polem wyszukiwania na górze
+  (jak Select2): filtr po nazwie projektu i klienta, bez wielkości liter i polskich znaków, Enter wybiera pierwszy
+  wynik, strzałki chodzą tylko po projektach — [ui/project_picker.py](../../src/kimai_tray/ui/project_picker.py).
 
 Źródło: `popup.js#fillPickers`, `#onProjectChange`, `#restoreLastActivity`.
 
