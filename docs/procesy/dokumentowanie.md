@@ -28,14 +28,20 @@ Pliki muszą też czytelnie renderować się na GitHubie.
 
 ```yaml
 ---
+noteId: "<32 znaki hex — frontmatter.py noteid>"
 tytul: Krótki tytuł
-tagi: [obszar, temat]
+tags: [obszar, temat]
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
 ---
 ```
 
 Zmieniając plik — aktualizuj `zaktualizowano`.
+
+`noteId` i `tags` są obowiązkowe. Bez nich rozszerzenie VS Code *notebook* samo
+dopisuje je do pliku, który zostaje wtedy niezacommitowany. Pilnuje tego skill
+[frontmatter](../../.claude/skills/frontmatter/SKILL.md). Pole nazywa się `tags`
+(standard Obsidiana), nie `tagi`.
 
 ## Elementy formatowania
 

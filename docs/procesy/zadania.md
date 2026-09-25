@@ -87,7 +87,7 @@ Priorytety: `p0` (krytyczne, blokuje inne), `p1` (ważne), `p2` (normalne), `p3`
 
 ## Zawartość `todo.md`
 
-1. **Frontmatter** — status, priorytet, daty, tagi, zależności (`zalezy_od`).
+1. **Frontmatter** — `noteId`, status, priorytet, daty, `tags`, zależności (`zalezy_od`).
 2. **Cel** — jedno-dwa zdania: po co to zadanie.
 3. **Kontekst** — skąd się wzięło, linki do docs/ADR/integracji.
 4. **Kryteria akceptacji** — sprawdzalna lista `- [ ]`.
