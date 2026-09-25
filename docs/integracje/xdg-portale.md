@@ -5,7 +5,7 @@ tags: [integracja, flatpak, portale, dbus]
 status_integracji: planowana
 wersja: xdg-desktop-portal (Background v2, GlobalShortcuts v2)
 utworzono: 2026-09-25 17:23
-zaktualizowano: 2026-09-25 17:47
+zaktualizowano: 2026-09-25 21:01
 ---
 
 # Portale XDG Desktop
@@ -94,6 +94,12 @@ kde-portals.conf:
 >   bez awarii).
 > - Autostart spoza piaskownicy (uruchomienie z `cargo run`/`python` w dev) nie przechodzi
 >   przez portal tak samo — testować w zbudowanym Flatpaku.
+
+## Gdzie w kodzie
+
+- [src/kimai_tray/desktop/notifications.py](../../src/kimai_tray/desktop/notifications.py) — `PortalNotifier` (AddNotification, RemoveNotification, ActionInvoked).
+- [src/kimai_tray/desktop/autostart.py](../../src/kimai_tray/desktop/autostart.py) — `BackgroundPortal` (RequestBackground, SetStatus).
+- [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — `portal_request` (Request/Response).
 
 ## Dokumentacja
 
