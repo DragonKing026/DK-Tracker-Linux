@@ -9,6 +9,9 @@ zaktualizowano: 2026-09-25
 
 Zasady: [[docs/procesy/zadania|Zadania w folderze TODO]] · Szablon: [[TODO/_szablon/todo|_szablon]]
 
+Aktywne zadania leżą bezpośrednio w `TODO/`, zakończone (`zrobione` / `porzucone`)
+są przenoszone do [`TODO/DONE/`](DONE/).
+
 Legenda statusów: 💡 `pomysl` · 📋 `do-zrobienia` · 🔨 `w-toku` · ⛔ `zablokowane` ·
 ✅ `zrobione` · 🗑️ `porzucone`
 
@@ -20,11 +23,11 @@ Legenda statusów: 💡 `pomysl` · 📋 `do-zrobienia` · 🔨 `w-toku` · ⛔ 
 | 0003 | [[TODO/0003-wybor-stosu/todo\|Wybór stosu technologicznego]] | 📋 do-zrobienia | p0 | — |
 | 0004 | [[TODO/0004-prototyp-tacki-i-okna/todo\|Prototyp tacki i okna (spike)]] | 💡 pomysl | p1 | 0003 |
 
-## Zakończone
+## Zakończone (`TODO/DONE/`)
 
 | Nr | Zadanie | Status | Zamknięto |
 |---|---|---|---|
-| 0001 | [[TODO/0001-struktura-agenta-i-dokumentacja/todo\|Struktura agenta i dokumentacji]] | ✅ zrobione | 2026-09-25 |
+| 0001 | [[TODO/DONE/0001-struktura-agenta-i-dokumentacja/todo\|Struktura agenta i dokumentacji]] | ✅ zrobione | 2026-09-25 |
 
 ## Widok dynamiczny (Obsidian + Dataview)
 
@@ -33,7 +36,16 @@ blok pokaże tabelę na żywo z frontmatterów zadań:
 
 ```dataview
 TABLE status, priorytet, zalezy_od AS "zależy od", zaktualizowano
-FROM "TODO"
+FROM "TODO" AND -"TODO/DONE"
 WHERE file.name = "todo" AND numer
+SORT numer ASC
+```
+
+Zakończone zadania (Dataview):
+
+```dataview
+TABLE status, zamknieto
+FROM "TODO/DONE"
+WHERE file.name = "todo"
 SORT numer ASC
 ```
