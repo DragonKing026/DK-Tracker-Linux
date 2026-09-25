@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 23:06
+zaktualizowano: 2026-09-25 23:07
 ---
 
 # Tablica zadań
@@ -31,6 +31,19 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
+| 0029 | [Plan 3 · Zadanie 1: Zależności UI, testy Qt i teksty interfejsu](DO-ZROBIENIA/0029-plan3-zaleznosci-i-teksty-ui/todo.md) | 📋 do-zrobienia | p1 | [0028](ZROBIONE/0028-plan3-projekt-ui/todo.md) ✅ |
+| 0030 | [Plan 3 · Zadanie 2: Teksty tacki i listy w rdzeniu (`core/presentation.py`)](DO-ZROBIENIA/0030-plan3-teksty-w-rdzeniu/todo.md) | 📋 do-zrobienia | p1 | [0029](DO-ZROBIENIA/0029-plan3-zaleznosci-i-teksty-ui/todo.md) |
+| 0031 | [Plan 3 · Zadanie 3: Motyw i ikony (`ui/theme.py`, `ui/icons.py`)](DO-ZROBIENIA/0031-plan3-motyw-i-ikony/todo.md) | 📋 do-zrobienia | p1 | [0030](DO-ZROBIENIA/0030-plan3-teksty-w-rdzeniu/todo.md) |
+| 0032 | [Plan 3 · Zadanie 4: Praca w tle (`ui/worker.py`)](DO-ZROBIENIA/0032-plan3-praca-w-tle/todo.md) | 📋 do-zrobienia | p1 | [0031](DO-ZROBIENIA/0031-plan3-motyw-i-ikony/todo.md) |
+| 0033 | [Plan 3 · Zadanie 5: Stan aplikacji i ikona w tacce (`ui/state.py`, `ui/tray.py`)](DO-ZROBIENIA/0033-plan3-stan-i-ikona-w-tacce/todo.md) | 📋 do-zrobienia | p1 | [0032](DO-ZROBIENIA/0032-plan3-praca-w-tle/todo.md) |
+| 0034 | [Plan 3 · Zadanie 6: Pasek trackera (`ui/form.py`)](DO-ZROBIENIA/0034-plan3-pasek-trackera/todo.md) | 📋 do-zrobienia | p1 | [0033](DO-ZROBIENIA/0033-plan3-stan-i-ikona-w-tacce/todo.md) |
+| 0035 | [Plan 3 · Zadanie 7: Ostatnie wpisy (`ui/recent.py`)](DO-ZROBIENIA/0035-plan3-ostatnie-wpisy/todo.md) | 📋 do-zrobienia | p1 | [0034](DO-ZROBIENIA/0034-plan3-pasek-trackera/todo.md) |
+| 0036 | [Plan 3 · Zadanie 8: Okno szybkiej obsługi i jego miejsce (`ui/popup.py`, `ui/placement.py`)](DO-ZROBIENIA/0036-plan3-okno-szybkiej-obslugi/todo.md) | 📋 do-zrobienia | p1 | [0035](DO-ZROBIENIA/0035-plan3-ostatnie-wpisy/todo.md) |
+| 0037 | [Plan 3 · Zadanie 9: Ustawienia (`ui/settings_dialog.py`)](DO-ZROBIENIA/0037-plan3-ustawienia/todo.md) | 📋 do-zrobienia | p1 | [0036](DO-ZROBIENIA/0036-plan3-okno-szybkiej-obslugi/todo.md) |
+| 0038 | [Plan 3 · Zadanie 10: Usługi pulpitu w wątkach UI (`ui/desktop_bridge.py`)](DO-ZROBIENIA/0038-plan3-most-do-dbus/todo.md) | 📋 do-zrobienia | p1 | [0037](DO-ZROBIENIA/0037-plan3-ustawienia/todo.md) |
+| 0039 | [Plan 3 · Zadanie 11: Kontroler aplikacji (`ui/app.py`)](DO-ZROBIENIA/0039-plan3-kontroler/todo.md) | 📋 do-zrobienia | p1 | [0038](DO-ZROBIENIA/0038-plan3-most-do-dbus/todo.md) |
+| 0040 | [Plan 3 · Zadanie 12: Start aplikacji (`ui/main.py`, `__main__.py`)](DO-ZROBIENIA/0040-plan3-start-aplikacji/todo.md) | 📋 do-zrobienia | p1 | [0039](DO-ZROBIENIA/0039-plan3-kontroler/todo.md) |
+| 0041 | [Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze](DO-ZROBIENIA/0041-plan3-test-na-zywo/todo.md) | 📋 do-zrobienia | p1 | [0040](DO-ZROBIENIA/0040-plan3-start-aplikacji/todo.md) |
 
 ## Zrobione
 
