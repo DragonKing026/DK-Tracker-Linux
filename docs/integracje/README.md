@@ -19,6 +19,8 @@ flowchart LR
     APP --> SEC[Secret Service / portal Secret]
     APP --> POR[Portale XDG]
     APP --> FP[Flatpak]
+    APP --> QT[Qt 6 / PySide6]
+    QT --> SNI
     REF[WS Tracker<br/>wzorzec] -. inspiracja .-> APP
 ```
 
@@ -31,7 +33,7 @@ flowchart LR
 | Secret Service / portal Secret | przechowywanie tokenu | planowana | [[docs/integracje/secret-service\|secret-service]] |
 | Portale XDG | autostart, powiadomienia, linki, skróty | planowana | [[docs/integracje/xdg-portale\|xdg-portale]] |
 | Flatpak | budowanie i dystrybucja | planowana | [[docs/integracje/flatpak\|flatpak]] |
+| Qt 6 / PySide6 | UI, tacka, pętla zdarzeń | w użyciu (ADR-0002) | [[docs/integracje/qt-pyside6\|qt-pyside6]] |
 
-> [!todo] Po wyborze stosu
-> Dojdą dokumenty biblioteki UI / tray / HTTP wybranego stosu (np. Qt/PySide6, KDE
-> Frameworks, GTK, Tauri) — zadanie `TODO/0003-wybor-stosu`.
+> [!todo] Do dopisania
+> Biblioteka HTTP i biblioteka sekretów, gdy zostaną wybrane.
