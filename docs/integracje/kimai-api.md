@@ -62,7 +62,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 - Czas interpretowany jest w strefie użytkownika Kimai → wysyłamy lokalny czas ścienny.
 - Start wysyła „teraz − 1 s” (tak robi wtyczka). Odrzucanie przyszłego początku zależy
   jednak od ustawienia serwera: na domyślnym Kimai 2.67 początek +2 h został **przyjęty**
-  ([raport](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)).
+  ([raport](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)).
 
 ## Stronicowanie
 
@@ -122,7 +122,7 @@ i [REST API](https://www.kimai.org/documentation/rest-api.html):
   użytkownika bez przeliczania**.
 - `GET /api/users/me` zwraca strefę w polu **`timezone`** (np. `"UTC"`) i język w polu
   `language` — sprawdzone na Kimai 2.67.0.
-- **Sprawdzone na żywo** ([raport](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)): konto Kimai w UTC, system w Europe/Warsaw.
+- **Sprawdzone na żywo** ([raport](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)): konto Kimai w UTC, system w Europe/Warsaw.
   Wysłanie „teraz” w czasie systemu dało wpis **2 h w przyszłości**. Stop został
   odrzucony („end date must not be earlier than the start date”), następny start też
   („active time record which cannot be stopped automatically”).

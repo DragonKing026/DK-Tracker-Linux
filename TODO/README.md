@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0002 | [Specyfikacja projektu (design) i plan implementacji](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-trakcie | p0 | — |
 
 ## Do zrobienia
 
@@ -39,6 +38,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Zamknięto |
 |---|---|---|---|
 | 0001 | [Struktura agenta i dokumentacji](ZROBIONE/0001-struktura-agenta-i-dokumentacja/todo.md) | ✅ zrobione | 2026-09-25 17:23 |
+| 0002 | [Specyfikacja projektu (design) i plan implementacji](ZROBIONE/0002-specyfikacja-projektu/todo.md) | ✅ zrobione | 2026-09-25 19:15 |
 | 0003 | [Wybór stosu technologicznego](ZROBIONE/0003-wybor-stosu/todo.md) | ✅ zrobione | 2026-09-25 17:29 |
 | 0005 | [Plan 1 · Zadanie 1: Szkielet projektu Python i test architektury](ZROBIONE/0005-plan1-szkielet-projektu-python-i-test/todo.md) | ✅ zrobione | 2026-09-25 19:01 |
 | 0006 | [Plan 1 · Zadanie 2: Błędy (`errors.py`)](ZROBIONE/0006-plan1-bledy/todo.md) | ✅ zrobione | 2026-09-25 19:01 |

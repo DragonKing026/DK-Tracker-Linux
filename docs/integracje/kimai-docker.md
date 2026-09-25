@@ -14,7 +14,7 @@ zaktualizowano: 2026-09-25 19:04
 > Oficjalny obraz `kimai/kimai2` z bazą MySQL, uruchamiany lokalnie na czas testów.
 > Testy kontraktowe i integracyjne mogą wtedy tworzyć, zmieniać i usuwać wpisy
 > bez dotykania Kimai firmy. Działanie sprawdzone w
-> [spike'u](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md).
+> [spike'u](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md).
 
 ## Jak to działa
 
@@ -82,7 +82,7 @@ Wersję instancji podaje `GET /api/version`.
 - [tests/kimai/README.md](../../tests/kimai/README.md) — instrukcja.
 - [tests/kimai/conftest.py](../../tests/kimai/conftest.py) — fixture `kimai_env` (uruchamia/zatrzymuje Kimai) i trackery dla ROLE_USER / ROLE_TEAMLEAD.
 - [tests/kimai/test_kontrakt.py](../../tests/kimai/test_kontrakt.py) — testy kontraktowe: `.venv/bin/pytest -m kimai`.
-- Historia: [prototyp ze spike'u](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/prototyp/kimai-docker/).
+- Historia: [prototyp ze spike'u](../../TODO/ZROBIONE/0002-specyfikacja-projektu/prototyp/kimai-docker/).
 
 ## Dokumentacja
 
@@ -94,4 +94,4 @@ Wersję instancji podaje `GET /api/version`.
 ## Powiązane
 
 - [Kimai REST API](kimai-api.md)
-- [Raport ze spike'u](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)
+- [Raport ze spike'u](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)

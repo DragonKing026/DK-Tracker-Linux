@@ -75,7 +75,7 @@ _locales/pl, /en      teksty
 > `localStamp()` wysyła czas **przeglądarki**, a Kimai dokleja do niego strefę **konta
 > Kimai** bez przeliczania. Gdy strefy się różnią (np. konto w UTC, system Europe/Warsaw),
 > wpis zaczyna się 2 h w przyszłości, a stop i kolejny start są odrzucane.
-> [Raport](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md).
+> [Raport](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md).
 > W aplikacji czas liczymy w strefie z `/api/users/me → timezone`.
 
 ## Pełny opis zachowań

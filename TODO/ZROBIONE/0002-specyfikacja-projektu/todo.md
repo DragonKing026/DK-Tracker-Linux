@@ -2,19 +2,19 @@
 noteId: "6378874d09904eb8a9941af1a59ce41c"
 tytul: "Specyfikacja projektu (design) i plan implementacji"
 numer: "0002"
-status: w-trakcie
+status: zrobione
 priorytet: p0
 tags: [todo, planowanie, spec]
 zalezy_od: []
 utworzono: 2026-09-25 17:24
-zaktualizowano: 2026-09-25 18:59
-zamknieto:
+zaktualizowano: 2026-09-25 19:15
+zamknieto: 2026-09-25 19:15
 ---
 
 # 0002 — Specyfikacja projektu i plan implementacji
 
 > [!info] Status
-> **w-trakcie** · priorytet **p0** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p0** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -30,19 +30,19 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 ## Kryteria akceptacji
 
 - [x] Ustalony zakres 1.0: F-20, F-21, F-22 wchodzą; F-23, F-24 później
-- [x] Zatwierdzony stos ([0003](../../ZROBIONE/0003-wybor-stosu/todo.md) → [ADR-0002](../../../docs/decyzje/0002-stos-python-pyside6.md): Python + PySide6)
+- [x] Zatwierdzony stos ([0003](../0003-wybor-stosu/todo.md) → [ADR-0002](../../../docs/decyzje/0002-stos-python-pyside6.md): Python + PySide6)
 - [x] Zatwierdzona forma okna na Waylandzie ([ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md))
 - [x] Spec zapisana w `docs/specyfikacja/` ([2026-09-25-kimai-tray-1.0.md](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md)) i zaakceptowana przez użytkownika
-- [ ] Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) zaplanowana (uzupełniana przy szkielecie projektu)
-- [ ] Plan implementacji zapisany i zaakceptowany; kolejne zadania TODO z planu utworzone
+- [x] Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) zaplanowana (uzupełniana przy szkielecie projektu)
+- [x] Plan implementacji zapisany i zaakceptowany; kolejne zadania TODO z planu utworzone
 
 ## Kroki
 
-- [ ] Pytania o cel i zakres (jedno na raz)
-- [ ] Propozycje podejść z rekomendacją
-- [ ] Projekt w sekcjach: architektura, komponenty, przepływ danych, błędy, testy
-- [ ] Spec + samoprzegląd
-- [ ] Plan implementacji
+- [x] Pytania o cel i zakres (jedno na raz)
+- [x] Propozycje podejść z rekomendacją
+- [x] Projekt w sekcjach: architektura, komponenty, przepływ danych, błędy, testy
+- [x] Spec + samoprzegląd
+- [x] Plan implementacji
 
 ## Materiały
 
@@ -72,5 +72,12 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Specyfikacja zaakceptowana → start planu implementacji.
 - Podział na 4 plany; napisano [Plan 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1-rdzen.md) (14 zadań). Kod z planu uruchomiony: 144 testy + 8 kontraktowych zielone, pokrycie 98% ([raport](testy/weryfikacja-planu-1-2026-09-25.md)).
 - Nowe zasady od użytkownika: materiały zadań w podfolderach, linki markdown wszędzie ([sprawdz-linki](../../../.claude/skills/sprawdz-linki/SKILL.md)).
+- **19:15** Zamknięte: specyfikacja i Plan 1 zaakceptowane, Plan 1 wykonany na gałęzi feat/plan-1-rdzen.
 
 ## Wynik
+
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md) (zaakceptowana).
+- Decyzje: ADR [0002](../../../docs/decyzje/0002-stos-python-pyside6.md), [0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md), [0004](../../../docs/decyzje/0004-architektura-rdzen-python-ui-qt.md).
+- Plany: [indeks](../../../docs/plany/README.md); Plan 1 (rdzeń) napisany, zweryfikowany i wykonany (zadania 0005–0018).
+- Środowisko testowe: [tests/kimai/](../../../tests/kimai/README.md) — Kimai 2.67 w Dockerze.
+- Na później: plany 2–4 (desktop, UI po prototypie 0004, Flatpak).
