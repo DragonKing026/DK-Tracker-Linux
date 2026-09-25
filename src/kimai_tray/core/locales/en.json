@@ -45,6 +45,8 @@
   "errBillableDenied": "Your Kimai account cannot set billable / not billable. The entry was saved the way the project defines it. An administrator grants this with the edit_billable_own_timesheet permission.",
   "errConnection": "Cannot reach Kimai.",
   "errUnexpected": "Kimai returned an unexpected response — check the address or your network (for example a Wi-Fi login page).",
+  "errForbidden": "Kimai does not allow this change — the entry is locked (for example exported) or your account lacks the permission.",
+  "errExported": "This entry has been exported (for example invoiced) — Kimai does not allow changing it.",
   "errTls": "The Kimai server certificate is not trusted.",
   "errAuth": "Token rejected or expired. Check it in the settings.",
   "errServer": "Kimai returned an error: {code}",

@@ -262,6 +262,9 @@ class Tracker:
         """F-09. The `$` on a running or a recent entry."""
         if not self._snapshot.billable_allowed:
             raise TrackerError("billableLocked")
+        known = next((e for e in (*self._snapshot.running, *self._snapshot.recent) if e.id == entry_id), None)
+        if known is not None and known.exported:
+            raise TrackerError("errExported")
         try:
             updated = self._client.update(entry_id, {"billable": value})
         except ApiError as error:

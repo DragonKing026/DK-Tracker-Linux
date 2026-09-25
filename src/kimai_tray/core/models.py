@@ -118,6 +118,7 @@ class Entry:
     activity_id: int | None
     activity_name: str | None
     user_language: str | None
+    exported: bool = False  # exported (e.g. invoiced) entries are locked: Kimai answers 403
 
     @property
     def running(self) -> bool:
@@ -142,4 +143,5 @@ class Entry:
             activity_id=activity_id,
             activity_name=activity.get("name"),
             user_language=user.get("language"),
+            exported=data.get("exported") is True,
         )

@@ -108,3 +108,8 @@ def test_user_timezone_ignores_broken_preferences():
         ).timezone
         == ""
     )
+
+
+def test_entry_exported_flag():
+    assert Entry.from_api({**POSTED_ENTRY, "exported": True}).exported is True
+    assert Entry.from_api(POSTED_ENTRY).exported is False

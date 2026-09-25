@@ -13,7 +13,8 @@ class ErrorKind(StrEnum):
     CONNECTION = "connection"
     TIMEOUT = "timeout"
     TLS = "tls"
-    AUTH = "auth"
+    AUTH = "auth"  # 401: bad, revoked or expired token
+    FORBIDDEN = "forbidden"  # 403: exported/locked or someone else's entry, missing permission
     REJECTED = "rejected"
     NOT_FOUND = "not_found"
     SERVER = "server"
@@ -32,8 +33,11 @@ class ApiError(Exception):
     @classmethod
     def from_response(cls, response: httpx.Response) -> ApiError:
         status = response.status_code
-        if status in (401, 403):
+        if status == 401:
             return cls(ErrorKind.AUTH, status)
+        if status == 403:
+            # Not a token problem (verified on Kimai 2.65): the token works, the action is refused.
+            return cls(ErrorKind.FORBIDDEN, status, read_error(response))
         message = read_error(response)
         if status == 400:
             return cls(ErrorKind.REJECTED, status, message)
@@ -108,6 +112,8 @@ def describe(error: BaseException, t: Callable[..., str]) -> str:
             return t("errTls")
         case ErrorKind.AUTH:
             return t("errAuth")
+        case ErrorKind.FORBIDDEN:
+            return t("errForbidden")
         case ErrorKind.BAD_RESPONSE:
             return t("errUnexpected")
         case ErrorKind.REJECTED if error.message:

@@ -250,3 +250,15 @@ def test_memory_that_cannot_be_saved_never_fails_an_action(caplog):
     assert (tracker.memory.last_project, tracker.memory.kimai_locale) == (1, "pl")  # kept in memory
     assert len([call for call in client.calls if call[0] == "start"]) == 1
     assert "No space left on device" in caplog.text
+
+
+def test_exported_entry_billable_is_refused_before_asking_kimai():
+    from dataclasses import replace
+
+    tracker, client, _ = make_tracker()
+    client.add(replace(make_entry(1, NOW - timedelta(hours=3), NOW - timedelta(hours=2)), exported=True))
+    tracker.refresh_full()
+    with pytest.raises(TrackerError) as caught:
+        tracker.set_billable(1, False)
+    assert caught.value.key == "errExported"
+    assert not any(call[0] == "update" for call in client.calls)

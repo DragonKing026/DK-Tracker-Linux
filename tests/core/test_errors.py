@@ -32,8 +32,10 @@ def test_401_with_empty_body_is_auth():
     assert (error.kind, error.status) == (ErrorKind.AUTH, 401)
 
 
-def test_403_is_auth():
-    assert ApiError.from_response(httpx.Response(403, json={})).kind is ErrorKind.AUTH
+def test_403_is_forbidden_not_a_bad_token():
+    # Kimai 2.65: 403 for editing an exported or someone else's entry; a bad token is 401.
+    error = ApiError.from_response(httpx.Response(403, json={"code": 403, "message": "Forbidden"}))
+    assert (error.kind, error.status) == (ErrorKind.FORBIDDEN, 403)
 
 
 def test_400_collects_top_level_form_errors():
@@ -97,3 +99,7 @@ def test_api_error_str_never_contains_headers():
 
 def test_describe_bad_response():
     assert describe(ApiError(ErrorKind.BAD_RESPONSE, 200), fake_t) == "errUnexpected"
+
+
+def test_describe_forbidden():
+    assert describe(ApiError(ErrorKind.FORBIDDEN, 403, "Forbidden"), fake_t) == "errForbidden"

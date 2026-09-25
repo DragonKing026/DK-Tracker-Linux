@@ -84,3 +84,18 @@ def test_stopping_a_stopped_entry_is_not_an_error(kimai_env, user_tracker):
     client = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_USER_TOKEN"])
     client.stop(entry.id)
     assert client.stop(entry.id).end is not None
+
+
+def test_editing_an_exported_entry_is_forbidden_not_auth(kimai_env, user_tracker):
+    project, activity = ids(user_tracker)
+    entry = user_tracker.start(
+        project_id=project, activity_id=activity, description=DESCRIPTION, billable=None
+    ).current
+    user = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_USER_TOKEN"])
+    admin = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_ADMIN_TOKEN"])
+    user.stop(entry.id)
+    admin._request("PATCH", f"/api/timesheets/{entry.id}/export")  # admin marks it exported
+    with pytest.raises(ApiError) as caught:
+        user.update(entry.id, {"description": DESCRIPTION + " po eksporcie"})
+    assert caught.value.kind is ErrorKind.FORBIDDEN
+    assert any(e.id == entry.id and e.exported for e in user.latest(5))
