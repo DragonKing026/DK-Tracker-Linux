@@ -55,9 +55,7 @@ finish-args:
   - --device=dri                             # akceleracja grafiki (jeśli UI jej używa)
   - --share=network                          # połączenie z Kimai
   - --talk-name=org.kde.StatusNotifierWatcher  # ikona w tacce (SNI)
-  # sekrety — jedna z opcji, decyzja w ADR:
-  # (a) portal Secret przez libsecret — bez dodatkowych uprawnień
-  # (b) - --talk-name=org.freedesktop.secrets
+  - --talk-name=org.freedesktop.secrets     # token w KWallet / GNOME Keyring (ADR-0004)
 ```
 
 Zasady z [Sandbox Permissions](https://docs.flatpak.org/en/latest/sandbox-permissions.html):
@@ -65,7 +63,8 @@ minimalny zestaw `--talk-name`, nigdy `--socket=session-bus`, portale zamiast
 bezpośredniego dostępu. `--share=network` tylko gdy aplikacja naprawdę potrzebuje sieci
 (u nas — tak).
 
-Autostart i powiadomienia idą przez portale i **nie** wymagają `finish-args`
+Sekrety: [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md),
+[jeepney](jeepney.md). Autostart i powiadomienia idą przez portale i **nie** wymagają `finish-args`
 ([Portale XDG](xdg-portale.md)).
 
 ## Budowanie lokalnie
