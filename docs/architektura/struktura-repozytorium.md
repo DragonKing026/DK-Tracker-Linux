@@ -33,6 +33,7 @@ zaktualizowano: 2026-09-25
 ├── docs/
 │   ├── README.md              indeks (MOC) dokumentacji
 │   ├── architektura/          przegląd, funkcje, architektura aplikacji, słownik, ta strona
+│   ├── plany/                 plany implementacji (jeden na podsystem)
 │   ├── specyfikacja/          zatwierdzane specyfikacje wersji (RRRR-MM-DD-temat.md)
 │   ├── decyzje/               ADR: NNNN-slug.md + README (rejestr)
 │   ├── integracje/            jeden plik na integrację + README (indeks)
