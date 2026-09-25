@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 19:54
+zaktualizowano: 2026-09-25 19:55
 ---
 
 # Katalog funkcji
@@ -182,6 +182,9 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 Źródło: `popup.js#renderTotals`, `api.js#range`.
 
 **Różnice w aplikacji** (poprawki z recenzji, zadanie 0019):
+- Stronicowanie: **500 wpisów na stronę** (maksimum Kimai), **do 10 stron**; liczba stron z
+  nagłówka `X-Total-Pages` (sprawdzone na Kimai 2.65/2.67), 404 za ostatnią stroną tylko jako
+  zabezpieczenie. Wtyczka: 100 × 3 strony, więc przy > 300 wpisach w tygodniu zaniżała sumę.
 - Trwający wpis jest doliczany **do dnia, w którym się zaczął** — do „Dziś” tylko, gdy zaczął
   się dziś, do „Tydzień” tylko, gdy zaczął się w tym tygodniu. Tak liczy Kimai, więc po
   zatrzymaniu godziny nie przeskakują między dniami (wtyczka dodawała cały czas do dziś).
