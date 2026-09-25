@@ -2,18 +2,18 @@
 noteId: "ca9fa6d8ee7b40dcb9d4047a17fddb99"
 tytul: "Plan 2 · Zadanie 1: Szyna D-Bus (`desktop/bus.py`)"
 numer: "0022"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-2, desktop]
 zalezy_od: []
 utworzono: 2026-09-25 20:59
-zaktualizowano: 2026-09-25 20:59
+zaktualizowano: 2026-09-25 21:00
 ---
 
 # 0022 — Plan 2 · Zadanie 1: Szyna D-Bus (`desktop/bus.py`)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -24,7 +24,7 @@ Wykonać **zadanie 1** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 - Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
-- Rozpoznanie API: [rozpoznanie.md](../../W-TRAKCIE/0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
+- Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 - Pliki:
 - Modify: `pyproject.toml` (zależność `jeepney`)
 - Create: `src/kimai_tray/desktop/__init__.py`, `src/kimai_tray/desktop/bus.py`
@@ -53,3 +53,4 @@ Wykonać **zadanie 1** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ### 2026-09-25
 - **20:59** Utworzono zadanie z Planu 2.
+- **21:00** Start wykonania (Native, na main).
