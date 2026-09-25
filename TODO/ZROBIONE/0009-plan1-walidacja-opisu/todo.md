@@ -23,7 +23,8 @@ Wykonać **zadanie 5** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/validation.py`
@@ -51,10 +52,13 @@ Wykonać **zadanie 5** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/validation.py](../../../src/kimai_tray/core/validation.py): lista ogólników PL/EN 1:1 z wtyczki, normalizacja, odwołania (#412, PROJ-88, linki). Testy: [tests/core/test_validation.py](../../../tests/core/test_validation.py) — 16 zielonych. Bez odchyleń.
+[src/kimai_tray/core/validation.py](../../../src/kimai_tray/core/validation.py): lista ogólników PL/EN 1:1 z wtyczki,
+normalizacja, odwołania (#412, PROJ-88, linki). Testy:
+[tests/core/test_validation.py](../../../tests/core/test_validation.py) — 16 zielonych. Bez odchyleń.

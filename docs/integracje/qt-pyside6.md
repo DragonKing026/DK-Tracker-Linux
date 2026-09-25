@@ -18,7 +18,7 @@ zaktualizowano: 2026-09-25 23:11
 ## Do czego używamy
 
 | Obszar | Klasa Qt | Funkcje |
-|---|---|---|
+| --- | --- | --- |
 | Ikona w tacce | `QSystemTrayIcon` (+ `QMenu` jako menu kontekstowe) | F-02, F-20 |
 | Okno szybkiej obsługi, ustawienia | Qt Widgets ([ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)) | F-03…F-13 |
 | Zegar / odświeżanie | `QTimer` | F-02, F-12 |
@@ -38,6 +38,7 @@ Z [dokumentacji Qt 6](https://doc.qt.io/qt-6/qsystemtrayicon.html):
 - `geometry()` zwraca położenie ikony. Na Waylandzie i tak nie ustawimy według niego okna.
 
 > [!warning] Ograniczenia z dokumentacji Qt
+>
 > - „Od GNOME Shell 3.26 nie wszystkie `ActivationReason` są obsługiwane bez rozszerzeń.”
 > - Zdarzenia `QEvent::ToolTip` i kółka myszy są dostępne **tylko na X11**.
 >   Na Waylandzie tooltip ustawiamy wyłącznie właściwością `setToolTip()`.
@@ -79,6 +80,7 @@ build-options:
 ## Pułapki
 
 > [!warning]
+>
 > - Na Waylandzie aplikacja nie ustawia pozycji okna
 >   ([Wayland and Qt](https://doc.qt.io/qt-6/wayland-and-qt.html)).
 > - `layer-shell-qt` (panele i popupy zakotwiczone w KDE) nie wchodzi w skład
@@ -88,18 +90,24 @@ build-options:
 
 ## Gdzie w kodzie
 
-Wszystko, co importuje PySide6, leży w [src/kimai_tray/ui/](../../src/kimai_tray/ui/) (test architektury pilnuje, by `core/` i `desktop/` nie importowały Qt):
+Wszystko, co importuje PySide6, leży w [src/kimai_tray/ui/](../../src/kimai_tray/ui/) (test architektury pilnuje, by
+`core/` i `desktop/` nie importowały Qt):
 
-- [app.py](../../src/kimai_tray/ui/app.py) — `Controller`: wątki, odświeżanie, akcje, powiadomienia, ustawienia, autostart.
-- [main.py](../../src/kimai_tray/ui/main.py) — start: `--hidden`, jedna instancja (`QLocalServer`), logi, `QTranslator` dla `qtbase`, czekanie na tackę.
-- [state.py](../../src/kimai_tray/ui/state.py) — `AppState`: ostatni Snapshot, ustawienia, język; jeden sygnał `changed`.
+- [app.py](../../src/kimai_tray/ui/app.py) — `Controller`: wątki, odświeżanie, akcje, powiadomienia, ustawienia,
+  autostart.
+- [main.py](../../src/kimai_tray/ui/main.py) — start: `--hidden`, jedna instancja (`QLocalServer`), logi, `QTranslator`
+  dla `qtbase`, czekanie na tackę.
+- [state.py](../../src/kimai_tray/ui/state.py) — `AppState`: ostatni Snapshot, ustawienia, język; jeden sygnał
+  `changed`.
 - [worker.py](../../src/kimai_tray/ui/worker.py) — `Worker`: jeden wątek, wynik wraca do wątku GUI sygnałem w kolejce.
 - [tray.py](../../src/kimai_tray/ui/tray.py) — `QSystemTrayIcon` i menu.
-- [popup.py](../../src/kimai_tray/ui/popup.py), [form.py](../../src/kimai_tray/ui/form.py), [recent.py](../../src/kimai_tray/ui/recent.py) — okno szybkiej obsługi.
+- [popup.py](../../src/kimai_tray/ui/popup.py), [form.py](../../src/kimai_tray/ui/form.py),
+  [recent.py](../../src/kimai_tray/ui/recent.py) — okno szybkiej obsługi.
 - [settings_dialog.py](../../src/kimai_tray/ui/settings_dialog.py) — okno ustawień.
 - [placement.py](../../src/kimai_tray/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
 - [desktop_bridge.py](../../src/kimai_tray/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako `QThread`.
-- [theme.py](../../src/kimai_tray/ui/theme.py), [icons.py](../../src/kimai_tray/ui/icons.py) — palety wtyczki (motyw z `QStyleHints.colorScheme()`), ikony rysowane `QPainter` / `QSvgRenderer`.
+- [theme.py](../../src/kimai_tray/ui/theme.py), [icons.py](../../src/kimai_tray/ui/icons.py) — palety wtyczki (motyw z
+  `QStyleHints.colorScheme()`), ikony rysowane `QPainter` / `QSvgRenderer`.
 - Testy: [tests/ui/](../../tests/ui/) — pytest-qt na platformie `offscreen`.
 
 ## Sprawdzone w prototypie 0004 (2026-09-25 20:39)
@@ -108,8 +116,10 @@ Wszystko, co importuje PySide6, leży w [src/kimai_tray/ui/](../../src/kimai_tra
   lewy klik = `Trigger`, prawy klik obsługuje host (menu z `setContextMenu` eksportowane przez dbusmenu).
 - Okno `Qt.Tool | FramelessWindowHint`: KWin stawia je na środku; `WindowDeactivate` po kliknięciu obok działa.
 - `layer-shell-qt` z PySide: bez wiązań, przez `ctypes` + `setProperty` — [layer-shell-qt](layer-shell-qt.md).
-- Budowa Flatpaka z `io.qt.PySide.BaseApp` na Fedorze 44 wymaga kontenera — [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
-  Alternatywa: PySide6 z PyPI (`pyside6-essentials` + `shiboken6`, 80 MB) — działa, ale z własnym Qt (bez `layer-shell-qt`).
+- Budowa Flatpaka z `io.qt.PySide.BaseApp` na Fedorze 44 wymaga kontenera —
+  [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
+  Alternatywa: PySide6 z PyPI (`pyside6-essentials` + `shiboken6`, 80 MB) — działa, ale z własnym Qt (bez
+  `layer-shell-qt`).
 
 ## Dokumentacja
 

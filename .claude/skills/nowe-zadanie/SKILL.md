@@ -5,30 +5,38 @@ description: Use before starting any new piece of work in this repo, or when the
 
 # nowe-zadanie — nowe zadanie w `TODO/DO-ZROBIENIA/`
 
-Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md). Szablon: [TODO/_szablon/todo.md](../../../TODO/_szablon/todo.md).
+Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md). Szablon:
+[TODO/_szablon/todo.md](../../../TODO/_szablon/todo.md).
 
 ## Kroki
 
 1. **Numer** — następny wolny, licząc zadania we wszystkich folderach statusów:
+
    ```bash
    ls TODO/DO-ZROBIENIA TODO/W-TRAKCIE TODO/ZROBIONE | grep -E '^[0-9]{4}-' | sort | tail -1
    ```
+
    Nowy numer = ostatni + 1, dopełniony zerami do 4 cyfr. Numerów nie używamy ponownie.
 2. **Slug** — krótki, małe litery, myślniki, bez polskich znaków (`klient-api-kimai`).
 3. **Utwórz folder i plik**:
+
    ```bash
    mkdir -p "TODO/DO-ZROBIENIA/NNNN-slug"
    cp TODO/_szablon/todo.md "TODO/DO-ZROBIENIA/NNNN-slug/todo.md"
    ```
-4. **Wypełnij** wszystkie `{{...}}`: `{{NOTEID}}` (świeży: `python3 .claude/skills/frontmatter/frontmatter.py noteid`), `{{NNNN}}`, `{{TYTUL}}`, `{{DATA}}` (teraz, format `RRRR-MM-DD GG:MM`: `date '+%F %H:%M'`),
+
+4. **Wypełnij** wszystkie `{{...}}`: `{{NOTEID}}` (świeży: `python3 .claude/skills/frontmatter/frontmatter.py noteid`),
+   `{{NNNN}}`, `{{TYTUL}}`, `{{DATA}}` (teraz, format `RRRR-MM-DD GG:MM`: `date '+%F %H:%M'`),
    `{{STATUS}}`, `{{PRIORYTET}}`. Uzupełnij pola frontmattera `status`, `priorytet`,
    `tags`, `zalezy_od` (lista nazw folderów, np. `["0003-wybor-stosu"]`).
-5. **Treść** — rzetelnie: Cel, Kontekst (z linkami markdown do docs/integracji/ADR/zadań — każde odwołanie jest linkiem),
+5. **Treść** — rzetelnie: Cel, Kontekst (z linkami markdown do docs/integracji/ADR/zadań — każde odwołanie jest
+   linkiem),
    sprawdzalne Kryteria akceptacji, Kroki. Jeśli pomaga — diagram `mermaid`.
    **Wszystkie materiały zadania** w jego folderze, w podfolderach według rodzaju
    (tworzonych, gdy jest co położyć): `zrzuty/`, `diagramy/`, `testy/`, `prototyp/`,
    `notatki/`, `dane/`. Każdy materiał podlinkuj/osadź w sekcji „Materiały” todo.md,
-   np. `![opis](zrzuty/plik.png)`, `[raport](testy/raport.md)`. Zasady: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
+   np. `![opis](zrzuty/plik.png)`, `[raport](testy/raport.md)`. Zasady:
+   [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
 6. **Tablica** — `python3 .claude/skills/zmien-status-zadania/zadanie.py tablica`
    (tablica jest generowana z frontmatterów; ręcznie jej nie edytujemy). Numer:
    `zadanie.py numer`.

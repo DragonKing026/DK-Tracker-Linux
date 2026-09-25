@@ -25,7 +25,7 @@ i działa na 1.18.2 (sprawdzone).
 ## Rozważane opcje
 
 | Opcja | Zalety | Wady |
-|---|---|---|
+| --- | --- | --- |
 | Czekać na 1.18.3 w Fedorze | nic nie robimy | termin nieznany |
 | Cofnąć Flatpak hosta do 1.17.7 | budowa lokalna | `sudo`, zmiana systemu użytkownika |
 | PySide6 z paczek pip zamiast bazy | działa na hoście | 236 MB zamiast 70 MB, własne Qt; **uniemożliwia `layer-shell-qt`** ([ADR-0005](0005-okno-przy-tacce-na-kde.md)) |
@@ -35,7 +35,8 @@ i działa na 1.18.2 (sprawdzone).
 
 **Paczkę Flatpak budujemy w kontenerze** (obecnie `debian:trixie`, Flatpak 1.16.x) z bazą
 `io.qt.PySide.BaseApp`. Lokalnie: skrypt budujący (prototyp:
-[buduj-w-dockerze.sh](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/prototyp/flatpak/buduj-w-dockerze.sh)), który montuje
+[buduj-w-dockerze.sh](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/prototyp/flatpak/buduj-w-dockerze.sh)), który
+montuje
 runtime'y hosta tylko do odczytu. Docelowo (Plan 4): ten sam obraz albo obraz CI Flathuba.
 
 Zaakceptowane przez użytkownika 2026-09-25 20:37.
@@ -50,5 +51,6 @@ Zaakceptowane przez użytkownika 2026-09-25 20:37.
 
 ## Powiązane
 
-- [Flatpak](../integracje/flatpak.md), [ADR-0002](0002-stos-python-pyside6.md), [ADR-0005](0005-okno-przy-tacce-na-kde.md)
+- [Flatpak](../integracje/flatpak.md), [ADR-0002](0002-stos-python-pyside6.md),
+  [ADR-0005](0005-okno-przy-tacce-na-kde.md)
 - [Prototyp 0004 — ustalenia](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md)

@@ -12,7 +12,7 @@ zaktualizowano: 2026-09-25 23:36
 > Opisane są katalogi dokumentacji, agenta, rdzenia, integracji desktopowych, interfejsu i testów.
 > Katalog `flatpak/` dojdzie w planie 4 — patrz [plany](../plany/README.md).
 
-```
+```text
 .
 ├── AGENTS.md                  reguły dla agentów AI (kanoniczne)
 ├── CLAUDE.md                  import AGENTS.md + specyfika Claude Code
@@ -70,18 +70,22 @@ zaktualizowano: 2026-09-25 23:36
 ## Opis elementów
 
 ### [AGENTS.md](../../AGENTS.md) / [CLAUDE.md](../../CLAUDE.md)
+
 Jedno źródło prawdy dla reguł pracy agentów. `CLAUDE.md` zawiera `@AGENTS.md`, więc
 Claude Code wczytuje oba; inne narzędzia (Codex, Gemini) czytają `AGENTS.md` bezpośrednio.
 
 ### `.claude/skills/`
+
 Każdy skill to folder z `SKILL.md` (frontmatter `name`, `description` + instrukcja krok po
 kroku). Claude Code wykrywa je automatycznie jako skille projektu.
 Dokumentacja: [Claude Code — Skills](https://docs.claude.com/en/docs/claude-code/skills).
 
 ### `docs/`
+
 Pełna dokumentacja — zasady w [Zasady dokumentowania](../procesy/dokumentowanie.md).
 
 ### `TODO/`
+
 System zadań — zasady w [Zadania w folderze TODO](../procesy/zadania.md).
 Zadania leżą w podfolderach według statusu: `DO-ZROBIENIA/`, `W-TRAKCIE/`, `ZROBIONE/`.
 

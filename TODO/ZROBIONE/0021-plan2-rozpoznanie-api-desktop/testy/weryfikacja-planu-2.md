@@ -12,7 +12,7 @@ Kod i testy z [planu 2](../../../../docs/plany/2026-09-25-plan-2-desktop.md) wyc
 do kopii repozytorium (poza repo) i uruchomione na stacji deweloperskiej (Fedora 44, Plasma 6.7.5).
 
 | Sprawdzenie | Wynik |
-|---|---|
+| --- | --- |
 | `ruff format` + `ruff check` | **All checks passed** |
 | `pytest` (domyślnie) | **206 passed** (175 z Planu 1 + 31 nowych), 12 deselected |
 | `pytest -m desktop` (prawdziwa sesja D-Bus) | **3 passed**: sekret w KWallet (zapis/odczyt/usunięcie), powiadomienie pokazane i wycofane, portal Background bez autostartu |

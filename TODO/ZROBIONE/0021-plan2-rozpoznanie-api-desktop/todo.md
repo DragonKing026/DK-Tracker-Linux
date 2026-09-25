@@ -26,7 +26,8 @@ zanim powstanie Plan 2 z gotowym kodem.
 - [x] Secret Service: pełny cykl, także z piaskownicy (z uprawnieniem i bez)
 - [x] Notification: powiadomienie z przyciskami i powrót kliknięcia (host i Flatpak)
 - [x] Background: RequestBackground i SetStatus (host i Flatpak), bez zmiany autostartu
-- [x] Plan 2 napisany na podstawie wyników — [plan](../../../docs/plany/2026-09-25-plan-2-desktop.md), kod zweryfikowany ([raport](testy/weryfikacja-planu-2.md))
+- [x] Plan 2 napisany na podstawie wyników — [plan](../../../docs/plany/2026-09-25-plan-2-desktop.md), kod zweryfikowany
+      ([raport](testy/weryfikacja-planu-2.md))
 
 ## Materiały
 
@@ -37,6 +38,7 @@ zanim powstanie Plan 2 z gotowym kodem.
 ## Dziennik
 
 ### 2026-09-25
+
 - **20:46** Próby wykonane; użytkownik klikał przyciski powiadomień (host i Flatpak).
 - **20:51** Plan 2 napisany i zweryfikowany (206 + 3 testy).
 - **21:06** Zamknięte: rozpoznanie wykorzystane w Planie 2 (wykonany, zadania 0022–0026).

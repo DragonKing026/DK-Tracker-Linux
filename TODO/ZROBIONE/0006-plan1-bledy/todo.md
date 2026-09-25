@@ -23,7 +23,8 @@ Wykonać **zadanie 2** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/errors.py`
@@ -51,10 +52,13 @@ Wykonać **zadanie 2** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/errors.py](../../../src/kimai_tray/core/errors.py): `ApiError` (rodzaje błędów, zbieranie błędów formularza Kimai), `TrackerError`, `describe()`. Testy: [tests/core/test_errors.py](../../../tests/core/test_errors.py) — 13 zielonych. Bez odchyleń od planu.
+[src/kimai_tray/core/errors.py](../../../src/kimai_tray/core/errors.py): `ApiError` (rodzaje błędów, zbieranie błędów
+formularza Kimai), `TrackerError`, `describe()`. Testy: [tests/core/test_errors.py](../../../tests/core/test_errors.py)
+— 13 zielonych. Bez odchyleń od planu.

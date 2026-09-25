@@ -23,7 +23,8 @@ Wykonać **zadanie 1** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `pyproject.toml`
@@ -55,10 +56,14 @@ Wykonać **zadanie 1** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania (Native, gałąź feat/plan-1-rdzen).
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-Powstał pakiet `kimai_tray` (0668c20): [pyproject.toml](../../../pyproject.toml), [src/kimai_tray/](../../../src/kimai_tray/), [tests/test_architektura.py](../../../tests/test_architektura.py). Środowisko `.venv` z pytest, ruff, httpx. Rulings: ruff ograniczony do kodu produktu (extend-exclude .claude, TODO, docs); poprawka końcowego / w linki.py.
+Powstał pakiet `kimai_tray` (0668c20): [pyproject.toml](../../../pyproject.toml),
+[src/kimai_tray/](../../../src/kimai_tray/), [tests/test_architektura.py](../../../tests/test_architektura.py).
+Środowisko `.venv` z pytest, ruff, httpx. Rulings: ruff ograniczony do kodu produktu (extend-exclude .claude, TODO,
+docs); poprawka końcowego / w linki.py.

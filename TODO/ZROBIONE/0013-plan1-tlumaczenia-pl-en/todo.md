@@ -23,7 +23,8 @@ Wykonać **zadanie 9** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/i18n.py`, `src/kimai_tray/core/locales/en.json`, `src/kimai_tray/core/locales/pl.json`
@@ -32,7 +33,8 @@ Wykonać **zadanie 9** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Kryteria akceptacji
 
 - [x] Każdy test z zadania napisany przed kodem i widziany jako padający
-- [x] `.venv/bin/pytest tests/core/test_i18n.py -v` → wszystkie PASS. Jeśli `test_every_key_used_in_code_exists` pokaże brakujący klucz z wcześniejszych modułów — dopisz go do obu plików JSON.
+- [x] `.venv/bin/pytest tests/core/test_i18n.py -v` → wszystkie PASS. Jeśli `test_every_key_used_in_code_exists` pokaże
+      brakujący klucz z wcześniejszych modułów — dopisz go do obu plików JSON.
 - [x] Pełny `.venv/bin/pytest` zielony, `ruff format` + `ruff check` bez uwag
 - [x] Commit(y) zgodne z planem; odchylenia zapisane jako „Ruling” w dzienniku
 
@@ -53,10 +55,13 @@ Wykonać **zadanie 9** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/i18n.py](../../../src/kimai_tray/core/i18n.py) i [locales/](../../../src/kimai_tray/core/locales/) (PL/EN, klucze z wtyczki + nowe: strefa czasowa, TLS, powiadomienia). Test pilnuje identycznych kluczy i placeholderów oraz istnienia każdego klucza użytego w kodzie. 12 testów zielonych. Bez odchyleń.
+[src/kimai_tray/core/i18n.py](../../../src/kimai_tray/core/i18n.py) i [locales/](../../../src/kimai_tray/core/locales/)
+(PL/EN, klucze z wtyczki + nowe: strefa czasowa, TLS, powiadomienia). Test pilnuje identycznych kluczy i placeholderów
+oraz istnienia każdego klucza użytego w kodzie. 12 testów zielonych. Bez odchyleń.

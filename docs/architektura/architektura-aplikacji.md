@@ -60,7 +60,7 @@ flowchart TB
 ## Komponenty
 
 | Komponent | Odpowiedzialność | Zależy od | Funkcje |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Klient Kimai API** | HTTP + Bearer, mapowanie błędów (`ApiError`, `isBillableRejected`, zbieranie błędów formularza), format dat lokalnych, stronicowanie | sekrety, ustawienia | F-01, F-04…F-12, F-14 |
 | **Domena** | walidacja opisu, domyślne billable, formatowanie `h:mm`/`47m`, nazwy dni, grupowanie | nic | F-02, F-08, F-09, F-11, F-12 |
 | **Stan aplikacji** | jedno źródło prawdy o trwającym wpisie, listach i sumach; powiadamia UI o zmianach | API, domena | wszystkie |
@@ -74,7 +74,7 @@ flowchart TB
 ### Moduły rdzenia (Plan 1)
 
 | Komponent | Moduł |
-|---|---|
+| --- | --- |
 | Klient Kimai API | [core/kimai_client.py](../../src/kimai_tray/core/kimai_client.py), [core/errors.py](../../src/kimai_tray/core/errors.py) |
 | Domena | [validation](../../src/kimai_tray/core/validation.py), [billable](../../src/kimai_tray/core/billable.py), [timefmt](../../src/kimai_tray/core/timefmt.py), [grouping](../../src/kimai_tray/core/grouping.py), [models](../../src/kimai_tray/core/models.py) |
 | Stan aplikacji (logika) | [core/tracker.py](../../src/kimai_tray/core/tracker.py) |
@@ -85,14 +85,14 @@ flowchart TB
 ### Moduły UI (Plan 3)
 
 | Komponent | Moduł | Funkcje |
-|---|---|---|
+| --- | --- | --- |
 | Stan aplikacji (UI) | [ui/state.py](../../src/kimai_tray/ui/state.py) — `AppState` | wszystkie |
 | Harmonogram, akcje, powiadomienia | [ui/app.py](../../src/kimai_tray/ui/app.py) — `Controller`, [ui/worker.py](../../src/kimai_tray/ui/worker.py) | F-02, F-12, F-20, F-21, F-22 |
 | Tray | [ui/tray.py](../../src/kimai_tray/ui/tray.py), [ui/icons.py](../../src/kimai_tray/ui/icons.py), tekst: [core/presentation.py](../../src/kimai_tray/core/presentation.py) | F-02, F-20 |
 | Okno szybkiej obsługi | [ui/popup.py](../../src/kimai_tray/ui/popup.py), [ui/form.py](../../src/kimai_tray/ui/form.py), [ui/recent.py](../../src/kimai_tray/ui/recent.py), [ui/placement.py](../../src/kimai_tray/ui/placement.py) | F-03…F-10, F-12 |
 | Okno ustawień | [ui/settings_dialog.py](../../src/kimai_tray/ui/settings_dialog.py) | F-01, F-13, F-21, F-22 |
 | Sekrety, powiadomienia, autostart | [ui/desktop_bridge.py](../../src/kimai_tray/ui/desktop_bridge.py) → [desktop/](../../src/kimai_tray/desktop/) | F-01, F-21, F-22 |
-| Start | [ui/main.py](../../src/kimai_tray/ui/main.py), [__main__.py](../../src/kimai_tray/__main__.py) | — |
+| Start | [ui/main.py](../../src/kimai_tray/ui/main.py), [`__main__.py`](../../src/kimai_tray/__main__.py) | — |
 
 Wątki (GUI tylko rysuje; tracker i D-Bus mają po jednym wątku — nie są bezpieczne wątkowo):
 
@@ -172,7 +172,8 @@ sequenceDiagram
 - [x] Stos technologiczny — [ADR-0002: Python + PySide6](../decyzje/0002-stos-python-pyside6.md)
 - [x] Forma okna na Waylandzie — [ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md) (zastąpił ADR-0003)
 - [x] Runtime Flatpaka — `org.kde.Platform` 6.11 + `io.qt.PySide.BaseApp`
-- [x] Sposób przechowywania tokenu — Secret Service bezpośrednio (jeepney), [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md); portal Secret poza 1.0
+- [x] Sposób przechowywania tokenu — Secret Service bezpośrednio (jeepney),
+      [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md); portal Secret poza 1.0
 
 ## Powiązane
 

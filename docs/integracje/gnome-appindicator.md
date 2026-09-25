@@ -18,7 +18,7 @@ zaktualizowano: 2026-09-25 20:39
 ## Gdzie jest domyślnie
 
 | Dystrybucja | Stan |
-|---|---|
+| --- | --- |
 | Ubuntu (GNOME) | zainstalowane i włączone domyślnie (`ubuntu-appindicators`) |
 | Fedora Workstation (GNOME) | **brak** — trzeba doinstalować |
 | Fedora KDE, KDE neon, Kubuntu | nie dotyczy — Plasma ma natywny host SNI |
@@ -43,7 +43,7 @@ Zweryfikowane 2026-09-25 w repozytorium Fedory 44: pakiet `gnome-shell-extension
 Łatwo pomylić dwie rzeczy o podobnej nazwie:
 
 | | Co to jest | Gdzie działa | Kto instaluje |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **libappindicator / libayatana-appindicator** | biblioteka, przez którą *aplikacja* wystawia ikonę | w aplikacji | autor aplikacji — **u nas niepotrzebna**, bo Qt rozmawia z tacką przez D-Bus (SNI) sam |
 | **Rozszerzenie „AppIndicator and KStatusNotifierItem Support”** | *host* tacki: rysuje ikony w panelu GNOME | wewnątrz procesu `gnome-shell` | **użytkownik / administrator systemu** |
 

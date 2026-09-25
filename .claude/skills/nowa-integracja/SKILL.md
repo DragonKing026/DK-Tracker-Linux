@@ -38,6 +38,7 @@ magazyn sekretów…) ma **osobny plik** w `docs/integracje/`. Bez niego nie dod
    ## Dokumentacja             ← lista linków do oficjalnych źródeł
    ## Powiązane                ← linki markdown do ADR, zadań, innych integracji
    ```
+
 3. **Indeks** — dodaj wiersz w `docs/integracje/README.md` (tabela integracji).
 4. **Linki**: `python3 .claude/skills/sprawdz-linki/linki.py sprawdz`.
 5. **Commit**: `docs(integracje): opisz <nazwa>`.

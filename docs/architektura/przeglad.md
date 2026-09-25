@@ -98,6 +98,8 @@ Każda wymaga osobnej decyzji — nie wchodzą do 1.0 automatycznie.
 > tacki) nie ma tego problemu. Rozwiązanie: [ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md) — na KDE okno
 > zakotwiczone przy tacce przez `layer-shell` (sprawdzone), gdzie indziej na środku.
 
+<!-- osobne callouty -->
+
 > [!warning] GNOME nie ma tacki domyślnie
 > GNOME Shell nie wyświetla ikon StatusNotifierItem bez rozszerzenia
 > [AppIndicator and KStatusNotifierItem Support](../integracje/gnome-appindicator.md).

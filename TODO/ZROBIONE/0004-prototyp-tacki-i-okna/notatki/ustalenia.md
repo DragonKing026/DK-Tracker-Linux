@@ -16,7 +16,7 @@ czyli tą samą, którą wywołuje panel Plasmy.
 ## KDE Plasma (Wayland) — sprawdzone automatycznie
 
 | Pytanie | Wynik | Dowód |
-|---|---|---|
+| --- | --- | --- |
 | Czy `QSystemTrayIcon` pokazuje ikonę? | **tak** — `tray_available: true`, SNI zarejestrowany (`Category=ApplicationStatus`, `Status=Active`, `ItemIsMenu=false`, menu przez `/MenuBar` = dbusmenu) | [log](../testy/log-kde-tool.jsonl), ![ikona](../zrzuty/kde-tacka-ikona.png) |
 | Lewy klik → okno? | **tak** — `Activate` daje `ActivationReason.Trigger`, okno się pokazuje i dostaje fokus (`active: true`) | [log](../testy/log-kde-tool.jsonl) |
 | Czy aplikacja zna pozycję ikony / okna? | **nie** — `tray.geometry()` = 0,0,0,0, pozycja okna z Qt = 0,0 (Wayland) | [log](../testy/log-kde-tool.jsonl) |
@@ -31,7 +31,7 @@ czyli tą samą, którą wywołuje panel Plasmy.
 Log: [testy/log-kde-layer-reczny.jsonl](../testy/log-kde-layer-reczny.jsonl).
 
 | Krok | Wynik |
-|---|---|
+| --- | --- |
 | 1. Klik w ikonę → okno w prawym dolnym rogu | **tak** |
 | 2. Pisanie w polu tekstowym (`keyboardInteractivity=OnDemand`) | **tak** |
 | 3. Klik poza okno → okno się chowa | **tak** (`WindowDeactivate`) |
@@ -48,7 +48,7 @@ Log: [testy/log-kde-layer-reczny.jsonl](../testy/log-kde-layer-reczny.jsonl).
 Log: [testy/log-kde-tool-reczny.jsonl](../testy/log-kde-tool-reczny.jsonl).
 
 | Krok | Wynik |
-|---|---|
+| --- | --- |
 | 1. Klik w ikonę → okno | **na środku ekranu** (użytkownik: w wariancie B było przy tacce) |
 | 2. Pisanie | **tak** |
 | 3. Klik poza okno → chowa się | **tak** |
@@ -62,7 +62,7 @@ Log: [testy/log-kde-tool-reczny.jsonl](../testy/log-kde-tool-reczny.jsonl).
 ## Flatpak (2026-09-25 20:16)
 
 | Pytanie | Wynik |
-|---|---|
+| --- | --- |
 | Budowa z `io.qt.PySide.BaseApp` | **zablokowana na Fedorze 44**: Flatpak 1.18.2 ma regresję — `build-init --base` kończy się `lsetxattr(security.selinux): Operation not supported` ([flatpak#6818](https://github.com/flatpak/flatpak/issues/6818), poprawka w 1.18.3 przez [PR #6834](https://github.com/flatpak/flatpak/pull/6834)); w repozytoriach Fedory 44 (także updates-testing) jest tylko 1.18.2 |
 | Obejście | PySide6 z paczek PyPI (`pyside6-essentials` + `shiboken6` 6.11.2, 80 MB) zamiast bazy — [manifest](../prototyp/flatpak/pl.websystems.KimaiTray.Prototyp.wheels.yml); budowa **20 s**, aplikacja 236 MB |
 | Tacka we Flatpaku z samym `--talk-name=org.kde.StatusNotifierWatcher` | **działa** — ikona zarejestrowana, bez `--own-name` |
@@ -75,7 +75,7 @@ Log: [testy/log-kde-tool-reczny.jsonl](../testy/log-kde-tool-reczny.jsonl).
 Pytanie użytkownika: „czy nie da się zbudować w Dockerze?” — **da się**.
 
 | Krok | Wynik |
-|---|---|
+| --- | --- |
 | Kontener `debian:trixie` (Flatpak 1.16.6, bez regresji 1.18.x, bez SELinux) — [buduj-w-dockerze.sh](../prototyp/flatpak/buduj-w-dockerze.sh) | budowa **z `io.qt.PySide.BaseApp`** działa |
 | Runtime'y bez ponownego pobierania | repozytoria instalacji hosta montowane **tylko do odczytu**; brak pliku `summary` → commity kopiowane `ostree pull-local` do lokalnego repo w `~/.cache/kimai-tray-flatpak/docker` + `flatpak build-update-repo` |
 | Czas | 3,5 min (pierwszy raz, z kopiowaniem runtime'ów); paczka `.flatpak` **70 MB** (Qt z runtime'u; wersja z pip miała 236 MB) |

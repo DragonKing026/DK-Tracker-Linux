@@ -23,7 +23,8 @@ Wykonać **zadanie 3** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/models.py`
@@ -51,10 +52,13 @@ Wykonać **zadanie 3** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/models.py](../../../src/kimai_tray/core/models.py): `User`, `Customer`, `Project`, `Activity`, `Entry` z `from_api` (obiekty rozwinięte lub same id, brakujące pola). Testy: [tests/core/test_models.py](../../../tests/core/test_models.py) — 7 zielonych. Bez odchyleń.
+[src/kimai_tray/core/models.py](../../../src/kimai_tray/core/models.py): `User`, `Customer`, `Project`, `Activity`,
+`Entry` z `from_api` (obiekty rozwinięte lub same id, brakujące pola). Testy:
+[tests/core/test_models.py](../../../tests/core/test_models.py) — 7 zielonych. Bez odchyleń.

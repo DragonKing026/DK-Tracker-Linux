@@ -16,7 +16,7 @@ Skrypty: [probe_secret.py](../prototyp/probe_secret.py), [probe_notify.py](../pr
 ## Secret Service (`org.freedesktop.secrets`, ksecretd/KWallet)
 
 | Krok | Wynik |
-|---|---|
+| --- | --- |
 | `OpenSession("plain")` | sesja `/org/freedesktop/secrets/session/N` |
 | `ReadAlias("default")` | `/org/freedesktop/secrets/collection/kdewallet` |
 | `Collection.CreateItem(props, (session, b"", secret, "text/plain"), replace=True)` — sygnatura `a{sv}(oayays)b` | ścieżka elementu, prompt `/` (brak promptu — portfel otwarty) |
@@ -33,7 +33,7 @@ Właściwości elementu: `org.freedesktop.Secret.Item.Label` (`s`) i
 ## Portal Notification (`org.freedesktop.portal.Notification`)
 
 | Krok | Wynik |
-|---|---|
+| --- | --- |
 | wersja interfejsu | **1** (backend `plasmanotify`) |
 | `AddNotification(id, {title, body, priority, buttons: aa{sv}[{label, action, target}]})` | przyjęte (host i Flatpak) |
 | Klik przycisku | sygnał `ActionInvoked(id, action, parameter)` — np. `("long-timer-123", "keep", [{"activation-token": "kwin-295"}])` |
@@ -44,7 +44,7 @@ Właściwości elementu: `org.freedesktop.Secret.Item.Label` (`s`) i
 ## Portal Background (`org.freedesktop.portal.Background`)
 
 | Krok | Wynik |
-|---|---|
+| --- | --- |
 | wersja interfejsu | **2** |
 | `RequestBackground("", {handle_token, reason, autostart: false})` | obiekt Request; sygnał `Request.Response` → `(0, {background: True, autostart: False})`; na ścieżkę `/org/freedesktop/portal/desktop/request/<sender>/<token>` trzeba zapisać się **przed** wywołaniem |
 | `SetStatus({message})` na hoście | **błąd**: „Only sandboxed applications can set background status” — pomijamy bez błędu |
@@ -54,6 +54,7 @@ Właściwości elementu: `org.freedesktop.Secret.Item.Label` (`s`) i
 ## Wnioski do Planu 2
 
 - Jeden mały moduł D-Bus: wywołanie metody z rozpoznaniem odpowiedzi-błędu i wzorzec Request/Response portali.
-- Sekrety: sesja `plain`, kolekcja `default`, atrybuty `application` + `url`; brak usługi / odmowa → „brak magazynu sekretów”.
+- Sekrety: sesja `plain`, kolekcja `default`, atrybuty `application` + `url`; brak usługi / odmowa → „brak magazynu
+  sekretów”.
 - Powiadomienia: identyfikator `long-timer-<id>` niesie numer wpisu; akcje `stop`/`keep`/`settings`.
 - Autostart: `RequestBackground(autostart, commandline)`; `SetStatus` tylko we Flatpaku (błąd na hoście ignorowany).

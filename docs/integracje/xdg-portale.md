@@ -18,7 +18,7 @@ zaktualizowano: 2026-09-25 21:12
 ## Portale, których potrzebujemy
 
 | Portal | Po co | Funkcja | Priorytet |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | **Background** | autostart z sesją, zgoda na działanie w tle, status w tle | F-22 | wysoki — aplikacja tackowa |
 | **Notification** | powiadomienia (długi timer, błąd połączenia) | F-21 | średni |
 | **OpenURI** | otwarcie „Moje czasy” / tokenów API w przeglądarce | F-08 | wysoki |
@@ -95,6 +95,7 @@ kde-portals.conf:
 ## Pułapki
 
 > [!warning]
+>
 > - Obsługa danego portalu zależy od backendu pulpitu i jego wersji — każdą funkcję
 >   opartą o portal trzeba mieć z łagodną degradacją (brak portalu → funkcja wyłączona,
 >   bez awarii).
@@ -103,8 +104,10 @@ kde-portals.conf:
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/desktop/notifications.py](../../src/kimai_tray/desktop/notifications.py) — `PortalNotifier` (AddNotification, RemoveNotification, ActionInvoked).
-- [src/kimai_tray/desktop/autostart.py](../../src/kimai_tray/desktop/autostart.py) — `BackgroundPortal` (RequestBackground, SetStatus).
+- [src/kimai_tray/desktop/notifications.py](../../src/kimai_tray/desktop/notifications.py) — `PortalNotifier`
+  (AddNotification, RemoveNotification, ActionInvoked).
+- [src/kimai_tray/desktop/autostart.py](../../src/kimai_tray/desktop/autostart.py) — `BackgroundPortal`
+  (RequestBackground, SetStatus).
 - [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — `portal_request` (Request/Response).
 
 ## Dokumentacja

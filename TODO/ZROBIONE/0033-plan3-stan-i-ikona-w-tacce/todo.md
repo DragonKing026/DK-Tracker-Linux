@@ -19,12 +19,14 @@ zamknieto: 2026-09-25 23:09
 ## Cel
 
 Wykonać **zadanie 5** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-plan-3-ui.md)
-(sekcja „Task 5: Stan aplikacji i ikona w tacce (`ui/state.py`, `ui/tray.py`)”) dokładnie według kroków planu, metodą TDD.
+(sekcja „Task 5: Stan aplikacji i ikona w tacce (`ui/state.py`, `ui/tray.py`)”) dokładnie według kroków planu, metodą
+TDD.
 
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/ui/state.py`, `src/kimai_tray/ui/tray.py`
 - Test: `tests/ui/test_tray.py`
@@ -53,10 +55,13 @@ Wykonać **zadanie 5** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:09** Start wykonania.
 - **23:09** Zamknięte: testy zielone (259 passed, 12 deselected in 0.36s), commity na main.
 
 ## Wynik
 
-[state.py](../../../src/kimai_tray/ui/state.py) (`AppState`), [tray.py](../../../src/kimai_tray/ui/tray.py) (`Tray`: ikona, tooltip, menu). Testy: [test_tray.py](../../../tests/ui/test_tray.py) — 7 zielonych. Dokumentacja: [StatusNotifierItem](../../../docs/integracje/statusnotifieritem.md). Bez odchyleń od planu.
+[state.py](../../../src/kimai_tray/ui/state.py) (`AppState`), [tray.py](../../../src/kimai_tray/ui/tray.py) (`Tray`:
+ikona, tooltip, menu). Testy: [test_tray.py](../../../tests/ui/test_tray.py) — 7 zielonych. Dokumentacja:
+[StatusNotifierItem](../../../docs/integracje/statusnotifieritem.md). Bez odchyleń od planu.

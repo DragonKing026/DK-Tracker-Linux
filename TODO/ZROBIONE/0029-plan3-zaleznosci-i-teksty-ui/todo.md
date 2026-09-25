@@ -24,7 +24,8 @@ Wykonać **zadanie 1** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Modify: `pyproject.toml`
 - Modify: `src/kimai_tray/core/locales/pl.json`, `src/kimai_tray/core/locales/en.json`
@@ -54,10 +55,14 @@ Wykonać **zadanie 1** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:07** Start wykonania (Native, na main).
 - **23:08** Zamknięte: testy zielone (227 passed, 12 deselected in 0.18s), commity na main.
 
 ## Wynik
 
-[pyproject.toml](../../../pyproject.toml): extra `ui` (PySide6 6.11), `pytest-qt`, skrypt `kimai-tray`, `qt_api = pyside6`. Teksty UI PL/EN w [locales](../../../src/kimai_tray/core/locales/). Testy: [test_i18n_ui.py](../../../tests/ui/test_i18n_ui.py), strażnik warstw w [test_architektura.py](../../../tests/test_architektura.py). Bez odchyleń od planu.
+[pyproject.toml](../../../pyproject.toml): extra `ui` (PySide6 6.11), `pytest-qt`, skrypt `kimai-tray`,
+`qt_api = pyside6`. Teksty UI PL/EN w [locales](../../../src/kimai_tray/core/locales/). Testy:
+[test_i18n_ui.py](../../../tests/ui/test_i18n_ui.py), strażnik warstw w
+[test_architektura.py](../../../tests/test_architektura.py). Bez odchyleń od planu.

@@ -23,8 +23,10 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 
 ## Kontekst
 
-- Architektura UI: [specyfikacja, sekcje 4–5](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md), [ADR-0005](../../../docs/decyzje/0005-okno-przy-tacce-na-kde.md).
-- Wzorzec: [kimai-ws-tracker](../../../docs/integracje/kimai-ws-tracker.md) (wygląd i palety motywów), [katalog funkcji](../../../docs/architektura/funkcje.md).
+- Architektura UI: [specyfikacja, sekcje 4–5](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md),
+  [ADR-0005](../../../docs/decyzje/0005-okno-przy-tacce-na-kde.md).
+- Wzorzec: [kimai-ws-tracker](../../../docs/integracje/kimai-ws-tracker.md) (wygląd i palety motywów),
+  [katalog funkcji](../../../docs/architektura/funkcje.md).
 - Prototyp: [0004](../0004-prototyp-tacki-i-okna/todo.md).
 
 ## Kryteria akceptacji
@@ -34,32 +36,45 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 
 ## Decyzje
 
-- [x] **Motyw:** według systemu (jasny/ciemny), palety 1:1 z wtyczki — [paleta](../../../docs/integracje/kimai-ws-tracker.md). Wtyczka też przełącza motyw według systemu (`prefers-color-scheme`).
-- [x] **Ikona w tacce (F-02):** wariant **C** — czas w ikonie jak plakietka wtyczki (`47m` / `1:22` na zielonym, `!` na czerwonym, szary zegar gdy nic nie trwa); pełna informacja w tooltipie. Zapis: [F-02](../../../docs/architektura/funkcje.md).
+- [x] **Motyw:** według systemu (jasny/ciemny), palety 1:1 z wtyczki —
+      [paleta](../../../docs/integracje/kimai-ws-tracker.md). Wtyczka też przełącza motyw według systemu
+      (`prefers-color-scheme`).
+- [x] **Ikona w tacce (F-02):** wariant **C** — czas w ikonie jak plakietka wtyczki (`47m` / `1:22` na zielonym, `!` na
+      czerwonym, szary zegar gdy nic nie trwa); pełna informacja w tooltipie. Zapis:
+      [F-02](../../../docs/architektura/funkcje.md).
 
 - [x] **Środkowy przycisk na ikonie:** nic (A). Użytkownik najpierw wybrał B (start/stop), po chwili zmienił na A.
 - [x] **Token tylko w pamięci bez portfela:** nie w 1.0 (A).
-- [x] **Okno przy tacce bez zmiennej procesu:** `LayerShellQt::Window::get()` na jednym oknie (6.7.5) — okno ustawień zostaje zwykłe. Sprawdzone na żywo.
+- [x] **Okno przy tacce bez zmiennej procesu:** `LayerShellQt::Window::get()` na jednym oknie (6.7.5) — okno ustawień
+      zostaje zwykłe. Sprawdzone na żywo.
 
 ## Materiały
 
-- [testy/weryfikacja-planu-3.md](testy/weryfikacja-planu-3.md) — kod z planu uruchomiony (334 testy) i test na żywo z użytkownikiem
+- [testy/weryfikacja-planu-3.md](testy/weryfikacja-planu-3.md) — kod z planu uruchomiony (334 testy) i test na żywo z
+  użytkownikiem
 
-- ![layer-shell na jednym oknie](zrzuty/layer-per-okno-popup.png) ![zwykłe okno obok](zrzuty/layer-per-okno-dialog.png) — próba [prototyp/probe_layer_per_window.py](prototyp/probe_layer_per_window.py), log: [prototyp/probe.log](prototyp/probe.log)
+- ![layer-shell na jednym oknie](zrzuty/layer-per-okno-popup.png) ![zwykłe okno obok](zrzuty/layer-per-okno-dialog.png)
+  — próba [prototyp/probe_layer_per_window.py](prototyp/probe_layer_per_window.py), log:
+  [prototyp/probe.log](prototyp/probe.log)
 
-- ![Warianty ikony w tacce](zrzuty/ikony-warianty.png) — makieta F-02: 22 px (100 %) i 44 px (200 %), panel ciemny i jasny; skrypt: [prototyp/ikony_makieta.py](prototyp/ikony_makieta.py)
+- ![Warianty ikony w tacce](zrzuty/ikony-warianty.png) — makieta F-02: 22 px (100 %) i 44 px (200 %), panel ciemny i
+  jasny; skrypt: [prototyp/ikony_makieta.py](prototyp/ikony_makieta.py)
 
 ## Dziennik
 
 ### 2026-09-25
+
 - **21:55** Utworzono. Motyw: według systemu (decyzja użytkownika).
 - **21:59** Ikona: wariant C (decyzja użytkownika).
 - **22:03** Środkowy klik: A — nic (decyzja użytkownika, zmieniona z B).
 - **22:05** Tryb tokenu w pamięci: nie (A). Wszystkie decyzje UI zebrane — pisanie Planu 3.
 - **22:08** layer-shell na jednym oknie działa bez `QT_WAYLAND_SHELL_INTEGRATION` (próba na żywo).
-- **22:58** Plan 3 napisany i zweryfikowany ([plan](../../../docs/plany/2026-09-25-plan-3-ui.md)); test na żywo z użytkownikiem: 6/6. Czeka na akceptację.
+- **22:58** Plan 3 napisany i zweryfikowany ([plan](../../../docs/plany/2026-09-25-plan-3-ui.md)); test na żywo z
+  użytkownikiem: 6/6. Czeka na akceptację.
 - **23:06** Plan 3 zaakceptowany przez użytkownika — wykonanie w zadaniach Planu 3.
 
 ## Wynik
 
-Decyzje UI: motyw według systemu, ikona wariant C, środkowy klik — nic, bez trybu tokenu w pamięci, layer-shell tylko na oknie szybkiej obsługi. [Plan 3](../../../docs/plany/2026-09-25-plan-3-ui.md) napisany, zweryfikowany (334 testy + test na żywo 6/6) i zaakceptowany.
+Decyzje UI: motyw według systemu, ikona wariant C, środkowy klik — nic, bez trybu tokenu w pamięci, layer-shell tylko na
+oknie szybkiej obsługi. [Plan 3](../../../docs/plany/2026-09-25-plan-3-ui.md) napisany, zweryfikowany (334 testy + test
+na żywo 6/6) i zaakceptowany.

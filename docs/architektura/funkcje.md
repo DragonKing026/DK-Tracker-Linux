@@ -35,7 +35,7 @@ stateDiagram-v2
 ## F-01 Konfiguracja połączenia
 
 | | |
-|---|---|
+| --- | --- |
 | **Co** | Adres Kimai, token API, język (auto/pl/en), minimalna długość opisu (domyślnie 15, 0 = wyłączone). |
 | **Test połączenia** | `GET /api/users/me` → komunikat „Połączono jako *alias/username*” albo powód błędu. |
 | **Zapis** | URL obcięty z końcowych `/`. Zapis ustawień **resetuje blokadę billable** (F-09), bo inny serwer/token może mieć uprawnienie. |
@@ -45,7 +45,7 @@ stateDiagram-v2
 ## F-02 Ikona w tacce ze stanem
 
 | | |
-|---|---|
+| --- | --- |
 | **Co** | Odpowiednik „badge” wtyczki. Pokazuje, czy timer działa i jak długo. |
 | **Format czasu** | `<60 min` → `47m`; `≥60 min` → `1:22` (wtyczka zmieniła z `1h22`, bo Chrome ucinał do 5 znaków). |
 | **Kolory wtyczki** | szary `#6b7280` — nic nie trwa / brak konfiguracji; zielony `#16a34a` — trwa; czerwony `#dc2626` + `!` — błąd. |
@@ -57,7 +57,7 @@ stateDiagram-v2
 ## F-03 Okno szybkiej obsługi (popup)
 
 | | |
-|---|---|
+| --- | --- |
 | **Co** | Po kliknięciu ikony: nagłówek (nazwa, suma dnia, suma tygodnia, ustawienia), pasek trackera, komunikaty, lista ostatnich wpisów. |
 | **Szerokość** | 460 px we wtyczce 1.5.0. |
 | **Stan „nieskonfigurowana”** | Tylko tekst + przycisk „Otwórz ustawienia”. |
@@ -108,7 +108,7 @@ stateDiagram-v2
 ## F-07 Edycja trwającego wpisu
 
 | Pole | Zachowanie |
-|---|---|
+| --- | --- |
 | Opis | Zapis po 1,2 s od końca pisania (cicho) i przy utracie fokusu. Walidacja F-11; przy zapisie „cichym” błąd walidacji nie jest pokazywany. Enter = zatwierdź. |
 | Początek (HH:MM) | Ten sam dzień co pierwotny początek. Przyszłość → `errBeginFuture`. `PATCH` z `begin`, zegar restartuje od nowej wartości. |
 | Koniec (HH:MM) | Nie zapisuje od razu — używany przy Stop (F-05). |
@@ -183,6 +183,7 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 Źródło: `popup.js#renderTotals`, `api.js#range`.
 
 **Różnice w aplikacji** (poprawki z recenzji, zadanie 0019):
+
 - Stronicowanie: **500 wpisów na stronę** (maksimum Kimai), **do 10 stron**; liczba stron z
   nagłówka `X-Total-Pages` (sprawdzone na Kimai 2.65/2.67), 404 za ostatnią stroną tylko jako
   zabezpieczenie. Wtyczka: 100 × 3 strony, więc przy > 300 wpisach w tygodniu zaniżała sumę.
@@ -203,7 +204,7 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 polska i angielska.**
 
 | Element | Jak tłumaczymy |
-|---|---|
+| --- | --- |
 | Okno, menu tacki, tooltip, ustawienia, komunikaty błędów, powiadomienia N-01…N-03 | własne teksty w `core/i18n` — pliki PL i EN, klucze przeniesione z `_locales` wtyczki i uzupełnione o nowe (menu, powiadomienia, autostart) |
 | Standardowe elementy Qt (przyciski „OK/Anuluj”, menu kontekstowe pól tekstowych) | `QTranslator` z `qtbase_<lang>.qm` z katalogu tłumaczeń Qt. Runtime `org.kde.Platform` 6.11 zawiera `translations/qtbase_pl.qm` (sprawdzone 2026-09-25) |
 | Nazwy dni i daty na liście wpisów | locale wybranego języka (`QLocale`) |
@@ -211,6 +212,7 @@ polska i angielska.**
 | MetaInfo (AppStream: opis, podsumowanie) | `xml:lang="pl"` |
 
 Zasady:
+
 - **Każdy tekst widoczny dla użytkownika idzie przez `t(klucz)`.** Żadnych napisów
   wpisanych na sztywno w kodzie UI.
 - Test pilnuje, że zestawy kluczy PL i EN są identyczne, a wszystkie klucze użyte
@@ -221,7 +223,7 @@ Zasady:
 ## F-14 Obsługa błędów
 
 | Sytuacja | Komunikat |
-|---|---|
+| --- | --- |
 | Brak połączenia (status 0) | `errConnection` |
 | 401 | `errAuth` — token odrzucony lub wygasł |
 | 403 | `errForbidden` — wpis zablokowany (np. wyeksportowany) lub brak uprawnień. **Różnica względem wtyczki:** wtyczka traktowała 403 jak zły token |
@@ -238,7 +240,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 ## Funkcje nowe względem wtyczki (kandydaci)
 
 | Id | Funkcja | Uzasadnienie | Status |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | F-20 | Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz okno, otwórz Kimai, ustawienia, zakończ | menu rysuje host tacki, więc zawsze jest przy ikonie | **w 1.0** ([ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md)); menu rysuje Plasma z dbusmenu — sprawdzone |
 | F-21 | Powiadomienia systemowe (portal Notification) | przypomnienie o długim timerze, problemy z połączeniem | **w 1.0** (szczegóły w specyfikacji) |
 | F-22 | Autostart z sesją (portal Background, opcja w ustawieniach) | aplikacja tackowa powinna startować sama | **w 1.0** |
@@ -250,13 +252,14 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 Przez portal Notification (w Qt/PySide przez D-Bus). Ustalone z użytkownikiem 2026-09-25.
 
 | Id | Kiedy | Treść | Akcje | Ustawienie |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | N-01 Długi timer | trwający wpis przekroczył próg | „Timer działa od 8:00 h — *Projekt*” + opis | **Zatrzymaj**, **Działa dalej** (wycisza do następnego progu: +1 h) | próg w godzinach, domyślnie 8, 0 = wyłączone |
 | N-02 Utrata połączenia | 3 kolejne nieudane odświeżenia (~3 min) albo 401/403 | „Brak połączenia z Kimai” / „Token nieważny lub wygasł” | **Ustawienia** (przy 401) | wł./wył., domyślnie wł. |
 | N-02b Powrót połączenia | pierwsze udane odświeżenie po N-02 | „Połączenie z Kimai przywrócone” | — | razem z N-02 |
 | N-03 Potwierdzenie z menu | start/stop/wznów wykonane **z menu kontekstowego** | „Start: *opis* — *Projekt*” / „Stop: *1:22* — *Projekt*” | — | wł./wył., domyślnie wł. |
 
 Zasady:
+
 - Jedno powiadomienie na zdarzenie. N-02 nie powtarza się co minutę, dopóki trwa ta sama
   awaria. N-01 zastępuje poprzednie **dla tego samego wpisu** (`id` = `long-timer-<nr wpisu>`);
   przycisk „Zatrzymaj” działa na wpis wskazany w powiadomieniu (`entry_id`).

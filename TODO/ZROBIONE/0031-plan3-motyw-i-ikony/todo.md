@@ -24,7 +24,8 @@ Wykonać **zadanie 3** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/ui/__init__.py`, `src/kimai_tray/ui/theme.py`, `src/kimai_tray/ui/icons.py`
 - Modify: `pyproject.toml` (wyjątek E501 dla danych SVG/QSS)
@@ -52,10 +53,13 @@ Wykonać **zadanie 3** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:08** Start wykonania.
 - **23:08** Zamknięte: testy zielone (246 passed, 12 deselected in 0.22s), commity na main.
 
 ## Wynik
 
-[theme.py](../../../src/kimai_tray/ui/theme.py) (palety z popup.css, QSS), [icons.py](../../../src/kimai_tray/ui/icons.py) (ikona tacki — wariant C, glify SVG). Testy: [test_theme_icons.py](../../../tests/ui/test_theme_icons.py) — 9 zielonych. Bez odchyleń od planu.
+[theme.py](../../../src/kimai_tray/ui/theme.py) (palety z popup.css, QSS),
+[icons.py](../../../src/kimai_tray/ui/icons.py) (ikona tacki — wariant C, glify SVG). Testy:
+[test_theme_icons.py](../../../tests/ui/test_theme_icons.py) — 9 zielonych. Bez odchyleń od planu.

@@ -53,6 +53,7 @@ Wszystkie materiały zadania leżą w jego folderze (podfoldery tworzone, gdy s�
 ## Dziennik
 
 ### {{DATA}}
+
 - Utworzono zadanie.
 
 ## Wynik

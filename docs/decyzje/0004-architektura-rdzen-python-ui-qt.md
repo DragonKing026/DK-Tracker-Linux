@@ -20,7 +20,7 @@ Logika wtyczki (walidacja, billable, formatowanie, klient API) ma zostać przeni
 ## Rozważane opcje
 
 | Opcja | Zalety | Wady |
-|---|---|---|
+| --- | --- | --- |
 | **1. Rdzeń bez Qt: `httpx` + `jeepney`, UI Qt Widgets** | rdzeń testowany zwykłym pytest, bez pętli zdarzeń; atrapa Kimai przez `httpx.MockTransport`; tylko czysto-pythonowe zależności (bez kompilacji w Flatpaku) | kilka paczek pip w manifeście; I/O w wątkach roboczych |
 | 2. Wszystko w Qt: `QNetworkAccessManager`, `QtDBus`, QML | zero zależności pip | logika spleciona z pętlą Qt, trudniejsze testy, QML + Python trudniejszy w debugowaniu |
 
@@ -51,7 +51,7 @@ Zaakceptowane przez użytkownika 2026-09-25.
 
 - Flatpak: `--talk-name=org.freedesktop.secrets`; paczki pip (`httpx` + zależności,
   `jeepney`) generowane przez `flatpak-pip-generator`.
-- Token jest widoczny w KWallet / GNOME Keyring jako „Kimai Tray — <url>” i użytkownik
+- Token jest widoczny w KWallet / GNOME Keyring jako „`Kimai Tray — <url>`” i użytkownik
   może go usunąć.
 - Moduł sekretów jest za interfejsem, więc można go później zamienić na portal Secret.
 - Zablokowany portfel (`IsLocked`) wymaga `Unlock` → systemowe okno hasła. Obsługa

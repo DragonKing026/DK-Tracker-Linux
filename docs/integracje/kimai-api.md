@@ -37,7 +37,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 (np. `https://<kimai-firmy>/api/doc`) — to wiążące źródło dla naszej wersji serwera.
 
 | Metoda | Ścieżka | Po co | Funkcja |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | GET | `/api/users/me` | test połączenia, alias, `language` | F-01 |
 | GET | `/api/timesheets/active` | trwający wpis (lista 0 lub 1 el.) | F-02, F-03 |
 | GET | `/api/projects?visible=1&ignoreDates=1` | projekty (z projektami poza oknem dat) | F-06 |
@@ -80,7 +80,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 ## Błędy
 
 | Kod | Znaczenie | Reakcja |
-|---|---|---|
+| --- | --- | --- |
 | brak odpowiedzi | sieć / DNS / TLS | „brak połączenia z Kimai” |
 | 401 | zły, unieważniony lub wygasły token (**pusta treść** — sprawdzone) | „token odrzucony lub wygasł” + link do ustawień |
 | 403 `Forbidden` | token działa, ale akcja jest zabroniona: edycja **wpisu wyeksportowanego**, cudzego wpisu, brak uprawnienia (sprawdzone na 2.65.0) | „Kimai nie pozwala na tę zmianę” (`errForbidden`); wpisy z `exported: true` UI blokuje z góry |
@@ -111,6 +111,8 @@ kolumna ROLE_USER → sekcja „Timesheet (own)”**. Szczegóły:
 > brak — używa strefy komputera i pokazuje ostrzeżenie `warnTimezoneMissing` (nigdy nie
 > zakłada UTC).
 
+<!-- osobne callouty -->
+
 > [!note] Początek tygodnia
 > Preferencja `first_weekday` (np. `monday` / `sunday`) ustala początek tygodnia konta.
 > Rdzeń liczy sumy tygodnia od tego dnia (`User.first_weekday`, domyślnie poniedziałek).
@@ -122,7 +124,7 @@ Z [dokumentacji konfiguracji](https://www.kimai.org/documentation/configurations
 zakładać wartości domyślnych:
 
 | Ustawienie | Domyślnie | Skutek dla aplikacji |
-|---|---|---|
+| --- | --- | --- |
 | Dozwolona liczba jednocześnie trwających wpisów | `1` — start nowego **automatycznie zatrzymuje** trwający (sprawdzone: 200, poprzedni wpis dostaje `end`) | przy `> 1` start może zostać odrzucony po osiągnięciu limitu, a `/active` może zwrócić kilka wpisów |
 | Maksymalny czas trwania wpisu | wyłączone (0) | przy włączonym limicie **stop lub edycja mogą zostać odrzucone** (400) |
 | Nakładające się wpisy | dozwolone | przy wyłączeniu edycja początku/końca może zostać odrzucona (400) |
@@ -140,7 +142,9 @@ i [REST API](https://www.kimai.org/documentation/rest-api.html):
   użytkownika bez przeliczania**.
 - `GET /api/users/me` zwraca strefę w polu **`timezone`** (np. `"UTC"`) i język w polu
   `language` — sprawdzone na Kimai 2.67.0.
-- **Sprawdzone na żywo** ([raport](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)): konto Kimai w UTC, system w Europe/Warsaw.
+- **Sprawdzone na żywo**
+  ([raport](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)): konto Kimai w UTC,
+  system w Europe/Warsaw.
   Wysłanie „teraz” w czasie systemu dało wpis **2 h w przyszłości**. Stop został
   odrzucony („end date must not be earlier than the start date”), następny start też
   („active time record which cannot be stopped automatically”).

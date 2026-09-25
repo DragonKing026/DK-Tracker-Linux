@@ -42,6 +42,7 @@ python3 .claude/skills/sprawdz-linki/linki.py wikilinki
 Każde odwołanie do czegoś, co istnieje w repo, jest linkiem ze **ścieżką względną od
 bieżącego pliku**, nie zwykłym tekstem (przykłady poniżej z perspektywy pliku w `docs/`
 lub `TODO/`):
+
 - zadanie: `[0003](../TODO/ZROBIONE/0003-wybor-stosu/todo.md)`, a nie „zadanie 0003”,
 - ADR: `[ADR-0002](../docs/decyzje/0002-stos-python-pyside6.md)`, a nie samo „ADR-0002”,
 - kolumna „Zależy od” na tablicy i pole `zalezy_od` → w treści zadania link do zadania,

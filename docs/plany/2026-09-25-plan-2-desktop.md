@@ -9,39 +9,56 @@ zaktualizowano: 2026-09-25 21:48
 
 # Plan 2: Integracje desktopowe (desktop) — plan implementacji
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or
+> superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Zbudować warstwę `kimai_tray.desktop` — token w magazynie sekretów systemu (KWallet / GNOME Keyring), powiadomienia z przyciskami przez portal i autostart przez portal — na `jeepney`, bez Qt.
+**Goal:** Zbudować warstwę `kimai_tray.desktop` — token w magazynie sekretów systemu (KWallet / GNOME Keyring),
+powiadomienia z przyciskami przez portal i autostart przez portal — na `jeepney`, bez Qt.
 
-**Architecture:** Mały moduł `desktop/bus.py` (wywołania D-Bus z rozpoznaniem błędów, oczekiwanie na sygnały, wzorzec Request/Response portali) i trzy usługi na nim: `secrets.py`, `notifications.py`, `autostart.py`. Tekst powiadomień renderuje czysta funkcja w rdzeniu (`core/notification_policy.render`). Testy jednostkowe na fałszywej szynie (`FakeBus`), testy `desktop` na prawdziwej sesji.
+**Architecture:** Mały moduł `desktop/bus.py` (wywołania D-Bus z rozpoznaniem błędów, oczekiwanie na sygnały, wzorzec
+Request/Response portali) i trzy usługi na nim: `secrets.py`, `notifications.py`, `autostart.py`. Tekst powiadomień
+renderuje czysta funkcja w rdzeniu (`core/notification_policy.render`). Testy jednostkowe na fałszywej szynie
+(`FakeBus`), testy `desktop` na prawdziwej sesji.
 
 **Tech Stack:** Python ≥ 3.13, jeepney 0.9 (czysty Python), pytest.
 
-**Spec:** [docs/specyfikacja/2026-09-25-kimai-tray-1.0.md](../specyfikacja/2026-09-25-kimai-tray-1.0.md) (sekcje 7–9), decyzje [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md), fakty: [rozpoznanie API](../../TODO/ZROBIONE/0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
+**Spec:** [docs/specyfikacja/2026-09-25-kimai-tray-1.0.md](../specyfikacja/2026-09-25-kimai-tray-1.0.md) (sekcje 7–9),
+decyzje [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md), fakty:
+[rozpoznanie API](../../TODO/ZROBIONE/0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 
 ## Global Constraints
 
 - Pracujemy bezpośrednio na `main` (jeden autor), małe commity po polsku z linią `Co-Authored-By`.
-- `src/kimai_tray/desktop/` nie importuje `PySide6` (pilnuje `tests/test_architektura.py`); `core/` nie importuje `jeepney`.
+- `src/kimai_tray/desktop/` nie importuje `PySide6` (pilnuje `tests/test_architektura.py`); `core/` nie importuje
+  `jeepney`.
 - Nowa zależność runtime: `jeepney>=0.9,<1`.
-- Token nigdy w wyjątkach, logach ani plikach; atrybuty sekretu: `application=pl.websystems.KimaiTray`, `url=<adres bez końcowego />`.
-- Sekrety: sesja `plain`, kolekcja alias `default`; brak usługi / odmowa dostępu → `SecretsUnavailable`; odrzucony prompt → `SecretsLocked`.
-- Powiadomienia: portal `org.freedesktop.portal.Notification` (wersja 1 na Plasmie 6.7.5); numer wpisu z identyfikatora `long-timer-<id>`, nie z parametru przycisku (portal dokleja tam `activation-token`).
-- Autostart: portal `org.freedesktop.portal.Background` (wersja 2); `SetStatus` poza piaskownicą zwraca błąd — ignorujemy (`False`), komunikat ≤ 96 znaków.
+- Token nigdy w wyjątkach, logach ani plikach; atrybuty sekretu: `application=pl.websystems.KimaiTray`,
+  `url=<adres bez końcowego />`.
+- Sekrety: sesja `plain`, kolekcja alias `default`; brak usługi / odmowa dostępu → `SecretsUnavailable`; odrzucony
+  prompt → `SecretsLocked`.
+- Powiadomienia: portal `org.freedesktop.portal.Notification` (wersja 1 na Plasmie 6.7.5); numer wpisu z identyfikatora
+  `long-timer-<id>`, nie z parametru przycisku (portal dokleja tam `activation-token`).
+- Autostart: portal `org.freedesktop.portal.Background` (wersja 2); `SetStatus` poza piaskownicą zwraca błąd —
+  ignorujemy (`False`), komunikat ≤ 96 znaków.
 - Połączenie `SessionBus` nie jest bezpieczne wątkowo — jedno na wątek (Plan 3 tworzy osobne dla workerów).
 - Przed commitem: `.venv/bin/ruff format . && .venv/bin/ruff check . && .venv/bin/pytest`.
 
 ## Review Focus
 
-1. **Brak usługi sekretów / odmowa z piaskownicy** (Flatpak bez `--talk-name=org.freedesktop.secrets`) — czytelne `SecretsUnavailable`, nie surowy błąd D-Bus. Test: zadanie 2 (`test_missing_service_is_unavailable`).
-2. **Zablokowany portfel i odrzucony prompt** — `SecretsLocked`, bez zawieszenia i bez tokenu w komunikacie. Test: zadanie 2 (`test_dismissed_unlock_prompt_is_locked`).
-3. **Wiele wpisów o tych samych atrybutach** (po ręcznej edycji w KWallet) — odczyt bierze pierwszy, usunięcie kasuje wszystkie. Test: zadanie 2 (`test_delete_removes_every_match`).
-4. **Bardzo długi status w tle** (> 96 znaków) — przycięty z wielokropkiem, nie odrzucony przez portal. Test: zadanie 4 (`test_status_is_trimmed_to_96_characters`).
-5. **Kliknięcie w powiadomienie bez numeru wpisu / nieznana akcja** — `entry_id=None`, bez wyjątku. Test: zadanie 3 (`test_parse_action_without_entry`).
+1. **Brak usługi sekretów / odmowa z piaskownicy** (Flatpak bez `--talk-name=org.freedesktop.secrets`) — czytelne
+   `SecretsUnavailable`, nie surowy błąd D-Bus. Test: zadanie 2 (`test_missing_service_is_unavailable`).
+2. **Zablokowany portfel i odrzucony prompt** — `SecretsLocked`, bez zawieszenia i bez tokenu w komunikacie. Test:
+   zadanie 2 (`test_dismissed_unlock_prompt_is_locked`).
+3. **Wiele wpisów o tych samych atrybutach** (po ręcznej edycji w KWallet) — odczyt bierze pierwszy, usunięcie kasuje
+   wszystkie. Test: zadanie 2 (`test_delete_removes_every_match`).
+4. **Bardzo długi status w tle** (> 96 znaków) — przycięty z wielokropkiem, nie odrzucony przez portal. Test: zadanie 4
+   (`test_status_is_trimmed_to_96_characters`).
+5. **Kliknięcie w powiadomienie bez numeru wpisu / nieznana akcja** — `entry_id=None`, bez wyjątku. Test: zadanie 3
+   (`test_parse_action_without_entry`).
 
 ## Struktura plików
 
-```
+```text
 pyproject.toml                                  zadanie 1 (jeepney)
 src/kimai_tray/desktop/__init__.py              zadanie 1
 src/kimai_tray/desktop/bus.py                   zadanie 1   SessionBus, DBusCallError, portal_request
@@ -62,21 +79,26 @@ tests/desktop/test_na_zywo.py                   zadanie 5   testy `desktop` na p
 ### Task 1: Szyna D-Bus (`desktop/bus.py`)
 
 **Files:**
+
 - Modify: `pyproject.toml` (zależność `jeepney`)
 - Create: `src/kimai_tray/desktop/__init__.py`, `src/kimai_tray/desktop/bus.py`
 - Create: `tests/desktop/__init__.py`, `tests/desktop/fakes.py`, `tests/desktop/test_bus.py`
 
 **Interfaces:**
+
 - Consumes: `jeepney`.
 - Produces:
   - `class DBusCallError(Exception)` — pola `name: str`, `message: str`
   - `class PortalError(Exception)` — pole `response: int` (1 = anulowane przez użytkownika, 2 = inny błąd)
-  - `Bus` (Protocol): `unique_name: str`; `call(destination, path, interface, member, signature="", body=(), timeout=25.0) -> tuple`; `expect(path, interface, member) -> Expectation`
+  - `Bus` (Protocol): `unique_name: str`; `call(destination, path, interface, member, signature="", body=(),
+    timeout=25.0) -> tuple`; `expect(path, interface, member) -> Expectation`
   - `Expectation` (Protocol): `wait(timeout: float) -> tuple` (rzuca `TimeoutError`), `close() -> None`
   - `class SessionBus` (implementacja `Bus` na jeepney) + `close()`
   - `PORTAL = "org.freedesktop.portal.Desktop"`, `PORTAL_PATH = "/org/freedesktop/portal/desktop"`
-  - `portal_request(bus, interface, member, signature, build_body: Callable[[str], tuple], timeout=120.0) -> dict[str, Any]`
-  - `tests/desktop/fakes.py`: `FakeBus` (`on(path, interface, member, reply)`, `emit(path, interface, member, body)`, `calls`, `closed`)
+  - `portal_request(bus, interface, member, signature, build_body: Callable[[str], tuple], timeout=120.0) -> dict[str,
+    Any]`
+  - `tests/desktop/fakes.py`: `FakeBus` (`on(path, interface, member, reply)`, `emit(path, interface, member, body)`,
+    `calls`, `closed`)
 
 - [ ] **Step 1: Dodaj zależność** — w `pyproject.toml` zmień `dependencies = ["httpx>=0.28,<1"]` na:
 
@@ -385,13 +407,18 @@ git commit -m "feat(desktop): szyna D-Bus na jeepney i wzorzec Request/Response 
 ### Task 2: Token w magazynie sekretów (`desktop/secrets.py`)
 
 **Files:**
+
 - Create: `src/kimai_tray/desktop/secrets.py`
 - Test: `tests/desktop/test_secrets.py`
 - Modify: `docs/integracje/jeepney.md`, `docs/integracje/secret-service.md` (sekcje „Gdzie w kodzie”)
 
 **Interfaces:**
+
 - Consumes: `Bus`, `DBusCallError` (zadanie 1).
-- Produces: `APP_ID = "pl.websystems.KimaiTray"`; `class SecretsUnavailable(Exception)`, `class SecretsLocked(Exception)`; `class SecretServiceStore(bus: Bus, application: str = APP_ID, prompt_timeout: float = 300.0)` z metodami `get(url: str) -> str | None`, `set(url: str, token: str) -> None`, `delete(url: str) -> None`.
+- Produces: `APP_ID = "pl.websystems.KimaiTray"`; `class SecretsUnavailable(Exception)`,
+  `class SecretsLocked(Exception)`; `class SecretServiceStore(bus: Bus, application: str = APP_ID, prompt_timeout:
+  float = 300.0)` z metodami `get(url: str) -> str | None`, `set(url: str, token: str) -> None`,
+  `delete(url: str) -> None`.
 
 - [ ] **Step 1: Napisz testy (padające) `tests/desktop/test_secrets.py`**
 
@@ -660,7 +687,8 @@ def _normalize(url: str) -> str:
 Run: `.venv/bin/pytest tests/desktop/test_secrets.py -q && .venv/bin/pytest -q`
 Expected: 12 PASS w `test_secrets.py`; całość zielona.
 
-- [ ] **Step 5: Dokumentacja** — w `docs/integracje/jeepney.md` i `docs/integracje/secret-service.md` dopisz przed „## Dokumentacja”:
+- [ ] **Step 5: Dokumentacja** — w `docs/integracje/jeepney.md` i `docs/integracje/secret-service.md` dopisz przed „##
+      Dokumentacja”:
 
 ```markdown
 ## Gdzie w kodzie
@@ -685,15 +713,21 @@ git commit -m "feat(desktop): token w magazynie sekretów przez Secret Service"
 ### Task 3: Powiadomienia — tekst w rdzeniu, wysyłka przez portal
 
 **Files:**
+
 - Modify: `src/kimai_tray/core/notification_policy.py` (dopisz `RenderedNotification`, `render`, `entry_id_from`)
 - Create: `src/kimai_tray/desktop/notifications.py`
 - Test: `tests/core/test_notification_render.py`, `tests/desktop/test_notifications.py`
 
 **Interfaces:**
+
 - Consumes: `Notification`, `LONG_TIMER` (Plan 1); `Bus`, `PORTAL`, `PORTAL_PATH`.
 - Produces:
-  - core: `@dataclass(frozen=True) RenderedNotification(id: str, title: str, body: str, buttons: tuple[tuple[str, str], ...])`; `render(notification: Notification, t: Callable[..., str]) -> RenderedNotification`; `entry_id_from(notification_id: str) -> int | None`; `ACTION_LABELS: dict[str, str]`
-  - desktop: `@dataclass(frozen=True) NotificationAction(notification_id: str, action: str, entry_id: int | None)`; `class PortalNotifier(bus)` z `show(rendered) -> None`, `withdraw(notification_id) -> None`, `listen() -> Expectation`, `staticmethod parse(body: tuple) -> NotificationAction`
+  - core: `@dataclass(frozen=True) RenderedNotification(id: str, title: str, body: str, buttons: tuple[tuple[str, str],
+    ...])`; `render(notification: Notification, t: Callable[..., str]) -> RenderedNotification`;
+    `entry_id_from(notification_id: str) -> int | None`; `ACTION_LABELS: dict[str, str]`
+  - desktop: `@dataclass(frozen=True) NotificationAction(notification_id: str, action: str, entry_id: int | None)`;
+    `class PortalNotifier(bus)` z `show(rendered) -> None`, `withdraw(notification_id) -> None`,
+    `listen() -> Expectation`, `staticmethod parse(body: tuple) -> NotificationAction`
 
 - [ ] **Step 1: Napisz testy (padające)**
 
@@ -786,7 +820,8 @@ def test_parse_action_without_entry():
 Run: `.venv/bin/pytest tests/core/test_notification_render.py tests/desktop/test_notifications.py -q`
 Expected: błąd importu (`render`, `kimai_tray.desktop.notifications`).
 
-- [ ] **Step 3: Dopisz do `src/kimai_tray/core/notification_policy.py`** (na końcu pliku; import `Callable` dodaj do importów)
+- [ ] **Step 3: Dopisz do `src/kimai_tray/core/notification_policy.py`** (na końcu pliku; import `Callable` dodaj do
+      importów)
 
 ```python
 ACTION_LABELS = {"stop": "actionStop", "keep": "actionKeepRunning", "settings": "actionSettings"}
@@ -879,7 +914,8 @@ class PortalNotifier:
 
 - [ ] **Step 5: Uruchom — mają przejść**
 
-Run: `.venv/bin/pytest tests/core/test_notification_render.py tests/desktop/test_notifications.py -q && .venv/bin/pytest -q`
+Run: `.venv/bin/pytest tests/core/test_notification_render.py tests/desktop/test_notifications.py -q && .venv/bin/pytest
+-q`
 Expected: 8 PASS; całość zielona (także test kluczy i18n — `actionStop` itd. istnieją od Planu 1).
 
 - [ ] **Step 6: Commit**
@@ -895,13 +931,17 @@ git commit -m "feat(desktop): powiadomienia przez portal z przyciskami; tekst re
 ### Task 4: Autostart i status w tle (`desktop/autostart.py`)
 
 **Files:**
+
 - Create: `src/kimai_tray/desktop/autostart.py`
 - Test: `tests/desktop/test_autostart.py`
 - Modify: `docs/integracje/xdg-portale.md` („Gdzie w kodzie”)
 
 **Interfaces:**
+
 - Consumes: `Bus`, `portal_request`, `PORTAL`, `PORTAL_PATH`, `DBusCallError`, `PortalError`.
-- Produces: `STATUS_MAX = 96`; `@dataclass(frozen=True) BackgroundResult(background: bool, autostart: bool)`; `class BackgroundPortal(bus, timeout=120.0)` z `request(*, autostart: bool, reason: str, commandline: list[str] | None = None) -> BackgroundResult` (rzuca `PortalError`, `TimeoutError`) i `set_status(message: str) -> bool`.
+- Produces: `STATUS_MAX = 96`; `@dataclass(frozen=True) BackgroundResult(background: bool, autostart: bool)`;
+  `class BackgroundPortal(bus, timeout=120.0)` z `request(*, autostart: bool, reason: str, commandline: list[str] |
+  None = None) -> BackgroundResult` (rzuca `PortalError`, `TimeoutError`) i `set_status(message: str) -> bool`.
 
 - [ ] **Step 1: Napisz testy (padające) `tests/desktop/test_autostart.py`**
 
@@ -1062,10 +1102,12 @@ git commit -m "feat(desktop): autostart i status w tle przez portal Background"
 ### Task 5: Testy na prawdziwej sesji i komendy
 
 **Files:**
+
 - Create: `tests/desktop/test_na_zywo.py`
 - Modify: `AGENTS.md` (sekcja „Komendy”)
 
 **Interfaces:**
+
 - Consumes: `SessionBus`, `SecretServiceStore`, `PortalNotifier`, `BackgroundPortal`, `render`, `Translator`.
 - Produces: testy `@pytest.mark.desktop` (domyślnie pomijane).
 
@@ -1128,7 +1170,8 @@ def test_background_request_without_autostart(bus):
 - [ ] **Step 2: Uruchom testy na sesji**
 
 Run: `.venv/bin/pytest -m desktop -v`
-Expected: 3 PASS (na KDE Plasma z odblokowanym portfelem). Przy zablokowanym portfelu pojawi się okno KWallet z pytaniem o hasło.
+Expected: 3 PASS (na KDE Plasma z odblokowanym portfelem). Przy zablokowanym portfelu pojawi się okno KWallet z pytaniem
+o hasło.
 
 - [ ] **Step 3: `AGENTS.md` → „Komendy”** — w bloku „Python (rdzeń)” dopisz linię:
 
@@ -1148,5 +1191,9 @@ git commit -m "test(desktop): testy integracji na prawdziwej sesji D-Bus"
 
 ## Poza tym planem
 
-- Plan 3 (UI): wątek nasłuchu kliknięć (`PortalNotifier.listen()` w osobnym połączeniu), okno ustawień z zapisem tokenu (`SecretServiceStore.set`), opcja autostartu z komendą `--hidden`, obsługa `SecretsUnavailable` / `SecretsLocked` w UI (przy braku portfela — podpowiedź, jak go założyć; [0027](../../TODO/ZROBIONE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md)). Nasłuch kliknięć może mieć osobne połączenie — sprawdzić na żywo.
+- Plan 3 (UI): wątek nasłuchu kliknięć (`PortalNotifier.listen()` w osobnym połączeniu), okno ustawień z zapisem tokenu
+  (`SecretServiceStore.set`), opcja autostartu z komendą `--hidden`, obsługa `SecretsUnavailable` / `SecretsLocked` w UI
+  (przy braku portfela — podpowiedź, jak go założyć;
+  [0027](../../TODO/ZROBIONE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md)). Nasłuch kliknięć może mieć osobne
+  połączenie — sprawdzić na żywo.
 - Plan 4 (Flatpak): `--talk-name=org.freedesktop.secrets` i moduł pip `jeepney` w manifeście.

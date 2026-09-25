@@ -8,10 +8,10 @@ utworzono: 2026-09-25 17:31
 zaktualizowano: 2026-09-25 20:37
 ---
 
+# ADR-0003: Okno szybkiej obsługi — bezramkowe, chowane po utracie fokusu
+
 > [!warning] Zastąpiona
 > Zastąpiona przez [ADR-0005](0005-okno-przy-tacce-na-kde.md) (2026-09-25 20:37) po wynikach prototypu 0004.
-
-# ADR-0003: Okno szybkiej obsługi — bezramkowe, chowane po utracie fokusu
 
 ## Kontekst
 
@@ -24,7 +24,7 @@ Aplikacja ma działać w KDE Plasma (priorytet) i w GNOME.
 ## Rozważane opcje
 
 | Opcja | Zalety | Wady |
-|---|---|---|
+| --- | --- | --- |
 | **A. Okno bez ramki, chowane po kliknięciu obok** | zachowanie jak popup wtyczki; jedna implementacja dla KDE i GNOME | pozycję wybiera kompozytor (zwykle środek ekranu); w KDE można to poprawić regułą okna KWin |
 | B. Popup przez `layer-shell-qt`, zakotwiczony przy panelu (tylko KDE) | wygląda jak natywny aplet Plasmy | biblioteki nie ma w `org.kde.Platform` (trzeba dołożyć moduł); nie działa w GNOME (fallback do A); więcej ryzyka |
 | C. Najpierw menu, okno z menu | menu zawsze przy ikonie | lista i formularz startu w menu są niewygodne |

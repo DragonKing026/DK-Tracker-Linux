@@ -24,9 +24,11 @@ Wykonać **zadanie 11** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
-- Modify: `src/kimai_tray/core/settings.py` (`Memory.tray_hint_shown`), `src/kimai_tray/core/tracker.py` (`Tracker.remember`)
+- Modify: `src/kimai_tray/core/settings.py` (`Memory.tray_hint_shown`), `src/kimai_tray/core/tracker.py`
+  (`Tracker.remember`)
 - Modify: `tests/core/test_tracker_refresh.py`
 - Create: `src/kimai_tray/ui/app.py`
 - Test: `tests/ui/test_app.py`
@@ -50,15 +52,19 @@ Wykonać **zadanie 11** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 
 ## Materiały
 
-- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg: `328 passed, 1 skipped, 12 deselected in 1.04s`
+- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg:
+  `328 passed, 1 skipped, 12 deselected in 1.04s`
 
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:10** Start wykonania.
 - **23:10** Zamknięte: testy zielone (328 passed, 1 skipped, 12 deselected in 1.04s), commity na main.
 
 ## Wynik
 
-[app.py](../../../src/kimai_tray/ui/app.py): `Controller`; w rdzeniu `Memory.tray_hint_shown` i `Tracker.remember`. Testy: [test_app.py](../../../tests/ui/test_app.py) — 14 zielonych, [test_tracker_refresh.py](../../../tests/core/test_tracker_refresh.py) +1. Bez odchyleń od planu.
+[app.py](../../../src/kimai_tray/ui/app.py): `Controller`; w rdzeniu `Memory.tray_hint_shown` i `Tracker.remember`.
+Testy: [test_app.py](../../../tests/ui/test_app.py) — 14 zielonych,
+[test_tracker_refresh.py](../../../tests/core/test_tracker_refresh.py) +1. Bez odchyleń od planu.

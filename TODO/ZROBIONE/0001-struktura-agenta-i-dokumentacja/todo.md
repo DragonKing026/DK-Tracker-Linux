@@ -49,6 +49,7 @@ Wzorzec UI, do którego odnosi się dokumentacja:
 ## Dziennik
 
 ### 2026-09-25
+
 - Sklonowano i przeanalizowano wtyczkę kimai-ws-tracker 1.5.1 (api.js, validate.js,
   popup.js, options.js, background.js, i18n.js).
 - Zrzuty wtyczki wykonane z kopii z atrapą `chrome.*` i Kimai API (dane fikcyjne).
@@ -86,8 +87,10 @@ Wzorzec UI, do którego odnosi się dokumentacja:
 
 ## Wynik
 
-- Reguły: [AGENTS.md](../../../AGENTS.md), [CLAUDE.md](../../../CLAUDE.md); skille w [.claude/skills/](../../../.claude/skills).
+- Reguły: [AGENTS.md](../../../AGENTS.md), [CLAUDE.md](../../../CLAUDE.md); skille w
+  [.claude/skills/](../../../.claude/skills).
 - Dokumentacja: [indeks](../../../docs/README.md); katalog funkcji F-01…F-24; 7 dokumentów integracji.
-- Na później: wybór stosu ([0003](../0003-wybor-stosu/todo.md)), specyfikacja ([0002](../0002-specyfikacja-projektu/todo.md)), prototyp tacki ([0004](../0004-prototyp-tacki-i-okna/todo.md)).
+- Na później: wybór stosu ([0003](../0003-wybor-stosu/todo.md)), specyfikacja
+  ([0002](../0002-specyfikacja-projektu/todo.md)), prototyp tacki ([0004](../0004-prototyp-tacki-i-okna/todo.md)).
 - Znaleziony drobny błąd we wtyczce (szara kropka projektu w stanie bezczynnym) —
   opisany w [WS Tracker](../../../docs/integracje/kimai-ws-tracker.md), nie powielamy go.

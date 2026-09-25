@@ -23,7 +23,8 @@ Wykonać **zadanie 1** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 - Pliki:
@@ -55,10 +56,14 @@ Wykonać **zadanie 1** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 ## Dziennik
 
 ### 2026-09-25
+
 - **20:59** Utworzono zadanie z Planu 2.
 - **21:00** Start wykonania (Native, na main).
 - **21:00** Zamknięte: testy zielone (180 passed, 9 deselected in 0.14s), commity na main.
 
 ## Wynik
 
-[src/kimai_tray/desktop/bus.py](../../../src/kimai_tray/desktop/bus.py): `SessionBus` (jeepney), `DBusCallError`, `PortalError`, protokoły `Bus`/`Expectation`, `portal_request` (subskrypcja Response przed wywołaniem). Fałszywa szyna: [tests/desktop/fakes.py](../../../tests/desktop/fakes.py). Testy: [tests/desktop/test_bus.py](../../../tests/desktop/test_bus.py) — 5 zielonych. Bez odchyleń od planu.
+[src/kimai_tray/desktop/bus.py](../../../src/kimai_tray/desktop/bus.py): `SessionBus` (jeepney), `DBusCallError`,
+`PortalError`, protokoły `Bus`/`Expectation`, `portal_request` (subskrypcja Response przed wywołaniem). Fałszywa szyna:
+[tests/desktop/fakes.py](../../../tests/desktop/fakes.py). Testy:
+[tests/desktop/test_bus.py](../../../tests/desktop/test_bus.py) — 5 zielonych. Bez odchyleń od planu.

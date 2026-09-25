@@ -23,12 +23,14 @@ Wykonać **zadanie 7** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/kimai_client.py`
 - Test: `tests/core/test_kimai_client.py`
-- Modify: `docs/integracje/kimai-api.md` (sekcja „Gdzie w kodzie”), `docs/integracje/httpx.md` (sekcja „Gdzie w kodzie” — dopisz)
+- Modify: `docs/integracje/kimai-api.md` (sekcja „Gdzie w kodzie”), `docs/integracje/httpx.md` (sekcja „Gdzie w kodzie”
+  — dopisz)
 
 ## Kryteria akceptacji
 
@@ -53,10 +55,14 @@ Wykonać **zadanie 7** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/kimai_client.py](../../../src/kimai_tray/core/kimai_client.py): wszystkie endpointy aplikacji, błędy jako `ApiError`, stronicowanie po `X-Total-Pages` z obsługą 404, `billable` wysyłane tylko gdy podane. Testy: [tests/core/test_kimai_client.py](../../../tests/core/test_kimai_client.py) — 12 zielonych. Dokumentacja integracji (kimai-api, httpx) uzupełniona o „Gdzie w kodzie”, status w-uzyciu.
+[src/kimai_tray/core/kimai_client.py](../../../src/kimai_tray/core/kimai_client.py): wszystkie endpointy aplikacji,
+błędy jako `ApiError`, stronicowanie po `X-Total-Pages` z obsługą 404, `billable` wysyłane tylko gdy podane. Testy:
+[tests/core/test_kimai_client.py](../../../tests/core/test_kimai_client.py) — 12 zielonych. Dokumentacja integracji
+(kimai-api, httpx) uzupełniona o „Gdzie w kodzie”, status w-uzyciu.

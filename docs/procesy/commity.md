@@ -25,7 +25,7 @@ każdy commit ma dać się przeczytać, zrozumieć i w razie potrzeby cofnąć o
 
 ## Format — Conventional Commits po polsku
 
-```
+```text
 <typ>(<zakres opcjonalny>): <krótki opis w trybie rozkazującym, małą literą>
 
 <opcjonalne ciało: DLACZEGO, nie CO — co widać w diffie>
@@ -34,7 +34,7 @@ Refs: TODO/0005-klient-api-kimai
 ```
 
 | Typ | Kiedy |
-|---|---|
+| --- | --- |
 | `feat` | nowa funkcja aplikacji |
 | `fix` | poprawka błędu |
 | `docs` | tylko dokumentacja (`docs/`, `README`, `AGENTS.md`) |
@@ -47,7 +47,7 @@ Refs: TODO/0005-klient-api-kimai
 
 ### Przykłady
 
-```
+```text
 docs(integracje): opisz Kimai REST API
 todo: dodaj zadanie 0005-klient-api-kimai
 feat(tray): pokaż czas trwającego wpisu w podpowiedzi ikony

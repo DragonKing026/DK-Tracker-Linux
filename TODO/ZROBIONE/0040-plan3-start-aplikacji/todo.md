@@ -24,11 +24,13 @@ Wykonać **zadanie 12** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/ui/main.py`, `src/kimai_tray/__main__.py`
 - Test: `tests/ui/test_main.py`
-- Modify: `docs/integracje/qt-pyside6.md` („Gdzie w kodzie”), `docs/architektura/architektura-aplikacji.md`, `docs/architektura/struktura-repozytorium.md`, `AGENTS.md` („Komendy”)
+- Modify: `docs/integracje/qt-pyside6.md` („Gdzie w kodzie”), `docs/architektura/architektura-aplikacji.md`,
+  `docs/architektura/struktura-repozytorium.md`, `AGENTS.md` („Komendy”)
 
 ## Kryteria akceptacji
 
@@ -48,15 +50,22 @@ Wykonać **zadanie 12** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 
 ## Materiały
 
-- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg: `334 passed, 1 skipped, 12 deselected in 1.14s`
+- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg:
+  `334 passed, 1 skipped, 12 deselected in 1.14s`
 
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:10** Start wykonania.
 - **23:11** Zamknięte: testy zielone (334 passed, 1 skipped, 12 deselected in 1.14s), commity na main.
 
 ## Wynik
 
-[main.py](../../../src/kimai_tray/ui/main.py) (`--hidden`, jedna instancja, logi, tłumaczenia Qt, czekanie na tackę), [__main__.py](../../../src/kimai_tray/__main__.py). Testy: [test_main.py](../../../tests/ui/test_main.py) — 6 zielonych (334 w całości, trzy przebiegi). Dokumentacja: [qt-pyside6](../../../docs/integracje/qt-pyside6.md), [architektura](../../../docs/architektura/architektura-aplikacji.md), [struktura](../../../docs/architektura/struktura-repozytorium.md), [AGENTS.md](../../../AGENTS.md). Bez odchyleń od planu.
+[main.py](../../../src/kimai_tray/ui/main.py) (`--hidden`, jedna instancja, logi, tłumaczenia Qt, czekanie na tackę),
+[`__main__.py`](../../../src/kimai_tray/__main__.py). Testy: [test_main.py](../../../tests/ui/test_main.py) — 6 zielonych
+(334 w całości, trzy przebiegi). Dokumentacja: [qt-pyside6](../../../docs/integracje/qt-pyside6.md),
+[architektura](../../../docs/architektura/architektura-aplikacji.md),
+[struktura](../../../docs/architektura/struktura-repozytorium.md), [AGENTS.md](../../../AGENTS.md). Bez odchyleń od
+planu.

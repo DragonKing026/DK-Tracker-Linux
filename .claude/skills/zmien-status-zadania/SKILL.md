@@ -10,7 +10,7 @@ Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
 ## Status → folder
 
 | Status | Folder |
-|---|---|
+| --- | --- |
 | `pomysl`, `do-zrobienia` | `TODO/DO-ZROBIENIA/` |
 | `w-trakcie`, `zablokowane` | `TODO/W-TRAKCIE/` |
 | `zrobione`, `porzucone` | `TODO/ZROBIONE/` |
@@ -47,10 +47,12 @@ Tablica w `TODO/README.md` jest generowana między `<!-- tablica:start -->` i
    Jeśli coś zostało na później, utwórz nowe zadanie skillem `nowe-zadanie`.
 6. **Przeniesienie**, gdy nowy status należy do innego folderu. Tylko skryptem, który
    robi `git mv` i poprawia wszystkie linki:
+
    ```bash
    python3 .claude/skills/sprawdz-linki/linki.py przenies \
      TODO/DO-ZROBIENIA/NNNN-slug TODO/W-TRAKCIE/NNNN-slug
    ```
+
    Wynik musi kończyć się „Wszystkie linki OK.”. Nie używaj samego `git mv`.
 7. **Tablica** [TODO/README.md](../../../TODO/README.md): przenieś wiersz do sekcji
    odpowiadającej folderowi („Do zrobienia” / „W trakcie” / „Zrobione”) i zaktualizuj

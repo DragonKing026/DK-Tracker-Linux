@@ -15,7 +15,7 @@ zweryfikowano zachowania API, na których opiera się aplikacja.
 ## Środowisko
 
 | | |
-|---|---|
+| --- | --- |
 | Obraz | `kimai/kimai2:apache` → **Kimai 2.67.0** (env: prod) + `mysql:8.3` |
 | Compose | [prototyp/kimai-docker/docker-compose.yml](../prototyp/kimai-docker/docker-compose.yml) |
 | Skrypty | [probe.py](../prototyp/kimai-docker/probe.py), [probe_teamlead.py](../prototyp/kimai-docker/probe_teamlead.py) |
@@ -41,7 +41,7 @@ To szczegół implementacji Kimai. Może się zmienić w przyszłej wersji, dlat
 ## Wyniki
 
 | # | Sprawdzenie | Wynik | Plik |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 1 | ROLE_USER wysyła `billable` | **400** `This form should not contain extra fields.` — cały request odrzucony | [wynik 3](wynik-probe-3.txt) |
 | 2 | ROLE_TEAMLEAD wysyła `billable=false`, potem PATCH `true` | 200 / 200 — przełącznik działa | [teamlead](wynik-probe-teamlead.txt) |
 | 3 | `/api/users/me` zawiera strefę | **tak: pole `timezone`** (tu `UTC`) oraz `language` | [wynik 3](wynik-probe-3.txt) |

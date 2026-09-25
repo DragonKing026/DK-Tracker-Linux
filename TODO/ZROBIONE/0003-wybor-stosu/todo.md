@@ -23,6 +23,7 @@ Wybrać język, toolkit UI, sposób realizacji tacki i runtime Flatpaka, zapisa�
 ## Kontekst
 
 Wymagania wynikające z dokumentacji:
+
 - ikona SNI działająca w Plasmie 6 (Wayland) i w GNOME z AppIndicator
   ([SNI](../../../docs/integracje/statusnotifieritem.md)),
 - okno szybkiej obsługi mimo braku pozycjonowania na Waylandzie,
@@ -33,13 +34,15 @@ Wymagania wynikające z dokumentacji:
 Wstępni kandydaci (do porównania w ADR):
 
 | Kandydat | Tray | Runtime | Uwagi |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Python + PySide6 (Qt 6) | `QSystemTrayIcon` (SNI) | `org.kde.Platform` + PySide BaseApp | natywne w KDE, szybki rozwój |
 | C++ / QML + KDE Frameworks | `KStatusNotifierItem` | `org.kde.Platform` | najbardziej „KDE”, więcej kodu |
 | Tauri 2 (Rust + web) | libayatana-appindicator | `org.gnome.Platform` / Freedesktop | reużycie HTML/CSS/JS wtyczki |
 | Python/Rust + GTK4/libadwaita | własny SNI przez D-Bus | `org.gnome.Platform` | GTK4 nie ma API tacki |
 
 > [!todo] Każdą opcję zweryfikować przez Context7/dokumentację przed ADR.
+
+<!-- osobne callouty -->
 
 > [!warning] Ustalone: Tauri na Linuksie nie obsługuje kliknięcia ikony w tacce
 > Według dokumentacji Tauri typ `TrayIconEvent` (Click, DoubleClick, Enter, Move, Leave)
@@ -53,11 +56,13 @@ Wstępni kandydaci (do porównania w ADR):
 - [x] Porównanie opcji ze źródłami
 - [x] ADR `docs/decyzje/0002-*.md` zaakceptowany przez użytkownika
 - [x] Dokumenty integracji dla wybranych bibliotek (Qt/PySide6; HTTP i sekrety — przy wyborze tych bibliotek)
-- [ ] ~~Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) uzupełniona~~ → przeniesione do zadania [0002](../0002-specyfikacja-projektu/todo.md) (wymaga szkieletu projektu)
+- [ ] ~~Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) uzupełniona~~ → przeniesione do zadania
+      [0002](../0002-specyfikacja-projektu/todo.md) (wymaga szkieletu projektu)
 
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z wstępną listą kandydatów.
 - Context7: w Tauri 2 zdarzenia kliknięcia tacki nie działają na Linuksie, co jest poważnym minusem tej opcji.
 - Użytkownik zaakceptował rekomendację: Python + PySide6.

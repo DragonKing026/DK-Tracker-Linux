@@ -20,7 +20,7 @@ Wymagania szczegółowe: [zadanie 0003](../../TODO/ZROBIONE/0003-wybor-stosu/tod
 ## Rozważane opcje
 
 | Opcja | Zalety | Wady |
-|---|---|---|
+| --- | --- | --- |
 | **Python + PySide6** | `QSystemTrayIcon` działa przez SNI w KDE, GNOME, Xfce, LXQt; sygnał `activated` z powodem (Trigger/Context/DoubleClick/MiddleClick); gotowa baza Flatpak `io.qt.PySide.BaseApp`; szybki rozwój; łatwe przeniesienie logiki JS z testami (pytest, pytest-qt) | interpreter w paczce (runtime KDE i tak go ma); typowanie tylko przez mypy |
 | C++ / QML + KDE Frameworks | najbardziej natywne dla KDE, `KStatusNotifierItem` z pełnym API SNI | dużo więcej kodu, wolniejszy rozwój |
 | Tauri 2 (Rust + web) | można użyć HTML/CSS/JS wtyczki | **zdarzenia kliknięcia ikony nie działają na Linuksie** (dokumentacja Tauri) — lewy klik nie otworzy okna |

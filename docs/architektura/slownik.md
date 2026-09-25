@@ -9,7 +9,7 @@ zaktualizowano: 2026-09-25 17:47
 # Słownik pojęć
 
 | Pojęcie | Znaczenie |
-|---|---|
+| --- | --- |
 | **Kimai** | Open-source'owy system rejestracji czasu pracy (PHP/Symfony), u nas self-hostowany. [Kimai API](../integracje/kimai-api.md) |
 | **Wpis / timesheet** | Jeden odcinek czasu w Kimai: początek, koniec, projekt, czynność, opis, billable. |
 | **Trwający wpis** | Wpis bez `end` — „włączony timer”. Kimai zwraca go z `/api/timesheets/active`. |

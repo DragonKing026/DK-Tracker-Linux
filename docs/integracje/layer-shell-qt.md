@@ -37,7 +37,8 @@ layer.setProperty("scope", "kimai-tray-popup")
 ```
 
 Wynik na Plaśmie 6.7.5: okno 12 px od prawej, tuż nad panelem (kompozytor respektuje strefę
-panelu); lokalnie i we Flatpaku. Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
+panelu); lokalnie i we Flatpaku. Szczegóły:
+[ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
 
 ## Flatpak
 
@@ -55,14 +56,17 @@ pod Qt runtime'u (wymaga prywatnego API QtWaylandClient — dlatego nie działa 
 ```
 
 Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
-(`QT_PLUGIN_PATH` runtime'u obejmuje `/app/lib/plugins`). Budowa: [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
+(`QT_PLUGIN_PATH` runtime'u obejmuje `/app/lib/plugins`). Budowa:
+[ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
 
 ## Pułapki
 
 > [!warning]
+>
 > - **Bez zmiennej środowiskowej**: `QT_WAYLAND_SHELL_INTEGRATION=layer-shell` (tak robił prototyp)
 >   zamienia **każde** okno procesu w warstwę. Zamiast niej: `Window::get(okno)` przed pokazaniem —
->   w 6.7.5 podpina integrację tylko do tego okna ([źródło](https://github.com/KDE/layer-shell-qt/blob/v6.7.5/src/interfaces/window.cpp),
+>   w 6.7.5 podpina integrację tylko do tego okna
+>   ([źródło](https://github.com/KDE/layer-shell-qt/blob/v6.7.5/src/interfaces/window.cpp),
 >   sprawdzone na żywo 2026-09-25 22:08, [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/todo.md)).
 > - **Kruchy symbol C++**: nazwa `_ZN12LayerShellQt6Window3getEP7QWindow` zależy od ABI;
 >   w aplikacji zamknięta w jednym module z testem obecności symbolu.
@@ -71,13 +75,17 @@ Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
 > - GNOME (Mutter) nie udostępnia `layer-shell` aplikacjom — tam ścieżka bezramkowa.
 > - Kliknięcie ikony w tacce przy otwartym oknie nie dociera do aplikacji (Plasma) — okno
 >   zamyka przycisk, `Esc` albo klik obok.
-> - **Qt z pip nie wystarczy**: biblioteka systemowa wymaga `Qt_6.11_PRIVATE_API`, którego nie eksportuje Qt z koła PySide6 —
->   `CDLL` rzuca `OSError`, aplikacja przechodzi na okno bez ramki. Na żywo uruchamiamy systemowym Pythonem, we Flatpaku moduł jest budowany na Qt runtime'u.
+> - **Qt z pip nie wystarczy**: biblioteka systemowa wymaga `Qt_6.11_PRIVATE_API`, którego nie eksportuje Qt z koła
+>   PySide6 —
+>   `CDLL` rzuca `OSError`, aplikacja przechodzi na okno bez ramki. Na żywo uruchamiamy systemowym Pythonem, we Flatpaku
+>   moduł jest budowany na Qt runtime'u.
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/ui/placement.py](../../src/kimai_tray/ui/placement.py) — `choose_mode` / `detect_mode` (layer / bez ramki / okno), `apply`, wywołanie `LayerShellQt::Window::get` przez ctypes tylko dla okna szybkiej obsługi.
-- Test obecności symbolu: [tests/ui/test_popup.py](../../tests/ui/test_popup.py) (`test_layer_shell_symbol_is_present_when_the_library_is`).
+- [src/kimai_tray/ui/placement.py](../../src/kimai_tray/ui/placement.py) — `choose_mode` / `detect_mode` (layer / bez
+  ramki / okno), `apply`, wywołanie `LayerShellQt::Window::get` przez ctypes tylko dla okna szybkiej obsługi.
+- Test obecności symbolu: [tests/ui/test_popup.py](../../tests/ui/test_popup.py)
+  (`test_layer_shell_symbol_is_present_when_the_library_is`).
 
 ## Dokumentacja
 

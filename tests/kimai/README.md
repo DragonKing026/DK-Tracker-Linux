@@ -23,14 +23,14 @@ tests/kimai/kimai-testowe.sh down    # zatrzymanie i usunięcie wszystkiego (tak
 `up` wypisuje gotowe `export`-y, więc można też: `eval "$(tests/kimai/kimai-testowe.sh up)"`.
 
 | Zmienna | Domyślnie | Znaczenie |
-|---|---|---|
+| --- | --- | --- |
 | `KIMAI_VERSION` | `2.67.0` | tag obrazu `kimai/kimai2` (np. wersja z Kimai firmy) |
 | `KIMAI_TEST_PORT` | `8001` | port na `127.0.0.1` |
 
 ## Co jest w środku
 
 | Konto | Rola | Token (`KIMAI_TEST_*_TOKEN`) | Po co |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `admin` | ROLE_SUPER_ADMIN | `ADMIN` | zakładanie danych testowych |
 | `jan` | ROLE_USER | `USER` | typowy pracownik — **bez** prawa do billable (400 „extra fields”) |
 | `kierownik` | ROLE_TEAMLEAD | `LEAD` | billable dozwolone |

@@ -23,7 +23,8 @@ Wykonać **zadanie 4** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/timefmt.py`
@@ -51,10 +52,14 @@ Wykonać **zadanie 4** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/timefmt.py](../../../src/kimai_tray/core/timefmt.py): `zone` (z bezpiecznym brakiem strefy), stemple Kimai w strefie konta, formaty `h:mm`/`47m`, tydzień od poniedziałku (także przy zmianie czasu), walidacja HH:MM. Testy: [tests/core/test_timefmt.py](../../../tests/core/test_timefmt.py) — 18 zielonych. Ruling: plan podawał 19 przypadków — błąd liczenia.
+[src/kimai_tray/core/timefmt.py](../../../src/kimai_tray/core/timefmt.py): `zone` (z bezpiecznym brakiem strefy),
+stemple Kimai w strefie konta, formaty `h:mm`/`47m`, tydzień od poniedziałku (także przy zmianie czasu), walidacja
+HH:MM. Testy: [tests/core/test_timefmt.py](../../../tests/core/test_timefmt.py) — 18 zielonych. Ruling: plan podawał 19
+przypadków — błąd liczenia.

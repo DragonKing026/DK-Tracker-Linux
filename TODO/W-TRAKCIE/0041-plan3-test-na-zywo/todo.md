@@ -23,9 +23,11 @@ Wykonać **zadanie 13** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../../ZROBIONE/0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../../ZROBIONE/0028-plan3-projekt-ui/todo.md).
 - Pliki:
-- Create (w folderze zadania TODO): `testy/lista-kontrolna.md`, `zrzuty/*.png` (tylko wycinki okna aplikacji i ikony — **nigdy** cały pulpit)
+- Create (w folderze zadania TODO): `testy/lista-kontrolna.md`, `zrzuty/*.png` (tylko wycinki okna aplikacji i ikony —
+  **nigdy** cały pulpit)
 - Modify: `README.md` (status), `docs/plany/README.md`
 
 ## Kryteria akceptacji
@@ -49,5 +51,6 @@ Wykonać **zadanie 13** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:11** Start wykonania.

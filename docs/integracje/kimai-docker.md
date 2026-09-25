@@ -66,6 +66,7 @@ Wersję instancji podaje `GET /api/version`.
 ## Pułapki
 
 > [!warning]
+>
 > - **Strefa czasowa:** nowi użytkownicy dostają strefę domyślną serwera (w kontenerze
 >   UTC). Testy muszą liczyć czasy w strefie konta, inaczej wpisy lądują w przyszłości —
 >   ten sam błąd, który aplikacja ma wykrywać.
@@ -80,7 +81,8 @@ Wersję instancji podaje `GET /api/version`.
 - [tests/kimai/kimai-testowe.sh](../../tests/kimai/kimai-testowe.sh) — `up` / `env` / `down`:
   start, konta (`admin`, `jan` ROLE_USER, `kierownik` ROLE_TEAMLEAD), tokeny, dane testowe.
 - [tests/kimai/README.md](../../tests/kimai/README.md) — instrukcja.
-- [tests/kimai/conftest.py](../../tests/kimai/conftest.py) — fixture `kimai_env` (uruchamia/zatrzymuje Kimai) i trackery dla ROLE_USER / ROLE_TEAMLEAD.
+- [tests/kimai/conftest.py](../../tests/kimai/conftest.py) — fixture `kimai_env` (uruchamia/zatrzymuje Kimai) i trackery
+  dla ROLE_USER / ROLE_TEAMLEAD.
 - [tests/kimai/test_kontrakt.py](../../tests/kimai/test_kontrakt.py) — testy kontraktowe: `.venv/bin/pytest -m kimai`.
 - Historia: [prototyp ze spike'u](../../TODO/ZROBIONE/0002-specyfikacja-projektu/prototyp/kimai-docker/).
 

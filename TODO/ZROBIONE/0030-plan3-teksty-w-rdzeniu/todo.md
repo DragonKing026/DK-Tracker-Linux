@@ -24,7 +24,8 @@ Wykonać **zadanie 2** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/core/presentation.py`
 - Test: `tests/core/test_presentation.py`
@@ -51,10 +52,13 @@ Wykonać **zadanie 2** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:08** Start wykonania.
 - **23:08** Zamknięte: testy zielone (237 passed, 12 deselected in 0.19s), commity na main.
 
 ## Wynik
 
-[presentation.py](../../../src/kimai_tray/core/presentation.py): `tray_status`, `display_zone`, `day_label`, `entry_row`. Testy: [test_presentation.py](../../../tests/core/test_presentation.py) — 10 zielonych. Bez odchyleń od planu.
+[presentation.py](../../../src/kimai_tray/core/presentation.py): `tray_status`, `display_zone`, `day_label`,
+`entry_row`. Testy: [test_presentation.py](../../../tests/core/test_presentation.py) — 10 zielonych. Bez odchyleń od
+planu.

@@ -14,7 +14,7 @@ miejscem na wszystko, co z nim związane: zrzuty ekranu, szkice, logi, notatki b
 Folder zadania leży w podfolderze **według statusu**:
 
 | Podfolder | Statusy | Co tam jest |
-|---|---|---|
+| --- | --- | --- |
 | [TODO/DO-ZROBIENIA/](../../TODO/DO-ZROBIENIA) | `pomysl`, `do-zrobienia` | zadania czekające na start |
 | [TODO/W-TRAKCIE/](../../TODO/W-TRAKCIE) | `w-trakcie`, `zablokowane` | zadania rozpoczęte |
 | [TODO/ZROBIONE/](../../TODO/ZROBIONE/) | `zrobione`, `porzucone` | zadania zakończone |
@@ -31,7 +31,7 @@ Folder zadania leży w podfolderze **według statusu**:
 według rodzaju. Nic, co powstało na potrzeby zadania, nie leży luzem gdzie indziej.
 
 | Podfolder | Co trafia | Przykład |
-|---|---|---|
+| --- | --- | --- |
 | `zrzuty/` | zrzuty ekranu (PNG) | `zrzuty/kde-tacka-trwa.png` |
 | `diagramy/` | diagramy eksportowane i ich źródła | `diagramy/przeplyw-startu.svg` |
 | `testy/` | scenariusze testów ręcznych, raporty, logi, wyniki | `testy/raport-2026-09-26.md`, `testy/pytest.log` |
@@ -40,6 +40,7 @@ według rodzaju. Nic, co powstało na potrzeby zadania, nie leży luzem gdzie in
 | `dane/` | przykładowe dane: odpowiedzi API, pliki wejściowe | `dane/timesheets-active.json` |
 
 Zasady:
+
 - Podfoldery tworzymy **dopiero, gdy jest w nich co położyć** (git nie przechowuje pustych
   folderów). Szablon wymienia je w sekcji „Materiały”.
 - W `todo.md` każdy materiał jest **podlinkowany lub osadzony** w sekcji „Materiały”
@@ -51,7 +52,7 @@ Zasady:
 - Kod z `prototyp/` nigdy nie jest importowany przez aplikację.
 - Materiały **wspólne dla wielu dokumentów** (np. wzorzec UI) trafiają do `docs/assets/`.
 
-```
+```text
 TODO/
   README.md                     ← tablica: linki do wszystkich zadań, pogrupowane jak foldery
   _szablon/todo.md              ← szablon (kopiowany przez skill nowe-zadanie)

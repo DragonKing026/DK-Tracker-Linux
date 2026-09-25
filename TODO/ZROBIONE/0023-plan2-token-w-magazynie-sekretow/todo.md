@@ -23,7 +23,8 @@ Wykonać **zadanie 2** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 - Pliki:
@@ -54,10 +55,15 @@ Wykonać **zadanie 2** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 ## Dziennik
 
 ### 2026-09-25
+
 - **20:59** Utworzono zadanie z Planu 2.
 - **21:00** Start wykonania.
 - **21:01** Zamknięte: testy zielone (192 passed, 9 deselected in 0.13s), commity na main.
 
 ## Wynik
 
-[src/kimai_tray/desktop/secrets.py](../../../src/kimai_tray/desktop/secrets.py): `SecretServiceStore` (get/set/delete, sesja plain, kolekcja `default`, odblokowanie przez prompt), `SecretsUnavailable`, `SecretsLocked`. Testy: [tests/desktop/test_secrets.py](../../../tests/desktop/test_secrets.py) — 12 zielonych. Dokumentacja: [jeepney](../../../docs/integracje/jeepney.md), [Secret Service](../../../docs/integracje/secret-service.md). Bez odchyleń od planu.
+[src/kimai_tray/desktop/secrets.py](../../../src/kimai_tray/desktop/secrets.py): `SecretServiceStore` (get/set/delete,
+sesja plain, kolekcja `default`, odblokowanie przez prompt), `SecretsUnavailable`, `SecretsLocked`. Testy:
+[tests/desktop/test_secrets.py](../../../tests/desktop/test_secrets.py) — 12 zielonych. Dokumentacja:
+[jeepney](../../../docs/integracje/jeepney.md), [Secret Service](../../../docs/integracje/secret-service.md). Bez
+odchyleń od planu.

@@ -23,7 +23,8 @@ Wykonać **zadanie 3** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 - Pliki:
@@ -54,10 +55,15 @@ Wykonać **zadanie 3** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 ## Dziennik
 
 ### 2026-09-25
+
 - **20:59** Utworzono zadanie z Planu 2.
 - **21:01** Start wykonania.
 - **21:01** Zamknięte: testy zielone (200 passed, 9 deselected in 0.14s), commity na main.
 
 ## Wynik
 
-Rdzeń: [notification_policy.py](../../../src/kimai_tray/core/notification_policy.py) — `RenderedNotification`, `render()`, `entry_id_from()`, `ACTION_LABELS`. Pulpit: [notifications.py](../../../src/kimai_tray/desktop/notifications.py) — `PortalNotifier` (show/withdraw/listen/parse), `NotificationAction`. Testy: [test_notification_render.py](../../../tests/core/test_notification_render.py), [test_notifications.py](../../../tests/desktop/test_notifications.py) — 8 zielonych. Bez odchyleń od planu.
+Rdzeń: [notification_policy.py](../../../src/kimai_tray/core/notification_policy.py) — `RenderedNotification`,
+`render()`, `entry_id_from()`, `ACTION_LABELS`. Pulpit:
+[notifications.py](../../../src/kimai_tray/desktop/notifications.py) — `PortalNotifier` (show/withdraw/listen/parse),
+`NotificationAction`. Testy: [test_notification_render.py](../../../tests/core/test_notification_render.py),
+[test_notifications.py](../../../tests/desktop/test_notifications.py) — 8 zielonych. Bez odchyleń od planu.

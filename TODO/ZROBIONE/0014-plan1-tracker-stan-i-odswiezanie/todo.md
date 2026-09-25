@@ -23,7 +23,8 @@ Wykonać **zadanie 10** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/tracker.py`
@@ -53,10 +54,14 @@ Wykonać **zadanie 10** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/tracker.py](../../../src/kimai_tray/core/tracker.py) (część 1): `Snapshot`, `Totals`, `Tracker.refresh_active/refresh_full/load_catalog/activities/default_billable/kimai_tz`, licznik błędów, flaga różnicy stref, zapamiętanie locale. Fałszywy klient: [tests/core/fakes.py](../../../tests/core/fakes.py). 14 testów zielonych. Bez odchyleń.
+[src/kimai_tray/core/tracker.py](../../../src/kimai_tray/core/tracker.py) (część 1): `Snapshot`, `Totals`,
+`Tracker.refresh_active/refresh_full/load_catalog/activities/default_billable/kimai_tz`, licznik błędów, flaga różnicy
+stref, zapamiętanie locale. Fałszywy klient: [tests/core/fakes.py](../../../tests/core/fakes.py). 14 testów zielonych.
+Bez odchyleń.

@@ -42,13 +42,14 @@ flowchart TB
 ```
 
 | | A: portal Secret | B: Secret Service bezpośrednio |
-|---|---|---|
+| --- | --- | --- |
 | Uprawnienia Flatpaka | brak dodatkowych | `--talk-name=org.freedesktop.secrets` |
 | Izolacja | sekret per aplikacja | aplikacja widzi (potencjalnie) cały magazyn użytkownika |
 | Widoczność w KWallet/Seahorse | tylko klucz główny aplikacji | wpis „Kimai Tray” widoczny i usuwalny przez użytkownika |
 | Działanie poza Flatpakiem (dev) | libsecret wtedy używa Secret Service bezpośrednio | tak |
 
-**Portal Secret** ([dokumentacja](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Secret.html)):
+**Portal Secret**
+([dokumentacja](https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.Secret.html)):
 metoda `RetrieveSecret` zwraca przez deskryptor pliku **klucz główny unikalny dla
 aplikacji**, niezmienny dopóki aplikacja jest zainstalowana; typowo trzymany w keyringu
 użytkownika pod ID aplikacji. Klucz może być za krótki dla niektórych algorytmów —
@@ -82,26 +83,32 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 
 - Zapis tokenu tylko po jawnym „Zapisz” w ustawieniach.
 - Brak dostępnego magazynu → komunikat i **żadnego** cichego zapisu do pliku tekstowego.
-  Trybu „token tylko w pamięci do końca sesji” w 1.0 **nie ma** (decyzja użytkownika 2026-09-25, [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/todo.md)).
-- Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu: `application=pl.websystems.KimaiTray`, `url` bez końcowego `/`).
+  Trybu „token tylko w pamięci do końca sesji” w 1.0 **nie ma** (decyzja użytkownika 2026-09-25,
+  [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/todo.md)).
+- Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu: `application=pl.websystems.KimaiTray`, `url` bez
+  końcowego `/`).
 - Błędy (`SecretServiceStore`): brak usługi, odmowa z piaskownicy, usługa, która nie wystartowała (`Spawn.*`),
-  brak odpowiedzi (timeout) lub zerwane połączenie → `SecretsUnavailable`; odrzucone okno odblokowania → `SecretsLocked`.
+  brak odpowiedzi (timeout) lub zerwane połączenie → `SecretsUnavailable`; odrzucone okno odblokowania →
+  `SecretsLocked`.
 - Po restarcie usługi (ksecretd / gnome-keyring) zapamiętana sesja znika (`NoSession` / `UnknownObject`) —
   sesja jest otwierana ponownie raz; drugi błąd → `SecretsUnavailable`.
 - Brak domyślnego portfela (alias `default`) → `SecretsUnavailable`; aplikacja **nie** zakłada portfela sama,
-  komunikat w UI podpowiada, jak go utworzyć (decyzja: [0027](../../TODO/ZROBIONE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md)).
+  komunikat w UI podpowiada, jak go utworzyć (decyzja:
+  [0027](../../TODO/ZROBIONE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md)).
 - Nigdy nie logujemy tokenu, nawet w trybie debug.
 
 ## Pułapki
 
 > [!warning]
+>
 > - Portfel KWallet może być zamknięty — pierwszy odczyt może pokazać systemowe okno
 >   z hasłem portfela. Aplikacja nie może blokować UI w tym czasie.
 > - Po odinstalowaniu Flatpaka klucz główny portalu może zostać w keyringu.
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/desktop/secrets.py](../../src/kimai_tray/desktop/secrets.py) — `SecretServiceStore` (get/set/delete, odblokowanie przez prompt).
+- [src/kimai_tray/desktop/secrets.py](../../src/kimai_tray/desktop/secrets.py) — `SecretServiceStore` (get/set/delete,
+  odblokowanie przez prompt).
 - [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — szyna D-Bus na jeepney.
 - Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 

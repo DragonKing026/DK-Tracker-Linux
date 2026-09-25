@@ -23,7 +23,8 @@ Wykonać **zadanie 12** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/notification_policy.py`
@@ -32,7 +33,8 @@ Wykonać **zadanie 12** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 ## Kryteria akceptacji
 
 - [x] Każdy test z zadania napisany przed kodem i widziany jako padający
-- [x] `.venv/bin/pytest tests/core/test_notification_policy.py -v` → 9 PASS. Uruchom też `tests/core/test_i18n.py` — nowe klucze (`notif…`) muszą istnieć w locales (są od zadania 9).
+- [x] `.venv/bin/pytest tests/core/test_notification_policy.py -v` → 9 PASS. Uruchom też `tests/core/test_i18n.py` —
+      nowe klucze (`notif…`) muszą istnieć w locales (są od zadania 9).
 - [x] Pełny `.venv/bin/pytest` zielony, `ruff format` + `ruff check` bez uwag
 - [x] Commit(y) zgodne z planem; odchylenia zapisane jako „Ruling” w dzienniku
 
@@ -51,10 +53,14 @@ Wykonać **zadanie 12** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/notification_policy.py](../../../src/kimai_tray/core/notification_policy.py): N-01 długi timer (próg + co godzinę), N-02/N-02b połączenie (3 błędy lub od razu przy 401), N-03 potwierdzenie akcji z menu. Czysta funkcja — bez D-Bus. Testy: [tests/core/test_notification_policy.py](../../../tests/core/test_notification_policy.py) — 9 zielonych. Bez odchyleń.
+[src/kimai_tray/core/notification_policy.py](../../../src/kimai_tray/core/notification_policy.py): N-01 długi timer
+(próg + co godzinę), N-02/N-02b połączenie (3 błędy lub od razu przy 401), N-03 potwierdzenie akcji z menu. Czysta
+funkcja — bez D-Bus. Testy: [tests/core/test_notification_policy.py](../../../tests/core/test_notification_policy.py) —
+9 zielonych. Bez odchyleń.

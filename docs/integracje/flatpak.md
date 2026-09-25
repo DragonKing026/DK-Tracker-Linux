@@ -38,7 +38,7 @@ flowchart LR
 ## Runtime'y (Flathub, stan 2026-09-25)
 
 | Runtime | Dla kogo | Aktualne gałęzie |
-|---|---|---|
+| --- | --- | --- |
 | `org.kde.Platform` | Qt / KDE Frameworks | `6.10`, `6.11` |
 | `org.gnome.Platform` | GTK / libadwaita | `49`, `50`, `51` |
 | `org.freedesktop.Platform` | wszystko inne (np. Tauri, Electron z BaseApp) | `24.08`, `25.08`, `26.08` |
@@ -87,7 +87,7 @@ flatpak build-bundle ~/.local/share/flatpak/repo kimai-tray.flatpak pl.websystem
 ## Dystrybucja — opcje
 
 | Opcja | Zalety | Wady |
-|---|---|---|
+| --- | --- | --- |
 | Plik `.flatpak` (bundle) | najprościej, np. w wydaniu GitHub | brak automatycznych aktualizacji |
 | Własne repo Flatpak (np. GitHub Pages) | aktualizacje przez `flatpak update` | trzeba utrzymać repo i podpisy GPG |
 | Flathub | wygoda, widoczność | przegląd, wymagania jakości; aplikacja jest firmowo-niszowa |
@@ -101,6 +101,7 @@ flatpak build-bundle ~/.local/share/flatpak/repo kimai-tray.flatpak pl.websystem
 ## Pułapki
 
 > [!warning]
+>
 > - Ikony SNI wymagają `--talk-name=org.kde.StatusNotifierWatcher`, inaczej ikona nie
 >   pojawi się bez żadnego błędu ([SNI](statusnotifieritem.md)).
 > - Aplikacja w piaskownicy nie może sama dopisać się do `~/.config/autostart` —
@@ -111,7 +112,8 @@ flatpak build-bundle ~/.local/share/flatpak/repo kimai-tray.flatpak pl.websystem
 ## Sprawdzone w prototypie 0004 (2026-09-25 20:39)
 
 - **Regresja Flatpaka 1.18.2 na Fedorze 44:** manifest z `base:` nie buduje się na hoście
-  (`lsetxattr(security.selinux): Operation not supported`, [flatpak#6818](https://github.com/flatpak/flatpak/issues/6818)).
+  (`lsetxattr(security.selinux): Operation not supported`,
+  [flatpak#6818](https://github.com/flatpak/flatpak/issues/6818)).
   Budujemy w kontenerze — [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
 - Kontener `debian:trixie` (Flatpak 1.16.6) + runtime'y hosta tylko do odczytu → paczka `.flatpak`
   **70 MB**, instaluje się i działa na hoście z 1.18.2 (`flatpak install --user --bundle`).

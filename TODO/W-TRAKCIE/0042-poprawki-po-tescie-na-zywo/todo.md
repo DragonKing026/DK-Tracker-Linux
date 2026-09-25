@@ -27,7 +27,8 @@ każdą zmianę kodu metodą TDD, a potem wrócić do listy kontrolnej.
   (`app-com.microsoft.VSCode-….scope`), więc portal przypisuje powiadomienia VS Code, a kompozytor
   nie zna ikony aplikacji. Na hoście portal ma do tego `org.freedesktop.host.portal.Registry.Register`
   (xdg-desktop-portal 1.22.1 na Fedorze 44, wersja interfejsu 1).
-- Logo: [dane/kimai-logo-512.png](dane/kimai-logo-512.png) — `public/touch-icon-512x512.png` z obrazu `kimai/kimai2:2.67.0`
+- Logo: [dane/kimai-logo-512.png](dane/kimai-logo-512.png) — `public/touch-icon-512x512.png` z obrazu
+  `kimai/kimai2:2.67.0`
   (projekt Kimai, licencja AGPL-3.0-or-later), na prośbę użytkownika jako ikona aplikacji.
 
 ## Kryteria akceptacji
@@ -39,7 +40,8 @@ każdą zmianę kodu metodą TDD, a potem wrócić do listy kontrolnej.
 ## Kroki (uwagi użytkownika, 2026-09-25 23:34)
 
 - [ ] 1. Ucięty tekst podpowiedzi w oknie ustawień („0 wyłącza sprawdzanie. Zalecane 15.”)
-- [ ] 2. Ikona Kimai na początku nagłówka okna i jako ikona aplikacji (zamiast „W” Waylanda w oknie ustawień i na pasku zadań)
+- [ ] 2. Ikona Kimai na początku nagłówka okna i jako ikona aplikacji (zamiast „W” Waylanda w oknie ustawień i na pasku
+      zadań)
 - [ ] 3. Wyszukiwanie na liście projektów (poza wtyczką — ułatwienie przy wielu projektach)
 - [ ] 4. Ostrzeżenie o strefie czasowej w Dockerze — konta testowe mają UTC; ustawić im strefę komputera
 - [ ] 5. Wygładzić strzałki list rozwijanych i przewijania
@@ -57,4 +59,5 @@ każdą zmianę kodu metodą TDD, a potem wrócić do listy kontrolnej.
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:34** Utworzono z uwag użytkownika po teście na żywo.

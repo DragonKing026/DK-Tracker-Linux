@@ -47,6 +47,7 @@ sprawdził na KDE. Wykonują inne osoby (stacja deweloperska ma tylko KDE) — d
 ## Dziennik
 
 ### 2026-09-25
+
 - **20:39** Utworzono po prototypie 0004 (GNOME niedostępny na stacji deweloperskiej).
 
 ## Wynik

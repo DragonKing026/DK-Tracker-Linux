@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 23:34
+zaktualizowano: 2026-09-25 23:44
 ---
 
 # Tablica zadań
@@ -14,7 +14,7 @@ Zadania leżą w podfolderach według statusu. Przy zmianie statusu folder zadan
 przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania/SKILL.md)).
 
 | Folder | Statusy |
-|---|---|
+| --- | --- |
 | [DO-ZROBIENIA/](DO-ZROBIENIA) | 💡 `pomysl` · 📋 `do-zrobienia` |
 | [W-TRAKCIE/](W-TRAKCIE) | 🔨 `w-trakcie` · ⛔ `zablokowane` |
 | [ZROBIONE/](ZROBIONE) | ✅ `zrobione` · 🗑️ `porzucone` |
@@ -24,20 +24,21 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 ## W trakcie
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | 0041 | [Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze](W-TRAKCIE/0041-plan3-test-na-zywo/todo.md) | 🔨 w-trakcie | p1 | [0040](ZROBIONE/0040-plan3-start-aplikacji/todo.md) ✅ |
 | 0042 | [Poprawki UI po teście na żywo (Plan 3)](W-TRAKCIE/0042-poprawki-po-tescie-na-zywo/todo.md) | 🔨 w-trakcie | p1 | [0040](ZROBIONE/0040-plan3-start-aplikacji/todo.md) ✅ |
+| 0043 | [Dokumenty zgodne z markdownlint](W-TRAKCIE/0043-markdownlint/todo.md) | 🔨 w-trakcie | p1 | — |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 
 ## Zrobione
 
 | Nr | Zadanie | Status | Zamknięto |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | 0001 | [Struktura agenta i dokumentacji](ZROBIONE/0001-struktura-agenta-i-dokumentacja/todo.md) | ✅ zrobione | 2026-09-25 17:23 |
 | 0002 | [Specyfikacja projektu (design) i plan implementacji](ZROBIONE/0002-specyfikacja-projektu/todo.md) | ✅ zrobione | 2026-09-25 19:15 |
 | 0003 | [Wybór stosu technologicznego](ZROBIONE/0003-wybor-stosu/todo.md) | ✅ zrobione | 2026-09-25 17:29 |

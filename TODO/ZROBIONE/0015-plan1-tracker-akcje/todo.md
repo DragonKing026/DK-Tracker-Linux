@@ -23,7 +23,8 @@ Wykonać **zadanie 11** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Modify: `src/kimai_tray/core/tracker.py` (dopisanie metod akcji i importów)
@@ -53,10 +54,15 @@ Wykonać **zadanie 11** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/tracker.py](../../../src/kimai_tray/core/tracker.py) (część 2): `start` (czas w strefie konta, ponowienie bez billable i blokada, timeout bez ponownego POST), `stop` (także z godziną końca), `resume` (sprawdzenie przed zatrzymaniem), `update_description/update_begin`, `set_billable`, `apply_settings`. Testy: [tests/core/test_tracker_actions.py](../../../tests/core/test_tracker_actions.py) — 25 zielonych (RED: 25× AttributeError). Bez odchyleń.
+[src/kimai_tray/core/tracker.py](../../../src/kimai_tray/core/tracker.py) (część 2): `start` (czas w strefie konta,
+ponowienie bez billable i blokada, timeout bez ponownego POST), `stop` (także z godziną końca), `resume` (sprawdzenie
+przed zatrzymaniem), `update_description/update_begin`, `set_billable`, `apply_settings`. Testy:
+[tests/core/test_tracker_actions.py](../../../tests/core/test_tracker_actions.py) — 25 zielonych (RED: 25×
+AttributeError). Bez odchyleń.

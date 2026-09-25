@@ -30,6 +30,7 @@ description: Use when a hard-to-reverse architectural or technology decision is 
    ## Konsekwencje      — co zyskujemy, co tracimy, co trzeba zrobić dalej
    ## Powiązane         — zadania, integracje
    ```
+
 3. Decyzję ze statusem `zaakceptowana` może nadać tylko użytkownik (lub wprost ją
    zaakceptować w rozmowie). Agent tworzy ADR jako `proponowana`.
 4. Zastępując decyzję — nie usuwaj starej: ustaw `status: zastapiona` i `zastapiona_przez`.

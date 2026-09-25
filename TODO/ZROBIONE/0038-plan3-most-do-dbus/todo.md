@@ -24,7 +24,8 @@ Wykonać **zadanie 10** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/ui/desktop_bridge.py`
 - Test: `tests/ui/test_desktop_bridge.py`
@@ -46,15 +47,19 @@ Wykonać **zadanie 10** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 
 ## Materiały
 
-- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg: `313 passed, 1 skipped, 12 deselected in 0.72s`
+- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg:
+  `313 passed, 1 skipped, 12 deselected in 0.72s`
 
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:10** Start wykonania.
 - **23:10** Zamknięte: testy zielone (313 passed, 1 skipped, 12 deselected in 0.72s), commity na main.
 
 ## Wynik
 
-[desktop_bridge.py](../../../src/kimai_tray/ui/desktop_bridge.py): `Desktop` (jedno połączenie w wątku „desktop”), `ClickListener` (osobne połączenie). Testy: [test_desktop_bridge.py](../../../tests/ui/test_desktop_bridge.py) — 3 zielone. Bez odchyleń od planu.
+[desktop_bridge.py](../../../src/kimai_tray/ui/desktop_bridge.py): `Desktop` (jedno połączenie w wątku „desktop”),
+`ClickListener` (osobne połączenie). Testy: [test_desktop_bridge.py](../../../tests/ui/test_desktop_bridge.py) — 3
+zielone. Bez odchyleń od planu.

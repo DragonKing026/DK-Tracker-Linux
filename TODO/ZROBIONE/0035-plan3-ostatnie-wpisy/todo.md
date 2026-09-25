@@ -24,7 +24,8 @@ Wykonać **zadanie 7** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/ui/recent.py`
 - Test: `tests/ui/test_recent.py`
@@ -51,10 +52,12 @@ Wykonać **zadanie 7** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:09** Start wykonania.
 - **23:09** Zamknięte: testy zielone (285 passed, 12 deselected in 0.57s), commity na main.
 
 ## Wynik
 
-[recent.py](../../../src/kimai_tray/ui/recent.py): `RecentList`, `EntryRow`. Testy: [test_recent.py](../../../tests/ui/test_recent.py) — 7 zielonych. Bez odchyleń od planu.
+[recent.py](../../../src/kimai_tray/ui/recent.py): `RecentList`, `EntryRow`. Testy:
+[test_recent.py](../../../tests/ui/test_recent.py) — 7 zielonych. Bez odchyleń od planu.

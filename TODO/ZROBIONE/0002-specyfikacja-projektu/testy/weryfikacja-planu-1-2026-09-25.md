@@ -16,7 +16,7 @@ wykonawcy. Pliki wyciągnięto automatycznie z bloków kodu planu do katalogu ty
 ## Wyniki
 
 | Sprawdzenie | Wynik |
-|---|---|
+| --- | --- |
 | `pytest` (domyślny przebieg) | **144 passed**, 8 deselected (kontraktowe) |
 | `pytest --cov=kimai_tray.core --cov-fail-under=90` | **98,34%** — próg spełniony |
 | `ruff format` + `ruff check` | po poprawce UP047 (`load_json[T]`) — **All checks passed** |
@@ -27,7 +27,7 @@ wykonawcy. Pliki wyciągnięto automatycznie z bloków kodu planu do katalogu ty
 ## Pokrycie per moduł
 
 | Moduł | Pokrycie |
-|---|---|
+| --- | --- |
 | billable, grouping, i18n, models, notification_policy, timefmt, validation | 100% |
 | errors, kimai_client, settings | 98% |
 | tracker | 97% |

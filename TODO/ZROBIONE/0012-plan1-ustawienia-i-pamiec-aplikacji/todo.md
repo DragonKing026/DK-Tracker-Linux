@@ -23,7 +23,8 @@ Wykonać **zadanie 8** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/settings.py`
@@ -51,10 +52,13 @@ Wykonać **zadanie 8** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[src/kimai_tray/core/settings.py](../../../src/kimai_tray/core/settings.py): `Settings` (normalizacja, ostrzeżenie http://), `Memory`, ścieżki XDG, zapis atomowy, odporność na uszkodzony plik; token nigdy w pliku. Testy: [tests/core/test_settings.py](../../../tests/core/test_settings.py) — 8 zielonych. Bez odchyleń.
+[src/kimai_tray/core/settings.py](../../../src/kimai_tray/core/settings.py): `Settings` (normalizacja, ostrzeżenie
+http://), `Memory`, ścieżki XDG, zapis atomowy, odporność na uszkodzony plik; token nigdy w pliku. Testy:
+[tests/core/test_settings.py](../../../tests/core/test_settings.py) — 8 zielonych. Bez odchyleń.

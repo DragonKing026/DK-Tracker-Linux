@@ -23,7 +23,8 @@ Wykonać **zadanie 4** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 - Pliki:
@@ -54,10 +55,14 @@ Wykonać **zadanie 4** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 ## Dziennik
 
 ### 2026-09-25
+
 - **20:59** Utworzono zadanie z Planu 2.
 - **21:01** Start wykonania.
 - **21:02** Zamknięte: testy zielone (206 passed, 9 deselected in 0.14s), commity na main.
 
 ## Wynik
 
-[src/kimai_tray/desktop/autostart.py](../../../src/kimai_tray/desktop/autostart.py): `BackgroundPortal` (`request` przez Request/Response, `set_status` z limitem `STATUS_MAX` = 96 i ignorowaniem odmowy poza piaskownicą), `BackgroundResult`. Testy: [tests/desktop/test_autostart.py](../../../tests/desktop/test_autostart.py) — 6 zielonych. Dokumentacja: [portale XDG](../../../docs/integracje/xdg-portale.md). Bez odchyleń od planu.
+[src/kimai_tray/desktop/autostart.py](../../../src/kimai_tray/desktop/autostart.py): `BackgroundPortal` (`request` przez
+Request/Response, `set_status` z limitem `STATUS_MAX` = 96 i ignorowaniem odmowy poza piaskownicą), `BackgroundResult`.
+Testy: [tests/desktop/test_autostart.py](../../../tests/desktop/test_autostart.py) — 6 zielonych. Dokumentacja:
+[portale XDG](../../../docs/integracje/xdg-portale.md). Bez odchyleń od planu.

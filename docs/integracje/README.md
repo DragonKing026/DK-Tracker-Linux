@@ -29,7 +29,7 @@ flowchart LR
 ```
 
 | Integracja | Rola | Status | Dokument |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Kimai REST API | źródło danych | planowana | [kimai-api](kimai-api.md) |
 | WS Tracker | projekt referencyjny (wzorzec funkcji i UI) | referencja | [kimai-ws-tracker](kimai-ws-tracker.md) |
 | StatusNotifierItem | ikona w tacce przez D-Bus | planowana | [statusnotifieritem](statusnotifieritem.md) |

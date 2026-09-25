@@ -59,7 +59,7 @@ sequenceDiagram
 ```
 
 Atrybuty wyszukiwania elementu: `application=pl.websystems.KimaiTray`,
-`url=<adres Kimai>`. Etykieta: „Kimai Tray — <adres Kimai>”.
+`url=<adres Kimai>`. Etykieta: „`Kimai Tray — <adres Kimai>`”.
 
 ## Sprawdzone na stacji deweloperskiej (2026-09-25)
 
@@ -90,6 +90,7 @@ Collections            → ['/org/freedesktop/secrets/collection/kdewallet']
 ## Pułapki
 
 > [!warning]
+>
 > - `CreateItem` i `Unlock` mogą zwrócić obiekt **Prompt** — trzeba wywołać
 >   `Prompt(window_id)` i czekać na sygnał `Completed`. Nie wolno blokować wątku UI.
 > - Sesja `plain` przesyła token bez szyfrowania po szynie sesji użytkownika.
@@ -99,7 +100,8 @@ Collections            → ['/org/freedesktop/secrets/collection/kdewallet']
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/desktop/secrets.py](../../src/kimai_tray/desktop/secrets.py) — `SecretServiceStore` (get/set/delete, odblokowanie przez prompt).
+- [src/kimai_tray/desktop/secrets.py](../../src/kimai_tray/desktop/secrets.py) — `SecretServiceStore` (get/set/delete,
+  odblokowanie przez prompt).
 - [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — szyna D-Bus na jeepney.
 - Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 

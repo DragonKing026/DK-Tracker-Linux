@@ -56,6 +56,7 @@ Moduły manifestu generujemy narzędziem
 ## Pułapki
 
 > [!warning]
+>
 > - Domyślny timeout 5 s — przy wolnym Kimai lepiej ustawić jawnie.
 > - `certifi` ma własny zestaw CA. Firmowe Kimai z certyfikatem wewnętrznego CA nie
 >   przejdzie weryfikacji. Wtedy opcja „użyj systemowego magazynu CA” (`ssl` context
@@ -64,7 +65,8 @@ Moduły manifestu generujemy narzędziem
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/core/kimai_client.py](../../src/kimai_tray/core/kimai_client.py) — jedyne miejsce użycia `httpx.Client`.
+- [src/kimai_tray/core/kimai_client.py](../../src/kimai_tray/core/kimai_client.py) — jedyne miejsce użycia
+  `httpx.Client`.
 - [tests/core/test_kimai_client.py](../../tests/core/test_kimai_client.py) — `httpx.MockTransport`.
 
 ## Dokumentacja

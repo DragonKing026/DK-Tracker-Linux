@@ -24,7 +24,8 @@ Wykonać **zadanie 4** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/ui/worker.py`
 - Test: `tests/ui/test_worker.py`
@@ -51,10 +52,12 @@ Wykonać **zadanie 4** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:08** Start wykonania.
 - **23:09** Zamknięte: testy zielone (252 passed, 12 deselected in 0.34s), commity na main.
 
 ## Wynik
 
-[worker.py](../../../src/kimai_tray/ui/worker.py): `Worker` (jeden wątek, klucze, `busy`). Testy: [test_worker.py](../../../tests/ui/test_worker.py) — 6 zielonych. Bez odchyleń od planu.
+[worker.py](../../../src/kimai_tray/ui/worker.py): `Worker` (jeden wątek, klucze, `busy`). Testy:
+[test_worker.py](../../../tests/ui/test_worker.py) — 6 zielonych. Bez odchyleń od planu.

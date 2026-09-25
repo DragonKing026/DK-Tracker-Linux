@@ -19,11 +19,13 @@ zamknieto: 2026-09-25 19:02
 ## Cel
 
 Wykonać **zadanie 6** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1-rdzen.md)
-(sekcja „Task 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)”) dokładnie według kroków planu, metodą TDD.
+(sekcja „Task 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)”) dokładnie według
+kroków planu, metodą TDD.
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Create: `src/kimai_tray/core/grouping.py`, `src/kimai_tray/core/billable.py`
@@ -52,10 +54,13 @@ Wykonać **zadanie 6** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-[grouping.py](../../../src/kimai_tray/core/grouping.py) (wpisy po dniach w strefie konta, projekty po klientach, sortowanie bez znaczenia wielkości liter i polskich znaków) i [billable.py](../../../src/kimai_tray/core/billable.py) (domyślne billable jak w Kimai, rozpoznanie 400 „extra fields”). Testy: 7 zielonych. Bez odchyleń.
+[grouping.py](../../../src/kimai_tray/core/grouping.py) (wpisy po dniach w strefie konta, projekty po klientach,
+sortowanie bez znaczenia wielkości liter i polskich znaków) i [billable.py](../../../src/kimai_tray/core/billable.py)
+(domyślne billable jak w Kimai, rozpoznanie 400 „extra fields”). Testy: 7 zielonych. Bez odchyleń.

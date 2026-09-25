@@ -19,7 +19,7 @@ Pracę wykonują w dużej mierze agenci AI, którzy muszą szybko odnaleźć kon
 ## Rozważane opcje
 
 | Opcja | Zalety | Wady |
-|---|---|---|
+| --- | --- | --- |
 | Markdown w repo, format Obsidiana | wersjonowane z kodem, czytelne dla agentów i ludzi, graf linków, działa offline | wikilinki nie są klikalne na GitHubie |
 | Zewnętrzna wiki / Notion / Jira | wygodne dla nietechnicznych | rozjeżdża się z kodem, agent nie ma dostępu offline |
 | Tylko README + komentarze w kodzie | minimum pracy | brak miejsca na decyzje, integracje, zadania |

@@ -23,7 +23,8 @@ Wykonać **zadanie 5** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 - Pliki:
@@ -46,15 +47,21 @@ Wykonać **zadanie 5** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Materiały
 
-- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg: `====================== 3 passed, 215 deselected in 0.09s =======================`
+- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg: `====================== 3 passed, 215
+  deselected in 0.09s =======================`
 
 ## Dziennik
 
 ### 2026-09-25
+
 - **20:59** Utworzono zadanie z Planu 2.
 - **21:02** Start wykonania.
-- **21:02** Zamknięte: testy zielone (====================== 3 passed, 215 deselected in 0.09s =======================), commity na main.
+- **21:02** Zamknięte: testy zielone (====================== 3 passed, 215 deselected in 0.09s =======================),
+  commity na main.
 
 ## Wynik
 
-[tests/desktop/test_na_zywo.py](../../../tests/desktop/test_na_zywo.py) — 3 testy z markerem `desktop` na prawdziwej sesji (KDE Plasma 6.7.5): portfel (zapis/odczyt/usunięcie wpisu testowego), powiadomienie (pokazane i wycofane), portal Background (bez autostartu). Komenda dopisana w [AGENTS.md](../../../AGENTS.md). Ruling: callout w AGENTS.md zmieniony na „Plany 3–4 dopiszą”.
+[tests/desktop/test_na_zywo.py](../../../tests/desktop/test_na_zywo.py) — 3 testy z markerem `desktop` na prawdziwej
+sesji (KDE Plasma 6.7.5): portfel (zapis/odczyt/usunięcie wpisu testowego), powiadomienie (pokazane i wycofane), portal
+Background (bez autostartu). Komenda dopisana w [AGENTS.md](../../../AGENTS.md). Ruling: callout w AGENTS.md zmieniony
+na „Plany 3–4 dopiszą”.

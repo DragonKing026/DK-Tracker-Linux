@@ -24,7 +24,8 @@ Wykonać **zadanie 6** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/ui/form.py`
 - Test: `tests/ui/test_form.py`
@@ -51,10 +52,12 @@ Wykonać **zadanie 6** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:09** Start wykonania.
 - **23:09** Zamknięte: testy zielone (278 passed, 12 deselected in 0.55s), commity na main.
 
 ## Wynik
 
-[form.py](../../../src/kimai_tray/ui/form.py): `TrackerForm`, `DescriptionEdit`, `dot`. Testy: [test_form.py](../../../tests/ui/test_form.py) — 19 zielonych. Bez odchyleń od planu.
+[form.py](../../../src/kimai_tray/ui/form.py): `TrackerForm`, `DescriptionEdit`, `dot`. Testy:
+[test_form.py](../../../tests/ui/test_form.py) — 19 zielonych. Bez odchyleń od planu.

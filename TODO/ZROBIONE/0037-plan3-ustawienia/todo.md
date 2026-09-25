@@ -24,7 +24,8 @@ Wykonać **zadanie 9** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Kontekst
 
 - Plan: [2026-09-25-plan-3-ui.md](../../../docs/plany/2026-09-25-plan-3-ui.md) — kod, testy i komendy każdego kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI: [0028](../0028-plan3-projekt-ui/todo.md).
+- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje UI:
+  [0028](../0028-plan3-projekt-ui/todo.md).
 - Pliki:
 - Create: `src/kimai_tray/ui/settings_dialog.py`
 - Test: `tests/ui/test_settings_dialog.py`
@@ -46,15 +47,18 @@ Wykonać **zadanie 9** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ## Materiały
 
-- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg: `310 passed, 1 skipped, 12 deselected in 0.74s`
+- [testy/pytest-2026-09-25.txt](testy/pytest-2026-09-25.txt) — końcowy przebieg:
+  `310 passed, 1 skipped, 12 deselected in 0.74s`
 
 ## Dziennik
 
 ### 2026-09-25
+
 - **23:07** Utworzono zadanie z Planu 3.
 - **23:10** Start wykonania.
 - **23:10** Zamknięte: testy zielone (310 passed, 1 skipped, 12 deselected in 0.74s), commity na main.
 
 ## Wynik
 
-[settings_dialog.py](../../../src/kimai_tray/ui/settings_dialog.py): `SettingsDialog`. Testy: [test_settings_dialog.py](../../../tests/ui/test_settings_dialog.py) — 9 zielonych. Bez odchyleń od planu.
+[settings_dialog.py](../../../src/kimai_tray/ui/settings_dialog.py): `SettingsDialog`. Testy:
+[test_settings_dialog.py](../../../tests/ui/test_settings_dialog.py) — 9 zielonych. Bez odchyleń od planu.

@@ -23,7 +23,8 @@ Wykonać **zadanie 14** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ## Kontekst
 
-- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego kroku.
+- Plan: [2026-09-25-plan-1-rdzen.md](../../../docs/plany/2026-09-25-plan-1-rdzen.md) — kod, testy i komendy każdego
+  kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
 - Pliki:
 - Modify: `AGENTS.md` (sekcja „7. Komendy”)
@@ -33,7 +34,9 @@ Wykonać **zadanie 14** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 ## Kryteria akceptacji
 
 - [x] Każdy test z zadania napisany przed kodem i widziany jako padający
-- [x] `.venv/bin/pytest --cov=kimai_tray.core --cov-report=term-missing --cov-fail-under=90` → PASS, „Required test coverage of 90% reached”. Jeśli nie — dopisz testy dla linii z `term-missing` w odpowiednim pliku `tests/core/test_*.py` (nie obniżaj progu).
+- [x] `.venv/bin/pytest --cov=kimai_tray.core --cov-report=term-missing --cov-fail-under=90` → PASS, „Required test
+      coverage of 90% reached”. Jeśli nie — dopisz testy dla linii z `term-missing` w odpowiednim pliku
+      `tests/core/test_*.py` (nie obniżaj progu).
 - [x] Pełny `.venv/bin/pytest` zielony, `ruff format` + `ruff check` bez uwag
 - [x] Commit(y) zgodne z planem; odchylenia zapisane jako „Ruling” w dzienniku
 
@@ -53,10 +56,15 @@ Wykonać **zadanie 14** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 ## Dziennik
 
 ### 2026-09-25
+
 - Utworzono zadanie z Planu 1.
 - Start wykonania.
 - Zamknięte: testy zielone, commity w gałęzi feat/plan-1-rdzen.
 
 ## Wynik
 
-Pokrycie rdzenia **98,34%** (próg 90%) — [raport](testy/pokrycie-2026-09-25.txt). [AGENTS.md](../../../AGENTS.md) → „Komendy”: venv, pytest, pokrycie, testy kontraktowe, ruff. [Architektura](../../../docs/architektura/architektura-aplikacji.md): mapa modułów rdzenia. [Struktura repozytorium](../../../docs/architektura/struktura-repozytorium.md): src/, tests/, pyproject.toml. Ruling: osobna tabela modułów zamiast kolumny.
+Pokrycie rdzenia **98,34%** (próg 90%) — [raport](testy/pokrycie-2026-09-25.txt). [AGENTS.md](../../../AGENTS.md) →
+„Komendy”: venv, pytest, pokrycie, testy kontraktowe, ruff.
+[Architektura](../../../docs/architektura/architektura-aplikacji.md): mapa modułów rdzenia.
+[Struktura repozytorium](../../../docs/architektura/struktura-repozytorium.md): src/, tests/, pyproject.toml. Ruling:
+osobna tabela modułów zamiast kolumny.

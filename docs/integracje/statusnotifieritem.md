@@ -38,7 +38,7 @@ sequenceDiagram
 ## Właściwości istotne dla nas
 
 | Właściwość | Wartość u nas |
-|---|---|
+| --- | --- |
 | `Category` | `ApplicationStatus` |
 | `Id`, `Title` | identyfikator aplikacji / „Kimai Tray” |
 | `Status` | `Active` gdy timer trwa; `Passive` gdy bezczynny (host **może ukryć** ikonę Passive — Plasma chowa ją do „ukrytych”, dlatego raczej zawsze `Active`); `NeedsAttention` — błąd lub bardzo długi timer |
@@ -84,7 +84,7 @@ finish-args:
 ## Obsługa w bibliotekach (kandydaci — do ADR stosu)
 
 | Biblioteka | SNI | Uwagi |
-|---|---|---|
+| --- | --- | --- |
 | Qt `QSystemTrayIcon` | tak, na Linuksie przez SNI (fallback XEmbed) | natywnie w KDE; przez D-Bus działa też w GNOME z rozszerzeniem |
 | KDE `KStatusNotifierItem` (osobny framework w KF6) | tak, implementacja referencyjna | pełne API SNI (overlay, status, tooltip) |
 | libayatana-appindicator | tak | używane przez GTK/Tauri; ograniczone API (brak zdarzenia lewego kliku w części wersji) |
@@ -103,15 +103,19 @@ Plasma 6.7.5, Wayland, `QSystemTrayIcon` (PySide6 6.11), lokalnie i we Flatpaku:
 - tooltip: tekst z `setToolTip()` trafia do **tytułu** tooltipa SNI, odświeżanie co sekundę działa;
 - **klik ikony, gdy okno aplikacji jest aktywne, nie wywołuje `Activate`** — ikona nie może zamykać okna;
 - `geometry()` ikony = 0,0,0,0 (Wayland) — pozycji ikony nie znamy;
-- kliknięcie da się zasymulować w testach: `busctl --user call <nazwa> /StatusNotifierItem org.kde.StatusNotifierItem Activate ii 0 0`.
+- kliknięcie da się zasymulować w testach: `busctl --user call <nazwa> /StatusNotifierItem org.kde.StatusNotifierItem
+  Activate ii 0 0`.
 
 Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/ui/tray.py](../../src/kimai_tray/ui/tray.py) — `Tray`: `QSystemTrayIcon` (SNI), menu z dbusmenu, lewy klik → okno, środkowy → nic.
-- [src/kimai_tray/ui/icons.py](../../src/kimai_tray/ui/icons.py) — ikona w wariancie C (czas w ikonie), rysowana w rozmiarach 16–64 px.
-- [src/kimai_tray/core/presentation.py](../../src/kimai_tray/core/presentation.py) — tekst ikony i tooltipa (`tray_status`).
+- [src/kimai_tray/ui/tray.py](../../src/kimai_tray/ui/tray.py) — `Tray`: `QSystemTrayIcon` (SNI), menu z dbusmenu, lewy
+  klik → okno, środkowy → nic.
+- [src/kimai_tray/ui/icons.py](../../src/kimai_tray/ui/icons.py) — ikona w wariancie C (czas w ikonie), rysowana w
+  rozmiarach 16–64 px.
+- [src/kimai_tray/core/presentation.py](../../src/kimai_tray/core/presentation.py) — tekst ikony i tooltipa
+  (`tray_status`).
 
 ## Dokumentacja
 
@@ -119,7 +123,8 @@ Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okn
 - [StatusNotifierItem — właściwości, metody, sygnały](https://www.freedesktop.org/wiki/Specifications/StatusNotifierItem/StatusNotifierItem/)
 - [StatusNotifierWatcher](https://www.freedesktop.org/wiki/Specifications/StatusNotifierItem/StatusNotifierWatcher/)
 - [Flatpak — integracja z pulpitem (status icons)](https://docs.flatpak.org/en/latest/desktop-integration.html)
-- [KStatusNotifierItem — framework KF6 (API)](https://api.kde.org/kstatusnotifieritem.html) · [kod źródłowy](https://invent.kde.org/frameworks/kstatusnotifieritem)
+- [KStatusNotifierItem — framework KF6 (API)](https://api.kde.org/kstatusnotifieritem.html) ·
+  [kod źródłowy](https://invent.kde.org/frameworks/kstatusnotifieritem)
 - [QSystemTrayIcon (Qt 6)](https://doc.qt.io/qt-6/qsystemtrayicon.html)
 
 ## Powiązane
