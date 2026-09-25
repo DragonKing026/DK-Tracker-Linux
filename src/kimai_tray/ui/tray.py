@@ -7,6 +7,7 @@ tray host from dbusmenu, so it always appears next to the icon.
 
 from __future__ import annotations
 
+import logging
 from collections.abc import Callable
 from datetime import datetime
 
@@ -19,6 +20,8 @@ from kimai_tray.core.tracker import utc_now
 
 from .icons import tray_icon
 from .state import AppState
+
+log = logging.getLogger(__name__)
 
 
 class Tray(QObject):
@@ -89,5 +92,6 @@ class Tray(QObject):
         return action
 
     def _on_activated(self, reason: QSystemTrayIcon.ActivationReason) -> None:
+        log.info("Tray icon activated: %s", reason.name)  # which clicks the tray host delivers
         if reason == QSystemTrayIcon.ActivationReason.Trigger:
             self.openRequested.emit()

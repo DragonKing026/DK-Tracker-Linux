@@ -7,6 +7,7 @@ tray icon cannot close it: Plasma does not deliver that click while the window i
 
 from __future__ import annotations
 
+import time
 from collections.abc import Callable
 from datetime import datetime
 
@@ -97,6 +98,7 @@ class QuickWindow(QWidget):
         self.resize(WIDTH, HEIGHT)
         self.hide_on_deactivate = True
         self.placement_mode = "frameless"
+        self.hidden_by_focus_loss_at = 0.0  # monotonic time; a tray click right after must not reopen
         self.flash_delay_ms = 2000  # F-07: the green "saved" strip stays 2 s
         self._state = state
         self._now = now
@@ -264,7 +266,11 @@ class QuickWindow(QWidget):
 
     def _hide_if_left(self) -> None:
         if self.isVisible() and not self.isActiveWindow() and QApplication.activePopupWidget() is None:
-            self.hide()
+            self.hide_after_focus_loss()
+
+    def hide_after_focus_loss(self) -> None:
+        self.hidden_by_focus_loss_at = time.monotonic()
+        self.hide()
 
     # -- helpers -----------------------------------------------------------------------
 

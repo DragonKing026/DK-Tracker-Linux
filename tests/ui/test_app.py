@@ -268,3 +268,21 @@ def test_remembered_size_is_used_at_start(qtbot):
     qtbot.addWidget(controller.popup)
     assert controller.popup.size() == QSize(520, 650)
     controller.shutdown()
+
+
+def test_tray_click_toggles_the_window(harness):
+    h = harness()
+    popup = h.controller.popup
+    h.controller.toggle_popup()
+    assert popup.isVisible()
+    h.controller.toggle_popup()
+    assert not popup.isVisible()
+
+
+def test_click_that_took_the_focus_away_does_not_reopen_the_window(harness):
+    h = harness()
+    popup = h.controller.popup
+    h.controller.show_popup()
+    popup.hide_after_focus_loss()  # the click on the panel took the focus first...
+    h.controller.toggle_popup()  # ...then the same click reached the icon
+    assert not popup.isVisible()

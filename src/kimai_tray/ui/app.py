@@ -40,6 +40,7 @@ log = logging.getLogger(__name__)
 POLL_MS = 60_000  # F-02: GET /api/timesheets/active once a minute
 TICK_MS = 1_000  # the clock, only while the window is open
 TRAY_MS = 15_000  # tray label and clock-jump check
+REOPEN_GUARD_SECONDS = 0.4
 JUMP_SECONDS = 120  # wall clock moved more than monotonic time: sleep or a clock change
 _ENGLISH = Translator("en")
 
@@ -149,7 +150,7 @@ class Controller(QObject):
         popup.shownChanged.connect(self._on_popup_shown)
         popup.sizeChosen.connect(self._remember_size)
         if self.tray is not None:
-            self.tray.openRequested.connect(self.show_popup)
+            self.tray.openRequested.connect(self.toggle_popup)
             self.tray.stopRequested.connect(self._menu_stop)
             self.tray.resumeLastRequested.connect(self._menu_resume)
             self.tray.openKimaiRequested.connect(self.open_kimai)
@@ -317,6 +318,14 @@ class Controller(QObject):
         )
 
     # -- window, settings, links ---------------------------------------------------------------
+
+    def toggle_popup(self) -> None:
+        """Tray click: close an open window, open a closed one — unless that very click just
+        closed it by taking the focus (the panel gets the press before the icon's Activate)."""
+        if self.popup.isVisible():
+            self.popup.hide()
+        elif time.monotonic() - self.popup.hidden_by_focus_loss_at > REOPEN_GUARD_SECONDS:
+            self.show_popup()
 
     def show_popup(self) -> None:
         self.popup.show()

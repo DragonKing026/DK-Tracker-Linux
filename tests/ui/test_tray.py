@@ -75,3 +75,10 @@ def test_icon_is_redrawn_only_when_the_label_changes(qtbot):
     drawn = tray.drawn
     state.update(snapshot=Snapshot(user=USER, running=(RUNNING,)))
     assert tray.drawn == drawn
+
+
+def test_clicks_on_the_icon_are_logged(qtbot, caplog):
+    _, tray = make(qtbot)
+    with caplog.at_level("INFO", logger="kimai_tray.ui.tray"):
+        tray.icon.activated.emit(QSystemTrayIcon.ActivationReason.Trigger)
+    assert "Trigger" in caplog.text
