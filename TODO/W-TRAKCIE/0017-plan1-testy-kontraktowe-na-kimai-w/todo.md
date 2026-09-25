@@ -2,7 +2,7 @@
 noteId: "a20771111ab44a1289820977eb8b8218"
 tytul: "Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze"
 numer: "0017"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0016"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0017 — Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -53,6 +53,7 @@ Wykonać **zadanie 13** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
