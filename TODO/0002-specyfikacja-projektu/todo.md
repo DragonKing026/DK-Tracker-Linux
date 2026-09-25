@@ -50,5 +50,6 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Rozpoczęto brainstorming. Pytanie 1 (stos) → Python + PySide6 (ADR-0002).
 - Pytanie 2 (okno) → wariant A + menu kontekstowe, B do prototypu (ADR-0003).
 - Pytanie 3 (zakres) → autostart i powiadomienia w 1.0; bezczynność i skrót później.
+- Pytanie 4 (powiadomienia) → długi timer, utrata połączenia, potwierdzenie z menu.
 
 ## Wynik
