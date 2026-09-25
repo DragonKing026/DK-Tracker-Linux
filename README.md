@@ -1,3 +1,8 @@
+---
+noteId: "0a39bb51b8f511f191ffefb556e6204d"
+tags: [readme, projekt]
+---
+
 # Kimai Tray (nazwa robocza)
 
 Aplikacja na Linuksa w **tacce systemowej** do mierzenia czasu w **Kimai** — start/stop
