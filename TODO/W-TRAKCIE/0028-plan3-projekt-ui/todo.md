@@ -38,8 +38,11 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 
 - [x] **Środkowy przycisk na ikonie:** nic (A). Użytkownik najpierw wybrał B (start/stop), po chwili zmienił na A.
 - [x] **Token tylko w pamięci bez portfela:** nie w 1.0 (A).
+- [x] **Okno przy tacce bez zmiennej procesu:** `LayerShellQt::Window::get()` na jednym oknie (6.7.5) — okno ustawień zostaje zwykłe. Sprawdzone na żywo.
 
 ## Materiały
+
+- ![layer-shell na jednym oknie](zrzuty/layer-per-okno-popup.png) ![zwykłe okno obok](zrzuty/layer-per-okno-dialog.png) — próba [prototyp/probe_layer_per_window.py](prototyp/probe_layer_per_window.py), log: [prototyp/probe.log](prototyp/probe.log)
 
 - ![Warianty ikony w tacce](zrzuty/ikony-warianty.png) — makieta F-02: 22 px (100 %) i 44 px (200 %), panel ciemny i jasny; skrypt: [prototyp/ikony_makieta.py](prototyp/ikony_makieta.py)
 
@@ -50,3 +53,4 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 - **21:59** Ikona: wariant C (decyzja użytkownika).
 - **22:03** Środkowy klik: A — nic (decyzja użytkownika, zmieniona z B).
 - **22:05** Tryb tokenu w pamięci: nie (A). Wszystkie decyzje UI zebrane — pisanie Planu 3.
+- **22:08** layer-shell na jednym oknie działa bez `QT_WAYLAND_SHELL_INTEGRATION` (próba na żywo).
