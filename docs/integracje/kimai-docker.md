@@ -2,7 +2,7 @@
 noteId: "1f739b2f4fb64dbe82bca414a8d00f99"
 tytul: Kimai w Dockerze (środowisko testowe)
 tags: [integracja, kimai, docker, testy]
-status_integracji: planowana
+status_integracji: w-uzyciu
 wersja: kimai/kimai2:apache → Kimai 2.67.0; mysql:8.3; Docker 29.8.1 / Compose 5.5.1 (lokalnie)
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
@@ -80,7 +80,8 @@ Wersję instancji podaje `GET /api/version`.
 - [tests/kimai/kimai-testowe.sh](../../tests/kimai/kimai-testowe.sh) — `up` / `env` / `down`:
   start, konta (`admin`, `jan` ROLE_USER, `kierownik` ROLE_TEAMLEAD), tokeny, dane testowe.
 - [tests/kimai/README.md](../../tests/kimai/README.md) — instrukcja.
-- Fixture pytest (`tests/kimai/conftest.py`) powstanie przy implementacji klienta API.
+- [tests/kimai/conftest.py](../../tests/kimai/conftest.py) — fixture `kimai_env` (uruchamia/zatrzymuje Kimai) i trackery dla ROLE_USER / ROLE_TEAMLEAD.
+- [tests/kimai/test_kontrakt.py](../../tests/kimai/test_kontrakt.py) — testy kontraktowe: `.venv/bin/pytest -m kimai`.
 - Historia: [prototyp ze spike'u](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/prototyp/kimai-docker/).
 
 ## Dokumentacja
