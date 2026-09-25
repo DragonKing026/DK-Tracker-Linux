@@ -4,7 +4,7 @@ tytul: Architektura aplikacji
 tags: [architektura, komponenty, przeplywy]
 status_dokumentu: rdzeń-zaimplementowany
 utworzono: 2026-09-25 17:18
-zaktualizowano: 2026-09-25 21:59
+zaktualizowano: 2026-09-25 23:11
 ---
 
 # Architektura aplikacji
@@ -81,6 +81,36 @@ flowchart TB
 | Ustawienia | [core/settings.py](../../src/kimai_tray/core/settings.py) |
 | Powiadomienia (decyzja) | [core/notification_policy.py](../../src/kimai_tray/core/notification_policy.py) |
 | Teksty | [core/i18n.py](../../src/kimai_tray/core/i18n.py), [locales/](../../src/kimai_tray/core/locales/) |
+
+### Moduły UI (Plan 3)
+
+| Komponent | Moduł | Funkcje |
+|---|---|---|
+| Stan aplikacji (UI) | [ui/state.py](../../src/kimai_tray/ui/state.py) — `AppState` | wszystkie |
+| Harmonogram, akcje, powiadomienia | [ui/app.py](../../src/kimai_tray/ui/app.py) — `Controller`, [ui/worker.py](../../src/kimai_tray/ui/worker.py) | F-02, F-12, F-20, F-21, F-22 |
+| Tray | [ui/tray.py](../../src/kimai_tray/ui/tray.py), [ui/icons.py](../../src/kimai_tray/ui/icons.py), tekst: [core/presentation.py](../../src/kimai_tray/core/presentation.py) | F-02, F-20 |
+| Okno szybkiej obsługi | [ui/popup.py](../../src/kimai_tray/ui/popup.py), [ui/form.py](../../src/kimai_tray/ui/form.py), [ui/recent.py](../../src/kimai_tray/ui/recent.py), [ui/placement.py](../../src/kimai_tray/ui/placement.py) | F-03…F-10, F-12 |
+| Okno ustawień | [ui/settings_dialog.py](../../src/kimai_tray/ui/settings_dialog.py) | F-01, F-13, F-21, F-22 |
+| Sekrety, powiadomienia, autostart | [ui/desktop_bridge.py](../../src/kimai_tray/ui/desktop_bridge.py) → [desktop/](../../src/kimai_tray/desktop/) | F-01, F-21, F-22 |
+| Start | [ui/main.py](../../src/kimai_tray/ui/main.py), [__main__.py](../../src/kimai_tray/__main__.py) | — |
+
+Wątki (GUI tylko rysuje; tracker i D-Bus mają po jednym wątku — nie są bezpieczne wątkowo):
+
+```mermaid
+flowchart LR
+    subgraph gui[Wątek GUI]
+        TRAY[Tray] --> CTRL[Controller]
+        POP[QuickWindow] --> CTRL
+        DLG[SettingsDialog] --> CTRL
+        CTRL --> ST[AppState]
+        ST -->|changed| TRAY
+        ST -->|changed| POP
+    end
+    CTRL -->|submit| WK[Worker „kimai”<br/>Tracker → httpx]
+    CTRL -->|submit| WD[Worker „desktop”<br/>Desktop → jeepney]
+    CL[ClickListener<br/>własne połączenie] -->|clicked| CTRL
+    WK -->|Snapshot| CTRL
+```
 
 **Zasada**: domena nie wie nic o UI ani HTTP — dzięki temu testujemy ją jednostkowo
 i przenosimy 1:1 z testowalnej logiki wtyczki (`validate.js`, formatowanie).
