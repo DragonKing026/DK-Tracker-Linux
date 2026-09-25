@@ -79,7 +79,10 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
 ## 4. Konwencje dokumentów (Obsidian)
 
 - Każdy plik `.md` w `docs/` i `TODO/` zaczyna się od **frontmatter YAML**
-  (`tytul`, `tagi`, `utworzono`, `zaktualizowano`, dla zadań także `status`, `priorytet`).
+  (`noteId`, `tytul`, `tags`, `utworzono`, `zaktualizowano`, dla zadań także `status`,
+  `priorytet`). `noteId` i `tags` są obowiązkowe we **wszystkich** plikach `.md` poza
+  `.claude/`, bo inaczej dopisuje je rozszerzenie VS Code *notebook*. Skill
+  [frontmatter](.claude/skills/frontmatter/SKILL.md): `frontmatter.py sprawdz` przed commitem.
 - Linki wewnętrzne: **względne linki markdown** `[etykieta](../ścieżka/plik.md)`, działają
   w VS Code, Obsidianie i na GitHubie. **Wikilinki `[[...]]` są zakazane.** Każde odwołanie
   do zadania, ADR, dokumentu czy pliku jest linkiem, nie zwykłym tekstem.
@@ -100,6 +103,7 @@ Szczegóły: [docs/procesy/dokumentowanie.md](docs/procesy/dokumentowanie.md).
 | [zamknij-zadanie](.claude/skills/zamknij-zadanie/SKILL.md) | zamknięcie zadania: status, wynik, przeniesienie do `TODO/DONE/`, tablica, commit |
 | [nowa-integracja](.claude/skills/nowa-integracja/SKILL.md) | dodanie pliku integracji w `docs/integracje/` |
 | [nowa-decyzja](.claude/skills/nowa-decyzja/SKILL.md) | zapis decyzji architektonicznej (ADR) |
+| [frontmatter](.claude/skills/frontmatter/SKILL.md) | `noteId` + `tags` w każdym dokumencie; naprawa i nowy `noteId` |
 | [sprawdz-linki](.claude/skills/sprawdz-linki/SKILL.md) | sprawdzenie i naprawa linków, przenoszenie plików `.md` z poprawą linków |
 | [commit](.claude/skills/commit/SKILL.md) | przygotowanie małego commita zgodnego z konwencją |
 
