@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 23:11
+zaktualizowano: 2026-09-25 23:34
 ---
 
 # Tablica zadań
@@ -26,6 +26,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0041 | [Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze](W-TRAKCIE/0041-plan3-test-na-zywo/todo.md) | 🔨 w-trakcie | p1 | [0040](ZROBIONE/0040-plan3-start-aplikacji/todo.md) ✅ |
+| 0042 | [Poprawki UI po teście na żywo (Plan 3)](W-TRAKCIE/0042-poprawki-po-tescie-na-zywo/todo.md) | 🔨 w-trakcie | p1 | [0040](ZROBIONE/0040-plan3-start-aplikacji/todo.md) ✅ |
 
 ## Do zrobienia
 
