@@ -5,7 +5,7 @@ tags: [integracja, flatpak, dystrybucja, build]
 status_integracji: planowana
 wersja: Flatpak 1.18 (lokalnie); runtime'y na Flathub stan 2026-09-25
 utworzono: 2026-09-25 17:21
-zaktualizowano: 2026-09-25 17:47
+zaktualizowano: 2026-09-25 20:39
 ---
 
 # Flatpak — format dystrybucji
@@ -107,6 +107,19 @@ flatpak build-bundle ~/.local/share/flatpak/repo kimai-tray.flatpak pl.websystem
 >   autostart przez portal Background.
 > - Czas budowania i rozmiar: runtime KDE/GNOME ~ setki MB przy pierwszej instalacji
 >   (współdzielony z innymi aplikacjami).
+
+## Sprawdzone w prototypie 0004 (2026-09-25 20:39)
+
+- **Regresja Flatpaka 1.18.2 na Fedorze 44:** manifest z `base:` nie buduje się na hoście
+  (`lsetxattr(security.selinux): Operation not supported`, [flatpak#6818](https://github.com/flatpak/flatpak/issues/6818)).
+  Budujemy w kontenerze — [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
+- Kontener `debian:trixie` (Flatpak 1.16.6) + runtime'y hosta tylko do odczytu → paczka `.flatpak`
+  **70 MB**, instaluje się i działa na hoście z 1.18.2 (`flatpak install --user --bundle`).
+- Tacka z samym `--talk-name=org.kde.StatusNotifierWatcher` — **działa** (bez `--own-name`).
+- `layer-shell-qt` dołożony modułem manifestu — [layer-shell-qt](layer-shell-qt.md).
+- Flathub jako repozytorium **użytkownika** trzeba było dodać (`flatpak remote-add --user flathub …`);
+  na stacji dewelopera są: `org.kde.Sdk//6.11`, `io.qt.PySide.BaseApp//6.11` (user), `org.kde.Platform//6.11` (system).
+- Szczegóły: [ustalenia prototypu](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
 
 ## Dokumentacja
 

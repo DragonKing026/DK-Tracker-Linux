@@ -5,7 +5,7 @@ tags: [integracja, tray, dbus, kde, gnome]
 status_integracji: planowana
 wersja: specyfikacja freedesktop (draft), w KDE Plasma 5/6
 utworzono: 2026-09-25 17:20
-zaktualizowano: 2026-09-25 17:47
+zaktualizowano: 2026-09-25 20:39
 ---
 
 # StatusNotifierItem (SNI) — ikona w tacce
@@ -91,6 +91,21 @@ finish-args:
 | Czysty D-Bus (np. zbus, dbus-next, QtDBus) | tak | pełna kontrola, więcej kodu |
 
 > [!todo] Tabelę zweryfikować przez Context7/dokumentację w zadaniu wyboru stosu.
+
+## Sprawdzone w prototypie 0004 (2026-09-25 20:39)
+
+Plasma 6.7.5, Wayland, `QSystemTrayIcon` (PySide6 6.11), lokalnie i we Flatpaku:
+
+- rejestracja z samym `--talk-name=org.kde.StatusNotifierWatcher` — **działa**, `--own-name` niepotrzebne;
+- właściwości: `Category=ApplicationStatus`, `Status=Active`, `ItemIsMenu=false`, `Menu=/MenuBar` (dbusmenu);
+- lewy klik → `Activate` → `ActivationReason.Trigger`; **prawy klik: menu rysuje Plasma z dbusmenu,
+  aplikacja nie dostaje zdarzenia `Context`**;
+- tooltip: tekst z `setToolTip()` trafia do **tytułu** tooltipa SNI, odświeżanie co sekundę działa;
+- **klik ikony, gdy okno aplikacji jest aktywne, nie wywołuje `Activate`** — ikona nie może zamykać okna;
+- `geometry()` ikony = 0,0,0,0 (Wayland) — pozycji ikony nie znamy;
+- kliknięcie da się zasymulować w testach: `busctl --user call <nazwa> /StatusNotifierItem org.kde.StatusNotifierItem Activate ii 0 0`.
+
+Szczegóły: [ustalenia prototypu](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
 
 ## Dokumentacja
 

@@ -5,7 +5,7 @@ tags: [integracja, gnome, tray]
 status_integracji: planowana
 wersja: rozszerzenie v66 (GNOME Shell 45–51)
 utworzono: 2026-09-25 17:21
-zaktualizowano: 2026-09-25 18:31
+zaktualizowano: 2026-09-25 20:39
 ---
 
 # GNOME — „AppIndicator and KStatusNotifierItem Support”
@@ -111,6 +111,13 @@ flowchart TD
 > Jeśli aplikacja startuje „do tacki”, a tacki nie ma, użytkownik GNOME nie ma jak jej
 > otworzyć poza ponownym uruchomieniem z menu aplikacji. Ponowne uruchomienie musi
 > pokazać okno istniejącej instancji (single instance).
+
+## Stan testów (2026-09-25 20:39)
+
+> [!todo] Niesprawdzone na GNOME
+> Stacja deweloperska ma tylko KDE. Testy na GNOME (z rozszerzeniem AppIndicator i bez niego)
+> wykonają później inne osoby — osobne zadanie w `TODO/`. Na GNOME okno będzie bezramkowe
+> (bez `layer-shell`) — [ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md).
 
 ## Dokumentacja
 

@@ -5,7 +5,7 @@ tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-25 17:47
+zaktualizowano: 2026-09-25 20:39
 ---
 
 # Qt 6 / PySide6
@@ -89,6 +89,15 @@ build-options:
 ## Gdzie w kodzie
 
 > [!todo] Uzupełnić po utworzeniu modułów `tray` i `ui`.
+
+## Sprawdzone w prototypie 0004 (2026-09-25 20:39)
+
+- `QSystemTrayIcon` na Plasmie 6.7.5 Wayland: `isSystemTrayAvailable()=True`, `platformName()="wayland"`,
+  lewy klik = `Trigger`, prawy klik obsługuje host (menu z `setContextMenu` eksportowane przez dbusmenu).
+- Okno `Qt.Tool | FramelessWindowHint`: KWin stawia je na środku; `WindowDeactivate` po kliknięciu obok działa.
+- `layer-shell-qt` z PySide: bez wiązań, przez `ctypes` + `setProperty` — [layer-shell-qt](layer-shell-qt.md).
+- Budowa Flatpaka z `io.qt.PySide.BaseApp` na Fedorze 44 wymaga kontenera — [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
+  Alternatywa: PySide6 z PyPI (`pyside6-essentials` + `shiboken6`, 80 MB) — działa, ale z własnym Qt (bez `layer-shell-qt`).
 
 ## Dokumentacja
 
