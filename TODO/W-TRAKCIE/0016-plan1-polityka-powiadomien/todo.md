@@ -2,7 +2,7 @@
 noteId: "334617b0cc8843ec8aa4f7b49acb3c3b"
 tytul: "Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)"
 numer: "0016"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0015"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0016 — Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -52,6 +52,7 @@ Wykonać **zadanie 12** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
