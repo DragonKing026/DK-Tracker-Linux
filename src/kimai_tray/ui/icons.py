@@ -35,10 +35,6 @@ _PATHS = {
         '<path d="M17 6.5c0-1.9-2.2-3-5-3s-5 1.1-5 3 2.2 3 5 3.5 5 1.6 5 3.5-2.2 3-5 3-5-1.1-5-3"/>'
         '<path d="M3 21 21 3"/></g>'
     ),
-    "search": (
-        '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">'
-        '<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></g>'
-    ),
     "external": (
         '<g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
         '<path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></g>'

@@ -109,6 +109,11 @@ def stylesheet(p: dict[str, str], assets: dict[str, str] | None = None) -> str:
 #popup QScrollBar::handle:vertical:hover {{ background: {p["muted"]}; }}
 #popup QScrollBar::add-line:vertical, #popup QScrollBar::sub-line:vertical {{ height: 0; border: 0; }}
 #popup QScrollBar::add-page:vertical, #popup QScrollBar::sub-page:vertical {{ background: none; }}
+#projectPopup {{ background: {p["bg"]}; border: 1px solid {p["line"]}; border-radius: 8px; }}
+#projectPopup QListView {{ background: {p["bg"]}; color: {p["fg"]}; border: 0; font-size: 13px;
+    selection-background-color: {p["surface2"]}; selection-color: {p["fg"]}; }}
+#projectPopup QListView::item {{ padding: 4px 6px; }}
+#projectPopup QListView::item:disabled {{ color: {p["muted"]}; font-weight: 700; }}
 #popup QComboBox QAbstractItemView {{ background: {p["bg"]}; color: {p["fg"]};
     selection-background-color: {p["surface2"]}; selection-color: {p["fg"]}; }}
 #billable {{ border: 1px solid {p["start"]}; border-radius: 8px; background: rgba(22, 163, 74, 26);

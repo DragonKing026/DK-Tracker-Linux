@@ -192,43 +192,66 @@ def test_short_description_has_no_scroll_bar(form):
     assert form.description.verticalScrollBarPolicy() == Qt.ScrollBarPolicy.ScrollBarAsNeeded
 
 
-def test_typing_filters_projects_ignoring_case_and_polish_letters(form, qtbot):
-    form.project.lineEdit().setText("")
-    QTest.keyClicks(form.project.lineEdit(), "MODUL")
-    names = [form.search_model.index(row, 0).data() for row in range(form.search_model.rowCount())]
-    assert names == ["Moduł rezerwacji — Hotel Morski"]
+def visible_rows(popup):
+    view = popup.view
+    return [view.model().index(row, 0).data() for row in range(view.model().rowCount())]
 
 
-def test_choosing_a_search_result_selects_the_project(form, qtbot):
-    QTest.keyClicks(form.project.lineEdit(), "admin")
+def test_opening_the_list_puts_a_search_field_on_top(form, qtbot):
+    form.show()
+    form.project.showPopup()
+    popup = form.project.popup
+    qtbot.waitUntil(popup.isVisible)
+    assert popup.search.placeholderText() == "Szukaj projektu…"
+    assert popup.search.hasFocus()
+    assert "Moduł rezerwacji" in visible_rows(popup)
+    form.project.hidePopup()
+
+
+def test_typing_filters_by_project_or_customer_ignoring_case_and_polish_letters(form, qtbot):
+    form.show()
+    form.project.showPopup()
+    popup = form.project.popup
+    QTest.keyClicks(popup.search, "MODUL")
+    assert visible_rows(popup) == ["Hotel Morski", "Moduł rezerwacji"]
+    popup.search.clear()
+    QTest.keyClicks(popup.search, "wewn")  # the customer's name finds its projects
+    assert visible_rows(popup) == ["Sprawy wewnętrzne", "Administracja"]
+    form.project.hidePopup()
+
+
+def test_enter_picks_the_first_match(form, qtbot):
+    form.show()
+    form.project.showPopup()
+    popup = form.project.popup
+    QTest.keyClicks(popup.search, "admin")
     with qtbot.waitSignal(form.projectChosen) as signal:
-        form.completer.activated[str].emit("Administracja — Sprawy wewnętrzne")
+        QTest.keyClick(popup.search, Qt.Key.Key_Return)
     assert signal.args == [2]
     assert form.project.currentData() == 2
-    assert form.project.currentText() == "Administracja"
+    assert not popup.isVisible()
 
 
-def test_leaving_unfinished_search_text_restores_the_project(form):
-    form.select_project(1)
-    form.project.lineEdit().setText("xyz")
-    form.project.lineEdit().editingFinished.emit()
-    assert form.project.currentText() == "Moduł rezerwacji"
-    assert form.project.currentData() == 1
-
-
-def test_project_box_shows_that_it_searches(form):
-    edit = form.project.lineEdit()
-    assert edit.placeholderText() == "Szukaj projektu…"
-    assert any(action.toolTip() == "Szukaj projektu…" for action in edit.actions())
-    form.retranslate(Translator("en"))
-    assert edit.placeholderText() == "Search projects…"
-
-
-def test_clicking_into_the_project_box_selects_its_text(form, qtbot):
+def test_arrow_keys_move_through_projects_only(form, qtbot):
     form.show()
-    qtbot.waitExposed(form)
-    edit = form.project.lineEdit()
-    form.activateWindow()
-    edit.setFocus(Qt.FocusReason.MouseFocusReason)  # what a click into the box does
-    qtbot.waitUntil(edit.hasSelectedText)
-    assert edit.selectedText() == form.project.currentText()
+    form.project.showPopup()
+    popup = form.project.popup
+    QTest.keyClick(popup.search, Qt.Key.Key_Down)
+    first = popup.view.currentIndex().data()
+    assert first not in ("Hotel Morski", "Sprawy wewnętrzne")  # customers are headers, not choices
+    form.project.hidePopup()
+
+
+def test_search_text_is_cleared_for_the_next_opening(form, qtbot):
+    form.show()
+    form.project.showPopup()
+    QTest.keyClicks(form.project.popup.search, "xyz")
+    form.project.hidePopup()
+    form.project.showPopup()
+    assert form.project.popup.search.text() == ""
+    form.project.hidePopup()
+
+
+def test_search_placeholder_follows_the_language(form):
+    form.retranslate(Translator("en"))
+    assert form.project.popup.search.placeholderText() == "Search projects…"

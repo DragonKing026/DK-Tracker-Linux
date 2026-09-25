@@ -11,11 +11,8 @@ from collections.abc import Callable, Iterable
 from datetime import datetime, tzinfo
 
 from PySide6.QtCore import (
-    QEvent,
-    QModelIndex,
     QRegularExpression,
     QSize,
-    QSortFilterProxyModel,
     Qt,
     QTimer,
     Signal,
@@ -28,11 +25,9 @@ from PySide6.QtGui import (
     QPixmap,
     QRegularExpressionValidator,
     QStandardItem,
-    QStandardItemModel,
 )
 from PySide6.QtWidgets import (
     QComboBox,
-    QCompleter,
     QFrame,
     QGridLayout,
     QHBoxLayout,
@@ -45,12 +40,13 @@ from PySide6.QtWidgets import (
 )
 
 from kimai_tray.core.billable import default_billable
-from kimai_tray.core.grouping import group_projects, sort_key
+from kimai_tray.core.grouping import group_projects
 from kimai_tray.core.models import Activity, Entry, Project
 from kimai_tray.core.timefmt import clock, elapsed_seconds, hhmm
 from kimai_tray.core.tracker import Snapshot
 
 from .icons import glyph
+from .project_picker import ProjectComboBox
 
 GREY_DOT = "#9aa0ac"
 _HHMM = QRegularExpression(r"^([01]?\d|2[0-3]):[0-5]\d$")
@@ -66,23 +62,6 @@ def dot(color: str | None, size: int = 10) -> QIcon:
     painter.drawEllipse(0, 0, size, size)
     painter.end()
     return QIcon(pixmap)
-
-
-class _Search(QSortFilterProxyModel):
-    """Projects whose name or customer contains the typed text — case and Polish letters ignored."""
-
-    def __init__(self) -> None:
-        super().__init__()
-        self._needle = ""
-
-    def set_text(self, text: str) -> None:
-        self.beginFilterChange()  # Qt 6.10+: replaces the deprecated invalidateFilter()
-        self._needle = sort_key(text.strip())
-        self.endFilterChange(QSortFilterProxyModel.Direction.Rows)
-
-    def filterAcceptsRow(self, row: int, parent: QModelIndex) -> bool:  # noqa: N802 - Qt API
-        text = self.sourceModel().index(row, 0, parent).data() or ""
-        return self._needle in sort_key(text)
 
 
 class DescriptionEdit(QPlainTextEdit):
@@ -149,21 +128,8 @@ class TrackerForm(QWidget):
         self.clock = QLabel(objectName="clock")
         self.toggle = QPushButton(objectName="toggle")
         self.toggle.setIconSize(QSize(20, 20))
-        self.project = QComboBox()
-        # Typing in the project box searches (not in the add-on; long project lists need it).
-        self.project.setEditable(True)
-        self.project.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
-        self._search_source = QStandardItemModel(self)
-        self.search_model = _Search()
-        self.search_model.setSourceModel(self._search_source)
-        self.completer = QCompleter(self.search_model, self)
-        self.completer.setCompletionMode(QCompleter.CompletionMode.UnfilteredPopupCompletion)
-        self.project.setCompleter(self.completer)
-        self._search_ids: dict[str, int] = {}
-        self._search_action = self.project.lineEdit().addAction(
-            glyph("search", GREY_DOT, 16), QLineEdit.ActionPosition.TrailingPosition
-        )
-        self.project.installEventFilter(self)  # the combo gets the focus and passes it on unfiltered
+        # Its list opens with a search field on top (project_picker.py).
+        self.project = ProjectComboBox(t)
         self.activity = QComboBox()
         self.billable = QPushButton(objectName="billable")
         self.billable.setIconSize(QSize(17, 17))
@@ -213,20 +179,11 @@ class TrackerForm(QWidget):
         self.toggle.clicked.connect(self._on_toggle)
         self.billable.clicked.connect(self._on_billable)
         self.project.activated.connect(lambda _index: self._on_project(user=True))
-        self.project.lineEdit().textEdited.connect(self.search_model.set_text)
-        self.project.lineEdit().editingFinished.connect(self._restore_project_text)
-        self.completer.activated[str].connect(self._on_search_chosen)
         self.activity.activated.connect(lambda _index: self._on_activity())
         self.begin.editingFinished.connect(self._on_begin)
         self.clock.hide()
         self.times.hide()
         self.retranslate(t)
-
-    def eventFilter(self, watched, event) -> bool:  # noqa: N802 - Qt API
-        # A click into the project box selects its text, so typing starts a search at once.
-        if watched is self.project and event.type() == QEvent.Type.FocusIn:
-            QTimer.singleShot(0, self.project.lineEdit().selectAll)
-        return super().eventFilter(watched, event)
 
     # -- data from the controller ---------------------------------------------
 
@@ -246,8 +203,6 @@ class TrackerForm(QWidget):
         self.project.clear()
         self.project.addItem(dot(None), self._t("chooseProject"), None)
         model = self.project.model()
-        self._search_source.clear()
-        self._search_ids = {}
         for customer, projects in group_projects(snapshot.projects):
             header = QStandardItem(customer)
             header.setEnabled(False)
@@ -257,9 +212,6 @@ class TrackerForm(QWidget):
             model.appendRow(header)
             for project in projects:
                 self.project.addItem(dot(project.color), project.name, project.id)
-                label = f"{project.name} — {customer}" if customer else project.name
-                self._search_source.appendRow(QStandardItem(dot(project.color), label))
-                self._search_ids[label] = project.id
         self._select(self.project, chosen)
         if self._running is None:
             self._reset_billable()
@@ -304,8 +256,7 @@ class TrackerForm(QWidget):
         self.description.setPlaceholderText(t("descriptionPlaceholder"))
         self.description.setToolTip(t("descriptionLabel"))
         self.project.setToolTip(t("projectLabel"))
-        self.project.lineEdit().setPlaceholderText(t("projectSearch"))
-        self._search_action.setToolTip(t("projectSearch"))
+        self.project.retranslate(t)
         self.activity.setToolTip(t("activityLabel"))
         self.from_label.setText(t("fromLabel").upper())
         self.to_label.setText(t("toLabel").upper())
@@ -407,17 +358,6 @@ class TrackerForm(QWidget):
             self._touched = False
             self._reset_billable()
         self.projectChosen.emit(self.project.currentData())
-
-    def _on_search_chosen(self, label: str) -> None:
-        project_id = self._search_ids.get(label)
-        if project_id is not None:
-            self.select_project(project_id)
-
-    def _restore_project_text(self) -> None:
-        """Half-typed search text never stays in the box: it shows the chosen project again."""
-        index = self.project.currentIndex()
-        if self.project.currentText() != self.project.itemText(index):
-            self.project.setEditText(self.project.itemText(index))
 
     def _on_activity(self) -> None:
         if not self._touched:
