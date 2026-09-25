@@ -3,14 +3,14 @@ noteId: "5117ce2da6fb45e692d21f2b5fe80086"
 tytul: Struktura repozytorium
 tags: [architektura, repozytorium]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 21:06
+zaktualizowano: 2026-09-25 23:11
 ---
 
 # Struktura repozytorium
 
-> [!note] Stan po Planie 2
-> Opisane są katalogi dokumentacji, agenta, rdzenia, integracji desktopowych i testów. Katalogi `ui/` i
-> `flatpak/` dojdą w planach 3–4 — patrz [plany](../plany/README.md).
+> [!note] Stan po Planie 3
+> Opisane są katalogi dokumentacji, agenta, rdzenia, integracji desktopowych, interfejsu i testów.
+> Katalog `flatpak/` dojdzie w planie 4 — patrz [plany](../plany/README.md).
 
 ```
 .
@@ -20,12 +20,15 @@ zaktualizowano: 2026-09-25 21:06
 ├── .gitignore
 ├── pyproject.toml             pakiet kimai-tray, zależności, pytest, ruff
 ├── src/kimai_tray/
+│   ├── __main__.py            `python -m kimai_tray [--hidden]`
 │   ├── core/                  rdzeń bez Qt i D-Bus (plan 1)
-│   └── desktop/               D-Bus na jeepney bez Qt: sekrety, powiadomienia, autostart (plan 2)
+│   ├── desktop/               D-Bus na jeepney bez Qt: sekrety, powiadomienia, autostart (plan 2)
+│   └── ui/                    Qt Widgets: tacka, okno, ustawienia, kontroler (plan 3)
 ├── tests/
 │   ├── core/                  testy rdzenia (pytest, MockTransport, FakeClient)
 │   ├── desktop/               testy D-Bus (FakeBus) + `-m desktop` na prawdziwej sesji
 │   ├── kimai/                 Kimai w Dockerze + testy kontraktowe
+│   ├── ui/                    testy interfejsu (pytest-qt, `offscreen`)
 │   └── test_architektura.py   zakazane importy między warstwami
 ├── .claude/
 │   └── skills/                skille projektu — powtarzalne zadania agenta
