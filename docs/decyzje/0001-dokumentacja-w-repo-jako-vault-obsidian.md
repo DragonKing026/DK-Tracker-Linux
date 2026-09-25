@@ -26,7 +26,7 @@ Pracę wykonują w dużej mierze agenci AI, którzy muszą szybko odnaleźć kon
 ## Decyzja
 
 **Cała dokumentacja (`docs/`) i zadania (`TODO/`) żyją w repozytorium jako Markdown
-w konwencji Obsidiana (frontmatter, wikilinki, callouty, mermaid).**
+w konwencji Obsidiana (frontmatter, callouty, mermaid) z względnymi linkami markdown.**
 
 ## Uzasadnienie
 
@@ -35,8 +35,9 @@ agent czyta ją bez dodatkowych narzędzi; użytkownik przegląda ją w Obsidian
 
 ## Konsekwencje
 
-- Wikilinki na GitHubie wyświetlają się jako tekst — akceptowalne; README dla ludzi
-  używa zwykłych linków markdown.
+- **Rewizja 2026-09-25:** początkowo używaliśmy wikilinków `[[...]]`. Na prośbę
+  użytkownika zastąpiono je względnymi linkami markdown, które działają też w VS Code
+  i na GitHubie. Spójność linków pilnuje skill `sprawdz-linki`.
 - Każda zmiana zachowania wymaga aktualizacji docs (reguła w [AGENTS.md](../../AGENTS.md)).
 - Zrzuty ekranu zwiększają rozmiar repo — trzymamy PNG w rozsądnej rozdzielczości.
 
