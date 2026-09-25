@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 21:44
+zaktualizowano: 2026-09-25 21:48
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0027 | [Drobne uwagi z recenzji Planu 2 (desktop)](W-TRAKCIE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md) | 🔨 w-trakcie | p3 | [0026](ZROBIONE/0026-plan2-testy-na-zywo-i-komendy/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -62,6 +61,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0024 | [Plan 2 · Zadanie 3: Powiadomienia — tekst w rdzeniu, wysyłka przez portal](ZROBIONE/0024-plan2-powiadomienia-przez-portal/todo.md) | ✅ zrobione | 2026-09-25 21:01 |
 | 0025 | [Plan 2 · Zadanie 4: Autostart i status w tle (`desktop/autostart.py`)](ZROBIONE/0025-plan2-autostart-i-status-w-tle/todo.md) | ✅ zrobione | 2026-09-25 21:02 |
 | 0026 | [Plan 2 · Zadanie 5: Testy na prawdziwej sesji i komendy](ZROBIONE/0026-plan2-testy-na-zywo-i-komendy/todo.md) | ✅ zrobione | 2026-09-25 21:02 |
+| 0027 | [Drobne uwagi z recenzji Planu 2 (desktop)](ZROBIONE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md) | ✅ zrobione | 2026-09-25 21:48 |
 
 <!-- tablica:end -->
 

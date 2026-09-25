@@ -1148,5 +1148,5 @@ git commit -m "test(desktop): testy integracji na prawdziwej sesji D-Bus"
 
 ## Poza tym planem
 
-- Plan 3 (UI): wątek nasłuchu kliknięć (`PortalNotifier.listen()` w osobnym połączeniu), okno ustawień z zapisem tokenu (`SecretServiceStore.set`), opcja autostartu z komendą `--hidden`, obsługa `SecretsUnavailable` / `SecretsLocked` w UI (przy braku portfela — podpowiedź, jak go założyć; [0027](../../TODO/W-TRAKCIE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md)). Nasłuch kliknięć może mieć osobne połączenie — sprawdzić na żywo.
+- Plan 3 (UI): wątek nasłuchu kliknięć (`PortalNotifier.listen()` w osobnym połączeniu), okno ustawień z zapisem tokenu (`SecretServiceStore.set`), opcja autostartu z komendą `--hidden`, obsługa `SecretsUnavailable` / `SecretsLocked` w UI (przy braku portfela — podpowiedź, jak go założyć; [0027](../../TODO/ZROBIONE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md)). Nasłuch kliknięć może mieć osobne połączenie — sprawdzić na żywo.
 - Plan 4 (Flatpak): `--talk-name=org.freedesktop.secrets` i moduł pip `jeepney` w manifeście.

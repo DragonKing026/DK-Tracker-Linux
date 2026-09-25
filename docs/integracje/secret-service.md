@@ -89,7 +89,7 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 - Po restarcie usługi (ksecretd / gnome-keyring) zapamiętana sesja znika (`NoSession` / `UnknownObject`) —
   sesja jest otwierana ponownie raz; drugi błąd → `SecretsUnavailable`.
 - Brak domyślnego portfela (alias `default`) → `SecretsUnavailable`; aplikacja **nie** zakłada portfela sama,
-  komunikat w UI podpowiada, jak go utworzyć (decyzja: [0027](../../TODO/W-TRAKCIE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md)).
+  komunikat w UI podpowiada, jak go utworzyć (decyzja: [0027](../../TODO/ZROBIONE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md)).
 - Nigdy nie logujemy tokenu, nawet w trybie debug.
 
 ## Pułapki

@@ -2,18 +2,19 @@
 noteId: "3bd05b294c5f44a1b6bd803bbe09249e"
 tytul: "Drobne uwagi z recenzji Planu 2 (desktop)"
 numer: "0027"
-status: w-trakcie
+status: zrobione
 priorytet: p3
 tags: [todo, desktop, recenzja]
 zalezy_od: ["0026"]
 utworzono: 2026-09-25 21:06
-zaktualizowano: 2026-09-25 21:44
+zaktualizowano: 2026-09-25 21:48
+zamknieto: 2026-09-25 21:48
 ---
 
 # 0027 — Drobne uwagi z recenzji Planu 2 (desktop)
 
 > [!info] Status
-> **w-trakcie** · priorytet **p3** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p3** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -25,7 +26,7 @@ Ważną (I1: surowe wyjątki z usługi sekretów, wygasła sesja) poprawiono w c
 
 - [Plan 2](../../../docs/plany/2026-09-25-plan-2-desktop.md), [specyfikacja](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md)
 - Kod: [src/kimai_tray/desktop/](../../../src/kimai_tray/desktop/), [notification_policy.py](../../../src/kimai_tray/core/notification_policy.py)
-- Rozpoznanie API: [rozpoznanie.md](../../ZROBIONE/0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md)
+- Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md)
 
 ## Kryteria akceptacji
 
@@ -52,6 +53,7 @@ Ważną (I1: surowe wyjątki z usługi sekretów, wygasła sesja) poprawiono w c
 - **21:06** Utworzono z końcowej recenzji Planu 2.
 - **21:10** Start: techniczne uwagi poprawiam sam, decyzje produktowe do omówienia z użytkownikiem.
 - **21:44** M7 odrzucona z notatką (decyzja użytkownika).
+- **21:48** Zamknięte: wszystkie uwagi rozstrzygnięte.
 
 ## Wynik
 
