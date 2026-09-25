@@ -5,7 +5,7 @@ tags: [integracja, wayland, kde, ui]
 status_integracji: planowana
 wersja: 6.7.5 (Plasma 6.7.5; moduł we Flatpaku ze źródeł KDE)
 utworzono: 2026-09-25 20:38
-zaktualizowano: 2026-09-25 22:08
+zaktualizowano: 2026-09-25 23:09
 ---
 
 # layer-shell-qt
@@ -71,11 +71,13 @@ Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
 > - GNOME (Mutter) nie udostępnia `layer-shell` aplikacjom — tam ścieżka bezramkowa.
 > - Kliknięcie ikony w tacce przy otwartym oknie nie dociera do aplikacji (Plasma) — okno
 >   zamyka przycisk, `Esc` albo klik obok.
+> - **Qt z pip nie wystarczy**: biblioteka systemowa wymaga `Qt_6.11_PRIVATE_API`, którego nie eksportuje Qt z koła PySide6 —
+>   `CDLL` rzuca `OSError`, aplikacja przechodzi na okno bez ramki. Na żywo uruchamiamy systemowym Pythonem, we Flatpaku moduł jest budowany na Qt runtime'u.
 
 ## Gdzie w kodzie
 
-> [!todo] Plan 3: moduł UI odpowiedzialny za wybór ścieżki (layer-shell / bezramkowe).
-> Prototyp: [tray_demo.py](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/prototyp/tray_demo.py) (`anchor_bottom_right`).
+- [src/kimai_tray/ui/placement.py](../../src/kimai_tray/ui/placement.py) — `choose_mode` / `detect_mode` (layer / bez ramki / okno), `apply`, wywołanie `LayerShellQt::Window::get` przez ctypes tylko dla okna szybkiej obsługi.
+- Test obecności symbolu: [tests/ui/test_popup.py](../../tests/ui/test_popup.py) (`test_layer_shell_symbol_is_present_when_the_library_is`).
 
 ## Dokumentacja
 
