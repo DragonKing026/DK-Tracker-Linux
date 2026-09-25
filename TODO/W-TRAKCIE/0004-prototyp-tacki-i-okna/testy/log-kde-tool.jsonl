@@ -1,0 +1,24 @@
+{"t": 0.081, "event": "start", "pid": 1440274, "platform": "wayland", "tray_available": true, "messages_supported": true, "mode": "tool", "guard_ms": 0, "env": {"XDG_CURRENT_DESKTOP": "KDE", "XDG_SESSION_TYPE": "wayland", "QT_WAYLAND_SHELL_INTEGRATION": null, "LAYERSHELLQT_ANCHORS": null, "LAYERSHELLQT_LAYER": null, "FLATPAK_ID": null}}
+{"t": 0.563, "event": "tray.shown", "visible": true, "geometry": [0, 0, 0, 0]}
+{"t": 26.987, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 26.987, "event": "toggle.show", "source": "tray-left-click", "ms_since_hide": null, "tray_geometry": [0, 0, 0, 0]}
+{"t": 27.341, "event": "window.geometry", "geometry": [0, 0, 460, 560], "frame": [0, 0], "screen": "DP-6", "screen_geometry": [0, 0, 2560, 1440], "active": true, "handle_position": [0, 0]}
+{"t": 46.532, "event": "window.deactivated_hide"}
+{"t": 101.559, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 101.559, "event": "toggle.show", "source": "tray-left-click", "ms_since_hide": 55028, "tray_geometry": [0, 0, 0, 0]}
+{"t": 101.863, "event": "window.geometry", "geometry": [0, 0, 460, 560], "frame": [0, 0], "screen": "DP-6", "screen_geometry": [0, 0, 2560, 1440], "active": true, "handle_position": [0, 0]}
+{"t": 102.616, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 102.616, "event": "toggle.hide", "source": "tray-left-click"}
+{"t": 102.616, "event": "window.deactivated_hide"}
+{"t": 103.222, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 103.222, "event": "toggle.show", "source": "tray-left-click", "ms_since_hide": 606, "tray_geometry": [0, 0, 0, 0]}
+{"t": 103.537, "event": "window.geometry", "geometry": [0, 0, 460, 560], "frame": [0, 0], "screen": "DP-6", "screen_geometry": [0, 0, 2560, 1440], "active": true, "handle_position": [0, 0]}
+{"t": 104.336, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 104.336, "event": "toggle.hide", "source": "tray-left-click"}
+{"t": 104.336, "event": "window.deactivated_hide"}
+{"t": 105.152, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 105.152, "event": "toggle.show", "source": "tray-left-click", "ms_since_hide": 816, "tray_geometry": [0, 0, 0, 0]}
+{"t": 105.463, "event": "window.geometry", "geometry": [0, 0, 460, 560], "frame": [0, 0], "screen": "DP-6", "screen_geometry": [0, 0, 2560, 1440], "active": true, "handle_position": [0, 0]}
+{"t": 106.022, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 106.022, "event": "toggle.hide", "source": "tray-left-click"}
+{"t": 106.022, "event": "window.deactivated_hide"}

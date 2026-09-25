@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, spike, tray, wayland]
 zalezy_od: ["0003-wybor-stosu"]
 utworzono: 2026-09-25 17:24
-zaktualizowano: 2026-09-25 19:56
+zaktualizowano: 2026-09-25 20:02
 zamknieto:
 ---
 
@@ -39,10 +39,10 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 
 ## Materiały
 
-- `prototyp/` — kod spike'a (do wyrzucenia)
-- `zrzuty/` — zrzuty z każdego pulpitu, np. `kde-tacka.png`, `gnome-appindicator.png`
-- `testy/` — raport z odpowiedziami na pytania i logi uruchomień
-- `notatki/` — ustalenia o `layer-shell-qt`
+- [prototyp/tray_demo.py](prototyp/tray_demo.py) — kod spike'a (do wyrzucenia)
+- [notatki/ustalenia.md](notatki/ustalenia.md) — **wyniki**: co działa, co trzeba sprawdzić ręcznie, co zablokowane
+- `zrzuty/` — wycinki (bez prywatnej zawartości pulpitu): [ikona w tacce](zrzuty/kde-tacka-ikona.png), [okno A — środek ekranu](zrzuty/kde-tool-okno.png), [okno B — przy panelu](zrzuty/kde-layer-okno.png)
+- `testy/` — logi JSON uruchomień: [wariant A](testy/log-kde-tool.jsonl), [wariant B](testy/log-kde-layer.jsonl)
 
 ## Dziennik
 
@@ -51,5 +51,6 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 - Stos wybrany (0003 zamknięte) → status do-zrobienia.
 - [ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md): dodano pytania o wariant A i B okna.
 - **19:56** Start spike'a: PySide6 lokalnie na Plasmie 6.7.5 Wayland, potem Flatpak.
+- **20:02** KDE: tacka, klik (Trigger), tooltip co sekundę, wariant A (środek ekranu) i B (layer-shell przy panelu) sprawdzone automatycznie; czeka test ręczny, zgoda na pobranie SDK Flatpaka, GNOME.
 
 ## Wynik
