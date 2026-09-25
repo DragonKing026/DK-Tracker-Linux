@@ -23,3 +23,7 @@ target/
 
 # Robocze pliki wykonywania planów (superpowers)
 .superpowers/
+.coverage
+.pytest_cache/
+.ruff_cache/
+*.egg-info/

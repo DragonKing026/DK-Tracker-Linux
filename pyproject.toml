@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kimai-tray"
+version = "0.1.0"
+description = "System tray time tracking for Kimai"
+requires-python = ">=3.13"
+dependencies = ["httpx>=0.28,<1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"kimai_tray.core" = ["locales/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-m 'not kimai and not desktop'"
+markers = [
+    "kimai: needs the local Kimai in Docker (tests/kimai/kimai-testowe.sh)",
+    "desktop: needs a real desktop session (D-Bus, keyring)",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py313"
+# Only product code: agent tooling (.claude/), task prototypes (TODO/) and docs are out of scope.
+extend-exclude = [".claude", "TODO", "docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
