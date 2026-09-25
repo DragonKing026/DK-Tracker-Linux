@@ -7,7 +7,7 @@ priorytet: p3
 tags: [todo, core, recenzja]
 zalezy_od: ["0018"]
 utworzono: 2026-09-25 19:15
-zaktualizowano: 2026-09-25 19:39
+zaktualizowano: 2026-09-25 19:44
 zamknieto:
 ---
 
@@ -39,7 +39,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - [x] `OSError` przy zapisie pamięci (pełny dysk) wychodzi z odświeżania/startu — **poprawione**: `Tracker._update_memory` loguje ostrzeżenie i trzyma stan w RAM (test `test_memory_that_cannot_be_saved_never_fails_an_action`)
 - [x] Każdy 403 traktowany jak zły token — **potwierdzone i poprawione**: Kimai 2.65 zwraca 403 przy edycji wpisu wyeksportowanego i cudzego; 403 → `FORBIDDEN` (`errForbidden`), `Entry.exported` + blokada billable na wyeksportowanym (`errExported`); test kontraktowy na 2.65.0 i 2.67.0
 - [x] Przekierowanie 3xx (http→https) pokazywane jako „błąd 301” — **poprawione (wariant b)**: `ErrorKind.REDIRECT` z adresem bazowym z `Location`, komunikat `errRedirect`; bez automatycznego podążania (token nie idzie drugi raz). Plan 3: przycisk „Użyj tego adresu” w ustawieniach
-- [ ] Sumy na żywo: cały czas trwającego wpisu dodawany do „dziś/tydzień”, nawet gdy zaczął się wczoraj; `refresh_active` nie przelicza sum
+- [x] Sumy na żywo — **poprawione**: (7a) trwający wpis liczony do dnia rozpoczęcia, jak w Kimai; (7b) lekkie odświeżenie przelicza sumy, gdy zmieni się zestaw trwających wpisów
 - [ ] Powiadomienie N-01 ma wspólny identyfikator dla kilku długich timerów
 - [ ] Nowe (z testów na 2.65.0): preferencja `first_weekday` — sumy tygodnia zawsze od poniedziałku, a konto może mieć niedzielę
 - [ ] [funkcje.md](../../../docs/architektura/funkcje.md) F-12 opisuje stronicowanie 100×3, kod używa 500×10
@@ -57,6 +57,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - **19:34** Uwaga 4: poprawiona (TDD, 159 testów zielonych).
 - **19:37** Uwaga 5: sprawdzona na Kimai 2.65.0 w Dockerze (403 dla wyeksportowanego i cudzego wpisu, 401 dla złego tokenu) i poprawiona.
 - **19:39** Uwaga 6: poprawiona wariantem (b) — rozpoznanie przekierowania i podanie nowego adresu.
+- **19:44** Uwaga 7: poprawiona (obie części), 170 testów zielonych.
 
 ## Wynik
 
