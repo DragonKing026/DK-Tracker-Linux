@@ -5,7 +5,7 @@ tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-25 22:03
+zaktualizowano: 2026-09-25 23:11
 ---
 
 # Qt 6 / PySide6
@@ -88,7 +88,19 @@ build-options:
 
 ## Gdzie w kodzie
 
-> [!todo] Uzupełnić po utworzeniu modułów `tray` i `ui`.
+Wszystko, co importuje PySide6, leży w [src/kimai_tray/ui/](../../src/kimai_tray/ui/) (test architektury pilnuje, by `core/` i `desktop/` nie importowały Qt):
+
+- [app.py](../../src/kimai_tray/ui/app.py) — `Controller`: wątki, odświeżanie, akcje, powiadomienia, ustawienia, autostart.
+- [main.py](../../src/kimai_tray/ui/main.py) — start: `--hidden`, jedna instancja (`QLocalServer`), logi, `QTranslator` dla `qtbase`, czekanie na tackę.
+- [state.py](../../src/kimai_tray/ui/state.py) — `AppState`: ostatni Snapshot, ustawienia, język; jeden sygnał `changed`.
+- [worker.py](../../src/kimai_tray/ui/worker.py) — `Worker`: jeden wątek, wynik wraca do wątku GUI sygnałem w kolejce.
+- [tray.py](../../src/kimai_tray/ui/tray.py) — `QSystemTrayIcon` i menu.
+- [popup.py](../../src/kimai_tray/ui/popup.py), [form.py](../../src/kimai_tray/ui/form.py), [recent.py](../../src/kimai_tray/ui/recent.py) — okno szybkiej obsługi.
+- [settings_dialog.py](../../src/kimai_tray/ui/settings_dialog.py) — okno ustawień.
+- [placement.py](../../src/kimai_tray/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
+- [desktop_bridge.py](../../src/kimai_tray/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako `QThread`.
+- [theme.py](../../src/kimai_tray/ui/theme.py), [icons.py](../../src/kimai_tray/ui/icons.py) — palety wtyczki (motyw z `QStyleHints.colorScheme()`), ikony rysowane `QPainter` / `QSvgRenderer`.
+- Testy: [tests/ui/](../../tests/ui/) — pytest-qt na platformie `offscreen`.
 
 ## Sprawdzone w prototypie 0004 (2026-09-25 20:39)
 
