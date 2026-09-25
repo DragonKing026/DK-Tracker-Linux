@@ -50,6 +50,7 @@
   "errServer": "Kimai returned an error: {code}",
   "errRejected": "Kimai rejected the data: {msg}",
   "warnHttp": "The address uses http:// — the token would travel unencrypted.",
+  "warnTimezoneMissing": "Your Kimai server does not report the account timezone. Times are recorded in this computer's zone ({system}) — make sure your Kimai profile uses the same zone.",
   "warnTimezone": "Your Kimai timezone ({kimai}) differs from this computer's ({system}). Times are recorded in the Kimai timezone — check your Kimai profile.",
   "optTitle": "Kimai Tray settings",
   "optUrl": "Kimai address",

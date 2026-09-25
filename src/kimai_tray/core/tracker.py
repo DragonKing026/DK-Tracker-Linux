@@ -50,6 +50,7 @@ class Snapshot:
     failures: int = 0
     billable_allowed: bool = True
     timezone_mismatch: bool = False
+    timezone_missing: bool = False  # Kimai did not report the account zone; the system's is used
     notice: str | None = None  # i18n key of a one-off message ("savedDescription", ...)
 
     @property
@@ -154,6 +155,18 @@ class Tracker:
             user = self._client.me()
             self._set(user=user)
         return self._zone_for(user)
+
+    def warnings(self) -> list[tuple[str, dict[str, object]]]:
+        """Standing warnings for the window and settings, as (i18n key, params)."""
+        user = self._snapshot.user
+        if user is None:
+            return []
+        system = self._local_now().tzname() or "?"
+        if self._snapshot.timezone_missing:
+            return [("warnTimezoneMissing", {"system": system})]
+        if self._snapshot.timezone_mismatch:
+            return [("warnTimezone", {"kimai": user.timezone, "system": system})]
+        return []
 
     # -- actions ---------------------------------------------------------------
 
@@ -277,6 +290,7 @@ class Tracker:
             failures=0,
             notice=None,
             timezone_mismatch=self._mismatch(user),
+            timezone_missing=not user.timezone,
             **changes,
         )
 
@@ -291,6 +305,8 @@ class Tracker:
         return zone(user.timezone) or self._local_now().tzinfo or UTC
 
     def _mismatch(self, user: User) -> bool:
+        if not user.timezone:
+            return False  # reported separately as timezone_missing
         kimai = zone(user.timezone)
         if kimai is None:
             return True

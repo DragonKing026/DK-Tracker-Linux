@@ -60,7 +60,7 @@ def test_user_display_name_prefers_alias():
 
 def test_user_defaults_when_fields_missing():
     user = User.from_api({"id": 1, "username": "admin"})
-    assert (user.language, user.timezone, user.alias) == ("en", "UTC", None)
+    assert (user.language, user.timezone, user.alias) == ("en", "", None)  # unknown, not UTC
 
 
 def test_project_customer_name_sources():
@@ -77,3 +77,34 @@ def test_activity_and_customer():
     assert (activity.billable, activity.project_id) == (False, None)
     assert Customer.from_api({"id": 2, "name": "Sprawy wewnętrzne", "billable": False}).billable is False
     assert Customer.from_api({"id": 1, "name": "Hotel"}).billable is True
+
+
+def test_user_timezone_from_preferences_when_field_missing():
+    data = {
+        "id": 1,
+        "username": "jan",
+        "preferences": [
+            {"name": "first_weekday", "value": "monday"},
+            {"name": "timezone", "value": "Europe/Warsaw"},
+        ],
+    }
+    assert User.from_api(data).timezone == "Europe/Warsaw"
+
+
+def test_user_timezone_field_wins_over_preferences():
+    data = {
+        "id": 1,
+        "username": "jan",
+        "timezone": "UTC",
+        "preferences": [{"name": "timezone", "value": "Europe/Warsaw"}],
+    }
+    assert User.from_api(data).timezone == "UTC"
+
+
+def test_user_timezone_ignores_broken_preferences():
+    assert (
+        User.from_api(
+            {"id": 1, "username": "jan", "preferences": [None, {"name": "timezone", "value": None}]}
+        ).timezone
+        == ""
+    )

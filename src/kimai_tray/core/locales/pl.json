@@ -50,6 +50,7 @@
   "errServer": "Kimai zwrócił błąd: {code}",
   "errRejected": "Kimai odrzucił dane: {msg}",
   "warnHttp": "Adres używa http:// — token byłby przesyłany bez szyfrowania.",
+  "warnTimezoneMissing": "Serwer Kimai nie zwraca strefy czasowej konta. Czas jest liczony w strefie tego komputera ({system}) — upewnij się, że w profilu Kimai ustawiona jest ta sama strefa.",
   "warnTimezone": "Strefa czasowa w Kimai ({kimai}) różni się od strefy tego komputera ({system}). Czas jest zapisywany w strefie Kimai — sprawdź swój profil w Kimai.",
   "optTitle": "Ustawienia Kimai Tray",
   "optUrl": "Adres Kimai",

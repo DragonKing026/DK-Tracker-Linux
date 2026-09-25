@@ -145,3 +145,21 @@ def test_refresh_survives_a_captive_portal_page():
     snapshot = tracker.refresh_active()
     assert (snapshot.error.kind, snapshot.failures) == (ErrorKind.BAD_RESPONSE, 1)
     assert tracker.refresh_full().failures == 2
+
+
+def test_missing_kimai_timezone_uses_system_zone_and_warns():
+    tracker, _, _ = make_tracker(FakeClient(""))
+    snapshot = tracker.refresh_full()
+    assert (snapshot.timezone_missing, snapshot.timezone_mismatch) == (True, False)
+    assert tracker.kimai_tz().utcoffset(NOW) == timedelta(hours=2)
+    assert tracker.warnings() == [("warnTimezoneMissing", {"system": "CEST"})]
+
+
+def test_warnings_for_zone_mismatch_and_for_none():
+    utc_account, _, _ = make_tracker(FakeClient("UTC"))
+    utc_account.refresh_active()
+    assert utc_account.warnings() == [("warnTimezone", {"kimai": "UTC", "system": "CEST"})]
+    same, _, _ = make_tracker(FakeClient("Europe/Warsaw"))
+    assert same.warnings() == []  # nothing known yet
+    same.refresh_active()
+    assert same.warnings() == []

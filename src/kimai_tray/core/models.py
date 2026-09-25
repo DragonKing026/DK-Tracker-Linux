@@ -14,6 +14,17 @@ def _ref(value: Any) -> tuple[int | None, dict[str, Any]]:
     return value, {}
 
 
+def _preference(data: dict[str, Any], name: str) -> str:
+    """Older Kimai keeps some account settings only in the `preferences` list.
+
+    "" means the server did not say — never guess UTC: a wrong zone shifts every entry.
+    """
+    for item in data.get("preferences") or []:
+        if isinstance(item, dict) and item.get("name") == name and item.get("value"):
+            return str(item["value"])
+    return ""
+
+
 def _flag(value: Any) -> bool:
     """A missing flag means yes, as in Kimai: only an explicit false turns billable off."""
     return value is not False
@@ -38,7 +49,7 @@ class User:
             username=data.get("username") or "",
             alias=data.get("alias") or None,
             language=data.get("language") or "en",
-            timezone=data.get("timezone") or "UTC",
+            timezone=data.get("timezone") or _preference(data, "timezone"),
         )
 
 
