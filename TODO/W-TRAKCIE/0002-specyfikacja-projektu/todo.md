@@ -49,6 +49,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - [prototyp/kimai-docker/](prototyp/kimai-docker/) — Kimai w Dockerze + skrypty sprawdzające API (spike, do wyrzucenia)
 - [testy/raport-kimai-docker-2026-09-25.md](testy/raport-kimai-docker-2026-09-25.md) — raport z weryfikacji API
 - [testy/](testy/) — surowe wyniki uruchomień (`wynik-probe-*.txt`)
+- [testy/weryfikacja-planu-1-2026-09-25.md](testy/weryfikacja-planu-1-2026-09-25.md) — kod Planu 1 uruchomiony przed przekazaniem
 
 ## Dziennik
 
@@ -69,6 +70,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Spisano specyfikację: [2026-09-25-kimai-tray-1.0.md](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md) — zaakceptowana przez użytkownika.
 - Wyjaśniono AppIndicator (rozszerzenie GNOME, nie zależność aplikacji) — [gnome-appindicator](../../../docs/integracje/gnome-appindicator.md).
 - Specyfikacja zaakceptowana → start planu implementacji.
+- Podział na 4 plany; napisano [Plan 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1-rdzen.md) (14 zadań). Kod z planu uruchomiony: 144 testy + 8 kontraktowych zielone, pokrycie 98% ([raport](testy/weryfikacja-planu-1-2026-09-25.md)).
 - Nowe zasady od użytkownika: materiały zadań w podfolderach, linki markdown wszędzie ([sprawdz-linki](../../../.claude/skills/sprawdz-linki/SKILL.md)).
 
 ## Wynik
