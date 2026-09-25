@@ -5,7 +5,7 @@ tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-25 20:39
+zaktualizowano: 2026-09-25 21:59
 ---
 
 # Qt 6 / PySide6
@@ -20,7 +20,7 @@ zaktualizowano: 2026-09-25 20:39
 | Obszar | Klasa Qt | Funkcje |
 |---|---|---|
 | Ikona w tacce | `QSystemTrayIcon` (+ `QMenu` jako menu kontekstowe) | F-02, F-20 |
-| Okno szybkiej obsługi, ustawienia | Qt Widgets lub QML (do decyzji) | F-03…F-13 |
+| Okno szybkiej obsługi, ustawienia | Qt Widgets ([ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)) | F-03…F-13 |
 | Zegar / odświeżanie | `QTimer` | F-02, F-12 |
 | Powiadomienia | `QSystemTrayIcon.showMessage` albo portal Notification | F-21 |
 | Otwieranie linków | `QDesktopServices.openUrl` (w Flatpaku przez portal OpenURI) | F-08 |
