@@ -128,7 +128,7 @@ sequenceDiagram
 ## Otwarte kwestie architektoniczne
 
 - [x] Stos technologiczny — [[docs/decyzje/0002-stos-python-pyside6|ADR-0002: Python + PySide6]]
-- [ ] Forma „popupu” na Waylandzie (okno, okno bez ramki, panel, samo menu) — ADR
+- [x] Forma okna na Waylandzie — [[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]]
 - [x] Runtime Flatpaka — `org.kde.Platform` 6.11 + `io.qt.PySide.BaseApp`
 - [ ] Sposób przechowywania tokenu (Secret Service bezpośrednio vs portal Secret)
 
