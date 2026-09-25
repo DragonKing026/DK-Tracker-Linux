@@ -7,7 +7,7 @@ priorytet: p3
 tags: [todo, core, recenzja]
 zalezy_od: ["0018"]
 utworzono: 2026-09-25 19:15
-zaktualizowano: 2026-09-25 19:37
+zaktualizowano: 2026-09-25 19:39
 zamknieto:
 ---
 
@@ -38,7 +38,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - [x] ~~Uzgodnienie po timeoucie startu nie porównuje minuty początku~~ — **odrzucone z notatką**: wymaga naraz utraconego POST i identycznego wpisu już trwającego (inny klient lub limit > 1); skutek nieszkodliwy — czas liczy się dalej w tamtym wpisie, nic się nie dubluje. Gdyby jednak: w `Tracker._started_anyway` porównać też minutę `begin` z wysłaną (tolerancja na zaokrąglanie Kimai do minut).
 - [x] `OSError` przy zapisie pamięci (pełny dysk) wychodzi z odświeżania/startu — **poprawione**: `Tracker._update_memory` loguje ostrzeżenie i trzyma stan w RAM (test `test_memory_that_cannot_be_saved_never_fails_an_action`)
 - [x] Każdy 403 traktowany jak zły token — **potwierdzone i poprawione**: Kimai 2.65 zwraca 403 przy edycji wpisu wyeksportowanego i cudzego; 403 → `FORBIDDEN` (`errForbidden`), `Entry.exported` + blokada billable na wyeksportowanym (`errExported`); test kontraktowy na 2.65.0 i 2.67.0
-- [ ] Przekierowanie 3xx (http→https) pokazywane jako „błąd 301”
+- [x] Przekierowanie 3xx (http→https) pokazywane jako „błąd 301” — **poprawione (wariant b)**: `ErrorKind.REDIRECT` z adresem bazowym z `Location`, komunikat `errRedirect`; bez automatycznego podążania (token nie idzie drugi raz). Plan 3: przycisk „Użyj tego adresu” w ustawieniach
 - [ ] Sumy na żywo: cały czas trwającego wpisu dodawany do „dziś/tydzień”, nawet gdy zaczął się wczoraj; `refresh_active` nie przelicza sum
 - [ ] Powiadomienie N-01 ma wspólny identyfikator dla kilku długich timerów
 - [ ] Nowe (z testów na 2.65.0): preferencja `first_weekday` — sumy tygodnia zawsze od poniedziałku, a konto może mieć niedzielę
@@ -56,6 +56,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - **19:32** Uwaga 3: odrzucona z notatką (decyzja użytkownika).
 - **19:34** Uwaga 4: poprawiona (TDD, 159 testów zielonych).
 - **19:37** Uwaga 5: sprawdzona na Kimai 2.65.0 w Dockerze (403 dla wyeksportowanego i cudzego wpisu, 401 dla złego tokenu) i poprawiona.
+- **19:39** Uwaga 6: poprawiona wariantem (b) — rozpoznanie przekierowania i podanie nowego adresu.
 
 ## Wynik
 
