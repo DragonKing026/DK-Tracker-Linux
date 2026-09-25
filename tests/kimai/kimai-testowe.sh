@@ -42,6 +42,11 @@ ensure_user() { # login email role password
   fi
 }
 
+set_timezone() { # login zone — Kimai reads the account zone from kimai2_user_preferences
+  sql "UPDATE kimai2_user_preferences SET value = '$2' WHERE name = 'timezone'
+       AND user_id = (SELECT id FROM kimai2_users WHERE username = '$1');"
+}
+
 ensure_token() { # login token
   sql "INSERT INTO kimai2_access_token (user_id, token, name)
        SELECT id, '$2', 'kimai-tray-tests' FROM kimai2_users WHERE username = '$1'
@@ -73,7 +78,7 @@ print_env() {
 export KIMAI_TEST_URL=${URL}
 export KIMAI_TEST_ADMIN_TOKEN=${ADMIN_TOKEN}   # admin, ROLE_SUPER_ADMIN
 export KIMAI_TEST_USER_TOKEN=${USER_TOKEN}    # jan, ROLE_USER (no billable permission)
-export KIMAI_TEST_LEAD_TOKEN=${LEAD_TOKEN}    # kierownik, ROLE_TEAMLEAD (billable allowed)
+export KIMAI_TEST_LEAD_TOKEN=${LEAD_TOKEN}    # kierownik, ROLE_TEAMLEAD (billable allowed, zone of this computer)
 ENV
 }
 
@@ -87,6 +92,9 @@ case "${1:-}" in
     ensure_token admin "$ADMIN_TOKEN"
     ensure_token jan "$USER_TOKEN"
     ensure_token kierownik "$LEAD_TOKEN"
+    # jan stays in UTC (contract tests check the account-zone logic against it);
+    # kierownik gets this computer's zone, for manual tests without the timezone warning.
+    set_timezone kierownik "${LOCAL_TZ:-$(timedatectl show -p Timezone --value 2>/dev/null || echo Europe/Warsaw)}"
     seed_data
     echo "Kimai $(api "$ADMIN_TOKEN" GET /api/version | python3 -c 'import json,sys;print(json.load(sys.stdin)["version"])') ready at ${URL}" >&2
     print_env

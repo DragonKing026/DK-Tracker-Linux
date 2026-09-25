@@ -44,7 +44,9 @@ To dane wyłącznie lokalnego kontenera testowego.
 
 ## Ważne
 
-- **Strefa czasowa kont to UTC** (domyślna w kontenerze). Czas wysyłany do API liczymy
+- **Strefa czasowa:** `admin` i `jan` mają UTC (domyślna w kontenerze), `kierownik` — strefę tego komputera
+  (`timedatectl`, albo zmienna `LOCAL_TZ`), żeby test ręczny szedł bez ostrzeżenia o strefie. Czas wysyłany do API
+  liczymy
   w strefie z `/api/users/me → timezone`. Inaczej wpisy lądują w przyszłości
   ([raport ze spike'u](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)).
 - Tokeny są wstawiane SQL-em do `kimai2_access_token`, bo Kimai nie ma na to komendy.
