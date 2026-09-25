@@ -9,9 +9,9 @@ Proces: `docs/procesy/zadania.md`. Szablon: `TODO/_szablon/todo.md`.
 
 ## Kroki
 
-1. **Numer** — następny wolny:
+1. **Numer** — następny wolny, licząc też zakończone w `TODO/DONE/`:
    ```bash
-   ls TODO | grep -E '^[0-9]{4}-' | sort | tail -1
+   ls TODO TODO/DONE | grep -E '^[0-9]{4}-' | sort | tail -1
    ```
    Nowy numer = ostatni + 1, dopełniony zerami do 4 cyfr. Numerów nie używamy ponownie.
 2. **Slug** — krótki, małe litery, myślniki, bez polskich znaków (`klient-api-kimai`).
@@ -26,11 +26,12 @@ Proces: `docs/procesy/zadania.md`. Szablon: `TODO/_szablon/todo.md`.
 5. **Treść** — rzetelnie: Cel, Kontekst (z wikilinkami do docs/integracji/ADR),
    sprawdzalne Kryteria akceptacji, Kroki. Jeśli pomaga — diagram `mermaid`.
    Zrzuty i obrazy do `TODO/NNNN-slug/assets/`, osadzone `![[plik.png]]`.
-6. **Tablica** — dodaj wiersz w sekcji „Aktywne” w `TODO/README.md`:
+6. **Tablica** — dodaj wiersz z **linkiem** w sekcji „Aktywne” w `TODO/README.md`:
    ```markdown
-   | 0005 | [[TODO/0005-klient-api-kimai/todo\|Klient API Kimai]] | 📋 do-zrobienia | p1 | 0003 |
+   | 0005 | [Klient API Kimai](0005-klient-api-kimai/todo.md) | 📋 do-zrobienia | p1 | 0003 |
    ```
-   (w tabelach `|` we wikilinku escapuj jako `\|`). Wiersze sortuj po numerze.
+   Link markdown ze ścieżką względną (działa w Obsidianie i na GitHubie).
+   Wiersze sortuj po numerze.
 7. **Commit** (skill `commit`): `todo: dodaj zadanie NNNN-slug`.
 
 ## Sprawdź przed commitem
