@@ -6,6 +6,9 @@ desktop portal on KDE and GNOME) and the window colour decides when it cannot te
 
 from __future__ import annotations
 
+import os
+from pathlib import Path
+
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
 
@@ -51,8 +54,35 @@ def palette_for(scheme: Qt.ColorScheme, window: QColor) -> dict[str, str]:
     return DARK if window.lightness() < 128 else LIGHT
 
 
-def stylesheet(p: dict[str, str]) -> str:
+_CHEVRON = (
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><path d="M3 4.5 6 7.5 9 4.5" fill="none" '
+    'stroke="{color}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+)
+
+
+def write_assets(p: dict[str, str], directory: Path | None = None) -> dict[str, str]:
+    """QSS can only take images from files: the smooth combo-box chevron, in the palette's colours."""
+    cache = os.environ.get("XDG_CACHE_HOME") or str(Path.home() / ".cache")
+    directory = directory or Path(cache) / "kimai-tray" / "theme"
+    directory.mkdir(parents=True, exist_ok=True)
+    assets = {}
+    for name, color in (("chevron", p["muted"]), ("chevron_disabled", p["line"])):
+        path = directory / f"{name}-{color.lstrip('#')}.svg"
+        path.write_text(_CHEVRON.format(color=color), encoding="utf-8")
+        assets[name] = path.as_posix()
+    return assets
+
+
+def stylesheet(p: dict[str, str], assets: dict[str, str] | None = None) -> str:
     """QSS for the quick window; widgets are addressed by objectName, as popup.css does by id."""
+    assets = assets or {}
+    arrows = (
+        f"""
+#popup QComboBox::down-arrow {{ image: url({assets["chevron"]}); width: 12px; height: 12px; }}
+#popup QComboBox::down-arrow:disabled {{ image: url({assets["chevron_disabled"]}); }}"""
+        if assets
+        else ""
+    )
     return f"""
 #popup {{ background: {p["bg"]}; color: {p["fg"]}; font-size: 14px; }}
 #popup QLabel {{ color: {p["fg"]}; background: transparent; }}
@@ -73,12 +103,20 @@ def stylesheet(p: dict[str, str]) -> str:
 #popup QComboBox {{ border: 1px solid {p["line"]}; border-radius: 8px; background: {p["surface"]};
     color: {p["fg"]}; min-height: 32px; padding: 0 9px; font-size: 13px; }}
 #popup QComboBox:disabled {{ color: {p["muted"]}; background: {p["surface2"]}; border-style: dashed; }}
+#popup QComboBox::drop-down {{ subcontrol-origin: padding; subcontrol-position: center right; width: 26px; border: 0; }}{arrows}
+#popup QScrollBar:vertical {{ background: transparent; width: 8px; margin: 2px 1px; }}
+#popup QScrollBar::handle:vertical {{ background: {p["line"]}; border-radius: 3px; min-height: 28px; }}
+#popup QScrollBar::handle:vertical:hover {{ background: {p["muted"]}; }}
+#popup QScrollBar::add-line:vertical, #popup QScrollBar::sub-line:vertical {{ height: 0; border: 0; }}
+#popup QScrollBar::add-page:vertical, #popup QScrollBar::sub-page:vertical {{ background: none; }}
 #popup QComboBox QAbstractItemView {{ background: {p["bg"]}; color: {p["fg"]};
     selection-background-color: {p["surface2"]}; selection-color: {p["fg"]}; }}
 #billable {{ border: 1px solid {p["start"]}; border-radius: 8px; background: rgba(22, 163, 74, 26);
     min-width: 32px; max-width: 32px; min-height: 32px; max-height: 32px; }}
-#billable[on="false"] {{ border-color: {p["line"]}; background: {p["surface"]}; }}
-#billable:disabled {{ border-style: dashed; }}
+#billable:hover {{ background: rgba(22, 163, 74, 60); }}
+#billable[on="false"] {{ border-color: {p["muted"]}; background: {p["surface"]}; }}
+#billable[on="false"]:hover {{ background: {p["surface2"]}; }}
+#billable:disabled {{ border-style: dashed; border-color: {p["line"]}; }}
 #times {{ border: 1px solid {p["line"]}; border-radius: 8px; background: {p["surface"]}; }}
 #timesLabel, #hint {{ color: {p["muted"]}; font-size: 11px; }}
 #popup QLineEdit {{ border: 1px solid {p["line"]}; border-radius: 6px; background: {p["bg"]};
@@ -95,8 +133,10 @@ def stylesheet(p: dict[str, str]) -> str:
 #popup QLabel#entryDescEmpty {{ font-size: 13px; color: {p["muted"]}; font-style: italic; }}
 #popup QLabel#entryMeta, #popup QLabel#entrySpan {{ color: {p["muted"]}; font-size: 11px; }}
 #popup QLabel#entryDuration {{ font-size: 13px; font-weight: 600; }}
-#rowBillable {{ border: 0; border-radius: 11px; background: transparent; }}
+#rowBillable {{ border: 1px solid {p["line"]}; border-radius: 11px; background: transparent; }}
+#rowBillable[on="true"] {{ border-color: {p["start"]}; background: rgba(22, 163, 74, 30); }}
 #rowBillable:hover {{ background: {p["surface2"]}; }}
+#rowBillable:disabled {{ border-style: dashed; }}
 #resume {{ border: 0; border-radius: 13px; background: {p["surface2"]};
     min-width: 26px; max-width: 26px; min-height: 26px; max-height: 26px; }}
 #resume:hover {{ background: {p["start"]}; }}

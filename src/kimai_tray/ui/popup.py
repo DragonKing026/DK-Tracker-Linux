@@ -32,7 +32,7 @@ from .form import TrackerForm
 from .icons import app_icon, glyph
 from .recent import RecentList
 from .state import AppState
-from .theme import palette_for, stylesheet
+from .theme import palette_for, stylesheet, write_assets
 
 WIDTH = 460  # popup.css body width
 
@@ -120,7 +120,7 @@ class QuickWindow(QWidget):
 
     def apply_theme(self) -> None:
         palette = palette_for(QGuiApplication.styleHints().colorScheme(), self.palette().window().color())
-        self.setStyleSheet(stylesheet(palette))
+        self.setStyleSheet(stylesheet(palette, write_assets(palette)))
         self.settings_button.setIcon(glyph("gear", palette["muted"], 17))
         self.close_button.setIcon(glyph("close", palette["muted"], 17))
         self.all_entries.setIcon(glyph("external", palette["accent"], 13))

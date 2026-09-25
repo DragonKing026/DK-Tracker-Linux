@@ -79,3 +79,27 @@ def test_badge_text_keeps_a_margin_from_the_edge(qapp, label):
         for y in range(44):
             colour = QColor(image.pixel(x, y))
             assert not (colour.red() > 200 and colour.green() > 200 and colour.blue() > 200), (label, x, y)
+
+
+def test_combo_arrows_are_drawn_from_our_own_svg(tmp_path):
+    from pathlib import Path
+
+    from kimai_tray.ui.theme import write_assets
+
+    assets = write_assets(DARK, tmp_path)
+    css = stylesheet(DARK, assets)
+    for name in ("chevron", "chevron_disabled"):
+        assert Path(assets[name]).read_text().startswith("<svg")
+        assert assets[name] in css
+    assert "QComboBox::down-arrow" in css
+
+
+def test_scroll_bars_are_thin_without_arrow_buttons():
+    css = stylesheet(DARK)
+    assert "QScrollBar::add-line:vertical" in css and "height: 0" in css
+
+
+def test_billable_states_stand_out():
+    css = stylesheet(DARK)
+    assert '#rowBillable[on="true"]' in css
+    assert '#billable[on="false"]' in css and DARK["muted"] in css
