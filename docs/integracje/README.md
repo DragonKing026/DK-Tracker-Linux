@@ -20,6 +20,8 @@ flowchart LR
     APP --> POR[Portale XDG]
     APP --> FP[Flatpak]
     APP --> QT[Qt 6 / PySide6]
+    APP --> HX[httpx] --> K
+    APP --> JP[jeepney] --> SEC
     QT --> SNI
     REF[WS Tracker<br/>wzorzec] -. inspiracja .-> APP
 ```
@@ -34,6 +36,9 @@ flowchart LR
 | Portale XDG | autostart, powiadomienia, linki, skróty | planowana | [xdg-portale](xdg-portale.md) |
 | Flatpak | budowanie i dystrybucja | planowana | [flatpak](flatpak.md) |
 | Qt 6 / PySide6 | UI, tacka, pętla zdarzeń | w użyciu ([ADR-0002](../decyzje/0002-stos-python-pyside6.md)) | [qt-pyside6](qt-pyside6.md) |
+| httpx | klient HTTP rdzenia | planowana ([ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)) | [httpx](httpx.md) |
+| jeepney | D-Bus → Secret Service (token) | planowana ([ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)) | [jeepney](jeepney.md) |
 
-> [!todo] Do dopisania
-> Biblioteka HTTP i biblioteka sekretów, gdy zostaną wybrane.
+> [!note] Narzędzia deweloperskie
+> pytest, pytest-qt i flatpak-pip-generator są opisane w dokumentach bibliotek, których
+> dotyczą ([qt-pyside6](qt-pyside6.md), [httpx](httpx.md), [flatpak](flatpak.md)).
