@@ -34,7 +34,54 @@ gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
 albo przez [extensions.gnome.org](https://extensions.gnome.org/extension/615/appindicator-support/)
 i aplikację „Rozszerzenia”.
 
-> [!todo] Nazwę pakietu i UUID rozszerzenia zweryfikować na czystej Fedorze w zadaniu testów GNOME.
+Zweryfikowane 2026-09-25 w repozytorium Fedory 44: pakiet `gnome-shell-extension-appindicator`
+(wersja 64, repozytorium `fedora`), identyfikator rozszerzenia
+`appindicatorsupport@rgcjonas.gmail.com`.
+
+## Czy to zależność aplikacji? Nie — to część pulpitu
+
+Łatwo pomylić dwie rzeczy o podobnej nazwie:
+
+| | Co to jest | Gdzie działa | Kto instaluje |
+|---|---|---|---|
+| **libappindicator / libayatana-appindicator** | biblioteka, przez którą *aplikacja* wystawia ikonę | w aplikacji | autor aplikacji — **u nas niepotrzebna**, bo Qt rozmawia z tacką przez D-Bus (SNI) sam |
+| **Rozszerzenie „AppIndicator and KStatusNotifierItem Support”** | *host* tacki: rysuje ikony w panelu GNOME | wewnątrz procesu `gnome-shell` | **użytkownik / administrator systemu** |
+
+```mermaid
+flowchart LR
+    subgraph flatpak["Flatpak (piaskownica)"]
+        APP[Kimai Tray<br/>QSystemTrayIcon]
+    end
+    subgraph host["System użytkownika"]
+        BUS((szyna D-Bus sesji))
+        KDE[KDE Plasma<br/>host SNI wbudowany]
+        GN[GNOME Shell<br/>+ rozszerzenie AppIndicator]
+    end
+    APP -- "StatusNotifierItem" --> BUS
+    BUS --> KDE
+    BUS --> GN
+```
+
+- **Flatpak nie może zainstalować rozszerzenia GNOME Shell.** Zależności Flatpaka
+  (runtime, rozszerzenia runtime'u, moduły manifestu) żyją wyłącznie w piaskownicy
+  aplikacji. Rozszerzenie musi działać w `gnome-shell` na hoście.
+- **KDE Plasma** nie potrzebuje niczego, bo host SNI jest wbudowany.
+- **Ubuntu** ma rozszerzenie włączone domyślnie. **Fedora Workstation** wymaga jednorazowej
+  instalacji przez użytkownika (patrz wyżej) i ponownego zalogowania.
+- Automatyczna instalacja byłaby możliwa tylko przy dystrybucji jako pakiet systemowy
+  (np. RPM z `Recommends: gnome-shell-extension-appindicator`). Przy Flatpaku zostaje
+  **wykrycie braku + instrukcja w aplikacji**.
+
+### Co robi aplikacja, gdy rozszerzenia brak
+
+1. Wykrywa brak hosta tacki (`QSystemTrayIcon.isSystemTrayAvailable()` / brak
+   `org.kde.StatusNotifierWatcher` na szynie).
+2. Działa jako zwykłe okno (pełna funkcjonalność, poza ikoną).
+3. Pokazuje jednorazową podpowiedź z instrukcją dla danej dystrybucji i przyciskiem
+   „Otwórz stronę rozszerzenia” (portal OpenURI →
+   [extensions.gnome.org](https://extensions.gnome.org/extension/615/appindicator-support/)).
+4. Gdy użytkownik doinstaluje i włączy rozszerzenie, aplikacja przełącza się w tryb tacki
+   bez restartu (watcher pojawia się na szynie).
 
 ## Co obsługuje
 
