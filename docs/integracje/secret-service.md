@@ -5,7 +5,7 @@ tags: [integracja, bezpieczenstwo, sekrety, dbus]
 status_integracji: planowana (wybrana droga B)
 wersja: Secret Service API; portal Secret v1; KWallet ≥ KF 5.97 / Plasma 6 (ksecretd)
 utworzono: 2026-09-25 17:22
-zaktualizowano: 2026-09-25 17:47
+zaktualizowano: 2026-09-25 21:01
 ---
 
 # Przechowywanie tokenu API
@@ -92,6 +92,12 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 > - Portfel KWallet może być zamknięty — pierwszy odczyt może pokazać systemowe okno
 >   z hasłem portfela. Aplikacja nie może blokować UI w tym czasie.
 > - Po odinstalowaniu Flatpaka klucz główny portalu może zostać w keyringu.
+
+## Gdzie w kodzie
+
+- [src/kimai_tray/desktop/secrets.py](../../src/kimai_tray/desktop/secrets.py) — `SecretServiceStore` (get/set/delete, odblokowanie przez prompt).
+- [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — szyna D-Bus na jeepney.
+- Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 
 ## Dokumentacja
 

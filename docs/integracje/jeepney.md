@@ -5,7 +5,7 @@ tags: [integracja, dbus, sekrety, python]
 status_integracji: planowana
 wersja: 0.9.0 (PyPI, 2026-09-25)
 utworzono: 2026-09-25 17:41
-zaktualizowano: 2026-09-25 17:47
+zaktualizowano: 2026-09-25 21:01
 ---
 
 # jeepney — D-Bus w czystym Pythonie
@@ -96,6 +96,12 @@ Collections            → ['/org/freedesktop/secrets/collection/kdewallet']
 >   Świadomy kompromis ([ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)).
 > - Brak usługi `org.freedesktop.secrets` → czytelny komunikat w ustawieniach.
 >   Nigdy nie zapisujemy tokenu do pliku.
+
+## Gdzie w kodzie
+
+- [src/kimai_tray/desktop/secrets.py](../../src/kimai_tray/desktop/secrets.py) — `SecretServiceStore` (get/set/delete, odblokowanie przez prompt).
+- [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — szyna D-Bus na jeepney.
+- Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 
 ## Dokumentacja
 
