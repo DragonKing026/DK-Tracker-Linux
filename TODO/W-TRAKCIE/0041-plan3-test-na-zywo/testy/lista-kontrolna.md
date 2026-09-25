@@ -21,8 +21,8 @@ Testuje użytkownik; poprawki z pierwszego przebiegu: [0042](../../../ZROBIONE/0
 | 5 | Edycja opisu, godziny „od”, `$` (jan: blokada; kierownik: zapis) | tak |
 | 6 | Chowanie: klik obok, Esc, ✕; klik ikony przełącza okno | tak (przełączanie dodane w 0042) |
 | 7 | Menu: „Zatrzymaj timer” / „Wznów ostatni wpis” z powiadomieniem | tak (po poprawce identyfikatorów, 0042) |
-| 8 | Lista: ▶ wznawia, `$` w wierszu, link do Kimai | ▶ i `$` tak; link — do potwierdzenia |
-| 9 | Język English bez restartu | do potwierdzenia |
+| 8 | Lista: ▶ wznawia, `$` w wierszu, link do Kimai | tak; link otworzył Firefoxa zamiast Brave — skutek izolacji testu (`XDG_CONFIG_HOME` dziedziczy `xdg-open`), normalnie Brave (sprawdzone `xdg-mime`) |
+| 9 | Język English bez restartu | tak |
 | 10 | Motyw jasny/ciemny na żywo | do potwierdzenia |
 | 11 | Długi timer (próg 0,1 h): powiadomienie z przyciskami, „Zatrzymaj” zatrzymuje i zamyka | tak |
 | 12 | Druga instancja pokazuje okno pierwszej | tak (sprawdzone: wyjście po 0,24 s, okno pokazane) |
