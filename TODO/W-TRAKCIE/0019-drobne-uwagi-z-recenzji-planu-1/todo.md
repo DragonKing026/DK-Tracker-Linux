@@ -7,7 +7,7 @@ priorytet: p3
 tags: [todo, core, recenzja]
 zalezy_od: ["0018"]
 utworzono: 2026-09-25 19:15
-zaktualizowano: 2026-09-25 19:30
+zaktualizowano: 2026-09-25 19:32
 zamknieto:
 ---
 
@@ -35,7 +35,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 
 - [x] Pusta/brakująca strefa w `User.from_api` daje "UTC" — **poprawione**: odczyt z `preferences`, potem strefa systemu + ostrzeżenie `warnTimezoneMissing` (decyzja użytkownika: opcja 1 + komunikat)
 - [x] ~~Zapasowa strefa to stałe przesunięcie, bez zmiany czasu~~ — **odrzucone z notatką**: ścieżka działa tylko, gdy serwer nie zwraca strefy (Kimai firmy 2.65.0 zwraca); skutek to co najwyżej suma tygodnia przesunięta o godzinę raz w roku. Gdyby aplikacja miała obsługiwać inne serwery: odczytać strefę z dowiązania `/etc/localtime` (np. `Europe/Warsaw`) zamiast stałego przesunięcia z `datetime.now().astimezone()`.
-- [ ] Uzgodnienie po timeoucie startu porównuje projekt/czynność/opis, ale nie minutę początku
+- [x] ~~Uzgodnienie po timeoucie startu nie porównuje minuty początku~~ — **odrzucone z notatką**: wymaga naraz utraconego POST i identycznego wpisu już trwającego (inny klient lub limit > 1); skutek nieszkodliwy — czas liczy się dalej w tamtym wpisie, nic się nie dubluje. Gdyby jednak: w `Tracker._started_anyway` porównać też minutę `begin` z wysłaną (tolerancja na zaokrąglanie Kimai do minut).
 - [ ] `OSError` przy zapisie pamięci (pełny dysk) wychodzi z odświeżania/startu
 - [ ] Każdy 403 traktowany jak zły token — sprawdzić na Kimai w Dockerze 403 przy edycji zablokowanego/wyeksportowanego wpisu
 - [ ] Przekierowanie 3xx (http→https) pokazywane jako „błąd 301”
@@ -53,6 +53,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - **19:20** Przegląd uwag z użytkownikiem, po kolei.
 - **19:26** Uwaga 1: poprawiona (commit „fix(core): brak strefy z Kimai…”). Kimai firmy 2.65.0 — testy kontraktowe 8/8 na tej wersji; znaleziono `first_weekday`.
 - **19:30** Uwaga 2: odrzucona z notatką (decyzja użytkownika) — nie dotyczy serwera firmy.
+- **19:32** Uwaga 3: odrzucona z notatką (decyzja użytkownika).
 
 ## Wynik
 
