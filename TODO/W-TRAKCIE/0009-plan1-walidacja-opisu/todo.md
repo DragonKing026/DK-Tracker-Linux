@@ -2,7 +2,7 @@
 noteId: "d1d1d4be207948e492553794c05d765a"
 tytul: "Plan 1 · Zadanie 5: Walidacja opisu (`validation.py`, F-11)"
 numer: "0009"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0008"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0009 — Plan 1 · Zadanie 5: Walidacja opisu (`validation.py`, F-11)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -52,6 +52,7 @@ Wykonać **zadanie 5** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
