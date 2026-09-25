@@ -141,7 +141,8 @@ def repair() -> int:
                 print(f"NIE NAPRAWIONO  {md.relative_to(ROOT)}  →  {m.group(3)}  (kandydaci: {len(candidates)})")
                 return m.group(0)
             changed = True
-            new = relative(md, candidates[0]) + fragment
+            slash = "/" if path.endswith("/") else ""
+            new = relative(md, candidates[0]) + slash + fragment
             print(f"NAPRAWIONO  {md.relative_to(ROOT)}  {m.group(3)}  →  {new}")
             return f"{m.group(1)}[{m.group(2)}]({new})"
 
@@ -196,7 +197,8 @@ def move(src: str, dst: str) -> int:
                 return m.group(0)
             old_target = (old_md.parent / path).resolve()
             new_target = after(old_target)
-            new = relative(new_md, new_target) + fragment
+            slash = "/" if path.endswith("/") else ""  # keep "folder/" links looking the same
+            new = relative(new_md, new_target) + slash + fragment
             return m.group(0) if new == m.group(3) else f"{m.group(1)}[{m.group(2)}]({new})"
 
         new_text = replace_links(text, rewrite)
