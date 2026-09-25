@@ -1,6 +1,6 @@
 ---
 name: zamknij-zadanie
-description: Use when a task in TODO/ is finished, abandoned or its status changes — updates the task's frontmatter, log and result section, moves it on the TODO/README.md board and commits.
+description: Use when a task in TODO/ is finished, abandoned or its status changes — updates the task's frontmatter, log and result section, moves finished/abandoned task folders to TODO/DONE/, updates the TODO/README.md board links and commits.
 ---
 
 # zamknij-zadanie — zmiana statusu / zamknięcie zadania
