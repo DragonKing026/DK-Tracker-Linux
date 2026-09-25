@@ -68,6 +68,8 @@ class QuickWindow(QWidget):
                            " QLineEdit { border: 1px solid #9ca3af; padding: 6px; font-size: 14px; }")
 
     def event(self, event: QEvent) -> bool:
+        if event.type() in (QEvent.Type.WindowActivate, QEvent.Type.FocusIn, QEvent.Type.Leave, QEvent.Type.Enter):
+            log("window." + event.type().name)
         if event.type() == QEvent.Type.WindowDeactivate and self.isVisible():
             log("window.deactivated_hide")
             self.last_hidden_at = time.monotonic()

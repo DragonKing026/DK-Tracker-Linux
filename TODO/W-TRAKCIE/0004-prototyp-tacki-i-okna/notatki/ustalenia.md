@@ -3,7 +3,7 @@ noteId: "0b0085cf5ff34570a69f31d3a27253e6"
 tytul: "Ustalenia prototypu 0004 — tacka i okno"
 tags: [prototyp, tray, wayland, kde]
 utworzono: 2026-09-25 20:02
-zaktualizowano: 2026-09-25 20:02
+zaktualizowano: 2026-09-25 20:06
 ---
 
 # Ustalenia prototypu 0004
@@ -25,6 +25,23 @@ czyli tą samą, którą wywołuje panel Plasmy.
 | Zmiana ikony (szara → zielona) | **działa** | ![okno B](../zrzuty/kde-layer-okno.png) |
 | Wariant B: `layer-shell-qt` z Pythona | **działa** — PySide nie ma wiązań, ale `LayerShellQt::Window::get(QWindow*)` przez `ctypes` + `setProperty` (anchors, layer, keyboardInteractivity, margins, scope) ustawia wszystko (`set_ok: true`); odczyt enumów z PySide niemożliwy (brak konwertera) — bez znaczenia | [log](../testy/log-kde-layer.jsonl) |
 | Gdzie stoi okno w wariancie B? | **prawy dolny róg, tuż nad panelem**: 12 px od prawej (margines), 60 px od dołu (12 px + panel — kompozytor respektuje strefę panelu) | ![okno B](../zrzuty/kde-layer-okno.png) |
+
+## Wariant B — test ręczny użytkownika (2026-09-25 20:06)
+
+Log: [testy/log-kde-layer-reczny.jsonl](../testy/log-kde-layer-reczny.jsonl).
+
+| Krok | Wynik |
+|---|---|
+| 1. Klik w ikonę → okno w prawym dolnym rogu | **tak** |
+| 2. Pisanie w polu tekstowym (`keyboardInteractivity=OnDemand`) | **tak** |
+| 3. Klik poza okno → okno się chowa | **tak** (`WindowDeactivate`) |
+| 4. Klik w ikonę przy **otwartym** oknie | **okno zostaje** — Plasma nie wysyła `Activate`, okno nie traci fokusu; ikona **nie działa jak przełącznik** |
+| 5. Prawy klik → menu przy ikonie | **tak** — menu rysuje Plasma z dbusmenu (`/MenuBar`), aplikacja nie dostaje zdarzenia `Context` |
+| Uwaga użytkownika | wpisany tekst pozostaje po schowaniu i ponownym otwarciu (zaleta: szkic opisu nie przepada) |
+
+> [!warning] Krok 4
+> Zamknięcie okna tylko przez klik obok albo `Esc`/przycisk. Do rozważenia w UI: przycisk
+> zamknięcia w nagłówku okna i obsługa `Esc`.
 
 ## Do sprawdzenia ręcznie (wymaga prawdziwego kliknięcia)
 
