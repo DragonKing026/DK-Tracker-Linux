@@ -10,8 +10,8 @@ from __future__ import annotations
 from collections.abc import Callable
 from datetime import datetime
 
-from PySide6.QtCore import QEvent, QSize, Qt, QTimer, Signal
-from PySide6.QtGui import QGuiApplication, QKeyEvent
+from PySide6.QtCore import QEvent, QPoint, QPointF, QSize, Qt, QTimer, Signal
+from PySide6.QtGui import QGuiApplication, QKeyEvent, QMouseEvent, QPainter, QPen
 from PySide6.QtWidgets import (
     QApplication,
     QFrame,
@@ -34,13 +34,58 @@ from .recent import RecentList
 from .state import AppState
 from .theme import palette_for, stylesheet, write_assets
 
-WIDTH = 460  # popup.css body width
+WIDTH, HEIGHT = 460, 600  # popup.css: 460 px wide, at most 600 px tall (the default size here)
+MIN_WIDTH, MIN_HEIGHT = 400, 420
+
+
+class ResizeGrip(QWidget):
+    """Top-left corner handle. The window is anchored bottom-right, so it grows up and left.
+
+    A layer surface cannot be resized by the compositor, so the drag resizes the widget; a
+    frameless toplevel asks the compositor to do it (startSystemResize).
+    """
+
+    SIZE = 14
+
+    def __init__(self, window: QuickWindow) -> None:
+        super().__init__(window)
+        self._window = window
+        self._start: tuple[QPoint, QSize] | None = None
+        self.setFixedSize(self.SIZE, self.SIZE)
+        self.setCursor(Qt.CursorShape.SizeFDiagCursor)
+
+    def mousePressEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
+        handle = self._window.windowHandle()
+        edges = Qt.Edge.TopEdge | Qt.Edge.LeftEdge
+        if self._window.placement_mode != "layer" and handle is not None and handle.startSystemResize(edges):
+            return
+        self._start = (event.globalPosition().toPoint(), self._window.size())
+
+    def mouseMoveEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
+        if self._start is not None:
+            origin, size = self._start
+            moved = origin - event.globalPosition().toPoint()
+            self._window.set_preferred_size(QSize(size.width() + moved.x(), size.height() + moved.y()))
+
+    def mouseReleaseEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
+        if self._start is not None:
+            self._start = None
+            self._window.sizeChosen.emit(self._window.size())
+
+    def paintEvent(self, event) -> None:  # noqa: N802 - Qt API
+        painter = QPainter(self)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setPen(QPen(self.palette().placeholderText().color(), 1.4))
+        for offset in (4, 8, 12):
+            painter.drawLine(QPointF(offset, 2), QPointF(2, offset))
+        painter.end()
 
 
 class QuickWindow(QWidget):
     settingsRequested = Signal()
     openKimaiRequested = Signal()
     shownChanged = Signal(bool)
+    sizeChosen = Signal(QSize)  # after the user resized the window with the grip
 
     def __init__(
         self, state: AppState, now: Callable[[], datetime] = utc_now, parent: QWidget | None = None
@@ -48,8 +93,10 @@ class QuickWindow(QWidget):
         super().__init__(parent)
         self.setObjectName("popup")
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
-        self.setFixedWidth(WIDTH)
+        self.setMinimumSize(MIN_WIDTH, MIN_HEIGHT)
+        self.resize(WIDTH, HEIGHT)
         self.hide_on_deactivate = True
+        self.placement_mode = "frameless"
         self.flash_delay_ms = 2000  # F-07: the green "saved" strip stays 2 s
         self._state = state
         self._now = now
@@ -63,6 +110,7 @@ class QuickWindow(QWidget):
         self.week = QLabel(objectName="totals")
         self.settings_button = self._icon_button("gear")
         self.close_button = self._icon_button("close")
+        self.grip = ResizeGrip(self)
         top = QHBoxLayout(header)
         top.setContentsMargins(14, 8, 8, 8)
         top.setSpacing(8)
@@ -101,7 +149,7 @@ class QuickWindow(QWidget):
         layout.addWidget(self.form)
         for message in (self.warning, self.error, self.saved):
             layout.addWidget(message)
-        layout.addWidget(self.recent)
+        layout.addWidget(self.recent, 1)  # the list takes whatever height the user gives the window
         layout.addWidget(self.all_entries)
 
         self._flash_timer = QTimer(self, singleShot=True)
@@ -156,7 +204,6 @@ class QuickWindow(QWidget):
                 self.show_error(t(snapshot.notice))
         self._notice_shown = snapshot.notice
         self.tick()
-        self.adjustSize()
 
     def tick(self) -> None:
         """Every second while the window is open: the clock and the live totals."""
@@ -172,6 +219,14 @@ class QuickWindow(QWidget):
         self.week.setText(t("weekTotal", time=short_duration(totals.week)))
         self.today.show()
         self.week.show()
+
+    def set_preferred_size(self, size: QSize) -> None:
+        self.resize(size.expandedTo(self.minimumSize()))
+
+    def resizeEvent(self, event) -> None:  # noqa: N802 - Qt API
+        super().resizeEvent(event)
+        self.grip.move(1, 1)
+        self.grip.raise_()
 
     def show_error(self, text: str) -> None:
         self.error.setText(text)

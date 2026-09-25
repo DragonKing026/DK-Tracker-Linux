@@ -27,8 +27,6 @@ from kimai_tray.core.tracker import Snapshot
 from .form import GREY_DOT, dot
 from .icons import glyph
 
-LIST_HEIGHT = 236  # popup.css .recent max-height
-
 
 class EntryRow(QFrame):
     def __init__(self, entry: Entry, tz: tzinfo, t: Callable[..., str], *, allowed: bool) -> None:
@@ -101,7 +99,6 @@ class RecentList(QWidget):
         self.scroll.setWidgetResizable(True)
         self.scroll.setFrameShape(QFrame.Shape.NoFrame)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.scroll.setMaximumHeight(LIST_HEIGHT)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)

@@ -14,7 +14,7 @@ from dataclasses import replace
 from datetime import datetime
 from typing import Any
 
-from PySide6.QtCore import QObject, QTimer, QUrl, Signal
+from PySide6.QtCore import QObject, QSize, QTimer, QUrl, Signal
 from PySide6.QtGui import QDesktopServices
 
 from kimai_tray.core.errors import TrackerError, describe
@@ -87,6 +87,7 @@ class Controller(QObject):
         self.dbus = Worker("desktop", self)
         self.popup = QuickWindow(self.state, now)
         self.mode = placement.apply(self.popup, window_mode)
+        self.popup.set_preferred_size(QSize(memory.popup_width, memory.popup_height))
         self.tray = Tray(self.state, now) if tray_available else None
         self.dialog: SettingsDialog | None = None
         self.listener = ClickListener() if listen_for_clicks else None
@@ -146,6 +147,7 @@ class Controller(QObject):
         popup.settingsRequested.connect(self.open_settings)
         popup.openKimaiRequested.connect(self.open_kimai)
         popup.shownChanged.connect(self._on_popup_shown)
+        popup.sizeChosen.connect(self._remember_size)
         if self.tray is not None:
             self.tray.openRequested.connect(self.show_popup)
             self.tray.stopRequested.connect(self._menu_stop)
@@ -331,6 +333,15 @@ class Controller(QObject):
         if self._tracker is not None:
             self.refresh_full()
             self._load_catalog()
+
+    def _remember_size(self, size: QSize) -> None:
+        changes = {"popup_width": size.width(), "popup_height": size.height()}
+        tracker = self._tracker
+        if tracker is not None:
+            self.kimai.submit(lambda: tracker.remember(**changes))
+        else:
+            self._memory = replace(self._memory, **changes)
+            self._save_memory(self._memory)
 
     def open_kimai(self) -> None:
         if self._settings.url:

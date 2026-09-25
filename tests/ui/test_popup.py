@@ -148,3 +148,67 @@ def test_layer_shell_symbol_is_present_when_the_library_is():
 def test_header_starts_with_the_kimai_logo(window):
     _, popup = window
     assert popup.logo.pixmap() is not None and not popup.logo.pixmap().isNull()
+
+
+def mouse(widget, kind, global_pos, buttons):
+    from PySide6.QtCore import QEvent, QPointF
+    from PySide6.QtGui import QMouseEvent
+    from PySide6.QtWidgets import QApplication
+
+    event_type = {
+        "press": QEvent.Type.MouseButtonPress,
+        "move": QEvent.Type.MouseMove,
+        "release": QEvent.Type.MouseButtonRelease,
+    }[kind]
+    local = QPointF(widget.mapFromGlobal(global_pos))
+    event = QMouseEvent(
+        event_type,
+        local,
+        QPointF(global_pos),
+        Qt.MouseButton.LeftButton,
+        buttons,
+        Qt.KeyboardModifier.NoModifier,
+    )
+    QApplication.sendEvent(widget, event)
+
+
+def drag(widget, dx, dy):
+    from PySide6.QtCore import QPoint
+
+    start = widget.mapToGlobal(QPoint(3, 3))
+    held = Qt.MouseButton.LeftButton
+    mouse(widget, "press", start, held)
+    mouse(widget, "move", start + QPoint(dx, dy), held)
+    mouse(widget, "release", start + QPoint(dx, dy), Qt.MouseButton.NoButton)
+
+
+def test_grip_drag_grows_the_window_up_and_left(window, qtbot):
+    from PySide6.QtCore import QSize
+
+    _, popup = window
+    popup.set_preferred_size(QSize(460, 600))
+    popup.show()
+    with qtbot.waitSignal(popup.sizeChosen) as signal:
+        drag(popup.grip, -100, -50)
+    assert popup.size() == QSize(560, 650)
+    assert signal.args == [QSize(560, 650)]
+
+
+def test_window_size_has_a_floor(window):
+    from PySide6.QtCore import QSize
+
+    _, popup = window
+    popup.set_preferred_size(QSize(100, 100))
+    assert popup.size() == popup.minimumSize()
+    assert popup.minimumWidth() >= 400
+
+
+def test_recent_list_takes_the_height_it_is_given(window):
+    _, popup = window
+    assert popup.recent.scroll.maximumHeight() > 10_000
+
+
+def test_an_ordinary_window_is_resized_by_its_frame(window):
+    _, popup = window
+    placement.apply(popup, "window")
+    assert popup.grip.isHidden()

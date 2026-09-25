@@ -240,3 +240,31 @@ def test_a_handled_notification_is_withdrawn(harness):
     h.controller.on_notification(NotificationAction("long-timer-7", "keep", 7))
     h.settle()
     assert h.desktop.withdrawn == ["long-timer-7", "long-timer-7"]
+
+
+def test_window_size_chosen_by_the_user_is_remembered(harness):
+    from PySide6.QtCore import QSize
+
+    h = harness()
+    h.controller.popup.sizeChosen.emit(QSize(540, 700))
+    h.settle()
+    assert (h.saved_memory[-1].popup_width, h.saved_memory[-1].popup_height) == (540, 700)
+
+
+def test_remembered_size_is_used_at_start(qtbot):
+    from PySide6.QtCore import QSize
+
+    controller = Controller(
+        settings=Settings(url=URL),
+        memory=Memory(popup_width=520, popup_height=650),
+        desktop=FakeDesktop(),
+        client_factory=lambda url, token: FakeClient(),
+        save_settings=lambda settings: None,
+        save_memory=lambda memory: None,
+        tray_available=True,
+        window_mode="frameless",
+        listen_for_clicks=False,
+    )
+    qtbot.addWidget(controller.popup)
+    assert controller.popup.size() == QSize(520, 650)
+    controller.shutdown()

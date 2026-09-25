@@ -48,14 +48,18 @@ def detect_mode(platform: str, tray_available: bool) -> str:
 
 def apply(window: QWidget, mode: str) -> str:
     """Configure the window before it is first shown; returns the mode actually used."""
+    grip = getattr(window, "grip", None)
     if mode == "window":
         window.setWindowFlags(Qt.WindowType.Window)
         window.hide_on_deactivate = False
-        return mode
-    window.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint)
-    window.hide_on_deactivate = True
-    if mode == "layer" and not _anchor_to_panel(window):
-        return "frameless"
+        if grip is not None:
+            grip.hide()  # an ordinary window is resized by its frame
+    else:
+        window.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint)
+        window.hide_on_deactivate = True
+        if mode == "layer" and not _anchor_to_panel(window):
+            mode = "frameless"
+    window.placement_mode = mode
     return mode
 
 
