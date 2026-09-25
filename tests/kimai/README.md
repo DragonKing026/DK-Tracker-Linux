@@ -46,7 +46,7 @@ To dane wyłącznie lokalnego kontenera testowego.
 
 - **Strefa czasowa kont to UTC** (domyślna w kontenerze). Czas wysyłany do API liczymy
   w strefie z `/api/users/me → timezone`. Inaczej wpisy lądują w przyszłości
-  ([raport ze spike'u](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)).
+  ([raport ze spike'u](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)).
 - Tokeny są wstawiane SQL-em do `kimai2_access_token`, bo Kimai nie ma na to komendy.
   Jeśli po aktualizacji Kimai to przestanie działać, `up` kończy się błędem
   „Token for … is rejected”.
