@@ -7,7 +7,7 @@ zaktualizowano: 2026-09-25
 
 # Tablica zadań
 
-Zasady: [[docs/procesy/zadania|Zadania w folderze TODO]] · Szablon: [[TODO/_szablon/todo|_szablon]]
+Zasady: [Zadania w folderze TODO](../docs/procesy/zadania.md) · Szablon: [_szablon](_szablon/todo.md)
 
 Aktywne zadania leżą bezpośrednio w `TODO/`, zakończone (`zrobione` / `porzucone`)
 są przenoszone do [`TODO/DONE/`](DONE/).
@@ -19,15 +19,15 @@ Legenda statusów: 💡 `pomysl` · 📋 `do-zrobienia` · 🔨 `w-toku` · ⛔ 
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0002 | [[TODO/0002-specyfikacja-projektu/todo\|Specyfikacja projektu i plan]] | 📋 do-zrobienia | p0 | — |
-| 0003 | [[TODO/0003-wybor-stosu/todo\|Wybór stosu technologicznego]] | 📋 do-zrobienia | p0 | — |
-| 0004 | [[TODO/0004-prototyp-tacki-i-okna/todo\|Prototyp tacki i okna (spike)]] | 💡 pomysl | p1 | 0003 |
+| 0002 | [Specyfikacja projektu i plan](0002-specyfikacja-projektu/todo.md) | 📋 do-zrobienia | p0 | — |
+| 0003 | [Wybór stosu technologicznego](0003-wybor-stosu/todo.md) | 📋 do-zrobienia | p0 | — |
+| 0004 | [Prototyp tacki i okna (spike)](0004-prototyp-tacki-i-okna/todo.md) | 💡 pomysl | p1 | 0003 |
 
 ## Zakończone (`TODO/DONE/`)
 
 | Nr | Zadanie | Status | Zamknięto |
 |---|---|---|---|
-| 0001 | [[TODO/DONE/0001-struktura-agenta-i-dokumentacja/todo\|Struktura agenta i dokumentacji]] | ✅ zrobione | 2026-09-25 |
+| 0001 | [Struktura agenta i dokumentacji](DONE/0001-struktura-agenta-i-dokumentacja/todo.md) | ✅ zrobione | 2026-09-25 |
 
 ## Widok dynamiczny (Obsidian + Dataview)
 
