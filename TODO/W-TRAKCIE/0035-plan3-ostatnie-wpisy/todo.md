@@ -2,18 +2,18 @@
 noteId: "9e586034af2c47ada619f573c96e4dc8"
 tytul: "Plan 3 · Zadanie 7: Ostatnie wpisy (`ui/recent.py`)"
 numer: "0035"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-3, ui]
 zalezy_od: ["0034"]
 utworzono: 2026-09-25 23:07
-zaktualizowano: 2026-09-25 23:07
+zaktualizowano: 2026-09-25 23:09
 ---
 
 # 0035 — Plan 3 · Zadanie 7: Ostatnie wpisy (`ui/recent.py`)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -49,3 +49,4 @@ Wykonać **zadanie 7** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ### 2026-09-25
 - **23:07** Utworzono zadanie z Planu 3.
+- **23:09** Start wykonania.
