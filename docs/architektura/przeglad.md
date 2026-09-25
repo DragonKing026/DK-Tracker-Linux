@@ -67,6 +67,8 @@ Pełny opis każdej funkcji: [[docs/architektura/funkcje|Katalog funkcji]].
 - [ ] Link „Moje czasy” do panelu Kimai
 - [ ] Język polski i angielski
 - [ ] Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz Kimai, ustawienia, zakończ
+- [ ] Powiadomienia systemowe (długi timer, problemy z połączeniem)
+- [ ] Autostart z sesją (opcja w ustawieniach)
 - [ ] Paczka Flatpak
 
 ## Poza wtyczką — kandydaci na później
@@ -74,8 +76,6 @@ Pełny opis każdej funkcji: [[docs/architektura/funkcje|Katalog funkcji]].
 Funkcje, które ma sens dodać, bo aplikacja desktopowa może więcej niż wtyczka.
 Każda wymaga osobnej decyzji — nie wchodzą do 1.0 automatycznie.
 
-- Powiadomienia systemowe (np. przypomnienie o długo działającym timerze)
-- Autostart z sesją (portal Background)
 - Wykrywanie bezczynności (idle) i propozycja odjęcia czasu
 - Skrót klawiszowy globalny (portal GlobalShortcuts)
 
