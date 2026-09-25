@@ -42,6 +42,7 @@ class Memory:
     last_activity: int | None = None
     billable_allowed: bool = True  # cleared by saving the settings
     kimai_locale: str = "en"  # Kimai has no locale-free /timesheet/ route
+    tray_hint_shown: bool = False  # the "no system tray" hint is shown once (spec, section 7)
 
 
 def _base(variable: str, fallback: Path) -> Path:

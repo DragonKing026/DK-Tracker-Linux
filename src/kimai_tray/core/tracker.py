@@ -285,6 +285,10 @@ class Tracker:
             raise
         return self._merge(updated, notice="savedBillable")
 
+    def remember(self, **changes: Any) -> None:
+        """Remembered UI state (e.g. a hint already shown), saved with the tracker's own memory."""
+        self._update_memory(**changes)
+
     def apply_settings(self, settings: Settings, client: Any) -> Snapshot:
         """Saving the settings is the moment to look at the billable permission again."""
         self._settings = settings.normalized()

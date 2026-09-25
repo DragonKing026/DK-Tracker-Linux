@@ -203,3 +203,13 @@ def test_week_totals_follow_the_kimai_first_weekday():
     since_sunday = make_entry(9, datetime(2026, 9, 20, 23, 0, tzinfo=WAW))
     snapshot = replace(tracker.snapshot, running=(since_sunday,), totals=Totals())
     assert live_totals(snapshot, NOW, WAW).week == int((NOW - since_sunday.begin).total_seconds())
+
+
+def test_remember_saves_a_flag_next_to_what_the_tracker_keeps():
+    saved = []
+    tracker = Tracker(
+        FakeClient(), Settings(), Memory(last_project=1), save_memory=saved.append, now=lambda: NOW
+    )
+    tracker.remember(tray_hint_shown=True)
+    assert tracker.memory == Memory(last_project=1, tray_hint_shown=True)
+    assert saved[-1].tray_hint_shown is True
