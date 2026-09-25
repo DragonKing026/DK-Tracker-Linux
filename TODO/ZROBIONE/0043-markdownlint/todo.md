@@ -55,12 +55,15 @@ Wszystkie pliki `.md` w repozytorium bez uwag rozszerzenia VS Code
 
 - **23:39** Utworzono na prośbę użytkownika.
 - **23:45** Zamknięte: 0 błędów markdownlint.
+- **23:45** Przeniesione do ZROBIONE (folder był jeszcze poza gitem).
 
 ## Wynik
 
-- [.markdownlint.jsonc](../../../.markdownlint.jsonc) — reguły domyślne, MD013 do 120 znaków (bez tabel, kodu, nagłówków).
+- [.markdownlint.jsonc](../../../.markdownlint.jsonc) — reguły domyślne, MD013 do 120 znaków (bez tabel, kodu,
+  nagłówków).
 - Skill [markdownlint](../../../.claude/skills/markdownlint/SKILL.md): `mdfix.py sprawdz` / `napraw`, 8 testów skryptu;
   narzędzie przypięte do wersji z rozszerzenia VS Code (`markdownlint-cli2` 0.23.2).
 - 92 pliki poprawione; treść sprawdzona skryptem — identyczna poza białymi znakami, formatem tabel i jedną poprawką
   (`__main__.py` renderował się jako pogrubione „main”).
-- `zadanie.py` pisze tablicę i dziennik zgodnie z regułami; reguła dopisana w AGENTS.md, dokumentowanie.md i skillu `commit`.
+- `zadanie.py` pisze tablicę i dziennik zgodnie z regułami; reguła dopisana w AGENTS.md, dokumentowanie.md i skillu
+  `commit`.

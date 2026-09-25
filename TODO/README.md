@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 23:44
+zaktualizowano: 2026-09-25 23:45
 ---
 
 # Tablica zadań
@@ -27,7 +27,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0041 | [Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze](W-TRAKCIE/0041-plan3-test-na-zywo/todo.md) | 🔨 w-trakcie | p1 | [0040](ZROBIONE/0040-plan3-start-aplikacji/todo.md) ✅ |
 | 0042 | [Poprawki UI po teście na żywo (Plan 3)](W-TRAKCIE/0042-poprawki-po-tescie-na-zywo/todo.md) | 🔨 w-trakcie | p1 | [0040](ZROBIONE/0040-plan3-start-aplikacji/todo.md) ✅ |
-| 0043 | [Dokumenty zgodne z markdownlint](W-TRAKCIE/0043-markdownlint/todo.md) | 🔨 w-trakcie | p1 | — |
 
 ## Do zrobienia
 
@@ -78,6 +77,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0038 | [Plan 3 · Zadanie 10: Usługi pulpitu w wątkach UI (`ui/desktop_bridge.py`)](ZROBIONE/0038-plan3-most-do-dbus/todo.md) | ✅ zrobione | 2026-09-25 23:10 |
 | 0039 | [Plan 3 · Zadanie 11: Kontroler aplikacji (`ui/app.py`)](ZROBIONE/0039-plan3-kontroler/todo.md) | ✅ zrobione | 2026-09-25 23:10 |
 | 0040 | [Plan 3 · Zadanie 12: Start aplikacji (`ui/main.py`, `__main__.py`)](ZROBIONE/0040-plan3-start-aplikacji/todo.md) | ✅ zrobione | 2026-09-25 23:11 |
+| 0043 | [Dokumenty zgodne z markdownlint](ZROBIONE/0043-markdownlint/todo.md) | ✅ zrobione | 2026-09-25 23:45 |
 
 <!-- tablica:end -->
 
