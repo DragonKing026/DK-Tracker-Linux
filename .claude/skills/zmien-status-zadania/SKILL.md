@@ -1,34 +1,44 @@
 ---
-name: zamknij-zadanie
-description: Use when a task in TODO/ is finished, abandoned or its status changes — updates the task's frontmatter, log and result section, moves finished/abandoned task folders to TODO/DONE/, updates the TODO/README.md board links and commits.
+name: zmien-status-zadania
+description: Use whenever a TODO task changes status — starting work, blocking, unblocking, finishing or abandoning — updates the task's front matter, log and result, moves its folder between TODO/DO-ZROBIENIA, TODO/W-TRAKCIE and TODO/ZROBIONE with automatic link fixing, updates the TODO/README.md board and commits.
 ---
 
-# zamknij-zadanie — zmiana statusu / zamknięcie zadania
+# zmien-status-zadania — zmiana statusu, przeniesienie, zamknięcie
+
+Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
+
+## Status → folder
+
+| Status | Folder |
+|---|---|
+| `pomysl`, `do-zrobienia` | `TODO/DO-ZROBIENIA/` |
+| `w-trakcie`, `zablokowane` | `TODO/W-TRAKCIE/` |
+| `zrobione`, `porzucone` | `TODO/ZROBIONE/` |
 
 ## Kroki
 
-1. **Zweryfikuj** kryteria akceptacji w `TODO/NNNN-slug/todo.md` — każde odhaczone
-   `- [x]` musi być faktycznie spełnione (uruchom testy/komendy, jeśli dotyczy).
-   Niespełnione kryterium = zadanie nie jest `zrobione`.
-2. **Frontmatter**: `status` (`zrobione` / `porzucone` / inny), `zaktualizowano`,
-   przy zamknięciu `zamknieto: <data ISO>`. Zaktualizuj callout „Status” na górze.
-3. **Dziennik**: wpis z datą — co zrobiono, kluczowe commity (`git log --oneline`
-   z ostatnich zmian zadania).
-4. **Materiały**: wszystko, co powstało w ramach zadania (zrzuty, raporty testów, logi,
-   prototyp, notatki), leży w podfolderach folderu zadania (`zrzuty/`, `testy/`,
-   `prototyp/`…) i jest podlinkowane w sekcji „Materiały”. Nic nie leży luzem poza nim.
-   Sprawdź: `git status` i `find TODO/NNNN-slug -type f`.
-5. **Wynik**: co powstało (ścieżki plików, linki do docs), co świadomie zostało
-   na później (i ewentualnie nowe zadania dla tego — skill `nowe-zadanie`).
-6. **Przeniesienie do DONE** (tylko `zrobione` / `porzucone`) — skryptem ze skilla
-   [sprawdz-linki](../sprawdz-linki/SKILL.md), który przenosi folder przez `git mv`
-   i sam poprawia wszystkie linki (do zadania i w jego plikach):
+1. **Przy zamknięciu (`zrobione`) zweryfikuj** kryteria akceptacji w `todo.md`. Każde
+   odhaczone `- [x]` musi być faktycznie spełnione (uruchom testy lub komendy, jeśli
+   dotyczy). Niespełnione kryterium oznacza, że zadanie nie jest `zrobione`.
+2. **Frontmatter**: `status`, `zaktualizowano`; przy zamknięciu `zamknieto: <data ISO>`.
+   Zaktualizuj callout „Status” na górze pliku.
+3. **Dziennik**: wpis z datą — co się zmieniło i dlaczego, kluczowe commity
+   (`git log --oneline`).
+4. **Materiały** (przy zamknięciu): wszystko, co powstało w zadaniu, leży w podfolderach
+   jego folderu (`zrzuty/`, `testy/`, `prototyp/`…) i jest podlinkowane w sekcji
+   „Materiały”. Sprawdź: `git status` i `find <folder zadania> -type f`.
+5. **Wynik** (przy zamknięciu): co powstało (linki), co świadomie zostało na później.
+   Jeśli coś zostało na później, utwórz nowe zadanie skillem `nowe-zadanie`.
+6. **Przeniesienie**, gdy nowy status należy do innego folderu. Tylko skryptem, który
+   robi `git mv` i poprawia wszystkie linki:
    ```bash
-   python3 .claude/skills/sprawdz-linki/linki.py przenies TODO/NNNN-slug TODO/DONE/NNNN-slug
+   python3 .claude/skills/sprawdz-linki/linki.py przenies \
+     TODO/DO-ZROBIENIA/NNNN-slug TODO/W-TRAKCIE/NNNN-slug
    ```
    Wynik musi kończyć się „Wszystkie linki OK.”. Nie używaj samego `git mv`.
-7. **Tablica** [TODO/README.md](../../../TODO/README.md): przy zamknięciu przenieś wiersz z „Aktywne” do
-   „Zakończone” z linkiem `[Tytuł](DONE/NNNN-slug/todo.md)`
-   (`| Nr | Zadanie | Status | Zamknięto |`); przy innej zmianie statusu —
-   zaktualizuj kolumnę Status. W „Aktywne” zostają wyłącznie zadania leżące w `TODO/`.
-8. **Commit**: `todo: zamknij zadanie NNNN-slug i przenieś do DONE` / `todo: zmień status NNNN-slug na w-toku`.
+7. **Tablica** [TODO/README.md](../../../TODO/README.md): przenieś wiersz do sekcji
+   odpowiadającej folderowi („Do zrobienia” / „W trakcie” / „Zrobione”) i zaktualizuj
+   kolumnę Status. Linki w wierszach poprawia skrypt z kroku 6. Wiersze sortuj po numerze.
+8. **Kontrola**: `linki.py sprawdz` i `frontmatter.py sprawdz`.
+9. **Commit**: `todo: rozpocznij NNNN-slug` / `todo: zablokuj NNNN-slug` /
+   `todo: zamknij NNNN-slug` / `todo: porzuć NNNN-slug`.
