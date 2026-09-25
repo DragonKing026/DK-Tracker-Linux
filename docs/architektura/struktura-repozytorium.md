@@ -34,11 +34,13 @@ zaktualizowano: 2026-09-25
 │   └── assets/                obrazy współdzielone przez dokumenty
 │       └── referencja/        zrzuty wtyczki WS Tracker (wzorzec UI)
 └── TODO/
-    ├── README.md              tablica zadań
+    ├── README.md              tablica: linki do zadań aktywnych i zakończonych
     ├── _szablon/todo.md       szablon zadania
-    └── NNNN-slug/             jedno zadanie
-        ├── todo.md
-        └── assets/            zrzuty i diagramy zadania (opcjonalnie)
+    ├── NNNN-slug/             jedno zadanie aktywne
+    │   ├── todo.md
+    │   └── assets/            zrzuty i diagramy zadania (opcjonalnie)
+    └── DONE/                  zadania zakończone (zrobione / porzucone)
+        └── NNNN-slug/
 ```
 
 ## Opis elementów
@@ -57,6 +59,7 @@ Pełna dokumentacja — zasady w [[docs/procesy/dokumentowanie|Zasady dokumentow
 
 ### `TODO/`
 System zadań — zasady w [[docs/procesy/zadania|Zadania w folderze TODO]].
+Aktywne zadania leżą bezpośrednio w `TODO/`, zakończone są przenoszone do `TODO/DONE/`.
 
 ## Powiązane
 
