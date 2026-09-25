@@ -46,7 +46,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | GET | `/api/timesheets?size=20&orderBy=begin&order=DESC&full=true` | ostatnie wpisy z rozwiniętymi obiektami | F-08 |
 | GET | `/api/timesheets?begin=…&end=…&size=100&page=N` | wpisy tygodnia do sum | F-12 |
 | POST | `/api/timesheets` | start: `begin`, `project`, `activity`, `description`, `[billable]` | F-04 |
-| PATCH | `/api/timesheets/{id}/stop` | stop „teraz” | F-05 |
+| PATCH | `/api/timesheets/{id}/stop` | stop „teraz”; na już zatrzymanym wpisie zwraca 200 (sprawdzone) | F-05 |
 | PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable` | F-05, F-07, F-09 |
 
 > [!tip] Dlaczego nie `/api/timesheets/recent`
@@ -60,7 +60,9 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
   **`YYYY-MM-DDTHH:mm:ss`** bez strefy — tylko ten format jest gwarantowany na przyszłość
   ([źródło](https://www.kimai.org/documentation/rest-api.html)).
 - Czas interpretowany jest w strefie użytkownika Kimai → wysyłamy lokalny czas ścienny.
-- Kimai odrzuca początek w przyszłości → start wysyła „teraz − 1 s”.
+- Start wysyła „teraz − 1 s” (tak robi wtyczka). Odrzucanie przyszłego początku zależy
+  jednak od ustawienia serwera: na domyślnym Kimai 2.67 początek +2 h został **przyjęty**
+  ([raport](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)).
 
 ## Stronicowanie
 
@@ -80,10 +82,12 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | Kod | Znaczenie | Reakcja |
 |---|---|---|
 | brak odpowiedzi | sieć / DNS / TLS | „brak połączenia z Kimai” |
-| 401 / 403 | zły, unieważniony lub wygasły token | „sprawdź token” + link do ustawień |
+| 401 / 403 | zły, unieważniony lub wygasły token (401 ma **pustą treść** — sprawdzone) | „sprawdź token” + link do ustawień |
 | 400 | walidacja formularza; treść w `errors` zagnieżdżonych w `children` | pokaż zebrane komunikaty Kimai |
 | 400 „This form should not contain extra fields.” po wysłaniu `billable` | brak uprawnienia `edit_billable_own_timesheet` | ponów bez `billable`, zablokuj przełącznik |
-| 404 | brak zasobu / koniec stronicowania | zależnie od kontekstu |
+| 404 | brak zasobu / koniec stronicowania (`{"code":404,"message":"Not Found"}` — sprawdzone) | zależnie od kontekstu |
+| 400 „You have an active time record which cannot be stopped automatically.” | start przy trwającym wpisie, którego nie da się zamknąć (np. jego początek jest w przyszłości przez złą strefę) | komunikat + odświeżenie; sprawdź strefę czasową |
+| 400 „The end date must not be earlier than the start date.” | stop/edycja z końcem przed początkiem | komunikat Kimai; typowy objaw złej strefy |
 | 5xx | błąd serwera | „błąd serwera Kimai (kod)” |
 
 ### Uprawnienie `edit_billable_own_timesheet`
@@ -101,7 +105,7 @@ zakładać wartości domyślnych:
 
 | Ustawienie | Domyślnie | Skutek dla aplikacji |
 |---|---|---|
-| Dozwolona liczba jednocześnie trwających wpisów | `1` — start nowego **automatycznie zatrzymuje** trwający | przy `> 1` start może zostać odrzucony po osiągnięciu limitu, a `/active` może zwrócić kilka wpisów |
+| Dozwolona liczba jednocześnie trwających wpisów | `1` — start nowego **automatycznie zatrzymuje** trwający (sprawdzone: 200, poprzedni wpis dostaje `end`) | przy `> 1` start może zostać odrzucony po osiągnięciu limitu, a `/active` może zwrócić kilka wpisów |
 | Maksymalny czas trwania wpisu | wyłączone (0) | przy włączonym limicie **stop lub edycja mogą zostać odrzucone** (400) |
 | Nakładające się wpisy | dozwolone | przy wyłączeniu edycja początku/końca może zostać odrzucona (400) |
 | Wpisy w przyszłości | — | przyszła godzina początku jest odrzucana |
@@ -116,9 +120,16 @@ i [REST API](https://www.kimai.org/documentation/rest-api.html):
 - API zwraca daty w ISO 8601 z przesunięciem strefy użytkownika.
 - W POST/PATCH Kimai traktuje podaną godzinę jako lokalną i **dokleja strefę
   użytkownika bez przeliczania**.
-- Wniosek: jeśli strefa w profilu Kimai ≠ strefa systemu, start „teraz” zapisze złą
-  godzinę. Aplikacja porównuje obie strefy i ostrzega. Godziny do wysłania liczy
-  w strefie użytkownika Kimai, nie systemu.
+- `GET /api/users/me` zwraca strefę w polu **`timezone`** (np. `"UTC"`) i język w polu
+  `language` — sprawdzone na Kimai 2.67.0.
+- **Sprawdzone na żywo** ([raport](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)): konto Kimai w UTC, system w Europe/Warsaw.
+  Wysłanie „teraz” w czasie systemu dało wpis **2 h w przyszłości**. Stop został
+  odrzucony („end date must not be earlier than the start date”), następny start też
+  („active time record which cannot be stopped automatically”).
+- Zasada w aplikacji: **wszystkie godziny wysyłane do Kimai liczymy w strefie
+  `/api/users/me → timezone`**. Przy różnicy stref pokazujemy ostrzeżenie.
+- Kimai **zaokrągla** czasy do pełnych minut przy stopie i auto-stopie (ustawienie
+  serwera) — nie porównujemy czasów co do sekundy.
 
 ## Link do panelu
 
