@@ -7,7 +7,7 @@ priorytet: p3
 tags: [todo, core, recenzja]
 zalezy_od: ["0018"]
 utworzono: 2026-09-25 19:15
-zaktualizowano: 2026-09-25 19:20
+zaktualizowano: 2026-09-25 19:26
 zamknieto:
 ---
 
@@ -33,7 +33,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 
 ## Kroki (uwagi odłożone)
 
-- [ ] Pusta/brakująca strefa w `User.from_api` daje "UTC" zamiast strefy systemu + flagi różnicy (niespójność w planie; Kimai zawsze wysyła strefę)
+- [x] Pusta/brakująca strefa w `User.from_api` daje "UTC" — **poprawione**: odczyt z `preferences`, potem strefa systemu + ostrzeżenie `warnTimezoneMissing` (decyzja użytkownika: opcja 1 + komunikat)
 - [ ] Zapasowa strefa to stałe przesunięcie, bez zmiany czasu (tylko gdy strefa Kimai nieznana) — np. `ZoneInfo("localtime")`
 - [ ] Uzgodnienie po timeoucie startu porównuje projekt/czynność/opis, ale nie minutę początku
 - [ ] `OSError` przy zapisie pamięci (pełny dysk) wychodzi z odświeżania/startu
@@ -41,6 +41,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - [ ] Przekierowanie 3xx (http→https) pokazywane jako „błąd 301”
 - [ ] Sumy na żywo: cały czas trwającego wpisu dodawany do „dziś/tydzień”, nawet gdy zaczął się wczoraj; `refresh_active` nie przelicza sum
 - [ ] Powiadomienie N-01 ma wspólny identyfikator dla kilku długich timerów
+- [ ] Nowe (z testów na 2.65.0): preferencja `first_weekday` — sumy tygodnia zawsze od poniedziałku, a konto może mieć niedzielę
 - [ ] [funkcje.md](../../../docs/architektura/funkcje.md) F-12 opisuje stronicowanie 100×3, kod używa 500×10
 
 ## Materiały
@@ -50,6 +51,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 ### 2026-09-25 19:15
 - Utworzono z listy „minor (deferred)” końcowej recenzji Planu 1.
 - **19:20** Przegląd uwag z użytkownikiem, po kolei.
+- **19:26** Uwaga 1: poprawiona (commit „fix(core): brak strefy z Kimai…”). Kimai firmy 2.65.0 — testy kontraktowe 8/8 na tej wersji; znaleziono `first_weekday`.
 
 ## Wynik
 
