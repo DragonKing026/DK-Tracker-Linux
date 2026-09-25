@@ -1,7 +1,15 @@
 import pytest
 from jeepney import HeaderFields, new_error, new_method_return
 
-from kimai_tray.desktop.bus import PORTAL, PORTAL_PATH, DBusCallError, PortalError, SessionBus, portal_request
+from kimai_tray.desktop.bus import (
+    PORTAL,
+    PORTAL_PATH,
+    DBusCallError,
+    PortalError,
+    SessionBus,
+    portal_request,
+    register_host_app,
+)
 
 from .fakes import FakeBus
 
@@ -134,3 +142,21 @@ def test_call_turns_error_replies_into_dbus_call_errors():
         "org.freedesktop.DBus.Error.LimitsExceeded",
         "too many",
     )
+
+
+def test_host_app_registers_its_id_with_the_portal():
+    bus = FakeBus()
+    bus.on(PORTAL_PATH, "org.freedesktop.host.portal.Registry", "Register", ())
+    assert register_host_app(bus, "pl.websystems.KimaiTray") is True
+    assert bus.calls[0] == (
+        PORTAL,
+        PORTAL_PATH,
+        "org.freedesktop.host.portal.Registry",
+        "Register",
+        "sa{sv}",
+        ("pl.websystems.KimaiTray", {}),
+    )
+
+
+def test_registration_refused_in_a_sandbox_or_old_portal_is_not_an_error():
+    assert register_host_app(FakeBus(), "pl.websystems.KimaiTray") is False  # UnknownMethod

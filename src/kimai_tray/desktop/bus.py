@@ -17,6 +17,7 @@ from jeepney.io.blocking import open_dbus_connection
 PORTAL = "org.freedesktop.portal.Desktop"
 PORTAL_PATH = "/org/freedesktop/portal/desktop"
 _REQUEST = "org.freedesktop.portal.Request"
+_REGISTRY = "org.freedesktop.host.portal.Registry"
 
 
 class DBusCallError(Exception):
@@ -154,3 +155,17 @@ def _close_request(bus: Bus, handle: str) -> None:
         bus.call(PORTAL, handle, _REQUEST, "Close", timeout=5)
     except (DBusCallError, OSError):
         pass  # the request may already be gone
+
+
+def register_host_app(bus: Bus, app_id: str) -> bool:
+    """Tell the portal who we are when not sandboxed (xdg-desktop-portal >= 1.19).
+
+    Otherwise it guesses the app from the systemd scope — started from a terminal in an
+    editor, notifications then come "from" that editor. Must be the connection's first
+    portal call. Inside Flatpak, or with an older portal, it is refused: that is fine.
+    """
+    try:
+        bus.call(PORTAL, PORTAL_PATH, _REGISTRY, "Register", "sa{sv}", (app_id, {}))
+    except (DBusCallError, OSError):
+        return False
+    return True
