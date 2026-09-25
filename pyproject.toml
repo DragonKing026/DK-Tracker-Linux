@@ -22,6 +22,7 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 "kimai_tray.core" = ["locales/*.json"]
+"kimai_tray.ui" = ["assets/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

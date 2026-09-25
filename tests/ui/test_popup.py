@@ -143,3 +143,8 @@ def test_layer_shell_symbol_is_present_when_the_library_is():
     except OSError:
         pytest.skip("layer-shell-qt is not installed here")
     assert hasattr(library, placement.LAYER_SYMBOL)
+
+
+def test_header_starts_with_the_kimai_logo(window):
+    _, popup = window
+    assert popup.logo.pixmap() is not None and not popup.logo.pixmap().isNull()

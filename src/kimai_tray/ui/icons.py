@@ -3,6 +3,8 @@ glyphs of the window, taken from the add-on's SVG markup so the look stays the s
 
 from __future__ import annotations
 
+from importlib import resources
+
 from PySide6.QtCore import QByteArray, QPointF, QRectF, Qt
 from PySide6.QtGui import QColor, QFont, QIcon, QPainter, QPen, QPixmap
 from PySide6.QtSvg import QSvgRenderer
@@ -39,6 +41,14 @@ _PATHS = {
     ),
 }
 GLYPHS = tuple(_PATHS)
+
+
+def app_icon() -> QIcon:
+    """The Kimai logo (public/touch-icon-512x512.png of Kimai, AGPL-3.0-or-later)."""
+    data = resources.files("kimai_tray.ui").joinpath("assets", "kimai.png").read_bytes()
+    pixmap = QPixmap()
+    pixmap.loadFromData(data)
+    return QIcon(pixmap)
 
 
 def glyph(name: str, color: str, size: int = 20) -> QIcon:

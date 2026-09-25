@@ -29,7 +29,7 @@ from kimai_tray.core.timefmt import short_duration
 from kimai_tray.core.tracker import live_totals, utc_now
 
 from .form import TrackerForm
-from .icons import glyph
+from .icons import app_icon, glyph
 from .recent import RecentList
 from .state import AppState
 from .theme import palette_for, stylesheet
@@ -56,6 +56,8 @@ class QuickWindow(QWidget):
         self._notice_shown: object = None
 
         header = QFrame(objectName="header")
+        self.logo = QLabel()
+        self.logo.setPixmap(app_icon().pixmap(18, 18))
         self.brand = QLabel(objectName="brand")
         self.today = QLabel(objectName="totals")
         self.week = QLabel(objectName="totals")
@@ -64,6 +66,7 @@ class QuickWindow(QWidget):
         top = QHBoxLayout(header)
         top.setContentsMargins(14, 8, 8, 8)
         top.setSpacing(8)
+        top.addWidget(self.logo)
         top.addWidget(self.brand)
         top.addStretch(1)
         top.addWidget(self.today)

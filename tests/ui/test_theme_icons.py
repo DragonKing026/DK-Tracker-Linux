@@ -60,3 +60,12 @@ def test_glyphs_render_in_the_given_colour(qapp):
         assert not glyph(name, "#16a34a").isNull(), name
     image = glyph("stop", "#ffffff", 20).pixmap(20, 20).toImage()
     assert centre(image).name() == "#ffffff"
+
+
+def test_app_icon_is_the_kimai_logo(qapp):
+    from kimai_tray.ui.icons import app_icon
+
+    icon = app_icon()
+    assert not icon.isNull()
+    image = icon.pixmap(64, 64).toImage()
+    assert QColor(image.pixel(32, 32)).green() > 150  # the green Kimai clock

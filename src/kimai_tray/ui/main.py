@@ -118,6 +118,9 @@ def main(argv: list[str] | None = None) -> int:
     app.setApplicationName("kimai-tray")
     app.setDesktopFileName(APP_ID)
     app.setQuitOnLastWindowClosed(False)
+    from .icons import app_icon
+
+    app.setWindowIcon(app_icon())  # Wayland: sent with xdg-toplevel-icon (KWin 6, Qt >= 6.8)
 
     instance = SingleInstance(f"kimai-tray-{os.getuid()}")
     if not instance.claim():
