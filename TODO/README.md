@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 23:07
+zaktualizowano: 2026-09-25 23:08
 ---
 
 # Tablica zadań
@@ -25,15 +25,14 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0029 | [Plan 3 · Zadanie 1: Zależności UI, testy Qt i teksty interfejsu](W-TRAKCIE/0029-plan3-zaleznosci-i-teksty-ui/todo.md) | 🔨 w-trakcie | p1 | [0028](ZROBIONE/0028-plan3-projekt-ui/todo.md) ✅ |
+| 0030 | [Plan 3 · Zadanie 2: Teksty tacki i listy w rdzeniu (`core/presentation.py`)](W-TRAKCIE/0030-plan3-teksty-w-rdzeniu/todo.md) | 🔨 w-trakcie | p1 | [0029](ZROBIONE/0029-plan3-zaleznosci-i-teksty-ui/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0030 | [Plan 3 · Zadanie 2: Teksty tacki i listy w rdzeniu (`core/presentation.py`)](DO-ZROBIENIA/0030-plan3-teksty-w-rdzeniu/todo.md) | 📋 do-zrobienia | p1 | [0029](W-TRAKCIE/0029-plan3-zaleznosci-i-teksty-ui/todo.md) |
-| 0031 | [Plan 3 · Zadanie 3: Motyw i ikony (`ui/theme.py`, `ui/icons.py`)](DO-ZROBIENIA/0031-plan3-motyw-i-ikony/todo.md) | 📋 do-zrobienia | p1 | [0030](DO-ZROBIENIA/0030-plan3-teksty-w-rdzeniu/todo.md) |
+| 0031 | [Plan 3 · Zadanie 3: Motyw i ikony (`ui/theme.py`, `ui/icons.py`)](DO-ZROBIENIA/0031-plan3-motyw-i-ikony/todo.md) | 📋 do-zrobienia | p1 | [0030](W-TRAKCIE/0030-plan3-teksty-w-rdzeniu/todo.md) |
 | 0032 | [Plan 3 · Zadanie 4: Praca w tle (`ui/worker.py`)](DO-ZROBIENIA/0032-plan3-praca-w-tle/todo.md) | 📋 do-zrobienia | p1 | [0031](DO-ZROBIENIA/0031-plan3-motyw-i-ikony/todo.md) |
 | 0033 | [Plan 3 · Zadanie 5: Stan aplikacji i ikona w tacce (`ui/state.py`, `ui/tray.py`)](DO-ZROBIENIA/0033-plan3-stan-i-ikona-w-tacce/todo.md) | 📋 do-zrobienia | p1 | [0032](DO-ZROBIENIA/0032-plan3-praca-w-tle/todo.md) |
 | 0034 | [Plan 3 · Zadanie 6: Pasek trackera (`ui/form.py`)](DO-ZROBIENIA/0034-plan3-pasek-trackera/todo.md) | 📋 do-zrobienia | p1 | [0033](DO-ZROBIENIA/0033-plan3-stan-i-ikona-w-tacce/todo.md) |
@@ -76,6 +75,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0026 | [Plan 2 · Zadanie 5: Testy na prawdziwej sesji i komendy](ZROBIONE/0026-plan2-testy-na-zywo-i-komendy/todo.md) | ✅ zrobione | 2026-09-25 21:02 |
 | 0027 | [Drobne uwagi z recenzji Planu 2 (desktop)](ZROBIONE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md) | ✅ zrobione | 2026-09-25 21:48 |
 | 0028 | [Plan 3 — projekt interfejsu (decyzje przed planem)](ZROBIONE/0028-plan3-projekt-ui/todo.md) | ✅ zrobione | 2026-09-25 23:06 |
+| 0029 | [Plan 3 · Zadanie 1: Zależności UI, testy Qt i teksty interfejsu](ZROBIONE/0029-plan3-zaleznosci-i-teksty-ui/todo.md) | ✅ zrobione | 2026-09-25 23:08 |
 
 <!-- tablica:end -->
 
