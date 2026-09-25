@@ -35,10 +35,11 @@ magazyn sekretów…) ma **osobny plik** w `docs/integracje/`. Bez niego nie dod
    ## Pułapki i ograniczenia   ← z callout [!warning]
    ## Gdzie w kodzie           ← ścieżki modułów (po implementacji)
    ## Dokumentacja             ← lista linków do oficjalnych źródeł
-   ## Powiązane                ← wikilinki do ADR, zadań, innych integracji
+   ## Powiązane                ← linki markdown do ADR, zadań, innych integracji
    ```
 3. **Indeks** — dodaj wiersz w `docs/integracje/README.md` (tabela integracji).
-4. **Commit**: `docs(integracje): opisz <nazwa>`.
+4. **Linki**: `python3 .claude/skills/sprawdz-linki/linki.py sprawdz`.
+5. **Commit**: `docs(integracje): opisz <nazwa>`.
 
 ## Sprawdź
 
