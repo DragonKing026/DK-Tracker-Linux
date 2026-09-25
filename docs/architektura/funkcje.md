@@ -206,6 +206,25 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | F-23 | Wykrywanie bezczynności | propozycja odjęcia czasu nieaktywności; trudne w Flatpaku na Waylandzie (brak portalu czasu bezczynności) | później |
 | F-24 | Globalny skrót klawiszowy (portal GlobalShortcuts) | start/stop bez myszy | później |
 
+## F-21 Powiadomienia — szczegóły (1.0)
+
+Przez portal Notification (w Qt/PySide przez D-Bus). Ustalone z użytkownikiem 2026-09-25.
+
+| Id | Kiedy | Treść | Akcje | Ustawienie |
+|---|---|---|---|---|
+| N-01 Długi timer | trwający wpis przekroczył próg | „Timer działa od 8:00 h — *Projekt*” + opis | **Zatrzymaj**, **Działa dalej** (wycisza do następnego progu: +1 h) | próg w godzinach, domyślnie 8, 0 = wyłączone |
+| N-02 Utrata połączenia | 3 kolejne nieudane odświeżenia (~3 min) albo 401/403 | „Brak połączenia z Kimai” / „Token nieważny lub wygasł” | **Ustawienia** (przy 401) | wł./wył., domyślnie wł. |
+| N-02b Powrót połączenia | pierwsze udane odświeżenie po N-02 | „Połączenie z Kimai przywrócone” | — | razem z N-02 |
+| N-03 Potwierdzenie z menu | start/stop/wznów wykonane **z menu kontekstowego** | „Start: *opis* — *Projekt*” / „Stop: *1:22* — *Projekt*” | — | wł./wył., domyślnie wł. |
+
+Zasady:
+- Jedno powiadomienie na zdarzenie. N-02 nie powtarza się co minutę, dopóki trwa ta sama
+  awaria. N-01 zastępuje poprzednie (to samo `id` powiadomienia).
+- Akcje z okna aplikacji (nie z menu) nie wysyłają N-03, bo wynik widać w oknie.
+- Brak portalu lub odmowa → funkcja cicho wyłączona, informacja w ustawieniach.
+
+Odrzucone na 1.0: „brak timera w godzinach pracy” (wymaga ustawień godzin pracy).
+
 ## Powiązane
 
 - [[docs/architektura/przeglad|Przegląd projektu]]
