@@ -2,7 +2,7 @@
 noteId: "e69841fb57c64eb7abda7346719a1806"
 tytul: "Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)"
 numer: "0015"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0014"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0015 — Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -54,6 +54,7 @@ Wykonać **zadanie 11** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
