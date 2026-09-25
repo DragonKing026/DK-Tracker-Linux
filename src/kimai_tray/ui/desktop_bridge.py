@@ -30,6 +30,7 @@ class Desktop:
         self._factory = bus_factory
         self._register = register
         self._bus: Bus | None = None
+        self._notifier: PortalNotifier | None = None
 
     def _connection(self) -> Bus:
         if self._bus is None:
@@ -44,11 +45,16 @@ class Desktop:
     def set_token(self, url: str, token: str) -> None:
         SecretServiceStore(self._secrets_bus()).set(url, token)
 
+    def _notifications(self) -> PortalNotifier:
+        if self._notifier is None:
+            self._notifier = PortalNotifier(self._connection())
+        return self._notifier
+
     def notify(self, rendered: RenderedNotification) -> None:
-        PortalNotifier(self._connection()).show(rendered)
+        self._notifications().show(rendered)
 
     def withdraw(self, notification_id: str) -> None:
-        PortalNotifier(self._connection()).withdraw(notification_id)
+        self._notifications().withdraw(notification_id)
 
     def request_background(self, *, autostart: bool, reason: str) -> BackgroundResult:
         return BackgroundPortal(self._connection()).request(
@@ -63,6 +69,7 @@ class Desktop:
         if close is not None:
             close()
         self._bus = None
+        self._notifier = None
 
     def _secrets_bus(self) -> Bus:
         try:

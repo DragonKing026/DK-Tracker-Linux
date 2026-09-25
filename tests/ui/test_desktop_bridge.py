@@ -14,6 +14,7 @@ def test_bus_is_opened_once_and_lazily():
     def factory():
         bus = FakeBus()
         bus.on(PORTAL_PATH, NOTIFY, "AddNotification", ())
+        bus.on(PORTAL_PATH, NOTIFY, "RemoveNotification", ())
         opened.append(bus)
         return bus
 
@@ -22,7 +23,7 @@ def test_bus_is_opened_once_and_lazily():
     desktop.notify(RenderedNotification("connection", "Brak połączenia", "", ()))
     desktop.notify(RenderedNotification("connection", "Brak połączenia", "", ()))
     assert len(opened) == 1
-    assert opened[0].members() == ["AddNotification", "AddNotification"]
+    assert opened[0].members() == ["AddNotification", "RemoveNotification", "AddNotification"]
 
 
 def test_listener_emits_parsed_clicks(qtbot):

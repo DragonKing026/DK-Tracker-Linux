@@ -21,7 +21,7 @@ def test_show_sends_title_body_and_buttons():
     destination, _, _, member, signature, body = bus.calls[0]
     assert (destination, member, signature) == (PORTAL, "AddNotification", "sa{sv}")
     notification_id, payload = body
-    assert notification_id == "long-timer-7"
+    assert notification_id.startswith("long-timer-7.")
     assert payload["title"] == ("s", "Timer działa od 8:00")
     assert payload["body"] == ("s", "Projekt — opis")
     assert payload["buttons"] == (
@@ -65,3 +65,43 @@ def test_parse_action_without_entry():
     assert PortalNotifier.parse(("connection", "settings", [])) == NotificationAction(
         "connection", "settings", None
     )
+
+
+def test_every_notification_gets_a_fresh_id_and_replaces_the_previous_one():
+    """KDE's portal never shows a notification again under an id it has seen (checked on Plasma 6.7.5)."""
+    bus = FakeBus()
+    bus.on(PORTAL_PATH, IFACE, "AddNotification", ())
+    bus.on(PORTAL_PATH, IFACE, "RemoveNotification", ())
+    notifier = PortalNotifier(bus, first_number=1)
+    notifier.show(RenderedNotification("action", "Start: a", "", ()))
+    notifier.show(RenderedNotification("action", "Stop: a", "", ()))
+    sent = [(call[3], call[5][0]) for call in bus.calls]
+    assert sent == [
+        ("AddNotification", "action.1"),
+        ("RemoveNotification", "action.1"),
+        ("AddNotification", "action.2"),
+    ]
+
+
+def test_click_on_a_numbered_long_timer_id_still_names_the_entry():
+    action = PortalNotifier.parse(("long-timer-7.3", "stop", []))
+    assert action == NotificationAction("long-timer-7.3", "stop", 7)
+
+
+def test_a_previous_notification_already_gone_does_not_stop_the_next():
+    bus = FakeBus()
+    bus.on(PORTAL_PATH, IFACE, "AddNotification", ())  # no RemoveNotification handler: it fails
+    notifier = PortalNotifier(bus, first_number=1)
+    notifier.show(RenderedNotification("action", "Start: a", "", ()))
+    notifier.show(RenderedNotification("action", "Stop: a", "", ()))
+    assert bus.members()[-1] == "AddNotification"
+
+
+def test_withdraw_by_kind_removes_what_is_on_screen():
+    bus = FakeBus()
+    bus.on(PORTAL_PATH, IFACE, "AddNotification", ())
+    bus.on(PORTAL_PATH, IFACE, "RemoveNotification", ())
+    notifier = PortalNotifier(bus, first_number=5)
+    notifier.show(RenderedNotification("connection", "Brak połączenia", "", ()))
+    notifier.withdraw("connection")
+    assert bus.calls[-1][3:] == ("RemoveNotification", "s", ("connection.5",))
