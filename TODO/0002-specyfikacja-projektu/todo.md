@@ -1,7 +1,7 @@
 ---
 tytul: "Specyfikacja projektu (design) i plan implementacji"
 numer: "0002"
-status: do-zrobienia
+status: w-toku
 priorytet: p0
 tagi: [todo, planowanie, spec]
 zalezy_od: []
@@ -13,7 +13,7 @@ zamknieto:
 # 0002 — Specyfikacja projektu i plan implementacji
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p0** · [[TODO/README|← tablica zadań]]
+> **w-toku** · priorytet **p0** · [[TODO/README|← tablica zadań]]
 
 ## Cel
 
@@ -29,9 +29,10 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 ## Kryteria akceptacji
 
 - [ ] Ustalony zakres 1.0 (które z F-20…F-24 wchodzą)
-- [ ] Zatwierdzony stos ([[TODO/0003-wybor-stosu/todo|0003]])
+- [x] Zatwierdzony stos ([[TODO/DONE/0003-wybor-stosu/todo|0003]] → ADR-0002: Python + PySide6)
 - [ ] Zatwierdzona forma okna na Waylandzie
 - [ ] Spec zapisana w `docs/specyfikacja/` i zaakceptowana przez użytkownika
+- [ ] Sekcja „Komendy” w `AGENTS.md` zaplanowana (uzupełniana przy szkielecie projektu)
 - [ ] Plan implementacji zapisany i zaakceptowany; kolejne zadania TODO z planu utworzone
 
 ## Kroki
@@ -46,5 +47,6 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 
 ### 2026-09-25
 - Utworzono zadanie.
+- Rozpoczęto brainstorming. Pytanie 1 (stos) → Python + PySide6 (ADR-0002).
 
 ## Wynik
