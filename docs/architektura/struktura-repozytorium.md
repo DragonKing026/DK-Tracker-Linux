@@ -36,9 +36,14 @@ zaktualizowano: 2026-09-25
 └── TODO/
     ├── README.md              tablica: linki do zadań aktywnych i zakończonych
     ├── _szablon/todo.md       szablon zadania
-    ├── NNNN-slug/             jedno zadanie aktywne
-    │   ├── todo.md
-    │   └── assets/            zrzuty i diagramy zadania (opcjonalnie)
+    ├── NNNN-slug/             jedno zadanie aktywne — wszystkie jego materiały w środku
+    │   ├── todo.md            opis zadania
+    │   ├── zrzuty/            zrzuty ekranu
+    │   ├── diagramy/          diagramy eksportowane i źródła
+    │   ├── testy/             raporty, logi, testy ręczne
+    │   ├── prototyp/          kod roboczy / spike
+    │   ├── notatki/           notatki badawcze
+    │   └── dane/              przykładowe dane
     └── DONE/                  zadania zakończone (zrobione / porzucone)
         └── NNNN-slug/
 ```
