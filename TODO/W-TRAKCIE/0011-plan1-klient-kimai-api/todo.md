@@ -2,7 +2,7 @@
 noteId: "1e38a0c0d3ef45f7906f7c801d1f2a66"
 tytul: "Plan 1 · Zadanie 7: Klient Kimai API (`kimai_client.py`)"
 numer: "0011"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0010"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0011 — Plan 1 · Zadanie 7: Klient Kimai API (`kimai_client.py`)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -54,6 +54,7 @@ Wykonać **zadanie 7** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
