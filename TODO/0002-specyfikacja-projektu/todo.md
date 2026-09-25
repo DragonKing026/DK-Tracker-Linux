@@ -55,6 +55,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Podejście → 1: rdzeń w czystym Pythonie, httpx, jeepney, Qt Widgets ([ADR-0004](../../docs/decyzje/0004-architektura-rdzen-python-ui-qt.md)).
 - Użytkownik przypomniał: aplikacja w pełnej wersji PL i EN → doprecyzowano [F-13](../../docs/architektura/funkcje.md).
 - Sekcja 1 projektu (moduły i katalogi) zaakceptowana.
+- Sekcja 2 (przepływ danych: Snapshot, AppState, odświeżanie 60 s / pełne, kolejka akcji, polityka powiadomień w rdzeniu, jedna instancja) zaakceptowana.
 - Nowe zasady od użytkownika: materiały zadań w podfolderach, linki markdown wszędzie ([sprawdz-linki](../../.claude/skills/sprawdz-linki/SKILL.md)).
 
 ## Wynik
