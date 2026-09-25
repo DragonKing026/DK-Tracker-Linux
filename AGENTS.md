@@ -164,7 +164,7 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev,ui]" # raz (PySide6 z p
 .venv/bin/pytest -m desktop                                   # D-Bus na prawdziwej sesji (portfel, powiadomienie, portal)
 .venv/bin/ruff format . && .venv/bin/ruff check .             # format + lint (tylko kod produktu)
 scripts/instaluj-dev.sh                                       # raz: .desktop + ikona w ~/.local/share (nazwa i ikona w powiadomieniach)
-PYTHONPATH=src python3 -m kimai_tray                          # uruchomienie na KDE (systemowy PySide6 — layer-shell działa)
+PYTHONPATH=src /usr/bin/python3 -m kimai_tray                 # uruchomienie na KDE (systemowy PySide6 — layer-shell działa)
 .venv/bin/python -m kimai_tray                                # uruchomienie z .venv (okno bez ramki, bez layer-shell)
 ```
 

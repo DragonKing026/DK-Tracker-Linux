@@ -18,7 +18,7 @@ fi
 
 mkdir -p "$APPS" "$ICONS"
 install -m 644 "$ROOT/src/kimai_tray/ui/assets/kimai.png" "$ICONS/$APP.png"
-sed "s|^Exec=.*|Exec=env PYTHONPATH=\"$ROOT/src\" python3 -m kimai_tray|" \
+sed "s|^Exec=.*|Exec=env PYTHONPATH=\"$ROOT/src\" /usr/bin/python3 -m kimai_tray|" \
     "$ROOT/data/$APP.desktop" > "$APPS/$APP.desktop"
 command -v update-desktop-database >/dev/null && update-desktop-database -q "$APPS" || true
 echo "Zainstalowano $APPS/$APP.desktop (Exec: python3 -m kimai_tray z $ROOT/src)."
