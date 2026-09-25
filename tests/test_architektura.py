@@ -31,3 +31,16 @@ def test_layer_does_not_import_forbidden_packages(layer):
         if imported_roots(path) & FORBIDDEN[layer]
     ]
     assert offenders == []
+
+
+@pytest.mark.parametrize("layer", ["core", "desktop"])
+def test_lower_layers_never_import_the_ui(layer):
+    offenders = []
+    for path in sorted((SRC / layer).rglob("*.py")):
+        tree = ast.parse(path.read_text(encoding="utf-8"))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.ImportFrom):
+                module = node.module or ""
+                if module.startswith("kimai_tray.ui") or (node.level >= 2 and module.split(".")[0] == "ui"):
+                    offenders.append(str(path.relative_to(SRC)))
+    assert offenders == []

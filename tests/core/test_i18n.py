@@ -8,7 +8,9 @@ from kimai_tray.core.i18n import SUPPORTED, Translator, load_messages, resolve_l
 
 SRC = Path(__file__).resolve().parents[2] / "src" / "kimai_tray"
 # String literals shaped like message keys; every one used in code must exist in the locales.
-KEY_LITERAL = re.compile(r"\"((?:err|warn|notif|action|opt|day|saved|billable)[A-Z][A-Za-z]*)\"")
+KEY_LITERAL = re.compile(
+    r"\"((?:err|warn|notif|action|opt|day|saved|billable|menu|tooltip|win|hint|secrets|status)[A-Z][A-Za-z]*)\""
+)
 
 
 def placeholders(text):
