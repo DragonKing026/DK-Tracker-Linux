@@ -5,7 +5,7 @@ tags: [integracja, flatpak, portale, dbus]
 status_integracji: planowana
 wersja: xdg-desktop-portal (Background v2, GlobalShortcuts v2)
 utworzono: 2026-09-25 17:23
-zaktualizowano: 2026-09-25 21:01
+zaktualizowano: 2026-09-25 21:12
 ---
 
 # Portale XDG Desktop
@@ -65,6 +65,12 @@ sequenceDiagram
   przyciski akcji (np. „Zatrzymaj timer”), które wracają do aplikacji jako akcje.
 - Na maszynie deweloperskiej backend: `plasmanotify` (`kde-portals.conf`).
 - Toolkity (Qt/GTK) często używają portalu automatycznie w piaskownicy.
+- Kliknięcie wraca jako sygnał `ActionInvoked(id, action, parameter)`. Portal rozgłasza go **bez adresata**
+  ([`action_invoked_cb`](https://github.com/flatpak/xdg-desktop-portal/blob/main/desktop-portal/notification.c)
+  woła `xdp_dbus_notification_emit_action_invoked`, sprawdzone 2026-09-25 21:30). Dlatego nasłuch może działać na
+  **osobnym połączeniu** w wątku roboczym, innym niż to, którym wysyłamy powiadomienia. Konsekwencja: sygnał słyszy
+  każdy proces sesji. Nasze identyfikatory mają przedrostek (`long-timer-<id>`), a obce są ignorowane
+  (`entry_id=None`). Na żywo sprawdzimy to w Planie 3.
 
 ## OpenURI
 
