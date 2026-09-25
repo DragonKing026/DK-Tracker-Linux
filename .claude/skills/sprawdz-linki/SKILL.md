@@ -18,7 +18,7 @@ Skrypt: `.claude/skills/sprawdz-linki/linki.py` (uruchamiany z katalogu główne
 python3 .claude/skills/sprawdz-linki/linki.py sprawdz
 
 # 2. Przenieś plik lub folder I popraw wszystkie linki (do niego i w nim)
-python3 .claude/skills/sprawdz-linki/linki.py przenies TODO/0004-prototyp TODO/DONE/0004-prototyp
+python3 .claude/skills/sprawdz-linki/linki.py przenies TODO/W-TRAKCIE/0004-prototyp TODO/ZROBIONE/0004-prototyp
 
 # 3. Napraw zepsute linki po przeniesieniu zrobionym ręcznie
 #    (szuka pliku o tej samej nazwie; gdy kandydatów jest kilka — zgłasza do ręcznej poprawy)
@@ -31,7 +31,7 @@ python3 .claude/skills/sprawdz-linki/linki.py wikilinki
 ## Kiedy
 
 - **Przenosisz lub zmieniasz nazwę pliku `.md` / folderu zadania** → zawsze `przenies`
-  zamiast `git mv` (skill `zamknij-zadanie` robi tak przy przenoszeniu do `TODO/DONE/`).
+  zamiast `git mv` (skill `zmien-status-zadania` robi tak przy każdej zmianie statusu).
 - **Przed commitem** zmian w `docs/` lub `TODO/` → `sprawdz`. Wynik musi być
   „Wszystkie linki OK.”
 - Po ręcznym przeniesieniu (albo gdy ktoś przeniósł plik w Obsidianie/VS Code) →
@@ -42,7 +42,7 @@ python3 .claude/skills/sprawdz-linki/linki.py wikilinki
 Każde odwołanie do czegoś, co istnieje w repo, jest linkiem ze **ścieżką względną od
 bieżącego pliku**, nie zwykłym tekstem (przykłady poniżej z perspektywy pliku w `docs/`
 lub `TODO/`):
-- zadanie: `[0003](../TODO/DONE/0003-wybor-stosu/todo.md)`, a nie „zadanie 0003”,
+- zadanie: `[0003](../TODO/ZROBIONE/0003-wybor-stosu/todo.md)`, a nie „zadanie 0003”,
 - ADR: `[ADR-0002](../docs/decyzje/0002-stos-python-pyside6.md)`, a nie samo „ADR-0002”,
 - kolumna „Zależy od” na tablicy i pole `zalezy_od` → w treści zadania link do zadania,
 - dokument, integracja, plik kodu, zrzut, raport testów.
