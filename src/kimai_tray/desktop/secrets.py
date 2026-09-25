@@ -55,8 +55,13 @@ class SecretServiceStore:
         (secrets,) = self._with_session(
             lambda session: self._call(_ROOT, _SVC, "GetSecrets", "aoo", (items[:1], session))
         )
-        value = secrets[items[0]][2]
-        return bytes(value).decode("utf-8")
+        found = secrets.get(items[0])
+        if found is None:  # deleted between SearchItems and GetSecrets
+            return None
+        try:
+            return bytes(found[2]).decode("utf-8")
+        except UnicodeDecodeError:
+            return None  # not a token we wrote; saving a new one replaces it
 
     def set(self, url: str, token: str) -> None:
         collection = self._collection()
@@ -136,11 +141,18 @@ class SecretServiceStore:
             self._call(prompt, _PROMPT, "Prompt", "s", ("",))
             dismissed, _ = expectation.wait(self._prompt_timeout)
         except TimeoutError:
+            self._dismiss(prompt)  # do not leave the wallet dialog on screen
             raise SecretsLocked("unlock prompt not answered") from None
         finally:
             expectation.close()
         if dismissed:
             raise SecretsLocked("unlock prompt dismissed")
+
+    def _dismiss(self, prompt: str) -> None:
+        try:
+            self._call(prompt, _PROMPT, "Dismiss")
+        except (DBusCallError, SecretsUnavailable, SecretsLocked):
+            pass  # the prompt may already be gone
 
     def _call(self, path: str, interface: str, member: str, signature: str = "", body: tuple = ()) -> Any:
         try:

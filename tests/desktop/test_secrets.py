@@ -164,3 +164,37 @@ def test_session_that_stays_broken_is_unavailable():
     bus.on(COLLECTION, COLL, "CreateItem", DBusCallError("org.freedesktop.Secret.Error.NoSession", "gone"))
     with pytest.raises(SecretsUnavailable):
         SecretServiceStore(bus).set("https://kimai.firma.pl", "t")
+
+
+def test_get_reads_only_the_first_of_several_matches():
+    bus = wallet(items=("/item/1", "/item/2"))
+    assert SecretServiceStore(bus).get("https://kimai.firma.pl") == "kimai-token"
+    get_secrets = next(call for call in bus.calls if call[3] == "GetSecrets")
+    assert get_secrets[5][0] == ["/item/1"]
+
+
+def test_item_gone_between_search_and_read_is_no_token():
+    bus = wallet()
+    bus.on(ROOT, SVC, "GetSecrets", ({},))
+    assert SecretServiceStore(bus).get("https://kimai.firma.pl") is None
+
+
+def test_secret_that_is_not_text_is_no_token():
+    assert SecretServiceStore(wallet(secret=b"\xff\xfe")).get("https://kimai.firma.pl") is None
+
+
+def test_unanswered_unlock_prompt_is_dismissed():
+    bus = wallet(items=(), locked_items=("/item/7",))
+    bus.on(ROOT, SVC, "Unlock", ([], "/prompt/1"))
+    bus.on("/prompt/1", PROMPT, "Prompt", ())
+    bus.on("/prompt/1", PROMPT, "Dismiss", ())
+    with pytest.raises(SecretsLocked):
+        SecretServiceStore(bus, prompt_timeout=0.01).get("https://kimai.firma.pl")
+    assert bus.members()[-1] == "Dismiss"
+
+
+def test_missing_service_when_saving_is_unavailable():
+    bus = FakeBus()
+    bus.on(ROOT, SVC, "ReadAlias", DBusCallError("org.freedesktop.DBus.Error.ServiceUnknown", "sandbox"))
+    with pytest.raises(SecretsUnavailable):
+        SecretServiceStore(bus).set("https://kimai.firma.pl", "t")
