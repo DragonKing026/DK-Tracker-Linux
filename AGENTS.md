@@ -75,8 +75,12 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
 
 - Każdy plik `.md` w `docs/` i `TODO/` zaczyna się od **frontmatter YAML**
   (`tytul`, `tagi`, `utworzono`, `zaktualizowano`, dla zadań także `status`, `priorytet`).
-- Linki wewnętrzne: `[[ścieżka/plik|etykieta]]` (wikilinki Obsidiana). Linki zewnętrzne:
-  zwykły markdown.
+- Linki wewnętrzne: **względne linki markdown** `[etykieta](../ścieżka/plik.md)`, działają
+  w VS Code, Obsidianie i na GitHubie. **Wikilinki `[[...]]` są zakazane.** Każde odwołanie
+  do zadania, ADR, dokumentu czy pliku jest linkiem, nie zwykłym tekstem.
+- Pliki `.md` przenosimy tylko przez `linki.py przenies`. Przed commitem uruchamiamy
+  `linki.py sprawdz` (skill [sprawdz-linki](.claude/skills/sprawdz-linki/SKILL.md)).
+- Linki zewnętrzne: zwykły markdown, sprawdzone (HTTP 200).
 - Uwagi: callouty Obsidiana — `> [!note]`, `> [!warning]`, `> [!tip]`, `> [!todo]`.
 - Listy zadań: `- [ ]` / `- [x]`.
 - Daty w formacie ISO: `2026-09-25`.
@@ -91,6 +95,7 @@ Szczegóły: [docs/procesy/dokumentowanie.md](docs/procesy/dokumentowanie.md).
 | [zamknij-zadanie](.claude/skills/zamknij-zadanie/SKILL.md) | zamknięcie zadania: status, wynik, przeniesienie do `TODO/DONE/`, tablica, commit |
 | [nowa-integracja](.claude/skills/nowa-integracja/SKILL.md) | dodanie pliku integracji w `docs/integracje/` |
 | [nowa-decyzja](.claude/skills/nowa-decyzja/SKILL.md) | zapis decyzji architektonicznej (ADR) |
+| [sprawdz-linki](.claude/skills/sprawdz-linki/SKILL.md) | sprawdzenie i naprawa linków, przenoszenie plików `.md` z poprawą linków |
 | [commit](.claude/skills/commit/SKILL.md) | przygotowanie małego commita zgodnego z konwencją |
 
 ## 6. Workflow pracy agenta
@@ -103,7 +108,8 @@ flowchart LR
     C --> D
     D --> E[Praca w małych krokach]
     E --> F[Aktualizacja docs/]
-    F --> G[skill: commit]
+    F --> L[skill: sprawdz-linki]
+    L --> G[skill: commit]
     G --> H{Zadanie skończone?}
     H -- nie --> E
     H -- tak --> I[skill: zamknij-zadanie]
