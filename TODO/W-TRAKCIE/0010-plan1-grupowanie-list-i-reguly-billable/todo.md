@@ -2,7 +2,7 @@
 noteId: "7cb3ce12d7bb46f18e16d51aa4764890"
 tytul: "Plan 1 · Zadanie 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)"
 numer: "0010"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0009"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0010 — Plan 1 · Zadanie 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -53,6 +53,7 @@ Wykonać **zadanie 6** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
