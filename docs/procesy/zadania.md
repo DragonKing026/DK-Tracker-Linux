@@ -33,7 +33,7 @@ Zasady:
 - Podfoldery tworzymy **dopiero, gdy jest w nich co położyć** (git nie przechowuje pustych
   folderów). Szablon wymienia je w sekcji „Materiały”.
 - W `todo.md` każdy materiał jest **podlinkowany lub osadzony** w sekcji „Materiały”
-  albo w miejscu, którego dotyczy (`![[TODO/0004-.../zrzuty/plik.png]]`).
+  albo w miejscu, którego dotyczy (`![opis](zrzuty/plik.png)`, ścieżka względna od `todo.md`).
 - Nazwy plików: małe litery, myślniki, bez polskich znaków; data ISO, gdy jest ich seria.
 - **Testy aplikacji** (unit, integracyjne) żyją w kodzie (`tests/`), bo są częścią
   produktu. W `testy/` zadania są **wyniki i dowody** ich uruchomienia oraz testy ręczne.

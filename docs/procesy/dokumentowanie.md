@@ -8,7 +8,7 @@ zaktualizowano: 2026-09-25
 # Zasady dokumentowania
 
 Repozytorium jest jednocześnie **vaultem Obsidiana** — można je otworzyć w Obsidianie
-(„Open folder as vault”) i nawigować po wikilinkach, grafie i tagach.
+(„Open folder as vault”) i nawigować po linkach, grafie i tagach.
 Pliki muszą też czytelnie renderować się na GitHubie.
 
 ## Co dokumentujemy i gdzie
@@ -38,7 +38,13 @@ Zmieniając plik — aktualizuj `zaktualizowano`.
 
 ## Elementy formatowania
 
-- **Wikilinki**: `[[docs/integracje/kimai-api|Kimai API]]` — ścieżka od korzenia repo.
+- **Linki**: wyłącznie **względne linki markdown** od bieżącego pliku, np.
+  `[Kimai API](../integracje/kimai-api.md)`. Działają w VS Code, Obsidianie i na GitHubie.
+  **Wikilinki `[[...]]` są zakazane**, bo VS Code i GitHub ich nie obsługują.
+- **Każde odwołanie jest linkiem**: zadanie, ADR, dokument, plik kodu, zrzut, raport.
+  Nie „zadanie 0003”, tylko `[0003](../../TODO/DONE/0003-wybor-stosu/todo.md)`.
+- **Przenoszenie plików** tylko przez `linki.py przenies` (skill `sprawdz-linki`).
+  Przed commitem: `linki.py sprawdz`.
 - **Callouty**:
   ```markdown
   > [!warning] Uwaga
@@ -48,8 +54,7 @@ Zmieniając plik — aktualizuj `zaktualizowano`.
 - **Diagramy**: bloki `mermaid` (flowchart, sequenceDiagram, stateDiagram-v2, classDiagram,
   gantt). Preferujemy je nad obrazkami, bo są wersjonowane jako tekst.
 - **Zrzuty ekranu**: PNG w `zrzuty/` folderu zadania (albo `docs/assets/`, jeśli są
-  wspólne), osadzenie `![[TODO/NNNN-slug/zrzuty/nazwa.png]]` (Obsidian). W README dla
-  GitHuba — zwykły `![opis](ścieżka.png)`.
+  wspólne), osadzenie `![opis](zrzuty/nazwa.png)`. Działa wszędzie, także w Obsidianie.
 - **Tabele** do porównań, **listy zadań** `- [ ]` do kroków.
 
 ## Zasady treści
