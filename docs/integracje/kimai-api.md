@@ -5,7 +5,7 @@ tags: [integracja, kimai, api, http]
 status_integracji: w-uzyciu
 wersja: Kimai 2.x — firma 2.65.0; testowane na 2.65.0 i 2.67.0
 utworzono: 2026-09-25 17:19
-zaktualizowano: 2026-09-25 19:02
+zaktualizowano: 2026-09-25 19:37
 ---
 
 # Kimai REST API
@@ -82,7 +82,8 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | Kod | Znaczenie | Reakcja |
 |---|---|---|
 | brak odpowiedzi | sieć / DNS / TLS | „brak połączenia z Kimai” |
-| 401 / 403 | zły, unieważniony lub wygasły token (401 ma **pustą treść** — sprawdzone) | „sprawdź token” + link do ustawień |
+| 401 | zły, unieważniony lub wygasły token (**pusta treść** — sprawdzone) | „token odrzucony lub wygasł” + link do ustawień |
+| 403 `Forbidden` | token działa, ale akcja jest zabroniona: edycja **wpisu wyeksportowanego**, cudzego wpisu, brak uprawnienia (sprawdzone na 2.65.0) | „Kimai nie pozwala na tę zmianę” (`errForbidden`); wpisy z `exported: true` UI blokuje z góry |
 | 400 | walidacja formularza; treść w `errors` zagnieżdżonych w `children` | pokaż zebrane komunikaty Kimai |
 | 400 „This form should not contain extra fields.” po wysłaniu `billable` | brak uprawnienia `edit_billable_own_timesheet` | ponów bez `billable`, zablokuj przełącznik |
 | 404 | brak zasobu / koniec stronicowania (`{"code":404,"message":"Not Found"}` — sprawdzone) | zależnie od kontekstu |

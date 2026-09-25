@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 18:05
+zaktualizowano: 2026-09-25 19:37
 ---
 
 # Katalog funkcji
@@ -211,7 +211,9 @@ Zasady:
 | Sytuacja | Komunikat |
 |---|---|
 | Brak połączenia (status 0) | `errConnection` |
-| 401 / 403 | `errAuth` — sprawdź token |
+| 401 | `errAuth` — token odrzucony lub wygasł |
+| 403 | `errForbidden` — wpis zablokowany (np. wyeksportowany) lub brak uprawnień. **Różnica względem wtyczki:** wtyczka traktowała 403 jak zły token |
+| 200 bez JSON-a Kimai | `errUnexpected` — np. strona logowania Wi-Fi |
 | 400 z treścią | `errRejected` + **treść błędu z Kimai** (zebrane `errors` z zagnieżdżonych `children` formularza) |
 | inne | `errServer` + kod |
 
