@@ -2,18 +2,18 @@
 noteId: "28dc3871d475462e976268df276ec5dc"
 tytul: "Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze"
 numer: "0041"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-3, ui]
 zalezy_od: ["0040"]
 utworzono: 2026-09-25 23:07
-zaktualizowano: 2026-09-25 23:07
+zaktualizowano: 2026-09-25 23:11
 ---
 
 # 0041 — Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -50,3 +50,4 @@ Wykonać **zadanie 13** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 
 ### 2026-09-25
 - **23:07** Utworzono zadanie z Planu 3.
+- **23:11** Start wykonania.
