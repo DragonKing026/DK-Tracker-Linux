@@ -1,0 +1,226 @@
+from datetime import timedelta
+
+import pytest
+
+from kimai_tray.core.errors import ApiError, ErrorKind
+from kimai_tray.core.settings import Memory, Settings
+from kimai_tray.desktop.autostart import BackgroundResult
+from kimai_tray.desktop.notifications import NotificationAction
+from kimai_tray.desktop.secrets import SecretsLocked
+from kimai_tray.ui.app import Controller
+
+from ..core.fakes import NOW, FakeClient, make_entry
+
+URL = "https://kimai.test"
+
+
+class FakeDesktop:
+    def __init__(self, token="secret-token", fail=None):
+        self.tokens = {URL: token} if token else {}
+        self.fail = fail
+        self.notified = []
+        self.background = []
+
+    def get_token(self, url):
+        if self.fail:
+            raise self.fail
+        return self.tokens.get(url)
+
+    def set_token(self, url, token):
+        self.tokens[url] = token
+
+    def notify(self, rendered):
+        self.notified.append(rendered)
+
+    def request_background(self, *, autostart, reason):
+        self.background.append(autostart)
+        return BackgroundResult(True, autostart)
+
+    def set_status(self, message):
+        return False
+
+    def close(self):
+        pass
+
+
+class Harness:
+    def __init__(self, qtbot, *, settings=None, desktop=None, client=None, tray=True):
+        self.client = client or FakeClient()
+        self.desktop = desktop or FakeDesktop()
+        self.saved_settings = []
+        self.saved_memory = []
+        self.clients = []
+
+        def factory(url, token):
+            self.clients.append((url, token))
+            return self.client
+
+        self.controller = Controller(
+            settings=settings if settings is not None else Settings(url=URL, language="pl"),
+            memory=Memory(),
+            desktop=self.desktop,
+            client_factory=factory,
+            save_settings=self.saved_settings.append,
+            save_memory=self.saved_memory.append,
+            now=lambda: self.client.now,
+            tray_available=tray,
+            window_mode="frameless" if tray else "window",
+            listen_for_clicks=False,
+        )
+        qtbot.addWidget(self.controller.popup)
+        self.qtbot = qtbot
+
+    @property
+    def state(self):
+        return self.controller.state
+
+    def start(self):
+        self.controller.start(hidden=True)
+        return self
+
+    def settle(self):
+        self.qtbot.waitUntil(self.controller.idle, timeout=3000)
+
+
+@pytest.fixture
+def harness(qtbot):
+    made = []
+
+    def make(**kwargs):
+        made.append(Harness(qtbot, **kwargs).start())
+        made[-1].settle()
+        return made[-1]
+
+    yield make
+    for item in made:
+        item.controller.shutdown()
+
+
+def test_without_an_address_the_app_asks_for_settings(harness):
+    h = harness(settings=Settings())
+    assert h.state.configured is False
+    assert h.controller.tray.status.kind == "unconfigured"
+    assert h.clients == []
+
+
+def test_token_from_the_wallet_configures_the_tracker(harness):
+    h = harness()
+    assert h.clients == [(URL, "secret-token")]
+    assert h.state.configured is True
+    assert h.state.snapshot.user.username == "jan"
+
+
+def test_locked_wallet_is_reported(harness):
+    h = harness(desktop=FakeDesktop(fail=SecretsLocked("dismissed")))
+    assert h.state.configured is False
+    assert h.state.secrets_problem == "secretsLocked"
+
+
+def test_start_from_the_window(harness):
+    h = harness()
+    h.controller.popup.form.startRequested.emit(
+        {"project_id": 1, "activity_id": 1, "description": "Walidacja dat przyjazdu", "billable": None}
+    )
+    h.settle()
+    assert h.state.snapshot.current.description == "Walidacja dat przyjazdu"
+    assert h.controller.tray.status.kind == "running"
+
+
+def test_rule_errors_are_shown_in_the_window(harness):
+    h = harness()
+    h.controller.popup.form.startRequested.emit(
+        {"project_id": None, "activity_id": 1, "description": "Walidacja dat przyjazdu", "billable": None}
+    )
+    h.settle()
+    assert h.controller.popup.error.text() == "Wybierz projekt."
+
+
+def test_stop_from_the_menu_is_confirmed(harness):
+    client = FakeClient()
+    client.add(make_entry(7, NOW - timedelta(minutes=30)))
+    h = harness(client=client)
+    h.controller.tray.stopRequested.emit()
+    h.settle()
+    assert h.state.snapshot.current is None
+    assert [n.title for n in h.desktop.notified] == ["Stop: 0:30 — Moduł rezerwacji"]
+
+
+def test_long_timer_notification_after_a_refresh(harness):
+    client = FakeClient()
+    client.add(make_entry(7, NOW - timedelta(hours=9)))
+    h = harness(client=client)
+    assert h.desktop.notified[0].id == "long-timer-7"
+    assert h.desktop.notified[0].buttons == (("Zatrzymaj", "stop"), ("Działa dalej", "keep"))
+
+
+def test_stop_clicked_in_a_notification_stops_that_entry(harness):
+    client = FakeClient()
+    client.add(make_entry(7, NOW - timedelta(hours=9)))
+    h = harness(client=client)
+    h.controller.on_notification(NotificationAction("long-timer-8", "stop", 8))  # another entry: ignored
+    h.settle()
+    assert h.state.snapshot.current is not None
+    h.controller.on_notification(NotificationAction("long-timer-7", "stop", 7))
+    h.settle()
+    assert h.state.snapshot.current is None
+
+
+def test_saving_settings_stores_the_token_and_switches_language(harness):
+    h = harness()
+    h.controller.save_settings(Settings(url=URL, language="en", autostart=True), "new-token")
+    h.settle()
+    assert h.desktop.tokens[URL] == "new-token"
+    assert h.saved_settings[-1].language == "en"
+    assert h.clients[-1] == (URL, "new-token")
+    assert h.controller.tray.quit_action.text() == "Quit"
+    assert h.desktop.background == [True]
+
+
+def test_connection_test_reports_the_user(harness):
+    h = harness()
+    dialog = h.controller.open_settings()
+    dialog.testRequested.emit(URL, "")
+    h.settle()
+    assert dialog.status.text() == "Połączono jako jan."
+
+
+def test_open_kimai_uses_the_remembered_locale(harness, monkeypatch):
+    opened = []
+    monkeypatch.setattr(
+        "kimai_tray.ui.app.QDesktopServices.openUrl", lambda url: opened.append(url.toString())
+    )
+    h = harness()
+    h.controller.tray.openKimaiRequested.emit()
+    assert opened == ["https://kimai.test/en/timesheet/"]
+
+
+def test_window_open_before_the_token_arrives_still_gets_projects(qtbot):
+    h = Harness(qtbot)
+    h.controller.start(hidden=False)  # the window opens at once, the wallet answers later
+    h.settle()
+    form = h.controller.popup.form
+    assert form.project.findData(1) > 0
+    assert form.activity.findData(1) > 0
+    h.controller.shutdown()
+
+
+def test_failed_actions_are_logged_without_the_token(harness, caplog):
+    h = harness()
+    h.client.fail["start"] = [ApiError(ErrorKind.REJECTED, 400, "Overlapping entry")]
+    with caplog.at_level("WARNING", logger="kimai_tray.ui.app"):
+        h.controller.popup.form.startRequested.emit(
+            {"project_id": 1, "activity_id": 1, "description": "Walidacja dat przyjazdu", "billable": None}
+        )
+        h.settle()
+    assert "Overlapping entry" in caplog.text
+    assert "secret-token" not in caplog.text
+
+
+def test_without_a_tray_the_window_explains_it_for_this_session_only(harness):
+    h = harness(tray=False)
+    assert h.controller.tray is None
+    assert h.controller.popup.isVisible()  # no icon to click, so the window opens at start
+    h.controller.refresh_active()
+    h.settle()
+    assert ("hintNoTray", {}) in h.state.warnings
+    assert h.saved_memory[-1].tray_hint_shown is True  # the next start stays quiet
