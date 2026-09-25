@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 20:39
+zaktualizowano: 2026-09-25 20:46
 ---
 
 # Tablica zadań
@@ -25,6 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
+| 0021 | [Plan 2 — rozpoznanie API integracji desktopowych](W-TRAKCIE/0021-plan2-rozpoznanie-api-desktop/todo.md) | 🔨 w-trakcie | p1 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 
 ## Do zrobienia
 
