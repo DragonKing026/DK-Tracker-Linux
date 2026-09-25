@@ -102,12 +102,16 @@ kde-portals.conf:
 > - Autostart spoza piaskownicy (uruchomienie z `cargo run`/`python` w dev) nie przechodzi
 >   przez portal tak samo — testować w zbudowanym Flatpaku.
 
+<!-- osobne callouty -->
+
 > [!warning] Powiadomienie o tym samym identyfikatorze nie pokaże się drugi raz (KDE)
 > Backend portalu w Plasmie 6.7.5 traktuje znany mu identyfikator jako aktualizację powiadomienia; jeśli
 > poprzednie już zniknęło z ekranu, nic się nie wyświetla (sprawdzone 2026-09-26 00:13: `action` → nic, unikalne id →
 > jest).
 > Dlatego [`PortalNotifier`](../../src/kimai_tray/desktop/notifications.py) nadaje każdemu powiadomieniu nowy
 > identyfikator (`action.1790374275`) i najpierw wycofuje poprzednie tego samego rodzaju.
+
+<!-- osobne callouty -->
 
 > [!note] Aplikacja uruchomiona poza Flatpakiem
 > Portal rozpoznaje aplikację po grupie systemd. Uruchomiona z terminala edytora dostaje jego nazwę
