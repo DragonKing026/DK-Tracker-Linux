@@ -26,13 +26,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0002 | [Specyfikacja projektu (design) i plan implementacji](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-trakcie | p0 | — |
+| 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](W-TRAKCIE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | 🔨 w-trakcie | p1 | [0017](ZROBIONE/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0004 | [Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku](DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) ✅ |
-| 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](DO-ZROBIENIA/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | 📋 do-zrobienia | p1 | [0017](ZROBIONE/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) ✅ |
 
 ## Zrobione
 

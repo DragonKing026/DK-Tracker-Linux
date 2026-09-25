@@ -2,7 +2,7 @@
 noteId: "e922262bb3ed471dac98637e4d227e73"
 tytul: "Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia"
 numer: "0018"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0017"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0018 — Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -53,6 +53,7 @@ Wykonać **zadanie 14** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
