@@ -1,0 +1,22 @@
+# Obsidian — stan lokalny, nie do repo
+.obsidian/workspace*.json
+.obsidian/cache
+.trash/
+
+# Claude Code — ustawienia lokalne
+.claude/settings.local.json
+
+# Budowanie
+build/
+build-dir/
+.flatpak-builder/
+repo/
+*.flatpak
+
+# Python / Node (na wypadek wybranego stosu)
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+dist/
+target/
