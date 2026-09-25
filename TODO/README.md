@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 21:01
+zaktualizowano: 2026-09-25 21:02
 ---
 
 # Tablica zadań
@@ -26,14 +26,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0021 | [Plan 2 — rozpoznanie API integracji desktopowych](W-TRAKCIE/0021-plan2-rozpoznanie-api-desktop/todo.md) | 🔨 w-trakcie | p1 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0025 | [Plan 2 · Zadanie 4: Autostart i status w tle (`desktop/autostart.py`)](W-TRAKCIE/0025-plan2-autostart-i-status-w-tle/todo.md) | 🔨 w-trakcie | p1 | [0022](ZROBIONE/0022-plan2-szyna-dbus/todo.md) ✅ |
+| 0026 | [Plan 2 · Zadanie 5: Testy na prawdziwej sesji i komendy](W-TRAKCIE/0026-plan2-testy-na-zywo-i-komendy/todo.md) | 🔨 w-trakcie | p1 | [0023](ZROBIONE/0023-plan2-token-w-magazynie-sekretow/todo.md) ✅, [0024](ZROBIONE/0024-plan2-powiadomienia-przez-portal/todo.md) ✅, [0025](ZROBIONE/0025-plan2-autostart-i-status-w-tle/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0026 | [Plan 2 · Zadanie 5: Testy na prawdziwej sesji i komendy](DO-ZROBIENIA/0026-plan2-testy-na-zywo-i-komendy/todo.md) | 📋 do-zrobienia | p1 | [0023](ZROBIONE/0023-plan2-token-w-magazynie-sekretow/todo.md) ✅, [0024](ZROBIONE/0024-plan2-powiadomienia-przez-portal/todo.md) ✅, [0025](W-TRAKCIE/0025-plan2-autostart-i-status-w-tle/todo.md) |
 
 ## Zrobione
 
@@ -61,6 +60,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0022 | [Plan 2 · Zadanie 1: Szyna D-Bus (`desktop/bus.py`)](ZROBIONE/0022-plan2-szyna-dbus/todo.md) | ✅ zrobione | 2026-09-25 21:00 |
 | 0023 | [Plan 2 · Zadanie 2: Token w magazynie sekretów (`desktop/secrets.py`)](ZROBIONE/0023-plan2-token-w-magazynie-sekretow/todo.md) | ✅ zrobione | 2026-09-25 21:01 |
 | 0024 | [Plan 2 · Zadanie 3: Powiadomienia — tekst w rdzeniu, wysyłka przez portal](ZROBIONE/0024-plan2-powiadomienia-przez-portal/todo.md) | ✅ zrobione | 2026-09-25 21:01 |
+| 0025 | [Plan 2 · Zadanie 4: Autostart i status w tle (`desktop/autostart.py`)](ZROBIONE/0025-plan2-autostart-i-status-w-tle/todo.md) | ✅ zrobione | 2026-09-25 21:02 |
 
 <!-- tablica:end -->
 
