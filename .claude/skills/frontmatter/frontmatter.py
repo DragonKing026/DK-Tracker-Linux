@@ -25,7 +25,7 @@ import uuid
 from pathlib import Path
 
 ROOT = Path.cwd()
-SKIP_DIRS = {".git", ".claude", "node_modules", ".venv", "venv", "build", "build-dir",
+SKIP_DIRS = {".git", ".claude", "node_modules", ".venv", "venv", "build", "build-dir", ".pytest_cache", ".ruff_cache",
              ".flatpak-builder", ".obsidian"}
 FRONT = re.compile(r"\A---\n(.*?\n)?---\n", re.S)
 NOTE_ID = re.compile(r"^noteId:\s*\"?([0-9a-f]{32}|\{\{NOTEID\}\})\"?\s*$", re.M)

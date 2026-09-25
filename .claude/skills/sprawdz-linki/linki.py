@@ -23,7 +23,8 @@ from pathlib import Path
 from urllib.parse import quote, unquote
 
 ROOT = Path.cwd()
-SKIP_DIRS = {".git", "node_modules", ".venv", "venv", "build", "build-dir", ".flatpak-builder", ".obsidian"}
+SKIP_DIRS = {".git", "node_modules", ".venv", "venv", "build", "build-dir", ".flatpak-builder", ".obsidian",
+             ".pytest_cache", ".ruff_cache", ".superpowers"}
 
 LINK = re.compile(r"(!?)\[([^\]\n]*)\]\(([^)\s]+)\)")
 WIKI = re.compile(r"(!?)\[\[([^\]\n]+?)\]\]")
