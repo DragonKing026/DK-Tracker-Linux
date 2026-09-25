@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 19:47
+zaktualizowano: 2026-09-25 19:54
 ---
 
 # Katalog funkcji
@@ -175,7 +175,8 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 - Jedno zapytanie: `GET /api/timesheets?begin=<pon 00:00>&end=<dziś 23:59:59>&size=100&page=N`,
   maks. 3 strony; 404 za ostatnią stroną = koniec.
 - Liczone **tylko zamknięte** wpisy (`end != null`), trwający dodawany na żywo co sekundę.
-- Tydzień od poniedziałku.
+- Tydzień od poniedziałku (wtyczka). **W aplikacji:** od dnia z preferencji konta Kimai
+  `first_weekday` (domyślnie poniedziałek), tak jak w widokach tygodniowych Kimai.
 - Błąd → sumy ukryte (nie blokuje reszty okna).
 
 Źródło: `popup.js#renderTotals`, `api.js#range`.

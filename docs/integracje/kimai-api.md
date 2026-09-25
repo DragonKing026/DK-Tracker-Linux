@@ -5,7 +5,7 @@ tags: [integracja, kimai, api, http]
 status_integracji: w-uzyciu
 wersja: Kimai 2.x — firma 2.65.0; testowane na 2.65.0 i 2.67.0
 utworzono: 2026-09-25 17:19
-zaktualizowano: 2026-09-25 19:39
+zaktualizowano: 2026-09-25 19:54
 ---
 
 # Kimai REST API
@@ -111,9 +111,9 @@ kolumna ROLE_USER → sekcja „Timesheet (own)”**. Szczegóły:
 > brak — używa strefy komputera i pokazuje ostrzeżenie `warnTimezoneMissing` (nigdy nie
 > zakłada UTC).
 
-> [!warning] Początek tygodnia
+> [!note] Początek tygodnia
 > Preferencja `first_weekday` (np. `monday` / `sunday`) ustala początek tygodnia konta.
-> Sumy tygodniowe rdzenia liczą zawsze od poniedziałku — do decyzji w zadaniu 0019.
+> Rdzeń liczy sumy tygodnia od tego dnia (`User.first_weekday`, domyślnie poniedziałek).
 
 ## Ustawienia serwera, które zmieniają zachowanie API
 
