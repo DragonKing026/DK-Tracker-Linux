@@ -38,10 +38,12 @@ docs/                  ← pełna dokumentacja projektu (Obsidian vault-friendly
   integracje/          ← jeden plik .md na każdą integrację zewnętrzną + linki
   procesy/             ← workflow: commity, TODO, dokumentowanie, wydania
   assets/              ← zrzuty ekranu, diagramy wyeksportowane, obrazy
-TODO/                  ← zadania aktywne; każde zadanie = podfolder z plikiem todo.md
-  README.md            ← tablica: linki do zadań aktywnych i zakończonych
+TODO/                  ← zadania; każde zadanie = folder z todo.md i materiałami
+  README.md            ← tablica: linki do wszystkich zadań, pogrupowane jak foldery
   _szablon/            ← szablon nowego zadania
-  DONE/                ← zadania zakończone (przenoszone przez skill zamknij-zadanie)
+  DO-ZROBIENIA/        ← pomysl, do-zrobienia
+  W-TRAKCIE/           ← w-trakcie, zablokowane
+  ZROBIONE/            ← zrobione, porzucone
 ```
 
 Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/architektura/struktura-repozytorium.md).
@@ -57,9 +59,10 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
    albo integrację, **musi** w tym samym lub następnym commicie zaktualizować `docs/`.
    Kod bez dokumentacji = zadanie nieskończone.
 4. **Każde zadanie ma folder w `TODO/`.** Zanim zaczniesz pracę — utwórz/zaktualizuj
-   zadanie (skill `nowe-zadanie`). Po skończeniu — zmień status, opisz wynik i przenieś
-   folder do [TODO/DONE/](TODO/ZROBIONE) (skill `zamknij-zadanie`). [TODO/README.md](TODO/README.md) zawsze linkuje
-   do każdego aktywnego zadania.
+   zadanie (skill `nowe-zadanie`, powstaje w `TODO/DO-ZROBIENIA/`). Każda zmiana statusu
+   przenosi folder do właściwego podfolderu: [DO-ZROBIENIA](TODO/DO-ZROBIENIA/),
+   [W-TRAKCIE](TODO/W-TRAKCIE/), [ZROBIONE](TODO/ZROBIONE/) (skill `zmien-status-zadania`).
+   [TODO/README.md](TODO/README.md) zawsze linkuje do każdego zadania.
 5. **Każda integracja ma plik w `docs/integracje/`** z linkami do oficjalnej dokumentacji
    (skill `nowa-integracja`). Nie wolno dodać zależności zewnętrznej bez tego pliku.
 6. **Decyzje architektoniczne zapisuj jako ADR** w `docs/decyzje/` (skill `nowa-decyzja`).
@@ -100,7 +103,7 @@ Szczegóły: [docs/procesy/dokumentowanie.md](docs/procesy/dokumentowanie.md).
 | Skill | Kiedy użyć |
 |---|---|
 | [nowe-zadanie](.claude/skills/nowe-zadanie/SKILL.md) | tworzenie zadania w `TODO/` z szablonu |
-| [zamknij-zadanie](.claude/skills/zamknij-zadanie/SKILL.md) | zamknięcie zadania: status, wynik, przeniesienie do `TODO/DONE/`, tablica, commit |
+| [zmien-status-zadania](.claude/skills/zmien-status-zadania/SKILL.md) | zmiana statusu: start, blokada, zamknięcie; przeniesienie folderu między DO-ZROBIENIA / W-TRAKCIE / ZROBIONE, tablica, commit |
 | [nowa-integracja](.claude/skills/nowa-integracja/SKILL.md) | dodanie pliku integracji w `docs/integracje/` |
 | [nowa-decyzja](.claude/skills/nowa-decyzja/SKILL.md) | zapis decyzji architektonicznej (ADR) |
 | [frontmatter](.claude/skills/frontmatter/SKILL.md) | `noteId` + `tags` w każdym dokumencie; naprawa i nowy `noteId` |
@@ -113,7 +116,7 @@ Szczegóły: [docs/procesy/dokumentowanie.md](docs/procesy/dokumentowanie.md).
 flowchart LR
     A[Prośba użytkownika] --> B{Jest zadanie w TODO?}
     B -- nie --> C[skill: nowe-zadanie]
-    B -- tak --> D[Status: w-toku]
+    B -- tak --> D[skill: zmien-status-zadania<br/>→ W-TRAKCIE]
     C --> D
     D --> E[Praca w małych krokach]
     E --> F[Aktualizacja docs/]
@@ -121,7 +124,7 @@ flowchart LR
     L --> G[skill: commit]
     G --> H{Zadanie skończone?}
     H -- nie --> E
-    H -- tak --> I[skill: zamknij-zadanie]
+    H -- tak --> I[skill: zmien-status-zadania<br/>→ ZROBIONE]
 ```
 
 ## 7. Komendy
