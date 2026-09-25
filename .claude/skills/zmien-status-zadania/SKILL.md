@@ -15,6 +15,22 @@ Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
 | `w-trakcie`, `zablokowane` | `TODO/W-TRAKCIE/` |
 | `zrobione`, `porzucone` | `TODO/ZROBIONE/` |
 
+## Narzędzie
+
+Kroki 2–3 i 6–7 wykonuje skrypt: aktualizuje frontmatter (`status`, `zaktualizowano`,
+przy zamknięciu `zamknieto`), callout „Status” i wpis w „Dzienniku”, przenosi folder
+z poprawą linków (`linki.py przenies`) i generuje tablicę z frontmatterów:
+
+```bash
+python3 .claude/skills/zmien-status-zadania/zadanie.py status 0005 w-trakcie --wpis "Start pracy."
+python3 .claude/skills/zmien-status-zadania/zadanie.py status 0005 zrobione --wpis "Testy zielone (…)."
+python3 .claude/skills/zmien-status-zadania/zadanie.py tablica     # tylko przebudowa tablicy
+python3 .claude/skills/zmien-status-zadania/zadanie.py numer       # następny wolny numer
+```
+
+Tablica w `TODO/README.md` jest generowana między `<!-- tablica:start -->` i
+`<!-- tablica:end -->` — nie edytuj jej ręcznie.
+
 ## Kroki
 
 1. **Przy zamknięciu (`zrobione`) zweryfikuj** kryteria akceptacji w `todo.md`. Każde
