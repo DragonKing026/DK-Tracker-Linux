@@ -11,6 +11,7 @@ from datetime import date, datetime, timedelta, tzinfo
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 STAMP = "%Y-%m-%dT%H:%M:%S"
+WEEKDAYS = ("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
 _HHMM = re.compile(r"(\d{1,2}):(\d{2})")
 
 
@@ -56,11 +57,17 @@ def local_day(moment: datetime, tz: tzinfo) -> date:
     return moment.astimezone(tz).date()
 
 
-def week_start(now: datetime, tz: tzinfo) -> datetime:
-    """Monday 00:00 of the current week in `tz`; Sunday closes the week begun six days back."""
+def weekday_index(name: str | None) -> int:
+    """Kimai's `first_weekday` preference as a weekday number (Monday 0); Monday if unknown."""
+    name = (name or "").strip().lower()
+    return WEEKDAYS.index(name) if name in WEEKDAYS else 0
+
+
+def week_start(now: datetime, tz: tzinfo, first_weekday: int = 0) -> datetime:
+    """00:00 of the first day of the current week in `tz` (Monday unless the account says otherwise)."""
     today = local_day(now, tz)
-    monday = today - timedelta(days=today.weekday())
-    return datetime(monday.year, monday.month, monday.day, tzinfo=tz)
+    start = today - timedelta(days=(today.weekday() - first_weekday) % 7)
+    return datetime(start.year, start.month, start.day, tzinfo=tz)
 
 
 def day_end(now: datetime, tz: tzinfo) -> datetime:

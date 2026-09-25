@@ -16,6 +16,7 @@ from kimai_tray.core.timefmt import (
     short_duration,
     start_stamp,
     week_start,
+    weekday_index,
     zone,
 )
 
@@ -100,3 +101,16 @@ def test_at_wall_clock_rejects_invalid_time(value):
 
 def test_hhmm():
     assert hhmm(datetime(2026, 9, 25, 16, 4, tzinfo=UTC), WAW) == "18:04"
+
+
+def test_weekday_index():
+    assert (weekday_index("monday"), weekday_index("Sunday"), weekday_index("saturday")) == (0, 6, 5)
+    assert (weekday_index(None), weekday_index(""), weekday_index("someday")) == (0, 0, 0)
+
+
+def test_week_start_on_sunday_weeks():
+    assert week_start(NOW, WAW, first_weekday=6) == datetime(
+        2026, 9, 20, 0, 0, tzinfo=WAW
+    )  # Friday -> last Sunday
+    sunday = datetime(2026, 9, 27, 10, 0, tzinfo=WAW)
+    assert week_start(sunday, WAW, first_weekday=6) == datetime(2026, 9, 27, 0, 0, tzinfo=WAW)

@@ -190,3 +190,16 @@ def test_warnings_for_zone_mismatch_and_for_none():
     assert same.warnings() == []  # nothing known yet
     same.refresh_active()
     assert same.warnings() == []
+
+
+def test_week_totals_follow_the_kimai_first_weekday():
+    from dataclasses import replace
+
+    client = FakeClient()
+    client.user = replace(client.user, first_weekday="sunday")
+    tracker, _, _ = make_tracker(client)
+    tracker.refresh_full()
+    assert ("range", "2026-09-20T00:00:00", "2026-09-25T23:59:59") in client.calls
+    since_sunday = make_entry(9, datetime(2026, 9, 20, 23, 0, tzinfo=WAW))
+    snapshot = replace(tracker.snapshot, running=(since_sunday,), totals=Totals())
+    assert live_totals(snapshot, NOW, WAW).week == int((NOW - since_sunday.begin).total_seconds())

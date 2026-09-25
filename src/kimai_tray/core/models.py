@@ -37,6 +37,7 @@ class User:
     alias: str | None
     language: str
     timezone: str
+    first_weekday: str = "monday"  # Kimai profile setting; weeks may start on Sunday
 
     @property
     def display_name(self) -> str:
@@ -50,6 +51,7 @@ class User:
             alias=data.get("alias") or None,
             language=data.get("language") or "en",
             timezone=data.get("timezone") or _preference(data, "timezone"),
+            first_weekday=_preference(data, "first_weekday").lower() or "monday",
         )
 
 

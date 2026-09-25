@@ -26,6 +26,7 @@ from .timefmt import (
     local_day,
     start_stamp,
     week_start,
+    weekday_index,
     zone,
 )
 from .validation import check_description
@@ -72,7 +73,8 @@ def live_totals(snapshot: Snapshot, now: datetime, tz: tzinfo) -> Totals:
     """Closed entries plus the running ones, each counted on the day it began — as Kimai
     counts it, so stopping an entry does not move hours between days."""
     base = snapshot.totals or Totals()
-    today, monday = local_day(now, tz), week_start(now, tz)
+    first = weekday_index(snapshot.user.first_weekday) if snapshot.user else 0
+    today, monday = local_day(now, tz), week_start(now, tz, first)
     today_live = sum(
         elapsed_seconds(e.begin, now) for e in snapshot.running if local_day(e.begin, tz) == today
     )
@@ -332,7 +334,8 @@ class Tracker:
         now = self._now()
         try:
             entries = self._client.range(
-                kimai_stamp(week_start(now, tz), tz), kimai_stamp(day_end(now, tz), tz)
+                kimai_stamp(week_start(now, tz, weekday_index(user.first_weekday)), tz),
+                kimai_stamp(day_end(now, tz), tz),
             )
         except ApiError:
             return None  # the header just hides the totals, as in the add-on

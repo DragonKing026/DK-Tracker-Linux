@@ -113,3 +113,14 @@ def test_user_timezone_ignores_broken_preferences():
 def test_entry_exported_flag():
     assert Entry.from_api({**POSTED_ENTRY, "exported": True}).exported is True
     assert Entry.from_api(POSTED_ENTRY).exported is False
+
+
+def test_user_first_weekday_from_preferences():
+    prefs = {
+        "id": 1,
+        "username": "jan",
+        "timezone": "UTC",
+        "preferences": [{"name": "first_weekday", "value": "sunday"}],
+    }
+    assert User.from_api(prefs).first_weekday == "sunday"
+    assert User.from_api({"id": 1, "username": "jan"}).first_weekday == "monday"
