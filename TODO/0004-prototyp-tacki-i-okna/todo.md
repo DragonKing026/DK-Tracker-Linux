@@ -1,7 +1,7 @@
 ---
 tytul: "Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku"
 numer: "0004"
-status: pomysl
+status: do-zrobienia
 priorytet: p1
 tagi: [todo, spike, tray, wayland]
 zalezy_od: ["0003-wybor-stosu"]
@@ -13,7 +13,7 @@ zamknieto:
 # 0004 — Prototyp tacki i okna (spike)
 
 > [!info] Status
-> **pomysl** · priorytet **p1** · [[TODO/README|← tablica zadań]]
+> **do-zrobienia** · priorytet **p1** · [[TODO/README|← tablica zadań]]
 
 ## Cel
 
@@ -22,7 +22,7 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 
 ## Pytania do sprawdzenia
 
-- [ ] Ikona SNI z wybranej biblioteki pojawia się we Flatpaku z samym
+- [ ] Ikona SNI z `QSystemTrayIcon` (PySide6, [[docs/decyzje/0002-stos-python-pyside6|ADR-0002]]) pojawia się we Flatpaku z samym
       `--talk-name=org.kde.StatusNotifierWatcher` (bez `--own-name`)
 - [ ] Lewy klik → okno; prawy klik → menu — na Plasmie 6 Wayland
 - [ ] Gdzie pojawia się okno na Waylandzie i czy da się je sensownie zakotwiczyć
@@ -39,5 +39,6 @@ Zrzuty z każdego pulpitu → `assets/`.
 
 ### 2026-09-25
 - Utworzono zadanie.
+- Stos wybrany (0003 zamknięte) → status do-zrobienia.
 
 ## Wynik
