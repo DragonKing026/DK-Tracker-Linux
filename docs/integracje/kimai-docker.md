@@ -75,8 +75,13 @@ Wersję instancji podaje `GET /api/version`.
 
 ## Gdzie w kodzie
 
-> [!todo] Po implementacji: `tests/kimai/docker-compose.yml` i fixture w `tests/kimai/conftest.py`.
-> Prototyp: [prototyp/kimai-docker](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/prototyp/kimai-docker/).
+- [tests/kimai/docker-compose.yml](../../tests/kimai/docker-compose.yml) — Kimai + MySQL,
+  wersja przypięta (`KIMAI_VERSION`, domyślnie 2.67.0).
+- [tests/kimai/kimai-testowe.sh](../../tests/kimai/kimai-testowe.sh) — `up` / `env` / `down`:
+  start, konta (`admin`, `jan` ROLE_USER, `kierownik` ROLE_TEAMLEAD), tokeny, dane testowe.
+- [tests/kimai/README.md](../../tests/kimai/README.md) — instrukcja.
+- Fixture pytest (`tests/kimai/conftest.py`) powstanie przy implementacji klienta API.
+- Historia: [prototyp ze spike'u](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/prototyp/kimai-docker/).
 
 ## Dokumentacja
 
