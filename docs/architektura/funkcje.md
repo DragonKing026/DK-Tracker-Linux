@@ -201,10 +201,10 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | Id | Funkcja | Uzasadnienie | Status |
 |---|---|---|---|
 | F-20 | Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz okno, otwórz Kimai, ustawienia, zakończ | menu rysuje host tacki, więc zawsze jest przy ikonie | **w 1.0** ([[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland\|ADR-0003]]) |
-| F-21 | Powiadomienia systemowe | przypomnienie o długim timerze / brak timera w godzinach pracy | do decyzji |
-| F-22 | Autostart z sesją | aplikacja tackowa powinna startować sama | do decyzji |
-| F-23 | Wykrywanie bezczynności | propozycja odjęcia czasu nieaktywności | do decyzji |
-| F-24 | Globalny skrót klawiszowy | start/stop bez myszy | do decyzji |
+| F-21 | Powiadomienia systemowe (portal Notification) | przypomnienie o długim timerze, problemy z połączeniem | **w 1.0** (szczegóły w specyfikacji) |
+| F-22 | Autostart z sesją (portal Background, opcja w ustawieniach) | aplikacja tackowa powinna startować sama | **w 1.0** |
+| F-23 | Wykrywanie bezczynności | propozycja odjęcia czasu nieaktywności; trudne w Flatpaku na Waylandzie (brak portalu czasu bezczynności) | później |
+| F-24 | Globalny skrót klawiszowy (portal GlobalShortcuts) | start/stop bez myszy | później |
 
 ## Powiązane
 
