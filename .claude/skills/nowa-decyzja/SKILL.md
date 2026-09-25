@@ -12,8 +12,9 @@ description: Use when a hard-to-reverse architectural or technology decision is 
 
    ```markdown
    ---
+   noteId: "<frontmatter.py noteid>"
    tytul: <Decyzja>
-   tagi: [adr]
+   tags: [adr]
    status: proponowana | zaakceptowana | odrzucona | zastapiona
    zastapiona_przez:
    utworzono: <data>
