@@ -1,0 +1,46 @@
+---
+tytul: Dokumentacja i zadania w repo jako vault Obsidiana
+tagi: [adr, dokumentacja, proces]
+status: zaakceptowana
+zastapiona_przez:
+utworzono: 2026-09-25
+zaktualizowano: 2026-09-25
+---
+
+# ADR-0001: Dokumentacja i zadania w repo jako vault Obsidiana
+
+## Kontekst
+
+Użytkownik chce pełnej, bieżącej dokumentacji projektu, zadań rozpisanych jako foldery
+z plikami przyjaznymi Obsidianowi, zrzutów i diagramów w plikach oraz historii w gicie.
+Pracę wykonują w dużej mierze agenci AI, którzy muszą szybko odnaleźć kontekst.
+
+## Rozważane opcje
+
+| Opcja | Zalety | Wady |
+|---|---|---|
+| Markdown w repo, format Obsidiana | wersjonowane z kodem, czytelne dla agentów i ludzi, graf linków, działa offline | wikilinki nie są klikalne na GitHubie |
+| Zewnętrzna wiki / Notion / Jira | wygodne dla nietechnicznych | rozjeżdża się z kodem, agent nie ma dostępu offline |
+| Tylko README + komentarze w kodzie | minimum pracy | brak miejsca na decyzje, integracje, zadania |
+
+## Decyzja
+
+**Cała dokumentacja (`docs/`) i zadania (`TODO/`) żyją w repozytorium jako Markdown
+w konwencji Obsidiana (frontmatter, wikilinki, callouty, mermaid).**
+
+## Uzasadnienie
+
+Dokumentacja zmienia się w tych samych commitach co kod, więc nie traci aktualności;
+agent czyta ją bez dodatkowych narzędzi; użytkownik przegląda ją w Obsidianie.
+
+## Konsekwencje
+
+- Wikilinki na GitHubie wyświetlają się jako tekst — akceptowalne; README dla ludzi
+  używa zwykłych linków markdown.
+- Każda zmiana zachowania wymaga aktualizacji docs (reguła w `AGENTS.md`).
+- Zrzuty ekranu zwiększają rozmiar repo — trzymamy PNG w rozsądnej rozdzielczości.
+
+## Powiązane
+
+- [[docs/procesy/dokumentowanie|Zasady dokumentowania]]
+- [[docs/procesy/zadania|Zadania w TODO]]
