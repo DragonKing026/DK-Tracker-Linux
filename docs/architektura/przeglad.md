@@ -3,7 +3,7 @@ noteId: "26c430953cad4545a2234350cf834e0b"
 tytul: Przegląd projektu
 tags: [architektura, wizja, zakres]
 utworzono: 2026-09-25 17:16
-zaktualizowano: 2026-09-25 17:47
+zaktualizowano: 2026-09-25 20:38
 ---
 
 # Przegląd projektu
@@ -95,7 +95,8 @@ Każda wymaga osobnej decyzji — nie wchodzą do 1.0 automatycznie.
 > Na Waylandzie aplikacja **nie może sama ustawić pozycji swojego okna**. Okno
 > „popupu” nie pojawi się automatycznie tuż przy ikonie w tacce tak jak w przeglądarce —
 > o jego położeniu decyduje kompozytor. Menu kontekstowe ikony (renderowane przez hosta
-> tacki) nie ma tego problemu. Rozwiązanie: [ADR-0003](../decyzje/0003-okno-szybkiej-obslugi-na-wayland.md).
+> tacki) nie ma tego problemu. Rozwiązanie: [ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md) — na KDE okno
+> zakotwiczone przy tacce przez `layer-shell` (sprawdzone), gdzie indziej na środku.
 
 > [!warning] GNOME nie ma tacki domyślnie
 > GNOME Shell nie wyświetla ikon StatusNotifierItem bez rozszerzenia

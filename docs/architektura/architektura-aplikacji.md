@@ -4,7 +4,7 @@ tytul: Architektura aplikacji
 tags: [architektura, komponenty, przeplywy]
 status_dokumentu: rdzeń-zaimplementowany
 utworzono: 2026-09-25 17:18
-zaktualizowano: 2026-09-25 19:05
+zaktualizowano: 2026-09-25 20:38
 ---
 
 # Architektura aplikacji
@@ -140,7 +140,7 @@ sequenceDiagram
 ## Otwarte kwestie architektoniczne
 
 - [x] Stos technologiczny — [ADR-0002: Python + PySide6](../decyzje/0002-stos-python-pyside6.md)
-- [x] Forma okna na Waylandzie — [ADR-0003](../decyzje/0003-okno-szybkiej-obslugi-na-wayland.md)
+- [x] Forma okna na Waylandzie — [ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md) (zastąpił ADR-0003)
 - [x] Runtime Flatpaka — `org.kde.Platform` 6.11 + `io.qt.PySide.BaseApp`
 - [ ] Sposób przechowywania tokenu (Secret Service bezpośrednio vs portal Secret)
 

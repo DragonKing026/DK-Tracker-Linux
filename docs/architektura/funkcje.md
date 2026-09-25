@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 19:55
+zaktualizowano: 2026-09-25 20:38
 ---
 
 # Katalog funkcji
@@ -61,7 +61,7 @@ stateDiagram-v2
 | **Szerokość** | 460 px we wtyczce 1.5.0. |
 | **Stan „nieskonfigurowana”** | Tylko tekst + przycisk „Otwórz ustawienia”. |
 | **Źródło** | `popup/popup.html`, `popup/popup.css` |
-| **Różnica w aplikacji** | Bezramkowe okno narzędziowe: lewy klik ikony pokazuje/chowa, utrata fokusu chowa. Pozycję wybiera kompozytor. Bez hosta tacki działa jako zwykłe okno z ramką. Decyzja: [ADR-0003](../decyzje/0003-okno-szybkiej-obslugi-na-wayland.md). |
+| **Różnica w aplikacji** | **KDE:** okno zakotwiczone przy tacce (`layer-shell`, prawy dolny róg nad panelem). **Gdzie indziej:** okno bezramkowe, zwykle na środku. Lewy klik ikony otwiera okno; **klik ikony przy otwartym oknie go nie zamyka** (Plasma nie wysyła `Activate`) — zamyka przycisk w nagłówku, `Esc` albo klik obok (utrata fokusu). Wpisany opis zostaje po schowaniu. Bez hosta tacki: zwykłe okno z ramką. Decyzja: [ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md) (sprawdzone w prototypie 0004). |
 
 ## F-04 Start timera
 
@@ -238,7 +238,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 
 | Id | Funkcja | Uzasadnienie | Status |
 |---|---|---|---|
-| F-20 | Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz okno, otwórz Kimai, ustawienia, zakończ | menu rysuje host tacki, więc zawsze jest przy ikonie | **w 1.0** ([ADR-0003](../decyzje/0003-okno-szybkiej-obslugi-na-wayland.md)) |
+| F-20 | Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz okno, otwórz Kimai, ustawienia, zakończ | menu rysuje host tacki, więc zawsze jest przy ikonie | **w 1.0** ([ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md)); menu rysuje Plasma z dbusmenu — sprawdzone |
 | F-21 | Powiadomienia systemowe (portal Notification) | przypomnienie o długim timerze, problemy z połączeniem | **w 1.0** (szczegóły w specyfikacji) |
 | F-22 | Autostart z sesją (portal Background, opcja w ustawieniach) | aplikacja tackowa powinna startować sama | **w 1.0** |
 | F-23 | Wykrywanie bezczynności | propozycja odjęcia czasu nieaktywności; trudne w Flatpaku na Waylandzie (brak portalu czasu bezczynności) | później |
