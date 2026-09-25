@@ -66,7 +66,8 @@ Pełny opis każdej funkcji: [Katalog funkcji](funkcje.md).
 - [ ] Sumy dzienna i tygodniowa
 - [ ] Walidacja jakości opisu (za krótki / zbyt ogólny)
 - [ ] Link „Moje czasy” do panelu Kimai
-- [ ] Język polski i angielski
+- [ ] Pełna wersja polska i angielska: UI, menu, powiadomienia, `.desktop`, MetaInfo;
+      wybór auto/pl/en bez restartu ([F-13](funkcje.md))
 - [ ] Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz Kimai, ustawienia, zakończ
 - [ ] Powiadomienia systemowe (długi timer, problemy z połączeniem)
 - [ ] Autostart z sesją (opcja w ustawieniach)
