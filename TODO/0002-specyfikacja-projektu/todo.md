@@ -30,7 +30,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 
 - [ ] Ustalony zakres 1.0 (które z F-20…F-24 wchodzą)
 - [x] Zatwierdzony stos ([[TODO/DONE/0003-wybor-stosu/todo|0003]] → ADR-0002: Python + PySide6)
-- [ ] Zatwierdzona forma okna na Waylandzie
+- [x] Zatwierdzona forma okna na Waylandzie ([[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]])
 - [ ] Spec zapisana w `docs/specyfikacja/` i zaakceptowana przez użytkownika
 - [ ] Sekcja „Komendy” w `AGENTS.md` zaplanowana (uzupełniana przy szkielecie projektu)
 - [ ] Plan implementacji zapisany i zaakceptowany; kolejne zadania TODO z planu utworzone
@@ -48,5 +48,6 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 ### 2026-09-25
 - Utworzono zadanie.
 - Rozpoczęto brainstorming. Pytanie 1 (stos) → Python + PySide6 (ADR-0002).
+- Pytanie 2 (okno) → wariant A + menu kontekstowe, B do prototypu (ADR-0003).
 
 ## Wynik
