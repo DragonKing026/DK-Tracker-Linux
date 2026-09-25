@@ -46,7 +46,7 @@ Wszystkie materiały zadania leżą w jego folderze (podfoldery tworzone, gdy s�
 - `notatki/` — notatki badawcze, porównania
 - `dane/` — przykładowe dane, odpowiedzi API
 
-<!-- Osadzenie: ![[TODO/{{NNNN}}-slug/zrzuty/plik.png]] · link: [raport](testy/raport.md) · diagram mermaid inline -->
+<!-- Osadzenie: ![opis](zrzuty/plik.png) · link: [raport](testy/raport.md) · diagram mermaid inline -->
 
 ## Dziennik
 
