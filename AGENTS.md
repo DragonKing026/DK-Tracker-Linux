@@ -129,5 +129,22 @@ flowchart LR
 
 ## 7. Komendy
 
-> [!todo] Uzupełnić przy szkielecie projektu (zadanie [0002](TODO/W-TRAKCIE/0002-specyfikacja-projektu/todo.md)).
-> Tu trafią: uruchomienie w trybie dev, testy (pytest, pytest-qt), lint, budowa Flatpaka.
+### Kimai testowy (Docker)
+
+```bash
+tests/kimai/kimai-testowe.sh up               # lokalny Kimai 2.67.0 + konta + tokeny + dane
+eval "$(tests/kimai/kimai-testowe.sh env)"    # zmienne KIMAI_TEST_*
+tests/kimai/kimai-testowe.sh down             # usuń wszystko
+```
+
+Szczegóły: [tests/kimai/README.md](tests/kimai/README.md). Nigdy nie testujemy zapisu na Kimai firmy.
+
+### Dokumentacja
+
+```bash
+python3 .claude/skills/sprawdz-linki/linki.py sprawdz
+python3 .claude/skills/frontmatter/frontmatter.py sprawdz
+```
+
+> [!todo] Przy szkielecie projektu (zadanie [0002](TODO/W-TRAKCIE/0002-specyfikacja-projektu/todo.md))
+> dojdą: uruchomienie w trybie dev, testy (pytest, pytest-qt), lint (ruff), budowa Flatpaka.
