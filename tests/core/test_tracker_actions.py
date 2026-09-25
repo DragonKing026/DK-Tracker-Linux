@@ -214,3 +214,14 @@ def test_apply_settings_clears_billable_lock_and_uses_new_client():
     assert saved[-1].billable_allowed is True
     assert tracker.settings.url == "https://inny.test"
     assert ("me",) in other.calls
+
+
+def test_failed_resume_does_not_leave_a_stale_running_entry():
+    tracker, client, _ = make_tracker()
+    old = client.add(make_entry(1, NOW - timedelta(days=1), NOW - timedelta(hours=20)))
+    client.add(make_entry(2, NOW - timedelta(minutes=10)))
+    tracker.refresh_full()
+    client.fail["start"] = [ApiError(ErrorKind.SERVER, 500)]
+    with pytest.raises(ApiError):
+        tracker.resume(old)
+    assert tracker.snapshot.running == ()  # entry 2 was stopped before the start failed

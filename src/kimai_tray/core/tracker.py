@@ -207,12 +207,17 @@ class Tracker:
         if current is not None:
             self._client.stop(current.id)
         # Repeating an entry repeats how it was billed, not the project default.
-        return self.start(
-            project_id=entry.project_id,
-            activity_id=entry.activity_id,
-            description=entry.description,
-            billable=entry.billable,
-        )
+        try:
+            return self.start(
+                project_id=entry.project_id,
+                activity_id=entry.activity_id,
+                description=entry.description,
+                billable=entry.billable,
+            )
+        except Exception:
+            # The running entry is already stopped; do not keep showing it as running.
+            self.refresh_full()
+            raise
 
     def update_description(self, text: str, *, quiet: bool = False) -> Snapshot | None:
         """F-07. `quiet` is the save-while-typing path: an invalid text is just not saved."""
