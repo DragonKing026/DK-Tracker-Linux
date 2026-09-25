@@ -40,6 +40,13 @@ Wstępni kandydaci (do porównania w ADR):
 
 > [!todo] Każdą opcję zweryfikować przez Context7/dokumentację przed ADR.
 
+> [!warning] Ustalone: Tauri na Linuksie nie obsługuje kliknięcia ikony w tacce
+> Według dokumentacji Tauri typ `TrayIconEvent` (Click, DoubleClick, Enter, Move, Leave)
+> jest oznaczony „unsupported on Linux”; `setShowMenuOnLeftClick` również.
+> Na Linuksie działa tylko menu ikony, więc lewy klik nie otworzy okna jak we wtyczce.
+> Źródła: [namespace tray](https://tauri.app/reference/javascript/api/namespacetray),
+> [TrayIconConfig](https://tauri.app/reference/config).
+
 ## Kryteria akceptacji
 
 - [ ] Porównanie opcji ze źródłami
@@ -51,5 +58,6 @@ Wstępni kandydaci (do porównania w ADR):
 
 ### 2026-09-25
 - Utworzono zadanie z wstępną listą kandydatów.
+- Context7: w Tauri 2 zdarzenia kliknięcia tacki nie działają na Linuksie, co jest poważnym minusem tej opcji.
 
 ## Wynik
