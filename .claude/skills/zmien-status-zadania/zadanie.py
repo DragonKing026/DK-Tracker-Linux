@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import importlib.util
 import re
 import subprocess
 import sys
@@ -29,6 +30,7 @@ from pathlib import Path
 ROOT = Path.cwd()
 TODO = ROOT / "TODO"
 LINKI = ROOT / ".claude" / "skills" / "sprawdz-linki" / "linki.py"
+MDFIX = ROOT / ".claude" / "skills" / "markdownlint" / "mdfix.py"
 FOLDER = {
     "pomysl": "DO-ZROBIENIA",
     "do-zrobienia": "DO-ZROBIENIA",
@@ -91,20 +93,28 @@ def find(number: str) -> Path:
     return matches[0]
 
 
+def wrap(line: str) -> str:
+    """Log lines follow markdownlint (MD013, 120 columns) — the same wrapping as mdfix.py."""
+    spec = importlib.util.spec_from_file_location("mdfix", MDFIX)
+    mdfix = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mdfix)  # type: ignore[union-attr]
+    return "\n".join(mdfix.wrap_line(line))
+
+
 def add_log(text: str, entry: str) -> str:
     heading = f"### {today()}"
     marker = "\n## Dziennik\n"
+    line = wrap(f"- **{dt.datetime.now():%H:%M}** {entry}")
     if marker not in text:
-        return text + f"\n## Dziennik\n\n{heading}\n- {entry}\n"
+        return text.rstrip("\n") + f"\n\n## Dziennik\n\n{heading}\n\n{line}\n"
     start = text.index(marker) + len(marker)
     next_section = text.find("\n## ", start)
     section_end = len(text) if next_section == -1 else next_section
     section = text[start:section_end]
-    line = f"- **{dt.datetime.now():%H:%M}** {entry}"
     if re.search(rf"^{re.escape(heading)}\b", section, re.M):  # "### 2026-09-25" or "### 2026-09-25 17:23"
         section = section.rstrip("\n") + f"\n{line}\n"
     else:
-        section = section.rstrip("\n") + f"\n\n{heading}\n{line}\n"
+        section = section.rstrip("\n") + f"\n\n{heading}\n\n{line}\n"
     return text[:start] + section + text[section_end:]
 
 
@@ -163,14 +173,14 @@ def rebuild_board() -> None:
     def rows(folder: str, closed: bool) -> list[str]:
         selected = [(n, p, d) for n, p, d in tasks if p.parent.parent.name == folder]
         if closed:
-            lines = ["| Nr | Zadanie | Status | Zamknięto |", "|---|---|---|---|"]
+            lines = ["| Nr | Zadanie | Status | Zamknięto |", "| --- | --- | --- | --- |"]
             lines += [
                 f"| {n} | {link(p, d.get('tytul', p.parent.name))} | {EMOJI.get(d.get('status', ''), '')} "
                 f"{d.get('status', '')} | {d.get('zamknieto', '')} |"
                 for n, p, d in selected
             ]
         else:
-            lines = ["| Nr | Zadanie | Status | Priorytet | Zależy od |", "|---|---|---|---|---|"]
+            lines = ["| Nr | Zadanie | Status | Priorytet | Zależy od |", "| --- | --- | --- | --- | --- |"]
             lines += [
                 f"| {n} | {link(p, d.get('tytul', p.parent.name))} | {EMOJI.get(d.get('status', ''), '')} "
                 f"{d.get('status', '')} | {d.get('priorytet', '')} | {deps(d)} |"
