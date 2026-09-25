@@ -10,7 +10,7 @@ zaktualizowano: 2026-09-25
 > [!note] Stan na fazę 0
 > Opisane są katalogi dokumentacji i agenta. Katalogi kodu (`src/`, `tests/`, `flatpak/`)
 > zostaną dopisane po zatwierdzeniu stosu technologicznego — patrz
-> [[docs/decyzje/README|Decyzje]].
+> [Decyzje](../decyzje/README.md).
 
 ```
 .
@@ -60,12 +60,12 @@ kroku). Claude Code wykrywa je automatycznie jako skille projektu.
 Dokumentacja: [Claude Code — Skills](https://docs.claude.com/en/docs/claude-code/skills).
 
 ### `docs/`
-Pełna dokumentacja — zasady w [[docs/procesy/dokumentowanie|Zasady dokumentowania]].
+Pełna dokumentacja — zasady w [Zasady dokumentowania](../procesy/dokumentowanie.md).
 
 ### `TODO/`
-System zadań — zasady w [[docs/procesy/zadania|Zadania w folderze TODO]].
+System zadań — zasady w [Zadania w folderze TODO](../procesy/zadania.md).
 Aktywne zadania leżą bezpośrednio w `TODO/`, zakończone są przenoszone do `TODO/DONE/`.
 
 ## Powiązane
 
-- [[docs/README|Indeks dokumentacji]]
+- [Indeks dokumentacji](../README.md)

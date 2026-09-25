@@ -11,33 +11,33 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 
 ## Start
 
-- [[docs/architektura/przeglad|Przegląd projektu]] — co budujemy, dla kogo, zakres
-- [[docs/architektura/funkcje|Katalog funkcji]] — każda funkcja opisana szczegółowo
-- [[docs/architektura/slownik|Słownik pojęć]] — Kimai, SNI, portal, billable…
+- [Przegląd projektu](architektura/przeglad.md) — co budujemy, dla kogo, zakres
+- [Katalog funkcji](architektura/funkcje.md) — każda funkcja opisana szczegółowo
+- [Słownik pojęć](architektura/slownik.md) — Kimai, SNI, portal, billable…
 
 ## Architektura
 
-- [[docs/architektura/struktura-repozytorium|Struktura repozytorium]]
-- [[docs/architektura/architektura-aplikacji|Architektura aplikacji]] — warstwy, komponenty, przepływy
+- [Struktura repozytorium](architektura/struktura-repozytorium.md)
+- [Architektura aplikacji](architektura/architektura-aplikacji.md) — warstwy, komponenty, przepływy
 
 ## Decyzje (ADR)
 
-- [[docs/decyzje/README|Rejestr decyzji]]
+- [Rejestr decyzji](decyzje/README.md)
 
 ## Integracje
 
-- [[docs/integracje/README|Indeks integracji]] — Kimai API, Flatpak, tacka systemowa,
+- [Indeks integracji](integracje/README.md) — Kimai API, Flatpak, tacka systemowa,
   GNOME, sekrety, portale, projekt referencyjny
 
 ## Procesy
 
-- [[docs/procesy/commity|Konwencja commitów]]
-- [[docs/procesy/dokumentowanie|Zasady dokumentowania]]
-- [[docs/procesy/zadania|Zadania w folderze TODO]]
+- [Konwencja commitów](procesy/commity.md)
+- [Zasady dokumentowania](procesy/dokumentowanie.md)
+- [Zadania w folderze TODO](procesy/zadania.md)
 
 ## Zadania
 
-- [[TODO/README|Tablica zadań]]
+- [Tablica zadań](../TODO/README.md)
 
 ## Dla agentów AI
 

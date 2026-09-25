@@ -42,5 +42,5 @@ agent czyta ją bez dodatkowych narzędzi; użytkownik przegląda ją w Obsidian
 
 ## Powiązane
 
-- [[docs/procesy/dokumentowanie|Zasady dokumentowania]]
-- [[docs/procesy/zadania|Zadania w TODO]]
+- [Zasady dokumentowania](../procesy/dokumentowanie.md)
+- [Zadania w TODO](../procesy/zadania.md)

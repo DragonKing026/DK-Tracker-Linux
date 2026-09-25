@@ -60,7 +60,7 @@ Commity tworzone przez agenta kończą się linią `Co-Authored-By:` wskazaną p
 
 ## Powiązane
 
-- [[docs/procesy/zadania|Zadania w TODO]]
-- [[docs/procesy/dokumentowanie|Dokumentowanie]]
+- [Zadania w TODO](zadania.md)
+- [Dokumentowanie](dokumentowanie.md)
 - Skill: `.claude/skills/commit/SKILL.md`
 - [Conventional Commits 1.0.0](https://www.conventionalcommits.org/pl/v1.0.0/)

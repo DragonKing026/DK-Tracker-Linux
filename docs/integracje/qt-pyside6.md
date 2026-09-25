@@ -12,7 +12,7 @@ zaktualizowano: 2026-09-25
 > [!info] W skrócie
 > Oficjalne wiązania Pythona do Qt 6 (Qt for Python). Dają UI aplikacji, ikonę w tacce
 > (`QSystemTrayIcon`, na Linuksie przez SNI), pętlę zdarzeń i sieć. Decyzja:
-> [[docs/decyzje/0002-stos-python-pyside6|ADR-0002]].
+> [ADR-0002](../decyzje/0002-stos-python-pyside6.md).
 
 ## Do czego używamy
 
@@ -33,7 +33,7 @@ Z [dokumentacji Qt 6](https://doc.qt.io/qt-6/qsystemtrayicon.html):
 - Sygnał `activated(reason)`: `Trigger` (lewy klik), `Context`, `DoubleClick`,
   `MiddleClick`.
 - `isSystemTrayAvailable()` pozwala sprawdzić, czy jest host tacki. Używamy go do
-  przełączenia w tryb okna ([[docs/integracje/gnome-appindicator|GNOME bez tacki]]).
+  przełączenia w tryb okna ([GNOME bez tacki](gnome-appindicator.md)).
 - `geometry()` zwraca położenie ikony. Na Waylandzie i tak nie ustawimy według niego okna.
 
 > [!warning] Ograniczenia z dokumentacji Qt
@@ -100,6 +100,6 @@ build-options:
 
 ## Powiązane
 
-- [[docs/decyzje/0002-stos-python-pyside6|ADR-0002]]
-- [[docs/integracje/statusnotifieritem|StatusNotifierItem]]
-- [[docs/integracje/flatpak|Flatpak]]
+- [ADR-0002](../decyzje/0002-stos-python-pyside6.md)
+- [StatusNotifierItem](statusnotifieritem.md)
+- [Flatpak](flatpak.md)

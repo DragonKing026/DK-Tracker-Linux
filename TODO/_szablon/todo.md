@@ -13,7 +13,7 @@ zamknieto:
 # {{NNNN}} — {{TYTUL}}
 
 > [!info] Status
-> **{{STATUS}}** · priorytet **{{PRIORYTET}}** · [[TODO/README|← tablica zadań]]
+> **{{STATUS}}** · priorytet **{{PRIORYTET}}** · [← tablica zadań](../README.md)
 
 ## Cel
 
@@ -22,7 +22,7 @@ Jedno-dwa zdania: jaki efekt ma dać to zadanie i po co.
 ## Kontekst
 
 - Skąd się wzięło zadanie.
-- Powiązane dokumenty: [[docs/README|Dokumentacja]]
+- Powiązane dokumenty: [Dokumentacja](../../docs/README.md)
 
 ## Kryteria akceptacji
 

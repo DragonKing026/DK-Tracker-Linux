@@ -10,7 +10,7 @@ zaktualizowano: 2026-09-25
 > [!info] W skrócie
 > Natywna aplikacja linuksowa w **tacce systemowej**, dystrybuowana jako **Flatpak**, która
 > pozwala mierzyć czas w firmowym **Kimai** jednym kliknięciem — tak jak wtyczka
-> przeglądarkowa [[docs/integracje/kimai-ws-tracker|WS Tracker]], ale bez przeglądarki.
+> przeglądarkowa [WS Tracker](../integracje/kimai-ws-tracker.md), ale bez przeglądarki.
 
 ## Problem
 
@@ -48,11 +48,11 @@ flowchart LR
     APP -- HTTPS + Bearer token --> KIMAI[(Kimai firmy<br/>REST API)]
 ```
 
-Szczegóły każdej strzałki: [[docs/integracje/README|Integracje]].
+Szczegóły każdej strzałki: [Integracje](../integracje/README.md).
 
 ## Zakres — wersja 1.0 (parytet z wtyczką)
 
-Pełny opis każdej funkcji: [[docs/architektura/funkcje|Katalog funkcji]].
+Pełny opis każdej funkcji: [Katalog funkcji](funkcje.md).
 
 - [ ] Konfiguracja: adres Kimai, token API, język, minimalna długość opisu, test połączenia
 - [ ] Ikona w tacce: stan (bezczynny / trwa / błąd) i czas trwającego wpisu
@@ -93,11 +93,11 @@ Każda wymaga osobnej decyzji — nie wchodzą do 1.0 automatycznie.
 > Na Waylandzie aplikacja **nie może sama ustawić pozycji swojego okna**. Okno
 > „popupu” nie pojawi się automatycznie tuż przy ikonie w tacce tak jak w przeglądarce —
 > o jego położeniu decyduje kompozytor. Menu kontekstowe ikony (renderowane przez hosta
-> tacki) nie ma tego problemu. Rozwiązanie: [[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]].
+> tacki) nie ma tego problemu. Rozwiązanie: [ADR-0003](../decyzje/0003-okno-szybkiej-obslugi-na-wayland.md).
 
 > [!warning] GNOME nie ma tacki domyślnie
 > GNOME Shell nie wyświetla ikon StatusNotifierItem bez rozszerzenia
-> [[docs/integracje/gnome-appindicator|AppIndicator and KStatusNotifierItem Support]].
+> [AppIndicator and KStatusNotifierItem Support](../integracje/gnome-appindicator.md).
 > Ubuntu ma je domyślnie, Fedora Workstation — nie. Aplikacja musi działać sensownie
 > także bez tacki (np. zwykłe okno).
 
@@ -112,7 +112,7 @@ Każda wymaga osobnej decyzji — nie wchodzą do 1.0 automatycznie.
 
 ## Powiązane
 
-- [[docs/architektura/funkcje|Katalog funkcji]]
-- [[docs/integracje/kimai-ws-tracker|Projekt referencyjny: WS Tracker]]
-- [[docs/decyzje/README|Decyzje]]
-- [[TODO/README|Tablica zadań]]
+- [Katalog funkcji](funkcje.md)
+- [Projekt referencyjny: WS Tracker](../integracje/kimai-ws-tracker.md)
+- [Decyzje](../decyzje/README.md)
+- [Tablica zadań](../../TODO/README.md)

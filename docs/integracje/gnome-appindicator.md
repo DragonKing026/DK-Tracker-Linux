@@ -71,5 +71,5 @@ flowchart TD
 
 ## Powiązane
 
-- [[docs/integracje/statusnotifieritem|StatusNotifierItem]]
-- [[docs/architektura/przeglad#Ograniczenia i ryzyka|Ryzyka projektu]]
+- [StatusNotifierItem](statusnotifieritem.md)
+- [Ryzyka projektu](../architektura/przeglad.md)

@@ -13,7 +13,7 @@ zamknieto:
 # 0002 — Specyfikacja projektu i plan implementacji
 
 > [!info] Status
-> **w-toku** · priorytet **p0** · [[TODO/README|← tablica zadań]]
+> **w-toku** · priorytet **p0** · [← tablica zadań](../README.md)
 
 ## Cel
 
@@ -22,15 +22,15 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 
 ## Kontekst
 
-- Punkt wyjścia: [[docs/architektura/przeglad|Przegląd]], [[docs/architektura/funkcje|Katalog funkcji]],
-  [[docs/architektura/architektura-aplikacji|szkic architektury]].
+- Punkt wyjścia: [Przegląd](../../docs/architektura/przeglad.md), [Katalog funkcji](../../docs/architektura/funkcje.md),
+  [szkic architektury](../../docs/architektura/architektura-aplikacji.md).
 - Proces: pytania → 2–3 podejścia → projekt w sekcjach → spec → akceptacja → plan.
 
 ## Kryteria akceptacji
 
 - [x] Ustalony zakres 1.0: F-20, F-21, F-22 wchodzą; F-23, F-24 później
-- [x] Zatwierdzony stos ([[TODO/DONE/0003-wybor-stosu/todo|0003]] → ADR-0002: Python + PySide6)
-- [x] Zatwierdzona forma okna na Waylandzie ([[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]])
+- [x] Zatwierdzony stos ([0003](../DONE/0003-wybor-stosu/todo.md) → ADR-0002: Python + PySide6)
+- [x] Zatwierdzona forma okna na Waylandzie ([ADR-0003](../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md))
 - [ ] Spec zapisana w `docs/specyfikacja/` i zaakceptowana przez użytkownika
 - [ ] Sekcja „Komendy” w `AGENTS.md` zaplanowana (uzupełniana przy szkielecie projektu)
 - [ ] Plan implementacji zapisany i zaakceptowany; kolejne zadania TODO z planu utworzone

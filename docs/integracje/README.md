@@ -26,14 +26,14 @@ flowchart LR
 
 | Integracja | Rola | Status | Dokument |
 |---|---|---|---|
-| Kimai REST API | źródło danych | planowana | [[docs/integracje/kimai-api\|kimai-api]] |
-| WS Tracker | projekt referencyjny (wzorzec funkcji i UI) | referencja | [[docs/integracje/kimai-ws-tracker\|kimai-ws-tracker]] |
-| StatusNotifierItem | ikona w tacce przez D-Bus | planowana | [[docs/integracje/statusnotifieritem\|statusnotifieritem]] |
-| GNOME AppIndicator | host tacki w GNOME | planowana | [[docs/integracje/gnome-appindicator\|gnome-appindicator]] |
-| Secret Service / portal Secret | przechowywanie tokenu | planowana | [[docs/integracje/secret-service\|secret-service]] |
-| Portale XDG | autostart, powiadomienia, linki, skróty | planowana | [[docs/integracje/xdg-portale\|xdg-portale]] |
-| Flatpak | budowanie i dystrybucja | planowana | [[docs/integracje/flatpak\|flatpak]] |
-| Qt 6 / PySide6 | UI, tacka, pętla zdarzeń | w użyciu (ADR-0002) | [[docs/integracje/qt-pyside6\|qt-pyside6]] |
+| Kimai REST API | źródło danych | planowana | [kimai-api](kimai-api.md) |
+| WS Tracker | projekt referencyjny (wzorzec funkcji i UI) | referencja | [kimai-ws-tracker](kimai-ws-tracker.md) |
+| StatusNotifierItem | ikona w tacce przez D-Bus | planowana | [statusnotifieritem](statusnotifieritem.md) |
+| GNOME AppIndicator | host tacki w GNOME | planowana | [gnome-appindicator](gnome-appindicator.md) |
+| Secret Service / portal Secret | przechowywanie tokenu | planowana | [secret-service](secret-service.md) |
+| Portale XDG | autostart, powiadomienia, linki, skróty | planowana | [xdg-portale](xdg-portale.md) |
+| Flatpak | budowanie i dystrybucja | planowana | [flatpak](flatpak.md) |
+| Qt 6 / PySide6 | UI, tacka, pętla zdarzeń | w użyciu (ADR-0002) | [qt-pyside6](qt-pyside6.md) |
 
 > [!todo] Do dopisania
 > Biblioteka HTTP i biblioteka sekretów, gdy zostaną wybrane.

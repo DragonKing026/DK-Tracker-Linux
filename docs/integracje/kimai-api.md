@@ -90,7 +90,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 Pole `billable` w formularzu API istnieje tylko dla kont z tym uprawnieniem (domyślnie
 teamlead i wyżej). Administrator włącza je dla `ROLE_USER` w: **Administracja → Role →
 kolumna ROLE_USER → sekcja „Timesheet (own)”**. Szczegóły:
-[[docs/architektura/funkcje#F-09 Billable|F-09]].
+[F-09](../architektura/funkcje.md).
 
 ## Link do panelu
 
@@ -113,6 +113,6 @@ Locale bierzemy z `user.language` (np. z `/api/users/me` albo z wpisów).
 
 ## Powiązane
 
-- [[docs/integracje/kimai-ws-tracker|WS Tracker — referencyjna implementacja klienta]]
-- [[docs/architektura/funkcje|Katalog funkcji]]
-- [[docs/integracje/secret-service|Przechowywanie tokenu]]
+- [WS Tracker — referencyjna implementacja klienta](kimai-ws-tracker.md)
+- [Katalog funkcji](../architektura/funkcje.md)
+- [Przechowywanie tokenu](secret-service.md)

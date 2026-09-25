@@ -78,7 +78,7 @@ finish-args:
 - Host może zrestartować się (np. restart plasmashell) — aplikacja musi ponownie się
   zarejestrować, gdy `StatusNotifierWatcher` pojawi się znów na szynie.
 - Brak hosta (czysty GNOME) → ikona niewidoczna; wtedy potrzebny tryb okna
-  ([[docs/integracje/gnome-appindicator|GNOME AppIndicator]]).
+  ([GNOME AppIndicator](gnome-appindicator.md)).
 
 ## Obsługa w bibliotekach (kandydaci — do ADR stosu)
 
@@ -102,6 +102,6 @@ finish-args:
 
 ## Powiązane
 
-- [[docs/integracje/gnome-appindicator|GNOME — rozszerzenie AppIndicator]]
-- [[docs/integracje/flatpak|Flatpak]]
-- [[docs/architektura/funkcje#F-02 Ikona w tacce ze stanem|F-02 Ikona w tacce]]
+- [GNOME — rozszerzenie AppIndicator](gnome-appindicator.md)
+- [Flatpak](flatpak.md)
+- [F-02 Ikona w tacce](../architektura/funkcje.md)

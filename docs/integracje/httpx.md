@@ -11,7 +11,7 @@ zaktualizowano: 2026-09-25
 
 > [!info] W skrócie
 > Klient HTTP dla Pythona z API synchronicznym i asynchronicznym. U nas używamy go
-> w kliencie Kimai API w rdzeniu bez Qt ([[docs/decyzje/0004-architektura-rdzen-python-ui-qt|ADR-0004]]).
+> w kliencie Kimai API w rdzeniu bez Qt ([ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)).
 
 ## Do czego używamy
 
@@ -43,7 +43,7 @@ def handler(request: httpx.Request) -> httpx.Response:
 client = httpx.Client(transport=httpx.MockTransport(handler), base_url="https://kimai.test")
 ```
 
-Dzięki temu każdy scenariusz z [[docs/architektura/funkcje|katalogu funkcji]] (400
+Dzięki temu każdy scenariusz z [katalogu funkcji](../architektura/funkcje.md) (400
 „extra fields”, 404 za ostatnią stroną, 401) testujemy bez serwera.
 
 ## Zależności (do Flatpaka)
@@ -70,5 +70,5 @@ Moduły manifestu generujemy narzędziem
 
 ## Powiązane
 
-- [[docs/integracje/kimai-api|Kimai REST API]]
-- [[docs/decyzje/0004-architektura-rdzen-python-ui-qt|ADR-0004]]
+- [Kimai REST API](kimai-api.md)
+- [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)

@@ -54,6 +54,6 @@ są zawsze dostępne tuż przy ikonie. Wariant B jest opcjonalnym ulepszeniem i 
 
 ## Powiązane
 
-- [[docs/architektura/funkcje#F-03 Okno szybkiej obsługi (popup)|F-03]], [[docs/architektura/funkcje|F-20]]
-- [[TODO/0004-prototyp-tacki-i-okna/todo|Prototyp 0004]]
-- [[docs/integracje/qt-pyside6|Qt / PySide6]]
+- [F-03](../architektura/funkcje.md), [F-20](../architektura/funkcje.md)
+- [Prototyp 0004](../../TODO/0004-prototyp-tacki-i-okna/todo.md)
+- [Qt / PySide6](../integracje/qt-pyside6.md)

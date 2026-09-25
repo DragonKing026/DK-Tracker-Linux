@@ -11,7 +11,7 @@ zaktualizowano: 2026-09-25
 > [!warning] Szkic logiczny
 > Ten dokument opisuje podział na komponenty **niezależnie od języka i biblioteki UI**.
 > Zostanie doprecyzowany (nazwy modułów, ścieżki plików) po zatwierdzeniu stosu
-> w ADR i specyfikacji projektu — patrz [[TODO/README|zadania fazy 1]].
+> w ADR i specyfikacji projektu — patrz [zadania fazy 1](../../TODO/README.md).
 
 ## Warstwy
 
@@ -127,13 +127,13 @@ sequenceDiagram
 
 ## Otwarte kwestie architektoniczne
 
-- [x] Stos technologiczny — [[docs/decyzje/0002-stos-python-pyside6|ADR-0002: Python + PySide6]]
-- [x] Forma okna na Waylandzie — [[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]]
+- [x] Stos technologiczny — [ADR-0002: Python + PySide6](../decyzje/0002-stos-python-pyside6.md)
+- [x] Forma okna na Waylandzie — [ADR-0003](../decyzje/0003-okno-szybkiej-obslugi-na-wayland.md)
 - [x] Runtime Flatpaka — `org.kde.Platform` 6.11 + `io.qt.PySide.BaseApp`
 - [ ] Sposób przechowywania tokenu (Secret Service bezpośrednio vs portal Secret)
 
 ## Powiązane
 
-- [[docs/architektura/funkcje|Katalog funkcji]]
-- [[docs/integracje/README|Integracje]]
-- [[docs/decyzje/README|Decyzje]]
+- [Katalog funkcji](funkcje.md)
+- [Integracje](../integracje/README.md)
+- [Decyzje](../decyzje/README.md)

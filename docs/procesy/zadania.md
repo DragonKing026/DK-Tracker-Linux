@@ -108,6 +108,6 @@ Priorytety: `p0` (krytyczne, blokuje inne), `p1` (ważne), `p2` (normalne), `p3`
 
 ## Powiązane
 
-- [[TODO/README|Tablica zadań]]
-- [[TODO/_szablon/todo|Szablon zadania]]
-- [[docs/procesy/commity|Konwencja commitów]]
+- [Tablica zadań](../../TODO/README.md)
+- [Szablon zadania](../../TODO/_szablon/todo.md)
+- [Konwencja commitów](commity.md)

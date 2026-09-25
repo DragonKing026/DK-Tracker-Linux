@@ -13,11 +13,11 @@ Funkcjonalnie odwzorowuje wtyczkę przeglądarkową
 [kimai-ws-tracker](https://github.com/websystemspl/kimai-ws-tracker) (Web Systems):
 start/stop timera, lista ostatnich wpisów, wznawianie, edycja trwającego wpisu, flaga
 „billable”, sumy dzienne/tygodniowe, walidacja jakości opisu.
-Szczegóły: [[docs/integracje/kimai-ws-tracker|docs/integracje/kimai-ws-tracker.md]].
+Szczegóły: [docs/integracje/kimai-ws-tracker.md](docs/integracje/kimai-ws-tracker.md).
 
 Status: **faza 1 — specyfikacja i planowanie**.
 Stos: **Python + PySide6 (Qt 6), Flatpak na `org.kde.Platform` 6.11** —
-[[docs/decyzje/0002-stos-python-pyside6|ADR-0002]].
+[ADR-0002](docs/decyzje/0002-stos-python-pyside6.md).
 
 ## 2. Mapa repozytorium
 
@@ -39,7 +39,7 @@ TODO/                  ← zadania aktywne; każde zadanie = podfolder z plikiem
   DONE/                ← zadania zakończone (przenoszone przez skill zamknij-zadanie)
 ```
 
-Pełny opis struktury: [[docs/architektura/struktura-repozytorium|docs/architektura/struktura-repozytorium.md]].
+Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/architektura/struktura-repozytorium.md).
 
 ## 3. Złote zasady (obowiązkowe)
 
@@ -47,7 +47,7 @@ Pełny opis struktury: [[docs/architektura/struktura-repozytorium|docs/architekt
    w kodzie, nazwy plików kodu i komentarze w kodzie — po angielsku.
 2. **Małe commity, często.** Każda logiczna, mała zmiana = osobny commit (jeden plik docs,
    jedno zadanie TODO, jedna funkcja). Nie zbieraj wielu zmian w jeden commit.
-   Format: [[docs/procesy/commity|docs/procesy/commity.md]] (Conventional Commits po polsku).
+   Format: [docs/procesy/commity.md](docs/procesy/commity.md) (Conventional Commits po polsku).
 3. **Dokumentacja na bieżąco.** Zmiana w kodzie, która zmienia zachowanie, strukturę
    albo integrację, **musi** w tym samym lub następnym commicie zaktualizować `docs/`.
    Kod bez dokumentacji = zadanie nieskończone.
@@ -66,7 +66,7 @@ Pełny opis struktury: [[docs/architektura/struktura-repozytorium|docs/architekt
    do jego folderu, w podfolder według rodzaju: `zrzuty/`, `diagramy/`, `testy/`
    (raporty, logi, testy ręczne), `prototyp/`, `notatki/`, `dane/`. Każdy plik jest
    podlinkowany w `todo.md`. Do `docs/assets/` trafiają tylko obrazy wspólne dla
-   dokumentacji. Szczegóły: [[docs/procesy/zadania|docs/procesy/zadania.md]].
+   dokumentacji. Szczegóły: [docs/procesy/zadania.md](docs/procesy/zadania.md).
 10. **Sekrety**: token API Kimai nigdy nie trafia do repo, logów ani plików konfiguracyjnych
    w czystym tekście — tylko do magazynu sekretów systemu (Secret Service / portal).
 11. **Bez telemetrii.** Aplikacja łączy się wyłącznie z adresem Kimai podanym przez użytkownika.
@@ -81,7 +81,7 @@ Pełny opis struktury: [[docs/architektura/struktura-repozytorium|docs/architekt
 - Listy zadań: `- [ ]` / `- [x]`.
 - Daty w formacie ISO: `2026-09-25`.
 
-Szczegóły: [[docs/procesy/dokumentowanie|docs/procesy/dokumentowanie.md]].
+Szczegóły: [docs/procesy/dokumentowanie.md](docs/procesy/dokumentowanie.md).
 
 ## 5. Skille projektu (`.claude/skills/`)
 

@@ -13,7 +13,7 @@ zamknieto:
 # 0004 — Prototyp tacki i okna (spike)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [[TODO/README|← tablica zadań]]
+> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../README.md)
 
 ## Cel
 
@@ -22,10 +22,10 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 
 ## Pytania do sprawdzenia
 
-- [ ] Ikona SNI z `QSystemTrayIcon` (PySide6, [[docs/decyzje/0002-stos-python-pyside6|ADR-0002]]) pojawia się we Flatpaku z samym
+- [ ] Ikona SNI z `QSystemTrayIcon` (PySide6, [ADR-0002](../../docs/decyzje/0002-stos-python-pyside6.md)) pojawia się we Flatpaku z samym
       `--talk-name=org.kde.StatusNotifierWatcher` (bez `--own-name`)
 - [ ] Lewy klik → okno; prawy klik → menu — na Plasmie 6 Wayland
-- [ ] Wariant A ([[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]]): bezramkowe okno
+- [ ] Wariant A ([ADR-0003](../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md)): bezramkowe okno
       narzędziowe — gdzie je stawia KWin / Mutter, czy chowanie po utracie fokusu działa
 - [ ] Kolizja: klik w ikonę zabiera fokus → okno się chowa → `Trigger` pokazuje je znowu?
 - [ ] Reguła okna KWin (pozycja przy panelu) — czy da się ją podpowiedzieć użytkownikowi

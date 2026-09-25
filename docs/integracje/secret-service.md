@@ -94,6 +94,6 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 
 ## Powiązane
 
-- [[docs/integracje/flatpak|Flatpak]]
-- [[docs/integracje/xdg-portale|Portale XDG]]
-- [[docs/architektura/funkcje#F-01 Konfiguracja połączenia|F-01]]
+- [Flatpak](flatpak.md)
+- [Portale XDG](xdg-portale.md)
+- [F-01](../architektura/funkcje.md)

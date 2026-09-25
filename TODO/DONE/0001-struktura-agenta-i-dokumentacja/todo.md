@@ -13,7 +13,7 @@ zamknieto: 2026-09-25
 # 0001 — Struktura agenta i dokumentacji
 
 > [!info] Status
-> **zrobione** · priorytet **p0** · [[TODO/README|← tablica zadań]]
+> **zrobione** · priorytet **p0** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -24,9 +24,9 @@ z integracjami — zanim powstanie jakikolwiek kod.
 ## Kontekst
 
 - Prośba użytkownika (2026-09-25): aplikacja Flatpak w tacce (KDE + GNOME) działająca jak
-  wtyczka [[docs/integracje/kimai-ws-tracker|WS Tracker]]; najpierw struktura agenta
+  wtyczka [WS Tracker](../../../docs/integracje/kimai-ws-tracker.md); najpierw struktura agenta
   i dokumentacja, dopiero potem planowanie.
-- Decyzja o formie dokumentacji: [[docs/decyzje/0001-dokumentacja-w-repo-jako-vault-obsidian|ADR-0001]].
+- Decyzja o formie dokumentacji: [ADR-0001](../../../docs/decyzje/0001-dokumentacja-w-repo-jako-vault-obsidian.md).
 
 ## Kryteria akceptacji
 
@@ -43,7 +43,7 @@ z integracjami — zanim powstanie jakikolwiek kod.
 
 Wzorzec UI, do którego odnosi się dokumentacja:
 
-![[docs/assets/referencja/popup-bezczynny.png]]
+![popup-bezczynny](../../../docs/assets/referencja/popup-bezczynny.png)
 
 ## Dziennik
 
@@ -86,7 +86,7 @@ Wzorzec UI, do którego odnosi się dokumentacja:
 ## Wynik
 
 - Reguły: `AGENTS.md`, `CLAUDE.md`; skille w `.claude/skills/`.
-- Dokumentacja: [[docs/README|indeks]]; katalog funkcji F-01…F-24; 7 dokumentów integracji.
+- Dokumentacja: [indeks](../../../docs/README.md); katalog funkcji F-01…F-24; 7 dokumentów integracji.
 - Na później: wybór stosu (0003), specyfikacja (0002), prototyp tacki (0004).
 - Znaleziony drobny błąd we wtyczce (szara kropka projektu w stanie bezczynnym) —
-  opisany w [[docs/integracje/kimai-ws-tracker|WS Tracker]], nie powielamy go.
+  opisany w [WS Tracker](../../../docs/integracje/kimai-ws-tracker.md), nie powielamy go.

@@ -27,11 +27,11 @@ Zrzuty wykonane z kopii wtyczki z podstawioną atrapą API (dane fikcyjne).
 
 | Bezczynny | Trwa |
 |---|---|
-| ![[docs/assets/referencja/popup-bezczynny.png]] | ![[docs/assets/referencja/popup-trwa.png]] |
+| ![popup-bezczynny](../assets/referencja/popup-bezczynny.png) | ![popup-trwa](../assets/referencja/popup-trwa.png) |
 
 | Błąd walidacji opisu | Ustawienia |
 |---|---|
-| ![[docs/assets/referencja/popup-blad-opisu.png]] | ![[docs/assets/referencja/ustawienia.png]] |
+| ![popup-blad-opisu](../assets/referencja/popup-blad-opisu.png) | ![ustawienia](../assets/referencja/ustawienia.png) |
 
 Elementy okna (od góry): nagłówek „WS Tracker · Kimai” z sumą dnia i tygodnia oraz
 zębatką ustawień → pole opisu z zegarem i okrągłym przyciskiem start (zielony ▶) / stop
@@ -56,12 +56,12 @@ _locales/pl, /en      teksty
 
 | Element wtyczki | W aplikacji |
 |---|---|
-| `lib/api.js` | Przenosimy logikę 1:1 (endpointy, obsługa 400 „extra fields”, `localStamp`, stronicowanie `range`). [[docs/integracje/kimai-api\|Kimai API]] |
+| `lib/api.js` | Przenosimy logikę 1:1 (endpointy, obsługa 400 „extra fields”, `localStamp`, stronicowanie `range`). [Kimai API](kimai-api.md) |
 | `lib/validate.js` | Przenosimy 1:1 łącznie z listą ogólników — dobry kandydat na testy jednostkowe. |
 | `_locales/*/messages.json` | Teksty i klucze jako punkt wyjścia tłumaczeń aplikacji. |
-| `background.js` badge | Ikona w tacce + tooltip. [[docs/integracje/statusnotifieritem\|SNI]] |
+| `background.js` badge | Ikona w tacce + tooltip. [SNI](statusnotifieritem.md) |
 | `popup/` | Okno aplikacji (forma zależna od ADR o Waylandzie). |
-| `chrome.storage.sync` token | Magazyn sekretów systemu. [[docs/integracje/secret-service\|Secret Service]] |
+| `chrome.storage.sync` token | Magazyn sekretów systemu. [Secret Service](secret-service.md) |
 | `chrome.storage.local` (lastProject, billableAllowed, kimaiLocale) | Plik stanu w katalogu XDG aplikacji. |
 | `optional_host_permissions` | Niepotrzebne — Flatpak: `--share=network`. |
 
@@ -72,10 +72,10 @@ _locales/pl, /en      teksty
 
 ## Pełny opis zachowań
 
-[[docs/architektura/funkcje|Katalog funkcji F-01…F-14]] — każda funkcja wtyczki
+[Katalog funkcji F-01…F-14](../architektura/funkcje.md) — każda funkcja wtyczki
 rozpisana z endpointami i przypadkami brzegowymi.
 
 ## Powiązane
 
-- [[docs/integracje/kimai-api|Kimai REST API]]
-- [[docs/architektura/przeglad|Przegląd projektu]]
+- [Kimai REST API](kimai-api.md)
+- [Przegląd projektu](../architektura/przeglad.md)

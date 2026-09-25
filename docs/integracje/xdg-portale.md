@@ -21,7 +21,7 @@ zaktualizowano: 2026-09-25
 | **Background** | autostart z sesją, zgoda na działanie w tle, status w tle | F-22 | wysoki — aplikacja tackowa |
 | **Notification** | powiadomienia (długi timer, błąd połączenia) | F-21 | średni |
 | **OpenURI** | otwarcie „Moje czasy” / tokenów API w przeglądarce | F-08 | wysoki |
-| **Secret** | klucz główny do szyfrowania tokenu | F-01 | wysoki — [[docs/integracje/secret-service\|osobny dokument]] |
+| **Secret** | klucz główny do szyfrowania tokenu | F-01 | wysoki — [osobny dokument](secret-service.md) |
 | **GlobalShortcuts** | globalny skrót start/stop | F-24 | niski |
 | **Inhibit** | (opcjonalnie) informacja o wylogowaniu/wyłączeniu przy trwającym timerze | — | niski |
 
@@ -54,7 +54,7 @@ sequenceDiagram
 > [!tip] Start „do tacki”
 > Autostart powinien uruchamiać aplikację z flagą w rodzaju `--hidden` (bez okna),
 > ale **tylko gdy jest host tacki** — inaczej pokazać okno
-> ([[docs/integracje/gnome-appindicator|GNOME bez tacki]]).
+> ([GNOME bez tacki](gnome-appindicator.md)).
 
 ## Notification
 
@@ -102,6 +102,6 @@ kde-portals.conf:
 
 ## Powiązane
 
-- [[docs/integracje/flatpak|Flatpak]]
-- [[docs/integracje/secret-service|Sekrety]]
-- [[docs/architektura/funkcje|Katalog funkcji F-20…F-24]]
+- [Flatpak](flatpak.md)
+- [Sekrety](secret-service.md)
+- [Katalog funkcji F-20…F-24](../architektura/funkcje.md)

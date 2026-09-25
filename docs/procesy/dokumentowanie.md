@@ -61,8 +61,8 @@ Zmieniając plik — aktualizuj `zaktualizowano`.
 
 ## Powiązane
 
-- [[docs/procesy/commity|Konwencja commitów]]
-- [[docs/procesy/zadania|Zadania w TODO]]
+- [Konwencja commitów](commity.md)
+- [Zadania w TODO](zadania.md)
 - [Obsidian — formatowanie](https://help.obsidian.md/Editing+and+formatting/Basic+formatting+syntax)
 - [Obsidian — callouty](https://help.obsidian.md/Editing+and+formatting/Callouts)
 - [Mermaid — składnia](https://mermaid.js.org/intro/syntax-reference.html)

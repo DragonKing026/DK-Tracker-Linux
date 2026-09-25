@@ -13,7 +13,7 @@ zamknieto: 2026-09-25
 # 0003 — Wybór stosu technologicznego
 
 > [!info] Status
-> **zrobione** · priorytet **p0** · [[TODO/README|← tablica zadań]]
+> **zrobione** · priorytet **p0** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -23,10 +23,10 @@ Wybrać język, toolkit UI, sposób realizacji tacki i runtime Flatpaka, zapisa�
 
 Wymagania wynikające z dokumentacji:
 - ikona SNI działająca w Plasmie 6 (Wayland) i w GNOME z AppIndicator
-  ([[docs/integracje/statusnotifieritem|SNI]]),
+  ([SNI](../../../docs/integracje/statusnotifieritem.md)),
 - okno szybkiej obsługi mimo braku pozycjonowania na Waylandzie,
-- sekrety przez portal/Secret Service ([[docs/integracje/secret-service|sekrety]]),
-- paczka Flatpak z minimalnymi `finish-args` ([[docs/integracje/flatpak|Flatpak]]),
+- sekrety przez portal/Secret Service ([sekrety](../../../docs/integracje/secret-service.md)),
+- paczka Flatpak z minimalnymi `finish-args` ([Flatpak](../../../docs/integracje/flatpak.md)),
 - możliwie duże przeniesienie logiki wtyczki (JS) — albo przepisanie z testami.
 
 Wstępni kandydaci (do porównania w ADR):
@@ -66,8 +66,8 @@ Wstępni kandydaci (do porównania w ADR):
 
 ## Wynik
 
-- Decyzja: [[docs/decyzje/0002-stos-python-pyside6|ADR-0002 — Python + PySide6 na runtime KDE]].
-- Integracja: [[docs/integracje/qt-pyside6|Qt 6 / PySide6]].
+- Decyzja: [ADR-0002 — Python + PySide6 na runtime KDE](../../../docs/decyzje/0002-stos-python-pyside6.md).
+- Integracja: [Qt 6 / PySide6](../../../docs/integracje/qt-pyside6.md).
 - Na później: UI w Widgets czy QML, biblioteka HTTP, biblioteka sekretów, forma okna na
-  Waylandzie — w specyfikacji ([[TODO/0002-specyfikacja-projektu/todo|0002]]); sekcja
+  Waylandzie — w specyfikacji ([0002](../../0002-specyfikacja-projektu/todo.md)); sekcja
   „Komendy” w `AGENTS.md` — przy szkielecie projektu.

@@ -11,7 +11,7 @@ zaktualizowano: 2026-09-25
 
 ## Kontekst
 
-Po wyborze PySide6 ([[docs/decyzje/0002-stos-python-pyside6|ADR-0002]]) zostały trzy
+Po wyborze PySide6 ([ADR-0002](0002-stos-python-pyside6.md)) zostały trzy
 decyzje: jak rozdzielić logikę od UI, czym robić HTTP i jak przechowywać token.
 Logika wtyczki (walidacja, billable, formatowanie, klient API) ma zostać przeniesiona
 1:1 i być dobrze przetestowana.
@@ -59,7 +59,7 @@ Zaakceptowane przez użytkownika 2026-09-25.
 
 ## Powiązane
 
-- [[docs/integracje/httpx|httpx]]
-- [[docs/integracje/jeepney|jeepney]]
-- [[docs/integracje/secret-service|Secret Service]]
-- [[docs/integracje/qt-pyside6|Qt / PySide6]]
+- [httpx](../integracje/httpx.md)
+- [jeepney](../integracje/jeepney.md)
+- [Secret Service](../integracje/secret-service.md)
+- [Qt / PySide6](../integracje/qt-pyside6.md)

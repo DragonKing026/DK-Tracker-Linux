@@ -66,7 +66,7 @@ bezpośredniego dostępu. `--share=network` tylko gdy aplikacja naprawdę potrze
 (u nas — tak).
 
 Autostart i powiadomienia idą przez portale i **nie** wymagają `finish-args`
-([[docs/integracje/xdg-portale|Portale XDG]]).
+([Portale XDG](xdg-portale.md)).
 
 ## Budowanie lokalnie
 
@@ -102,7 +102,7 @@ flatpak build-bundle ~/.local/share/flatpak/repo kimai-tray.flatpak pl.websystem
 
 > [!warning]
 > - Ikony SNI wymagają `--talk-name=org.kde.StatusNotifierWatcher`, inaczej ikona nie
->   pojawi się bez żadnego błędu ([[docs/integracje/statusnotifieritem|SNI]]).
+>   pojawi się bez żadnego błędu ([SNI](statusnotifieritem.md)).
 > - Aplikacja w piaskownicy nie może sama dopisać się do `~/.config/autostart` —
 >   autostart przez portal Background.
 > - Czas budowania i rozmiar: runtime KDE/GNOME ~ setki MB przy pierwszej instalacji
@@ -121,6 +121,6 @@ flatpak build-bundle ~/.local/share/flatpak/repo kimai-tray.flatpak pl.websystem
 
 ## Powiązane
 
-- [[docs/integracje/statusnotifieritem|StatusNotifierItem]]
-- [[docs/integracje/xdg-portale|Portale XDG]]
-- [[docs/integracje/secret-service|Sekrety]]
+- [StatusNotifierItem](statusnotifieritem.md)
+- [Portale XDG](xdg-portale.md)
+- [Sekrety](secret-service.md)

@@ -9,8 +9,8 @@ zaktualizowano: 2026-09-25
 
 Każda funkcja ma identyfikator `F-NN`, na który powołują się zadania w `TODO/` i testy.
 Opis zachowania pochodzi z analizy kodu wtyczki
-[[docs/integracje/kimai-ws-tracker|WS Tracker 1.5.1]] — kolumna „Źródło” wskazuje plik.
-Endpointy opisane są w [[docs/integracje/kimai-api|Kimai REST API]].
+[WS Tracker 1.5.1](../integracje/kimai-ws-tracker.md) — kolumna „Źródło” wskazuje plik.
+Endpointy opisane są w [Kimai REST API](../integracje/kimai-api.md).
 
 ## Mapa stanów aplikacji
 
@@ -39,7 +39,7 @@ stateDiagram-v2
 | **Test połączenia** | `GET /api/users/me` → komunikat „Połączono jako *alias/username*” albo powód błędu. |
 | **Zapis** | URL obcięty z końcowych `/`. Zapis ustawień **resetuje blokadę billable** (F-09), bo inny serwer/token może mieć uprawnienie. |
 | **Źródło** | `options/options.js`, `lib/api.js#getSettings` |
-| **Różnica w aplikacji** | Token → magazyn sekretów ([[docs/integracje/secret-service|Secret Service]]), nie plik ustawień. Brak odpowiednika „host permissions” Chrome — Flatpak ma dostęp do sieci przez `--share=network`. |
+| **Różnica w aplikacji** | Token → magazyn sekretów ([Secret Service](../integracje/secret-service.md)), nie plik ustawień. Brak odpowiednika „host permissions” Chrome — Flatpak ma dostęp do sieci przez `--share=network`. |
 
 ## F-02 Ikona w tacce ze stanem
 
@@ -50,7 +50,7 @@ stateDiagram-v2
 | **Kolory wtyczki** | szary `#6b7280` — nic nie trwa / brak konfiguracji; zielony `#16a34a` — trwa; czerwony `#dc2626` + `!` — błąd. |
 | **Odświeżanie** | Co 1 minutę (`chrome.alarms`) + natychmiast po start/stop. |
 | **Źródło** | `background.js` |
-| **Różnica w aplikacji** | Tacka SNI nie ma „badge z tekstem”. Opcje: ikona w wariantach stanu + czas w **tooltipie**/tytule, albo ikona generowana dynamicznie z tekstem. KDE pokazuje tooltip SNI, rozszerzenie AppIndicator w GNOME potrafi pokazać etykietę tekstową obok ikony (`XAyatanaLabel`, do zweryfikowania prototypem). Do decyzji w projekcie UI. Patrz [[docs/integracje/statusnotifieritem|StatusNotifierItem]]. |
+| **Różnica w aplikacji** | Tacka SNI nie ma „badge z tekstem”. Opcje: ikona w wariantach stanu + czas w **tooltipie**/tytule, albo ikona generowana dynamicznie z tekstem. KDE pokazuje tooltip SNI, rozszerzenie AppIndicator w GNOME potrafi pokazać etykietę tekstową obok ikony (`XAyatanaLabel`, do zweryfikowania prototypem). Do decyzji w projekcie UI. Patrz [StatusNotifierItem](../integracje/statusnotifieritem.md). |
 
 ## F-03 Okno szybkiej obsługi (popup)
 
@@ -60,7 +60,7 @@ stateDiagram-v2
 | **Szerokość** | 460 px we wtyczce 1.5.0. |
 | **Stan „nieskonfigurowana”** | Tylko tekst + przycisk „Otwórz ustawienia”. |
 | **Źródło** | `popup/popup.html`, `popup/popup.css` |
-| **Różnica w aplikacji** | Bezramkowe okno narzędziowe: lewy klik ikony pokazuje/chowa, utrata fokusu chowa. Pozycję wybiera kompozytor. Bez hosta tacki działa jako zwykłe okno z ramką. Decyzja: [[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]]. |
+| **Różnica w aplikacji** | Bezramkowe okno narzędziowe: lewy klik ikony pokazuje/chowa, utrata fokusu chowa. Pozycję wybiera kompozytor. Bez hosta tacki działa jako zwykłe okno z ramką. Decyzja: [ADR-0003](../decyzje/0003-okno-szybkiej-obslugi-na-wayland.md). |
 
 ## F-04 Start timera
 
@@ -200,7 +200,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 
 | Id | Funkcja | Uzasadnienie | Status |
 |---|---|---|---|
-| F-20 | Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz okno, otwórz Kimai, ustawienia, zakończ | menu rysuje host tacki, więc zawsze jest przy ikonie | **w 1.0** ([[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland\|ADR-0003]]) |
+| F-20 | Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz okno, otwórz Kimai, ustawienia, zakończ | menu rysuje host tacki, więc zawsze jest przy ikonie | **w 1.0** ([ADR-0003](../decyzje/0003-okno-szybkiej-obslugi-na-wayland.md)) |
 | F-21 | Powiadomienia systemowe (portal Notification) | przypomnienie o długim timerze, problemy z połączeniem | **w 1.0** (szczegóły w specyfikacji) |
 | F-22 | Autostart z sesją (portal Background, opcja w ustawieniach) | aplikacja tackowa powinna startować sama | **w 1.0** |
 | F-23 | Wykrywanie bezczynności | propozycja odjęcia czasu nieaktywności; trudne w Flatpaku na Waylandzie (brak portalu czasu bezczynności) | później |
@@ -227,6 +227,6 @@ Odrzucone na 1.0: „brak timera w godzinach pracy” (wymaga ustawień godzin p
 
 ## Powiązane
 
-- [[docs/architektura/przeglad|Przegląd projektu]]
-- [[docs/integracje/kimai-api|Kimai REST API]]
-- [[docs/integracje/kimai-ws-tracker|WS Tracker]]
+- [Przegląd projektu](przeglad.md)
+- [Kimai REST API](../integracje/kimai-api.md)
+- [WS Tracker](../integracje/kimai-ws-tracker.md)

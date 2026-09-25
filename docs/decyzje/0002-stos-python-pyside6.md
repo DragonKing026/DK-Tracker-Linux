@@ -14,7 +14,7 @@ zaktualizowano: 2026-09-25
 Aplikacja ma siedzieć w tacce systemowej KDE Plasma (priorytet) i GNOME (z rozszerzeniem
 AppIndicator), otwierać okno po **lewym** kliknięciu ikony, być pakowana jako Flatpak
 i odtworzyć logikę wtyczki WS Tracker (JavaScript) — najlepiej z testami.
-Wymagania szczegółowe: [[TODO/DONE/0003-wybor-stosu/todo|zadanie 0003]].
+Wymagania szczegółowe: [zadanie 0003](../../TODO/DONE/0003-wybor-stosu/todo.md).
 
 ## Rozważane opcje
 
@@ -47,7 +47,7 @@ Zaakceptowane przez użytkownika 2026-09-25.
   Manifest musi zawierać `cleanup-commands: [/app/cleanup-BaseApp.sh]`; warto ustawić
   `BASEAPP_REMOVE_WEBENGINE`, bo WebEngine nie jest nam potrzebny.
 - Qt dokumentuje, że w GNOME ≥ 3.26 bez rozszerzeń nie wszystkie `ActivationReason`
-  są obsługiwane. To wymaga sprawdzenia w [[TODO/0004-prototyp-tacki-i-okna/todo|prototypie]].
+  są obsługiwane. To wymaga sprawdzenia w [prototypie](../../TODO/0004-prototyp-tacki-i-okna/todo.md).
 - Tooltip przez `QHelpEvent` i kółko myszy działają tylko na X11. Na Waylandzie tooltip
   ustawiamy właściwością `toolTip` (SNI), bez zdarzeń.
 - Do ustalenia osobno: UI w Qt Widgets czy QML, klient HTTP (np. `QNetworkAccessManager`
@@ -58,6 +58,6 @@ Zaakceptowane przez użytkownika 2026-09-25.
 
 ## Powiązane
 
-- [[docs/integracje/qt-pyside6|Qt / PySide6]]
-- [[docs/integracje/flatpak|Flatpak]]
-- [[docs/integracje/statusnotifieritem|StatusNotifierItem]]
+- [Qt / PySide6](../integracje/qt-pyside6.md)
+- [Flatpak](../integracje/flatpak.md)
+- [StatusNotifierItem](../integracje/statusnotifieritem.md)
