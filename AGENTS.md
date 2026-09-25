@@ -156,7 +156,8 @@ python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"    # raz
 .venv/bin/pytest                                              # testy (bez Dockera i pulpitu)
 .venv/bin/pytest --cov=kimai_tray.core --cov-fail-under=90    # pokrycie rdzenia
 .venv/bin/pytest -m kimai                                     # testy kontraktowe (Docker)
+.venv/bin/pytest -m desktop                                   # D-Bus na prawdziwej sesji (portfel, powiadomienie, portal)
 .venv/bin/ruff format . && .venv/bin/ruff check .             # format + lint (tylko kod produktu)
 ```
 
-> [!todo] Plany 2–4 dopiszą: uruchomienie aplikacji, testy UI, budowę Flatpaka.
+> [!todo] Plany 3–4 dopiszą: uruchomienie aplikacji, testy UI, budowę Flatpaka.
