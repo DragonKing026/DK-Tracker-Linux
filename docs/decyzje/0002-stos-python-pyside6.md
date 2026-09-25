@@ -15,7 +15,7 @@ zaktualizowano: 2026-09-25
 Aplikacja ma siedzieć w tacce systemowej KDE Plasma (priorytet) i GNOME (z rozszerzeniem
 AppIndicator), otwierać okno po **lewym** kliknięciu ikony, być pakowana jako Flatpak
 i odtworzyć logikę wtyczki WS Tracker (JavaScript) — najlepiej z testami.
-Wymagania szczegółowe: [zadanie 0003](../../TODO/DONE/0003-wybor-stosu/todo.md).
+Wymagania szczegółowe: [zadanie 0003](../../TODO/ZROBIONE/0003-wybor-stosu/todo.md).
 
 ## Rozważane opcje
 

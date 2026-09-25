@@ -11,9 +11,18 @@ zaktualizowano: 2026-09-25
 Każde zadanie to **osobny podfolder** z plikiem `todo.md`. Folder zadania jest też
 miejscem na wszystko, co z nim związane: zrzuty ekranu, szkice, logi, notatki badawcze.
 
-- **Aktywne** zadania leżą bezpośrednio w `TODO/`.
-- **Zakończone** (`zrobione` albo `porzucone`) przenosimy w całości do `TODO/DONE/`
-  (`git mv`, żeby historia pliku została zachowana).
+Folder zadania leży w podfolderze **według statusu**:
+
+| Podfolder | Statusy | Co tam jest |
+|---|---|---|
+| [TODO/DO-ZROBIENIA/](../../TODO/DO-ZROBIENIA) | `pomysl`, `do-zrobienia` | zadania czekające na start |
+| [TODO/W-TRAKCIE/](../../TODO/W-TRAKCIE) | `w-trakcie`, `zablokowane` | zadania rozpoczęte |
+| [TODO/DONE/](../../TODO/ZROBIONE) | `zrobione`, `porzucone` | zadania zakończone |
+
+- Nowe zadanie powstaje w `DO-ZROBIENIA/`.
+- **Zmiana statusu, która zmienia grupę, przenosi folder**. Przenosimy wyłącznie
+  skryptem `linki.py przenies` (skill `sprawdz-linki`). Robi `git mv`, więc historia
+  pliku zostaje, a linki poprawiają się same.
 - [TODO/README.md](../../TODO/README.md) zawiera **linki do wszystkich aktywnych zadań** i do zakończonych.
 
 ## Materiały zadania — wszystko w folderze zadania
@@ -43,9 +52,12 @@ Zasady:
 
 ```
 TODO/
-  README.md                     ← tablica: linki do zadań aktywnych i zakończonych
+  README.md                     ← tablica: linki do wszystkich zadań, pogrupowane jak foldery
   _szablon/todo.md              ← szablon (kopiowany przez skill nowe-zadanie)
-  0002-specyfikacja-projektu/   ← zadanie aktywne
+  DO-ZROBIENIA/
+    0004-prototyp-tacki-i-okna/
+  W-TRAKCIE/
+    0002-specyfikacja-projektu/ ← przykład zadania
     todo.md                     ← opis zadania (zawsze)
     zrzuty/                     ← zrzuty ekranu
     diagramy/                   ← diagramy wyeksportowane (PNG/SVG), źródła (.drawio, .excalidraw)
@@ -53,34 +65,45 @@ TODO/
     prototyp/                   ← kod roboczy / spike (do wyrzucenia, nie trafia do src/)
     notatki/                    ← notatki badawcze, wycinki z dokumentacji, porównania
     dane/                       ← przykładowe odpowiedzi API, pliki wejściowe
-  DONE/                         ← zadania zakończone
+  DONE/
     0001-struktura-agenta-i-dokumentacja/
-      todo.md
 ```
 
 ## Nazewnictwo
 
 `NNNN-krotki-slug` — czterocyfrowy kolejny numer + slug bez polskich znaków,
 np. `0005-klient-api-kimai`. Numer nigdy nie jest używany ponownie — przy ustalaniu
-następnego numeru bierzemy pod uwagę także `TODO/DONE/`.
+następnego numeru bierzemy pod uwagę wszystkie trzy podfoldery.
 
 ## Cykl życia zadania
 
 ```mermaid
 stateDiagram-v2
+    state "DO-ZROBIENIA/" as DZ {
+        pomysl
+        do_zrobienia
+    }
+    state "W-TRAKCIE/" as WT {
+        w_trakcie
+        zablokowane
+    }
+    state "DONE/" as DN {
+        zrobione
+        porzucone
+    }
     [*] --> pomysl
     pomysl --> do_zrobienia: doprecyzowane
-    do_zrobienia --> w_toku: start pracy
-    w_toku --> zablokowane: brak decyzji / zależność
-    zablokowane --> w_toku: odblokowane
-    w_toku --> zrobione: kryteria spełnione
+    do_zrobienia --> w_trakcie: start pracy
+    w_trakcie --> zablokowane: brak decyzji / zależność
+    zablokowane --> w_trakcie: odblokowane
+    w_trakcie --> zrobione: kryteria spełnione
     pomysl --> porzucone
     do_zrobienia --> porzucone
     zrobione --> [*]
     porzucone --> [*]
 ```
 
-Wartości pola `status` we frontmatterze: `pomysl`, `do-zrobienia`, `w-toku`,
+Wartości pola `status` we frontmatterze: `pomysl`, `do-zrobienia`, `w-trakcie`,
 `zablokowane`, `zrobione`, `porzucone`.
 
 Priorytety: `p0` (krytyczne, blokuje inne), `p1` (ważne), `p2` (normalne), `p3` (kiedyś).

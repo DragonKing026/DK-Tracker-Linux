@@ -30,7 +30,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 ## Kryteria akceptacji
 
 - [x] Ustalony zakres 1.0: F-20, F-21, F-22 wchodzą; F-23, F-24 później
-- [x] Zatwierdzony stos ([0003](../../DONE/0003-wybor-stosu/todo.md) → [ADR-0002](../../../docs/decyzje/0002-stos-python-pyside6.md): Python + PySide6)
+- [x] Zatwierdzony stos ([0003](../../ZROBIONE/0003-wybor-stosu/todo.md) → [ADR-0002](../../../docs/decyzje/0002-stos-python-pyside6.md): Python + PySide6)
 - [x] Zatwierdzona forma okna na Waylandzie ([ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md))
 - [ ] Spec zapisana w `docs/specyfikacja/` i zaakceptowana przez użytkownika
 - [ ] Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) zaplanowana (uzupełniana przy szkielecie projektu)
