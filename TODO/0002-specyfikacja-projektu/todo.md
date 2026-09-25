@@ -53,6 +53,8 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Pytanie 3 (zakres) → autostart i powiadomienia w 1.0; bezczynność i skrót później.
 - Pytanie 4 (powiadomienia) → długi timer, utrata połączenia, potwierdzenie z menu ([F-21](../../docs/architektura/funkcje.md)).
 - Podejście → 1: rdzeń w czystym Pythonie, httpx, jeepney, Qt Widgets ([ADR-0004](../../docs/decyzje/0004-architektura-rdzen-python-ui-qt.md)).
+- Użytkownik przypomniał: aplikacja w pełnej wersji PL i EN → doprecyzowano [F-13](../../docs/architektura/funkcje.md).
+- Sekcja 1 projektu (moduły i katalogi) zaakceptowana.
 - Nowe zasady od użytkownika: materiały zadań w podfolderach, linki markdown wszędzie ([sprawdz-linki](../../.claude/skills/sprawdz-linki/SKILL.md)).
 
 ## Wynik
