@@ -25,15 +25,14 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0039 | [Plan 3 · Zadanie 11: Kontroler aplikacji (`ui/app.py`)](W-TRAKCIE/0039-plan3-kontroler/todo.md) | 🔨 w-trakcie | p1 | [0038](ZROBIONE/0038-plan3-most-do-dbus/todo.md) ✅ |
+| 0040 | [Plan 3 · Zadanie 12: Start aplikacji (`ui/main.py`, `__main__.py`)](W-TRAKCIE/0040-plan3-start-aplikacji/todo.md) | 🔨 w-trakcie | p1 | [0039](ZROBIONE/0039-plan3-kontroler/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0040 | [Plan 3 · Zadanie 12: Start aplikacji (`ui/main.py`, `__main__.py`)](DO-ZROBIENIA/0040-plan3-start-aplikacji/todo.md) | 📋 do-zrobienia | p1 | [0039](W-TRAKCIE/0039-plan3-kontroler/todo.md) |
-| 0041 | [Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze](DO-ZROBIENIA/0041-plan3-test-na-zywo/todo.md) | 📋 do-zrobienia | p1 | [0040](DO-ZROBIENIA/0040-plan3-start-aplikacji/todo.md) |
+| 0041 | [Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze](DO-ZROBIENIA/0041-plan3-test-na-zywo/todo.md) | 📋 do-zrobienia | p1 | [0040](W-TRAKCIE/0040-plan3-start-aplikacji/todo.md) |
 
 ## Zrobione
 
@@ -76,6 +75,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0036 | [Plan 3 · Zadanie 8: Okno szybkiej obsługi i jego miejsce (`ui/popup.py`, `ui/placement.py`)](ZROBIONE/0036-plan3-okno-szybkiej-obslugi/todo.md) | ✅ zrobione | 2026-09-25 23:10 |
 | 0037 | [Plan 3 · Zadanie 9: Ustawienia (`ui/settings_dialog.py`)](ZROBIONE/0037-plan3-ustawienia/todo.md) | ✅ zrobione | 2026-09-25 23:10 |
 | 0038 | [Plan 3 · Zadanie 10: Usługi pulpitu w wątkach UI (`ui/desktop_bridge.py`)](ZROBIONE/0038-plan3-most-do-dbus/todo.md) | ✅ zrobione | 2026-09-25 23:10 |
+| 0039 | [Plan 3 · Zadanie 11: Kontroler aplikacji (`ui/app.py`)](ZROBIONE/0039-plan3-kontroler/todo.md) | ✅ zrobione | 2026-09-25 23:10 |
 
 <!-- tablica:end -->
 
