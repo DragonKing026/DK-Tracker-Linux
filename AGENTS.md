@@ -61,11 +61,15 @@ Pełny opis struktury: [[docs/architektura/struktura-repozytorium|docs/architekt
 7. **Weryfikuj fakty o bibliotekach** przez Context7 / oficjalną dokumentację — nie
    z pamięci. Linki w docs muszą prowadzić do źródeł.
 8. **Obrazy i diagramy**: diagramy jako bloki ` ```mermaid ` bezpośrednio w `.md`
-   (Obsidian i GitHub je renderują). Zrzuty ekranu do `docs/assets/` lub do folderu
-   zadania w `TODO/<zadanie>/assets/`, osadzane przez `![[plik.png]]`.
-9. **Sekrety**: token API Kimai nigdy nie trafia do repo, logów ani plików konfiguracyjnych
+   (Obsidian i GitHub je renderują).
+9. **Materiały zadania w folderze zadania.** Wszystko, co powstaje przy zadaniu, trafia
+   do jego folderu, w podfolder według rodzaju: `zrzuty/`, `diagramy/`, `testy/`
+   (raporty, logi, testy ręczne), `prototyp/`, `notatki/`, `dane/`. Każdy plik jest
+   podlinkowany w `todo.md`. Do `docs/assets/` trafiają tylko obrazy wspólne dla
+   dokumentacji. Szczegóły: [[docs/procesy/zadania|docs/procesy/zadania.md]].
+10. **Sekrety**: token API Kimai nigdy nie trafia do repo, logów ani plików konfiguracyjnych
    w czystym tekście — tylko do magazynu sekretów systemu (Secret Service / portal).
-10. **Bez telemetrii.** Aplikacja łączy się wyłącznie z adresem Kimai podanym przez użytkownika.
+11. **Bez telemetrii.** Aplikacja łączy się wyłącznie z adresem Kimai podanym przez użytkownika.
 
 ## 4. Konwencje dokumentów (Obsidian)
 
