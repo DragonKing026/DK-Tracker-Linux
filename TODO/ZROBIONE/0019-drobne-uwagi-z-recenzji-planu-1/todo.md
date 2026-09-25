@@ -2,19 +2,19 @@
 noteId: "bcf5beb0ad794d21b3b5bcbd8c8eb137"
 tytul: "Drobne uwagi z recenzji Planu 1 (rdzeń)"
 numer: "0019"
-status: w-trakcie
+status: zrobione
 priorytet: p3
 tags: [todo, core, recenzja]
 zalezy_od: ["0018"]
 utworzono: 2026-09-25 19:15
-zaktualizowano: 2026-09-25 19:54
-zamknieto:
+zaktualizowano: 2026-09-25 19:55
+zamknieto: 2026-09-25 19:55
 ---
 
 # 0019 — Drobne uwagi z recenzji Planu 1 (rdzeń)
 
 > [!info] Status
-> **w-trakcie** · priorytet **p3** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p3** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -29,7 +29,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 
 ## Kryteria akceptacji
 
-- [ ] Każda uwaga: poprawiona (test RED→GREEN) albo świadomie odrzucona z uzasadnieniem w dzienniku
+- [x] Każda uwaga: poprawiona (test RED→GREEN) albo świadomie odrzucona z uzasadnieniem w dzienniku
 
 ## Kroki (uwagi odłożone)
 
@@ -42,7 +42,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - [x] Sumy na żywo — **poprawione**: (7a) trwający wpis liczony do dnia rozpoczęcia, jak w Kimai; (7b) lekkie odświeżenie przelicza sumy, gdy zmieni się zestaw trwających wpisów
 - [x] Powiadomienie N-01 ma wspólny identyfikator dla kilku długich timerów — **poprawione**: `long-timer-<id>` i `Notification.entry_id` (przycisk „Zatrzymaj” działa na właściwy wpis)
 - [x] Nowe (z testów na 2.65.0): preferencja `first_weekday` — **poprawione**: `User.first_weekday`, `week_start(..., first_weekday)`, sumy tygodnia od dnia z profilu Kimai
-- [ ] [funkcje.md](../../../docs/architektura/funkcje.md) F-12 opisuje stronicowanie 100×3, kod używa 500×10
+- [x] [funkcje.md](../../../docs/architektura/funkcje.md) F-12 opisuje stronicowanie 100×3, kod używa 500×10 — **poprawione w dokumentacji**
 
 ## Materiały
 
@@ -60,7 +60,25 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - **19:44** Uwaga 7: poprawiona (obie części), 170 testów zielonych.
 - **19:47** Uwaga 8: poprawiona, 171 testów zielonych.
 - **19:54** Uwaga 9 (`first_weekday`): poprawiona, 175 testów + kontraktowe na 2.65.0 zielone.
+- **19:55** Uwaga 10: dokumentacja F-12 poprawiona.
+- **19:55** Zamknięte: wszystkie 10 uwag rozstrzygniętych z użytkownikiem.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+Przegląd 10 uwag z użytkownikiem, po kolei, z decyzją przy każdej:
+
+| # | Uwaga | Decyzja |
+|---|---|---|
+| 1 | Brak strefy z serwera → po cichu UTC | **poprawione**: `preferences`, potem strefa komputera + komunikat `warnTimezoneMissing` |
+| 2 | Strefa zapasowa bez zmiany czasu | odrzucone z notatką (nie dotyczy Kimai 2.65.0) |
+| 3 | Uzgodnienie po timeoucie bez minuty początku | odrzucone z notatką (rzadkie, nieszkodliwe) |
+| 4 | Błąd zapisu stanu psuje start/odświeżanie | **poprawione** |
+| 5 | 403 traktowany jak zły token | **poprawione** (sprawdzone na 2.65.0): `FORBIDDEN`, `Entry.exported` |
+| 6 | Przekierowanie jako „błąd 301” | **poprawione** (wariant b): nowy adres w komunikacie |
+| 7 | Sumy na żywo | **poprawione**: dzień rozpoczęcia + przeliczanie po zmianach poza aplikacją |
+| 8 | Wspólny identyfikator powiadomień N-01 | **poprawione**: `long-timer-<id>`, `entry_id` |
+| 9 | `first_weekday` (znalezione na 2.65.0) | **poprawione** |
+| 10 | Opis stronicowania w F-12 | **poprawione** w dokumentacji |
+
+Kod: 175 testów zielonych, testy kontraktowe 9/9 na Kimai 2.65.0 (wersja firmy) i 2.67.0.
+Dokumentacja: [kimai-api](../../../docs/integracje/kimai-api.md) (wersja firmy, 403, 3xx, strefa, `first_weekday`), [funkcje](../../../docs/architektura/funkcje.md) (F-12, F-14, F-21).

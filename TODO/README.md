@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 19:20
+zaktualizowano: 2026-09-25 19:55
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0019 | [Drobne uwagi z recenzji Planu 1 (rdzeń)](W-TRAKCIE/0019-drobne-uwagi-z-recenzji-planu-1/todo.md) | 🔨 w-trakcie | p3 | [0018](ZROBIONE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -54,6 +53,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0016 | [Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)](ZROBIONE/0016-plan1-polityka-powiadomien/todo.md) | ✅ zrobione | 2026-09-25 19:03 |
 | 0017 | [Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze](ZROBIONE/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) | ✅ zrobione | 2026-09-25 19:04 |
 | 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](ZROBIONE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | ✅ zrobione | 2026-09-25 19:05 |
+| 0019 | [Drobne uwagi z recenzji Planu 1 (rdzeń)](ZROBIONE/0019-drobne-uwagi-z-recenzji-planu-1/todo.md) | ✅ zrobione | 2026-09-25 19:55 |
 
 <!-- tablica:end -->
 
