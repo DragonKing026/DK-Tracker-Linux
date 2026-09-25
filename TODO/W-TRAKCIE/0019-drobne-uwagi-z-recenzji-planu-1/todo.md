@@ -7,7 +7,7 @@ priorytet: p3
 tags: [todo, core, recenzja]
 zalezy_od: ["0018"]
 utworzono: 2026-09-25 19:15
-zaktualizowano: 2026-09-25 19:26
+zaktualizowano: 2026-09-25 19:30
 zamknieto:
 ---
 
@@ -34,7 +34,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 ## Kroki (uwagi odłożone)
 
 - [x] Pusta/brakująca strefa w `User.from_api` daje "UTC" — **poprawione**: odczyt z `preferences`, potem strefa systemu + ostrzeżenie `warnTimezoneMissing` (decyzja użytkownika: opcja 1 + komunikat)
-- [ ] Zapasowa strefa to stałe przesunięcie, bez zmiany czasu (tylko gdy strefa Kimai nieznana) — np. `ZoneInfo("localtime")`
+- [x] ~~Zapasowa strefa to stałe przesunięcie, bez zmiany czasu~~ — **odrzucone z notatką**: ścieżka działa tylko, gdy serwer nie zwraca strefy (Kimai firmy 2.65.0 zwraca); skutek to co najwyżej suma tygodnia przesunięta o godzinę raz w roku. Gdyby aplikacja miała obsługiwać inne serwery: odczytać strefę z dowiązania `/etc/localtime` (np. `Europe/Warsaw`) zamiast stałego przesunięcia z `datetime.now().astimezone()`.
 - [ ] Uzgodnienie po timeoucie startu porównuje projekt/czynność/opis, ale nie minutę początku
 - [ ] `OSError` przy zapisie pamięci (pełny dysk) wychodzi z odświeżania/startu
 - [ ] Każdy 403 traktowany jak zły token — sprawdzić na Kimai w Dockerze 403 przy edycji zablokowanego/wyeksportowanego wpisu
@@ -52,6 +52,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 - Utworzono z listy „minor (deferred)” końcowej recenzji Planu 1.
 - **19:20** Przegląd uwag z użytkownikiem, po kolei.
 - **19:26** Uwaga 1: poprawiona (commit „fix(core): brak strefy z Kimai…”). Kimai firmy 2.65.0 — testy kontraktowe 8/8 na tej wersji; znaleziono `first_weekday`.
+- **19:30** Uwaga 2: odrzucona z notatką (decyzja użytkownika) — nie dotyczy serwera firmy.
 
 ## Wynik
 
