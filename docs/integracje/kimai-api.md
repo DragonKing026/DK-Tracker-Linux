@@ -3,7 +3,7 @@ noteId: "d4ca0ed1ee384a2392516906d96bbf7b"
 tytul: Kimai REST API
 tags: [integracja, kimai, api, http]
 status_integracji: w-uzyciu
-wersja: Kimai 2.x (dokumentacja 2.67.0; wtyczka deklaruje zgodność z nowoczesnym tokenem Bearer)
+wersja: Kimai 2.x — firma 2.65.0; testowane na 2.65.0 i 2.67.0
 utworzono: 2026-09-25 17:19
 zaktualizowano: 2026-09-25 19:02
 ---
@@ -96,6 +96,22 @@ Pole `billable` w formularzu API istnieje tylko dla kont z tym uprawnieniem (dom
 teamlead i wyżej). Administrator włącza je dla `ROLE_USER` w: **Administracja → Role →
 kolumna ROLE_USER → sekcja „Timesheet (own)”**. Szczegóły:
 [F-09](../architektura/funkcje.md).
+
+## Wersja Kimai firmy
+
+**Kimai firmy: 2.65.0** (podane przez użytkownika 2026-09-25 19:26). Zweryfikowano na obrazie
+`kimai/kimai2:2.65.0` w Dockerze: testy kontraktowe rdzenia 8/8, `/api/users/me` zwraca pole
+`timezone` (oraz `language`, `locale`, listę `preferences` bez strefy — m.in.
+`first_weekday: monday`). Testy na tej wersji: `KIMAI_VERSION=2.65.0 tests/kimai/kimai-testowe.sh up`.
+
+> [!note] Strefa czasowa w starszych wersjach
+> Gdy odpowiedź nie ma pola `timezone`, rdzeń szuka `preferences[name=timezone]`; gdy i tam
+> brak — używa strefy komputera i pokazuje ostrzeżenie `warnTimezoneMissing` (nigdy nie
+> zakłada UTC).
+
+> [!warning] Początek tygodnia
+> Preferencja `first_weekday` (np. `monday` / `sunday`) ustala początek tygodnia konta.
+> Sumy tygodniowe rdzenia liczą zawsze od poniedziałku — do decyzji w zadaniu 0019.
 
 ## Ustawienia serwera, które zmieniają zachowanie API
 
