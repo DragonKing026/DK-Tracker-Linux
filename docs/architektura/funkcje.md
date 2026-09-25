@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 20:38
+zaktualizowano: 2026-09-25 21:59
 ---
 
 # Katalog funkcji
@@ -51,7 +51,7 @@ stateDiagram-v2
 | **Kolory wtyczki** | szary `#6b7280` — nic nie trwa / brak konfiguracji; zielony `#16a34a` — trwa; czerwony `#dc2626` + `!` — błąd. |
 | **Odświeżanie** | Co 1 minutę (`chrome.alarms`) + natychmiast po start/stop. |
 | **Źródło** | `background.js` |
-| **Różnica w aplikacji** | Tacka SNI nie ma „badge z tekstem”. Opcje: ikona w wariantach stanu + czas w **tooltipie**/tytule, albo ikona generowana dynamicznie z tekstem. KDE pokazuje tooltip SNI, rozszerzenie AppIndicator w GNOME potrafi pokazać etykietę tekstową obok ikony (`XAyatanaLabel`, do zweryfikowania prototypem). Do decyzji w projekcie UI. Patrz [StatusNotifierItem](../integracje/statusnotifieritem.md). |
+| **Różnica w aplikacji** | Tacka SNI nie ma „badge z tekstem”, więc **czas rysujemy w samej ikonie** (wariant C, decyzja użytkownika 2026-09-25): nic nie trwa → szary zegar; trwa → `47m` / `1:22` białym pogrubionym tekstem na zielonym zaokrąglonym kwadracie; błąd → `!` na czerwonym. Pełna informacja (czas, projekt, opis) w **tooltipie**. Makieta: [0028](../../TODO/W-TRAKCIE/0028-plan3-projekt-ui/zrzuty/ikony-warianty.png). Etykieta obok ikony na GNOME (`XAyatanaLabel`) — do sprawdzenia w [0020](../../TODO/DO-ZROBIENIA/0020-testy-gnome/todo.md). Patrz [StatusNotifierItem](../integracje/statusnotifieritem.md). |
 
 ## F-03 Okno szybkiej obsługi (popup)
 
