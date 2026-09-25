@@ -2,7 +2,7 @@
 noteId: "e907f3179ef74e638478cb910aaa1405"
 tytul: "Plan 1 · Zadanie 10: Tracker — stan i odświeżanie (`tracker.py` część 1)"
 numer: "0014"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0013"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0014 — Plan 1 · Zadanie 10: Tracker — stan i odświeżanie (`tracker.py` część 1)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -54,6 +54,7 @@ Wykonać **zadanie 10** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
