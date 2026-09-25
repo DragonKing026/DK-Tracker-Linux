@@ -20,9 +20,9 @@ Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md). Szablon: [T
    mkdir -p "TODO/NNNN-slug"
    cp TODO/_szablon/todo.md "TODO/NNNN-slug/todo.md"
    ```
-4. **Wypełnij** wszystkie `{{...}}`: `{{NNNN}}`, `{{TYTUL}}`, `{{DATA}}` (dzisiejsza ISO),
+4. **Wypełnij** wszystkie `{{...}}`: `{{NOTEID}}` (świeży: `python3 .claude/skills/frontmatter/frontmatter.py noteid`), `{{NNNN}}`, `{{TYTUL}}`, `{{DATA}}` (dzisiejsza ISO),
    `{{STATUS}}`, `{{PRIORYTET}}`. Uzupełnij pola frontmattera `status`, `priorytet`,
-   `tagi`, `zalezy_od` (lista nazw folderów, np. `["0003-wybor-stosu"]`).
+   `tags`, `zalezy_od` (lista nazw folderów, np. `["0003-wybor-stosu"]`).
 5. **Treść** — rzetelnie: Cel, Kontekst (z linkami markdown do docs/integracji/ADR/zadań — każde odwołanie jest linkiem),
    sprawdzalne Kryteria akceptacji, Kroki. Jeśli pomaga — diagram `mermaid`.
    **Wszystkie materiały zadania** w jego folderze, w podfolderach według rodzaju
@@ -35,7 +35,8 @@ Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md). Szablon: [T
    ```
    Link markdown ze ścieżką względną (działa w Obsidianie i na GitHubie).
    Wiersze sortuj po numerze.
-7. **Linki**: `python3 .claude/skills/sprawdz-linki/linki.py sprawdz` → „Wszystkie linki OK.”
+7. **Kontrola**: `python3 .claude/skills/sprawdz-linki/linki.py sprawdz` → „Wszystkie linki OK.”
+   i `python3 .claude/skills/frontmatter/frontmatter.py sprawdz` → „Frontmatter OK.”
 8. **Commit** (skill `commit`): `todo: dodaj zadanie NNNN-slug`.
 
 ## Sprawdź przed commitem
