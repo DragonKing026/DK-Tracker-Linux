@@ -53,7 +53,7 @@ Wstępni kandydaci (do porównania w ADR):
 - [x] Porównanie opcji ze źródłami
 - [x] ADR `docs/decyzje/0002-*.md` zaakceptowany przez użytkownika
 - [x] Dokumenty integracji dla wybranych bibliotek (Qt/PySide6; HTTP i sekrety — przy wyborze tych bibliotek)
-- [ ] ~~Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) uzupełniona~~ → przeniesione do zadania [0002](../../0002-specyfikacja-projektu/todo.md) (wymaga szkieletu projektu)
+- [ ] ~~Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) uzupełniona~~ → przeniesione do zadania [0002](../../W-TRAKCIE/0002-specyfikacja-projektu/todo.md) (wymaga szkieletu projektu)
 
 ## Dziennik
 
@@ -70,5 +70,5 @@ Wstępni kandydaci (do porównania w ADR):
 - Decyzja: [ADR-0002 — Python + PySide6 na runtime KDE](../../../docs/decyzje/0002-stos-python-pyside6.md).
 - Integracja: [Qt 6 / PySide6](../../../docs/integracje/qt-pyside6.md).
 - Na później: UI w Widgets czy QML, biblioteka HTTP, biblioteka sekretów, forma okna na
-  Waylandzie — w specyfikacji ([0002](../../0002-specyfikacja-projektu/todo.md)); sekcja
+  Waylandzie — w specyfikacji ([0002](../../W-TRAKCIE/0002-specyfikacja-projektu/todo.md)); sekcja
   „Komendy” w [AGENTS.md](../../../AGENTS.md) — przy szkielecie projektu.

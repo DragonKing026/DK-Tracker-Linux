@@ -44,4 +44,4 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 
 - [AGENTS.md](../AGENTS.md) — reguły pracy (kanoniczne)
 - [CLAUDE.md](../CLAUDE.md) — dodatki dla Claude Code
-- [.claude/skills/](../.claude/skills/) — skille powtarzalnych zadań: [commit](../.claude/skills/commit/SKILL.md), [nowe-zadanie](../.claude/skills/nowe-zadanie/SKILL.md), [zamknij-zadanie](../.claude/skills/zamknij-zadanie/SKILL.md), [nowa-integracja](../.claude/skills/nowa-integracja/SKILL.md), [nowa-decyzja](../.claude/skills/nowa-decyzja/SKILL.md), [sprawdz-linki](../.claude/skills/sprawdz-linki/SKILL.md)
+- [.claude/skills/](../.claude/skills) — skille powtarzalnych zadań: [commit](../.claude/skills/commit/SKILL.md), [nowe-zadanie](../.claude/skills/nowe-zadanie/SKILL.md), [zamknij-zadanie](../.claude/skills/zamknij-zadanie/SKILL.md), [nowa-integracja](../.claude/skills/nowa-integracja/SKILL.md), [nowa-decyzja](../.claude/skills/nowa-decyzja/SKILL.md), [sprawdz-linki](../.claude/skills/sprawdz-linki/SKILL.md)

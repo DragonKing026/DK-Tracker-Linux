@@ -56,5 +56,5 @@ są zawsze dostępne tuż przy ikonie. Wariant B jest opcjonalnym ulepszeniem i 
 ## Powiązane
 
 - [F-03](../architektura/funkcje.md), [F-20](../architektura/funkcje.md)
-- [Prototyp 0004](../../TODO/0004-prototyp-tacki-i-okna/todo.md)
+- [Prototyp 0004](../../TODO/DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md)
 - [Qt / PySide6](../integracje/qt-pyside6.md)

@@ -11,7 +11,7 @@ zaktualizowano: 2026-09-25
 Zasady: [Zadania w folderze TODO](../docs/procesy/zadania.md) · Szablon: [_szablon](_szablon/todo.md)
 
 Aktywne zadania leżą bezpośrednio w `TODO/`, zakończone (`zrobione` / `porzucone`)
-są przenoszone do [`TODO/DONE/`](DONE/).
+są przenoszone do [`TODO/DONE/`](DONE).
 
 Legenda statusów: 💡 `pomysl` · 📋 `do-zrobienia` · 🔨 `w-toku` · ⛔ `zablokowane` ·
 ✅ `zrobione` · 🗑️ `porzucone`
@@ -20,8 +20,8 @@ Legenda statusów: 💡 `pomysl` · 📋 `do-zrobienia` · 🔨 `w-toku` · ⛔ 
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0002 | [Specyfikacja projektu i plan](0002-specyfikacja-projektu/todo.md) | 🔨 w-toku | p0 | — |
-| 0004 | [Prototyp tacki i okna (spike)](0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](DONE/0003-wybor-stosu/todo.md) ✅ |
+| 0002 | [Specyfikacja projektu i plan](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-toku | p0 | — |
+| 0004 | [Prototyp tacki i okna (spike)](DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](DONE/0003-wybor-stosu/todo.md) ✅ |
 
 ## Zakończone (`TODO/DONE/`)
 
