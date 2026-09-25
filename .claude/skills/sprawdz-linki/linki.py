@@ -7,7 +7,8 @@ Usage (run from the repository root):
   python3 .claude/skills/sprawdz-linki/linki.py przenies SRC DST   # git mv + rewrite every affected link
   python3 .claude/skills/sprawdz-linki/linki.py wikilinki          # convert [[wikilinks]] to Markdown links
 
-Links inside fenced code blocks, inline code and HTML comments are ignored, so examples in
+Links inside YAML front matter, fenced code blocks, inline code and HTML comments
+are ignored, so examples in
 skills and templates are never touched. External links (http, mailto) and
 pure anchors (#...) are skipped.
 """
@@ -65,6 +66,10 @@ def code_mask(text: str) -> list[bool]:
                 for i in range(pos + m.start(), pos + m.end()):
                     mask[i] = True
         pos += len(line)
+    front = re.match(r"---\n.*?\n---\n", text, re.S)
+    if front:
+        for i in range(front.end()):
+            mask[i] = True
     for m in re.finditer(r"<!--.*?-->", text, re.S):
         for i in range(m.start(), m.end()):
             mask[i] = True
