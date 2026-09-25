@@ -25,7 +25,7 @@ Wykonać **zadanie 5** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 - Plan: [2026-09-25-plan-2-desktop.md](../../../docs/plany/2026-09-25-plan-2-desktop.md) — kod, testy i komendy każdego kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md).
-- Rozpoznanie API: [rozpoznanie.md](../../W-TRAKCIE/0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
+- Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 - Pliki:
 - Create: `tests/desktop/test_na_zywo.py`
 - Modify: `AGENTS.md` (sekcja „Komendy”)

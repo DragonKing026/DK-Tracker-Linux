@@ -17,7 +17,7 @@ zaktualizowano: 2026-09-25 21:00
 
 **Tech Stack:** Python ≥ 3.13, jeepney 0.9 (czysty Python), pytest.
 
-**Spec:** [docs/specyfikacja/2026-09-25-kimai-tray-1.0.md](../specyfikacja/2026-09-25-kimai-tray-1.0.md) (sekcje 7–9), decyzje [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md), fakty: [rozpoznanie API](../../TODO/W-TRAKCIE/0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
+**Spec:** [docs/specyfikacja/2026-09-25-kimai-tray-1.0.md](../specyfikacja/2026-09-25-kimai-tray-1.0.md) (sekcje 7–9), decyzje [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md), fakty: [rozpoznanie API](../../TODO/ZROBIONE/0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md).
 
 ## Global Constraints
 

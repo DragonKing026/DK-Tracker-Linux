@@ -2,19 +2,19 @@
 noteId: "ce20d9b12f1d4093906f58ad5b32edec"
 tytul: "Plan 2 — rozpoznanie API integracji desktopowych"
 numer: "0021"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, plan-2, spike]
 zalezy_od: ["0004"]
 utworzono: 2026-09-25 20:46
-zaktualizowano: 2026-09-25 20:51
-zamknieto:
+zaktualizowano: 2026-09-25 21:06
+zamknieto: 2026-09-25 21:06
 ---
 
 # 0021 — Plan 2: rozpoznanie API integracji desktopowych
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -39,6 +39,7 @@ zanim powstanie Plan 2 z gotowym kodem.
 ### 2026-09-25
 - **20:46** Próby wykonane; użytkownik klikał przyciski powiadomień (host i Flatpak).
 - **20:51** Plan 2 napisany i zweryfikowany (206 + 3 testy).
+- **21:06** Zamknięte: rozpoznanie wykorzystane w Planie 2 (wykonany, zadania 0022–0026).
 
 ## Wynik
 
