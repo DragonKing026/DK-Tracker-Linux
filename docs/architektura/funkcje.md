@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 19:39
+zaktualizowano: 2026-09-25 19:44
 ---
 
 # Katalog funkcji
@@ -179,6 +179,13 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 - Błąd → sumy ukryte (nie blokuje reszty okna).
 
 Źródło: `popup.js#renderTotals`, `api.js#range`.
+
+**Różnice w aplikacji** (poprawki z recenzji, zadanie 0019):
+- Trwający wpis jest doliczany **do dnia, w którym się zaczął** — do „Dziś” tylko, gdy zaczął
+  się dziś, do „Tydzień” tylko, gdy zaczął się w tym tygodniu. Tak liczy Kimai, więc po
+  zatrzymaniu godziny nie przeskakują między dniami (wtyczka dodawała cały czas do dziś).
+- Gdy zmieni się zestaw trwających wpisów (np. stop we wtyczce lub w panelu Kimai), lekkie
+  odświeżenie co minutę dociąga też sumy.
 
 ## F-13 Język interfejsu
 
