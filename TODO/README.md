@@ -26,14 +26,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0002 | [Specyfikacja projektu (design) i plan implementacji](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-trakcie | p0 | — |
-| 0011 | [Plan 1 · Zadanie 7: Klient Kimai API (`kimai_client.py`)](W-TRAKCIE/0011-plan1-klient-kimai-api/todo.md) | 🔨 w-trakcie | p1 | [0010](ZROBIONE/0010-plan1-grupowanie-list-i-reguly-billable/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0004 | [Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku](DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) ✅ |
-| 0012 | [Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)](DO-ZROBIENIA/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) | 📋 do-zrobienia | p1 | [0011](W-TRAKCIE/0011-plan1-klient-kimai-api/todo.md) |
+| 0012 | [Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)](DO-ZROBIENIA/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) | 📋 do-zrobienia | p1 | [0011](ZROBIONE/0011-plan1-klient-kimai-api/todo.md) ✅ |
 | 0013 | [Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)](DO-ZROBIENIA/0013-plan1-tlumaczenia-pl-en/todo.md) | 📋 do-zrobienia | p1 | [0012](DO-ZROBIENIA/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) |
 | 0014 | [Plan 1 · Zadanie 10: Tracker — stan i odświeżanie (`tracker.py` część 1)](DO-ZROBIENIA/0014-plan1-tracker-stan-i-odswiezanie/todo.md) | 📋 do-zrobienia | p1 | [0013](DO-ZROBIENIA/0013-plan1-tlumaczenia-pl-en/todo.md) |
 | 0015 | [Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)](DO-ZROBIENIA/0015-plan1-tracker-akcje/todo.md) | 📋 do-zrobienia | p1 | [0014](DO-ZROBIENIA/0014-plan1-tracker-stan-i-odswiezanie/todo.md) |
@@ -53,6 +52,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0008 | [Plan 1 · Zadanie 4: Czas i strefy (`timefmt.py`)](ZROBIONE/0008-plan1-czas-i-strefy/todo.md) | ✅ zrobione | 2026-09-25 |
 | 0009 | [Plan 1 · Zadanie 5: Walidacja opisu (`validation.py`, F-11)](ZROBIONE/0009-plan1-walidacja-opisu/todo.md) | ✅ zrobione | 2026-09-25 |
 | 0010 | [Plan 1 · Zadanie 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)](ZROBIONE/0010-plan1-grupowanie-list-i-reguly-billable/todo.md) | ✅ zrobione | 2026-09-25 |
+| 0011 | [Plan 1 · Zadanie 7: Klient Kimai API (`kimai_client.py`)](ZROBIONE/0011-plan1-klient-kimai-api/todo.md) | ✅ zrobione | 2026-09-25 |
 
 <!-- tablica:end -->
 
