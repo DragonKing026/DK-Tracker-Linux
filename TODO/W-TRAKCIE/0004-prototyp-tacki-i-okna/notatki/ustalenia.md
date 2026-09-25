@@ -76,12 +76,12 @@ Pytanie użytkownika: „czy nie da się zbudować w Dockerze?” — **da się*
 
 | Krok | Wynik |
 |---|---|
-| Kontener \`debian:trixie\` (Flatpak 1.16.6, bez regresji 1.18.x, bez SELinux) — [buduj-w-dockerze.sh](../prototyp/flatpak/buduj-w-dockerze.sh) | budowa **z \`io.qt.PySide.BaseApp\`** działa |
-| Runtime'y bez ponownego pobierania | repozytoria instalacji hosta montowane **tylko do odczytu**; brak pliku \`summary\` → commity kopiowane \`ostree pull-local\` do lokalnego repo w \`~/.cache/kimai-tray-flatpak/docker\` + \`flatpak build-update-repo\` |
-| Czas | 3,5 min (pierwszy raz, z kopiowaniem runtime'ów); paczka \`.flatpak\` **70 MB** (Qt z runtime'u; wersja z pip miała 236 MB) |
+| Kontener `debian:trixie` (Flatpak 1.16.6, bez regresji 1.18.x, bez SELinux) — [buduj-w-dockerze.sh](../prototyp/flatpak/buduj-w-dockerze.sh) | budowa **z `io.qt.PySide.BaseApp`** działa |
+| Runtime'y bez ponownego pobierania | repozytoria instalacji hosta montowane **tylko do odczytu**; brak pliku `summary` → commity kopiowane `ostree pull-local` do lokalnego repo w `~/.cache/kimai-tray-flatpak/docker` + `flatpak build-update-repo` |
+| Czas | 3,5 min (pierwszy raz, z kopiowaniem runtime'ów); paczka `.flatpak` **70 MB** (Qt z runtime'u; wersja z pip miała 236 MB) |
 | Instalacja paczki na hoście (Flatpak 1.18.2) | **działa** — regresja dotyczy tylko budowania |
 | Tacka + klik w wersji z BaseApp | **działa** ([log](../testy/log-flatpak-baseapp.jsonl)) |
-| Moduł \`layer-shell-qt\` 6.7.5 w manifeście (źródła KDE, SHA-256 zgodny z oficjalnym) — [manifest](../prototyp/flatpak/pl.websystems.KimaiTray.Prototyp.layer.yml) | buduje się pod Qt runtime'u; wtyczka \`liblayer-shell.so\` w \`/app/lib/plugins\` |
+| Moduł `layer-shell-qt` 6.7.5 w manifeście (źródła KDE, SHA-256 zgodny z oficjalnym) — [manifest](../prototyp/flatpak/pl.websystems.KimaiTray.Prototyp.layer.yml) | buduje się pod Qt runtime'u; wtyczka `liblayer-shell.so` w `/app/lib/plugins` |
 | **Okno przy tacce we Flatpaku** | **działa** — 12 px od prawej, tuż nad panelem ([log](../testy/log-flatpak-layer.jsonl)) — ![okno przy tacce we Flatpaku](../zrzuty/flatpak-layer-okno.png) |
 
 ## Do sprawdzenia ręcznie
