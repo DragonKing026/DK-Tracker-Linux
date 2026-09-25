@@ -20,3 +20,6 @@ __pycache__/
 node_modules/
 dist/
 target/
+
+# Robocze pliki wykonywania planów (superpowers)
+.superpowers/
