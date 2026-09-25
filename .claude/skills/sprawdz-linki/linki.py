@@ -31,9 +31,11 @@ FENCE = re.compile(r"^(\s*)(```|~~~)")
 
 
 def markdown_files() -> list[Path]:
+    """Every Markdown file except templates, whose links are written for the place
+    a copy will live in (TODO/<STATUS>/NNNN-slug/), not for the template folder."""
     found = []
     for dirpath, dirnames, filenames in os.walk(ROOT):
-        dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS]
+        dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS and d != "_szablon"]
         for name in filenames:
             if name.endswith(".md"):
                 found.append(Path(dirpath) / name)

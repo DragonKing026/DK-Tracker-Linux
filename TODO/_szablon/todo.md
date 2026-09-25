@@ -14,7 +14,7 @@ zamknieto:
 # {{NNNN}} — {{TYTUL}}
 
 > [!info] Status
-> **{{STATUS}}** · priorytet **{{PRIORYTET}}** · [← tablica zadań](../README.md)
+> **{{STATUS}}** · priorytet **{{PRIORYTET}}** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -23,7 +23,7 @@ Jedno-dwa zdania: jaki efekt ma dać to zadanie i po co.
 ## Kontekst
 
 - Skąd się wzięło zadanie.
-- Powiązane dokumenty: [Dokumentacja](../../docs/README.md)
+- Powiązane dokumenty: [Dokumentacja](../../../docs/README.md)
 
 ## Kryteria akceptacji
 
@@ -47,6 +47,7 @@ Wszystkie materiały zadania leżą w jego folderze (podfoldery tworzone, gdy s�
 - `notatki/` — notatki badawcze, porównania
 - `dane/` — przykładowe dane, odpowiedzi API
 
+<!-- Linki w szablonie są liczone z miejsca zadania: TODO/<STATUS>/NNNN-slug/todo.md -->
 <!-- Osadzenie: ![opis](zrzuty/plik.png) · link: [raport](testy/raport.md) · diagram mermaid inline -->
 
 ## Dziennik

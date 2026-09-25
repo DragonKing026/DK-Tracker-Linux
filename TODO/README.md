@@ -10,20 +10,28 @@ zaktualizowano: 2026-09-25
 
 Zasady: [Zadania w folderze TODO](../docs/procesy/zadania.md) · Szablon: [_szablon](_szablon/todo.md)
 
-Aktywne zadania leżą bezpośrednio w `TODO/`, zakończone (`zrobione` / `porzucone`)
-są przenoszone do [`TODO/DONE/`](ZROBIONE).
+Zadania leżą w podfolderach według statusu. Przy zmianie statusu folder zadania jest
+przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania/SKILL.md)).
 
-Legenda statusów: 💡 `pomysl` · 📋 `do-zrobienia` · 🔨 `w-toku` · ⛔ `zablokowane` ·
-✅ `zrobione` · 🗑️ `porzucone`
+| Folder | Statusy |
+|---|---|
+| [DO-ZROBIENIA/](DO-ZROBIENIA/) | 💡 `pomysl` · 📋 `do-zrobienia` |
+| [W-TRAKCIE/](W-TRAKCIE/) | 🔨 `w-trakcie` · ⛔ `zablokowane` |
+| [ZROBIONE/](ZROBIONE/) | ✅ `zrobione` · 🗑️ `porzucone` |
 
-## Aktywne
+## W trakcie
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0002 | [Specyfikacja projektu i plan](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-toku | p0 | — |
+| 0002 | [Specyfikacja projektu i plan](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-trakcie | p0 | — |
+
+## Do zrobienia
+
+| Nr | Zadanie | Status | Priorytet | Zależy od |
+|---|---|---|---|---|
 | 0004 | [Prototyp tacki i okna (spike)](DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) ✅ |
 
-## Zakończone (`TODO/DONE/`)
+## Zrobione
 
 | Nr | Zadanie | Status | Zamknięto |
 |---|---|---|---|
@@ -32,21 +40,19 @@ Legenda statusów: 💡 `pomysl` · 📋 `do-zrobienia` · 🔨 `w-toku` · ⛔ 
 
 ## Widok dynamiczny (Obsidian + Dataview)
 
-Jeśli masz wtyczkę [Dataview](https://blacksmithgu.github.io/obsidian-dataview/), poniższy
-blok pokaże tabelę na żywo z frontmatterów zadań:
+Jeśli masz wtyczkę [Dataview](https://blacksmithgu.github.io/obsidian-dataview/), te
+bloki pokażą tabele na żywo z frontmatterów zadań:
 
 ```dataview
 TABLE status, priorytet, zalezy_od AS "zależy od", zaktualizowano
-FROM "TODO" AND -"TODO/DONE"
-WHERE file.name = "todo" AND numer
+FROM "TODO/W-TRAKCIE" OR "TODO/DO-ZROBIENIA"
+WHERE file.name = "todo"
 SORT numer ASC
 ```
 
-Zakończone zadania (Dataview):
-
 ```dataview
 TABLE status, zamknieto
-FROM "TODO/DONE"
+FROM "TODO/ZROBIONE"
 WHERE file.name = "todo"
 SORT numer ASC
 ```

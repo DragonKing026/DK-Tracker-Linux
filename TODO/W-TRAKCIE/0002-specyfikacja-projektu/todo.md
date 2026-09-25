@@ -2,7 +2,7 @@
 noteId: "6378874d09904eb8a9941af1a59ce41c"
 tytul: "Specyfikacja projektu (design) i plan implementacji"
 numer: "0002"
-status: w-toku
+status: w-trakcie
 priorytet: p0
 tags: [todo, planowanie, spec]
 zalezy_od: []
@@ -14,7 +14,7 @@ zamknieto:
 # 0002 — Specyfikacja projektu i plan implementacji
 
 > [!info] Status
-> **w-toku** · priorytet **p0** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p0** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -56,6 +56,8 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Użytkownik przypomniał: aplikacja w pełnej wersji PL i EN → doprecyzowano [F-13](../../../docs/architektura/funkcje.md).
 - Sekcja 1 projektu (moduły i katalogi) zaakceptowana.
 - Sekcja 2 (przepływ danych: Snapshot, AppState, odświeżanie 60 s / pełne, kolejka akcji, polityka powiadomień w rdzeniu, jedna instancja) zaakceptowana.
+- Sekcja 3 (obsługa błędów i przypadki brzegowe) zaakceptowana.
+- Struktura TODO zmieniona: foldery DO-ZROBIENIA / W-TRAKCIE / ZROBIONE; status `w-toku` → `w-trakcie`.
 - Nowe zasady od użytkownika: materiały zadań w podfolderach, linki markdown wszędzie ([sprawdz-linki](../../../.claude/skills/sprawdz-linki/SKILL.md)).
 
 ## Wynik
