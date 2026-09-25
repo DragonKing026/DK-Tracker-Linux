@@ -24,7 +24,8 @@ zaktualizowano: 2026-09-25
 │       ├── nowe-zadanie/      nowe zadanie w TODO/ z szablonu
 │       ├── zamknij-zadanie/   zmiana statusu / zamknięcie zadania
 │       ├── nowa-integracja/   dokument integracji w docs/integracje/
-│       └── nowa-decyzja/      ADR w docs/decyzje/
+│       ├── nowa-decyzja/      ADR w docs/decyzje/
+│       └── sprawdz-linki/     sprawdzanie/naprawa linków, przenoszenie plików (linki.py)
 ├── docs/
 │   ├── README.md              indeks (MOC) dokumentacji
 │   ├── architektura/          przegląd, funkcje, architektura aplikacji, słownik, ta strona
