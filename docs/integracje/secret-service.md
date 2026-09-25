@@ -5,7 +5,7 @@ tags: [integracja, bezpieczenstwo, sekrety, dbus]
 status_integracji: planowana (wybrana droga B)
 wersja: Secret Service API; portal Secret v1; KWallet ≥ KF 5.97 / Plasma 6 (ksecretd)
 utworzono: 2026-09-25 17:22
-zaktualizowano: 2026-09-25 21:01
+zaktualizowano: 2026-09-25 21:05
 ---
 
 # Przechowywanie tokenu API
@@ -83,7 +83,11 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 - Zapis tokenu tylko po jawnym „Zapisz” w ustawieniach.
 - Brak dostępnego magazynu → komunikat i **żadnego** cichego zapisu do pliku tekstowego.
   (Ewentualny tryb „token tylko w pamięci do końca sesji” — do decyzji.)
-- Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu: `url`, `user`).
+- Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu: `application=pl.websystems.KimaiTray`, `url` bez końcowego `/`).
+- Błędy (`SecretServiceStore`): brak usługi, odmowa z piaskownicy, usługa, która nie wystartowała (`Spawn.*`),
+  brak odpowiedzi (timeout) lub zerwane połączenie → `SecretsUnavailable`; odrzucone okno odblokowania → `SecretsLocked`.
+- Po restarcie usługi (ksecretd / gnome-keyring) zapamiętana sesja znika (`NoSession` / `UnknownObject`) —
+  sesja jest otwierana ponownie raz; drugi błąd → `SecretsUnavailable`.
 - Nigdy nie logujemy tokenu, nawet w trybie debug.
 
 ## Pułapki
