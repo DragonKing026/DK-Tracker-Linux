@@ -7,6 +7,7 @@ The token is never logged, stored elsewhere or put into exception messages.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from typing import Any
 
 from .bus import Bus, DBusCallError
@@ -26,6 +27,8 @@ _UNAVAILABLE = {
     "org.freedesktop.DBus.Error.AccessDenied",
     "org.freedesktop.DBus.Error.NoReply",
 }
+# The cached session is gone, e.g. after ksecretd / gnome-keyring restarted.
+_STALE_SESSION = {"org.freedesktop.Secret.Error.NoSession", "org.freedesktop.DBus.Error.UnknownObject"}
 
 
 class SecretsUnavailable(Exception):
@@ -49,7 +52,9 @@ class SecretServiceStore:
         items = self._find(url)
         if not items:
             return None
-        (secrets,) = self._call(_ROOT, _SVC, "GetSecrets", "aoo", (items[:1], self._session()))
+        (secrets,) = self._with_session(
+            lambda session: self._call(_ROOT, _SVC, "GetSecrets", "aoo", (items[:1], session))
+        )
         value = secrets[items[0]][2]
         return bytes(value).decode("utf-8")
 
@@ -60,8 +65,16 @@ class SecretServiceStore:
             "org.freedesktop.Secret.Item.Label": ("s", f"Kimai Tray — {address}"),
             "org.freedesktop.Secret.Item.Attributes": ("a{ss}", self._attributes(url)),
         }
-        secret = (self._session(), b"", token.strip().encode("utf-8"), "text/plain")
-        _, prompt = self._call(collection, _COLL, "CreateItem", "a{sv}(oayays)b", (properties, secret, True))
+        value = token.strip().encode("utf-8")
+        _, prompt = self._with_session(
+            lambda session: self._call(
+                collection,
+                _COLL,
+                "CreateItem",
+                "a{sv}(oayays)b",
+                (properties, (session, b"", value, "text/plain"), True),
+            )
+        )
         self._run_prompt(prompt)
 
     def delete(self, url: str) -> None:
@@ -78,6 +91,19 @@ class SecretServiceStore:
         if self._session_path is None:
             _, self._session_path = self._call(_ROOT, _SVC, "OpenSession", "sv", ("plain", ("s", "")))
         return self._session_path
+
+    def _with_session(self, action: Callable[[str], Any]) -> Any:
+        """Run a call that needs the session; reopen it once if the service forgot it."""
+        try:
+            return action(self._session())
+        except DBusCallError as error:
+            if error.name not in _STALE_SESSION:
+                raise
+        self._session_path = None
+        try:
+            return action(self._session())
+        except DBusCallError as error:
+            raise SecretsUnavailable(error.name) from None
 
     def _collection(self) -> str:
         (path,) = self._call(_ROOT, _SVC, "ReadAlias", "s", ("default",))
@@ -119,8 +145,10 @@ class SecretServiceStore:
     def _call(self, path: str, interface: str, member: str, signature: str = "", body: tuple = ()) -> Any:
         try:
             return self._bus.call(_SERVICE, path, interface, member, signature, body)
+        except OSError as error:  # includes TimeoutError: the service hangs or the bus went away
+            raise SecretsUnavailable(type(error).__name__) from None
         except DBusCallError as error:
-            if error.name in _UNAVAILABLE:
+            if error.name in _UNAVAILABLE or error.name.startswith("org.freedesktop.DBus.Error.Spawn."):
                 raise SecretsUnavailable(error.name) from None
             if error.name.endswith(".IsLocked"):
                 raise SecretsLocked(error.name) from None

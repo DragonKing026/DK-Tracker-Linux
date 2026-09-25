@@ -122,3 +122,45 @@ def test_token_never_appears_in_errors():
     with pytest.raises(SecretsUnavailable) as caught:
         SecretServiceStore(bus).set("https://kimai.firma.pl", "super-secret-token")
     assert "super-secret-token" not in str(caught.value)
+
+
+@pytest.mark.parametrize("error", [TimeoutError("no reply"), ConnectionResetError("bus closed")])
+def test_hanging_or_closed_service_is_unavailable(error):
+    bus = wallet()
+    bus.on(ROOT, SVC, "SearchItems", error)
+    with pytest.raises(SecretsUnavailable):
+        SecretServiceStore(bus).get("https://kimai.firma.pl")
+
+
+def test_service_that_fails_to_start_is_unavailable():
+    bus = wallet()
+    bus.on(ROOT, SVC, "SearchItems", DBusCallError("org.freedesktop.DBus.Error.Spawn.ChildExited", "exit 1"))
+    with pytest.raises(SecretsUnavailable):
+        SecretServiceStore(bus).get("https://kimai.firma.pl")
+
+
+@pytest.mark.parametrize(
+    "name", ["org.freedesktop.Secret.Error.NoSession", "org.freedesktop.DBus.Error.UnknownObject"]
+)
+def test_stale_session_is_reopened_once(name):
+    """After the secret service restarts, the cached session path is gone."""
+    bus = wallet()
+    store = SecretServiceStore(bus)
+    assert store.get("https://kimai.firma.pl") == "kimai-token"
+    answers = [DBusCallError(name, "gone")]
+
+    def get_secrets(body):
+        if answers:
+            raise answers.pop()
+        return ({path: (SESSION, b"", b"kimai-token", "text/plain") for path in body[0]},)
+
+    bus.on(ROOT, SVC, "GetSecrets", get_secrets)
+    assert store.get("https://kimai.firma.pl") == "kimai-token"
+    assert bus.members().count("OpenSession") == 2
+
+
+def test_session_that_stays_broken_is_unavailable():
+    bus = wallet()
+    bus.on(COLLECTION, COLL, "CreateItem", DBusCallError("org.freedesktop.Secret.Error.NoSession", "gone"))
+    with pytest.raises(SecretsUnavailable):
+        SecretServiceStore(bus).set("https://kimai.firma.pl", "t")
