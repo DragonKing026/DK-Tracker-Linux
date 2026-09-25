@@ -32,9 +32,10 @@ docs/                  ← pełna dokumentacja projektu (Obsidian vault-friendly
   integracje/          ← jeden plik .md na każdą integrację zewnętrzną + linki
   procesy/             ← workflow: commity, TODO, dokumentowanie, wydania
   assets/              ← zrzuty ekranu, diagramy wyeksportowane, obrazy
-TODO/                  ← zadania; każde zadanie = podfolder z plikiem todo.md
-  README.md            ← tablica zadań + legenda statusów
+TODO/                  ← zadania aktywne; każde zadanie = podfolder z plikiem todo.md
+  README.md            ← tablica: linki do zadań aktywnych i zakończonych
   _szablon/            ← szablon nowego zadania
+  DONE/                ← zadania zakończone (przenoszone przez skill zamknij-zadanie)
 ```
 
 Pełny opis struktury: [[docs/architektura/struktura-repozytorium|docs/architektura/struktura-repozytorium.md]].
@@ -50,7 +51,9 @@ Pełny opis struktury: [[docs/architektura/struktura-repozytorium|docs/architekt
    albo integrację, **musi** w tym samym lub następnym commicie zaktualizować `docs/`.
    Kod bez dokumentacji = zadanie nieskończone.
 4. **Każde zadanie ma folder w `TODO/`.** Zanim zaczniesz pracę — utwórz/zaktualizuj
-   zadanie (skill `nowe-zadanie`). Po skończeniu — zmień status i opisz wynik.
+   zadanie (skill `nowe-zadanie`). Po skończeniu — zmień status, opisz wynik i przenieś
+   folder do `TODO/DONE/` (skill `zamknij-zadanie`). `TODO/README.md` zawsze linkuje
+   do każdego aktywnego zadania.
 5. **Każda integracja ma plik w `docs/integracje/`** z linkami do oficjalnej dokumentacji
    (skill `nowa-integracja`). Nie wolno dodać zależności zewnętrznej bez tego pliku.
 6. **Decyzje architektoniczne zapisuj jako ADR** w `docs/decyzje/` (skill `nowa-decyzja`).
@@ -80,7 +83,7 @@ Szczegóły: [[docs/procesy/dokumentowanie|docs/procesy/dokumentowanie.md]].
 | Skill | Kiedy użyć |
 |---|---|
 | `nowe-zadanie` | tworzenie zadania w `TODO/` z szablonu |
-| `zamknij-zadanie` | zamknięcie zadania: status, wynik, aktualizacja tablicy, commit |
+| `zamknij-zadanie` | zamknięcie zadania: status, wynik, przeniesienie do `TODO/DONE/`, tablica, commit |
 | `nowa-integracja` | dodanie pliku integracji w `docs/integracje/` |
 | `nowa-decyzja` | zapis decyzji architektonicznej (ADR) |
 | `commit` | przygotowanie małego commita zgodnego z konwencją |
