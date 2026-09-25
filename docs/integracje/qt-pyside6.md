@@ -4,8 +4,8 @@ tytul: Qt 6 / PySide6
 tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:28
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # Qt 6 / PySide6

@@ -4,8 +4,8 @@ tytul: Forma okna szybkiej obsługi na Waylandzie
 tags: [adr, ui, wayland, tray]
 status: zaakceptowana
 zastapiona_przez:
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:31
+zaktualizowano: 2026-09-25 17:55
 ---
 
 # ADR-0003: Okno szybkiej obsługi — bezramkowe, chowane po utracie fokusu

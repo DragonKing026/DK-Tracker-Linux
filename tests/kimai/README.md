@@ -2,8 +2,8 @@
 noteId: "fb16419f8af44ecebe16e10fbafcdb21"
 tytul: Kimai testowy w Dockerze
 tags: [testy, kimai, docker]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 18:25
+zaktualizowano: 2026-09-25 18:25
 ---
 
 # Kimai testowy w Dockerze

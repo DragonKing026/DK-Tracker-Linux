@@ -4,8 +4,8 @@ tytul: Kimai w Dockerze (środowisko testowe)
 tags: [integracja, kimai, docker, testy]
 status_integracji: w-uzyciu
 wersja: kimai/kimai2:apache → Kimai 2.67.0; mysql:8.3; Docker 29.8.1 / Compose 5.5.1 (lokalnie)
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 18:06
+zaktualizowano: 2026-09-25 19:04
 ---
 
 # Kimai w Dockerze — środowisko testowe

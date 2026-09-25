@@ -4,8 +4,8 @@ tytul: Dokumentacja i zadania w repo jako vault Obsidiana
 tags: [adr, dokumentacja, proces]
 status: zaakceptowana
 zastapiona_przez:
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:18
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # ADR-0001: Dokumentacja i zadania w repo jako vault Obsidiana

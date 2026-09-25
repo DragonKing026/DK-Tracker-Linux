@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0013"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 19:03
+zaktualizowano: 2026-09-25 19:03
+zamknieto: 2026-09-25 19:03
 ---
 
 # 0014 — Plan 1 · Zadanie 10: Tracker — stan i odświeżanie (`tracker.py` część 1)

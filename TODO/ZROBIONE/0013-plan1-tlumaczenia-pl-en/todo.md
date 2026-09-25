@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0012"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 18:58
+zaktualizowano: 2026-09-25 19:03
+zamknieto: 2026-09-25 19:03
 ---
 
 # 0013 — Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)

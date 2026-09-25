@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0009"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 18:58
+zaktualizowano: 2026-09-25 19:02
+zamknieto: 2026-09-25 19:02
 ---
 
 # 0010 — Plan 1 · Zadanie 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)

@@ -28,6 +28,7 @@ ROOT = Path.cwd()
 SKIP_DIRS = {".git", ".claude", "node_modules", ".venv", "venv", "build", "build-dir", ".pytest_cache", ".ruff_cache",
              ".flatpak-builder", ".obsidian"}
 FRONT = re.compile(r"\A---\n(.*?\n)?---\n", re.S)
+DATE = re.compile(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}|\{\{DATA\}\}")
 NOTE_ID = re.compile(r"^noteId:\s*\"?([0-9a-f]{32}|\{\{NOTEID\}\})\"?\s*$", re.M)
 
 
@@ -51,6 +52,10 @@ def problems(text: str) -> list[str]:
     found = []
     if not NOTE_ID.search(body):
         found.append("brak noteId")
+    for key in ("utworzono", "zaktualizowano", "zamknieto"):
+        match = re.search(rf"^{key}:[ \t]*(\S.*)?$", body, re.M)
+        if match and match.group(1) and not DATE.fullmatch(match.group(1).strip().strip('"')):
+            found.append(f"{key} bez godziny (RRRR-MM-DD GG:MM)")
     if re.search(r"^tagi:", body, re.M):
         found.append("pole 'tagi' zamiast 'tags'")
     elif not re.search(r"^tags:", body, re.M):

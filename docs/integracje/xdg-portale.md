@@ -4,8 +4,8 @@ tytul: Portale XDG (autostart, powiadomienia, linki, skróty)
 tags: [integracja, flatpak, portale, dbus]
 status_integracji: planowana
 wersja: xdg-desktop-portal (Background v2, GlobalShortcuts v2)
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:23
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # Portale XDG Desktop

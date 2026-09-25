@@ -6,8 +6,8 @@ status: w-trakcie
 priorytet: p0
 tags: [todo, planowanie, spec]
 zalezy_od: []
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:24
+zaktualizowano: 2026-09-25 18:59
 zamknieto:
 ---
 

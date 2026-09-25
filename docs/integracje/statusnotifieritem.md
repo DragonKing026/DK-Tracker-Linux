@@ -4,8 +4,8 @@ tytul: StatusNotifierItem (tacka systemowa)
 tags: [integracja, tray, dbus, kde, gnome]
 status_integracji: planowana
 wersja: specyfikacja freedesktop (draft), w KDE Plasma 5/6
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:20
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # StatusNotifierItem (SNI) — ikona w tacce

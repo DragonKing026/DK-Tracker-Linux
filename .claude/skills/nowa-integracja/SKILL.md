@@ -21,8 +21,8 @@ magazyn sekretów…) ma **osobny plik** w `docs/integracje/`. Bez niego nie dod
    tags: [integracja, <obszar>]
    status_integracji: planowana | w-uzyciu | porzucona
    wersja: <wersja/zakres wersji, jeśli dotyczy>
-   utworzono: <data>
-   zaktualizowano: <data>
+   utworzono: <RRRR-MM-DD GG:MM>
+   zaktualizowano: <RRRR-MM-DD GG:MM>
    ---
 
    # <Nazwa>

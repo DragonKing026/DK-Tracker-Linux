@@ -6,8 +6,8 @@ status: do-zrobienia
 priorytet: p1
 tags: [todo, spike, tray, wayland]
 zalezy_od: ["0003-wybor-stosu"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:24
+zaktualizowano: 2026-09-25 17:55
 zamknieto:
 ---
 

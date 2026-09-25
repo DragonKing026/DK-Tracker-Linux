@@ -4,8 +4,8 @@ tytul: GNOME — rozszerzenie AppIndicator
 tags: [integracja, gnome, tray]
 status_integracji: planowana
 wersja: rozszerzenie v66 (GNOME Shell 45–51)
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:21
+zaktualizowano: 2026-09-25 18:31
 ---
 
 # GNOME — „AppIndicator and KStatusNotifierItem Support”

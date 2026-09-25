@@ -2,8 +2,8 @@
 noteId: "977ffd4e05cc4a778ade9e8e29f5eb81"
 tytul: Konwencja commitów
 tags: [proces, git]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:13
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # Konwencja commitów

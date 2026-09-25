@@ -2,8 +2,8 @@
 noteId: "0468458e1b6544d9aea0fe637af1ce0e"
 tytul: Zadania w folderze TODO
 tags: [proces, todo]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:14
+zaktualizowano: 2026-09-25 17:57
 ---
 
 # Zadania w folderze `TODO/`
@@ -44,7 +44,8 @@ Zasady:
   folderów). Szablon wymienia je w sekcji „Materiały”.
 - W `todo.md` każdy materiał jest **podlinkowany lub osadzony** w sekcji „Materiały”
   albo w miejscu, którego dotyczy (`![opis](zrzuty/plik.png)`, ścieżka względna od `todo.md`).
-- Nazwy plików: małe litery, myślniki, bez polskich znaków; data ISO, gdy jest ich seria.
+- Nazwy plików: małe litery, myślniki, bez polskich znaków; data `RRRR-MM-DD`, gdy jest ich seria
+  (w treści i frontmatterze daty zawsze z godziną: `2026-09-25 19:42`).
 - **Testy aplikacji** (unit, integracyjne) żyją w kodzie (`tests/`), bo są częścią
   produktu. W `testy/` zadania są **wyniki i dowody** ich uruchomienia oraz testy ręczne.
 - Kod z `prototyp/` nigdy nie jest importowany przez aplikację.

@@ -2,8 +2,8 @@
 noteId: "26c430953cad4545a2234350cf834e0b"
 tytul: Przegląd projektu
 tags: [architektura, wizja, zakres]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:16
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # Przegląd projektu

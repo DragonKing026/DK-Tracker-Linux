@@ -2,8 +2,8 @@
 noteId: "96708baf40214a7c994d90737c191e4c"
 tytul: "Weryfikacja Planu 1 (rdzeń) — kod z planu uruchomiony"
 tags: [testy, plan, core]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 18:49
+zaktualizowano: 2026-09-25 18:49
 ---
 
 # Weryfikacja Planu 1 (rdzeń) — 2026-09-25

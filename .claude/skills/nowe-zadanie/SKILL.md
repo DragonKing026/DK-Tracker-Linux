@@ -20,7 +20,7 @@ Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md). Szablon: [T
    mkdir -p "TODO/DO-ZROBIENIA/NNNN-slug"
    cp TODO/_szablon/todo.md "TODO/DO-ZROBIENIA/NNNN-slug/todo.md"
    ```
-4. **Wypełnij** wszystkie `{{...}}`: `{{NOTEID}}` (świeży: `python3 .claude/skills/frontmatter/frontmatter.py noteid`), `{{NNNN}}`, `{{TYTUL}}`, `{{DATA}}` (dzisiejsza ISO),
+4. **Wypełnij** wszystkie `{{...}}`: `{{NOTEID}}` (świeży: `python3 .claude/skills/frontmatter/frontmatter.py noteid`), `{{NNNN}}`, `{{TYTUL}}`, `{{DATA}}` (teraz, format `RRRR-MM-DD GG:MM`: `date '+%F %H:%M'`),
    `{{STATUS}}`, `{{PRIORYTET}}`. Uzupełnij pola frontmattera `status`, `priorytet`,
    `tags`, `zalezy_od` (lista nazw folderów, np. `["0003-wybor-stosu"]`).
 5. **Treść** — rzetelnie: Cel, Kontekst (z linkami markdown do docs/integracji/ADR/zadań — każde odwołanie jest linkiem),

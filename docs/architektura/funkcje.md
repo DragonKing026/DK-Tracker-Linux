@@ -2,8 +2,8 @@
 noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:17
+zaktualizowano: 2026-09-25 18:05
 ---
 
 # Katalog funkcji

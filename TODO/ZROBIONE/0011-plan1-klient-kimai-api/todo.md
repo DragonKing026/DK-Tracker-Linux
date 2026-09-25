@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0010"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 19:02
+zaktualizowano: 2026-09-25 19:02
+zamknieto: 2026-09-25 19:02
 ---
 
 # 0011 — Plan 1 · Zadanie 7: Klient Kimai API (`kimai_client.py`)

@@ -4,8 +4,8 @@ tytul: WS Tracker (projekt referencyjny)
 tags: [integracja, referencja, kimai]
 status_integracji: referencja
 wersja: 1.5.1
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:19
+zaktualizowano: 2026-09-25 18:06
 ---
 
 # WS Tracker — wtyczka przeglądarkowa (projekt referencyjny)

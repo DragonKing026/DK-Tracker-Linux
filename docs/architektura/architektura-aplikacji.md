@@ -3,8 +3,8 @@ noteId: "37087e28b1424401b8b40e0978e26b37"
 tytul: Architektura aplikacji
 tags: [architektura, komponenty, przeplywy]
 status_dokumentu: rdzeń-zaimplementowany
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:18
+zaktualizowano: 2026-09-25 19:05
 ---
 
 # Architektura aplikacji

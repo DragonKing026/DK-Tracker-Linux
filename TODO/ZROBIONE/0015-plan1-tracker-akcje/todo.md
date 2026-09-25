@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0014"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 19:03
+zaktualizowano: 2026-09-25 19:03
+zamknieto: 2026-09-25 19:03
 ---
 
 # 0015 — Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)

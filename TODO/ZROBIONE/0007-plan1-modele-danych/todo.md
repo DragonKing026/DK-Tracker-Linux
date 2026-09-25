@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0006"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 19:01
+zaktualizowano: 2026-09-25 19:01
+zamknieto: 2026-09-25 19:01
 ---
 
 # 0007 — Plan 1 · Zadanie 3: Modele danych (`models.py`)

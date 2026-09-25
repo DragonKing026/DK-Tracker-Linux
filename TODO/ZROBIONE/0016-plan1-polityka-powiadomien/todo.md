@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0015"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 18:58
+zaktualizowano: 2026-09-25 19:03
+zamknieto: 2026-09-25 19:03
 ---
 
 # 0016 — Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)

@@ -2,8 +2,8 @@
 noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:14
+zaktualizowano: 2026-09-25 19:13
 ---
 
 # Tablica zadań
@@ -37,22 +37,22 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Zamknięto |
 |---|---|---|---|
-| 0001 | [Struktura agenta i dokumentacji](ZROBIONE/0001-struktura-agenta-i-dokumentacja/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0003 | [Wybór stosu technologicznego](ZROBIONE/0003-wybor-stosu/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0005 | [Plan 1 · Zadanie 1: Szkielet projektu Python i test architektury](ZROBIONE/0005-plan1-szkielet-projektu-python-i-test/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0006 | [Plan 1 · Zadanie 2: Błędy (`errors.py`)](ZROBIONE/0006-plan1-bledy/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0007 | [Plan 1 · Zadanie 3: Modele danych (`models.py`)](ZROBIONE/0007-plan1-modele-danych/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0008 | [Plan 1 · Zadanie 4: Czas i strefy (`timefmt.py`)](ZROBIONE/0008-plan1-czas-i-strefy/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0009 | [Plan 1 · Zadanie 5: Walidacja opisu (`validation.py`, F-11)](ZROBIONE/0009-plan1-walidacja-opisu/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0010 | [Plan 1 · Zadanie 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)](ZROBIONE/0010-plan1-grupowanie-list-i-reguly-billable/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0011 | [Plan 1 · Zadanie 7: Klient Kimai API (`kimai_client.py`)](ZROBIONE/0011-plan1-klient-kimai-api/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0012 | [Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)](ZROBIONE/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0013 | [Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)](ZROBIONE/0013-plan1-tlumaczenia-pl-en/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0014 | [Plan 1 · Zadanie 10: Tracker — stan i odświeżanie (`tracker.py` część 1)](ZROBIONE/0014-plan1-tracker-stan-i-odswiezanie/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0015 | [Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)](ZROBIONE/0015-plan1-tracker-akcje/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0016 | [Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)](ZROBIONE/0016-plan1-polityka-powiadomien/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0017 | [Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze](ZROBIONE/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) | ✅ zrobione | 2026-09-25 |
-| 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](ZROBIONE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | ✅ zrobione | 2026-09-25 |
+| 0001 | [Struktura agenta i dokumentacji](ZROBIONE/0001-struktura-agenta-i-dokumentacja/todo.md) | ✅ zrobione | 2026-09-25 17:23 |
+| 0003 | [Wybór stosu technologicznego](ZROBIONE/0003-wybor-stosu/todo.md) | ✅ zrobione | 2026-09-25 17:29 |
+| 0005 | [Plan 1 · Zadanie 1: Szkielet projektu Python i test architektury](ZROBIONE/0005-plan1-szkielet-projektu-python-i-test/todo.md) | ✅ zrobione | 2026-09-25 19:01 |
+| 0006 | [Plan 1 · Zadanie 2: Błędy (`errors.py`)](ZROBIONE/0006-plan1-bledy/todo.md) | ✅ zrobione | 2026-09-25 19:01 |
+| 0007 | [Plan 1 · Zadanie 3: Modele danych (`models.py`)](ZROBIONE/0007-plan1-modele-danych/todo.md) | ✅ zrobione | 2026-09-25 19:01 |
+| 0008 | [Plan 1 · Zadanie 4: Czas i strefy (`timefmt.py`)](ZROBIONE/0008-plan1-czas-i-strefy/todo.md) | ✅ zrobione | 2026-09-25 19:02 |
+| 0009 | [Plan 1 · Zadanie 5: Walidacja opisu (`validation.py`, F-11)](ZROBIONE/0009-plan1-walidacja-opisu/todo.md) | ✅ zrobione | 2026-09-25 19:02 |
+| 0010 | [Plan 1 · Zadanie 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)](ZROBIONE/0010-plan1-grupowanie-list-i-reguly-billable/todo.md) | ✅ zrobione | 2026-09-25 19:02 |
+| 0011 | [Plan 1 · Zadanie 7: Klient Kimai API (`kimai_client.py`)](ZROBIONE/0011-plan1-klient-kimai-api/todo.md) | ✅ zrobione | 2026-09-25 19:02 |
+| 0012 | [Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)](ZROBIONE/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) | ✅ zrobione | 2026-09-25 19:02 |
+| 0013 | [Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)](ZROBIONE/0013-plan1-tlumaczenia-pl-en/todo.md) | ✅ zrobione | 2026-09-25 19:03 |
+| 0014 | [Plan 1 · Zadanie 10: Tracker — stan i odświeżanie (`tracker.py` część 1)](ZROBIONE/0014-plan1-tracker-stan-i-odswiezanie/todo.md) | ✅ zrobione | 2026-09-25 19:03 |
+| 0015 | [Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)](ZROBIONE/0015-plan1-tracker-akcje/todo.md) | ✅ zrobione | 2026-09-25 19:03 |
+| 0016 | [Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)](ZROBIONE/0016-plan1-polityka-powiadomien/todo.md) | ✅ zrobione | 2026-09-25 19:03 |
+| 0017 | [Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze](ZROBIONE/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) | ✅ zrobione | 2026-09-25 19:04 |
+| 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](ZROBIONE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | ✅ zrobione | 2026-09-25 19:05 |
 
 <!-- tablica:end -->
 

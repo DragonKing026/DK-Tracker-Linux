@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0017"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 18:58
+zaktualizowano: 2026-09-25 19:05
+zamknieto: 2026-09-25 19:05
 ---
 
 # 0018 — Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia

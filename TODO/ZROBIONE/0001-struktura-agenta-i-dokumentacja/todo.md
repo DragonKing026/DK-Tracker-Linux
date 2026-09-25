@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p0
 tags: [todo, dokumentacja, agent]
 zalezy_od: []
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 17:23
+zaktualizowano: 2026-09-25 17:56
+zamknieto: 2026-09-25 17:23
 ---
 
 # 0001 — Struktura agenta i dokumentacji

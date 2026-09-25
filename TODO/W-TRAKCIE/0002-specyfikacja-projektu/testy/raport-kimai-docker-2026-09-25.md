@@ -2,8 +2,8 @@
 noteId: "25e094032a874be099086c112845caf1"
 tytul: "Raport: Kimai w Dockerze — weryfikacja zachowań API"
 tags: [testy, kimai, docker, spike]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 18:05
+zaktualizowano: 2026-09-25 18:25
 ---
 
 # Raport: Kimai w Dockerze — weryfikacja zachowań API (2026-09-25)

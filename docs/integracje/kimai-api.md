@@ -4,8 +4,8 @@ tytul: Kimai REST API
 tags: [integracja, kimai, api, http]
 status_integracji: w-uzyciu
 wersja: Kimai 2.x (dokumentacja 2.67.0; wtyczka deklaruje zgodność z nowoczesnym tokenem Bearer)
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:19
+zaktualizowano: 2026-09-25 19:02
 ---
 
 # Kimai REST API

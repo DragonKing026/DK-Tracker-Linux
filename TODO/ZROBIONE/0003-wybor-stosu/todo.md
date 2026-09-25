@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p0
 tags: [todo, planowanie, adr]
 zalezy_od: []
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 17:24
+zaktualizowano: 2026-09-25 17:56
+zamknieto: 2026-09-25 17:29
 ---
 
 # 0003 — Wybór stosu technologicznego

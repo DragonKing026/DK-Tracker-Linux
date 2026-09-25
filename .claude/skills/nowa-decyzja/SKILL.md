@@ -17,8 +17,8 @@ description: Use when a hard-to-reverse architectural or technology decision is 
    tags: [adr]
    status: proponowana | zaakceptowana | odrzucona | zastapiona
    zastapiona_przez:
-   utworzono: <data>
-   zaktualizowano: <data>
+   utworzono: <RRRR-MM-DD GG:MM>
+   zaktualizowano: <RRRR-MM-DD GG:MM>
    ---
 
    # ADR-NNNN: <Decyzja>

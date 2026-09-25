@@ -94,7 +94,8 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
 - Linki zewnętrzne: zwykły markdown, sprawdzone (HTTP 200).
 - Uwagi: callouty Obsidiana — `> [!note]`, `> [!warning]`, `> [!tip]`, `> [!todo]`.
 - Listy zadań: `- [ ]` / `- [x]`.
-- Daty w formacie ISO: `2026-09-25`.
+- **Daty zawsze z godziną i minutą**: `2026-09-25 19:42` (frontmatter, tabele, dzienniki
+  zadań). Samą datę bez godziny wolno podać tylko w nazwie pliku.
 
 Szczegóły: [docs/procesy/dokumentowanie.md](docs/procesy/dokumentowanie.md).
 

@@ -4,8 +4,8 @@ tytul: Architektura — rdzeń w czystym Pythonie, Qt tylko w interfejsie
 tags: [adr, architektura, http, sekrety, ui]
 status: zaakceptowana
 zastapiona_przez:
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:39
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # ADR-0004: Rdzeń w czystym Pythonie (httpx, jeepney), UI w Qt Widgets

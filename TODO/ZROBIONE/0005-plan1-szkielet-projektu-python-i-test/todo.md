@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0002"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 18:58
+zaktualizowano: 2026-09-25 19:01
+zamknieto: 2026-09-25 19:01
 ---
 
 # 0005 — Plan 1 · Zadanie 1: Szkielet projektu Python i test architektury

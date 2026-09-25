@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0005"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 19:01
+zaktualizowano: 2026-09-25 19:01
+zamknieto: 2026-09-25 19:01
 ---
 
 # 0006 — Plan 1 · Zadanie 2: Błędy (`errors.py`)

@@ -2,8 +2,8 @@
 noteId: "2dcfa4f4816f4eecb898e4a9cdcd479c"
 tytul: Zasady dokumentowania
 tags: [proces, dokumentacja, obsidian]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:14
+zaktualizowano: 2026-09-25 17:57
 ---
 
 # Zasady dokumentowania
@@ -31,12 +31,13 @@ Pliki muszą też czytelnie renderować się na GitHubie.
 noteId: "<32 znaki hex — frontmatter.py noteid>"
 tytul: Krótki tytuł
 tags: [obszar, temat]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 19:42
+zaktualizowano: 2026-09-25 19:42
 ---
 ```
 
-Zmieniając plik — aktualizuj `zaktualizowano`.
+Zmieniając plik — aktualizuj `zaktualizowano`. **Daty zawsze z godziną i minutą**
+(`RRRR-MM-DD GG:MM`) — pilnuje tego `frontmatter.py sprawdz`.
 
 `noteId` i `tags` są obowiązkowe. Bez nich rozszerzenie VS Code *notebook* samo
 dopisuje je do pliku, który zostaje wtedy niezacommitowany. Pilnuje tego skill

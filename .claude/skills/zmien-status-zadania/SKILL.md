@@ -36,7 +36,7 @@ Tablica w `TODO/README.md` jest generowana między `<!-- tablica:start -->` i
 1. **Przy zamknięciu (`zrobione`) zweryfikuj** kryteria akceptacji w `todo.md`. Każde
    odhaczone `- [x]` musi być faktycznie spełnione (uruchom testy lub komendy, jeśli
    dotyczy). Niespełnione kryterium oznacza, że zadanie nie jest `zrobione`.
-2. **Frontmatter**: `status`, `zaktualizowano`; przy zamknięciu `zamknieto: <data ISO>`.
+2. **Frontmatter**: `status`, `zaktualizowano`; przy zamknięciu `zamknieto: <RRRR-MM-DD GG:MM>`.
    Zaktualizuj callout „Status” na górze pliku.
 3. **Dziennik**: wpis z datą — co się zmieniło i dlaczego, kluczowe commity
    (`git log --oneline`).

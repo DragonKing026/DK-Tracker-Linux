@@ -4,8 +4,8 @@ tytul: httpx
 tags: [integracja, http, python]
 status_integracji: w-uzyciu
 wersja: 0.28.1 (PyPI, 2026-09-25)
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:39
+zaktualizowano: 2026-09-25 19:02
 ---
 
 # httpx — klient HTTP

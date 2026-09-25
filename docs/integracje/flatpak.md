@@ -4,8 +4,8 @@ tytul: Flatpak
 tags: [integracja, flatpak, dystrybucja, build]
 status_integracji: planowana
 wersja: Flatpak 1.18 (lokalnie); runtime'y na Flathub stan 2026-09-25
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:21
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # Flatpak — format dystrybucji

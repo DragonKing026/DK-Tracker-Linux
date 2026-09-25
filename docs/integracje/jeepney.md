@@ -4,8 +4,8 @@ tytul: jeepney (D-Bus w czystym Pythonie) — dostęp do Secret Service
 tags: [integracja, dbus, sekrety, python]
 status_integracji: planowana
 wersja: 0.9.0 (PyPI, 2026-09-25)
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:41
+zaktualizowano: 2026-09-25 17:47
 ---
 
 # jeepney — D-Bus w czystym Pythonie

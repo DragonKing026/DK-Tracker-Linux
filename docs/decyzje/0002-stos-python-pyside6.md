@@ -4,8 +4,8 @@ tytul: Stos technologiczny — Python + PySide6 (Qt 6) na runtime KDE
 tags: [adr, stos, qt, python, flatpak]
 status: zaakceptowana
 zastapiona_przez:
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
+utworzono: 2026-09-25 17:27
+zaktualizowano: 2026-09-25 17:56
 ---
 
 # ADR-0002: Python + PySide6 (Qt 6) na runtime KDE

@@ -52,6 +52,11 @@ def today() -> str:
     return dt.date.today().isoformat()
 
 
+def now() -> str:
+    """Dates in Markdown carry hours and minutes: "2026-09-25 19:42"."""
+    return dt.datetime.now().strftime("%Y-%m-%d %H:%M")
+
+
 def task_files() -> list[Path]:
     return sorted(
         path
@@ -95,10 +100,11 @@ def add_log(text: str, entry: str) -> str:
     next_section = text.find("\n## ", start)
     section_end = len(text) if next_section == -1 else next_section
     section = text[start:section_end]
-    if heading in section:
-        section = section.rstrip("\n") + f"\n- {entry}\n"
+    line = f"- **{dt.datetime.now():%H:%M}** {entry}"
+    if re.search(rf"^{re.escape(heading)}\b", section, re.M):  # "### 2026-09-25" or "### 2026-09-25 17:23"
+        section = section.rstrip("\n") + f"\n{line}\n"
     else:
-        section = section.rstrip("\n") + f"\n\n{heading}\n- {entry}\n"
+        section = section.rstrip("\n") + f"\n\n{heading}\n{line}\n"
     return text[:start] + section + text[section_end:]
 
 
@@ -109,9 +115,9 @@ def change_status(number: str, status: str, entry: str | None) -> None:
     text = path.read_text(encoding="utf-8")
     old = front(text).get("status", "")
     text = set_field(text, "status", status)
-    text = set_field(text, "zaktualizowano", today())
+    text = set_field(text, "zaktualizowano", now())
     if FOLDER[status] == "ZROBIONE":
-        text = set_field(text, "zamknieto", today())
+        text = set_field(text, "zamknieto", now())
     text = re.sub(r"(> \*\*)[^*]+(\*\* · priorytet)", rf"\g<1>{status}\g<2>", text, count=1)
     text = add_log(text, entry or f"Status: {old} → {status}.")
     path.write_text(text, encoding="utf-8")
@@ -178,7 +184,7 @@ def rebuild_board() -> None:
     )
     head, _, tail = text.partition(START)
     _, _, tail = tail.partition(END)
-    board.write_text(set_field(head, "zaktualizowano", today()) + generated + tail, encoding="utf-8")
+    board.write_text(set_field(head, "zaktualizowano", now()) + generated + tail, encoding="utf-8")
 
 
 def next_number() -> str:

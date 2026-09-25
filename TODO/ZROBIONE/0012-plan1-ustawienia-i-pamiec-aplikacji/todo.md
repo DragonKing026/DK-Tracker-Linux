@@ -6,9 +6,9 @@ status: zrobione
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0011"]
-utworzono: 2026-09-25
-zaktualizowano: 2026-09-25
-zamknieto: 2026-09-25
+utworzono: 2026-09-25 18:58
+zaktualizowano: 2026-09-25 19:02
+zamknieto: 2026-09-25 19:02
 ---
 
 # 0012 — Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)
