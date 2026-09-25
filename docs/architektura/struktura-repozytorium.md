@@ -23,7 +23,7 @@ zaktualizowano: 2026-09-25
 │   └── skills/                skille projektu — powtarzalne zadania agenta
 │       ├── commit/            mały commit zgodny z konwencją
 │       ├── nowe-zadanie/      nowe zadanie w TODO/ z szablonu
-│       ├── zamknij-zadanie/   zmiana statusu / zamknięcie zadania
+│       ├── zmien-status-zadania/  zmiana statusu, przeniesienie między folderami
 │       ├── nowa-integracja/   dokument integracji w docs/integracje/
 │       ├── nowa-decyzja/      ADR w docs/decyzje/
 │       ├── frontmatter/       noteId + tags w każdym dokumencie (frontmatter.py)
@@ -37,18 +37,19 @@ zaktualizowano: 2026-09-25
 │   └── assets/                obrazy współdzielone przez dokumenty
 │       └── referencja/        zrzuty wtyczki WS Tracker (wzorzec UI)
 └── TODO/
-    ├── README.md              tablica: linki do zadań aktywnych i zakończonych
+    ├── README.md              tablica: linki do wszystkich zadań
     ├── _szablon/todo.md       szablon zadania
-    ├── NNNN-slug/             jedno zadanie aktywne — wszystkie jego materiały w środku
-    │   ├── todo.md            opis zadania
-    │   ├── zrzuty/            zrzuty ekranu
-    │   ├── diagramy/          diagramy eksportowane i źródła
-    │   ├── testy/             raporty, logi, testy ręczne
-    │   ├── prototyp/          kod roboczy / spike
-    │   ├── notatki/           notatki badawcze
-    │   └── dane/              przykładowe dane
-    └── DONE/                  zadania zakończone (zrobione / porzucone)
-        └── NNNN-slug/
+    ├── DO-ZROBIENIA/          pomysl, do-zrobienia
+    ├── W-TRAKCIE/             w-trakcie, zablokowane
+    │   └── NNNN-slug/         jedno zadanie — wszystkie jego materiały w środku
+    │       ├── todo.md        opis zadania
+    │       ├── zrzuty/        zrzuty ekranu
+    │       ├── diagramy/      diagramy eksportowane i źródła
+    │       ├── testy/         raporty, logi, testy ręczne
+    │       ├── prototyp/      kod roboczy / spike
+    │       ├── notatki/       notatki badawcze
+    │       └── dane/          przykładowe dane
+    └── ZROBIONE/              zrobione, porzucone
 ```
 
 ## Opis elementów
@@ -67,7 +68,7 @@ Pełna dokumentacja — zasady w [Zasady dokumentowania](../procesy/dokumentowan
 
 ### `TODO/`
 System zadań — zasady w [Zadania w folderze TODO](../procesy/zadania.md).
-Aktywne zadania leżą bezpośrednio w `TODO/`, zakończone są przenoszone do `TODO/DONE/`.
+Zadania leżą w podfolderach według statusu: `DO-ZROBIENIA/`, `W-TRAKCIE/`, `ZROBIONE/`.
 
 ## Powiązane
 
