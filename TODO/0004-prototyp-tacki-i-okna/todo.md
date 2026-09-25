@@ -36,9 +36,12 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 - [ ] GNOME bez rozszerzenia: wykrycie braku watchera i tryb okna
 - [ ] Zapis/odczyt sekretu przez libsecret w piaskownicy (KWallet)
 
-## Diagramy i zrzuty
+## Materiały
 
-Zrzuty z każdego pulpitu → `assets/`.
+- `prototyp/` — kod spike'a (do wyrzucenia)
+- `zrzuty/` — zrzuty z każdego pulpitu, np. `kde-tacka.png`, `gnome-appindicator.png`
+- `testy/` — raport z odpowiedziami na pytania i logi uruchomień
+- `notatki/` — ustalenia o `layer-shell-qt`
 
 ## Dziennik
 
