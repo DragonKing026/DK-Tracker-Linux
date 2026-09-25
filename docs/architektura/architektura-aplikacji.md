@@ -2,17 +2,17 @@
 noteId: "37087e28b1424401b8b40e0978e26b37"
 tytul: Architektura aplikacji
 tags: [architektura, komponenty, przeplywy]
-status_dokumentu: szkic
+status_dokumentu: rdzeń-zaimplementowany
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
 ---
 
 # Architektura aplikacji
 
-> [!warning] Szkic logiczny
-> Ten dokument opisuje podział na komponenty **niezależnie od języka i biblioteki UI**.
-> Zostanie doprecyzowany (nazwy modułów, ścieżki plików) po zatwierdzeniu stosu
-> w ADR i specyfikacji projektu — patrz [zadania fazy 1](../../TODO/README.md).
+> [!note] Stan
+> Rdzeń (warstwy „Domena” i logika „Stanu aplikacji”, klient API, ustawienia, decyzje
+> o powiadomieniach) jest zaimplementowany — [Plan 1](../plany/2026-09-25-plan-1-rdzen.md),
+> mapa modułów niżej. Warstwa prezentacji, sekrety i portale — plany 2–4.
 
 ## Warstwy
 
@@ -70,6 +70,17 @@ flowchart TB
 | **Okno ustawień** | URL, token, język, min. długość opisu, test połączenia | ustawienia, sekrety, API | F-01, F-13 |
 | **Ustawienia** | trwały zapis nie-sekretnych ustawień i „ostatni wybór” | system plików (XDG config) | F-01, F-06 |
 | **Sekrety** | zapis/odczyt tokenu w magazynie systemu | Secret Service / portal | F-01 |
+
+### Moduły rdzenia (Plan 1)
+
+| Komponent | Moduł |
+|---|---|
+| Klient Kimai API | [core/kimai_client.py](../../src/kimai_tray/core/kimai_client.py), [core/errors.py](../../src/kimai_tray/core/errors.py) |
+| Domena | [validation](../../src/kimai_tray/core/validation.py), [billable](../../src/kimai_tray/core/billable.py), [timefmt](../../src/kimai_tray/core/timefmt.py), [grouping](../../src/kimai_tray/core/grouping.py), [models](../../src/kimai_tray/core/models.py) |
+| Stan aplikacji (logika) | [core/tracker.py](../../src/kimai_tray/core/tracker.py) |
+| Ustawienia | [core/settings.py](../../src/kimai_tray/core/settings.py) |
+| Powiadomienia (decyzja) | [core/notification_policy.py](../../src/kimai_tray/core/notification_policy.py) |
+| Teksty | [core/i18n.py](../../src/kimai_tray/core/i18n.py), [locales/](../../src/kimai_tray/core/locales/) |
 
 **Zasada**: domena nie wie nic o UI ani HTTP — dzięki temu testujemy ją jednostkowo
 i przenosimy 1:1 z testowalnej logiki wtyczki (`validate.js`, formatowanie).

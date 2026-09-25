@@ -146,5 +146,14 @@ python3 .claude/skills/sprawdz-linki/linki.py sprawdz
 python3 .claude/skills/frontmatter/frontmatter.py sprawdz
 ```
 
-> [!todo] Przy szkielecie projektu (zadanie [0002](TODO/W-TRAKCIE/0002-specyfikacja-projektu/todo.md))
-> dojdą: uruchomienie w trybie dev, testy (pytest, pytest-qt), lint (ruff), budowa Flatpaka.
+### Python (rdzeń)
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"    # raz
+.venv/bin/pytest                                              # testy (bez Dockera i pulpitu)
+.venv/bin/pytest --cov=kimai_tray.core --cov-fail-under=90    # pokrycie rdzenia
+.venv/bin/pytest -m kimai                                     # testy kontraktowe (Docker)
+.venv/bin/ruff format . && .venv/bin/ruff check .             # format + lint (tylko kod produktu)
+```
+
+> [!todo] Plany 2–4 dopiszą: uruchomienie aplikacji, testy UI, budowę Flatpaka.

@@ -8,10 +8,9 @@ zaktualizowano: 2026-09-25
 
 # Struktura repozytorium
 
-> [!note] Stan na fazę 0
-> Opisane są katalogi dokumentacji, agenta i środowiska testowego. Katalogi kodu (`src/`, `flatpak/`)
-> zostaną dopisane po zatwierdzeniu stosu technologicznego — patrz
-> [Decyzje](../decyzje/README.md).
+> [!note] Stan po Planie 1
+> Opisane są katalogi dokumentacji, agenta, rdzenia i testów. Katalogi `ui/`, `desktop/` i
+> `flatpak/` dojdą w planach 2–4 — patrz [plany](../plany/README.md).
 
 ```
 .
@@ -19,8 +18,13 @@ zaktualizowano: 2026-09-25
 ├── CLAUDE.md                  import AGENTS.md + specyfika Claude Code
 ├── README.md                  opis dla ludzi: co to jest, jak zainstalować
 ├── .gitignore
+├── pyproject.toml             pakiet kimai-tray, zależności, pytest, ruff
+├── src/kimai_tray/
+│   └── core/                  rdzeń bez Qt i D-Bus (plan 1)
 ├── tests/
-│   └── kimai/                 lokalny Kimai w Dockerze do testów (compose, kimai-testowe.sh)
+│   ├── core/                  testy rdzenia (pytest, MockTransport, FakeClient)
+│   ├── kimai/                 Kimai w Dockerze + testy kontraktowe
+│   └── test_architektura.py   zakazane importy między warstwami
 ├── .claude/
 │   └── skills/                skille projektu — powtarzalne zadania agenta
 │       ├── commit/            mały commit zgodny z konwencją
