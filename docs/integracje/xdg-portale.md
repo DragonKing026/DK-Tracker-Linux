@@ -5,7 +5,7 @@ tags: [integracja, flatpak, portale, dbus]
 status_integracji: planowana
 wersja: xdg-desktop-portal (Background v2, GlobalShortcuts v2)
 utworzono: 2026-09-25 17:23
-zaktualizowano: 2026-09-25 21:12
+zaktualizowano: 2026-09-26 00:13
 ---
 
 # Portale XDG Desktop
@@ -102,6 +102,18 @@ kde-portals.conf:
 > - Autostart spoza piaskownicy (uruchomienie z `cargo run`/`python` w dev) nie przechodzi
 >   przez portal tak samo — testować w zbudowanym Flatpaku.
 
+> [!warning] Powiadomienie o tym samym identyfikatorze nie pokaże się drugi raz (KDE)
+> Backend portalu w Plasmie 6.7.5 traktuje znany mu identyfikator jako aktualizację powiadomienia; jeśli
+> poprzednie już zniknęło z ekranu, nic się nie wyświetla (sprawdzone 2026-09-26 00:13: `action` → nic, unikalne id →
+> jest).
+> Dlatego [`PortalNotifier`](../../src/kimai_tray/desktop/notifications.py) nadaje każdemu powiadomieniu nowy
+> identyfikator (`action.1790374275`) i najpierw wycofuje poprzednie tego samego rodzaju.
+
+> [!note] Aplikacja uruchomiona poza Flatpakiem
+> Portal rozpoznaje aplikację po grupie systemd. Uruchomiona z terminala edytora dostaje jego nazwę
+> (np. powiadomienia „od VS Code”). Wywołanie `org.freedesktop.host.portal.Registry.Register` z identyfikatorem
+> `pl.websystems.KimaiTray` jako pierwsze na połączeniu to naprawia (xdg-desktop-portal ≥ 1.19; na Fedorze 44: 1.22.1).
+>
 ## Gdzie w kodzie
 
 - [src/kimai_tray/desktop/notifications.py](../../src/kimai_tray/desktop/notifications.py) — `PortalNotifier`
