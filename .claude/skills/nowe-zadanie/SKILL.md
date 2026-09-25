@@ -29,13 +29,9 @@ Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md). Szablon: [T
    (tworzonych, gdy jest co położyć): `zrzuty/`, `diagramy/`, `testy/`, `prototyp/`,
    `notatki/`, `dane/`. Każdy materiał podlinkuj/osadź w sekcji „Materiały” todo.md,
    np. `![opis](zrzuty/plik.png)`, `[raport](testy/raport.md)`. Zasady: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
-6. **Tablica** — dodaj wiersz z **linkiem** w sekcji „Do zrobienia” w `TODO/README.md`
-   (zależności też jako linki):
-   ```markdown
-   | 0005 | [Klient API Kimai](DO-ZROBIENIA/0005-klient-api-kimai/todo.md) | 📋 do-zrobienia | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) |
-   ```
-   Link markdown ze ścieżką względną (działa w Obsidianie i na GitHubie).
-   Wiersze sortuj po numerze.
+6. **Tablica** — `python3 .claude/skills/zmien-status-zadania/zadanie.py tablica`
+   (tablica jest generowana z frontmatterów; ręcznie jej nie edytujemy). Numer:
+   `zadanie.py numer`.
 7. **Kontrola**: `python3 .claude/skills/sprawdz-linki/linki.py sprawdz` → „Wszystkie linki OK.”
    i `python3 .claude/skills/frontmatter/frontmatter.py sprawdz` → „Frontmatter OK.”
 8. **Commit** (skill `commit`): `todo: dodaj zadanie NNNN-slug`.
