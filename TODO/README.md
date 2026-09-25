@@ -26,14 +26,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0002 | [Specyfikacja projektu (design) i plan implementacji](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-trakcie | p0 | — |
-| 0016 | [Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)](W-TRAKCIE/0016-plan1-polityka-powiadomien/todo.md) | 🔨 w-trakcie | p1 | [0015](ZROBIONE/0015-plan1-tracker-akcje/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0004 | [Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku](DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) ✅ |
-| 0017 | [Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze](DO-ZROBIENIA/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) | 📋 do-zrobienia | p1 | [0016](W-TRAKCIE/0016-plan1-polityka-powiadomien/todo.md) |
+| 0017 | [Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze](DO-ZROBIENIA/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) | 📋 do-zrobienia | p1 | [0016](ZROBIONE/0016-plan1-polityka-powiadomien/todo.md) ✅ |
 | 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](DO-ZROBIENIA/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | 📋 do-zrobienia | p1 | [0017](DO-ZROBIENIA/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) |
 
 ## Zrobione
@@ -53,6 +52,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0013 | [Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)](ZROBIONE/0013-plan1-tlumaczenia-pl-en/todo.md) | ✅ zrobione | 2026-09-25 |
 | 0014 | [Plan 1 · Zadanie 10: Tracker — stan i odświeżanie (`tracker.py` część 1)](ZROBIONE/0014-plan1-tracker-stan-i-odswiezanie/todo.md) | ✅ zrobione | 2026-09-25 |
 | 0015 | [Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)](ZROBIONE/0015-plan1-tracker-akcje/todo.md) | ✅ zrobione | 2026-09-25 |
+| 0016 | [Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)](ZROBIONE/0016-plan1-polityka-powiadomien/todo.md) | ✅ zrobione | 2026-09-25 |
 
 <!-- tablica:end -->
 
