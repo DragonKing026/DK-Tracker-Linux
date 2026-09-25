@@ -43,7 +43,12 @@ class PortalNotifier:
         self._bus.call(PORTAL, PORTAL_PATH, _INTERFACE, "RemoveNotification", "s", (notification_id,))
 
     def listen(self) -> Expectation:
-        """Subscribe to clicks; the UI waits on it in a worker thread (Plan 3)."""
+        """Subscribe to clicks; the UI waits on it in a worker thread (Plan 3).
+
+        The portal broadcasts ActionInvoked without a destination, so the listener may use
+        its own SessionBus (one connection per thread) and still hear clicks on notifications
+        sent through another connection.
+        """
         return self._bus.expect(PORTAL_PATH, _INTERFACE, "ActionInvoked")
 
     @staticmethod
