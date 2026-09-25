@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 19:44
+zaktualizowano: 2026-09-25 19:47
 ---
 
 # Katalog funkcji
@@ -253,7 +253,8 @@ Przez portal Notification (w Qt/PySide przez D-Bus). Ustalone z użytkownikiem 2
 
 Zasady:
 - Jedno powiadomienie na zdarzenie. N-02 nie powtarza się co minutę, dopóki trwa ta sama
-  awaria. N-01 zastępuje poprzednie (to samo `id` powiadomienia).
+  awaria. N-01 zastępuje poprzednie **dla tego samego wpisu** (`id` = `long-timer-<nr wpisu>`);
+  przycisk „Zatrzymaj” działa na wpis wskazany w powiadomieniu (`entry_id`).
 - Akcje z okna aplikacji (nie z menu) nie wysyłają N-03, bo wynik widać w oknie.
 - Brak portalu lub odmowa → funkcja cicho wyłączona, informacja w ustawieniach.
 
