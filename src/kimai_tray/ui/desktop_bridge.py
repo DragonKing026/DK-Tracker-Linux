@@ -16,22 +16,26 @@ from PySide6.QtCore import QThread, Signal
 
 from kimai_tray.core.notification_policy import RenderedNotification
 from kimai_tray.desktop.autostart import BackgroundPortal, BackgroundResult
-from kimai_tray.desktop.bus import Bus, SessionBus
+from kimai_tray.desktop.bus import Bus, SessionBus, register_host_app
 from kimai_tray.desktop.notifications import PortalNotifier
 from kimai_tray.desktop.secrets import SecretServiceStore, SecretsUnavailable
 
 log = logging.getLogger(__name__)
 AUTOSTART_COMMAND = ["kimai-tray", "--hidden"]
+APP_ID = "pl.websystems.KimaiTray"
 
 
 class Desktop:
-    def __init__(self, bus_factory: Callable[[], Bus] = SessionBus) -> None:
+    def __init__(self, bus_factory: Callable[[], Bus] = SessionBus, *, register: bool = True) -> None:
         self._factory = bus_factory
+        self._register = register
         self._bus: Bus | None = None
 
     def _connection(self) -> Bus:
         if self._bus is None:
             self._bus = self._factory()
+            if self._register:
+                register_host_app(self._bus, APP_ID)
         return self._bus
 
     def get_token(self, url: str) -> str | None:
@@ -42,6 +46,9 @@ class Desktop:
 
     def notify(self, rendered: RenderedNotification) -> None:
         PortalNotifier(self._connection()).show(rendered)
+
+    def withdraw(self, notification_id: str) -> None:
+        PortalNotifier(self._connection()).withdraw(notification_id)
 
     def request_background(self, *, autostart: bool, reason: str) -> BackgroundResult:
         return BackgroundPortal(self._connection()).request(

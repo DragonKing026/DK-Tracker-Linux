@@ -17,7 +17,7 @@ def test_bus_is_opened_once_and_lazily():
         opened.append(bus)
         return bus
 
-    desktop = Desktop(factory)
+    desktop = Desktop(factory, register=False)
     assert opened == []
     desktop.notify(RenderedNotification("connection", "Brak połączenia", "", ()))
     desktop.notify(RenderedNotification("connection", "Brak połączenia", "", ()))
@@ -43,3 +43,11 @@ def test_listener_without_a_bus_just_ends(qtbot):
     listener = ClickListener(broken, poll_seconds=0.01)
     listener.start()
     assert listener.wait(2000)
+
+
+def test_first_use_registers_the_app_with_the_portal():
+    bus = FakeBus()
+    bus.on(PORTAL_PATH, "org.freedesktop.host.portal.Registry", "Register", ())
+    bus.on(PORTAL_PATH, NOTIFY, "RemoveNotification", ())
+    Desktop(lambda: bus).withdraw("long-timer-7")
+    assert bus.members() == ["Register", "RemoveNotification"]

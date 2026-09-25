@@ -19,6 +19,7 @@ class FakeDesktop:
         self.tokens = {URL: token} if token else {}
         self.fail = fail
         self.notified = []
+        self.withdrawn = []
         self.background = []
 
     def get_token(self, url):
@@ -31,6 +32,9 @@ class FakeDesktop:
 
     def notify(self, rendered):
         self.notified.append(rendered)
+
+    def withdraw(self, notification_id):
+        self.withdrawn.append(notification_id)
 
     def request_background(self, *, autostart, reason):
         self.background.append(autostart)
@@ -224,3 +228,15 @@ def test_without_a_tray_the_window_explains_it_for_this_session_only(harness):
     h.settle()
     assert ("hintNoTray", {}) in h.state.warnings
     assert h.saved_memory[-1].tray_hint_shown is True  # the next start stays quiet
+
+
+def test_a_handled_notification_is_withdrawn(harness):
+    client = FakeClient()
+    client.add(make_entry(7, NOW - timedelta(hours=9)))
+    h = harness(client=client)
+    h.controller.on_notification(NotificationAction("long-timer-7", "stop", 7))
+    h.settle()
+    assert h.desktop.withdrawn == ["long-timer-7"]
+    h.controller.on_notification(NotificationAction("long-timer-7", "keep", 7))
+    h.settle()
+    assert h.desktop.withdrawn == ["long-timer-7", "long-timer-7"]

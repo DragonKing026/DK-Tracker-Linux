@@ -299,6 +299,8 @@ class Controller(QObject):
             self._notify(render(note, self.state.t))
 
     def on_notification(self, action: NotificationAction) -> None:
+        # KDE leaves a notification on screen after a button click: take it away ourselves.
+        self.dbus.submit(lambda: self._desktop.withdraw(action.notification_id), on_error=lambda _e: None)
         if action.action == "settings":
             self.open_settings()
         elif action.action == "stop":
