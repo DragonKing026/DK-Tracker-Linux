@@ -3,7 +3,7 @@ noteId: "5117ce2da6fb45e692d21f2b5fe80086"
 tytul: Struktura repozytorium
 tags: [architektura, repozytorium]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 23:11
+zaktualizowano: 2026-09-25 23:36
 ---
 
 # Struktura repozytorium
@@ -19,6 +19,8 @@ zaktualizowano: 2026-09-25 23:11
 ├── README.md                  opis dla ludzi: co to jest, jak zainstalować
 ├── .gitignore
 ├── pyproject.toml             pakiet kimai-tray, zależności, pytest, ruff
+├── data/                      plik .desktop aplikacji (host i Flatpak)
+├── scripts/                   instaluj-dev.sh — .desktop i ikona na hoście na czas rozwoju
 ├── src/kimai_tray/
 │   ├── __main__.py            `python -m kimai_tray [--hidden]`
 │   ├── core/                  rdzeń bez Qt i D-Bus (plan 1)
