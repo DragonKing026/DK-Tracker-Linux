@@ -37,6 +37,7 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 - [x] **Ikona w tacce (F-02):** wariant **C** — czas w ikonie jak plakietka wtyczki (`47m` / `1:22` na zielonym, `!` na czerwonym, szary zegar gdy nic nie trwa); pełna informacja w tooltipie. Zapis: [F-02](../../../docs/architektura/funkcje.md).
 
 - [x] **Środkowy przycisk na ikonie:** nic (A). Użytkownik najpierw wybrał B (start/stop), po chwili zmienił na A.
+- [x] **Token tylko w pamięci bez portfela:** nie w 1.0 (A).
 
 ## Materiały
 
@@ -48,3 +49,4 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 - **21:55** Utworzono. Motyw: według systemu (decyzja użytkownika).
 - **21:59** Ikona: wariant C (decyzja użytkownika).
 - **22:03** Środkowy klik: A — nic (decyzja użytkownika, zmieniona z B).
+- **22:05** Tryb tokenu w pamięci: nie (A). Wszystkie decyzje UI zebrane — pisanie Planu 3.
