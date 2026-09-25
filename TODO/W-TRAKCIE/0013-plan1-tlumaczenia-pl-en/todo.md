@@ -2,7 +2,7 @@
 noteId: "25016b5e44f445f1af8c316a85eddd34"
 tytul: "Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)"
 numer: "0013"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0012"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0013 — Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -54,6 +54,7 @@ Wykonać **zadanie 9** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 
