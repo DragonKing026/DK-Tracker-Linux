@@ -2,7 +2,7 @@
 noteId: "e2a2269367b546b8867d23207ac437c4"
 tytul: httpx
 tags: [integracja, http, python]
-status_integracji: planowana
+status_integracji: w-uzyciu
 wersja: 0.28.1 (PyPI, 2026-09-25)
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
@@ -61,6 +61,11 @@ Moduły manifestu generujemy narzędziem
 >   przejdzie weryfikacji. Wtedy opcja „użyj systemowego magazynu CA” (`ssl` context
 >   z `/etc/ssl` w runtime) — do rozważenia, gdy wystąpi.
 > - Nigdy nie logujemy nagłówków żądań (token).
+
+## Gdzie w kodzie
+
+- [src/kimai_tray/core/kimai_client.py](../../src/kimai_tray/core/kimai_client.py) — jedyne miejsce użycia `httpx.Client`.
+- [tests/core/test_kimai_client.py](../../tests/core/test_kimai_client.py) — `httpx.MockTransport`.
 
 ## Dokumentacja
 

@@ -2,7 +2,7 @@
 noteId: "d4ca0ed1ee384a2392516906d96bbf7b"
 tytul: Kimai REST API
 tags: [integracja, kimai, api, http]
-status_integracji: planowana
+status_integracji: w-uzyciu
 wersja: Kimai 2.x (dokumentacja 2.67.0; wtyczka deklaruje zgodność z nowoczesnym tokenem Bearer)
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
@@ -150,7 +150,10 @@ Locale bierzemy z `user.language` (np. z `/api/users/me` albo z wpisów).
 
 ## Gdzie w kodzie
 
-> [!todo] Uzupełnić po implementacji klienta API.
+- [src/kimai_tray/core/kimai_client.py](../../src/kimai_tray/core/kimai_client.py) — `KimaiClient`
+  (wszystkie endpointy z tabeli powyżej, stronicowanie `range`).
+- [src/kimai_tray/core/errors.py](../../src/kimai_tray/core/errors.py) — `ApiError`, zbieranie błędów formularza.
+- Testy: [tests/core/test_kimai_client.py](../../tests/core/test_kimai_client.py) (MockTransport).
 
 ## Powiązane
 
