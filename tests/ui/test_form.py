@@ -5,6 +5,7 @@ from zoneinfo import ZoneInfo
 import pytest
 from PySide6.QtCore import QEvent, Qt
 from PySide6.QtGui import QFocusEvent
+from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication
 
 from kimai_tray.core.i18n import Translator
@@ -189,3 +190,27 @@ def test_short_description_has_no_scroll_bar(form):
     form.description.setPlainText("\n".join(["linia"] * 12))
     assert form.description.height() == 96
     assert form.description.verticalScrollBarPolicy() == Qt.ScrollBarPolicy.ScrollBarAsNeeded
+
+
+def test_typing_filters_projects_ignoring_case_and_polish_letters(form, qtbot):
+    form.project.lineEdit().setText("")
+    QTest.keyClicks(form.project.lineEdit(), "MODUL")
+    names = [form.search_model.index(row, 0).data() for row in range(form.search_model.rowCount())]
+    assert names == ["Moduł rezerwacji — Hotel Morski"]
+
+
+def test_choosing_a_search_result_selects_the_project(form, qtbot):
+    QTest.keyClicks(form.project.lineEdit(), "admin")
+    with qtbot.waitSignal(form.projectChosen) as signal:
+        form.completer.activated[str].emit("Administracja — Sprawy wewnętrzne")
+    assert signal.args == [2]
+    assert form.project.currentData() == 2
+    assert form.project.currentText() == "Administracja"
+
+
+def test_leaving_unfinished_search_text_restores_the_project(form):
+    form.select_project(1)
+    form.project.lineEdit().setText("xyz")
+    form.project.lineEdit().editingFinished.emit()
+    assert form.project.currentText() == "Moduł rezerwacji"
+    assert form.project.currentData() == 1
