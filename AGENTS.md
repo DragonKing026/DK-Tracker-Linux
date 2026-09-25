@@ -15,8 +15,9 @@ start/stop timera, lista ostatnich wpisów, wznawianie, edycja trwającego wpisu
 „billable”, sumy dzienne/tygodniowe, walidacja jakości opisu.
 Szczegóły: [[docs/integracje/kimai-ws-tracker|docs/integracje/kimai-ws-tracker.md]].
 
-Status: **faza 0 — struktura agenta i dokumentacja**. Stos technologiczny nie jest jeszcze
-zatwierdzony — patrz [[docs/decyzje/README|docs/decyzje/]] i `TODO/`.
+Status: **faza 1 — specyfikacja i planowanie**.
+Stos: **Python + PySide6 (Qt 6), Flatpak na `org.kde.Platform` 6.11** —
+[[docs/decyzje/0002-stos-python-pyside6|ADR-0002]].
 
 ## 2. Mapa repozytorium
 
@@ -106,5 +107,5 @@ flowchart LR
 
 ## 7. Komendy
 
-> [!todo] Uzupełnić po wyborze stosu technologicznego (zadanie `TODO/0003-wybor-stosu`).
-> Tu trafią: uruchomienie w trybie dev, testy, lint, budowa Flatpaka.
+> [!todo] Uzupełnić przy szkielecie projektu (zadanie `TODO/0002-specyfikacja-projektu`).
+> Tu trafią: uruchomienie w trybie dev, testy (pytest, pytest-qt), lint, budowa Flatpaka.
