@@ -56,6 +56,11 @@ To szczegół implementacji Kimai. Może się zmienić w przyszłej wersji, dlat
 | 12 | Zły token | **401 z pustą treścią** | [wynik 3](wynik-probe-3.txt) |
 | 13 | Billable z klienta | projekt klienta z `billable=false` → wpis `billable: false` | [wynik 3](wynik-probe-3.txt) |
 
+> [!success] Wynik trwały
+> Środowisko przeniesione do repozytorium jako [tests/kimai/](../../../../tests/kimai/README.md)
+> (skrypt `kimai-testowe.sh up/env/down`, wersja przypięta do 2.67.0). Prototyp poniżej
+> zostaje jako zapis spike'a.
+
 ## Wnioski dla projektu
 
 - **Strefa czasowa (krytyczne).** Wszystkie godziny wysyłane do Kimai liczymy w strefie

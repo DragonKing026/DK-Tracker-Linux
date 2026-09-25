@@ -65,6 +65,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Sekcja 3 (obsługa błędów i przypadki brzegowe) zaakceptowana.
 - Struktura TODO zmieniona: foldery DO-ZROBIENIA / W-TRAKCIE / ZROBIONE; status `w-toku` → `w-trakcie`.
 - Spike: Kimai 2.67.0 w Dockerze do testów — działa; tokeny wstawiane SQL-em. Wykryto pułapkę strefy czasowej. Raport: [testy/raport-kimai-docker-2026-09-25.md](testy/raport-kimai-docker-2026-09-25.md).
+- Sekcja 4 (testy) zaakceptowana, z Kimai w Dockerze do testów kontraktowych. Środowisko dodane do repo: [tests/kimai/](../../../tests/kimai/README.md).
 - Nowe zasady od użytkownika: materiały zadań w podfolderach, linki markdown wszędzie ([sprawdz-linki](../../../.claude/skills/sprawdz-linki/SKILL.md)).
 
 ## Wynik
