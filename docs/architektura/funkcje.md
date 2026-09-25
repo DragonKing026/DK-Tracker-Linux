@@ -66,9 +66,13 @@ stateDiagram-v2
 ## F-04 Start timera
 
 1. Wymagane: projekt (`errNoProject`), czynność (`errNoActivity`), opis zgodny z F-11.
-2. `POST /api/timesheets` z `begin` = lokalny czas **minus 1 s** w formacie
-   `YYYY-MM-DDTHH:mm:ss` bez strefy (Kimai odrzuca przyszły początek, a UTC czytałby jako
-   czas lokalny), `project`, `activity`, `description`, opcjonalnie `billable` (F-09).
+2. `POST /api/timesheets` z `begin` = czas **minus 1 s** w formacie
+   `YYYY-MM-DDTHH:mm:ss` bez strefy, `project`, `activity`, `description`, opcjonalnie
+   `billable` (F-09).
+   **Różnica w aplikacji:** wtyczka bierze czas przeglądarki. Aplikacja liczy go
+   w **strefie konta Kimai** (`/api/users/me → timezone`), bo Kimai dokleja tę strefę
+   bez przeliczania. Przy różnych strefach wtyczka zapisuje wpis przesunięty w czasie
+   (sprawdzone: [raport](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)).
 3. Zapamiętanie `lastProject`, `lastActivity` (F-06).
 4. Odświeżenie ikony (F-02) i okna.
 5. **Enter** w polu opisu = start; **Shift+Enter** = nowa linia.
