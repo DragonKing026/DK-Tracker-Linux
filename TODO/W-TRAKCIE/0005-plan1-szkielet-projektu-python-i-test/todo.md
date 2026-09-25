@@ -2,7 +2,7 @@
 noteId: "ced057af55a84b4f97cf2f7d2e83df13"
 tytul: "Plan 1 · Zadanie 1: Szkielet projektu Python i test architektury"
 numer: "0005"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0002"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0005 — Plan 1 · Zadanie 1: Szkielet projektu Python i test architektury
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -56,6 +56,7 @@ Wykonać **zadanie 1** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania (Native, gałąź feat/plan-1-rdzen).
 
 ## Wynik
 

@@ -46,9 +46,9 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 
 ## Materiały
 
-- [prototyp/kimai-docker/](prototyp/kimai-docker/) — Kimai w Dockerze + skrypty sprawdzające API (spike, do wyrzucenia)
+- [prototyp/kimai-docker/](prototyp/kimai-docker) — Kimai w Dockerze + skrypty sprawdzające API (spike, do wyrzucenia)
 - [testy/raport-kimai-docker-2026-09-25.md](testy/raport-kimai-docker-2026-09-25.md) — raport z weryfikacji API
-- [testy/](testy/) — surowe wyniki uruchomień (`wynik-probe-*.txt`)
+- [testy/](testy) — surowe wyniki uruchomień (`wynik-probe-*.txt`)
 - [testy/weryfikacja-planu-1-2026-09-25.md](testy/weryfikacja-planu-1-2026-09-25.md) — kod Planu 1 uruchomiony przed przekazaniem
 
 ## Dziennik
