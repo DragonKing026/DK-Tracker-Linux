@@ -25,15 +25,14 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0033 | [Plan 3 · Zadanie 5: Stan aplikacji i ikona w tacce (`ui/state.py`, `ui/tray.py`)](W-TRAKCIE/0033-plan3-stan-i-ikona-w-tacce/todo.md) | 🔨 w-trakcie | p1 | [0032](ZROBIONE/0032-plan3-praca-w-tle/todo.md) ✅ |
+| 0034 | [Plan 3 · Zadanie 6: Pasek trackera (`ui/form.py`)](W-TRAKCIE/0034-plan3-pasek-trackera/todo.md) | 🔨 w-trakcie | p1 | [0033](ZROBIONE/0033-plan3-stan-i-ikona-w-tacce/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0034 | [Plan 3 · Zadanie 6: Pasek trackera (`ui/form.py`)](DO-ZROBIENIA/0034-plan3-pasek-trackera/todo.md) | 📋 do-zrobienia | p1 | [0033](W-TRAKCIE/0033-plan3-stan-i-ikona-w-tacce/todo.md) |
-| 0035 | [Plan 3 · Zadanie 7: Ostatnie wpisy (`ui/recent.py`)](DO-ZROBIENIA/0035-plan3-ostatnie-wpisy/todo.md) | 📋 do-zrobienia | p1 | [0034](DO-ZROBIENIA/0034-plan3-pasek-trackera/todo.md) |
+| 0035 | [Plan 3 · Zadanie 7: Ostatnie wpisy (`ui/recent.py`)](DO-ZROBIENIA/0035-plan3-ostatnie-wpisy/todo.md) | 📋 do-zrobienia | p1 | [0034](W-TRAKCIE/0034-plan3-pasek-trackera/todo.md) |
 | 0036 | [Plan 3 · Zadanie 8: Okno szybkiej obsługi i jego miejsce (`ui/popup.py`, `ui/placement.py`)](DO-ZROBIENIA/0036-plan3-okno-szybkiej-obslugi/todo.md) | 📋 do-zrobienia | p1 | [0035](DO-ZROBIENIA/0035-plan3-ostatnie-wpisy/todo.md) |
 | 0037 | [Plan 3 · Zadanie 9: Ustawienia (`ui/settings_dialog.py`)](DO-ZROBIENIA/0037-plan3-ustawienia/todo.md) | 📋 do-zrobienia | p1 | [0036](DO-ZROBIENIA/0036-plan3-okno-szybkiej-obslugi/todo.md) |
 | 0038 | [Plan 3 · Zadanie 10: Usługi pulpitu w wątkach UI (`ui/desktop_bridge.py`)](DO-ZROBIENIA/0038-plan3-most-do-dbus/todo.md) | 📋 do-zrobienia | p1 | [0037](DO-ZROBIENIA/0037-plan3-ustawienia/todo.md) |
@@ -76,6 +75,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0030 | [Plan 3 · Zadanie 2: Teksty tacki i listy w rdzeniu (`core/presentation.py`)](ZROBIONE/0030-plan3-teksty-w-rdzeniu/todo.md) | ✅ zrobione | 2026-09-25 23:08 |
 | 0031 | [Plan 3 · Zadanie 3: Motyw i ikony (`ui/theme.py`, `ui/icons.py`)](ZROBIONE/0031-plan3-motyw-i-ikony/todo.md) | ✅ zrobione | 2026-09-25 23:08 |
 | 0032 | [Plan 3 · Zadanie 4: Praca w tle (`ui/worker.py`)](ZROBIONE/0032-plan3-praca-w-tle/todo.md) | ✅ zrobione | 2026-09-25 23:09 |
+| 0033 | [Plan 3 · Zadanie 5: Stan aplikacji i ikona w tacce (`ui/state.py`, `ui/tray.py`)](ZROBIONE/0033-plan3-stan-i-ikona-w-tacce/todo.md) | ✅ zrobione | 2026-09-25 23:09 |
 
 <!-- tablica:end -->
 
