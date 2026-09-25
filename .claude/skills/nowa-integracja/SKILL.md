@@ -16,8 +16,9 @@ magazyn sekretów…) ma **osobny plik** w `docs/integracje/`. Bez niego nie dod
 
    ```markdown
    ---
+   noteId: "<frontmatter.py noteid>"
    tytul: <Nazwa>
-   tagi: [integracja, <obszar>]
+   tags: [integracja, <obszar>]
    status_integracji: planowana | w-uzyciu | porzucona
    wersja: <wersja/zakres wersji, jeśli dotyczy>
    utworzono: <data>
