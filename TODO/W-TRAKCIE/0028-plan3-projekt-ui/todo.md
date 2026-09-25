@@ -36,6 +36,8 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 - [x] **Motyw:** według systemu (jasny/ciemny), palety 1:1 z wtyczki — [paleta](../../../docs/integracje/kimai-ws-tracker.md). Wtyczka też przełącza motyw według systemu (`prefers-color-scheme`).
 - [x] **Ikona w tacce (F-02):** wariant **C** — czas w ikonie jak plakietka wtyczki (`47m` / `1:22` na zielonym, `!` na czerwonym, szary zegar gdy nic nie trwa); pełna informacja w tooltipie. Zapis: [F-02](../../../docs/architektura/funkcje.md).
 
+- [x] **Środkowy przycisk na ikonie:** nic (A). Użytkownik najpierw wybrał B (start/stop), po chwili zmienił na A.
+
 ## Materiały
 
 - ![Warianty ikony w tacce](zrzuty/ikony-warianty.png) — makieta F-02: 22 px (100 %) i 44 px (200 %), panel ciemny i jasny; skrypt: [prototyp/ikony_makieta.py](prototyp/ikony_makieta.py)
@@ -45,3 +47,4 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 ### 2026-09-25
 - **21:55** Utworzono. Motyw: według systemu (decyzja użytkownika).
 - **21:59** Ikona: wariant C (decyzja użytkownika).
+- **22:03** Środkowy klik: A — nic (decyzja użytkownika, zmieniona z B).
