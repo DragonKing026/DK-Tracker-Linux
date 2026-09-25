@@ -48,7 +48,7 @@ Zaakceptowane przez użytkownika 2026-09-25.
   Manifest musi zawierać `cleanup-commands: [/app/cleanup-BaseApp.sh]`; warto ustawić
   `BASEAPP_REMOVE_WEBENGINE`, bo WebEngine nie jest nam potrzebny.
 - Qt dokumentuje, że w GNOME ≥ 3.26 bez rozszerzeń nie wszystkie `ActivationReason`
-  są obsługiwane. To wymaga sprawdzenia w [prototypie](../../TODO/DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md).
+  są obsługiwane. To wymaga sprawdzenia w [prototypie](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/todo.md).
 - Tooltip przez `QHelpEvent` i kółko myszy działają tylko na X11. Na Waylandzie tooltip
   ustawiamy właściwością `toolTip` (SNI), bez zdarzeń.
 - Do ustalenia osobno: UI w Qt Widgets czy QML, klient HTTP (np. `QNetworkAccessManager`
@@ -58,6 +58,8 @@ Zaakceptowane przez użytkownika 2026-09-25.
   modułu w manifeście.
 
 ## Powiązane
+
+- [ADR-0006](0006-budowanie-flatpaka-w-kontenerze.md) — budowa w kontenerze (regresja Flatpaka 1.18.2 na Fedorze 44)
 
 - [Qt / PySide6](../integracje/qt-pyside6.md)
 - [Flatpak](../integracje/flatpak.md)

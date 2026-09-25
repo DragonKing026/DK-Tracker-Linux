@@ -2,11 +2,14 @@
 noteId: "52881c915ddd4b6b9caca3b509b690db"
 tytul: Forma okna szybkiej obsługi na Waylandzie
 tags: [adr, ui, wayland, tray]
-status: zaakceptowana
-zastapiona_przez:
+status: zastapiona
+zastapiona_przez: ADR-0005
 utworzono: 2026-09-25 17:31
-zaktualizowano: 2026-09-25 17:55
+zaktualizowano: 2026-09-25 20:37
 ---
+
+> [!warning] Zastąpiona
+> Zastąpiona przez [ADR-0005](0005-okno-przy-tacce-na-kde.md) (2026-09-25 20:37) po wynikach prototypu 0004.
 
 # ADR-0003: Okno szybkiej obsługi — bezramkowe, chowane po utracie fokusu
 
@@ -56,5 +59,5 @@ są zawsze dostępne tuż przy ikonie. Wariant B jest opcjonalnym ulepszeniem i 
 ## Powiązane
 
 - [F-03](../architektura/funkcje.md), [F-20](../architektura/funkcje.md)
-- [Prototyp 0004](../../TODO/DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md)
+- [Prototyp 0004](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/todo.md)
 - [Qt / PySide6](../integracje/qt-pyside6.md)
