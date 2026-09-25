@@ -34,7 +34,7 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 ## Decyzje
 
 - [x] **Motyw:** według systemu (jasny/ciemny), palety 1:1 z wtyczki — [paleta](../../../docs/integracje/kimai-ws-tracker.md). Wtyczka też przełącza motyw według systemu (`prefers-color-scheme`).
-- [ ] **Ikona w tacce (F-02):** wariant — do decyzji
+- [x] **Ikona w tacce (F-02):** wariant **C** — czas w ikonie jak plakietka wtyczki (`47m` / `1:22` na zielonym, `!` na czerwonym, szary zegar gdy nic nie trwa); pełna informacja w tooltipie. Zapis: [F-02](../../../docs/architektura/funkcje.md).
 
 ## Materiały
 
@@ -44,3 +44,4 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 
 ### 2026-09-25
 - **21:55** Utworzono. Motyw: według systemu (decyzja użytkownika).
+- **21:59** Ikona: wariant C (decyzja użytkownika).
