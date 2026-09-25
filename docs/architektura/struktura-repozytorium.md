@@ -3,14 +3,14 @@ noteId: "5117ce2da6fb45e692d21f2b5fe80086"
 tytul: Struktura repozytorium
 tags: [architektura, repozytorium]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-25 19:05
+zaktualizowano: 2026-09-25 21:06
 ---
 
 # Struktura repozytorium
 
-> [!note] Stan po Planie 1
-> Opisane są katalogi dokumentacji, agenta, rdzenia i testów. Katalogi `ui/`, `desktop/` i
-> `flatpak/` dojdą w planach 2–4 — patrz [plany](../plany/README.md).
+> [!note] Stan po Planie 2
+> Opisane są katalogi dokumentacji, agenta, rdzenia, integracji desktopowych i testów. Katalogi `ui/` i
+> `flatpak/` dojdą w planach 3–4 — patrz [plany](../plany/README.md).
 
 ```
 .
@@ -20,9 +20,11 @@ zaktualizowano: 2026-09-25 19:05
 ├── .gitignore
 ├── pyproject.toml             pakiet kimai-tray, zależności, pytest, ruff
 ├── src/kimai_tray/
-│   └── core/                  rdzeń bez Qt i D-Bus (plan 1)
+│   ├── core/                  rdzeń bez Qt i D-Bus (plan 1)
+│   └── desktop/               D-Bus na jeepney bez Qt: sekrety, powiadomienia, autostart (plan 2)
 ├── tests/
 │   ├── core/                  testy rdzenia (pytest, MockTransport, FakeClient)
+│   ├── desktop/               testy D-Bus (FakeBus) + `-m desktop` na prawdziwej sesji
 │   ├── kimai/                 Kimai w Dockerze + testy kontraktowe
 │   └── test_architektura.py   zakazane importy między warstwami
 ├── .claude/
