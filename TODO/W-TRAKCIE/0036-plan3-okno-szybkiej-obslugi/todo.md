@@ -2,18 +2,18 @@
 noteId: "0ccfc23427934c40af9f26a3d726fe41"
 tytul: "Plan 3 · Zadanie 8: Okno szybkiej obsługi i jego miejsce (`ui/popup.py`, `ui/placement.py`)"
 numer: "0036"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-3, ui]
 zalezy_od: ["0035"]
 utworzono: 2026-09-25 23:07
-zaktualizowano: 2026-09-25 23:07
+zaktualizowano: 2026-09-25 23:09
 ---
 
 # 0036 — Plan 3 · Zadanie 8: Okno szybkiej obsługi i jego miejsce (`ui/popup.py`, `ui/placement.py`)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -51,3 +51,4 @@ Wykonać **zadanie 8** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ### 2026-09-25
 - **23:07** Utworzono zadanie z Planu 3.
+- **23:09** Start wykonania.
