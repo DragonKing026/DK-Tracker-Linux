@@ -25,7 +25,12 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 - [ ] Ikona SNI z `QSystemTrayIcon` (PySide6, [[docs/decyzje/0002-stos-python-pyside6|ADR-0002]]) pojawia się we Flatpaku z samym
       `--talk-name=org.kde.StatusNotifierWatcher` (bez `--own-name`)
 - [ ] Lewy klik → okno; prawy klik → menu — na Plasmie 6 Wayland
-- [ ] Gdzie pojawia się okno na Waylandzie i czy da się je sensownie zakotwiczyć
+- [ ] Wariant A ([[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]]): bezramkowe okno
+      narzędziowe — gdzie je stawia KWin / Mutter, czy chowanie po utracie fokusu działa
+- [ ] Kolizja: klik w ikonę zabiera fokus → okno się chowa → `Trigger` pokazuje je znowu?
+- [ ] Reguła okna KWin (pozycja przy panelu) — czy da się ją podpowiedzieć użytkownikowi
+- [ ] Wariant B: `layer-shell-qt` jako moduł w manifeście Flatpaka — czy da się zbudować
+      i zakotwiczyć okno przy panelu Plasmy; decyzja: dokładamy albo porzucamy
 - [ ] Zmiana ikony/tooltipu co minutę (czas timera) jest widoczna
 - [ ] GNOME + AppIndicator: ikona, klik, tooltip/etykieta
 - [ ] GNOME bez rozszerzenia: wykrycie braku watchera i tryb okna
@@ -40,5 +45,6 @@ Zrzuty z każdego pulpitu → `assets/`.
 ### 2026-09-25
 - Utworzono zadanie.
 - Stos wybrany (0003 zamknięte) → status do-zrobienia.
+- ADR-0003: dodano pytania o wariant A i B okna.
 
 ## Wynik
