@@ -49,7 +49,7 @@ dopisuje je do pliku, który zostaje wtedy niezacommitowany. Pilnuje tego skill
   `[Kimai API](../integracje/kimai-api.md)`. Działają w VS Code, Obsidianie i na GitHubie.
   **Wikilinki `[[...]]` są zakazane**, bo VS Code i GitHub ich nie obsługują.
 - **Każde odwołanie jest linkiem**: zadanie, ADR, dokument, plik kodu, zrzut, raport.
-  Nie „zadanie 0003”, tylko `[0003](../../TODO/DONE/0003-wybor-stosu/todo.md)`.
+  Nie „zadanie 0003”, tylko `[0003](../../TODO/ZROBIONE/0003-wybor-stosu/todo.md)`.
 - **Przenoszenie plików** tylko przez `linki.py przenies` (skill `sprawdz-linki`).
   Przed commitem: `linki.py sprawdz`.
 - **Callouty**:

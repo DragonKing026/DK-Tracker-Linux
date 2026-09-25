@@ -17,7 +17,7 @@ Folder zadania leży w podfolderze **według statusu**:
 |---|---|---|
 | [TODO/DO-ZROBIENIA/](../../TODO/DO-ZROBIENIA) | `pomysl`, `do-zrobienia` | zadania czekające na start |
 | [TODO/W-TRAKCIE/](../../TODO/W-TRAKCIE) | `w-trakcie`, `zablokowane` | zadania rozpoczęte |
-| [TODO/DONE/](../../TODO/ZROBIONE) | `zrobione`, `porzucone` | zadania zakończone |
+| [TODO/ZROBIONE/](../../TODO/ZROBIONE/) | `zrobione`, `porzucone` | zadania zakończone |
 
 - Nowe zadanie powstaje w `DO-ZROBIENIA/`.
 - **Zmiana statusu, która zmienia grupę, przenosi folder**. Przenosimy wyłącznie
@@ -65,7 +65,7 @@ TODO/
     prototyp/                   ← kod roboczy / spike (do wyrzucenia, nie trafia do src/)
     notatki/                    ← notatki badawcze, wycinki z dokumentacji, porównania
     dane/                       ← przykładowe odpowiedzi API, pliki wejściowe
-  DONE/
+  ZROBIONE/
     0001-struktura-agenta-i-dokumentacja/
 ```
 
@@ -87,7 +87,7 @@ stateDiagram-v2
         w_trakcie
         zablokowane
     }
-    state "DONE/" as DN {
+    state "ZROBIONE/" as ZR {
         zrobione
         porzucone
     }
@@ -123,11 +123,11 @@ Priorytety: `p0` (krytyczne, blokuje inne), `p1` (ważne), `p2` (normalne), `p3`
 
 - Zadanie zakładamy **przed** rozpoczęciem pracy (skill `nowe-zadanie`).
 - Każda zmiana statusu = aktualizacja [TODO/README.md](../../TODO/README.md) + commit `todo: ...`.
-- Zadanie zamykamy skillem `zamknij-zadanie` — wypełnia „Wynik”, przenosi folder
-  do `TODO/DONE/`, przenosi wiersz w tablicy do sekcji zakończonych i poprawia linki
-  prowadzące do zadania.
+- Każdą zmianę statusu robimy skillem `zmien-status-zadania`: aktualizuje frontmatter
+  i dziennik (przy zamknięciu także „Wynik”), przenosi folder do właściwego podfolderu
+  z poprawą linków i przesuwa wiersz na tablicy.
 - Linki w tablicy to zwykłe linki markdown ze ścieżką względną
-  (`[Tytuł](0002-slug/todo.md)`) — działają w Obsidianie i na GitHubie.
+  (`[Tytuł](W-TRAKCIE/0002-slug/todo.md)`) — działają w Obsidianie i na GitHubie.
 - Duże zadanie dzielimy na mniejsze (osobne foldery) i linkujemy przez `zalezy_od`.
 
 ## Powiązane
