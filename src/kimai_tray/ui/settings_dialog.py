@@ -9,15 +9,16 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import replace
 
-from PySide6.QtCore import Signal
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (
     QCheckBox,
     QComboBox,
     QDialog,
     QDoubleSpinBox,
-    QFormLayout,
+    QGridLayout,
     QHBoxLayout,
     QLabel,
+    QLayout,
     QLineEdit,
     QPushButton,
     QSpinBox,
@@ -45,14 +46,14 @@ class SettingsDialog(QDialog):
         self.url = QLineEdit()
         self.token = QLineEdit()
         self.token.setEchoMode(QLineEdit.EchoMode.Password)
-        self.token_hint = QLabel(wordWrap=True)
+        self.token_hint = QLabel()  # one line: top-level windows ignore height-for-width
         self.language = QComboBox()
         for code, _key in LANGUAGES:
             self.language.addItem("", code)
         self.min_description = QSpinBox(minimum=0, maximum=200)
-        self.min_hint = QLabel(wordWrap=True)
+        self.min_hint = QLabel()  # one line: top-level windows ignore height-for-width
         self.long_timer = QDoubleSpinBox(minimum=0.0, maximum=24.0, singleStep=0.5, decimals=1)
-        self.long_hint = QLabel(wordWrap=True)
+        self.long_hint = QLabel()  # one line: top-level windows ignore height-for-width
         self.notify_connection = QCheckBox()
         self.notify_menu = QCheckBox()
         self.autostart = QCheckBox()
@@ -63,22 +64,34 @@ class SettingsDialog(QDialog):
         self.save_button.setDefault(True)
         self.close_button = QPushButton()
 
-        self.form = QFormLayout()
+        # A grid, not a QFormLayout: the form layout cut wrapped hints to one line.
+        self.form = QGridLayout()
+        self.form.setColumnStretch(1, 1)
         self._labels = {name: QLabel() for name in ("url", "token", "language", "min", "long")}
-        self.form.addRow(self._labels["url"], self.url)
-        self.form.addRow(self._labels["token"], self.token)
-        self.form.addRow("", self.token_hint)
-        self.form.addRow(self._labels["language"], self.language)
-        self.form.addRow(self._labels["min"], self.min_description)
-        self.form.addRow("", self.min_hint)
-        self.form.addRow(self._labels["long"], self.long_timer)
-        self.form.addRow("", self.long_hint)
+        rows = (
+            ("url", self.url, None),
+            ("token", self.token, self.token_hint),
+            ("language", self.language, None),
+            ("min", self.min_description, self.min_hint),
+            ("long", self.long_timer, self.long_hint),
+        )
+        row = 0
+        for name, field, hint in rows:
+            self._labels[name].setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+            self.form.addWidget(self._labels[name], row, 0)
+            self.form.addWidget(field, row, 1)
+            row += 1
+            if hint is not None:
+                self.form.addWidget(hint, row, 1)
+                row += 1
         buttons = QHBoxLayout()
         buttons.addWidget(self.test_button)
         buttons.addStretch(1)
         buttons.addWidget(self.close_button)
         buttons.addWidget(self.save_button)
         layout = QVBoxLayout(self)
+        # The window may not get smaller than its content: wrapped hints were cut off.
+        layout.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
         layout.addLayout(self.form)
         for box in (self.notify_connection, self.notify_menu, self.autostart):
             layout.addWidget(box)

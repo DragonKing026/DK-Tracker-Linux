@@ -89,3 +89,13 @@ def test_english(dialog):
     dialog.retranslate(Translator("en"))
     assert dialog.windowTitle() == "Kimai Tray settings"
     assert dialog.save_button.text() == "Save"
+
+
+def test_wrapped_hints_get_the_height_they_need(dialog, qtbot):
+    dialog.resize(480, 120)  # too small: the window must not squeeze the hints
+    dialog.show()
+    qtbot.waitExposed(dialog)
+    for label in (dialog.token_hint, dialog.min_hint, dialog.long_hint):
+        assert label.height() >= label.heightForWidth(label.width()), label.text()
+        assert label.height() >= label.sizeHint().height(), label.text()
+        assert label.width() >= label.sizeHint().width(), label.text()
