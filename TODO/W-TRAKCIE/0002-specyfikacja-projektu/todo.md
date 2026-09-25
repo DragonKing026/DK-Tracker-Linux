@@ -32,7 +32,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - [x] Ustalony zakres 1.0: F-20, F-21, F-22 wchodzą; F-23, F-24 później
 - [x] Zatwierdzony stos ([0003](../../ZROBIONE/0003-wybor-stosu/todo.md) → [ADR-0002](../../../docs/decyzje/0002-stos-python-pyside6.md): Python + PySide6)
 - [x] Zatwierdzona forma okna na Waylandzie ([ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md))
-- [ ] Spec zapisana w `docs/specyfikacja/` ([2026-09-25-kimai-tray-1.0.md](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md)) i zaakceptowana przez użytkownika
+- [x] Spec zapisana w `docs/specyfikacja/` ([2026-09-25-kimai-tray-1.0.md](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md)) i zaakceptowana przez użytkownika
 - [ ] Sekcja „Komendy” w [AGENTS.md](../../../AGENTS.md) zaplanowana (uzupełniana przy szkielecie projektu)
 - [ ] Plan implementacji zapisany i zaakceptowany; kolejne zadania TODO z planu utworzone
 
@@ -66,7 +66,9 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Struktura TODO zmieniona: foldery DO-ZROBIENIA / W-TRAKCIE / ZROBIONE; status `w-toku` → `w-trakcie`.
 - Spike: Kimai 2.67.0 w Dockerze do testów — działa; tokeny wstawiane SQL-em. Wykryto pułapkę strefy czasowej. Raport: [testy/raport-kimai-docker-2026-09-25.md](testy/raport-kimai-docker-2026-09-25.md).
 - Sekcja 4 (testy) zaakceptowana, z Kimai w Dockerze do testów kontraktowych. Środowisko dodane do repo: [tests/kimai/](../../../tests/kimai/README.md).
-- Spisano specyfikację: [2026-09-25-kimai-tray-1.0.md](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md) — czeka na akceptację.
+- Spisano specyfikację: [2026-09-25-kimai-tray-1.0.md](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md) — zaakceptowana przez użytkownika.
+- Wyjaśniono AppIndicator (rozszerzenie GNOME, nie zależność aplikacji) — [gnome-appindicator](../../../docs/integracje/gnome-appindicator.md).
+- Specyfikacja zaakceptowana → start planu implementacji.
 - Nowe zasady od użytkownika: materiały zadań w podfolderach, linki markdown wszędzie ([sprawdz-linki](../../../.claude/skills/sprawdz-linki/SKILL.md)).
 
 ## Wynik
