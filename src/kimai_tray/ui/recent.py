@@ -33,7 +33,7 @@ class EntryRow(QFrame):
         super().__init__(objectName="entry")
         self.entry = entry
         text = entry_row(entry, tz, t)
-        marker = QLabel()
+        self.marker = marker = QLabel()
         marker.setPixmap(dot(entry.project_color, 9).pixmap(9, 9))
         description = QLabel(text.description, objectName="entryDescEmpty" if text.empty else "entryDesc")
         description.setWordWrap(True)
@@ -65,13 +65,14 @@ class EntryRow(QFrame):
         grid.setContentsMargins(14, 9, 14, 9)
         grid.setHorizontalSpacing(8)
         grid.setVerticalSpacing(2)
-        grid.addWidget(marker, 0, 0, Qt.AlignmentFlag.AlignTop)
+        centre = Qt.AlignmentFlag.AlignVCenter
+        grid.addWidget(marker, 0, 0, 2, 1, centre)
         grid.addWidget(description, 0, 1)
         grid.addWidget(meta, 1, 1)
         grid.addWidget(duration, 0, 2)
         grid.addWidget(span, 1, 2)
-        grid.addWidget(self.billable, 0, 3, Qt.AlignmentFlag.AlignTop)
-        grid.addWidget(self.resume, 0, 4, Qt.AlignmentFlag.AlignTop)
+        grid.addWidget(self.billable, 0, 3, 2, 1, centre)
+        grid.addWidget(self.resume, 0, 4, 2, 1, centre)
         grid.setColumnStretch(1, 1)
 
     def mark_pending(self, value: bool, t: Callable[..., str]) -> None:

@@ -87,3 +87,15 @@ def test_english(qtbot):
     recent = make(qtbot, t=Translator("en"))
     assert texts(recent, "recentDayName") == ["TODAY", "YESTERDAY"]
     assert recent.head.text() == "RECENT ENTRIES"
+
+
+def test_dot_and_buttons_are_centred_in_the_row(qtbot):
+    recent = make(qtbot)
+    recent.resize(460, 400)
+    recent.show()
+    qtbot.waitExposed(recent)
+    row = recent.rows[0]
+    centre = row.height() / 2
+    for widget in (row.marker, row.billable, row.resume):
+        middle = widget.geometry().center().y()
+        assert abs(middle - centre) <= 2, (widget.objectName(), middle, centre)
