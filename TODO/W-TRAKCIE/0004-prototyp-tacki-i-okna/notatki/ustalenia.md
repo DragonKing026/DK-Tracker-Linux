@@ -3,7 +3,7 @@ noteId: "0b0085cf5ff34570a69f31d3a27253e6"
 tytul: "Ustalenia prototypu 0004 — tacka i okno"
 tags: [prototyp, tray, wayland, kde]
 utworzono: 2026-09-25 20:02
-zaktualizowano: 2026-09-25 20:16
+zaktualizowano: 2026-09-25 20:35
 ---
 
 # Ustalenia prototypu 0004
@@ -67,8 +67,22 @@ Log: [testy/log-kde-tool-reczny.jsonl](../testy/log-kde-tool-reczny.jsonl).
 | Obejście | PySide6 z paczek PyPI (`pyside6-essentials` + `shiboken6` 6.11.2, 80 MB) zamiast bazy — [manifest](../prototyp/flatpak/pl.websystems.KimaiTray.Prototyp.wheels.yml); budowa **20 s**, aplikacja 236 MB |
 | Tacka we Flatpaku z samym `--talk-name=org.kde.StatusNotifierWatcher` | **działa** — ikona zarejestrowana, bez `--own-name` |
 | Klik (`Activate` → `Trigger`) i tooltip co sekundę w piaskownicy | **działa** ([log](../testy/log-flatpak-tool.jsonl)) |
-| Wariant B we Flatpaku | **niewykonalny w obejściu** — `layer-shell-qt` nie ma w `org.kde.Platform`, a wtyczkę trzeba zbudować pod Qt aplikacji; Qt z paczki pip nie ma nagłówków prywatnych. Możliwe dopiero z bazą PySide (Qt runtime'u) po naprawie Flatpaka |
+| Wariant B we Flatpaku (obejście pip) | **niewykonalny w obejściu** — `layer-shell-qt` nie ma w `org.kde.Platform`, a wtyczkę trzeba zbudować pod Qt aplikacji; Qt z paczki pip nie ma nagłówków prywatnych. Możliwe dopiero z bazą PySide (Qt runtime'u) po naprawie Flatpaka |
 | Budowa w piaskownicy narzędzia agenta | `flatpak-builder` wymaga pracy poza piaskownicą Claude Code (dostęp do `~/.local/share/flatpak`) — informacja dla kolejnych sesji |
+
+## Flatpak budowany w Dockerze (2026-09-25 20:35)
+
+Pytanie użytkownika: „czy nie da się zbudować w Dockerze?” — **da się**.
+
+| Krok | Wynik |
+|---|---|
+| Kontener \`debian:trixie\` (Flatpak 1.16.6, bez regresji 1.18.x, bez SELinux) — [buduj-w-dockerze.sh](../prototyp/flatpak/buduj-w-dockerze.sh) | budowa **z \`io.qt.PySide.BaseApp\`** działa |
+| Runtime'y bez ponownego pobierania | repozytoria instalacji hosta montowane **tylko do odczytu**; brak pliku \`summary\` → commity kopiowane \`ostree pull-local\` do lokalnego repo w \`~/.cache/kimai-tray-flatpak/docker\` + \`flatpak build-update-repo\` |
+| Czas | 3,5 min (pierwszy raz, z kopiowaniem runtime'ów); paczka \`.flatpak\` **70 MB** (Qt z runtime'u; wersja z pip miała 236 MB) |
+| Instalacja paczki na hoście (Flatpak 1.18.2) | **działa** — regresja dotyczy tylko budowania |
+| Tacka + klik w wersji z BaseApp | **działa** ([log](../testy/log-flatpak-baseapp.jsonl)) |
+| Moduł \`layer-shell-qt\` 6.7.5 w manifeście (źródła KDE, SHA-256 zgodny z oficjalnym) — [manifest](../prototyp/flatpak/pl.websystems.KimaiTray.Prototyp.layer.yml) | buduje się pod Qt runtime'u; wtyczka \`liblayer-shell.so\` w \`/app/lib/plugins\` |
+| **Okno przy tacce we Flatpaku** | **działa** — 12 px od prawej, tuż nad panelem ([log](../testy/log-flatpak-layer.jsonl)) — ![okno przy tacce we Flatpaku](../zrzuty/flatpak-layer-okno.png) |
 
 ## Do sprawdzenia ręcznie
 
@@ -84,5 +98,6 @@ Wszystkie punkty sprawdzone w testach ręcznych wariantów A i B (wyżej).
 - Konsekwencja wariantu B: `QT_WAYLAND_SHELL_INTEGRATION=layer-shell` działa dla **całego procesu**
   (każde okno staje się powierzchnią warstwy) — okno ustawień musiałoby być osobnym procesem
   albo zmienna ustawiana tylko dla okna szybkiej obsługi (do zbadania).
-- `layer-shell-qt` nie jest w `org.kde.Platform` — we Flatpaku trzeba go dołożyć modułem albo
-  wziąć z hosta (nie da się). Do sprawdzenia przy budowie Flatpaka.
+- `layer-shell-qt` nie jest w `org.kde.Platform` — **dołożony modułem** i działa (budowa w Dockerze).
+- Budowanie: Fedora 44 (Flatpak 1.18.2) nie zbuduje manifestu z `base:` — **budujemy w kontenerze**
+  (lokalnie skrypt, docelowo CI w Planie 4). Paczka instaluje się i działa na 1.18.2.
