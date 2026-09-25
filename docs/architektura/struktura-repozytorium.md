@@ -26,6 +26,7 @@ zaktualizowano: 2026-09-25
 │       ├── zamknij-zadanie/   zmiana statusu / zamknięcie zadania
 │       ├── nowa-integracja/   dokument integracji w docs/integracje/
 │       ├── nowa-decyzja/      ADR w docs/decyzje/
+│       ├── frontmatter/       noteId + tags w każdym dokumencie (frontmatter.py)
 │       └── sprawdz-linki/     sprawdzanie/naprawa linków, przenoszenie plików (linki.py)
 ├── docs/
 │   ├── README.md              indeks (MOC) dokumentacji
