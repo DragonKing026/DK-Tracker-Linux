@@ -6,7 +6,7 @@ from __future__ import annotations
 from importlib import resources
 
 from PySide6.QtCore import QByteArray, QPointF, QRectF, Qt
-from PySide6.QtGui import QColor, QFont, QIcon, QPainter, QPen, QPixmap
+from PySide6.QtGui import QColor, QFont, QFontMetrics, QIcon, QPainter, QPen, QPixmap
 from PySide6.QtSvg import QSvgRenderer
 
 GREY, GREEN, RED = "#6b7280", "#16a34a", "#dc2626"  # background.js badge colours
@@ -80,12 +80,18 @@ def tray_pixmap(kind: str, label: str, size: int) -> QPixmap:
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(QColor(RED if kind == "error" else GREEN))
         painter.drawRoundedRect(rect, size * 0.2, size * 0.2)
+        # The text keeps ~12 % of the icon free on each side, then is shrunk to fit that box.
+        inner = rect.adjusted(size * 0.12, size * 0.12, -size * 0.12, -size * 0.12)
         font = QFont()
         font.setBold(True)
-        font.setPixelSize(max(6, round(size * (0.62 if len(label) <= 2 else 0.47))))
+        pixels = max(6, round(size * 0.55))
+        font.setPixelSize(pixels)
+        while pixels > 6 and QFontMetrics(font).horizontalAdvance(label) > inner.width():
+            pixels -= 1
+            font.setPixelSize(pixels)
         painter.setFont(font)
         painter.setPen(QColor("white"))
-        painter.drawText(rect, Qt.AlignmentFlag.AlignCenter, label)
+        painter.drawText(inner, Qt.AlignmentFlag.AlignCenter, label)
     painter.end()
     return pixmap
 

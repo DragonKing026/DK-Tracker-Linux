@@ -69,3 +69,13 @@ def test_app_icon_is_the_kimai_logo(qapp):
     assert not icon.isNull()
     image = icon.pixmap(64, 64).toImage()
     assert QColor(image.pixel(32, 32)).green() > 150  # the green Kimai clock
+
+
+@pytest.mark.parametrize("label", ["0m", "47m", "1:22", "12:05"])
+def test_badge_text_keeps_a_margin_from_the_edge(qapp, label):
+    image = tray_pixmap("running", label, 44).toImage()
+    margin = 5  # ~12 % of the icon
+    for x in list(range(margin)) + list(range(44 - margin, 44)):
+        for y in range(44):
+            colour = QColor(image.pixel(x, y))
+            assert not (colour.red() > 200 and colour.green() > 200 and colour.blue() > 200), (label, x, y)
