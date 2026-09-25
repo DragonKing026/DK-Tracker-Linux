@@ -2,7 +2,7 @@
 noteId: "766cfe9359684511bdaaf081c236f659"
 tytul: "Plan 3 · Zadanie 1: Zależności UI, testy Qt i teksty interfejsu"
 numer: "0029"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-3, ui]
 zalezy_od: ["0028"]
@@ -13,7 +13,7 @@ zaktualizowano: 2026-09-25 23:07
 # 0029 — Plan 3 · Zadanie 1: Zależności UI, testy Qt i teksty interfejsu
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -52,3 +52,4 @@ Wykonać **zadanie 1** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ### 2026-09-25
 - **23:07** Utworzono zadanie z Planu 3.
+- **23:07** Start wykonania (Native, na main).
