@@ -5,7 +5,7 @@ tags: [integracja, referencja, kimai]
 status_integracji: referencja
 wersja: 1.5.1
 utworzono: 2026-09-25 17:19
-zaktualizowano: 2026-09-25 18:06
+zaktualizowano: 2026-09-25 21:54
 ---
 
 # WS Tracker — wtyczka przeglądarkowa (projekt referencyjny)
@@ -39,6 +39,36 @@ zębatką ustawień → pole opisu z zegarem i okrągłym przyciskiem start (zie
 (czerwony ■) → wybór projektu z kolorową kropką (grupy po klientach) → wybór czynności
 i przełącznik `$` → (tylko gdy trwa) pola „Od / Do” → pasek komunikatu → „Ostatnie
 wpisy” z nagłówkami dni i sumami → link „Wszystkie moje wpisy w Kimai”.
+
+### Motyw jasny i ciemny
+
+> [!warning] Zrzuty powyżej pokazują tylko motyw jasny
+> Wtyczka ma **oba motywy** i wybiera je według systemu (`@media (prefers-color-scheme: dark)`),
+> [popup/popup.css](https://github.com/websystemspl/kimai-ws-tracker/blob/main/popup/popup.css)
+> (commit `86d4594`, sprawdzone 2026-09-25 21:52). Kimai Tray robi tak samo: motyw według systemu.
+
+Paleta okna (`popup.css`, zmienne `:root`):
+
+| Zmienna | Jasny | Ciemny | Do czego |
+|---|---|---|---|
+| `--bg` | `#ffffff` | `#16181d` | tło okna |
+| `--surface` | `#f7f8fa` | `#1e2127` | pola, karty |
+| `--surface-2` | `#eceef2` | `#272b33` | pola wyboru, przyciski wtórne |
+| `--fg` | `#17181c` | `#eceef2` | tekst |
+| `--muted` | `#71757f` | `#9aa0ac` | tekst pomocniczy |
+| `--line` | `#e3e5ea` | `#2f333c` | linie podziału, ramki |
+| `--accent` | `#2563eb` | `#6f9bff` | linki, akcent |
+| `--start` | `#16a34a` | (bez zmian) | przycisk start, `$` aktywny |
+| `--stop` | `#e02f2f` | (bez zmian) | przycisk stop |
+| `--ok-bg` / `--ok-fg` | `#eaf7ee` / `#12703a` | `#14301f` / `#6ee7a0` | komunikat sukcesu |
+| `--err-bg` / `--err-fg` | `#fdecec` / `#a41d1d` | `#3a1a1a` / `#ff9d9d` | komunikat błędu |
+| `--focus` | `#2563eb` | `#7aa2ff` | obwódka fokusu |
+
+Odstępy: 4 / 8 / 12 px, margines wewnętrzny 14 px. Okno ma szerokość 460 px i najwyżej
+600 px wysokości (limit popupu Chrome). Przewija się tylko lista wpisów.
+
+Strona ustawień (`options/options.css`) ma własną, prostszą paletę. Jasny motyw:
+`#ffffff` / `#111827` / `#6b7280` / `#d1d5db`, ciemny: `#111827` / `#f3f4f6` / `#9ca3af` / `#374151`.
 
 ## Struktura kodu wtyczki
 
