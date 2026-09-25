@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /mnt/Programowanie/Moje Projekty/Kimai App/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /mnt/Programowanie/Moje Projekty/Kimai App
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1, cov-7.1.0
+collecting ... collected 152 items / 144 deselected / 8 selected
+
+tests/kimai/test_kontrakt.py::test_me_exposes_timezone_and_language PASSED [ 12%]
+tests/kimai/test_kontrakt.py::test_bad_token_is_auth_error PASSED        [ 25%]
+tests/kimai/test_kontrakt.py::test_start_is_recorded_now_in_real_time PASSED [ 37%]
+tests/kimai/test_kontrakt.py::test_plain_user_billable_falls_back_and_locks PASSED [ 50%]
+tests/kimai/test_kontrakt.py::test_teamlead_can_set_billable PASSED      [ 62%]
+tests/kimai/test_kontrakt.py::test_second_start_stops_the_first PASSED   [ 75%]
+tests/kimai/test_kontrakt.py::test_stop_and_totals PASSED                [ 87%]
+tests/kimai/test_kontrakt.py::test_stopping_a_stopped_entry_is_not_an_error PASSED [100%]
+
+====================== 8 passed, 144 deselected in 36.57s ======================
