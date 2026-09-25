@@ -47,6 +47,7 @@
   "errUnexpected": "Kimai returned an unexpected response — check the address or your network (for example a Wi-Fi login page).",
   "errForbidden": "Kimai does not allow this change — the entry is locked (for example exported) or your account lacks the permission.",
   "errExported": "This entry has been exported (for example invoiced) — Kimai does not allow changing it.",
+  "errRedirect": "Kimai has moved to {url} — enter this address in the settings.",
   "errTls": "The Kimai server certificate is not trusted.",
   "errAuth": "Token rejected or expired. Check it in the settings.",
   "errServer": "Kimai returned an error: {code}",

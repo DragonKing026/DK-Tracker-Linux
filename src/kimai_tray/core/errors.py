@@ -18,21 +18,27 @@ class ErrorKind(StrEnum):
     REJECTED = "rejected"
     NOT_FOUND = "not_found"
     SERVER = "server"
+    REDIRECT = "redirect"  # 3xx: Kimai lives elsewhere (http -> https, new domain)
     BAD_RESPONSE = "bad_response"  # 200 that is not Kimai JSON: captive portal, wrong URL, proxy
 
 
 class ApiError(Exception):
     """Kimai could not be reached or refused a request."""
 
-    def __init__(self, kind: ErrorKind, status: int, message: str = "") -> None:
+    def __init__(
+        self, kind: ErrorKind, status: int, message: str = "", *, location: str | None = None
+    ) -> None:
         super().__init__(message or kind.value)
         self.kind = kind
         self.status = status
         self.message = message
+        self.location = location  # REDIRECT only: the Kimai base address to use instead
 
     @classmethod
     def from_response(cls, response: httpx.Response) -> ApiError:
         status = response.status_code
+        if 300 <= status < 400 and response.headers.get("Location"):
+            return cls(ErrorKind.REDIRECT, status, location=_redirect_base(response))
         if status == 401:
             return cls(ErrorKind.AUTH, status)
         if status == 403:
@@ -66,6 +72,22 @@ class TrackerError(Exception):
         super().__init__(key)
         self.key = key
         self.params = params
+
+
+def _redirect_base(response: httpx.Response) -> str:
+    """The Kimai address the redirect points to, without the /api/... part we asked for.
+
+    Followed automatically, the redirect would send the token once more on every poll
+    (and first over plain http); naming the new address lets the user fix the setting.
+    """
+    location = httpx.URL(response.headers["Location"])
+    try:
+        location = response.request.url.join(location)
+    except RuntimeError:  # response built without a request (tests)
+        pass
+    text = str(location.copy_with(query=None, fragment=None))
+    cut = text.find("/api/")
+    return (text[:cut] if cut != -1 else text).rstrip("/")
 
 
 def collect_form_errors(node: object, found: list[str] | None = None) -> list[str]:
@@ -112,6 +134,8 @@ def describe(error: BaseException, t: Callable[..., str]) -> str:
             return t("errTls")
         case ErrorKind.AUTH:
             return t("errAuth")
+        case ErrorKind.REDIRECT:
+            return t("errRedirect", url=error.location or "")
         case ErrorKind.FORBIDDEN:
             return t("errForbidden")
         case ErrorKind.BAD_RESPONSE:

@@ -103,3 +103,29 @@ def test_describe_bad_response():
 
 def test_describe_forbidden():
     assert describe(ApiError(ErrorKind.FORBIDDEN, 403, "Forbidden"), fake_t) == "errForbidden"
+
+
+def redirect(location, url):
+    return httpx.Response(301, headers={"Location": location}, request=httpx.Request("GET", url))
+
+
+def test_redirect_suggests_the_kimai_base_address():
+    error = ApiError.from_response(redirect("https://k.test/api/users/me", "http://k.test/api/users/me"))
+    assert (error.kind, error.status, error.location) == (ErrorKind.REDIRECT, 301, "https://k.test")
+
+
+def test_redirect_keeps_a_subpath_and_resolves_relative_locations():
+    moved = redirect("https://firma.test/kimai/api/version", "http://firma.test/kimai/api/version")
+    assert ApiError.from_response(moved).location == "https://firma.test/kimai"
+    relative = redirect("/nowy/api/version", "https://firma.test/stary/api/version")
+    assert ApiError.from_response(relative).location == "https://firma.test/nowy"
+
+
+def test_redirect_without_location_is_a_server_error():
+    response = httpx.Response(302, request=httpx.Request("GET", "http://k.test/api/version"))
+    assert ApiError.from_response(response).kind is ErrorKind.SERVER
+
+
+def test_describe_redirect_names_the_new_address():
+    error = ApiError(ErrorKind.REDIRECT, 301, location="https://k.test")
+    assert describe(error, fake_t) == "errRedirect[('url', 'https://k.test')]"

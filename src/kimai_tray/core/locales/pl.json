@@ -47,6 +47,7 @@
   "errUnexpected": "Kimai zwrócił nieoczekiwaną odpowiedź — sprawdź adres lub sieć (np. stronę logowania do Wi-Fi).",
   "errForbidden": "Kimai nie pozwala na tę zmianę — wpis jest zablokowany (np. wyeksportowany) albo Twoje konto nie ma do tego uprawnień.",
   "errExported": "Ten wpis został wyeksportowany (np. zafakturowany) — Kimai nie pozwala go zmieniać.",
+  "errRedirect": "Kimai przekierowuje na {url} — wpisz ten adres w ustawieniach.",
   "errTls": "Certyfikat serwera Kimai nie jest zaufany.",
   "errAuth": "Token odrzucony lub wygasł. Sprawdź go w ustawieniach.",
   "errServer": "Kimai zwrócił błąd: {code}",

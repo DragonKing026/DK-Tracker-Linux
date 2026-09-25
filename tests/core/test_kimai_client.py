@@ -187,3 +187,12 @@ def test_wrong_shape_200_is_a_bad_response_error():
     with pytest.raises(ApiError) as caught:
         client.active()
     assert caught.value.kind is ErrorKind.BAD_RESPONSE
+
+
+def test_client_does_not_follow_redirects_but_reports_them():
+    moved = lambda r: httpx.Response(301, headers={"Location": "https://kimai.test/api/users/me"})  # noqa: E731
+    client, rec = client_for(moved, url="http://kimai.test")
+    with pytest.raises(ApiError) as caught:
+        client.me()
+    assert (caught.value.kind, caught.value.location) == (ErrorKind.REDIRECT, "https://kimai.test")
+    assert len(rec.requests) == 1  # the token is not sent a second time
