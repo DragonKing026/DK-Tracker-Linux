@@ -44,7 +44,7 @@ def test_long_timer_fires_at_threshold_then_every_hour():
     notes, state = run(running, hours=7.99)
     assert notes == []
     notes, state = run(running, state, hours=8)
-    assert [n.id for n in notes] == [LONG_TIMER]
+    assert [(n.id, n.entry_id) for n in notes] == [(f"{LONG_TIMER}-7", 7)]
     assert notes[0].title_key == "notifLongTimerTitle"
     assert notes[0].params == {
         "time": "8:00",
@@ -105,3 +105,11 @@ def test_action_confirmation():
     stopped = action_confirmation("stop", ENTRY, SETTINGS, now)
     assert (stopped.title_key, stopped.params["time"]) == ("notifStopped", "1:22")
     assert action_confirmation("start", ENTRY, Settings(notify_menu_actions=False), now) is None
+
+
+def test_two_long_timers_get_two_notifications_each_with_its_entry():
+    from dataclasses import replace
+
+    other = replace(ENTRY, id=8, description="Drugi zapomniany timer")
+    notes, _ = run(Snapshot(running=(ENTRY, other)), hours=9)
+    assert sorted((n.id, n.entry_id) for n in notes) == [(f"{LONG_TIMER}-7", 7), (f"{LONG_TIMER}-8", 8)]

@@ -14,7 +14,7 @@ from .settings import Settings
 from .timefmt import elapsed_seconds, short_duration
 from .tracker import Snapshot
 
-LONG_TIMER = "long-timer"  # notification ids: a new one replaces the old one with the same id
+LONG_TIMER = "long-timer"  # id prefix; a new notification replaces the old one with the same id
 CONNECTION = "connection"
 ACTION = "action"
 FAILURES_BEFORE_ALERT = 3  # ~3 minutes of failed one-minute polls
@@ -27,6 +27,7 @@ class Notification:
     body_key: str | None = None
     params: dict[str, object] = field(default_factory=dict)
     actions: tuple[str, ...] = ()  # "stop" | "keep" | "settings"
+    entry_id: int | None = None  # the entry "stop" acts on — not whatever is current by then
 
 
 @dataclass(frozen=True)
@@ -50,7 +51,7 @@ def evaluate(
             if elapsed >= threshold:
                 notifications.append(
                     Notification(
-                        LONG_TIMER,
+                        f"{LONG_TIMER}-{entry.id}",  # one per entry, so timers do not replace each other
                         "notifLongTimerTitle",
                         "notifLongTimerBody",
                         {
@@ -59,6 +60,7 @@ def evaluate(
                             "description": entry.description,
                         },
                         ("stop", "keep"),
+                        entry_id=entry.id,
                     )
                 )
                 while threshold <= elapsed:
