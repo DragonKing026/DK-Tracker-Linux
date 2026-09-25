@@ -20,7 +20,8 @@ Pliki muszą też czytelnie renderować się na GitHubie.
 | Decyzje („wybraliśmy X zamiast Y, bo…”) | `docs/decyzje/NNNN-<slug>.md` (ADR) | gdy decyzja jest trudna do cofnięcia |
 | Procesy pracy | `docs/procesy/` | gdy zmienia się sposób pracy |
 | Zadania, postęp, notatki robocze | `TODO/<NNNN-slug>/todo.md` | cały czas |
-| Zrzuty ekranu, obrazy | `docs/assets/` albo `TODO/<zadanie>/assets/` | przy każdej zmianie UI |
+| Materiały zadania: zrzuty, diagramy, raporty testów, prototypy, notatki, dane | `TODO/<NNNN-slug>/{zrzuty,diagramy,testy,prototyp,notatki,dane}/` | cały czas |
+| Obrazy wspólne dla dokumentacji | `docs/assets/` | przy zmianie UI |
 
 ## Szablon nagłówka (frontmatter)
 
@@ -46,9 +47,9 @@ Zmieniając plik — aktualizuj `zaktualizowano`.
   Dostępne: `note`, `tip`, `info`, `warning`, `danger`, `todo`, `question`, `example`.
 - **Diagramy**: bloki `mermaid` (flowchart, sequenceDiagram, stateDiagram-v2, classDiagram,
   gantt). Preferujemy je nad obrazkami, bo są wersjonowane jako tekst.
-- **Zrzuty ekranu**: plik PNG w `assets/`, osadzenie `![[nazwa.png]]` (Obsidian) —
-  dodatkowo pod spodem zwykły link `![opis](assets/nazwa.png)` dla GitHuba nie jest
-  wymagany, ale zalecany w README.
+- **Zrzuty ekranu**: PNG w `zrzuty/` folderu zadania (albo `docs/assets/`, jeśli są
+  wspólne), osadzenie `![[TODO/NNNN-slug/zrzuty/nazwa.png]]` (Obsidian). W README dla
+  GitHuba — zwykły `![opis](ścieżka.png)`.
 - **Tabele** do porównań, **listy zadań** `- [ ]` do kroków.
 
 ## Zasady treści
