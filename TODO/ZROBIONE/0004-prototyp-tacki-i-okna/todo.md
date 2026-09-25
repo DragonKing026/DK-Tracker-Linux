@@ -29,13 +29,13 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 - [x] Wariant A ([ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md)): bezramkowe okno
       narzędziowe — gdzie je stawia KWin / Mutter, czy chowanie po utracie fokusu działa
 - [x] Kolizja: klik w ikonę zabiera fokus → okno się chowa → `Trigger` pokazuje je znowu?
-- [x] Reguła okna KWin (pozycja przy panelu) — czy da się ją podpowiedzieć użytkownikowi
+- [ ] ~~Reguła okna KWin (pozycja przy panelu)~~ — **nieaktualne**: okno przy tacce przez `layer-shell` (ADR-0005), reguła KWin niepotrzebna
 - [x] Wariant B: `layer-shell-qt` jako moduł w manifeście Flatpaka — czy da się zbudować
       i zakotwiczyć okno przy panelu Plasmy; decyzja: dokładamy albo porzucamy
 - [x] Zmiana ikony/tooltipu co minutę (czas timera) jest widoczna
 - [ ] GNOME + AppIndicator: ikona, klik, tooltip/etykieta → **przeniesione do [0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)**
 - [ ] GNOME bez rozszerzenia: wykrycie braku watchera i tryb okna → **przeniesione do [0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)**
-- [x] Zapis/odczyt sekretu przez libsecret w piaskownicy (KWallet)
+- [ ] Zapis/odczyt sekretu w piaskownicy (KWallet) — **niesprawdzone w prototypie**, przeniesione do Planu 2 (poza piaskownicą jeepney + ksecretd działa — ADR-0004)
 
 ## Materiały
 
