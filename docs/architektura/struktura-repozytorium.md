@@ -9,7 +9,7 @@ zaktualizowano: 2026-09-25
 # Struktura repozytorium
 
 > [!note] Stan na fazę 0
-> Opisane są katalogi dokumentacji i agenta. Katalogi kodu (`src/`, `tests/`, `flatpak/`)
+> Opisane są katalogi dokumentacji, agenta i środowiska testowego. Katalogi kodu (`src/`, `flatpak/`)
 > zostaną dopisane po zatwierdzeniu stosu technologicznego — patrz
 > [Decyzje](../decyzje/README.md).
 
@@ -19,6 +19,8 @@ zaktualizowano: 2026-09-25
 ├── CLAUDE.md                  import AGENTS.md + specyfika Claude Code
 ├── README.md                  opis dla ludzi: co to jest, jak zainstalować
 ├── .gitignore
+├── tests/
+│   └── kimai/                 lokalny Kimai w Dockerze do testów (compose, kimai-testowe.sh)
 ├── .claude/
 │   └── skills/                skille projektu — powtarzalne zadania agenta
 │       ├── commit/            mały commit zgodny z konwencją
