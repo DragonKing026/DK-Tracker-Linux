@@ -5,6 +5,7 @@ A pure function of the snapshot, the settings and a small state, so it is tested
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
 
@@ -101,3 +102,32 @@ def action_confirmation(kind: str, entry: Entry, settings: Settings, now: dateti
         )
     seconds = entry.duration or elapsed_seconds(entry.begin, now)
     return Notification(ACTION, "notifStopped", params={"time": short_duration(seconds), "project": project})
+
+
+ACTION_LABELS = {"stop": "actionStop", "keep": "actionKeepRunning", "settings": "actionSettings"}
+
+
+@dataclass(frozen=True)
+class RenderedNotification:
+    id: str
+    title: str
+    body: str
+    buttons: tuple[tuple[str, str], ...]  # (label, action)
+
+
+def render(notification: Notification, t: Callable[..., str]) -> RenderedNotification:
+    """User-facing text of a notification in the current language."""
+    return RenderedNotification(
+        notification.id,
+        t(notification.title_key, **notification.params),
+        t(notification.body_key, **notification.params) if notification.body_key else "",
+        tuple((t(ACTION_LABELS[action]), action) for action in notification.actions),
+    )
+
+
+def entry_id_from(notification_id: str) -> int | None:
+    """The portal returns our id with a click; long-timer ids carry the entry number."""
+    prefix = f"{LONG_TIMER}-"
+    if notification_id.startswith(prefix) and notification_id[len(prefix) :].isdigit():
+        return int(notification_id[len(prefix) :])
+    return None
