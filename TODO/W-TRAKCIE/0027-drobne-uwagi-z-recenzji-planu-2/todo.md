@@ -40,6 +40,7 @@ Ważną (I1: surowe wyjątki z usługi sekretów, wygasła sesja) poprawiono w c
 - [x] **M5** `_JeepneyExpectation.close()` nie jest idempotentne — drugie wywołanie rzuca `KeyError` (ważne przy zamykaniu w Planie 3). — **poprawione** (`ee57836`): flaga `_closed`; test `test_expectation_close_is_idempotent` (fałszywe połączenie jeepney).
 - [x] **M6** Odpowiedź na `AddMatch` nie jest sprawdzana — przy błędzie `wait` czeka do końca limitu czasu. — **poprawione** (`ee57836`): odpowiedź `AddMatch` sprawdzana (`DBusCallError`); test `test_expect_reports_a_refused_subscription`.
 - [x] ~~**M7** Reguły dopasowania bez `sender` — dowolny proces sesji może podrobić `ActionInvoked`~~ — **odrzucone z notatką** (decyzja użytkownika): proces w sesji, który mógłby podrobić kliknięcie, i tak może odczytać token z odblokowanego portfela (Secret Service wydaje sekrety każdemu procesowi sesji) i zmieniać wpisy w Kimai bezpośrednio; najgorszy skutek podróbki to zatrzymany timer widoczny w tacce. Gdyby jednak: przy starcie `GetNameOwner(org.freedesktop.portal.Desktop)`, reguła z `sender=<unikalna nazwa>`, a na `NameOwnerChanged` portalu — ponowna subskrypcja (inaczej po restarcie portalu kliknięcia przestaną działać).
+- [x] **Brak domyślnego portfela** (decyzja z recenzji, zatwierdzona przez użytkownika: opcja 1) — `SecretsUnavailable`, aplikacja nie zakłada portfela sama (okno z hasłem dla nowego portfela zaskakiwałoby użytkownika). W Planie 3 komunikat podpowie, jak założyć portfel (Menedżer portfeli KDE / „Hasła i klucze” w GNOME).
 - [x] **M8** `listen()` działa na tej samej szynie co `show()` — Plan 3 musi dać nasłuchowi osobne połączenie (jedno na wątek) i sprawdzić, czy `ActionInvoked` do niego dociera. — **wyjaśnione** (`f073dca`): w źródle portalu `ActionInvoked` jest rozgłaszany bez adresata, więc osobne połączenie nasłuchu zadziała; opis w [portale XDG](../../../docs/integracje/xdg-portale.md), potwierdzenie na żywo w Planie 3.
 - [x] **M9** Brakujące testy: `get` przy dwóch pasujących wpisach, przekroczenie czasu okna odblokowania, ścieżka `set` przy braku usługi. — **uzupełnione** (`52d9234`): `test_get_reads_only_the_first_of_several_matches`, `test_unanswered_unlock_prompt_is_dismissed`, `test_missing_service_when_saving_is_unavailable`; `SessionBus` ma teraz testy z fałszywym połączeniem.
 
@@ -51,3 +52,7 @@ Ważną (I1: surowe wyjątki z usługi sekretów, wygasła sesja) poprawiono w c
 - **21:06** Utworzono z końcowej recenzji Planu 2.
 - **21:10** Start: techniczne uwagi poprawiam sam, decyzje produktowe do omówienia z użytkownikiem.
 - **21:44** M7 odrzucona z notatką (decyzja użytkownika).
+
+## Wynik
+
+M1–M6, M8, M9 poprawione lub uzupełnione testami (RED→GREEN), M7 odrzucona z notatką, brak domyślnego portfela → komunikat (opcja 1). Testy: 223 zielone + 3 `desktop`.
