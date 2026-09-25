@@ -17,9 +17,12 @@ Konwencja: [docs/procesy/commity.md](../../../docs/procesy/commity.md).
 4. Jeśli zmieniłeś plik w `docs/` lub `TODO/` — podbij pole `zaktualizowano:` we frontmatterze.
 5. Jeśli zmiana dotyka `docs/`, `TODO/` lub plików `.md` — sprawdź linki:
    `python3 .claude/skills/sprawdz-linki/linki.py sprawdz` (musi być „Wszystkie linki OK.”)
-   i frontmatter: `python3 .claude/skills/frontmatter/frontmatter.py sprawdz`.
+   i frontmatter: `python3 .claude/skills/frontmatter/frontmatter.py sprawdz`,
+   potem markdownlint (skill [markdownlint](../markdownlint/SKILL.md)):
+   `mdfix.py napraw <zmienione .md>` i `mdfix.py sprawdz` → „markdownlint OK.”
 6. Dobierz typ: `feat` `fix` `docs` `todo` `refactor` `test` `build` `ci` `chore`.
 7. Commit:
+
    ```bash
    git commit -m "<typ>(<zakres>): <opis w trybie rozkazującym, małą literą>
 
@@ -29,6 +32,7 @@ Konwencja: [docs/procesy/commity.md](../../../docs/procesy/commity.md).
 
    Co-Authored-By: <linia z system-reminder środowiska>"
    ```
+
 8. Jeśli commit dotyczy zadania — dopisz w jego `todo.md` w sekcji **Dziennik** skrót
    hasha i opis (`git log -1 --format=%h`), i zacommituj to razem z następną zmianą.
 

@@ -3,7 +3,7 @@ noteId: "2dcfa4f4816f4eecb898e4a9cdcd479c"
 tytul: Zasady dokumentowania
 tags: [proces, dokumentacja, obsidian]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 17:57
+zaktualizowano: 2026-09-25 23:44
 ---
 
 # Zasady dokumentowania
@@ -15,7 +15,7 @@ Pliki muszą też czytelnie renderować się na GitHubie.
 ## Co dokumentujemy i gdzie
 
 | Co | Gdzie | Kiedy |
-|---|---|---|
+| --- | --- | --- |
 | Jak działa aplikacja, komponenty, przepływy | `docs/architektura/` | przy każdej zmianie struktury lub zachowania |
 | Integracje zewnętrzne (API, biblioteki, usługi systemowe) | `docs/integracje/<nazwa>.md` | przed dodaniem zależności |
 | Decyzje („wybraliśmy X zamiast Y, bo…”) | `docs/decyzje/NNNN-<slug>.md` (ADR) | gdy decyzja jest trudna do cofnięcia |
@@ -53,11 +53,16 @@ dopisuje je do pliku, który zostaje wtedy niezacommitowany. Pilnuje tego skill
   Nie „zadanie 0003”, tylko `[0003](../../TODO/ZROBIONE/0003-wybor-stosu/todo.md)`.
 - **Przenoszenie plików** tylko przez `linki.py przenies` (skill `sprawdz-linki`).
   Przed commitem: `linki.py sprawdz`.
+- **markdownlint**: pliki bez uwag rozszerzenia VS Code markdownlint — reguły domyślne, linia do 120
+  znaków (bez tabel, kodu i nagłówków), tabele `| a | b |` / `| --- | --- |`, blok kodu zawsze z językiem.
+  Skill [markdownlint](../../.claude/skills/markdownlint/SKILL.md) poprawia to, co się da, automatycznie.
 - **Callouty**:
+
   ```markdown
   > [!warning] Uwaga
   > Token API pokazywany jest w Kimai tylko raz.
   ```
+
   Dostępne: `note`, `tip`, `info`, `warning`, `danger`, `todo`, `question`, `example`.
 - **Diagramy**: bloki `mermaid` (flowchart, sequenceDiagram, stateDiagram-v2, classDiagram,
   gantt). Preferujemy je nad obrazkami, bo są wersjonowane jako tekst.

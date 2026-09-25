@@ -26,7 +26,7 @@ Stos: **Python + PySide6 (Qt 6), Flatpak na `org.kde.Platform` 6.11** —
 
 ## 2. Mapa repozytorium
 
-```
+```text
 AGENTS.md              ← ten plik (reguły dla agentów)
 CLAUDE.md              ← import AGENTS.md + specyfika Claude Code
 README.md              ← opis dla ludzi
@@ -93,6 +93,9 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
   do zadania, ADR, dokumentu czy pliku jest linkiem, nie zwykłym tekstem.
 - Pliki `.md` przenosimy tylko przez `linki.py przenies`. Przed commitem uruchamiamy
   `linki.py sprawdz` (skill [sprawdz-linki](.claude/skills/sprawdz-linki/SKILL.md)).
+- **markdownlint**: każdy plik `.md` bez uwag rozszerzenia VS Code markdownlint (reguły w
+  [.markdownlint.jsonc](.markdownlint.jsonc): domyślne, linia do 120 znaków). Przed commitem skill
+  [markdownlint](.claude/skills/markdownlint/SKILL.md): `mdfix.py napraw` i `mdfix.py sprawdz`.
 - Linki zewnętrzne: zwykły markdown, sprawdzone (HTTP 200).
 - Uwagi: callouty Obsidiana — `> [!note]`, `> [!warning]`, `> [!tip]`, `> [!todo]`.
 - Listy zadań: `- [ ]` / `- [x]`.
@@ -104,13 +107,14 @@ Szczegóły: [docs/procesy/dokumentowanie.md](docs/procesy/dokumentowanie.md).
 ## 5. Skille projektu (`.claude/skills/`)
 
 | Skill | Kiedy użyć |
-|---|---|
+| --- | --- |
 | [nowe-zadanie](.claude/skills/nowe-zadanie/SKILL.md) | tworzenie zadania w `TODO/` z szablonu |
 | [zmien-status-zadania](.claude/skills/zmien-status-zadania/SKILL.md) | zmiana statusu: start, blokada, zamknięcie; przeniesienie folderu między DO-ZROBIENIA / W-TRAKCIE / ZROBIONE, tablica, commit |
 | [nowa-integracja](.claude/skills/nowa-integracja/SKILL.md) | dodanie pliku integracji w `docs/integracje/` |
 | [nowa-decyzja](.claude/skills/nowa-decyzja/SKILL.md) | zapis decyzji architektonicznej (ADR) |
 | [frontmatter](.claude/skills/frontmatter/SKILL.md) | `noteId` + `tags` w każdym dokumencie; naprawa i nowy `noteId` |
 | [sprawdz-linki](.claude/skills/sprawdz-linki/SKILL.md) | sprawdzenie i naprawa linków, przenoszenie plików `.md` z poprawą linków |
+| [markdownlint](.claude/skills/markdownlint/SKILL.md) | sprawdzenie i poprawa plików `.md` regułami rozszerzenia VS Code markdownlint |
 | [commit](.claude/skills/commit/SKILL.md) | przygotowanie małego commita zgodnego z konwencją |
 
 ## 6. Workflow pracy agenta
@@ -147,6 +151,7 @@ Szczegóły: [tests/kimai/README.md](tests/kimai/README.md). Nigdy nie testujemy
 ```bash
 python3 .claude/skills/sprawdz-linki/linki.py sprawdz
 python3 .claude/skills/frontmatter/frontmatter.py sprawdz
+python3 .claude/skills/markdownlint/mdfix.py sprawdz
 ```
 
 ### Python (rdzeń i interfejs)
