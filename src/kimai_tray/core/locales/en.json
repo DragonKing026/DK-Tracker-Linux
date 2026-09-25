@@ -107,5 +107,6 @@
   "statusRunning": "Timer {time} — {project}",
   "weekdaysShort": "Mon,Tue,Wed,Thu,Fri,Sat,Sun",
   "monthsShort": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
-  "dayOther": "{weekday}, {day} {month}"
+  "dayOther": "{weekday}, {day} {month}",
+  "projectSearch": "Search projects…"
 }

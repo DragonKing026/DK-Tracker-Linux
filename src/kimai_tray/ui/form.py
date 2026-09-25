@@ -10,7 +10,16 @@ from __future__ import annotations
 from collections.abc import Callable, Iterable
 from datetime import datetime, tzinfo
 
-from PySide6.QtCore import QModelIndex, QRegularExpression, QSize, QSortFilterProxyModel, Qt, QTimer, Signal
+from PySide6.QtCore import (
+    QEvent,
+    QModelIndex,
+    QRegularExpression,
+    QSize,
+    QSortFilterProxyModel,
+    Qt,
+    QTimer,
+    Signal,
+)
 from PySide6.QtGui import (
     QColor,
     QIcon,
@@ -151,6 +160,10 @@ class TrackerForm(QWidget):
         self.completer.setCompletionMode(QCompleter.CompletionMode.UnfilteredPopupCompletion)
         self.project.setCompleter(self.completer)
         self._search_ids: dict[str, int] = {}
+        self._search_action = self.project.lineEdit().addAction(
+            glyph("search", GREY_DOT, 16), QLineEdit.ActionPosition.TrailingPosition
+        )
+        self.project.installEventFilter(self)  # the combo gets the focus and passes it on unfiltered
         self.activity = QComboBox()
         self.billable = QPushButton(objectName="billable")
         self.billable.setIconSize(QSize(17, 17))
@@ -208,6 +221,12 @@ class TrackerForm(QWidget):
         self.clock.hide()
         self.times.hide()
         self.retranslate(t)
+
+    def eventFilter(self, watched, event) -> bool:  # noqa: N802 - Qt API
+        # A click into the project box selects its text, so typing starts a search at once.
+        if watched is self.project and event.type() == QEvent.Type.FocusIn:
+            QTimer.singleShot(0, self.project.lineEdit().selectAll)
+        return super().eventFilter(watched, event)
 
     # -- data from the controller ---------------------------------------------
 
@@ -285,6 +304,8 @@ class TrackerForm(QWidget):
         self.description.setPlaceholderText(t("descriptionPlaceholder"))
         self.description.setToolTip(t("descriptionLabel"))
         self.project.setToolTip(t("projectLabel"))
+        self.project.lineEdit().setPlaceholderText(t("projectSearch"))
+        self._search_action.setToolTip(t("projectSearch"))
         self.activity.setToolTip(t("activityLabel"))
         self.from_label.setText(t("fromLabel").upper())
         self.to_label.setText(t("toLabel").upper())

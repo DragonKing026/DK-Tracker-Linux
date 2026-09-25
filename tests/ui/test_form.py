@@ -214,3 +214,21 @@ def test_leaving_unfinished_search_text_restores_the_project(form):
     form.project.lineEdit().editingFinished.emit()
     assert form.project.currentText() == "Moduł rezerwacji"
     assert form.project.currentData() == 1
+
+
+def test_project_box_shows_that_it_searches(form):
+    edit = form.project.lineEdit()
+    assert edit.placeholderText() == "Szukaj projektu…"
+    assert any(action.toolTip() == "Szukaj projektu…" for action in edit.actions())
+    form.retranslate(Translator("en"))
+    assert edit.placeholderText() == "Search projects…"
+
+
+def test_clicking_into_the_project_box_selects_its_text(form, qtbot):
+    form.show()
+    qtbot.waitExposed(form)
+    edit = form.project.lineEdit()
+    form.activateWindow()
+    edit.setFocus(Qt.FocusReason.MouseFocusReason)  # what a click into the box does
+    qtbot.waitUntil(edit.hasSelectedText)
+    assert edit.selectedText() == form.project.currentText()

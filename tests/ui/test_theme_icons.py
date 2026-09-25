@@ -103,3 +103,12 @@ def test_billable_states_stand_out():
     css = stylesheet(DARK)
     assert '#rowBillable[on="true"]' in css
     assert '#billable[on="false"]' in css and DARK["muted"] in css
+
+
+def test_app_icon_keeps_a_margin_from_the_edge(qapp):
+    from kimai_tray.ui.icons import app_icon
+
+    image = app_icon().pixmap(64, 64).toImage()
+    for x in range(64):
+        assert QColor.fromRgba(image.pixel(x, 0)).alpha() == 0
+        assert QColor.fromRgba(image.pixel(0, x)).alpha() == 0
