@@ -1,0 +1,213 @@
+---
+tytul: Katalog funkcji
+tagi: [architektura, funkcje, wymagania]
+utworzono: 2026-09-25
+zaktualizowano: 2026-09-25
+---
+
+# Katalog funkcji
+
+Każda funkcja ma identyfikator `F-NN`, na który powołują się zadania w `TODO/` i testy.
+Opis zachowania pochodzi z analizy kodu wtyczki
+[[docs/integracje/kimai-ws-tracker|WS Tracker 1.5.1]] — kolumna „Źródło” wskazuje plik.
+Endpointy opisane są w [[docs/integracje/kimai-api|Kimai REST API]].
+
+## Mapa stanów aplikacji
+
+```mermaid
+stateDiagram-v2
+    [*] --> Nieskonfigurowana: brak URL lub tokenu
+    Nieskonfigurowana --> Bezczynna: zapisano ustawienia
+    [*] --> Bezczynna: GET /api/timesheets/active = []
+    [*] --> Trwa: GET /api/timesheets/active = [wpis]
+    Bezczynna --> Trwa: Start / Wznów
+    Trwa --> Bezczynna: Stop / Stop z godziną końca
+    Trwa --> Trwa: edycja opisu, początku, billable / Wznów inny wpis
+    Bezczynna --> Blad: błąd sieci / 401 / 5xx
+    Trwa --> Blad: błąd sieci / 401 / 5xx
+    Blad --> Bezczynna: odświeżenie OK
+    Blad --> Trwa: odświeżenie OK
+```
+
+---
+
+## F-01 Konfiguracja połączenia
+
+| | |
+|---|---|
+| **Co** | Adres Kimai, token API, język (auto/pl/en), minimalna długość opisu (domyślnie 15, 0 = wyłączone). |
+| **Test połączenia** | `GET /api/users/me` → komunikat „Połączono jako *alias/username*” albo powód błędu. |
+| **Zapis** | URL obcięty z końcowych `/`. Zapis ustawień **resetuje blokadę billable** (F-09), bo inny serwer/token może mieć uprawnienie. |
+| **Źródło** | `options/options.js`, `lib/api.js#getSettings` |
+| **Różnica w aplikacji** | Token → magazyn sekretów ([[docs/integracje/secret-service|Secret Service]]), nie plik ustawień. Brak odpowiednika „host permissions” Chrome — Flatpak ma dostęp do sieci przez `--share=network`. |
+
+## F-02 Ikona w tacce ze stanem
+
+| | |
+|---|---|
+| **Co** | Odpowiednik „badge” wtyczki. Pokazuje, czy timer działa i jak długo. |
+| **Format czasu** | `<60 min` → `47m`; `≥60 min` → `1:22` (wtyczka zmieniła z `1h22`, bo Chrome ucinał do 5 znaków). |
+| **Kolory wtyczki** | szary `#6b7280` — nic nie trwa / brak konfiguracji; zielony `#16a34a` — trwa; czerwony `#dc2626` + `!` — błąd. |
+| **Odświeżanie** | Co 1 minutę (`chrome.alarms`) + natychmiast po start/stop. |
+| **Źródło** | `background.js` |
+| **Różnica w aplikacji** | Tacka SNI nie ma „badge z tekstem”. Opcje: ikona w wariantach stanu + czas w **tooltipie**/tytule, albo ikona generowana dynamicznie z tekstem. KDE pokazuje tooltip SNI, rozszerzenie AppIndicator w GNOME potrafi pokazać etykietę tekstową obok ikony (`XAyatanaLabel`, do zweryfikowania prototypem). Do decyzji w projekcie UI. Patrz [[docs/integracje/statusnotifieritem|StatusNotifierItem]]. |
+
+## F-03 Okno szybkiej obsługi (popup)
+
+| | |
+|---|---|
+| **Co** | Po kliknięciu ikony: nagłówek (nazwa, suma dnia, suma tygodnia, ustawienia), pasek trackera, komunikaty, lista ostatnich wpisów. |
+| **Szerokość** | 460 px we wtyczce 1.5.0. |
+| **Stan „nieskonfigurowana”** | Tylko tekst + przycisk „Otwórz ustawienia”. |
+| **Źródło** | `popup/popup.html`, `popup/popup.css` |
+| **Różnica w aplikacji** | Na Waylandzie nie ustawimy pozycji okna przy ikonie — patrz [[docs/architektura/przeglad#Ograniczenia i ryzyka|ryzyka]]. |
+
+## F-04 Start timera
+
+1. Wymagane: projekt (`errNoProject`), czynność (`errNoActivity`), opis zgodny z F-11.
+2. `POST /api/timesheets` z `begin` = lokalny czas **minus 1 s** w formacie
+   `YYYY-MM-DDTHH:mm:ss` bez strefy (Kimai odrzuca przyszły początek, a UTC czytałby jako
+   czas lokalny), `project`, `activity`, `description`, opcjonalnie `billable` (F-09).
+3. Zapamiętanie `lastProject`, `lastActivity` (F-06).
+4. Odświeżenie ikony (F-02) i okna.
+5. **Enter** w polu opisu = start; **Shift+Enter** = nowa linia.
+
+Źródło: `popup.js#startTracking`, `api.js#start`, `api.js#localStamp`.
+
+## F-05 Stop timera
+
+- Bez godziny końca → `PATCH /api/timesheets/{id}/stop`.
+- Z wpisaną godziną „do” → `PATCH /api/timesheets/{id}` z `end` (ten sam dzień co
+  początek). Walidacja: koniec > początek (`errEndBeforeBegin`).
+
+Źródło: `popup.js#stopTracking`.
+
+## F-06 Wybór projektu i czynności
+
+- Projekty: `GET /api/projects?visible=1&ignoreDates=1` (bez `ignoreDates` API ukrywa
+  projekty z minionym oknem dat).
+- Klienci: `GET /api/customers?visible=1` — tylko po to, by wiedzieć, którzy są
+  niebillable (błąd tego zapytania jest ignorowany).
+- **Grupowanie po kliencie** (`parentTitle`), sortowanie alfabetyczne klientów i projektów
+  — lista 75 projektów bez grup była nieużywalna.
+- Kropka z kolorem projektu (`project.color`), szara gdy nic nie wybrano.
+- Czynności: `GET /api/activities?visible=1&globals=true&project={id}`, sortowane.
+- Zmiana projektu przebudowuje czynności i resetuje billable do domyślnego.
+- Ostatni wybór pamiętany lokalnie i przywracany, jeśli nadal istnieje na liście.
+- W trakcie trwania wpisu projekt i czynność są **zablokowane** (zmiana = inny wpis,
+  nie korekta).
+
+Źródło: `popup.js#fillPickers`, `#onProjectChange`, `#restoreLastActivity`.
+
+## F-07 Edycja trwającego wpisu
+
+| Pole | Zachowanie |
+|---|---|
+| Opis | Zapis po 1,2 s od końca pisania (cicho) i przy utracie fokusu. Walidacja F-11; przy zapisie „cichym” błąd walidacji nie jest pokazywany. Enter = zatwierdź. |
+| Początek (HH:MM) | Ten sam dzień co pierwotny początek. Przyszłość → `errBeginFuture`. `PATCH` z `begin`, zegar restartuje od nowej wartości. |
+| Koniec (HH:MM) | Nie zapisuje od razu — używany przy Stop (F-05). |
+| Billable | `PATCH` z `billable` natychmiast (F-09). |
+
+Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
+Źródło: `popup.js#saveDescription`, `#onBeginChange`, `#onBillableClick`.
+
+## F-08 Lista ostatnich wpisów
+
+- `GET /api/timesheets?size=20&orderBy=begin&order=DESC&full=true`.
+- **Nie** `/api/timesheets/recent` — ten zwija listę do jednej pozycji na parę
+  projekt+czynność, przez co „ginęły” godziny.
+- Pomija wpis trwający (`end == null`).
+- Grupowanie po dniu lokalnym: „Dziś”, „Wczoraj”, dalej data (`pon., 22 wrz`), suma dnia
+  w formacie `h:mm`.
+- Wiersz: kropka koloru projektu, opis (maks. 2 linie, znaki nowej linii → spacje,
+  pełny opis w podpowiedzi; brak opisu → „bez opisu”), „projekt - czynność”, czas trwania,
+  zakres `HH:MM-HH:MM`, przycisk `$` (F-09), przycisk ▶ wznów (F-10).
+- Pod listą link „Moje czasy” → `{url}/{locale}/timesheet/`. Kimai nie ma trasy bez
+  locale; locale brane z `entry.user.language` i zapamiętywane.
+
+Źródło: `popup.js#renderRecent`, `#recentRow`, `#rememberKimaiLocale`.
+
+## F-09 Billable
+
+- Przełącznik `$` przy projekcie: zielony = na fakturę klienta, szary przekreślony = czas
+  wewnętrzny.
+- **Domyślna wartość** jak w Kimai: billable, chyba że klient, projekt lub czynność ma
+  `billable=false`.
+- **Nietknięty przełącznik nie jest wysyłany** — decyzję zostawiamy Kimai.
+- Ręczna zmiana obowiązuje dla jednego wpisu; zmiana projektu wraca do domyślnej.
+- `$` na każdym wierszu listy przełącza billable zapisanego wpisu (`PATCH`),
+  z optymistycznym odświeżeniem UI i cofnięciem przy odmowie.
+- **Brak uprawnienia** `edit_billable_own_timesheet` (domyślnie ma je dopiero teamlead):
+  Kimai odrzuca **cały** request z 400 „This form should not contain extra fields.”.
+  Wtedy: wpis wysyłany ponownie bez `billable`, przełącznik blokowany i przyciemniony
+  z wyjaśnieniem (`errBillableDenied`), blokada trwa do ponownego zapisania ustawień.
+
+Źródło: `api.js#isBillableRejected`, `popup.js#lockBillable`, `#billableButton`.
+
+## F-10 Wznawianie wpisu
+
+- ▶ na wierszu kopiuje opis, projekt, czynność i **billable tego wpisu** (nie domyślne
+  projektu) do formularza i startuje.
+- Jeśli coś trwa — najpierw zatrzymuje bieżący wpis (przełączenie timera).
+- Ukryta czynność (np. kubełek importu z Togglа) nie jest ustawiana, bo nie ma jej na liście.
+
+Źródło: `popup.js#resume`.
+
+## F-11 Walidacja jakości opisu
+
+- `minDescription <= 0` → wyłączona.
+- Opis z **linkiem** (`http(s)://`), **numerem zgłoszenia** (`#412`) lub **kluczem**
+  (`PROJ-88`) i ≥ 3 znakami → zawsze OK.
+- Po normalizacji (małe litery, bez diakrytyków, bez interpunkcji na brzegach) opis z listy
+  ogólników (`poprawki`, `spotkanie`, `fixes`, `call`, `bug fixing`… — ok. 90 fraz PL/EN)
+  → błąd `generic`.
+- Krótszy niż minimum → błąd `short`.
+
+Źródło: `lib/validate.js` (pełna lista ogólników tam).
+
+## F-12 Sumy dzienna i tygodniowa
+
+- Jedno zapytanie: `GET /api/timesheets?begin=<pon 00:00>&end=<dziś 23:59:59>&size=100&page=N`,
+  maks. 3 strony; 404 za ostatnią stroną = koniec.
+- Liczone **tylko zamknięte** wpisy (`end != null`), trwający dodawany na żywo co sekundę.
+- Tydzień od poniedziałku.
+- Błąd → sumy ukryte (nie blokuje reszty okna).
+
+Źródło: `popup.js#renderTotals`, `api.js#range`.
+
+## F-13 Język interfejsu
+
+- `auto` (język systemu), `pl`, `en`. Braki w tłumaczeniu uzupełniane angielskim.
+- Wybór jawny w ustawieniach, bo zespół chce wybierać niezależnie od systemu.
+
+Źródło: `lib/i18n.js`, `_locales/*/messages.json`.
+
+## F-14 Obsługa błędów
+
+| Sytuacja | Komunikat |
+|---|---|
+| Brak połączenia (status 0) | `errConnection` |
+| 401 / 403 | `errAuth` — sprawdź token |
+| 400 z treścią | `errRejected` + **treść błędu z Kimai** (zebrane `errors` z zagnieżdżonych `children` formularza) |
+| inne | `errServer` + kod |
+
+Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
+Źródło: `api.js#readError`, `#collectFormErrors`, `popup.js#describeError`.
+
+---
+
+## Funkcje nowe względem wtyczki (kandydaci)
+
+| Id | Funkcja | Uzasadnienie | Status |
+|---|---|---|---|
+| F-20 | Menu kontekstowe ikony | szybkie akcje bez otwierania okna; działa dobrze na Waylandzie | do decyzji |
+| F-21 | Powiadomienia systemowe | przypomnienie o długim timerze / brak timera w godzinach pracy | do decyzji |
+| F-22 | Autostart z sesją | aplikacja tackowa powinna startować sama | do decyzji |
+| F-23 | Wykrywanie bezczynności | propozycja odjęcia czasu nieaktywności | do decyzji |
+| F-24 | Globalny skrót klawiszowy | start/stop bez myszy | do decyzji |
+
+## Powiązane
+
+- [[docs/architektura/przeglad|Przegląd projektu]]
+- [[docs/integracje/kimai-api|Kimai REST API]]
+- [[docs/integracje/kimai-ws-tracker|WS Tracker]]
