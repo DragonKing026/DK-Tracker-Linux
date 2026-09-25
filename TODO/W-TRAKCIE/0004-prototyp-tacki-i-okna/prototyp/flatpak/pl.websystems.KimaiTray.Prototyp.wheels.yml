@@ -1,0 +1,38 @@
+# Throwaway Flatpak for the tray spike (task 0004) WITHOUT io.qt.PySide.BaseApp.
+# Workaround for flatpak 1.18.2 bug #6818 (build-init --base fails on SELinux:
+# "lsetxattr(security.selinux): Operation not supported"); PySide6 comes from PyPI wheels.
+app-id: pl.websystems.KimaiTray.Prototyp
+runtime: org.kde.Platform
+runtime-version: '6.11'
+sdk: org.kde.Sdk
+command: tray-demo
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --talk-name=org.kde.StatusNotifierWatcher   # the only extra permission the tray should need
+modules:
+  - name: pyside6-wheels
+    buildsystem: simple
+    build-commands:
+      - pip3 install --no-deps --no-index --find-links="file://${PWD}" --prefix=${FLATPAK_DEST} shiboken6 pyside6-essentials
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/a5/9a/f41bea4316d0c1bec4800842dcb4bd8fd3e29d6a79c496bc32e1aec42583/shiboken6-6.11.2-cp310-abi3-manylinux_2_34_x86_64.whl
+        sha256: 7a7a0a72a9ed26c9bf77d42246b1c736486befb8f31aa2fb29957ea4cdd1c1c2
+      - type: file
+        url: https://files.pythonhosted.org/packages/0e/1a/84a84bbc75835ee88abdcb66eb875b8e1a21834af9b833bc1893f2c1bfaf/pyside6_essentials-6.11.2-cp310-abi3-manylinux_2_34_x86_64.whl
+        sha256: aaf9f25f0f324874085fa5b26a610318db8a8e243cf85bb3e5400595191c7778
+  - name: tray-demo
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 tray_demo.py /app/lib/tray_demo.py
+      - install -Dm755 tray-demo.sh /app/bin/tray-demo
+    sources:
+      - type: file
+        path: ../tray_demo.py
+      - type: script
+        dest-filename: tray-demo.sh
+        commands:
+          - exec python3 /app/lib/tray_demo.py "$@"

@@ -1,0 +1,30 @@
+{"t": 0.051, "event": "start", "pid": 1459702, "platform": "wayland", "tray_available": true, "messages_supported": true, "mode": "tool", "guard_ms": 0, "env": {"XDG_CURRENT_DESKTOP": "KDE", "XDG_SESSION_TYPE": "wayland", "QT_WAYLAND_SHELL_INTEGRATION": null, "LAYERSHELLQT_ANCHORS": null, "LAYERSHELLQT_LAYER": null, "FLATPAK_ID": null}}
+{"t": 0.065, "event": "timer.started"}
+{"t": 0.54, "event": "tray.shown", "visible": true, "geometry": [0, 0, 0, 0]}
+{"t": 275.859, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 275.859, "event": "toggle.show", "source": "tray-left-click", "ms_since_hide": null, "tray_geometry": [0, 0, 0, 0]}
+{"t": 275.865, "event": "window.WindowActivate"}
+{"t": 276.178, "event": "window.geometry", "geometry": [0, 0, 460, 560], "frame": [0, 0], "screen": "DP-6", "screen_geometry": [0, 0, 2560, 1440], "active": true, "handle_position": [0, 0]}
+{"t": 282.683, "event": "window.Enter"}
+{"t": 287.825, "event": "input.typed", "length": 1}
+{"t": 287.84, "event": "input.typed", "length": 2}
+{"t": 287.923, "event": "input.typed", "length": 3}
+{"t": 288.191, "event": "input.typed", "length": 4}
+{"t": 288.191, "event": "input.typed", "length": 5}
+{"t": 288.336, "event": "input.typed", "length": 6}
+{"t": 288.938, "event": "window.Leave"}
+{"t": 290.293, "event": "window.deactivated_hide"}
+{"t": 293.581, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 293.581, "event": "toggle.show", "source": "tray-left-click", "ms_since_hide": 3288, "tray_geometry": [0, 0, 0, 0]}
+{"t": 293.583, "event": "window.WindowActivate"}
+{"t": 293.89, "event": "window.geometry", "geometry": [0, 0, 460, 560], "frame": [0, 0], "screen": "DP-6", "screen_geometry": [0, 0, 2560, 1440], "active": true, "handle_position": [0, 0]}
+{"t": 300.306, "event": "window.deactivated_hide"}
+{"t": 359.503, "event": "tray.activated", "reason": "Trigger", "tray_geometry": [0, 0, 0, 0]}
+{"t": 359.503, "event": "toggle.show", "source": "tray-left-click", "ms_since_hide": 59197, "tray_geometry": [0, 0, 0, 0]}
+{"t": 359.507, "event": "window.WindowActivate"}
+{"t": 359.79, "event": "window.geometry", "geometry": [0, 0, 460, 560], "frame": [0, 0], "screen": "DP-6", "screen_geometry": [0, 0, 2560, 1440], "active": true, "handle_position": [0, 0]}
+{"t": 364.081, "event": "window.Enter"}
+{"t": 364.409, "event": "window.Leave"}
+{"t": 364.841, "event": "window.Enter"}
+{"t": 365.333, "event": "window.deactivated_hide"}
+{"t": 365.334, "event": "window.Leave"}

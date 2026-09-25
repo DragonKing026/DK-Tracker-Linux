@@ -3,7 +3,7 @@ noteId: "0b0085cf5ff34570a69f31d3a27253e6"
 tytul: "Ustalenia prototypu 0004 — tacka i okno"
 tags: [prototyp, tray, wayland, kde]
 utworzono: 2026-09-25 20:02
-zaktualizowano: 2026-09-25 20:06
+zaktualizowano: 2026-09-25 20:16
 ---
 
 # Ustalenia prototypu 0004
@@ -43,17 +43,40 @@ Log: [testy/log-kde-layer-reczny.jsonl](../testy/log-kde-layer-reczny.jsonl).
 > Zamknięcie okna tylko przez klik obok albo `Esc`/przycisk. Do rozważenia w UI: przycisk
 > zamknięcia w nagłówku okna i obsługa `Esc`.
 
-## Do sprawdzenia ręcznie (wymaga prawdziwego kliknięcia)
+## Wariant A — test ręczny użytkownika (2026-09-25 20:16)
 
-- Kolizja: kliknięcie ikony przy otwartym oknie (fokus → panel → okno się chowa → `Trigger` pokazuje je znowu?).
-- Czy okno wariantu B chowa się po kliknięciu gdzie indziej (warstwa `layer-shell` może nie dostawać `WindowDeactivate`).
-- Czy w oknie wariantu B da się pisać (`keyboardInteractivity=OnDemand`).
-- Menu kontekstowe (prawy klik) — pozycja przy ikonie.
+Log: [testy/log-kde-tool-reczny.jsonl](../testy/log-kde-tool-reczny.jsonl).
+
+| Krok | Wynik |
+|---|---|
+| 1. Klik w ikonę → okno | **na środku ekranu** (użytkownik: w wariancie B było przy tacce) |
+| 2. Pisanie | **tak** |
+| 3. Klik poza okno → chowa się | **tak** |
+| 4. Klik w ikonę przy otwartym oknie | **okno zostaje** — jak w B: Plasma nie wysyła `Activate`, okno nie traci fokusu |
+| 5. Prawy klik → menu przy ikonie | **tak** |
+
+> [!important] Wniosek z kroku 4 (oba warianty)
+> To zachowanie hosta tacki (Plasma), nie okna. Ikona **nie zamknie** otwartego okna —
+> w UI potrzebny przycisk zamknięcia w nagłówku i klawisz `Esc` (plus chowanie po utracie fokusu).
+
+## Flatpak (2026-09-25 20:16)
+
+| Pytanie | Wynik |
+|---|---|
+| Budowa z `io.qt.PySide.BaseApp` | **zablokowana na Fedorze 44**: Flatpak 1.18.2 ma regresję — `build-init --base` kończy się `lsetxattr(security.selinux): Operation not supported` ([flatpak#6818](https://github.com/flatpak/flatpak/issues/6818), poprawka w 1.18.3 przez [PR #6834](https://github.com/flatpak/flatpak/pull/6834)); w repozytoriach Fedory 44 (także updates-testing) jest tylko 1.18.2 |
+| Obejście | PySide6 z paczek PyPI (`pyside6-essentials` + `shiboken6` 6.11.2, 80 MB) zamiast bazy — [manifest](../prototyp/flatpak/pl.websystems.KimaiTray.Prototyp.wheels.yml); budowa **20 s**, aplikacja 236 MB |
+| Tacka we Flatpaku z samym `--talk-name=org.kde.StatusNotifierWatcher` | **działa** — ikona zarejestrowana, bez `--own-name` |
+| Klik (`Activate` → `Trigger`) i tooltip co sekundę w piaskownicy | **działa** ([log](../testy/log-flatpak-tool.jsonl)) |
+| Wariant B we Flatpaku | **niewykonalny w obejściu** — `layer-shell-qt` nie ma w `org.kde.Platform`, a wtyczkę trzeba zbudować pod Qt aplikacji; Qt z paczki pip nie ma nagłówków prywatnych. Możliwe dopiero z bazą PySide (Qt runtime'u) po naprawie Flatpaka |
+| Budowa w piaskownicy narzędzia agenta | `flatpak-builder` wymaga pracy poza piaskownicą Claude Code (dostęp do `~/.local/share/flatpak`) — informacja dla kolejnych sesji |
+
+## Do sprawdzenia ręcznie
+
+Wszystkie punkty sprawdzone w testach ręcznych wariantów A i B (wyżej).
 
 ## Nie sprawdzone (zablokowane)
 
-- **Flatpak** — wymaga pobrania `org.kde.Sdk//6.11` (1,2 GB) i `io.qt.PySide.BaseApp//6.11` (346 MB); czeka na zgodę użytkownika.
-- **GNOME** — na tej maszynie nie ma GNOME Shell (ani rozszerzenia AppIndicator).
+- **GNOME** — na tej maszynie nie ma GNOME Shell; testy wykonają później inne osoby (decyzja użytkownika).
 
 ## Wnioski (wstępne)
 

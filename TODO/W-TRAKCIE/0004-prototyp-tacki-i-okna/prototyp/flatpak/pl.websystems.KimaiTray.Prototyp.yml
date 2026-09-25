@@ -1,0 +1,32 @@
+# Throwaway Flatpak for the tray spike (task 0004). Not the product manifest.
+app-id: pl.websystems.KimaiTray.Prototyp
+runtime: org.kde.Platform
+runtime-version: '6.11'
+sdk: org.kde.Sdk
+base: io.qt.PySide.BaseApp
+base-version: '6.11'
+command: tray-demo
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --talk-name=org.kde.StatusNotifierWatcher   # the only extra permission the tray should need
+cleanup-commands:
+  - /app/cleanup-BaseApp.sh
+build-options:
+  env:
+    BASEAPP_REMOVE_WEBENGINE: '1'
+modules:
+  - name: tray-demo
+    buildsystem: simple
+    build-commands:
+      - install -Dm644 tray_demo.py /app/lib/tray_demo.py
+      - install -Dm755 tray-demo.sh /app/bin/tray-demo
+    sources:
+      - type: file
+        path: ../tray_demo.py
+      - type: script
+        dest-filename: tray-demo.sh
+        commands:
+          - exec python3 /app/lib/tray_demo.py "$@"
