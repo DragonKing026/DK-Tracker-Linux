@@ -2,9 +2,9 @@
 noteId: "2e15896562da4d04ac0375d0fffce4c6"
 tytul: "Plan 2: Integracje desktopowe (desktop)"
 tags: [plan, implementacja, desktop, dbus]
-status: w-realizacji
+status: wykonany
 utworzono: 2026-09-25 20:47
-zaktualizowano: 2026-09-25 21:00
+zaktualizowano: 2026-09-25 21:06
 ---
 
 # Plan 2: Integracje desktopowe (desktop) — plan implementacji
