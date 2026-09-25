@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
 from kimai_tray.core.errors import ApiError, ErrorKind
@@ -119,8 +119,35 @@ def test_activities_are_sorted_and_default_billable():
 def test_live_totals_add_running_time():
     running = make_entry(1, NOW - timedelta(minutes=10))
     snapshot = Snapshot(running=(running,), totals=Totals(today=60, week=120))
-    assert live_totals(snapshot, NOW) == Totals(today=660, week=720)
-    assert live_totals(Snapshot(), NOW) == Totals()
+    assert live_totals(snapshot, NOW, WAW) == Totals(today=660, week=720)
+    assert live_totals(Snapshot(), NOW, WAW) == Totals()
+
+
+def test_live_totals_count_a_running_entry_on_the_day_it_began():
+    # Like Kimai: an entry belongs to the day it started, so stopping it does not move hours.
+    since_last_night = make_entry(1, datetime(2026, 9, 24, 22, 0, tzinfo=WAW))  # Thursday
+    snapshot = Snapshot(running=(since_last_night,), totals=Totals(today=0, week=100))
+    elapsed = int((NOW - since_last_night.begin).total_seconds())
+    assert live_totals(snapshot, NOW, WAW) == Totals(today=0, week=100 + elapsed)
+
+
+def test_live_totals_ignore_a_running_entry_from_last_week():
+    since_sunday = make_entry(1, datetime(2026, 9, 20, 23, 0, tzinfo=WAW))
+    assert live_totals(Snapshot(running=(since_sunday,)), NOW, WAW) == Totals()
+
+
+def test_light_refresh_recomputes_totals_when_an_entry_stops_elsewhere():
+    tracker, client, _ = make_tracker()
+    client.add(make_entry(1, NOW - timedelta(hours=1)))
+    assert tracker.refresh_full().totals == Totals()
+    ranges = lambda: sum(1 for call in client.calls if call[0] == "range")  # noqa: E731
+    tracker.refresh_active()
+    assert ranges() == 1  # nothing changed: no extra query
+    client.stop(1)  # stopped in the browser add-on or the Kimai panel
+    snapshot = tracker.refresh_active()
+    assert ranges() == 2
+    assert snapshot.running == ()
+    assert snapshot.totals == Totals(today=3600, week=3600)
 
 
 def test_all_entries_url():

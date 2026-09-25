@@ -68,11 +68,16 @@ def _system_now() -> datetime:
     return datetime.now().astimezone()
 
 
-def live_totals(snapshot: Snapshot, now: datetime) -> Totals:
-    """Totals count closed entries only; the running ones are added by the clock."""
+def live_totals(snapshot: Snapshot, now: datetime, tz: tzinfo) -> Totals:
+    """Closed entries plus the running ones, each counted on the day it began — as Kimai
+    counts it, so stopping an entry does not move hours between days."""
     base = snapshot.totals or Totals()
-    live = sum(elapsed_seconds(entry.begin, now) for entry in snapshot.running)
-    return Totals(today=base.today + live, week=base.week + live)
+    today, monday = local_day(now, tz), week_start(now, tz)
+    today_live = sum(
+        elapsed_seconds(e.begin, now) for e in snapshot.running if local_day(e.begin, tz) == today
+    )
+    week_live = sum(elapsed_seconds(e.begin, now) for e in snapshot.running if e.begin >= monday)
+    return Totals(today=base.today + today_live, week=base.week + week_live)
 
 
 def all_entries_url(kimai_url: str, locale: str) -> str:
@@ -120,7 +125,11 @@ class Tracker:
             running = self._running(self._client.active())
         except ApiError as error:
             return self._failed(error)
-        return self._succeeded(user=user, running=running)
+        # An entry stopped or started elsewhere (browser add-on, Kimai panel) changes the
+        # closed totals too; only then is the extra query worth it.
+        changed = {e.id for e in running} != {e.id for e in self._snapshot.running}
+        extra = {"totals": self._totals(user)} if changed else {}
+        return self._succeeded(user=user, running=running, **extra)
 
     def refresh_full(self) -> Snapshot:
         """Everything the window shows: running entry, recent entries and totals."""
