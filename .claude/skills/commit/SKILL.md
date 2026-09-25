@@ -16,7 +16,8 @@ Konwencja: [docs/procesy/commity.md](../../../docs/procesy/commity.md).
    albo od razu w następnym commicie.
 4. Jeśli zmieniłeś plik w `docs/` lub `TODO/` — podbij pole `zaktualizowano:` we frontmatterze.
 5. Jeśli zmiana dotyka `docs/`, `TODO/` lub plików `.md` — sprawdź linki:
-   `python3 .claude/skills/sprawdz-linki/linki.py sprawdz` (musi być „Wszystkie linki OK.”).
+   `python3 .claude/skills/sprawdz-linki/linki.py sprawdz` (musi być „Wszystkie linki OK.”)
+   i frontmatter: `python3 .claude/skills/frontmatter/frontmatter.py sprawdz`.
 6. Dobierz typ: `feat` `fix` `docs` `todo` `refactor` `test` `build` `ci` `chore`.
 7. Commit:
    ```bash
