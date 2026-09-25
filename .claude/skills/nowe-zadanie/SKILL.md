@@ -23,19 +23,20 @@ Proces: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md). Szablon: [T
 4. **Wypełnij** wszystkie `{{...}}`: `{{NNNN}}`, `{{TYTUL}}`, `{{DATA}}` (dzisiejsza ISO),
    `{{STATUS}}`, `{{PRIORYTET}}`. Uzupełnij pola frontmattera `status`, `priorytet`,
    `tagi`, `zalezy_od` (lista nazw folderów, np. `["0003-wybor-stosu"]`).
-5. **Treść** — rzetelnie: Cel, Kontekst (z wikilinkami do docs/integracji/ADR),
+5. **Treść** — rzetelnie: Cel, Kontekst (z linkami markdown do docs/integracji/ADR/zadań — każde odwołanie jest linkiem),
    sprawdzalne Kryteria akceptacji, Kroki. Jeśli pomaga — diagram `mermaid`.
    **Wszystkie materiały zadania** w jego folderze, w podfolderach według rodzaju
    (tworzonych, gdy jest co położyć): `zrzuty/`, `diagramy/`, `testy/`, `prototyp/`,
    `notatki/`, `dane/`. Każdy materiał podlinkuj/osadź w sekcji „Materiały” todo.md,
-   np. `![[TODO/NNNN-slug/zrzuty/plik.png]]`. Zasady: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
+   np. `![opis](zrzuty/plik.png)`, `[raport](testy/raport.md)`. Zasady: [docs/procesy/zadania.md](../../../docs/procesy/zadania.md).
 6. **Tablica** — dodaj wiersz z **linkiem** w sekcji „Aktywne” w `TODO/README.md`:
    ```markdown
    | 0005 | [Klient API Kimai](0005-klient-api-kimai/todo.md) | 📋 do-zrobienia | p1 | 0003 |
    ```
    Link markdown ze ścieżką względną (działa w Obsidianie i na GitHubie).
    Wiersze sortuj po numerze.
-7. **Commit** (skill `commit`): `todo: dodaj zadanie NNNN-slug`.
+7. **Linki**: `python3 .claude/skills/sprawdz-linki/linki.py sprawdz` → „Wszystkie linki OK.”
+8. **Commit** (skill `commit`): `todo: dodaj zadanie NNNN-slug`.
 
 ## Sprawdź przed commitem
 
