@@ -66,11 +66,15 @@ class _JeepneyExpectation:
         # Several signals may arrive between two waits (e.g. notification clicks).
         self._filter = connection.filter(rule, queue=deque(maxlen=64))
         self._queue = self._filter.__enter__()
+        self._closed = False
 
     def wait(self, timeout: float) -> tuple[Any, ...]:
         return self._connection.recv_until_filtered(self._queue, timeout=timeout).body
 
     def close(self) -> None:
+        if self._closed:
+            return
+        self._closed = True
         self._filter.__exit__(None, None, None)
         try:
             self._connection.send_and_get_reply(message_bus.RemoveMatch(self._rule), timeout=5)
@@ -81,8 +85,8 @@ class _JeepneyExpectation:
 class SessionBus:
     """One blocking session-bus connection. Not thread-safe: use one per thread."""
 
-    def __init__(self) -> None:
-        self._connection = open_dbus_connection(bus="SESSION")
+    def __init__(self, connection: Any = None) -> None:
+        self._connection = connection if connection is not None else open_dbus_connection(bus="SESSION")
         self.unique_name: str = self._connection.unique_name
 
     def close(self) -> None:
@@ -99,19 +103,20 @@ class SessionBus:
         timeout: float = 25.0,
     ) -> tuple[Any, ...]:
         address = DBusAddress(path, bus_name=destination, interface=interface)
-        reply = self._connection.send_and_get_reply(
-            new_method_call(address, member, signature or None, body), timeout=timeout
-        )
+        return self._send(new_method_call(address, member, signature or None, body), timeout)
+
+    def expect(self, path: str, interface: str, member: str) -> Expectation:
+        rule = MatchRule(type="signal", path=path, interface=interface, member=member)
+        self._send(message_bus.AddMatch(rule), 5)  # a refused match would leave wait() hanging
+        return _JeepneyExpectation(self._connection, rule)
+
+    def _send(self, message: Any, timeout: float) -> tuple[Any, ...]:
+        reply = self._connection.send_and_get_reply(message, timeout=timeout)
         if reply.header.message_type is MessageType.error:
             name = reply.header.fields.get(HeaderFields.error_name, "org.freedesktop.DBus.Error.Failed")
             text = reply.body[0] if reply.body and isinstance(reply.body[0], str) else ""
             raise DBusCallError(name, text)
         return reply.body
-
-    def expect(self, path: str, interface: str, member: str) -> Expectation:
-        rule = MatchRule(type="signal", path=path, interface=interface, member=member)
-        self._connection.send_and_get_reply(message_bus.AddMatch(rule), timeout=5)
-        return _JeepneyExpectation(self._connection, rule)
 
 
 def portal_request(
@@ -131,10 +136,21 @@ def portal_request(
     sender = bus.unique_name.lstrip(":").replace(".", "_")
     expectation = bus.expect(f"{PORTAL_PATH}/request/{sender}/{token}", _REQUEST, "Response")
     try:
-        bus.call(PORTAL, PORTAL_PATH, interface, member, signature, build_body(token))
-        code, results = expectation.wait(timeout)
+        (handle,) = bus.call(PORTAL, PORTAL_PATH, interface, member, signature, build_body(token))
+        try:
+            code, results = expectation.wait(timeout)
+        except TimeoutError:
+            _close_request(bus, handle)  # do not leave the portal dialog behind
+            raise
     finally:
         expectation.close()
     if code != 0:
         raise PortalError(code)
     return {key: variant[1] for key, variant in results.items()}  # jeepney variants are (signature, value)
+
+
+def _close_request(bus: Bus, handle: str) -> None:
+    try:
+        bus.call(PORTAL, handle, _REQUEST, "Close", timeout=5)
+    except (DBusCallError, OSError):
+        pass  # the request may already be gone
