@@ -26,17 +26,16 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0021 | [Plan 2 — rozpoznanie API integracji desktopowych](W-TRAKCIE/0021-plan2-rozpoznanie-api-desktop/todo.md) | 🔨 w-trakcie | p1 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0022 | [Plan 2 · Zadanie 1: Szyna D-Bus (`desktop/bus.py`)](W-TRAKCIE/0022-plan2-szyna-dbus/todo.md) | 🔨 w-trakcie | p1 | — |
+| 0023 | [Plan 2 · Zadanie 2: Token w magazynie sekretów (`desktop/secrets.py`)](W-TRAKCIE/0023-plan2-token-w-magazynie-sekretow/todo.md) | 🔨 w-trakcie | p1 | [0022](ZROBIONE/0022-plan2-szyna-dbus/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0023 | [Plan 2 · Zadanie 2: Token w magazynie sekretów (`desktop/secrets.py`)](DO-ZROBIENIA/0023-plan2-token-w-magazynie-sekretow/todo.md) | 📋 do-zrobienia | p1 | [0022](W-TRAKCIE/0022-plan2-szyna-dbus/todo.md) |
-| 0024 | [Plan 2 · Zadanie 3: Powiadomienia — tekst w rdzeniu, wysyłka przez portal](DO-ZROBIENIA/0024-plan2-powiadomienia-przez-portal/todo.md) | 📋 do-zrobienia | p1 | [0022](W-TRAKCIE/0022-plan2-szyna-dbus/todo.md) |
-| 0025 | [Plan 2 · Zadanie 4: Autostart i status w tle (`desktop/autostart.py`)](DO-ZROBIENIA/0025-plan2-autostart-i-status-w-tle/todo.md) | 📋 do-zrobienia | p1 | [0022](W-TRAKCIE/0022-plan2-szyna-dbus/todo.md) |
-| 0026 | [Plan 2 · Zadanie 5: Testy na prawdziwej sesji i komendy](DO-ZROBIENIA/0026-plan2-testy-na-zywo-i-komendy/todo.md) | 📋 do-zrobienia | p1 | [0023](DO-ZROBIENIA/0023-plan2-token-w-magazynie-sekretow/todo.md), [0024](DO-ZROBIENIA/0024-plan2-powiadomienia-przez-portal/todo.md), [0025](DO-ZROBIENIA/0025-plan2-autostart-i-status-w-tle/todo.md) |
+| 0024 | [Plan 2 · Zadanie 3: Powiadomienia — tekst w rdzeniu, wysyłka przez portal](DO-ZROBIENIA/0024-plan2-powiadomienia-przez-portal/todo.md) | 📋 do-zrobienia | p1 | [0022](ZROBIONE/0022-plan2-szyna-dbus/todo.md) ✅ |
+| 0025 | [Plan 2 · Zadanie 4: Autostart i status w tle (`desktop/autostart.py`)](DO-ZROBIENIA/0025-plan2-autostart-i-status-w-tle/todo.md) | 📋 do-zrobienia | p1 | [0022](ZROBIONE/0022-plan2-szyna-dbus/todo.md) ✅ |
+| 0026 | [Plan 2 · Zadanie 5: Testy na prawdziwej sesji i komendy](DO-ZROBIENIA/0026-plan2-testy-na-zywo-i-komendy/todo.md) | 📋 do-zrobienia | p1 | [0023](W-TRAKCIE/0023-plan2-token-w-magazynie-sekretow/todo.md), [0024](DO-ZROBIENIA/0024-plan2-powiadomienia-przez-portal/todo.md), [0025](DO-ZROBIENIA/0025-plan2-autostart-i-status-w-tle/todo.md) |
 
 ## Zrobione
 
@@ -61,6 +60,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0017 | [Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze](ZROBIONE/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) | ✅ zrobione | 2026-09-25 19:04 |
 | 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](ZROBIONE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | ✅ zrobione | 2026-09-25 19:05 |
 | 0019 | [Drobne uwagi z recenzji Planu 1 (rdzeń)](ZROBIONE/0019-drobne-uwagi-z-recenzji-planu-1/todo.md) | ✅ zrobione | 2026-09-25 19:55 |
+| 0022 | [Plan 2 · Zadanie 1: Szyna D-Bus (`desktop/bus.py`)](ZROBIONE/0022-plan2-szyna-dbus/todo.md) | ✅ zrobione | 2026-09-25 21:00 |
 
 <!-- tablica:end -->
 
