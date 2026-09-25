@@ -35,9 +35,18 @@ Jedno-dwa zdania: jaki efekt ma dać to zadanie i po co.
 - [ ] Krok 1
 - [ ] Krok 2
 
-## Diagramy i zrzuty
+## Materiały
 
-<!-- Diagram mermaid albo ![[assets/zrzut.png]] -->
+Wszystkie materiały zadania leżą w jego folderze (podfoldery tworzone, gdy są potrzebne):
+
+- `zrzuty/` — zrzuty ekranu
+- `diagramy/` — diagramy eksportowane i ich źródła
+- `testy/` — scenariusze testów ręcznych, raporty, logi
+- `prototyp/` — kod roboczy / spike
+- `notatki/` — notatki badawcze, porównania
+- `dane/` — przykładowe dane, odpowiedzi API
+
+<!-- Osadzenie: ![[TODO/{{NNNN}}-slug/zrzuty/plik.png]] · link: [raport](testy/raport.md) · diagram mermaid inline -->
 
 ## Dziennik
 
