@@ -7,6 +7,7 @@ refreshes never raise — a failure is recorded in the Snapshot instead.
 
 from __future__ import annotations
 
+import logging
 from collections.abc import Callable
 from dataclasses import dataclass, replace
 from datetime import UTC, datetime, tzinfo
@@ -30,6 +31,7 @@ from .timefmt import (
 from .validation import check_description
 
 RECENT_SIZE = 20
+log = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -335,8 +337,13 @@ class Tracker:
             self._update_memory(kimai_locale=language)
 
     def _update_memory(self, **changes: Any) -> None:
+        """Remembered state is a convenience: failing to write it (disk full, read-only home)
+        must never turn a successful action into an error — the user would retry and book twice."""
         self._memory = replace(self._memory, **changes)
-        self._save_memory(self._memory)
+        try:
+            self._save_memory(self._memory)
+        except OSError as error:
+            log.warning("Could not save app state, keeping it in memory only: %s", error)
 
     def _require_choice(self, project_id: int | None, activity_id: int | None) -> tuple[int, int]:
         if not project_id:

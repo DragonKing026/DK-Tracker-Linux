@@ -225,3 +225,28 @@ def test_failed_resume_does_not_leave_a_stale_running_entry():
     with pytest.raises(ApiError):
         tracker.resume(old)
     assert tracker.snapshot.running == ()  # entry 2 was stopped before the start failed
+
+
+def test_memory_that_cannot_be_saved_never_fails_an_action(caplog):
+    client = FakeClient()
+
+    def disk_full(memory):
+        raise OSError(28, "No space left on device")
+
+    from kimai_tray.core.tracker import Tracker
+
+    tracker = Tracker(
+        client,
+        Settings(),
+        Memory(),
+        save_memory=disk_full,
+        now=lambda: client.now,
+        local_now=lambda: client.now.astimezone(UTC),
+    )
+    snapshot = tracker.start(
+        project_id=1, activity_id=1, description=GOOD, billable=None
+    )  # also saves locale
+    assert snapshot.current.description == GOOD
+    assert (tracker.memory.last_project, tracker.memory.kimai_locale) == (1, "pl")  # kept in memory
+    assert len([call for call in client.calls if call[0] == "start"]) == 1
+    assert "No space left on device" in caplog.text
