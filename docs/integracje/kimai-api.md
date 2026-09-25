@@ -5,7 +5,7 @@ tags: [integracja, kimai, api, http]
 status_integracji: w-uzyciu
 wersja: Kimai 2.x — firma 2.65.0; testowane na 2.65.0 i 2.67.0
 utworzono: 2026-09-25 17:19
-zaktualizowano: 2026-09-25 19:37
+zaktualizowano: 2026-09-25 19:39
 ---
 
 # Kimai REST API
@@ -86,6 +86,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | 403 `Forbidden` | token działa, ale akcja jest zabroniona: edycja **wpisu wyeksportowanego**, cudzego wpisu, brak uprawnienia (sprawdzone na 2.65.0) | „Kimai nie pozwala na tę zmianę” (`errForbidden`); wpisy z `exported: true` UI blokuje z góry |
 | 400 | walidacja formularza; treść w `errors` zagnieżdżonych w `children` | pokaż zebrane komunikaty Kimai |
 | 400 „This form should not contain extra fields.” po wysłaniu `billable` | brak uprawnienia `edit_billable_own_timesheet` | ponów bez `billable`, zablokuj przełącznik |
+| 3xx z `Location` | Kimai jest pod innym adresem (np. `http://` → `https://`, nowa domena) | „Kimai przekierowuje na …” (`errRedirect`) z adresem bazowym; **nie podążamy** za przekierowaniem, żeby nie wysyłać tokenu ponownie |
 | 404 | brak zasobu / koniec stronicowania (`{"code":404,"message":"Not Found"}` — sprawdzone) | zależnie od kontekstu |
 | 400 „You have an active time record which cannot be stopped automatically.” | start przy trwającym wpisie, którego nie da się zamknąć (np. jego początek jest w przyszłości przez złą strefę) | komunikat + odświeżenie; sprawdź strefę czasową |
 | 400 „The end date must not be earlier than the start date.” | stop/edycja z końcem przed początkiem | komunikat Kimai; typowy objaw złej strefy |
