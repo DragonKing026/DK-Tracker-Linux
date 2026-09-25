@@ -26,14 +26,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0002 | [Specyfikacja projektu (design) i plan implementacji](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-trakcie | p0 | — |
-| 0009 | [Plan 1 · Zadanie 5: Walidacja opisu (`validation.py`, F-11)](W-TRAKCIE/0009-plan1-walidacja-opisu/todo.md) | 🔨 w-trakcie | p1 | [0008](ZROBIONE/0008-plan1-czas-i-strefy/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0004 | [Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku](DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) ✅ |
-| 0010 | [Plan 1 · Zadanie 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)](DO-ZROBIENIA/0010-plan1-grupowanie-list-i-reguly-billable/todo.md) | 📋 do-zrobienia | p1 | [0009](W-TRAKCIE/0009-plan1-walidacja-opisu/todo.md) |
+| 0010 | [Plan 1 · Zadanie 6: Grupowanie list i reguły billable (`grouping.py`, `billable.py`, F-06/F-08/F-09)](DO-ZROBIENIA/0010-plan1-grupowanie-list-i-reguly-billable/todo.md) | 📋 do-zrobienia | p1 | [0009](ZROBIONE/0009-plan1-walidacja-opisu/todo.md) ✅ |
 | 0011 | [Plan 1 · Zadanie 7: Klient Kimai API (`kimai_client.py`)](DO-ZROBIENIA/0011-plan1-klient-kimai-api/todo.md) | 📋 do-zrobienia | p1 | [0010](DO-ZROBIENIA/0010-plan1-grupowanie-list-i-reguly-billable/todo.md) |
 | 0012 | [Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)](DO-ZROBIENIA/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) | 📋 do-zrobienia | p1 | [0011](DO-ZROBIENIA/0011-plan1-klient-kimai-api/todo.md) |
 | 0013 | [Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)](DO-ZROBIENIA/0013-plan1-tlumaczenia-pl-en/todo.md) | 📋 do-zrobienia | p1 | [0012](DO-ZROBIENIA/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) |
@@ -53,6 +52,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0006 | [Plan 1 · Zadanie 2: Błędy (`errors.py`)](ZROBIONE/0006-plan1-bledy/todo.md) | ✅ zrobione | 2026-09-25 |
 | 0007 | [Plan 1 · Zadanie 3: Modele danych (`models.py`)](ZROBIONE/0007-plan1-modele-danych/todo.md) | ✅ zrobione | 2026-09-25 |
 | 0008 | [Plan 1 · Zadanie 4: Czas i strefy (`timefmt.py`)](ZROBIONE/0008-plan1-czas-i-strefy/todo.md) | ✅ zrobione | 2026-09-25 |
+| 0009 | [Plan 1 · Zadanie 5: Walidacja opisu (`validation.py`, F-11)](ZROBIONE/0009-plan1-walidacja-opisu/todo.md) | ✅ zrobione | 2026-09-25 |
 
 <!-- tablica:end -->
 
