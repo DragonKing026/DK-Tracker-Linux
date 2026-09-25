@@ -1,0 +1,36 @@
+user projects ['Administracja', 'Moduł rezerwacji'] activities ['Programowanie']
+user timezone: UTC
+cleanup stop 200
+
+== start with billable as ROLE_USER
+400 {'code': 400, 'message': 'Validation Failed', 'errors': {'errors': ['This form should not contain extra fields.'], 'children': {'begin': {}, 'end': {}, 'project': {}, 'activity': {}, 'description': {}, 'tags': {}}}}
+
+== start without billable (begin 10 min ago)
+200 {'id': 7, 'begin': '2026-09-25T15:54:19+0000', 'end': None, 'billable': True}
+active 200 [(7, '2026-09-25T15:54:19+0000')]
+
+== second start while running (default limit 1)
+200 8
+active after 2nd start [8]
+first entry end after auto-stop: 2026-09-25T16:05:00+0000
+
+== stop running
+200 2026-09-25T16:05:00+0000
+
+== stop already-stopped entry
+200 {'activity': 1, 'project': 2, 'user': 2, 'tags': [], 'id': 8, 'begin': '2026-09-25T16:04:00+0000', 'end': '2026-09-25T16:05:00+0000', 'duration': 60, 'break': 0, 'description': 'Drugi wpis', 'exported': False, 'billable': False, 'metaFields': []}
+
+== begin in the future
+200 {'activity': 1, 'project': 1, 'user': 2, 'tags': [], 'id': 9, 'begin': '2026-09-25T18:04:19+0000', 'end': None, 'duration': 0, 'break': 0, 'description': 'Przyszłość', 'exported': False, 'billable': True, 'metaFields': []}
+
+== pagination: page past the end
+page1 200 {'X-Page': '1', 'X-Total-Count': '4', 'X-Total-Pages': '4', 'X-Per-Page': '1', 'X-Robots-Tag': 'noindex'}
+page99 404 {'code': 404, 'message': 'Not Found'}
+
+== latest with full=true: fields present
+200 ['activity', 'begin', 'billable', 'break', 'description', 'duration', 'end', 'exported', 'id', 'metaFields', 'project', 'tags', 'user']
+project keys: ['billable', 'color', 'color-safe', 'comment', 'customer', 'end', 'globalActivities', 'id', 'lockedUntil', 'metaFields', 'name', 'number', 'orderDate', 'orderNumber', 'start', 'visible']
+user.language: en
+
+== bad token
+401 b''

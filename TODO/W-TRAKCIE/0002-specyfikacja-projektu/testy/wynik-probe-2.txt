@@ -1,0 +1,18 @@
+user projects ['Administracja', 'Moduł rezerwacji'] activities ['Programowanie']
+
+== start with billable as ROLE_USER
+400 {'code': 400, 'message': 'Validation Failed', 'errors': {'errors': ['This form should not contain extra fields.'], 'children': {'begin': {}, 'end': {}, 'project': {}, 'activity': {}, 'description': {}, 'tags': {}}}}
+
+== start without billable (begin 10 min ago)
+400 {'code': 400, 'message': 'Validation Failed', 'errors': {'errors': ['You have an active time record which cannot be stopped automatically.'], 'children': {'begin': {}, 'end': {}, 'project': {}, 'activity': {}, 'description': {}, 'tags': {}}}}
+active 200 [(1, '2026-09-25T18:03:28+0000')]
+
+== second start while running (default limit 1)
+400 {'code': 400, 'message': 'Validation Failed', 'errors': {'errors': ['You have an active time record which cannot be stopped automatically.'], 'children': {'begin': {}, 'end': {}, 'project': {}, 'activity': {}, 'description': {}, 'tags': {}}}}
+(fresh-entry case: see first run in wynik-probe.txt)
+active after 2nd start [1]
+Traceback (most recent call last):
+  File "/mnt/Programowanie/Moje Projekty/Kimai App/TODO/W-TRAKCIE/0002-specyfikacja-projektu/prototyp/kimai-docker/probe.py", line 69, in <module>
+    s, first, _ = call(USER, "GET", f"/api/timesheets/{e1['id']}")
+                                                       ~~^^^^^^
+KeyError: 'id'

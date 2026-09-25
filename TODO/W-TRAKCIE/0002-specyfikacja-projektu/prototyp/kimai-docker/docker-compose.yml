@@ -1,0 +1,29 @@
+# Throwaway Kimai for API experiments (spike for task 0002). Not the final test setup.
+services:
+  sqldb:
+    image: mysql:8.3
+    environment:
+      - MYSQL_DATABASE=kimai
+      - MYSQL_USER=kimai
+      - MYSQL_PASSWORD=kimai
+      - MYSQL_ROOT_PASSWORD=root
+    command: --default-storage-engine innodb
+    healthcheck:
+      test: mysqladmin -proot ping -h localhost
+      interval: 5s
+      start_period: 10s
+      timeout: 5s
+      retries: 20
+  kimai:
+    image: kimai/kimai2:apache
+    depends_on:
+      sqldb:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8001:8001"
+    environment:
+      - APP_SECRET=spike-not-a-secret-0123456789abcdef
+      - TRUSTED_HOSTS=localhost|127.0.0.1
+      - ADMINMAIL=admin@kimai.local
+      - ADMINPASS=admin12345
+      - "DATABASE_URL=mysql://kimai:kimai@sqldb/kimai?charset=utf8mb4&serverVersion=8.3.0"
