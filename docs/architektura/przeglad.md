@@ -66,6 +66,7 @@ Pełny opis każdej funkcji: [[docs/architektura/funkcje|Katalog funkcji]].
 - [ ] Walidacja jakości opisu (za krótki / zbyt ogólny)
 - [ ] Link „Moje czasy” do panelu Kimai
 - [ ] Język polski i angielski
+- [ ] Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz Kimai, ustawienia, zakończ
 - [ ] Paczka Flatpak
 
 ## Poza wtyczką — kandydaci na później
@@ -73,7 +74,6 @@ Pełny opis każdej funkcji: [[docs/architektura/funkcje|Katalog funkcji]].
 Funkcje, które ma sens dodać, bo aplikacja desktopowa może więcej niż wtyczka.
 Każda wymaga osobnej decyzji — nie wchodzą do 1.0 automatycznie.
 
-- Menu kontekstowe ikony (prawy klik): szybki stop, wznów ostatni, otwórz Kimai, zakończ
 - Powiadomienia systemowe (np. przypomnienie o długo działającym timerze)
 - Autostart z sesją (portal Background)
 - Wykrywanie bezczynności (idle) i propozycja odjęcia czasu
@@ -93,7 +93,7 @@ Każda wymaga osobnej decyzji — nie wchodzą do 1.0 automatycznie.
 > Na Waylandzie aplikacja **nie może sama ustawić pozycji swojego okna**. Okno
 > „popupu” nie pojawi się automatycznie tuż przy ikonie w tacce tak jak w przeglądarce —
 > o jego położeniu decyduje kompozytor. Menu kontekstowe ikony (renderowane przez hosta
-> tacki) nie ma tego problemu. Rozwiązanie jest tematem osobnego zadania i ADR.
+> tacki) nie ma tego problemu. Rozwiązanie: [[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]].
 
 > [!warning] GNOME nie ma tacki domyślnie
 > GNOME Shell nie wyświetla ikon StatusNotifierItem bez rozszerzenia
