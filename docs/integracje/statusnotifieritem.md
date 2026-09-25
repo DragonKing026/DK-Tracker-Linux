@@ -5,7 +5,7 @@ tags: [integracja, tray, dbus, kde, gnome]
 status_integracji: planowana
 wersja: specyfikacja freedesktop (draft), w KDE Plasma 5/6
 utworzono: 2026-09-25 17:20
-zaktualizowano: 2026-09-25 20:39
+zaktualizowano: 2026-09-25 23:09
 ---
 
 # StatusNotifierItem (SNI) — ikona w tacce
@@ -106,6 +106,12 @@ Plasma 6.7.5, Wayland, `QSystemTrayIcon` (PySide6 6.11), lokalnie i we Flatpaku:
 - kliknięcie da się zasymulować w testach: `busctl --user call <nazwa> /StatusNotifierItem org.kde.StatusNotifierItem Activate ii 0 0`.
 
 Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
+
+## Gdzie w kodzie
+
+- [src/kimai_tray/ui/tray.py](../../src/kimai_tray/ui/tray.py) — `Tray`: `QSystemTrayIcon` (SNI), menu z dbusmenu, lewy klik → okno, środkowy → nic.
+- [src/kimai_tray/ui/icons.py](../../src/kimai_tray/ui/icons.py) — ikona w wariancie C (czas w ikonie), rysowana w rozmiarach 16–64 px.
+- [src/kimai_tray/core/presentation.py](../../src/kimai_tray/core/presentation.py) — tekst ikony i tooltipa (`tray_status`).
 
 ## Dokumentacja
 
