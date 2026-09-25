@@ -13,7 +13,7 @@ Statusy: `proponowana` → `zaakceptowana` / `odrzucona`; później ewentualnie 
 | Nr | Decyzja | Status | Data |
 |---|---|---|---|
 | [[docs/decyzje/0001-dokumentacja-w-repo-jako-vault-obsidian\|0001]] | Dokumentacja i zadania w repo jako vault Obsidiana | zaakceptowana | 2026-09-25 |
+| [[docs/decyzje/0002-stos-python-pyside6\|0002]] | Stos: Python + PySide6 (Qt 6) na runtime KDE | zaakceptowana | 2026-09-25 |
 
 > [!todo] Decyzje oczekujące
-> - Stos technologiczny (język + UI + tray) — zadanie `TODO/0003-wybor-stosu`
 > - Forma okna szybkiej obsługi na Waylandzie
