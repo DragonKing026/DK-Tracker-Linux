@@ -1,7 +1,7 @@
 ---
 tytul: Przechowywanie tokenu — Secret Service i portal Secret
 tagi: [integracja, bezpieczenstwo, sekrety, dbus]
-status_integracji: planowana
+status_integracji: planowana (wybrana droga B)
 wersja: Secret Service API; portal Secret v1; KWallet ≥ KF 5.97 / Plasma 6 (ksecretd)
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
@@ -13,6 +13,14 @@ zaktualizowano: 2026-09-25
 > Token Kimai daje pełny dostęp do czasu pracy użytkownika, więc **nie może** leżeć
 > w pliku konfiguracyjnym. Trzymamy go w magazynie sekretów systemu: KWallet (KDE)
 > lub GNOME Keyring (GNOME), przez standard **Secret Service** albo **portal Secret**.
+
+## Wybrana droga
+
+> [!success] Decyzja: droga B — bezpośrednio Secret Service
+> Moduł na [jeepney](jeepney.md), sesja `plain`, kolekcja `default`, uprawnienie
+> `--talk-name=org.freedesktop.secrets`. Uzasadnienie:
+> [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md). Droga A (portal)
+> zostaje opcją na przyszłość, bo moduł sekretów jest za interfejsem.
 
 ## Dwie drogi z piaskownicy Flatpaka
 
