@@ -149,15 +149,17 @@ python3 .claude/skills/sprawdz-linki/linki.py sprawdz
 python3 .claude/skills/frontmatter/frontmatter.py sprawdz
 ```
 
-### Python (rdzeń)
+### Python (rdzeń i interfejs)
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install -e ".[dev]"    # raz
+python3 -m venv .venv && .venv/bin/pip install -e ".[dev,ui]" # raz (PySide6 z pip — do testów)
 .venv/bin/pytest                                              # testy (bez Dockera i pulpitu)
 .venv/bin/pytest --cov=kimai_tray.core --cov-fail-under=90    # pokrycie rdzenia
 .venv/bin/pytest -m kimai                                     # testy kontraktowe (Docker)
 .venv/bin/pytest -m desktop                                   # D-Bus na prawdziwej sesji (portfel, powiadomienie, portal)
 .venv/bin/ruff format . && .venv/bin/ruff check .             # format + lint (tylko kod produktu)
+PYTHONPATH=src python3 -m kimai_tray                          # uruchomienie na KDE (systemowy PySide6 — layer-shell działa)
+.venv/bin/python -m kimai_tray                                # uruchomienie z .venv (okno bez ramki, bez layer-shell)
 ```
 
-> [!todo] Plany 3–4 dopiszą: uruchomienie aplikacji, testy UI, budowę Flatpaka.
+> [!todo] Plan 4 dopisze: budowę Flatpaka.
