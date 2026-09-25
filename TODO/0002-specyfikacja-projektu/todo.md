@@ -28,7 +28,7 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 
 ## Kryteria akceptacji
 
-- [ ] Ustalony zakres 1.0 (które z F-20…F-24 wchodzą)
+- [x] Ustalony zakres 1.0: F-20, F-21, F-22 wchodzą; F-23, F-24 później
 - [x] Zatwierdzony stos ([[TODO/DONE/0003-wybor-stosu/todo|0003]] → ADR-0002: Python + PySide6)
 - [x] Zatwierdzona forma okna na Waylandzie ([[docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland|ADR-0003]])
 - [ ] Spec zapisana w `docs/specyfikacja/` i zaakceptowana przez użytkownika
@@ -49,5 +49,6 @@ zatwierdzoną specyfikację, a potem szczegółowy plan implementacji w małych 
 - Utworzono zadanie.
 - Rozpoczęto brainstorming. Pytanie 1 (stos) → Python + PySide6 (ADR-0002).
 - Pytanie 2 (okno) → wariant A + menu kontekstowe, B do prototypu (ADR-0003).
+- Pytanie 3 (zakres) → autostart i powiadomienia w 1.0; bezczynność i skrót później.
 
 ## Wynik
