@@ -67,3 +67,11 @@ def test_broken_settings_file_still_builds_a_tracker(tmp_path):
     path = tmp_path / "settings.json"
     path.write_text(json.dumps({"min_description": "abc", "url": None, "long_timer_hours": True}))
     Tracker(object(), load_json(Settings, path), Memory())
+
+
+def test_window_size_is_remembered_with_sensible_defaults(tmp_path):
+    memory = Memory()
+    assert (memory.popup_width, memory.popup_height) == (460, 600)  # the add-on's popup
+    path = tmp_path / "state.json"
+    save_json(Memory(popup_width=520, popup_height=720), path)
+    assert load_json(Memory, path).popup_height == 720

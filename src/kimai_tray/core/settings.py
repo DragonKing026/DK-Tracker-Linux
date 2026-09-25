@@ -43,6 +43,8 @@ class Memory:
     billable_allowed: bool = True  # cleared by saving the settings
     kimai_locale: str = "en"  # Kimai has no locale-free /timesheet/ route
     tray_hint_shown: bool = False  # the "no system tray" hint is shown once (spec, section 7)
+    popup_width: int = 460  # the quick window as the user last sized it (the add-on's popup is 460 × ≤600)
+    popup_height: int = 600
 
 
 def _base(variable: str, fallback: Path) -> Path:
