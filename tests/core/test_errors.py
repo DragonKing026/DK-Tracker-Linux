@@ -93,3 +93,7 @@ def test_describe_tracker_error_and_other_exceptions():
 def test_api_error_str_never_contains_headers():
     error = ApiError.from_response(httpx.Response(401, request=httpx.Request("GET", "https://k.test")))
     assert "Bearer" not in str(error)
+
+
+def test_describe_bad_response():
+    assert describe(ApiError(ErrorKind.BAD_RESPONSE, 200), fake_t) == "errUnexpected"

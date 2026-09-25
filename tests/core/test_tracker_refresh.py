@@ -131,3 +131,17 @@ def test_initial_snapshot_respects_billable_memory():
     tracker, _, _ = make_tracker(memory=Memory(billable_allowed=False))
     assert tracker.snapshot.billable_allowed is False
     assert tracker.snapshot.user is None
+
+
+def test_refresh_survives_a_captive_portal_page():
+    import httpx
+
+    from kimai_tray.core.kimai_client import KimaiClient
+
+    client = KimaiClient(
+        "https://kimai.test", "t", transport=httpx.MockTransport(lambda r: httpx.Response(200, text="<html>"))
+    )
+    tracker = Tracker(client, Settings(url="https://kimai.test"), Memory(), now=lambda: NOW)
+    snapshot = tracker.refresh_active()
+    assert (snapshot.error.kind, snapshot.failures) == (ErrorKind.BAD_RESPONSE, 1)
+    assert tracker.refresh_full().failures == 2

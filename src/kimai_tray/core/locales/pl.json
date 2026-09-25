@@ -44,6 +44,7 @@
   "errEndBeforeBegin": "Zakończenie musi być późniejsze niż rozpoczęcie.",
   "errBillableDenied": "Twoje konto Kimai nie może ustawiać „płatne / niepłatne”. Wpis zapisany tak, jak wynika z projektu. Administrator włącza to uprawnieniem edit_billable_own_timesheet.",
   "errConnection": "Brak połączenia z Kimai.",
+  "errUnexpected": "Kimai zwrócił nieoczekiwaną odpowiedź — sprawdź adres lub sieć (np. stronę logowania do Wi-Fi).",
   "errTls": "Certyfikat serwera Kimai nie jest zaufany.",
   "errAuth": "Token odrzucony lub wygasł. Sprawdź go w ustawieniach.",
   "errServer": "Kimai zwrócił błąd: {code}",

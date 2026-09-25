@@ -17,6 +17,7 @@ class ErrorKind(StrEnum):
     REJECTED = "rejected"
     NOT_FOUND = "not_found"
     SERVER = "server"
+    BAD_RESPONSE = "bad_response"  # 200 that is not Kimai JSON: captive portal, wrong URL, proxy
 
 
 class ApiError(Exception):
@@ -41,12 +42,17 @@ class ApiError(Exception):
         return cls(ErrorKind.SERVER, status, message)
 
     @classmethod
-    def from_transport(cls, error: httpx.TransportError) -> ApiError:
+    def from_transport(cls, error: httpx.TransportError, secret: str | None = None) -> ApiError:
+        """`secret` (the token) is cut out of the message: transport errors may quote headers."""
+        text = str(error).replace(secret, "***") if secret else str(error)
         if isinstance(error, httpx.TimeoutException):
-            return cls(ErrorKind.TIMEOUT, 0, str(error))
-        if "CERTIFICATE_VERIFY_FAILED" in str(error):
-            return cls(ErrorKind.TLS, 0, str(error))
-        return cls(ErrorKind.CONNECTION, 0, str(error))
+            return cls(ErrorKind.TIMEOUT, 0, text)
+        if isinstance(error, httpx.LocalProtocolError):
+            # Our own request is malformed; the only header the user controls is the token.
+            return cls(ErrorKind.AUTH, 0)
+        if "CERTIFICATE_VERIFY_FAILED" in text:
+            return cls(ErrorKind.TLS, 0, text)
+        return cls(ErrorKind.CONNECTION, 0, text)
 
 
 class TrackerError(Exception):
@@ -102,6 +108,8 @@ def describe(error: BaseException, t: Callable[..., str]) -> str:
             return t("errTls")
         case ErrorKind.AUTH:
             return t("errAuth")
+        case ErrorKind.BAD_RESPONSE:
+            return t("errUnexpected")
         case ErrorKind.REJECTED if error.message:
             return t("errRejected", msg=error.message)
         case _:

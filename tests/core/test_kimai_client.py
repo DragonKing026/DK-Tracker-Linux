@@ -149,3 +149,41 @@ def test_transport_errors_become_api_errors():
     with pytest.raises(ApiError) as caught:
         client.active()
     assert caught.value.kind is ErrorKind.CONNECTION
+
+
+def test_token_is_stripped_of_pasted_whitespace():
+    client, rec = client_for(lambda r: httpx.Response(200, json={"version": "2.67.0"}))
+    client = KimaiClient("https://kimai.test", "  secret-token\n", transport=httpx.MockTransport(rec))
+    client.version()
+    assert rec.last.headers["Authorization"] == "Bearer secret-token"
+
+
+def test_token_never_appears_in_transport_errors():
+    token = "abc\ndef-secret"
+
+    def route(request):  # what h11 raises for an illegal header value
+        raise httpx.LocalProtocolError(f"Illegal header value b'Bearer {token}'")
+
+    client = KimaiClient("https://kimai.test", token, transport=httpx.MockTransport(route))
+    with pytest.raises(ApiError) as caught:
+        client.active()
+    assert caught.value.kind is ErrorKind.AUTH
+    assert "def-secret" not in str(caught.value)
+    assert "def-secret" not in caught.value.message
+
+
+def test_non_json_200_is_a_bad_response_error():
+    client, _ = client_for(lambda r: httpx.Response(200, text="<html>Hotel Wi-Fi login</html>"))
+    with pytest.raises(ApiError) as caught:
+        client.active()
+    assert caught.value.kind is ErrorKind.BAD_RESPONSE
+
+
+def test_wrong_shape_200_is_a_bad_response_error():
+    client, _ = client_for(lambda r: httpx.Response(200, json={"message": "x"}))
+    with pytest.raises(ApiError) as caught:
+        client.me()
+    assert caught.value.kind is ErrorKind.BAD_RESPONSE
+    with pytest.raises(ApiError) as caught:
+        client.active()
+    assert caught.value.kind is ErrorKind.BAD_RESPONSE
