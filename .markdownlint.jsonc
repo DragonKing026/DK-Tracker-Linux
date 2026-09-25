@@ -1,0 +1,12 @@
+// Rules of the VS Code markdownlint extension for this repository (task TODO/…/0043-markdownlint).
+// Read by the extension and by `npx markdownlint-cli2`. Everything not listed keeps its default.
+{
+  "default": true,
+  // Prose wraps at 120 columns; tables, code blocks and headings are not measured.
+  "MD013": {
+    "line_length": 120,
+    "tables": false,
+    "code_blocks": false,
+    "headings": false
+  }
+}

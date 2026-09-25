@@ -1,0 +1,5 @@
+// Files for `npx markdownlint-cli2` (the rules are in .markdownlint.jsonc).
+{
+  "globs": ["**/*.md"],
+  "ignores": [".venv/**", "node_modules/**", ".superpowers/**", ".pytest_cache/**", ".ruff_cache/**"]
+}
