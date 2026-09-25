@@ -5,7 +5,7 @@ tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-25 21:59
+zaktualizowano: 2026-09-25 22:03
 ---
 
 # Qt 6 / PySide6
@@ -47,7 +47,7 @@ flowchart LR
     CLICK[Klik w ikonę] --> SIG["activated(reason)"]
     SIG -->|Trigger| WIN[Pokaż / schowaj okno]
     SIG -->|Context| MENU[Menu kontekstowe<br/>rysowane przez host]
-    SIG -->|MiddleClick| TOGGLE[np. start/stop — do decyzji]
+    SIG -->|MiddleClick| NONE[nic — celowo, bez przypadkowego stop]
 ```
 
 ## Flatpak
