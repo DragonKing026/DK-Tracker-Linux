@@ -2,7 +2,7 @@
 noteId: "c4042ac8ba424af58ad7fb0013d79cfb"
 tytul: "Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)"
 numer: "0012"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-1, core]
 zalezy_od: ["0011"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0012 — Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -52,6 +52,7 @@ Wykonać **zadanie 8** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ### 2026-09-25
 - Utworzono zadanie z Planu 1.
+- Start wykonania.
 
 ## Wynik
 

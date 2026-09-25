@@ -26,14 +26,14 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0002 | [Specyfikacja projektu (design) i plan implementacji](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-trakcie | p0 | — |
+| 0012 | [Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)](W-TRAKCIE/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) | 🔨 w-trakcie | p1 | [0011](ZROBIONE/0011-plan1-klient-kimai-api/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0004 | [Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku](DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) ✅ |
-| 0012 | [Plan 1 · Zadanie 8: Ustawienia i pamięć aplikacji (`settings.py`)](DO-ZROBIENIA/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) | 📋 do-zrobienia | p1 | [0011](ZROBIONE/0011-plan1-klient-kimai-api/todo.md) ✅ |
-| 0013 | [Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)](DO-ZROBIENIA/0013-plan1-tlumaczenia-pl-en/todo.md) | 📋 do-zrobienia | p1 | [0012](DO-ZROBIENIA/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) |
+| 0013 | [Plan 1 · Zadanie 9: Tłumaczenia PL/EN (`i18n.py`, `locales/`, F-13)](DO-ZROBIENIA/0013-plan1-tlumaczenia-pl-en/todo.md) | 📋 do-zrobienia | p1 | [0012](W-TRAKCIE/0012-plan1-ustawienia-i-pamiec-aplikacji/todo.md) |
 | 0014 | [Plan 1 · Zadanie 10: Tracker — stan i odświeżanie (`tracker.py` część 1)](DO-ZROBIENIA/0014-plan1-tracker-stan-i-odswiezanie/todo.md) | 📋 do-zrobienia | p1 | [0013](DO-ZROBIENIA/0013-plan1-tlumaczenia-pl-en/todo.md) |
 | 0015 | [Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)](DO-ZROBIENIA/0015-plan1-tracker-akcje/todo.md) | 📋 do-zrobienia | p1 | [0014](DO-ZROBIENIA/0014-plan1-tracker-stan-i-odswiezanie/todo.md) |
 | 0016 | [Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)](DO-ZROBIENIA/0016-plan1-polityka-powiadomien/todo.md) | 📋 do-zrobienia | p1 | [0015](DO-ZROBIENIA/0015-plan1-tracker-akcje/todo.md) |
