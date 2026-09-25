@@ -1,0 +1,14 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /mnt/Programowanie/Moje Projekty/Kimai App/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /mnt/Programowanie/Moje Projekty/Kimai App
+configfile: pyproject.toml
+testpaths: tests
+plugins: anyio-4.15.1, cov-7.1.0
+collecting ... collected 218 items / 215 deselected / 3 selected
+
+tests/desktop/test_na_zywo.py::test_secret_round_trip PASSED             [ 33%]
+tests/desktop/test_na_zywo.py::test_notification_can_be_shown_and_withdrawn PASSED [ 66%]
+tests/desktop/test_na_zywo.py::test_background_request_without_autostart PASSED [100%]
+
+====================== 3 passed, 215 deselected in 0.09s =======================
