@@ -23,19 +23,19 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 
 ## Pytania do sprawdzenia
 
-- [ ] Ikona SNI z `QSystemTrayIcon` (PySide6, [ADR-0002](../../../docs/decyzje/0002-stos-python-pyside6.md)) pojawia się we Flatpaku z samym
+- [x] Ikona SNI z `QSystemTrayIcon` (PySide6, [ADR-0002](../../../docs/decyzje/0002-stos-python-pyside6.md)) pojawia się we Flatpaku z samym
       `--talk-name=org.kde.StatusNotifierWatcher` (bez `--own-name`)
-- [ ] Lewy klik → okno; prawy klik → menu — na Plasmie 6 Wayland
-- [ ] Wariant A ([ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md)): bezramkowe okno
+- [x] Lewy klik → okno; prawy klik → menu — na Plasmie 6 Wayland
+- [x] Wariant A ([ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md)): bezramkowe okno
       narzędziowe — gdzie je stawia KWin / Mutter, czy chowanie po utracie fokusu działa
-- [ ] Kolizja: klik w ikonę zabiera fokus → okno się chowa → `Trigger` pokazuje je znowu?
-- [ ] Reguła okna KWin (pozycja przy panelu) — czy da się ją podpowiedzieć użytkownikowi
-- [ ] Wariant B: `layer-shell-qt` jako moduł w manifeście Flatpaka — czy da się zbudować
+- [x] Kolizja: klik w ikonę zabiera fokus → okno się chowa → `Trigger` pokazuje je znowu?
+- [x] Reguła okna KWin (pozycja przy panelu) — czy da się ją podpowiedzieć użytkownikowi
+- [x] Wariant B: `layer-shell-qt` jako moduł w manifeście Flatpaka — czy da się zbudować
       i zakotwiczyć okno przy panelu Plasmy; decyzja: dokładamy albo porzucamy
-- [ ] Zmiana ikony/tooltipu co minutę (czas timera) jest widoczna
-- [ ] GNOME + AppIndicator: ikona, klik, tooltip/etykieta
-- [ ] GNOME bez rozszerzenia: wykrycie braku watchera i tryb okna
-- [ ] Zapis/odczyt sekretu przez libsecret w piaskownicy (KWallet)
+- [x] Zmiana ikony/tooltipu co minutę (czas timera) jest widoczna
+- [ ] GNOME + AppIndicator: ikona, klik, tooltip/etykieta → **przeniesione do [0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)**
+- [ ] GNOME bez rozszerzenia: wykrycie braku watchera i tryb okna → **przeniesione do [0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)**
+- [x] Zapis/odczyt sekretu przez libsecret w piaskownicy (KWallet)
 
 ## Materiały
 
