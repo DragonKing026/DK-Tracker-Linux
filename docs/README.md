@@ -16,6 +16,10 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 - [Katalog funkcji](architektura/funkcje.md) — każda funkcja opisana szczegółowo
 - [Słownik pojęć](architektura/slownik.md) — Kimai, SNI, portal, billable…
 
+## Specyfikacja
+
+- [Specyfikacja Kimai Tray 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy, testy (do akceptacji)
+
 ## Architektura
 
 - [Struktura repozytorium](architektura/struktura-repozytorium.md)
