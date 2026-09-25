@@ -25,7 +25,10 @@ Proces: `docs/procesy/zadania.md`. Szablon: `TODO/_szablon/todo.md`.
    `tagi`, `zalezy_od` (lista nazw folderów, np. `["0003-wybor-stosu"]`).
 5. **Treść** — rzetelnie: Cel, Kontekst (z wikilinkami do docs/integracji/ADR),
    sprawdzalne Kryteria akceptacji, Kroki. Jeśli pomaga — diagram `mermaid`.
-   Zrzuty i obrazy do `TODO/NNNN-slug/assets/`, osadzone `![[plik.png]]`.
+   **Wszystkie materiały zadania** w jego folderze, w podfolderach według rodzaju
+   (tworzonych, gdy jest co położyć): `zrzuty/`, `diagramy/`, `testy/`, `prototyp/`,
+   `notatki/`, `dane/`. Każdy materiał podlinkuj/osadź w sekcji „Materiały” todo.md,
+   np. `![[TODO/NNNN-slug/zrzuty/plik.png]]`. Zasady: `docs/procesy/zadania.md`.
 6. **Tablica** — dodaj wiersz z **linkiem** w sekcji „Aktywne” w `TODO/README.md`:
    ```markdown
    | 0005 | [Klient API Kimai](0005-klient-api-kimai/todo.md) | 📋 do-zrobienia | p1 | 0003 |
