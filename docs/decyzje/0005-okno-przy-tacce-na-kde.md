@@ -5,7 +5,7 @@ tags: [adr, ui, wayland, tray, kde]
 status: zaakceptowana
 zastapiona_przez:
 utworzono: 2026-09-25 20:37
-zaktualizowano: 2026-09-25 20:37
+zaktualizowano: 2026-09-25 22:08
 ---
 
 # ADR-0005: Okno przy tacce na KDE (layer-shell), na środku gdzie indziej
@@ -51,9 +51,9 @@ Zaakceptowane przez użytkownika 2026-09-25 20:37.
 
 ## Konsekwencje
 
-- `QT_WAYLAND_SHELL_INTEGRATION=layer-shell` działa dla **całego procesu**: okno ustawień też
-  jest powierzchnią warstwy i musi dostać własne parametry (bez kotwic = wyśrodkowane,
-  klawiatura `on-demand`) — do zrobienia w Planie 3.
+- ~~`QT_WAYLAND_SHELL_INTEGRATION=layer-shell` działa dla całego procesu~~ — **niepotrzebne**: w layer-shell-qt 6.7.5
+  `LayerShellQt::Window::get(okno)` podpina layer-shell **tylko do tego okna** (`setShellIntegration` na jednym
+  `QWaylandWindow`). Okno ustawień zostaje zwykłym oknem z ramką. Sprawdzone na żywo 2026-09-25 22:08 ([0028](../../TODO/W-TRAKCIE/0028-plan3-projekt-ui/todo.md)).
 - Wybór ścieżki przy starcie: `layer-shell` tylko gdy sesja Wayland i kompozytor go obsługuje
   (Plasma); inaczej ścieżka bezramkowa. Test na GNOME — zadanie dla testerów.
 - Kod `ctypes` do `LayerShellQt::Window::get` jest kruchy (nazwa symbolu C++) — zamknięty

@@ -5,7 +5,7 @@ tags: [integracja, wayland, kde, ui]
 status_integracji: planowana
 wersja: 6.7.5 (Plasma 6.7.5; moduł we Flatpaku ze źródeł KDE)
 utworzono: 2026-09-25 20:38
-zaktualizowano: 2026-09-25 20:38
+zaktualizowano: 2026-09-25 22:08
 ---
 
 # layer-shell-qt
@@ -22,7 +22,7 @@ PySide6 nie ma wiązań do `LayerShellQt`. Działa wywołanie C++ przez `ctypes`
 właściwości przez system meta-obiektów Qt:
 
 ```python
-os.environ["QT_WAYLAND_SHELL_INTEGRATION"] = "layer-shell"   # przed QApplication — cały proces!
+# NIE ustawiamy QT_WAYLAND_SHELL_INTEGRATION — Window::get() wystarczy dla jednego okna (6.7.5)
 ...
 window.winId()                                                # utwórz QWindow przed show()
 lib = ctypes.CDLL("libLayerShellQtInterface.so.6")
@@ -60,9 +60,10 @@ Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
 ## Pułapki
 
 > [!warning]
-> - **Cały proces**: `QT_WAYLAND_SHELL_INTEGRATION=layer-shell` dotyczy każdego okna — okno
->   ustawień też musi być skonfigurowane (bez kotwic = na środku, klawiatura `on-demand`),
->   inaczej nie da się w nim pisać.
+> - **Bez zmiennej środowiskowej**: `QT_WAYLAND_SHELL_INTEGRATION=layer-shell` (tak robił prototyp)
+>   zamienia **każde** okno procesu w warstwę. Zamiast niej: `Window::get(okno)` przed pokazaniem —
+>   w 6.7.5 podpina integrację tylko do tego okna ([źródło](https://github.com/KDE/layer-shell-qt/blob/v6.7.5/src/interfaces/window.cpp),
+>   sprawdzone na żywo 2026-09-25 22:08, [0028](../../TODO/W-TRAKCIE/0028-plan3-projekt-ui/todo.md)).
 > - **Kruchy symbol C++**: nazwa `_ZN12LayerShellQt6Window3getEP7QWindow` zależy od ABI;
 >   w aplikacji zamknięta w jednym module z testem obecności symbolu.
 > - **Odczyt** enumów (`anchors`, `layer`) z PySide nie działa (brak konwertera) — tylko zapis.
