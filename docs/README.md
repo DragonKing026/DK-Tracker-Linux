@@ -18,7 +18,7 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 
 ## Specyfikacja
 
-- [Specyfikacja Kimai Tray 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy, testy (do akceptacji)
+- [Specyfikacja Kimai Tray 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy, testy (zaakceptowana 2026-09-25)
 
 ## Architektura
 
