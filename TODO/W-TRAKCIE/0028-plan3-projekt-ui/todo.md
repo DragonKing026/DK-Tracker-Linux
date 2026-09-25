@@ -28,7 +28,7 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 
 ## Kryteria akceptacji
 
-- [ ] Każda otwarta decyzja UI rozstrzygnięta i zapisana (tu i w docs)
+- [x] Każda otwarta decyzja UI rozstrzygnięta i zapisana (tu i w docs)
 - [ ] Plan 3 napisany, zweryfikowany i zaakceptowany przez użytkownika
 
 ## Decyzje
@@ -42,6 +42,8 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 
 ## Materiały
 
+- [testy/weryfikacja-planu-3.md](testy/weryfikacja-planu-3.md) — kod z planu uruchomiony (334 testy) i test na żywo z użytkownikiem
+
 - ![layer-shell na jednym oknie](zrzuty/layer-per-okno-popup.png) ![zwykłe okno obok](zrzuty/layer-per-okno-dialog.png) — próba [prototyp/probe_layer_per_window.py](prototyp/probe_layer_per_window.py), log: [prototyp/probe.log](prototyp/probe.log)
 
 - ![Warianty ikony w tacce](zrzuty/ikony-warianty.png) — makieta F-02: 22 px (100 %) i 44 px (200 %), panel ciemny i jasny; skrypt: [prototyp/ikony_makieta.py](prototyp/ikony_makieta.py)
@@ -54,3 +56,4 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 - **22:03** Środkowy klik: A — nic (decyzja użytkownika, zmieniona z B).
 - **22:05** Tryb tokenu w pamięci: nie (A). Wszystkie decyzje UI zebrane — pisanie Planu 3.
 - **22:08** layer-shell na jednym oknie działa bez `QT_WAYLAND_SHELL_INTEGRATION` (próba na żywo).
+- **22:58** Plan 3 napisany i zweryfikowany ([plan](../../../docs/plany/2026-09-25-plan-3-ui.md)); test na żywo z użytkownikiem: 6/6. Czeka na akceptację.
