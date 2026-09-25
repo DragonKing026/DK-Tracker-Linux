@@ -119,7 +119,7 @@ flatpak build-bundle ~/.local/share/flatpak/repo kimai-tray.flatpak pl.websystem
 - `layer-shell-qt` dołożony modułem manifestu — [layer-shell-qt](layer-shell-qt.md).
 - Flathub jako repozytorium **użytkownika** trzeba było dodać (`flatpak remote-add --user flathub …`);
   na stacji dewelopera są: `org.kde.Sdk//6.11`, `io.qt.PySide.BaseApp//6.11` (user), `org.kde.Platform//6.11` (system).
-- Szczegóły: [ustalenia prototypu](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
+- Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
 
 ## Dokumentacja
 

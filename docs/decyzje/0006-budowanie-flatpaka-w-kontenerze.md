@@ -35,7 +35,7 @@ i działa na 1.18.2 (sprawdzone).
 
 **Paczkę Flatpak budujemy w kontenerze** (obecnie `debian:trixie`, Flatpak 1.16.x) z bazą
 `io.qt.PySide.BaseApp`. Lokalnie: skrypt budujący (prototyp:
-[buduj-w-dockerze.sh](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/prototyp/flatpak/buduj-w-dockerze.sh)), który montuje
+[buduj-w-dockerze.sh](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/prototyp/flatpak/buduj-w-dockerze.sh)), który montuje
 runtime'y hosta tylko do odczytu. Docelowo (Plan 4): ten sam obraz albo obraz CI Flathuba.
 
 Zaakceptowane przez użytkownika 2026-09-25 20:37.
@@ -51,4 +51,4 @@ Zaakceptowane przez użytkownika 2026-09-25 20:37.
 ## Powiązane
 
 - [Flatpak](../integracje/flatpak.md), [ADR-0002](0002-stos-python-pyside6.md), [ADR-0005](0005-okno-przy-tacce-na-kde.md)
-- [Prototyp 0004 — ustalenia](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md)
+- [Prototyp 0004 — ustalenia](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md)

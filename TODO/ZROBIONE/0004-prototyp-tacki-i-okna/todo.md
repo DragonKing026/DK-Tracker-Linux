@@ -2,19 +2,19 @@
 noteId: "e731518efd584a658c5e1da8c9e7d5d8"
 tytul: "Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku"
 numer: "0004"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, spike, tray, wayland]
 zalezy_od: ["0003-wybor-stosu"]
 utworzono: 2026-09-25 17:24
-zaktualizowano: 2026-09-25 20:02
-zamknieto:
+zaktualizowano: 2026-09-25 20:39
+zamknieto: 2026-09-25 20:39
 ---
 
 # 0004 — Prototyp tacki i okna (spike)
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -52,5 +52,17 @@ Kod prototypu jest do wyrzucenia — wynikiem są odpowiedzi i zrzuty ekranu.
 - [ADR-0003](../../../docs/decyzje/0003-okno-szybkiej-obslugi-na-wayland.md): dodano pytania o wariant A i B okna.
 - **19:56** Start spike'a: PySide6 lokalnie na Plasmie 6.7.5 Wayland, potem Flatpak.
 - **20:02** KDE: tacka, klik (Trigger), tooltip co sekundę, wariant A (środek ekranu) i B (layer-shell przy panelu) sprawdzone automatycznie; czeka test ręczny, zgoda na pobranie SDK Flatpaka, GNOME.
+- **20:39** Zamknięte: KDE i Flatpak sprawdzone, decyzje ADR-0005 i ADR-0006, GNOME → 0020.
 
 ## Wynik
+
+Wszystkie pytania prototypu rozstrzygnięte na KDE Plasma 6.7.5 (Wayland), lokalnie i we Flatpaku —
+[ustalenia](notatki/ustalenia.md):
+
+- Tacka SNI działa we Flatpaku z samym `--talk-name=org.kde.StatusNotifierWatcher`.
+- Okno na środku (bezramkowe) i okno przy tacce (`layer-shell-qt` przez `ctypes`) — oba działają;
+  użytkownik wybrał okno przy tacce na KDE → [ADR-0005](../../../docs/decyzje/0005-okno-przy-tacce-na-kde.md) (zastępuje ADR-0003).
+- Klik ikony przy otwartym oknie nie dociera do aplikacji → przycisk zamknięcia i `Esc`.
+- Flatpak 1.18.2 (Fedora 44) nie buduje z `base:` → budowa w kontenerze Debian
+  ([ADR-0006](../../../docs/decyzje/0006-budowanie-flatpaka-w-kontenerze.md)), paczka 70 MB, `layer-shell-qt` jako moduł.
+- Na później: testy GNOME — zadanie [0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md) (inne osoby).

@@ -105,7 +105,7 @@ Plasma 6.7.5, Wayland, `QSystemTrayIcon` (PySide6 6.11), lokalnie i we Flatpaku:
 - `geometry()` ikony = 0,0,0,0 (Wayland) — pozycji ikony nie znamy;
 - kliknięcie da się zasymulować w testach: `busctl --user call <nazwa> /StatusNotifierItem org.kde.StatusNotifierItem Activate ii 0 0`.
 
-Szczegóły: [ustalenia prototypu](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
+Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
 
 ## Dokumentacja
 

@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 19:56
+zaktualizowano: 2026-09-25 20:39
 ---
 
 # Tablica zadań
@@ -25,12 +25,12 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
-| 0004 | [Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku](W-TRAKCIE/0004-prototyp-tacki-i-okna/todo.md) | 🔨 w-trakcie | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
+| 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 
 ## Zrobione
 
@@ -39,6 +39,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0001 | [Struktura agenta i dokumentacji](ZROBIONE/0001-struktura-agenta-i-dokumentacja/todo.md) | ✅ zrobione | 2026-09-25 17:23 |
 | 0002 | [Specyfikacja projektu (design) i plan implementacji](ZROBIONE/0002-specyfikacja-projektu/todo.md) | ✅ zrobione | 2026-09-25 19:15 |
 | 0003 | [Wybór stosu technologicznego](ZROBIONE/0003-wybor-stosu/todo.md) | ✅ zrobione | 2026-09-25 17:29 |
+| 0004 | [Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) | ✅ zrobione | 2026-09-25 20:39 |
 | 0005 | [Plan 1 · Zadanie 1: Szkielet projektu Python i test architektury](ZROBIONE/0005-plan1-szkielet-projektu-python-i-test/todo.md) | ✅ zrobione | 2026-09-25 19:01 |
 | 0006 | [Plan 1 · Zadanie 2: Błędy (`errors.py`)](ZROBIONE/0006-plan1-bledy/todo.md) | ✅ zrobione | 2026-09-25 19:01 |
 | 0007 | [Plan 1 · Zadanie 3: Modele danych (`models.py`)](ZROBIONE/0007-plan1-modele-danych/todo.md) | ✅ zrobione | 2026-09-25 19:01 |

@@ -16,8 +16,8 @@ Zastępuje [ADR-0003](0003-okno-szybkiej-obslugi-na-wayland.md).
 
 ADR-0003 wybrał na 1.0 okno bezramkowe, które kompozytor stawia gdzie chce, a okno
 zakotwiczone przy tacce (`layer-shell-qt`) odłożył do sprawdzenia w
-[prototypie 0004](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/todo.md). Prototyp na Plasmie 6.7.5 (Wayland) pokazał
-([ustalenia](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md)):
+[prototypie 0004](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/todo.md). Prototyp na Plasmie 6.7.5 (Wayland) pokazał
+([ustalenia](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md)):
 
 - okno bezramkowe KWin stawia **na środku ekranu**;
 - `layer-shell-qt` da się użyć z PySide bez kompilacji (`ctypes` + `setProperty`), okno staje
@@ -65,5 +65,5 @@ Zaakceptowane przez użytkownika 2026-09-25 20:37.
 ## Powiązane
 
 - [ADR-0003](0003-okno-szybkiej-obslugi-na-wayland.md) (zastąpiona), [ADR-0006](0006-budowanie-flatpaka-w-kontenerze.md)
-- [Prototyp 0004 — ustalenia](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md)
+- [Prototyp 0004 — ustalenia](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md)
 - [Katalog funkcji — F-03, F-20](../architektura/funkcje.md)

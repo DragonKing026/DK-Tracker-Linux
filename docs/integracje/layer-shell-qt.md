@@ -37,7 +37,7 @@ layer.setProperty("scope", "kimai-tray-popup")
 ```
 
 Wynik na Plaśmie 6.7.5: okno 12 px od prawej, tuż nad panelem (kompozytor respektuje strefę
-panelu); lokalnie i we Flatpaku. Szczegóły: [ustalenia prototypu](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
+panelu); lokalnie i we Flatpaku. Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/notatki/ustalenia.md).
 
 ## Flatpak
 
@@ -74,7 +74,7 @@ Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
 ## Gdzie w kodzie
 
 > [!todo] Plan 3: moduł UI odpowiedzialny za wybór ścieżki (layer-shell / bezramkowe).
-> Prototyp: [tray_demo.py](../../TODO/W-TRAKCIE/0004-prototyp-tacki-i-okna/prototyp/tray_demo.py) (`anchor_bottom_right`).
+> Prototyp: [tray_demo.py](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okna/prototyp/tray_demo.py) (`anchor_bottom_right`).
 
 ## Dokumentacja
 
