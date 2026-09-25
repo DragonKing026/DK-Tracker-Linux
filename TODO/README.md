@@ -26,7 +26,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0002 | [Specyfikacja projektu (design) i plan implementacji](W-TRAKCIE/0002-specyfikacja-projektu/todo.md) | 🔨 w-trakcie | p0 | — |
-| 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](W-TRAKCIE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | 🔨 w-trakcie | p1 | [0017](ZROBIONE/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -53,6 +52,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0015 | [Plan 1 · Zadanie 11: Tracker — akcje (`tracker.py` część 2, F-04…F-10)](ZROBIONE/0015-plan1-tracker-akcje/todo.md) | ✅ zrobione | 2026-09-25 |
 | 0016 | [Plan 1 · Zadanie 12: Polityka powiadomień (`notification_policy.py`, F-21)](ZROBIONE/0016-plan1-polityka-powiadomien/todo.md) | ✅ zrobione | 2026-09-25 |
 | 0017 | [Plan 1 · Zadanie 13: Testy kontraktowe na Kimai w Dockerze](ZROBIONE/0017-plan1-testy-kontraktowe-na-kimai-w/todo.md) | ✅ zrobione | 2026-09-25 |
+| 0018 | [Plan 1 · Zadanie 14: Komendy, pokrycie i dokumentacja rdzenia](ZROBIONE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) | ✅ zrobione | 2026-09-25 |
 
 <!-- tablica:end -->
 

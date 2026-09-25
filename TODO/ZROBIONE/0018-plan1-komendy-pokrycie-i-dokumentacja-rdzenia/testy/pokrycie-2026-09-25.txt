@@ -1,0 +1,23 @@
+........................................................................ [ 50%]
+........................................................................ [100%]
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.14.7-final-0 ________________
+
+Name                                         Stmts   Miss  Cover
+----------------------------------------------------------------
+src/kimai_tray/core/__init__.py                  0      0   100%
+src/kimai_tray/core/billable.py                 11      0   100%
+src/kimai_tray/core/errors.py                   83      2    98%
+src/kimai_tray/core/grouping.py                 22      0   100%
+src/kimai_tray/core/i18n.py                     36      0   100%
+src/kimai_tray/core/kimai_client.py             63      1    98%
+src/kimai_tray/core/models.py                   77      0   100%
+src/kimai_tray/core/notification_policy.py      57      0   100%
+src/kimai_tray/core/settings.py                 46      1    98%
+src/kimai_tray/core/timefmt.py                  50      0   100%
+src/kimai_tray/core/tracker.py                 250      8    97%
+src/kimai_tray/core/validation.py               28      0   100%
+----------------------------------------------------------------
+TOTAL                                          723     12    98%
+Required test coverage of 90% reached. Total coverage: 98.34%
+144 passed, 8 deselected in 0.18s
