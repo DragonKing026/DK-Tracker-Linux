@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 19:15
+zaktualizowano: 2026-09-25 19:20
 ---
 
 # Tablica zadań
@@ -25,13 +25,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
+| 0019 | [Drobne uwagi z recenzji Planu 1 (rdzeń)](W-TRAKCIE/0019-drobne-uwagi-z-recenzji-planu-1/todo.md) | 🔨 w-trakcie | p3 | [0018](ZROBIONE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0004 | [Prototyp: ikona w tacce i okno na KDE i GNOME we Flatpaku](DO-ZROBIENIA/0004-prototyp-tacki-i-okna/todo.md) | 📋 do-zrobienia | p1 | [0003](ZROBIONE/0003-wybor-stosu/todo.md) ✅ |
-| 0019 | [Drobne uwagi z recenzji Planu 1 (rdzeń)](DO-ZROBIENIA/0019-drobne-uwagi-z-recenzji-planu-1/todo.md) | 💡 pomysl | p3 | [0018](ZROBIONE/0018-plan1-komendy-pokrycie-i-dokumentacja-rdzenia/todo.md) ✅ |
 
 ## Zrobione
 

@@ -55,6 +55,8 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
 2. **Małe commity, często.** Każda logiczna, mała zmiana = osobny commit (jeden plik docs,
    jedno zadanie TODO, jedna funkcja). Nie zbieraj wielu zmian w jeden commit.
    Format: [docs/procesy/commity.md](docs/procesy/commity.md) (Conventional Commits po polsku).
+   **Pracujemy bezpośrednio na `main`** — projekt ma jednego autora, osobne gałęzie nie są
+   potrzebne. Nie pushujemy bez prośby użytkownika.
 3. **Dokumentacja na bieżąco.** Zmiana w kodzie, która zmienia zachowanie, strukturę
    albo integrację, **musi** w tym samym lub następnym commicie zaktualizować `docs/`.
    Kod bez dokumentacji = zadanie nieskończone.

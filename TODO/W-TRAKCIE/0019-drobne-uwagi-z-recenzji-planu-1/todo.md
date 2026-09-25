@@ -2,19 +2,19 @@
 noteId: "bcf5beb0ad794d21b3b5bcbd8c8eb137"
 tytul: "Drobne uwagi z recenzji Planu 1 (rdzeń)"
 numer: "0019"
-status: pomysl
+status: w-trakcie
 priorytet: p3
 tags: [todo, core, recenzja]
 zalezy_od: ["0018"]
 utworzono: 2026-09-25 19:15
-zaktualizowano: 2026-09-25 19:15
+zaktualizowano: 2026-09-25 19:20
 zamknieto:
 ---
 
 # 0019 — Drobne uwagi z recenzji Planu 1 (rdzeń)
 
 > [!info] Status
-> **pomysl** · priorytet **p3** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p3** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -49,6 +49,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 
 ### 2026-09-25 19:15
 - Utworzono z listy „minor (deferred)” końcowej recenzji Planu 1.
+- **19:20** Przegląd uwag z użytkownikiem, po kolei.
 
 ## Wynik
 
