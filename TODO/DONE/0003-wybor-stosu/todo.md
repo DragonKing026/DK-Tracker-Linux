@@ -1,19 +1,19 @@
 ---
 tytul: "Wybór stosu technologicznego"
 numer: "0003"
-status: do-zrobienia
+status: zrobione
 priorytet: p0
 tagi: [todo, planowanie, adr]
 zalezy_od: []
 utworzono: 2026-09-25
 zaktualizowano: 2026-09-25
-zamknieto:
+zamknieto: 2026-09-25
 ---
 
 # 0003 — Wybór stosu technologicznego
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p0** · [[TODO/README|← tablica zadań]]
+> **zrobione** · priorytet **p0** · [[TODO/README|← tablica zadań]]
 
 ## Cel
 
@@ -49,15 +49,25 @@ Wstępni kandydaci (do porównania w ADR):
 
 ## Kryteria akceptacji
 
-- [ ] Porównanie opcji ze źródłami
-- [ ] ADR `docs/decyzje/0002-*.md` zaakceptowany przez użytkownika
-- [ ] Dokumenty integracji dla wybranych bibliotek
-- [ ] Sekcja „Komendy” w `AGENTS.md` uzupełniona
+- [x] Porównanie opcji ze źródłami
+- [x] ADR `docs/decyzje/0002-*.md` zaakceptowany przez użytkownika
+- [x] Dokumenty integracji dla wybranych bibliotek (Qt/PySide6; HTTP i sekrety — przy wyborze tych bibliotek)
+- [ ] ~~Sekcja „Komendy” w `AGENTS.md` uzupełniona~~ → przeniesione do zadania 0002 (wymaga szkieletu projektu)
 
 ## Dziennik
 
 ### 2026-09-25
 - Utworzono zadanie z wstępną listą kandydatów.
 - Context7: w Tauri 2 zdarzenia kliknięcia tacki nie działają na Linuksie, co jest poważnym minusem tej opcji.
+- Użytkownik zaakceptował rekomendację: Python + PySide6.
+- Zweryfikowano: dokumentacja QSystemTrayIcon (SNI w KDE/GNOME/Xfce/LXQt, ograniczenia
+  GNOME ≥ 3.26 i X11), baza Flatpak io.qt.PySide.BaseApp 6.11, lokalnie PySide6 6.11.2,
+  Python 3.14.7, runtime KDE 6.10/6.11 bez layer-shell-qt.
 
 ## Wynik
+
+- Decyzja: [[docs/decyzje/0002-stos-python-pyside6|ADR-0002 — Python + PySide6 na runtime KDE]].
+- Integracja: [[docs/integracje/qt-pyside6|Qt 6 / PySide6]].
+- Na później: UI w Widgets czy QML, biblioteka HTTP, biblioteka sekretów, forma okna na
+  Waylandzie — w specyfikacji ([[TODO/0002-specyfikacja-projektu/todo|0002]]); sekcja
+  „Komendy” w `AGENTS.md` — przy szkielecie projektu.
