@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Kimai Tray
+Comment=Time tracking for Kimai in the system tray
+Comment[pl]=Mierzenie czasu w Kimai z tacki systemowej
+Exec=kimai-tray
+Icon=pl.websystems.KimaiTray
+Terminal=false
+Categories=Office;ProjectManagement;
+Keywords=Kimai;time;tracking;timesheet;czas;
+StartupNotify=false
+X-KDE-StartupNotify=false
