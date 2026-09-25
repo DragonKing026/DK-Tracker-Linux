@@ -20,15 +20,13 @@ description: Use when a task in TODO/ is finished, abandoned or its status chang
    Sprawdź: `git status` i `find TODO/NNNN-slug -type f`.
 5. **Wynik**: co powstało (ścieżki plików, linki do docs), co świadomie zostało
    na później (i ewentualnie nowe zadania dla tego — skill `nowe-zadanie`).
-6. **Przeniesienie do DONE** (tylko `zrobione` / `porzucone`):
+6. **Przeniesienie do DONE** (tylko `zrobione` / `porzucone`) — skryptem ze skilla
+   [sprawdz-linki](../sprawdz-linki/SKILL.md), który przenosi folder przez `git mv`
+   i sam poprawia wszystkie linki (do zadania i w jego plikach):
    ```bash
-   git mv "TODO/NNNN-slug" "TODO/DONE/NNNN-slug"
+   python3 .claude/skills/sprawdz-linki/linki.py przenies TODO/NNNN-slug TODO/DONE/NNNN-slug
    ```
-   Następnie popraw wszystkie odwołania do starej ścieżki:
-   ```bash
-   grep -rn "TODO/NNNN-slug" --include=*.md . | grep -v '^./.git'
-   ```
-   (wikilinki `[[TODO/NNNN-slug/...` → `[[TODO/DONE/NNNN-slug/...`).
+   Wynik musi kończyć się „Wszystkie linki OK.”. Nie używaj samego `git mv`.
 7. **Tablica** [TODO/README.md](../../../TODO/README.md): przy zamknięciu przenieś wiersz z „Aktywne” do
    „Zakończone” z linkiem `[Tytuł](DONE/NNNN-slug/todo.md)`
    (`| Nr | Zadanie | Status | Zamknięto |`); przy innej zmianie statusu —
