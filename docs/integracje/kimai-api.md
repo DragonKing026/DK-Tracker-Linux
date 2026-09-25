@@ -93,6 +93,33 @@ teamlead i wyżej). Administrator włącza je dla `ROLE_USER` w: **Administracja
 kolumna ROLE_USER → sekcja „Timesheet (own)”**. Szczegóły:
 [F-09](../architektura/funkcje.md).
 
+## Ustawienia serwera, które zmieniają zachowanie API
+
+Z [dokumentacji konfiguracji](https://www.kimai.org/documentation/configurations.html)
+(Ustawienia → Timesheet). Administrator może je zmienić, więc aplikacja nie może
+zakładać wartości domyślnych:
+
+| Ustawienie | Domyślnie | Skutek dla aplikacji |
+|---|---|---|
+| Dozwolona liczba jednocześnie trwających wpisów | `1` — start nowego **automatycznie zatrzymuje** trwający | przy `> 1` start może zostać odrzucony po osiągnięciu limitu, a `/active` może zwrócić kilka wpisów |
+| Maksymalny czas trwania wpisu | wyłączone (0) | przy włączonym limicie **stop lub edycja mogą zostać odrzucone** (400) |
+| Nakładające się wpisy | dozwolone | przy wyłączeniu edycja początku/końca może zostać odrzucona (400) |
+| Wpisy w przyszłości | — | przyszła godzina początku jest odrzucana |
+
+## Strefa czasowa
+
+Z [preferencji użytkownika](https://www.kimai.org/documentation/user-preferences.html)
+i [REST API](https://www.kimai.org/documentation/rest-api.html):
+
+- Każdy użytkownik Kimai ma **własną strefę czasową** (domyślnie strefę serwera, która
+  „często jest błędna”).
+- API zwraca daty w ISO 8601 z przesunięciem strefy użytkownika.
+- W POST/PATCH Kimai traktuje podaną godzinę jako lokalną i **dokleja strefę
+  użytkownika bez przeliczania**.
+- Wniosek: jeśli strefa w profilu Kimai ≠ strefa systemu, start „teraz” zapisze złą
+  godzinę. Aplikacja porównuje obie strefy i ostrzega. Godziny do wysłania liczy
+  w strefie użytkownika Kimai, nie systemu.
+
 ## Link do panelu
 
 Kimai nie ma trasy bez locale — `/timesheet/` to 404, działa `/{locale}/timesheet/`.
@@ -105,6 +132,8 @@ Locale bierzemy z `user.language` (np. z `/api/users/me` albo z wpisów).
 - [Tokeny API użytkownika](https://www.kimai.org/documentation/user-api.html)
 - [Przykład wywołań w JavaScript](https://www.kimai.org/documentation/api-example-javascript.html)
 - [Uprawnienia i role](https://www.kimai.org/documentation/permissions.html)
+- [Konfiguracja (Timesheet)](https://www.kimai.org/documentation/configurations.html)
+- [Preferencje użytkownika — strefa czasowa](https://www.kimai.org/documentation/user-preferences.html)
 - Swagger instancji: `https://<kimai-firmy>/api/doc`; demo: [demo.kimai.org/api/doc](https://demo.kimai.org/api/doc)
 - Kod źródłowy Kimai: [github.com/kimai/kimai](https://github.com/kimai/kimai)
 
