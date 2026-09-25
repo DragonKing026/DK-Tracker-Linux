@@ -82,7 +82,7 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 
 - Zapis tokenu tylko po jawnym „Zapisz” w ustawieniach.
 - Brak dostępnego magazynu → komunikat i **żadnego** cichego zapisu do pliku tekstowego.
-  Trybu „token tylko w pamięci do końca sesji” w 1.0 **nie ma** (decyzja użytkownika 2026-09-25, [0028](../../TODO/W-TRAKCIE/0028-plan3-projekt-ui/todo.md)).
+  Trybu „token tylko w pamięci do końca sesji” w 1.0 **nie ma** (decyzja użytkownika 2026-09-25, [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/todo.md)).
 - Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu: `application=pl.websystems.KimaiTray`, `url` bez końcowego `/`).
 - Błędy (`SecretServiceStore`): brak usługi, odmowa z piaskownicy, usługa, która nie wystartowała (`Spawn.*`),
   brak odpowiedzi (timeout) lub zerwane połączenie → `SecretsUnavailable`; odrzucone okno odblokowania → `SecretsLocked`.

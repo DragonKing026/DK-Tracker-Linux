@@ -2,18 +2,19 @@
 noteId: "b262b2acd5d74bdc853689bf3c7b66a8"
 tytul: "Plan 3 — projekt interfejsu (decyzje przed planem)"
 numer: "0028"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, plan-3, ui, projekt]
 zalezy_od: ["0027"]
 utworzono: 2026-09-25 21:55
-zaktualizowano: 2026-09-25 21:55
+zaktualizowano: 2026-09-25 23:06
+zamknieto: 2026-09-25 23:06
 ---
 
 # 0028 — Plan 3 — projekt interfejsu (decyzje przed planem)
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -24,12 +25,12 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 
 - Architektura UI: [specyfikacja, sekcje 4–5](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md), [ADR-0005](../../../docs/decyzje/0005-okno-przy-tacce-na-kde.md).
 - Wzorzec: [kimai-ws-tracker](../../../docs/integracje/kimai-ws-tracker.md) (wygląd i palety motywów), [katalog funkcji](../../../docs/architektura/funkcje.md).
-- Prototyp: [0004](../../ZROBIONE/0004-prototyp-tacki-i-okna/todo.md).
+- Prototyp: [0004](../0004-prototyp-tacki-i-okna/todo.md).
 
 ## Kryteria akceptacji
 
 - [x] Każda otwarta decyzja UI rozstrzygnięta i zapisana (tu i w docs)
-- [ ] Plan 3 napisany, zweryfikowany i zaakceptowany przez użytkownika
+- [x] Plan 3 napisany, zweryfikowany i zaakceptowany przez użytkownika
 
 ## Decyzje
 
@@ -57,3 +58,8 @@ Rozstrzygnąć z użytkownikiem decyzje o wyglądzie i zachowaniu UI, których n
 - **22:05** Tryb tokenu w pamięci: nie (A). Wszystkie decyzje UI zebrane — pisanie Planu 3.
 - **22:08** layer-shell na jednym oknie działa bez `QT_WAYLAND_SHELL_INTEGRATION` (próba na żywo).
 - **22:58** Plan 3 napisany i zweryfikowany ([plan](../../../docs/plany/2026-09-25-plan-3-ui.md)); test na żywo z użytkownikiem: 6/6. Czeka na akceptację.
+- **23:06** Plan 3 zaakceptowany przez użytkownika — wykonanie w zadaniach Planu 3.
+
+## Wynik
+
+Decyzje UI: motyw według systemu, ikona wariant C, środkowy klik — nic, bez trybu tokenu w pamięci, layer-shell tylko na oknie szybkiej obsługi. [Plan 3](../../../docs/plany/2026-09-25-plan-3-ui.md) napisany, zweryfikowany (334 testy + test na żywo 6/6) i zaakceptowany.

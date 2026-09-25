@@ -63,7 +63,7 @@ Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
 > - **Bez zmiennej środowiskowej**: `QT_WAYLAND_SHELL_INTEGRATION=layer-shell` (tak robił prototyp)
 >   zamienia **każde** okno procesu w warstwę. Zamiast niej: `Window::get(okno)` przed pokazaniem —
 >   w 6.7.5 podpina integrację tylko do tego okna ([źródło](https://github.com/KDE/layer-shell-qt/blob/v6.7.5/src/interfaces/window.cpp),
->   sprawdzone na żywo 2026-09-25 22:08, [0028](../../TODO/W-TRAKCIE/0028-plan3-projekt-ui/todo.md)).
+>   sprawdzone na żywo 2026-09-25 22:08, [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/todo.md)).
 > - **Kruchy symbol C++**: nazwa `_ZN12LayerShellQt6Window3getEP7QWindow` zależy od ABI;
 >   w aplikacji zamknięta w jednym module z testem obecności symbolu.
 > - **Odczyt** enumów (`anchors`, `layer`) z PySide nie działa (brak konwertera) — tylko zapis.
