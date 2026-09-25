@@ -71,6 +71,13 @@ _locales/pl, /en      teksty
 > `enterIdleState()` wywołuje `paintProjectDot()` bez koloru już po tym, jak
 > `fillPickers()` go ustawiło. W aplikacji — nie powielać.
 
+> [!bug] Strefa czasowa (potwierdzone na Kimai 2.67 w Dockerze)
+> `localStamp()` wysyła czas **przeglądarki**, a Kimai dokleja do niego strefę **konta
+> Kimai** bez przeliczania. Gdy strefy się różnią (np. konto w UTC, system Europe/Warsaw),
+> wpis zaczyna się 2 h w przyszłości, a stop i kolejny start są odrzucane.
+> [Raport](../../TODO/W-TRAKCIE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md).
+> W aplikacji czas liczymy w strefie z `/api/users/me → timezone`.
+
 ## Pełny opis zachowań
 
 [Katalog funkcji F-01…F-14](../architektura/funkcje.md) — każda funkcja wtyczki
