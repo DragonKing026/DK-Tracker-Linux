@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-25 21:06
+zaktualizowano: 2026-09-25 21:10
 ---
 
 # Tablica zadań
@@ -25,13 +25,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
+| 0027 | [Drobne uwagi z recenzji Planu 2 (desktop)](W-TRAKCIE/0027-drobne-uwagi-z-recenzji-planu-2/todo.md) | 🔨 w-trakcie | p3 | [0026](ZROBIONE/0026-plan2-testy-na-zywo-i-komendy/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 |---|---|---|---|---|
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0027 | [Drobne uwagi z recenzji Planu 2 (desktop)](DO-ZROBIENIA/0027-drobne-uwagi-z-recenzji-planu-2/todo.md) | 📋 do-zrobienia | p3 | [0026](ZROBIONE/0026-plan2-testy-na-zywo-i-komendy/todo.md) ✅ |
 
 ## Zrobione
 

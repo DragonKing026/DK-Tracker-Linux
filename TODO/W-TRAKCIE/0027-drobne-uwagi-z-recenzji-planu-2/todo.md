@@ -2,18 +2,18 @@
 noteId: "3bd05b294c5f44a1b6bd803bbe09249e"
 tytul: "Drobne uwagi z recenzji Planu 2 (desktop)"
 numer: "0027"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p3
 tags: [todo, desktop, recenzja]
 zalezy_od: ["0026"]
 utworzono: 2026-09-25 21:06
-zaktualizowano: 2026-09-25 21:06
+zaktualizowano: 2026-09-25 21:10
 ---
 
 # 0027 — Drobne uwagi z recenzji Planu 2 (desktop)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p3** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p3** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -49,3 +49,4 @@ Ważną (I1: surowe wyjątki z usługi sekretów, wygasła sesja) poprawiono w c
 
 ### 2026-09-25
 - **21:06** Utworzono z końcowej recenzji Planu 2.
+- **21:10** Start: techniczne uwagi poprawiam sam, decyzje produktowe do omówienia z użytkownikiem.
