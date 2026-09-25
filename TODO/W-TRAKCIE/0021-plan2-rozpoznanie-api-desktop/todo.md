@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, plan-2, spike]
 zalezy_od: ["0004"]
 utworzono: 2026-09-25 20:46
-zaktualizowano: 2026-09-25 20:46
+zaktualizowano: 2026-09-25 20:51
 zamknieto:
 ---
 
@@ -26,17 +26,19 @@ zanim powstanie Plan 2 z gotowym kodem.
 - [x] Secret Service: pełny cykl, także z piaskownicy (z uprawnieniem i bez)
 - [x] Notification: powiadomienie z przyciskami i powrót kliknięcia (host i Flatpak)
 - [x] Background: RequestBackground i SetStatus (host i Flatpak), bez zmiany autostartu
-- [ ] Plan 2 napisany na podstawie wyników
+- [x] Plan 2 napisany na podstawie wyników — [plan](../../../docs/plany/2026-09-25-plan-2-desktop.md), kod zweryfikowany ([raport](testy/weryfikacja-planu-2.md))
 
 ## Materiały
 
 - [notatki/rozpoznanie.md](notatki/rozpoznanie.md) — wyniki
+- [testy/weryfikacja-planu-2.md](testy/weryfikacja-planu-2.md) — kod Planu 2 uruchomiony: 206 testów + 3 na sesji D-Bus
 - [prototyp/](prototyp/) — skrypty prób (do wyrzucenia)
 
 ## Dziennik
 
 ### 2026-09-25
 - **20:46** Próby wykonane; użytkownik klikał przyciski powiadomień (host i Flatpak).
+- **20:51** Plan 2 napisany i zweryfikowany (206 + 3 testy).
 
 ## Wynik
 
