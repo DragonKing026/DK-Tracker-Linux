@@ -193,3 +193,15 @@ def test_ci_enforces_core_coverage():
     steps = workflow("testy.yml")["jobs"]["testy"]["steps"]
     command = next(step["run"] for step in steps if step.get("name", "").startswith("Testy"))
     assert "--cov=ws_tracker_tray.core" in command and "--cov-fail-under=90" in command
+
+
+def test_third_party_actions_are_pinned_to_a_commit():
+    """The release job hands the GPG private key to these actions; a moved tag must not change the code."""
+    import re
+
+    for name in ("testy.yml", "wydanie.yml"):
+        for job in workflow(name)["jobs"].values():
+            for step in job.get("steps", []):
+                uses = step.get("uses", "")
+                if uses and not uses.startswith(("actions/", "./")):
+                    assert re.fullmatch(r"[\w./-]+@[0-9a-f]{40}", uses), uses

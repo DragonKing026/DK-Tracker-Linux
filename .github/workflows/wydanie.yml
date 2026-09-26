@@ -3,6 +3,7 @@
 # GitHub release with the bundle, so the release never points at a repository that is not online.
 # Needs: secret FLATPAK_GPG_PRIVATE_KEY (flatpak/klucz-gpg.sh), Pages source = GitHub Actions, and the
 # github-pages environment allowing tags v* (docs/procesy/wydania.md).
+# Third-party actions are pinned to a commit (they see the GPG key); update them by hand, see docs/integracje/github-actions.md.
 name: Wydanie
 on:
   push:
@@ -37,11 +38,11 @@ jobs:
           desktop-file-validate data/*.desktop
       - name: Klucz podpisujący repozytorium
         id: gpg
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@e89d40939c28e39f97cf32126055eeae86ba74ec # v6.3.0
         with:
           gpg_private_key: ${{ secrets.FLATPAK_GPG_PRIVATE_KEY }}
       - name: Budowa Flatpaka
-        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        uses: flatpak/flatpak-github-actions/flatpak-builder@79327416609af08178ad73b352877e51450790b3 # v6.8
         with:
           manifest-path: flatpak/pl.websystems.WsTrackerTray.yml
           bundle: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
@@ -82,7 +83,7 @@ jobs:
         with:
           name: paczka
       - name: Wydanie na GitHubie z paczką
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
           files: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
           generate_release_notes: true
