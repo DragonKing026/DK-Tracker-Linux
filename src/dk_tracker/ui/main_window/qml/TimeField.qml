@@ -49,11 +49,14 @@ SelectButton {
                         text: field.pad(cell.modelData)
                         horizontalAlignment: Text.AlignHCenter
                         font.weight: cell.isChosen ? Font.Bold : Font.Normal
-                        color: cell.isChosen ? "#ffffff" : app.palette.fg
+                        color: cell.isChosen ? app.palette.accent : app.palette.fg
                     }
+                    // The chosen one as everywhere: accent text and edge, not a bright block.
                     background: Rectangle {
                         radius: 4
-                        color: cell.isChosen ? app.palette.accent : cell.hovered ? app.palette.control_hover : "transparent"
+                        color: cell.isChosen ? app.palette.control : cell.hovered ? app.palette.control_hover : "transparent"
+                        border.width: cell.isChosen ? 1 : 0
+                        border.color: app.palette.accent
                     }
                     onClicked: ListView.view.picked(modelData)
                 }

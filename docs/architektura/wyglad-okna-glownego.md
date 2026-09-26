@@ -59,6 +59,7 @@ półgrube. Kursor rączki na wszystkim, co się klika.
 | Przycisk | `Btn.qml` | `control` + ramka; odmiany: `primary` (tekst i ramka `accent`), `danger` (tekst, ikona i ramka `danger`, pod kursorem czerwone tło 15 %), `flat` (bez tła i ramki); opcjonalna ikona przed tekstem |
 | Przycisk-ikona | `IconButton.qml` | bez tła; pod kursorem `control_hover`; `danger`: pod kursorem czerwone tło, biała ikona (jak zamykanie okna) |
 | Wybór (lista, projekt, dzień, godzina) | `SelectButton.qml` → `Combo`, `ProjectPicker`, `DateField`, `TimeField` | wygląd przycisku, tekst do lewej, ikona z lewej (kalendarz, zegar), strzałka w dół z prawej (listy) |
+| Lista godzin, kalendarz | `TimeField.qml`, `DateField.qml` | wybrana pozycja: tło `control`, ramka i pogrubiony tekst `accent` (bez pełnego niebieskiego tła); dziś — ramka `border` |
 | Pole wyboru | `Check.qml` | kwadrat 18 px, zaznaczony — `accent` z białym ✓ |
 | Liczba | `Spin.qml` | [−] pole [+] w jednej ramce |
 | Okno / lista rozwijana | `Panel.qml` | `panel`, ramka `border`, promień 8 |

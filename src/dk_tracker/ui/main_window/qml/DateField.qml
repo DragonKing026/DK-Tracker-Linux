@@ -70,13 +70,15 @@ SelectButton {
                     implicitWidth: 36
                     implicitHeight: 32
                     radius: 4
-                    color: chosen ? app.palette.accent : dayHover.hovered ? app.palette.control_hover : "transparent"
-                    border.width: model.today && !chosen ? 1 : 0
-                    border.color: app.palette.accent
+                    // Chosen: accent text and edge (as everywhere); today: a faint edge.
+                    color: chosen ? app.palette.control : dayHover.hovered ? app.palette.control_hover : "transparent"
+                    border.width: chosen || model.today ? 1 : 0
+                    border.color: chosen ? app.palette.accent : app.palette.border
                     Label {
                         anchors.centerIn: parent
                         text: model.day
-                        color: parent.chosen ? "#ffffff" : model.month === grid.month ? app.palette.fg : app.palette.placeholder
+                        font.weight: parent.chosen ? Font.Bold : Font.Normal
+                        color: parent.chosen ? app.palette.accent : model.month === grid.month ? app.palette.fg : app.palette.placeholder
                     }
                     HoverHandler { id: dayHover; cursorShape: Qt.PointingHandCursor }
                 }
