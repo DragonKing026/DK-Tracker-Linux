@@ -47,7 +47,7 @@ Obraz `debian:trixie` z prototypu zastąpił obraz CI Flathuba
 `ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11`: Flatpak 1.18.1 (bez regresji flatpak#6818), SDK KDE 6.11,
 `appstreamcli` i `flatpak-builder-lint`. Ten sam obraz buduje paczkę lokalnie ([buduj.sh](../../flatpak/buduj.sh)) i w
 GitHub Actions; na Fedorze 44 z SELinux zbudował aplikację z bazą PySide
-([próba budowy](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/notatki/proba-budowy.md)). Runtime'y hosta nie są już
+([próba budowy](../../TODO/ZROBIONE/0045-plan4-projekt-flatpak/notatki/proba-budowy.md)). Runtime'y hosta nie są już
 montowane — obraz pobiera je sam, a cache leży w `~/.cache/ws-tracker-tray-flatpak`.
 
 ## Konsekwencje

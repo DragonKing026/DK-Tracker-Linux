@@ -2,19 +2,19 @@
 noteId: "6f72023cf9b946f2a97632feca4f24a5"
 tytul: "Domyślny projekt i rodzaj pracy z ostatniego wpisu w Kimai"
 numer: "0061"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, ui, rdzen]
 zalezy_od: ["0060"]
 utworzono: 2026-09-26 13:31
-zaktualizowano: 2026-09-26 13:31
-zamknieto:
+zaktualizowano: 2026-09-26 13:35
+zamknieto: 2026-09-26 13:35
 ---
 
 # 0061 — Domyślny projekt i rodzaj pracy z ostatniego wpisu w Kimai
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -29,26 +29,29 @@ wpisów), a nie tylko ostatniego startu z tej aplikacji — także gdy wpis pows
 
 ## Kryteria akceptacji
 
-- [ ] `Tracker.default_work()` (TDD): najnowszy zakończony wpis, inaczej pamięć
-- [ ] Okno podpowiada te wartości przy wczytaniu katalogu i rodzajów pracy (TDD)
-- [ ] Dokumentacja F-06, pełny zestaw kontroli z CI
+- [x] `Tracker.default_work()` (TDD): najnowszy zakończony wpis, inaczej pamięć
+- [x] Okno podpowiada te wartości przy wczytaniu katalogu i rodzajów pracy (TDD)
+- [x] Dokumentacja F-06, pełny zestaw kontroli z CI
 
 ## Kroki
 
-- [ ] Rdzeń
-- [ ] Kontroler
-- [ ] Dokumentacja
+- [x] Rdzeń
+- [x] Kontroler
+- [x] Dokumentacja
 
 ## Materiały
 
-Brak.
+- [testy/pytest-2026-09-26.txt](testy/pytest-2026-09-26.txt) — końcowy przebieg:
+  `459 passed, 1 skipped, 14 deselected in 3.53s`
 
 ## Dziennik
 
 ### 2026-09-26
 
 - **13:31** Utworzono i start.
+- **13:35** Zamknięte: 459 passed, 1 skipped, 14 deselected in 3.53s, commity na main.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+[Tracker.default_work](../../../src/ws_tracker_tray/core/tracker.py): najnowszy wpis z Kimai, inaczej
+pamięć; używane przy wczytaniu katalogu i rodzajów pracy. Sprawdzone na żywo. Wydanie 0.9.1.

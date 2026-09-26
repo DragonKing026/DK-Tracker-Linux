@@ -30,7 +30,7 @@ GitHuba darmowe. Flathub wymaga przeglądu i ma własne wymagania jakości; na w
 **Wariant C: paczka budowana lokalnie ([buduj.sh](../../flatpak/buduj.sh)) i przez GitHub Actions po tagu
 `v<wersja>`, podpisane repozytorium Flatpaka na GitHub Pages i plik `.flatpak` w wydaniu na GitHubie.**
 
-Decyzja użytkownika z 2026-09-26 10:23 (zadanie [0045](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md)).
+Decyzja użytkownika z 2026-09-26 10:23 (zadanie [0045](../../TODO/ZROBIONE/0045-plan4-projekt-flatpak/todo.md)).
 
 ## Uzasadnienie
 

@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 13:32
+zaktualizowano: 2026-09-26 13:36
 ---
 
 # Tablica zadań
@@ -25,13 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0045 | [Plan 4 — projekt paczki Flatpak (decyzje przed planem)](W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md) | 🔨 w-trakcie | p1 | [0044](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) ✅ |
-| 0053 | [Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)](W-TRAKCIE/0053-plan4-pierwsze-wydanie/todo.md) | 🔨 w-trakcie | p1 | [0052](ZROBIONE/0052-plan4-proces-wydania/todo.md) ✅ |
 | 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | ⛔ zablokowane | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
-| 0058 | [Długie opisy na liście ostatnich wpisów: 2,5 linii i rozwijanie kliknięciem](W-TRAKCIE/0058-dlugie-opisy-na-liscie/todo.md) | 🔨 w-trakcie | p1 | — |
-| 0059 | [Wyszukiwanie we wszystkich wpisach Kimai (F-33)](W-TRAKCIE/0059-wyszukiwanie-wpisow/todo.md) | 🔨 w-trakcie | p1 | [0058](W-TRAKCIE/0058-dlugie-opisy-na-liscie/todo.md) |
-| 0060 | [Zmiana projektu i rodzaju pracy trwającego wpisu (F-34)](W-TRAKCIE/0060-zmiana-projektu-trwajacego-wpisu/todo.md) | 🔨 w-trakcie | p1 | [0059](W-TRAKCIE/0059-wyszukiwanie-wpisow/todo.md) |
-| 0061 | [Domyślny projekt i rodzaj pracy z ostatniego wpisu w Kimai](W-TRAKCIE/0061-domyslnie-ostatni-wpis/todo.md) | 🔨 w-trakcie | p1 | [0060](W-TRAKCIE/0060-zmiana-projektu-trwajacego-wpisu/todo.md) |
 
 ## Do zrobienia
 
@@ -87,6 +81,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0042 | [Poprawki UI po teście na żywo (Plan 3)](ZROBIONE/0042-poprawki-po-tescie-na-zywo/todo.md) | ✅ zrobione | 2026-09-26 00:47 |
 | 0043 | [Dokumenty zgodne z markdownlint](ZROBIONE/0043-markdownlint/todo.md) | ✅ zrobione | 2026-09-25 23:45 |
 | 0044 | [Drobne uwagi z recenzji Planu 3 (ui)](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) | ✅ zrobione | 2026-09-26 10:14 |
+| 0045 | [Plan 4 — projekt paczki Flatpak (decyzje przed planem)](ZROBIONE/0045-plan4-projekt-flatpak/todo.md) | ✅ zrobione | 2026-09-26 13:36 |
 | 0046 | [Plan 4 · Zadanie 1: Wersja 0.9.0 i licencja w pakiecie](ZROBIONE/0046-plan4-wersja-licencja/todo.md) | ✅ zrobione | 2026-09-26 11:30 |
 | 0047 | [Plan 4 · Zadanie 2: MetaInfo (AppStream) i plik `.desktop`](ZROBIONE/0047-plan4-metainfo/todo.md) | ✅ zrobione | 2026-09-26 11:48 |
 | 0048 | [Plan 4 · Zadanie 3: Manifest Flatpaka i zależności Pythona](ZROBIONE/0048-plan4-manifest/todo.md) | ✅ zrobione | 2026-09-26 11:48 |
@@ -94,9 +89,14 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0050 | [Plan 4 · Zadanie 5: Repozytorium Flatpaka dla GitHub Pages](ZROBIONE/0050-plan4-repo-pages/todo.md) | ✅ zrobione | 2026-09-26 11:55 |
 | 0051 | [Plan 4 · Zadanie 6: GitHub Actions — testy i wydanie](ZROBIONE/0051-plan4-github-actions/todo.md) | ✅ zrobione | 2026-09-26 11:58 |
 | 0052 | [Plan 4 · Zadanie 7: Proces wydania i instrukcja instalacji](ZROBIONE/0052-plan4-proces-wydania/todo.md) | ✅ zrobione | 2026-09-26 11:59 |
+| 0053 | [Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)](ZROBIONE/0053-plan4-pierwsze-wydanie/todo.md) | ✅ zrobione | 2026-09-26 13:36 |
 | 0054 | [Podobne aplikacje: KimaiTray i KimTrack w dokumentacji](ZROBIONE/0054-podobne-aplikacje/todo.md) | ✅ zrobione | 2026-09-26 11:43 |
 | 0055 | [Zmiana nazwy na WS Tracker Tray](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) | ✅ zrobione | 2026-09-26 11:48 |
 | 0057 | [Drobne uwagi z recenzji Planu 4](ZROBIONE/0057-drobne-uwagi-z-recenzji-planu-4/todo.md) | ✅ zrobione | 2026-09-26 12:40 |
+| 0058 | [Długie opisy na liście ostatnich wpisów: 2,5 linii i rozwijanie kliknięciem](ZROBIONE/0058-dlugie-opisy-na-liscie/todo.md) | ✅ zrobione | 2026-09-26 13:35 |
+| 0059 | [Wyszukiwanie we wszystkich wpisach Kimai (F-33)](ZROBIONE/0059-wyszukiwanie-wpisow/todo.md) | ✅ zrobione | 2026-09-26 13:35 |
+| 0060 | [Zmiana projektu i rodzaju pracy trwającego wpisu (F-34)](ZROBIONE/0060-zmiana-projektu-trwajacego-wpisu/todo.md) | ✅ zrobione | 2026-09-26 13:35 |
+| 0061 | [Domyślny projekt i rodzaj pracy z ostatniego wpisu w Kimai](ZROBIONE/0061-domyslnie-ostatni-wpis/todo.md) | ✅ zrobione | 2026-09-26 13:35 |
 
 <!-- tablica:end -->
 

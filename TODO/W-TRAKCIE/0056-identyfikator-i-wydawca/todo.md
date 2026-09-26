@@ -18,7 +18,7 @@ zamknieto:
 
 ## Cel
 
-Ustalić przed pierwszym publicznym wydaniem ([0053](../0053-plan4-pierwsze-wydanie/todo.md))
+Ustalić przed pierwszym publicznym wydaniem ([0053](../../ZROBIONE/0053-plan4-pierwsze-wydanie/todo.md))
 identyfikator aplikacji i wydawcę w MetaInfo. Po wydaniu zmiana identyfikatora oznacza dla każdego ponowną instalację i
 utratę ustawień (`~/.var/app/<id>`) oraz tokenu w portfelu.
 
@@ -53,7 +53,7 @@ utratę ustawień (`~/.var/app/<id>`) oraz tokenu w portfelu.
 
 - [ ] Czekać na odpowiedź właściciela firmy
 - [ ] Zmienić identyfikator i wydawcę
-- [ ] Odblokować [0053](../0053-plan4-pierwsze-wydanie/todo.md)
+- [ ] Odblokować [0053](../../ZROBIONE/0053-plan4-pierwsze-wydanie/todo.md)
 
 ## Materiały
 

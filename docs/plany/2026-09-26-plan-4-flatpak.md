@@ -2,9 +2,9 @@
 noteId: "b0da64e7ccf0452d890020d3a9deb527"
 tytul: "Plan 4: Flatpak i wydanie"
 tags: [plan, implementacja, flatpak, wydanie, github]
-status: w-realizacji
+status: wykonany
 utworzono: 2026-09-26 11:23
-zaktualizowano: 2026-09-26 11:29
+zaktualizowano: 2026-09-26 13:36
 ---
 
 # Plan 4: Flatpak i wydanie — plan implementacji
@@ -28,8 +28,8 @@ GitHub Actions (`flatpak/flatpak-github-actions/flatpak-builder@v6`, `crazy-max/
 
 **Spec:** [docs/specyfikacja/2026-09-25-kimai-tray-1.0.md](../specyfikacja/2026-09-25-kimai-tray-1.0.md) (sekcje 8, 10,
 12),
-decyzje: [zadanie 0045](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md), próba budowy:
-[proba-budowy.md](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/notatki/proba-budowy.md),
+decyzje: [zadanie 0045](../../TODO/ZROBIONE/0045-plan4-projekt-flatpak/todo.md), próba budowy:
+[proba-budowy.md](../../TODO/ZROBIONE/0045-plan4-projekt-flatpak/notatki/proba-budowy.md),
 [ADR-0002](../decyzje/0002-stos-python-pyside6.md), [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
 
 ## Global Constraints
@@ -603,7 +603,7 @@ Expected: `✔ Validation was successful`, `lint manifest: OK`, `lint repo: OK`,
 1. [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md): sekcja „Aktualizacja” — obraz Debiana z prototypu
    zastąpiony obrazem `ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11` (Flatpak 1.18.1, ten sam w CI; zbudował
    z bazą PySide na Fedorze 44 z SELinux —
-   [próba](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/notatki/proba-budowy.md)).
+   [próba](../../TODO/ZROBIONE/0045-plan4-projekt-flatpak/notatki/proba-budowy.md)).
 2. [docs/integracje/flatpak.md](../integracje/flatpak.md): „Budowanie lokalnie” → `flatpak/buduj.sh` (zamiast szkicu),
    „Dystrybucja” → wybrany wariant (repozytorium na Pages + wydania), „Gdzie w kodzie” → manifest, `python3-deps.yaml`,
    `buduj.sh`, `pages.py`, `publikuj.sh`.
@@ -1057,7 +1057,7 @@ Expected: 413 passed, 1 skipped; `actionlint` bez uwag (sprawdza też skrypty `r
    dostęp publiczny (repozytorium publiczne, darmowe konto).
 3. ADR-0007 (skill `nowa-decyzja`): dystrybucja — repozytorium Flatpaka na GitHub Pages + wydania na GitHubie; opcje
    rozważone (sam plik, Actions bez repo, Flathub), decyzja użytkownika z
-   [0045](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md).
+   [0045](../../TODO/ZROBIONE/0045-plan4-projekt-flatpak/todo.md).
 
 - [ ] **Step 6: Commit** (workflowy, integracje, ADR osobno)
 

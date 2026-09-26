@@ -2,18 +2,19 @@
 noteId: "aa8a9939ba774ea799dcaff6f7e999f8"
 tytul: "Plan 4 — projekt paczki Flatpak (decyzje przed planem)"
 numer: "0045"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, plan-4, flatpak, projekt]
 zalezy_od: ["0044"]
 utworzono: 2026-09-26 10:19
-zaktualizowano: 2026-09-26 11:24
+zaktualizowano: 2026-09-26 13:36
+zamknieto: 2026-09-26 13:36
 ---
 
 # 0045 — Plan 4 — projekt paczki Flatpak (decyzje przed planem)
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -32,7 +33,7 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 ## Kryteria akceptacji
 
 - [x] Każda otwarta decyzja rozstrzygnięta i zapisana
-- [ ] Plan 4 napisany, zweryfikowany i zaakceptowany przez użytkownika
+- [x] Plan 4 napisany, zweryfikowany i zaakceptowany przez użytkownika
 
 ## Decyzje
 
@@ -46,14 +47,13 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 - [x] **Nazwa:** „Kimai Tray” zostaje nazwą docelową (identyfikator `pl.websystems.KimaiTray`).
 - [x] **Zmiana nazwy (2026-09-26 11:45):** „WS Tracker Tray”, identyfikator `pl.websystems.WsTrackerTray`, bo
   „Kimai Tray” zlewa się z [KimaiTray](../../../docs/architektura/podobne-aplikacje.md); zadanie
-  [0055](../../ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md).
+  [0055](../0055-zmiana-nazwy-ws-tracker-tray/todo.md).
 - [x] **Pierwsza wersja:** 0.9.0 (beta) — 1.0.0 po testach na GNOME
       ([0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)).
 
 ## Materiały
 
-- [notatki/proba-budowy.md](notatki/proba-budowy.md) — próbna budowa i test paczki z użytkownikiem
-- [prototyp/](prototyp/) — manifest, zależności Pythona i MetaInfo z próby
+- Wynik: Plan 4 wykonany, wydania 0.9.0 i 0.9.1
 
 ## Dziennik
 
@@ -66,3 +66,4 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 - **11:24** Plan 4 napisany ([plan](../../../docs/plany/2026-09-26-plan-4-flatpak.md)); kod z planu w świeżej kopii: 411
   testów + test klucza (zadanie 8), `actionlint` i shellcheck czyste, próba publikacji z podpisem w kontenerze udana.
   Czeka na akceptację.
+- **13:36** Zamknięte: Plan 4 wykonany, wydania 0.9.0 i 0.9.1, commity na main.

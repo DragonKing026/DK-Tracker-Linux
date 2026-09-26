@@ -2,19 +2,19 @@
 noteId: "480b092e39f04fec8671f63156b6301d"
 tytul: "Zmiana projektu i rodzaju pracy trwającego wpisu (F-34)"
 numer: "0060"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, ui, rdzen, kimai-api]
 zalezy_od: ["0059"]
 utworzono: 2026-09-26 13:27
-zaktualizowano: 2026-09-26 13:27
-zamknieto:
+zaktualizowano: 2026-09-26 13:35
+zamknieto: 2026-09-26 13:35
 ---
 
 # 0060 — Zmiana projektu i rodzaju pracy trwającego wpisu (F-34)
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -33,26 +33,30 @@ Prośba użytkownika; projekt zaakceptowany 2026-09-26 13:27:
 
 ## Kryteria akceptacji
 
-- [ ] `Tracker.change_work` (TDD), test kontraktowy `PATCH project/activity` na Kimai w Dockerze
-- [ ] Formularz: aktywne listy przy trwającym wpisie, zapis, błąd, odświeżanie (TDD)
-- [ ] Dokumentacja F-34, pełny zestaw kontroli z CI
+- [x] `Tracker.change_work` (TDD), test kontraktowy `PATCH project/activity` na Kimai w Dockerze
+- [x] Formularz: aktywne listy przy trwającym wpisie, zapis, błąd, odświeżanie (TDD)
+- [x] Dokumentacja F-34, pełny zestaw kontroli z CI
 
 ## Kroki
 
-- [ ] Rdzeń
-- [ ] Formularz i kontroler
-- [ ] Test kontraktowy, dokumentacja
+- [x] Rdzeń
+- [x] Formularz i kontroler
+- [x] Test kontraktowy, dokumentacja
 
 ## Materiały
 
-Brak.
+- [testy/pytest-2026-09-26.txt](testy/pytest-2026-09-26.txt) — końcowy przebieg:
+  `459 passed, 1 skipped, 14 deselected in 3.53s`
 
 ## Dziennik
 
 ### 2026-09-26
 
 - **13:27** Utworzono i start.
+- **13:35** Zamknięte: 459 passed, 1 skipped, 14 deselected in 3.53s, commity na main.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+F-34: [Tracker.change_work](../../../src/ws_tracker_tray/core/tracker.py), aktywne listy w
+[form.py](../../../src/ws_tracker_tray/ui/form.py), odmowa przywraca listy; test kontraktowy (także konto bez billable).
+Sprawdzone na żywo. Wydanie 0.9.1.

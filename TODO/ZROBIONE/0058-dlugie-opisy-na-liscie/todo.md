@@ -2,19 +2,19 @@
 noteId: "e7c381289b2d47b39a7f1bbda6303b95"
 tytul: "Długie opisy na liście ostatnich wpisów: 2,5 linii i rozwijanie kliknięciem"
 numer: "0058"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, ui, lista-wpisow]
 zalezy_od: []
 utworzono: 2026-09-26 13:16
-zaktualizowano: 2026-09-26 13:16
-zamknieto:
+zaktualizowano: 2026-09-26 13:35
+zamknieto: 2026-09-26 13:35
 ---
 
 # 0058 — Długie opisy na liście ostatnich wpisów: 2,5 linii i rozwijanie kliknięciem
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -32,26 +32,30 @@ Zrzut od użytkownika nie trafia do repozytorium — pokazuje prawdziwe firmowe 
 
 ## Kryteria akceptacji
 
-- [ ] Opis wyrównany do góry, widoczne najwyżej 2,5 linii
-- [ ] Kliknięcie w wiersz rozwija i zwija opis; stan przetrwa odświeżenie listy
-- [ ] Testy (TDD), dokumentacja F-08, pełny zestaw kontroli z CI
+- [x] Opis wyrównany do góry, widoczne najwyżej 2,5 linii
+- [x] Kliknięcie w wiersz rozwija i zwija opis; stan przetrwa odświeżenie listy
+- [x] Testy (TDD), dokumentacja F-08, pełny zestaw kontroli z CI
 
 ## Kroki
 
-- [ ] Testy padające
-- [ ] Implementacja w `ui/recent.py`
-- [ ] Dokumentacja
+- [x] Testy padające
+- [x] Implementacja w `ui/recent.py`
+- [x] Dokumentacja
 
 ## Materiały
 
-Brak (zrzut zgłoszenia zawiera firmowe dane — poza repozytorium).
+- [testy/pytest-2026-09-26.txt](testy/pytest-2026-09-26.txt) — końcowy przebieg:
+  `459 passed, 1 skipped, 14 deselected in 3.53s`
 
 ## Dziennik
 
 ### 2026-09-26
 
 - **13:16** Utworzono i start.
+- **13:35** Zamknięte: 459 passed, 1 skipped, 14 deselected in 3.53s, commity na main.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+[recent.py](../../../src/ws_tracker_tray/ui/recent.py): opis wyrównany do góry, 2,5 linii, kliknięcie w wiersz
+rozwija/zwija; stan przetrwa odświeżenie. Testy w [test_recent.py](../../../tests/ui/test_recent.py). Sprawdzone przez
+użytkownika na żywo. Wydanie 0.9.1.

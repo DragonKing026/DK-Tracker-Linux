@@ -94,7 +94,7 @@ identyfikatora, zrzuty ekranu w repozytorium OSTree).
 
 ## Dystrybucja — opcje
 
-Wybrana (zadanie [0045](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md)): **plik `.flatpak` w wydaniach
+Wybrana (zadanie [0045](../../TODO/ZROBIONE/0045-plan4-projekt-flatpak/todo.md)): **plik `.flatpak` w wydaniach
 na GitHubie i podpisane repozytorium na GitHub Pages** (aktualizacje przez `flatpak update`); Flathub później.
 
 | Opcja | Zalety | Wady |

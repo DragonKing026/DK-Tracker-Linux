@@ -26,7 +26,7 @@ Wykonać **zadanie 1** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
 - Plan: [2026-09-26-plan-4-flatpak.md](../../../docs/plany/2026-09-26-plan-4-flatpak.md) — kod, testy i komendy każdego
   kroku.
 - Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje:
-  [0045](../../W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md).
+  [0045](../0045-plan4-projekt-flatpak/todo.md).
 - Pliki:
 
 - Modify: `pyproject.toml`, `src/kimai_tray/__init__.py`, `tests/core/test_package.py`

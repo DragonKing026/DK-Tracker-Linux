@@ -101,7 +101,7 @@ stateDiagram-v2
 - Zmiana projektu przebudowuje czynności i resetuje billable do domyślnego.
 - Wtyczka: ostatni wybór pamiętany lokalnie i przywracany, jeśli nadal istnieje na liście. U nas najpierw projekt i
   rodzaj pracy **najnowszego wpisu w Kimai** (także zaczętego w przeglądarce), a gdy wpisów nie ma — zapamiętany wybór
-  (prośba użytkownika, [0061](../../TODO/W-TRAKCIE/0061-domyslnie-ostatni-wpis/todo.md)).
+  (prośba użytkownika, [0061](../../TODO/ZROBIONE/0061-domyslnie-ostatni-wpis/todo.md)).
 - W trakcie trwania wpisu projekt i czynność są **zablokowane** (zmiana = inny wpis,
   nie korekta).
 
@@ -135,7 +135,7 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
   opisu”), „projekt - czynność”, czas trwania, zakres `HH:MM-HH:MM`, przycisk `$` (F-09), przycisk ▶ wznów (F-10).
 - Opis: wtyczka pokazuje 2 linie; u nas **2,5 linii od góry** (ucięta połowa trzeciej sygnalizuje dalszy tekst), a
   **kliknięcie w wiersz rozwija cały opis**, drugie zwija. Rozwinięcie przetrwa odświeżenie listy
-  ([0058](../../TODO/W-TRAKCIE/0058-dlugie-opisy-na-liscie/todo.md), prośba użytkownika).
+  ([0058](../../TODO/ZROBIONE/0058-dlugie-opisy-na-liscie/todo.md), prośba użytkownika).
 - Pod listą link „Moje czasy” → `{url}/{locale}/timesheet/`. Kimai nie ma trasy bez
   locale; locale brane z `entry.user.language` i zapamiętywane.
 
@@ -275,7 +275,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
   opis. Nagłówek „Wyniki (n)”; brak trafień → „Żaden wpis nie ma tego tekstu w opisie.”; błąd → pasek błędu okna.
 - Trwający wpis nie jest wynikiem (jest na pasku). `$` na wyniku odświeża wyniki. Odpowiedź dla starszego tekstu jest
   pomijana. Esc w polu czyści wyszukiwanie; drugi Esc zamyka okno. Odświeżanie co minutę nie zastępuje wyników.
-- Zadanie: [0059](../../TODO/W-TRAKCIE/0059-wyszukiwanie-wpisow/todo.md).
+- Zadanie: [0059](../../TODO/ZROBIONE/0059-wyszukiwanie-wpisow/todo.md).
 
 ## F-34 Zmiana projektu i rodzaju pracy trwającego wpisu
 
@@ -287,7 +287,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
   uprawnienia do billable: Kimai odrzuca pole → przełącznik blokowany, zmiana zapisywana bez niego.
 - Odświeżanie nie cofa wyboru w toku; odmowa Kimai → pasek błędu i listy jak w Kimai. Komunikat „Projekt i rodzaj
   pracy zapisane.”. Sprawdzone testem kontraktowym na Kimai 2.67.0.
-- Zadanie: [0060](../../TODO/W-TRAKCIE/0060-zmiana-projektu-trwajacego-wpisu/todo.md).
+- Zadanie: [0060](../../TODO/ZROBIONE/0060-zmiana-projektu-trwajacego-wpisu/todo.md).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 
