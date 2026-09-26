@@ -99,7 +99,9 @@ stateDiagram-v2
 - Kropka z kolorem projektu (`project.color`), szara gdy nic nie wybrano.
 - Czynności: `GET /api/activities?visible=1&globals=true&project={id}`, sortowane.
 - Zmiana projektu przebudowuje czynności i resetuje billable do domyślnego.
-- Ostatni wybór pamiętany lokalnie i przywracany, jeśli nadal istnieje na liście.
+- Wtyczka: ostatni wybór pamiętany lokalnie i przywracany, jeśli nadal istnieje na liście. U nas najpierw projekt i
+  rodzaj pracy **najnowszego wpisu w Kimai** (także zaczętego w przeglądarce), a gdy wpisów nie ma — zapamiętany wybór
+  (prośba użytkownika, [0061](../../TODO/W-TRAKCIE/0061-domyslnie-ostatni-wpis/todo.md)).
 - W trakcie trwania wpisu projekt i czynność są **zablokowane** (zmiana = inny wpis,
   nie korekta).
 
