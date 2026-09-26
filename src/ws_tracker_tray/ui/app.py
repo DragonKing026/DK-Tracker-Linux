@@ -160,6 +160,7 @@ class Controller(QObject):
         form.beginCommitted.connect(lambda value: self._act(lambda t: t.update_begin(value)))
         form.billableChanged.connect(self._on_running_billable)
         form.projectChosen.connect(self._load_activities)
+        form.workChanged.connect(self._change_work)
         recent.resumeRequested.connect(lambda entry: self._act(lambda t: t.resume(entry)))
         recent.billableRequested.connect(
             lambda entry_id, value: self._act(
@@ -284,6 +285,21 @@ class Controller(QObject):
 
         self.popup.clear_error()
         self.kimai.submit(lambda: (job(tracker), tracker.warnings()), done, self._on_error)
+
+    def _change_work(self, project_id: int, activity_id: int) -> None:
+        """F-34. A refusal puts the pickers back to what Kimai still has."""
+        tracker = self._tracker
+        if tracker is None:
+            return
+
+        def refused(error: Exception) -> None:
+            self.popup.form.reset_work()
+            self._on_error(error)
+
+        self.popup.clear_error()
+        self.kimai.submit(
+            lambda: (tracker.change_work(project_id, activity_id), tracker.warnings()), self._apply, refused
+        )
 
     def _search(self, term: str) -> None:
         """F-33. Answers for an older term are dropped by the list itself."""

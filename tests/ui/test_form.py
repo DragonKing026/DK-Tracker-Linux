@@ -84,9 +84,10 @@ def test_customer_headers_cannot_be_chosen(form):
     assert all(not model.item(row).isEnabled() for row in headers)
 
 
-def test_running_entry_locks_pickers_and_shows_times(form):
+def test_running_entry_keeps_pickers_open_and_shows_times(form):
+    """F-34: unlike the add-on, the running entry's project and activity can change."""
     form.render(replace(CATALOG, running=(RUNNING,)), WARSAW, NOW)
-    assert not form.project.isEnabled() and not form.activity.isEnabled()
+    assert form.project.isEnabled() and form.activity.isEnabled()
     assert form.toggle.property("state") == "stop"
     assert not form.times.isHidden()
     assert form.begin.text() == "16:42"  # 14:42 UTC in Warsaw
@@ -320,3 +321,67 @@ def test_search_reads_each_row_a_bounded_number_of_times(qtbot):
 
     assert proxy.rowCount() == 2
     assert Counting.reads < 10 * model.rowCount()
+
+
+# -- F-34: project and activity of the running entry ----------------------------------
+
+WDROZENIE = Activity(3, "Wdrożenie", True, 2)
+
+
+def run(form, qtbot):
+    with qtbot.waitSignal(form.projectChosen) as asked:
+        form.render(replace(CATALOG, running=(RUNNING,)), WARSAW, NOW)
+    assert asked.args == [1]  # the running project's activities, to offer a change
+    form.set_activities(ACTIVITIES, remembered_activity=None)
+    assert [form.activity.itemData(i) for i in range(form.activity.count())] == [None, 1, 2]
+    assert form.activity.currentData() == 1
+
+
+def pick_activity(form, activity_id):
+    index = form.activity.findData(activity_id)
+    form.activity.setCurrentIndex(index)
+    form.activity.activated.emit(index)
+
+
+def test_choosing_another_activity_saves_at_once(form, qtbot):
+    run(form, qtbot)
+    with qtbot.waitSignal(form.workChanged) as signal:
+        pick_activity(form, 2)
+    assert signal.args == [1, 2]
+
+
+def test_another_project_with_the_same_activity_saves_at_once(form, qtbot):
+    run(form, qtbot)
+    with qtbot.waitSignal(form.projectChosen):
+        form.select_project(2)
+    with qtbot.waitSignal(form.workChanged) as signal:
+        form.set_activities(ACTIVITIES, remembered_activity=None)
+    assert signal.args == [2, 1]
+
+
+def test_another_project_without_the_activity_waits_for_a_choice(form, qtbot):
+    run(form, qtbot)
+    form.select_project(2)
+    with qtbot.assertNotEmitted(form.workChanged):
+        form.set_activities([WDROZENIE], remembered_activity=None)
+    assert form.activity.currentData() is None  # "choose the activity"
+    with qtbot.waitSignal(form.workChanged) as signal:
+        pick_activity(form, 3)
+    assert signal.args == [2, 3]
+
+
+def test_a_refresh_does_not_undo_a_change_in_progress(form, qtbot):
+    run(form, qtbot)
+    form.select_project(2)
+    form.set_activities([WDROZENIE], remembered_activity=None)
+    form.render(replace(CATALOG, running=(RUNNING,)), WARSAW, NOW)
+    assert form.project.currentData() == 2
+
+
+def test_reset_work_shows_the_running_entry_again(form, qtbot):
+    run(form, qtbot)
+    form.select_project(2)
+    form.set_activities([WDROZENIE], remembered_activity=None)
+    form.reset_work()
+    assert form.project.currentData() == 1
+    assert form.activity.currentData() == 1

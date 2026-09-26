@@ -107,6 +107,7 @@ class TrackerForm(QWidget):
     beginCommitted = Signal(str)
     billableChanged = Signal(bool)  # the running entry's switch
     projectChosen = Signal(object)  # project id or None — the controller loads its activities
+    workChanged = Signal(int, int)  # F-34: new project and activity of the running entry
     edited = Signal()  # any typing: the window clears a stale error, as the add-on does
 
     def __init__(self, t: Callable[..., str], parent: QWidget | None = None) -> None:
@@ -115,6 +116,9 @@ class TrackerForm(QWidget):
         self.save_delay_ms = 1200  # F-07: quiet save 1.2 s after typing stops
         self._t = t
         self._running: Entry | None = None
+        self._pending_project: int | None = (
+            None  # F-34: a project chosen for the running entry, not saved yet
+        )
         self._shown_text = ""  # the description as last rendered; differs once the user types
         self._projects: dict[int, Project] = {}
         self._non_billable: frozenset[int] = frozenset()
@@ -216,13 +220,17 @@ class TrackerForm(QWidget):
         if running is not None and self.project.findData(running.project_id) < 0:
             # The running entry's project may be missing from the catalog (hidden, archived).
             self.project.addItem(dot(running.project_color), running.project_name or "?", running.project_id)
-        self._select(self.project, running.project_id if running is not None else chosen)
+        if running is not None:
+            chosen = self._pending_project if self._pending_project is not None else running.project_id
+        self._select(self.project, chosen)
         if self._running is None:
             self._reset_billable()
 
     def set_activities(self, activities: Iterable[Activity], remembered_activity: int | None) -> None:
-        if self._running is not None:
-            return  # the picker holds the running entry's activity; rebuilt after stop
+        running = self._running
+        if running is not None:
+            self._running_activities(activities, running)
+            return
         chosen = self.activity.currentData() or remembered_activity
         self._activities = {activity.id: activity for activity in activities}
         self.activity.clear()
@@ -232,6 +240,12 @@ class TrackerForm(QWidget):
         self._select(self.activity, chosen)
         if not self._touched:
             self._reset_billable()
+
+    def reset_work(self) -> None:
+        """F-34: a change Kimai refused — show the running entry's own project and activity again."""
+        self._pending_project = None
+        if self._running is not None:
+            self._show_work(self._running, reload=True)
 
     def select_project(self, project_id: int | None) -> None:
         self._select(self.project, project_id)
@@ -282,19 +296,52 @@ class TrackerForm(QWidget):
             self.begin.setText(hhmm(entry.begin, self._tz))  # type: ignore[arg-type]
         if changed:
             self.end.clear()
-        if entry.project_id not in self._projects:
-            self.project.addItem(dot(entry.project_color), entry.project_name or "?", entry.project_id)
-        self._select(self.project, entry.project_id)
-        self.activity.clear()
-        self.activity.addItem(entry.activity_name or "", entry.activity_id)
-        self.project.setEnabled(False)
-        self.activity.setEnabled(False)
+        pending = self._pending_project
+        if pending is not None and (entry.project_id, entry.activity_id) == (
+            pending,
+            self.activity.currentData(),
+        ):
+            self._pending_project = pending = None  # Kimai has the change now
+        if pending is None:
+            stale = (self.project.currentData(), self.activity.currentData()) != (
+                entry.project_id,
+                entry.activity_id,
+            )
+            self._show_work(entry, reload=changed or stale)
         self._billable = entry.billable
         self._touched = False
         self.times.show()
         self.clock.show()
 
+    def _show_work(self, entry: Entry, *, reload: bool) -> None:
+        if self.project.findData(entry.project_id) < 0:
+            self.project.addItem(dot(entry.project_color), entry.project_name or "?", entry.project_id)
+        self._select(self.project, entry.project_id)
+        if reload:
+            # The entry's own activity until the project's list arrives (to offer a change, F-34).
+            self.activity.clear()
+            self.activity.addItem(entry.activity_name or "", entry.activity_id)
+            self.projectChosen.emit(entry.project_id)
+
+    def _running_activities(self, activities: Iterable[Activity], entry: Entry) -> None:
+        self._activities = {activity.id: activity for activity in activities}
+        self.activity.clear()
+        self.activity.addItem(self._t("chooseActivity"), None)
+        for activity in self._activities.values():
+            self.activity.addItem(activity.name, activity.id)
+        pending = self._pending_project
+        if pending is None:
+            if self.activity.findData(entry.activity_id) < 0:
+                self.activity.addItem(entry.activity_name or "?", entry.activity_id)
+            self._select(self.activity, entry.activity_id)
+        elif entry.activity_id in self._activities:
+            self._select(self.activity, entry.activity_id)
+            self.workChanged.emit(pending, entry.activity_id)
+        else:
+            self._select(self.activity, None)  # the new project needs its own activity first
+
     def _enter_idle(self) -> None:
+        self._pending_project = None
         self._save_timer.stop()
         self._set_text("")
         self.end.clear()
@@ -358,12 +405,25 @@ class TrackerForm(QWidget):
             self._touched = True
 
     def _on_project(self, *, user: bool) -> None:
+        running = self._running
+        if running is not None:
+            chosen = self.project.currentData()
+            self._pending_project = None if chosen == running.project_id else chosen
+            self.projectChosen.emit(chosen)
+            return
         if user:
             self._touched = False
             self._reset_billable()
         self.projectChosen.emit(self.project.currentData())
 
     def _on_activity(self) -> None:
+        running = self._running
+        if running is not None:
+            project, activity = self.project.currentData(), self.activity.currentData()
+            if project is not None and activity is not None:
+                if (project, activity) != (running.project_id, running.activity_id):
+                    self.workChanged.emit(project, activity)
+            return
         if not self._touched:
             self._reset_billable()
 

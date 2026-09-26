@@ -446,3 +446,36 @@ def test_search_error_is_shown_in_the_window(harness):
     recent.searchRequested.emit("raport")
     h.settle()
     assert h.controller.popup.error.isVisibleTo(h.controller.popup)
+
+
+# -- F-34: changing the running entry's project and activity -------------------------
+
+
+def running_harness(harness):
+    h = harness()
+    h.client.add(make_entry(7, NOW - timedelta(minutes=40), description="Formularz rezerwacji — walidacja"))
+    h.controller.refresh_full()
+    h.controller.show_popup()  # the pickers live in the window, which loads the catalog
+    h.settle()
+    return h
+
+
+def test_changing_the_project_of_the_running_entry_saves_it(harness):
+    h = running_harness(harness)
+    h.controller.popup.form.workChanged.emit(2, 1)
+    h.settle()
+    assert ("update", 7, {"project": 2, "activity": 1, "billable": False}) in h.client.calls
+    assert h.state.snapshot.current.project_id == 2
+
+
+def test_a_refused_change_shows_the_error_and_the_entry_as_it_is(harness):
+    h = running_harness(harness)
+    form = h.controller.popup.form
+    h.client.fail["update"] = [ApiError(ErrorKind.FORBIDDEN, 403, "exported")]
+    form.select_project(2)  # its activities include the running one, so the form saves by itself
+    h.settle()
+    assert [call for call in h.client.calls if call[0] == "update"] == [
+        ("update", 7, {"project": 2, "activity": 1, "billable": False})
+    ]
+    assert h.controller.popup.error.isVisibleTo(h.controller.popup)
+    assert form.project.currentData() == 1
