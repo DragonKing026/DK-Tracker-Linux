@@ -86,6 +86,9 @@ identyfikatora, zrzuty ekranu w repozytorium OSTree).
 - [Manifest](../../flatpak/pl.websystems.WsTrackerTray.yml) — runtime, baza PySide, uprawnienia, moduły.
 - [python3-deps.yaml](../../flatpak/python3-deps.yaml) — httpx i jeepney (flatpak-pip-generator).
 - [buduj.sh](../../flatpak/buduj.sh) — budowa lokalna.
+- [publikuj.sh](../../flatpak/publikuj.sh) i [pages.py](../../flatpak/pages.py) — podpis repozytorium OSTree i strona
+  GitHub Pages (`.flatpakrepo`, `.flatpakref`, `index.html`).
+- [klucz-gpg.sh](../../flatpak/klucz-gpg.sh) — jednorazowo: klucz podpisujący repozytorium.
 - [.desktop](../../data/pl.websystems.WsTrackerTray.desktop) i
   [MetaInfo](../../data/pl.websystems.WsTrackerTray.metainfo.xml).
 
