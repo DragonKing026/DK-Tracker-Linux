@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, plan-4, flatpak, projekt]
 zalezy_od: ["0044"]
 utworzono: 2026-09-26 10:19
-zaktualizowano: 2026-09-26 11:01
+zaktualizowano: 2026-09-26 11:24
 ---
 
 # 0045 — Plan 4 — projekt paczki Flatpak (decyzje przed planem)
@@ -31,7 +31,7 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 
 ## Kryteria akceptacji
 
-- [ ] Każda otwarta decyzja rozstrzygnięta i zapisana
+- [x] Każda otwarta decyzja rozstrzygnięta i zapisana
 - [ ] Plan 4 napisany, zweryfikowany i zaakceptowany przez użytkownika
 
 ## Decyzje
@@ -60,3 +60,6 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 - **10:23** Dystrybucja: wariant C (paczka + Actions + repozytorium na Pages); repozytorium publiczne.
 - **10:24** Nazwa: Kimai Tray; wersja 0.9.0 (beta).
 - **11:01** Próba budowy w obrazie Flathuba udana (71 MB); test paczki z użytkownikiem: wszystko działa.
+- **11:24** Plan 4 napisany ([plan](../../../docs/plany/2026-09-26-plan-4-flatpak.md)); kod z planu w świeżej kopii: 411
+  testów + test klucza (zadanie 8), `actionlint` i shellcheck czyste, próba publikacji z podpisem w kontenerze udana.
+  Czeka na akceptację.
