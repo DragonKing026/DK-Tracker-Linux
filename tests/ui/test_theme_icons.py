@@ -112,3 +112,19 @@ def test_app_icon_keeps_a_margin_from_the_edge(qapp):
     for x in range(64):
         assert QColor.fromRgba(image.pixel(x, 0)).alpha() == 0
         assert QColor.fromRgba(image.pixel(0, x)).alpha() == 0
+
+
+def test_theme_assets_that_cannot_be_written_are_skipped(tmp_path):
+    from kimai_tray.ui.theme import write_assets
+
+    blocker = tmp_path / "not-a-directory"
+    blocker.write_text("")
+    assert write_assets(DARK, blocker / "theme") == {}
+    assert "QComboBox::down-arrow" not in stylesheet(DARK, {})
+
+
+def test_asset_paths_with_spaces_are_quoted(tmp_path):
+    from kimai_tray.ui.theme import write_assets
+
+    assets = write_assets(DARK, tmp_path / "Kimai App" / "theme")
+    assert f'url("{assets["chevron"]}")' in stylesheet(DARK, assets)

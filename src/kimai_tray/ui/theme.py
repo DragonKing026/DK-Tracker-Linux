@@ -64,12 +64,15 @@ def write_assets(p: dict[str, str], directory: Path | None = None) -> dict[str, 
     """QSS can only take images from files: the smooth combo-box chevron, in the palette's colours."""
     cache = os.environ.get("XDG_CACHE_HOME") or str(Path.home() / ".cache")
     directory = directory or Path(cache) / "kimai-tray" / "theme"
-    directory.mkdir(parents=True, exist_ok=True)
     assets = {}
-    for name, color in (("chevron", p["muted"]), ("chevron_disabled", p["line"])):
-        path = directory / f"{name}-{color.lstrip('#')}.svg"
-        path.write_text(_CHEVRON.format(color=color), encoding="utf-8")
-        assets[name] = path.as_posix()
+    try:
+        directory.mkdir(parents=True, exist_ok=True)
+        for name, color in (("chevron", p["muted"]), ("chevron_disabled", p["line"])):
+            path = directory / f"{name}-{color.lstrip('#')}.svg"
+            path.write_text(_CHEVRON.format(color=color), encoding="utf-8")
+            assets[name] = path.as_posix()
+    except OSError:
+        return {}  # a read-only or full cache only costs the smooth arrows: Qt draws its own
     return assets
 
 
@@ -78,8 +81,8 @@ def stylesheet(p: dict[str, str], assets: dict[str, str] | None = None) -> str:
     assets = assets or {}
     arrows = (
         f"""
-#popup QComboBox::down-arrow {{ image: url({assets["chevron"]}); width: 12px; height: 12px; }}
-#popup QComboBox::down-arrow:disabled {{ image: url({assets["chevron_disabled"]}); }}"""
+#popup QComboBox::down-arrow {{ image: url("{assets["chevron"]}"); width: 12px; height: 12px; }}
+#popup QComboBox::down-arrow:disabled {{ image: url("{assets["chevron_disabled"]}"); }}"""
         if assets
         else ""
     )
