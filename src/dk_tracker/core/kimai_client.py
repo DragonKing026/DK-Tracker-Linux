@@ -83,7 +83,7 @@ class KimaiClient:
         """Every entry starting inside the window; Kimai answers 404 past the last page."""
         collected: list[Entry] = []
         for page in range(1, max_pages + 1):
-            params = {"begin": begin, "end": end, "size": str(page_size), "page": str(page)}
+            params = {"begin": begin, "end": end, "size": str(page_size), "page": str(page), "full": "true"}
             try:
                 response = self._request("GET", "/api/timesheets", params=params)
             except ApiError as error:
@@ -113,6 +113,31 @@ class KimaiClient:
         if billable is not None:  # untouched switch: Kimai derives billable itself
             body["billable"] = billable
         return _one(Entry.from_api, self._json("POST", "/api/timesheets", json=body))
+
+    def create_entry(
+        self,
+        *,
+        project_id: int,
+        activity_id: int,
+        description: str,
+        begin: str,
+        end: str,
+        billable: bool | None = None,
+    ) -> Entry:
+        """A finished entry typed in by hand (Plan 5): Kimai takes begin and end in one POST."""
+        body: dict[str, Any] = {
+            "begin": begin,
+            "end": end,
+            "project": project_id,
+            "activity": activity_id,
+            "description": description,
+        }
+        if billable is not None:
+            body["billable"] = billable
+        return _one(Entry.from_api, self._json("POST", "/api/timesheets", json=body))
+
+    def delete_entry(self, entry_id: int) -> None:
+        self._request("DELETE", f"/api/timesheets/{entry_id}")
 
     def stop(self, entry_id: int) -> Entry:
         return _one(Entry.from_api, self._json("PATCH", f"/api/timesheets/{entry_id}/stop"))
