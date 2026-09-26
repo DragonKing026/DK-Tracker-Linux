@@ -64,6 +64,26 @@ Użyte akcje:
   `contents: write` — zadanie `wydanie`. Zadanie z kluczem GPG nie ma uprawnień zapisu.
 - Ustawienia repozytorium → Pages → źródło **GitHub Actions** ([github-pages](github-pages.md)).
 
+## Przypięte akcje
+
+Akcje firm trzecich w [wydanie.yml](../../.github/workflows/wydanie.yml) są przypięte do commita (SHA), bo zadanie z
+nimi dostaje klucz prywatny GPG — przesunięty tag nie zmieni uruchamianego kodu. Akcje GitHuba (`actions/*`) zostają na
+tagach. Pilnuje tego `test_third_party_actions_are_pinned_to_a_commit` ([test_pakiet.py](../../tests/test_pakiet.py)).
+
+| Akcja | Wersja | Commit |
+| --- | --- | --- |
+| crazy-max/ghaction-import-gpg | v6.3.0 | `e89d40939c28e39f97cf32126055eeae86ba74ec` |
+| flatpak/flatpak-github-actions/flatpak-builder | v6.8 | `79327416609af08178ad73b352877e51450790b3` |
+| softprops/action-gh-release | v2.6.2 | `3bb12739c298aeb8a4eeaf626c5b8d85266b0e65` |
+
+Aktualizacja ręczna: przejrzeć zmiany między wersjami w repozytorium akcji, potem
+
+```bash
+gh api repos/<właściciel>/<akcja>/commits/<nowy-tag> --jq .sha
+```
+
+i wpisać SHA z komentarzem `# <nowy-tag>`.
+
 ## Pułapki i ograniczenia
 
 > [!warning]
