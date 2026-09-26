@@ -279,3 +279,47 @@ def test_remembered_size_never_exceeds_the_screen(window):
     popup.set_preferred_size(QSize(5000, 5000))  # remembered on a 4K monitor, started on a laptop
     assert popup.width() <= area.width() - 24
     assert popup.height() <= area.height() - 24
+
+
+def test_grip_on_a_layer_surface_counts_from_the_drawn_size(window, qtbot):
+    """Wayland gives a layer surface no global position, and pointer positions refer to the size
+    last drawn: fast moves arrive before the window redraws, and adding each one to the requested
+    size multiplied the step (tested live: smooth when slow, jumps when fast and growing)."""
+    from PySide6.QtCore import QEvent, QPointF, QSize
+    from PySide6.QtGui import QMouseEvent
+    from PySide6.QtWidgets import QApplication
+
+    _, popup = window
+    popup.set_preferred_size(QSize(460, 600))
+    popup.placement_mode = "layer"
+    popup.show()
+    QApplication.processEvents()  # drawn at 460 x 600
+    nowhere = QPointF(0, 0)  # what a layer surface reports as the global cursor position
+
+    def send(kind, x, y, buttons=Qt.MouseButton.LeftButton):
+        event_type = {
+            "press": QEvent.Type.MouseButtonPress,
+            "move": QEvent.Type.MouseMove,
+            "release": QEvent.Type.MouseButtonRelease,
+        }[kind]
+        event = QMouseEvent(
+            event_type,
+            QPointF(x, y),
+            nowhere,
+            Qt.MouseButton.LeftButton,
+            buttons,
+            Qt.KeyboardModifier.NoModifier,
+        )
+        QApplication.sendEvent(popup.grip, event)
+
+    send("press", 3, 3)
+    send("move", -17, -7)  # 20 px left, 10 px up
+    assert popup.size() == QSize(480, 610)
+    send("move", -27, -17)  # fast: still relative to the 460 x 600 drawing, 30 and 20 px out
+    assert popup.size() == QSize(490, 620)
+    QApplication.processEvents()  # drawn at 490 x 620; anchored bottom-right, the grip is under the cursor
+    send("move", 3, 3)
+    assert popup.size() == QSize(490, 620)
+    with qtbot.waitSignal(popup.sizeChosen) as signal:
+        send("release", 3, 3, Qt.MouseButton.NoButton)
+    assert signal.args == [QSize(490, 620)]

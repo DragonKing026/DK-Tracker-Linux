@@ -65,13 +65,27 @@ class ResizeGrip(QWidget):
         edges = Qt.Edge.TopEdge | Qt.Edge.LeftEdge
         if self._window.placement_mode != "layer" and handle is not None and handle.startSystemResize(edges):
             return
-        self._start = (event.globalPosition().toPoint(), self._window.size())
+        if self._window.placement_mode == "layer":
+            self._start = (event.position().toPoint(), QSize())  # the size comes from the drawn window
+        else:
+            self._start = (event.globalPosition().toPoint(), self._window.size())
 
     def mouseMoveEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
-        if self._start is not None:
-            origin, size = self._start
-            moved = origin - event.globalPosition().toPoint()
-            self._window.set_preferred_size(QSize(size.width() + moved.x(), size.height() + moved.y()))
+        if self._start is None:
+            return
+        origin, size = self._start
+        if self._window.placement_mode == "layer":
+            # Wayland tells a layer surface nothing about where it is (global positions are made
+            # up) and reports the pointer against the size last drawn, which lags behind fast
+            # moves. The window is anchored bottom-right, so the grip's offset from where it was
+            # pressed, added to the drawn size, is the wanted size — however many moves arrive
+            # before the next redraw.
+            moved = origin - event.position().toPoint()
+            drawn = self._window.drawn_size
+            self._window.set_preferred_size(QSize(drawn.width() + moved.x(), drawn.height() + moved.y()))
+            return
+        moved = origin - event.globalPosition().toPoint()
+        self._window.set_preferred_size(QSize(size.width() + moved.x(), size.height() + moved.y()))
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
         if self._start is not None:
@@ -103,6 +117,7 @@ class QuickWindow(QWidget):
         self.setMinimumSize(MIN_WIDTH, MIN_HEIGHT)
         self.resize(WIDTH, HEIGHT)
         self._preferred = QSize(WIDTH, HEIGHT)  # the user's size; used while there are lists to show
+        self.drawn_size = QSize(WIDTH, HEIGHT)  # the size last painted: what pointer positions refer to
         self._compact: bool | None = None
         self._error_from_refresh = False  # the red strip came from a failed refresh, not from an action
         self.quit_on_close = False
@@ -280,6 +295,10 @@ class QuickWindow(QWidget):
         if not self._compact and self.isVisible() and self.size() != self._reported:
             self._reported = self.size()
             self.sizeChosen.emit(self.size())
+
+    def paintEvent(self, event) -> None:  # noqa: N802 - Qt API
+        super().paintEvent(event)
+        self.drawn_size = self.size()
 
     def resizeEvent(self, event) -> None:  # noqa: N802 - Qt API
         super().resizeEvent(event)
