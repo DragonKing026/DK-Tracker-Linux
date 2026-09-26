@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, ui, qml, okno-glowne, wydanie]
 zalezy_od: ["0062-aplikacja-ws-tracker"]
 utworzono: 2026-09-26 17:04
-zaktualizowano: 2026-09-26 17:23
+zaktualizowano: 2026-09-26 17:51
 zamknieto:
 ---
 
@@ -60,6 +60,11 @@ Brak.
 - **17:04** Utworzono i start.
 - **17:23** Zadania 1–11 zrobione; recenzja końcowa: 4 krytyczne i 6 ważnych uwag poprawionych z testami,
   7 drobnych odłożonych (lista w dzienniku planu). Czeka: test na żywo z użytkownikiem i wydanie 0.10.0.
+- **17:51** Test na żywo (użytkownik): ustawienia mają być stroną okna głównego; kolory — tekst zlewał się z tłem
+  (na KDE styl `org.kde.desktop` zamiast Basic); pola nie były wyróżnione; „Duplikuj” zbędny. Poprawione: zawsze
+  styl Basic, pola jak tekst z ramką po najechaniu, kolorowe ikony, projekt w kolorze projektu, kosz zamiast menu,
+  dzień i godziny ręcznego wpisu w drugiej linii, ustawienia jako strona okna (bez osobnego okna). Worktree
+  prototypu usunięty.
 
 ## Wynik
 
