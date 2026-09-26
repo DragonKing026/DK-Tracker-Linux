@@ -127,3 +127,28 @@ def test_build_does_not_copy_the_virtualenv_or_git():
     app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker-tray")
     skipped = set(app["sources"][0]["skip"])
     assert {".venv", ".git"} <= skipped
+
+
+# -- Task 6: GitHub Actions and the signing key ------------------------------------
+
+
+def workflow(name: str) -> dict:
+    import yaml
+
+    return yaml.safe_load((ROOT / ".github" / "workflows" / name).read_text(encoding="utf-8"))
+
+
+def test_release_builds_in_the_same_container_as_the_local_script():
+    import re
+
+    script = (ROOT / "flatpak" / "buduj.sh").read_text(encoding="utf-8")
+    local_image = re.search(r"^IMAGE=(\S+)$", script, re.M).group(1)
+    job = workflow("wydanie.yml")["jobs"]["flatpak"]
+    assert job["container"]["image"] == local_image
+    builder = next(step for step in job["steps"] if "flatpak-builder" in step.get("uses", ""))
+    assert builder["with"]["manifest-path"] == f"flatpak/{APP_ID}.yml"
+
+
+def test_release_runs_only_for_version_tags():
+    triggers = workflow("wydanie.yml")[True]  # YAML 1.1 reads the key "on" as True
+    assert triggers == {"push": {"tags": ["v*"]}}

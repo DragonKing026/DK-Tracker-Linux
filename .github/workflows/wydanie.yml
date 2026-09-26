@@ -1,0 +1,64 @@
+# A release: pushing the tag v<version> builds the signed Flatpak, publishes the Flatpak repository
+# on GitHub Pages (updates reach everyone who installed from it) and attaches the bundle to a release.
+# Needs: secret FLATPAK_GPG_PRIVATE_KEY (flatpak/klucz-gpg.sh), Pages source = GitHub Actions.
+name: Wydanie
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write # the GitHub release with the bundle
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  flatpak:
+    runs-on: ubuntu-24.04
+    container:
+      # The same image as flatpak/buduj.sh: Flatpak 1.18.1, KDE 6.11 SDK, appstreamcli, linter.
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11
+      options: --privileged
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tag zgodny z wersją w pyproject.toml
+        run: |
+          version="$(sed -n 's/^version = "\(.*\)"/\1/p' pyproject.toml)"
+          if [ "v$version" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME, a pyproject.toml ma $version" >&2
+            exit 1
+          fi
+      - name: Klucz podpisujący repozytorium
+        id: gpg
+        uses: crazy-max/ghaction-import-gpg@v6
+        with:
+          gpg_private_key: ${{ secrets.FLATPAK_GPG_PRIVATE_KEY }}
+      - name: Budowa Flatpaka
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          manifest-path: flatpak/pl.websystems.WsTrackerTray.yml
+          bundle: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
+          gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
+      - name: Repozytorium Flatpak dla GitHub Pages
+        run: >-
+          flatpak/publikuj.sh repo site "https://dragonking026.github.io/Kimai-App--Linux-"
+          "${{ steps.gpg.outputs.fingerprint }}"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Wydanie na GitHubie z paczką
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
+          generate_release_notes: true
+          prerelease: ${{ startsWith(github.ref_name, 'v0.') }}
+  pages:
+    needs: flatpak
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Publikacja na GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
