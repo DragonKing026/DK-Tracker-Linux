@@ -56,9 +56,12 @@ class MainWindow(QObject):
         bridge.windowClosed.connect(self.closed.emit)
 
     def show(self, size: QSize | None = None) -> None:
-        if size is not None and not self.window.isVisible():
-            self.window.resize(size)
-        self.window.show()
+        # An open window is only raised: QWindow.show() is showNormal() on a desktop, so it
+        # un-maximized the window when "Settings" was clicked (live test of 0.10.0).
+        if not self.window.isVisible():
+            if size is not None:
+                self.window.resize(size)
+            self.window.show()
         self.window.raise_()
         self.window.requestActivate()
 

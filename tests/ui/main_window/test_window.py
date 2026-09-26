@@ -261,3 +261,25 @@ def test_the_basic_style_is_used_even_when_the_desktop_chose_another(qapp):
         assert QQuickStyle.name() == "Basic"
     finally:
         made.dispose()
+
+
+def test_showing_an_open_window_again_keeps_its_size(window, qtbot):
+    """Live test: clicking "Settings" called show() again and the window jumped to the remembered size."""
+    from PySide6.QtCore import QSize
+
+    window.window.resize(QSize(1234, 777))
+    qtbot.waitUntil(lambda: window.size() == QSize(1234, 777))
+    window.show(QSize(1000, 700))
+    qtbot.wait(20)
+    assert window.size() == QSize(1234, 777)
+
+
+def test_showing_a_maximized_window_again_keeps_it_maximized(window, qtbot):
+    """Live test: "Settings" called show() on the open window, and QWindow.show() is showNormal()."""
+    from PySide6.QtCore import Qt
+
+    window.window.showMaximized()
+    qtbot.waitUntil(lambda: bool(window.window.windowStates() & Qt.WindowState.WindowMaximized))
+    window.show()
+    qtbot.wait(20)
+    assert window.window.windowStates() & Qt.WindowState.WindowMaximized
