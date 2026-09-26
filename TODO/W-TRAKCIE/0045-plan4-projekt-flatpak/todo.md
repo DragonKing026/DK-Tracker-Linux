@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, plan-4, flatpak, projekt]
 zalezy_od: ["0044"]
 utworzono: 2026-09-26 10:19
-zaktualizowano: 2026-09-26 10:23
+zaktualizowano: 2026-09-26 10:24
 ---
 
 # 0045 — Plan 4 — projekt paczki Flatpak (decyzje przed planem)
@@ -43,6 +43,9 @@ a potem napisać Plan 4 (Flatpak i wydanie).
   (podpisane GPG) z automatycznymi aktualizacjami przez Discover / GNOME Software.
 - [x] **Repozytorium kodu publiczne** (`DragonKing026/Kimai-App--Linux-`) — użytkownik zmienił widoczność; Pages działa
   na darmowym koncie. Wypychanie, tagi i sekrety tylko na prośbę użytkownika.
+- [x] **Nazwa:** „Kimai Tray” zostaje nazwą docelową (identyfikator `pl.websystems.KimaiTray`).
+- [x] **Pierwsza wersja:** 0.9.0 (beta) — 1.0.0 po testach na GNOME
+      ([0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)).
 
 ## Materiały
 
@@ -52,3 +55,4 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 
 - **10:19** Utworzono. Licencja: AGPL-3.0-or-later (decyzja użytkownika).
 - **10:23** Dystrybucja: wariant C (paczka + Actions + repozytorium na Pages); repozytorium publiczne.
+- **10:24** Nazwa: Kimai Tray; wersja 0.9.0 (beta).
