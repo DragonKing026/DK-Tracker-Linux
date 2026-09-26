@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 13:19
+zaktualizowano: 2026-09-26 13:27
 ---
 
 # Tablica zadań
@@ -30,6 +30,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | ⛔ zablokowane | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
 | 0058 | [Długie opisy na liście ostatnich wpisów: 2,5 linii i rozwijanie kliknięciem](W-TRAKCIE/0058-dlugie-opisy-na-liscie/todo.md) | 🔨 w-trakcie | p1 | — |
 | 0059 | [Wyszukiwanie we wszystkich wpisach Kimai (F-33)](W-TRAKCIE/0059-wyszukiwanie-wpisow/todo.md) | 🔨 w-trakcie | p1 | [0058](W-TRAKCIE/0058-dlugie-opisy-na-liscie/todo.md) |
+| 0060 | [Zmiana projektu i rodzaju pracy trwającego wpisu (F-34)](W-TRAKCIE/0060-zmiana-projektu-trwajacego-wpisu/todo.md) | 🔨 w-trakcie | p1 | [0059](W-TRAKCIE/0059-wyszukiwanie-wpisow/todo.md) |
 
 ## Do zrobienia
 
