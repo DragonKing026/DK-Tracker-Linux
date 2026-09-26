@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, pomysl, nazwa, ui, wydanie]
 zalezy_od: ["0056"]
 utworzono: 2026-09-26 13:32
-zaktualizowano: 2026-09-26 13:32
+zaktualizowano: 2026-09-26 16:48
 zamknieto:
 ---
 
@@ -59,13 +59,15 @@ Wzór: „pigułka” z ikoną i czasem, np. `⏸ 00:02` (jak wskaźnik nagrywan
 
 ## Materiały
 
-Brak.
+- [Specyfikacja 0.10](../../../docs/specyfikacja/2026-09-26-okno-glowne-0.10.md)
+- [Plan 5: okno główne (0.10.0)](../../../docs/plany/2026-09-26-plan-5-okno-glowne.md)
 
 ## Dziennik
 
 ### 2026-09-26
 
 - **13:32** Zapisano pomysł użytkownika do omówienia po wydaniu 0.9.1.
+- **16:48** Plan 5 (0.10.0) napisany z prototypu (554 testy, 14 kontraktowych) — do akceptacji.
 
 ## Wynik
 
