@@ -41,6 +41,7 @@ POLL_MS = 60_000  # F-02: GET /api/timesheets/active once a minute
 TICK_MS = 1_000  # the clock, only while the window is open
 TRAY_MS = 15_000  # tray label and clock-jump check
 REOPEN_GUARD_SECONDS = 0.4
+SHUTDOWN_SECONDS = 5.0
 JUMP_SECONDS = 120  # wall clock moved more than monotonic time: sleep or a clock change
 _ENGLISH = Translator("en")
 
@@ -120,12 +121,14 @@ class Controller(QObject):
         if self.listener is not None:
             self.listener.stop()
             self.listener.wait(2000)
-        self.kimai.shutdown()
-        self.dbus.submit(self._desktop.close)
-        self.dbus.shutdown(wait=True)
-        self.popup.hide()
+        self.popup.hide()  # first: leaving the description field saves what was typed
         if self.tray is not None:
             self.tray.icon.hide()
+        # Queued actions still reach Kimai; a hung request does not hold the exit for long.
+        if not self.kimai.finish(timeout=SHUTDOWN_SECONDS):
+            log.warning("Kimai did not answer the last actions before quitting")
+        self.dbus.submit(self._desktop.close)
+        self.dbus.finish(timeout=SHUTDOWN_SECONDS)
 
     def idle(self) -> bool:
         """No job waits for an answer (tests wait for this)."""

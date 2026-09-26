@@ -8,6 +8,7 @@ clicked (spec, section 5). Results come back on the GUI thread through a queued 
 from __future__ import annotations
 
 import logging
+import threading
 from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
@@ -60,6 +61,16 @@ class Worker(QObject):
     @property
     def busy(self) -> bool:
         return self._inflight > 0
+
+    def finish(self, timeout: float) -> bool:
+        """Accept nothing new, run what is queued (answers are no longer delivered); False on timeout."""
+        if self._closed:
+            return True
+        self._closed = True
+        finished = threading.Event()
+        self._executor.submit(finished.set)  # runs after every job queued before it
+        self._executor.shutdown(wait=False)
+        return finished.wait(timeout)
 
     def shutdown(self, wait: bool = False) -> None:
         self._closed = True

@@ -75,3 +75,15 @@ def test_busy_until_every_answer_arrived(qtbot):
     gate.set()
     qtbot.waitUntil(lambda: not worker.busy)
     worker.shutdown()
+
+
+def test_finish_runs_what_is_queued_and_then_refuses_new_jobs(qtbot):
+    worker = Worker("test")
+    done = []
+    gate = threading.Event()
+    worker.submit(gate.wait)
+    worker.submit(lambda: done.append("queued"))
+    gate.set()
+    assert worker.finish(timeout=2.0) is True
+    assert done == ["queued"]
+    assert worker.submit(lambda: None) is False

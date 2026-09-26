@@ -324,3 +324,17 @@ def test_with_a_tray_closing_the_window_only_hides_it(harness, qtbot):
     with qtbot.assertNotEmitted(h.controller.quitRequested):
         h.controller.popup.close_button.click()
     assert not h.controller.popup.isVisible()
+
+
+def test_quitting_still_saves_a_description_typed_just_before(harness):
+    client = FakeClient()
+    client.add(make_entry(7, NOW - timedelta(minutes=30)))
+    h = harness(client=client)
+    h.controller.show_popup()
+    h.settle()
+    form = h.controller.popup.form
+    form.description.blockSignals(True)
+    form.description.setPlainText("Walidacja dat przyjazdu i wyjazdu")
+    form.description.blockSignals(False)
+    h.controller.shutdown()  # hiding the window commits the description; the worker must still run it
+    assert ("update", 7, {"description": "Walidacja dat przyjazdu i wyjazdu"}) in client.calls
