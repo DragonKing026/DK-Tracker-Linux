@@ -212,3 +212,17 @@ def test_an_ordinary_window_is_resized_by_its_frame(window):
     _, popup = window
     placement.apply(popup, "window")
     assert popup.grip.isHidden()
+
+
+def test_unconfigured_window_is_only_as_tall_as_its_content(window, qtbot):
+    from PySide6.QtCore import QSize
+
+    state, popup = window
+    popup.set_preferred_size(QSize(460, 600))
+    state.update(configured=False)
+    popup.show()
+    qtbot.waitExposed(popup)
+    assert popup.height() < 300
+    assert popup.header.height() <= popup.header.sizeHint().height() + 2  # no stretching into empty space
+    state.update(configured=True)
+    assert popup.size() == QSize(460, 600)  # the user's size comes back with the lists

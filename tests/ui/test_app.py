@@ -266,6 +266,8 @@ def test_remembered_size_is_used_at_start(qtbot):
         listen_for_clicks=False,
     )
     qtbot.addWidget(controller.popup)
+    assert controller.popup.width() == 520  # low while not configured, but as wide as the user left it
+    controller.state.update(configured=True)
     assert controller.popup.size() == QSize(520, 650)
     controller.shutdown()
 

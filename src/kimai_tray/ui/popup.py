@@ -19,6 +19,7 @@ from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
     QPushButton,
+    QSizePolicy,
     QToolButton,
     QVBoxLayout,
     QWidget,
@@ -96,6 +97,8 @@ class QuickWindow(QWidget):
         self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         self.setMinimumSize(MIN_WIDTH, MIN_HEIGHT)
         self.resize(WIDTH, HEIGHT)
+        self._preferred = QSize(WIDTH, HEIGHT)  # the user's size; used while there are lists to show
+        self._compact: bool | None = None
         self.hide_on_deactivate = True
         self.placement_mode = "frameless"
         self.hidden_by_focus_loss_at = 0.0  # monotonic time; a tray click right after must not reopen
@@ -104,7 +107,8 @@ class QuickWindow(QWidget):
         self._now = now
         self._notice_shown: object = None
 
-        header = QFrame(objectName="header")
+        self.header = header = QFrame(objectName="header")
+        header.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)  # never stretches
         self.logo = QLabel()
         self.logo.setPixmap(app_icon().pixmap(18, 18))
         self.brand = QLabel(objectName="brand")
@@ -185,6 +189,7 @@ class QuickWindow(QWidget):
         self.unconfigured.setVisible(not configured)
         for part in (self.form, self.recent, self.all_entries):
             part.setVisible(configured)
+        self._fit(compact=not configured)
         notes = [t(key, **params) for key, params in state.warnings]
         if state.secrets_problem:
             notes.append(t(state.secrets_problem))
@@ -223,7 +228,24 @@ class QuickWindow(QWidget):
         self.week.show()
 
     def set_preferred_size(self, size: QSize) -> None:
-        self.resize(size.expandedTo(self.minimumSize()))
+        self._preferred = size.expandedTo(QSize(MIN_WIDTH, MIN_HEIGHT))
+        if self._compact:
+            self.resize(self._preferred.width(), self.height())
+        else:
+            self.resize(self._preferred)
+
+    def _fit(self, *, compact: bool) -> None:
+        """Without lists (not configured) the window is as low as its content, as in the add-on."""
+        if compact == self._compact:
+            return
+        self._compact = compact
+        if compact:
+            self.setMinimumHeight(0)
+            self.layout().activate()
+            self.resize(self._preferred.width(), self.sizeHint().height())
+        else:
+            self.setMinimumHeight(MIN_HEIGHT)
+            self.resize(self._preferred)
 
     def resizeEvent(self, event) -> None:  # noqa: N802 - Qt API
         super().resizeEvent(event)
