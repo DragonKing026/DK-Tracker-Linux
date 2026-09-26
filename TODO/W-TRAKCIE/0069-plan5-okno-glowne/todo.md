@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, ui, qml, okno-glowne, wydanie]
 zalezy_od: ["0062-aplikacja-ws-tracker"]
 utworzono: 2026-09-26 17:04
-zaktualizowano: 2026-09-26 18:22
+zaktualizowano: 2026-09-26 19:15
 zamknieto:
 ---
 
@@ -69,6 +69,10 @@ Brak.
   maksymalizację), opis w wielu liniach (Shift+Enter), zaokrąglone kontrolki, okno edycji ze wszystkimi opcjami
   wpisu (tagi, stawki, pola dodatkowe). Na Kimai w Dockerze: nowy tag od zwykłego konta Kimai pomija bez błędu —
   aplikacja to wykrywa i mówi. Testy: 610 + 17 kontraktowych.
+- **19:15** Kolejne uwagi o wyglądzie poprawiane pojedynczo psuły jedna drugą — wygląd zaprojektowany od nowa
+  jako całość ([projekt wyglądu](../../../docs/architektura/wyglad-okna-glownego.md)): kolory obu motywów, kontrolki
+  ze stanami, układ widoków; sprawdzony galerią zrzutów przed pokazaniem. Do tego: wybór godzin i dnia, okno edycji
+  z czerwonym Usuń i zamykaniem kliknięciem obok, motyw do wyboru w ustawieniach. Testy: 617.
 
 ## Wynik
 
