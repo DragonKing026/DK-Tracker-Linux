@@ -7,6 +7,7 @@ the controller (app.py) runs the tracker on a worker thread.
 
 from __future__ import annotations
 
+import math
 from collections.abc import Callable, Iterable
 from datetime import datetime, tzinfo
 
@@ -65,7 +66,8 @@ def dot(color: str | None, size: int = 10) -> QIcon:
 
 
 class DescriptionEdit(QPlainTextEdit):
-    """Enter submits, Shift+Enter adds a line; grows from one line up to 96 px (popup.css)."""
+    """Enter submits, Shift+Enter adds a line; grows from one line (as tall as the text needs,
+    so nothing scrolls away) up to 96 px (popup.css)."""
 
     submitted = Signal()
     focusLost = Signal()
@@ -74,8 +76,11 @@ class DescriptionEdit(QPlainTextEdit):
         super().__init__()
         self.setObjectName("description")
         self.setTabChangesFocus(True)
+        self.document().setDocumentMargin(2)  # the style sheet's padding does the spacing
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.textChanged.connect(self._grow)
+        # Wrapping is laid out after textChanged; the layout says when the line count changed.
+        self.document().documentLayout().documentSizeChanged.connect(lambda _size: self._grow())
         self._grow()
 
     def keyPressEvent(self, event: QKeyEvent) -> None:  # noqa: N802 - Qt API
@@ -90,10 +95,21 @@ class DescriptionEdit(QPlainTextEdit):
         super().focusOutEvent(event)
         self.focusLost.emit()
 
+    def resizeEvent(self, event) -> None:  # noqa: N802 - Qt API
+        super().resizeEvent(event)
+        self._grow()  # another width wraps the text into another number of lines
+
     def _grow(self) -> None:
-        lines = max(1, self.document().size().height())
-        height = int(lines * self.fontMetrics().lineSpacing()) + 18
-        self.setFixedHeight(max(38, min(96, height)))
+        # Measured as Qt measures it when deciding to scroll: the laid-out blocks (wrapped lines
+        # included), the document's margin, and the frame with the style sheet's padding. A guess
+        # from the line spacing left a two-line text a pixel short, scrolled to its second line.
+        text, block = 0.0, self.document().begin()
+        while block.isValid():
+            text += self.blockBoundingRect(block).height()
+            block = block.next()
+        margins = self.contentsMargins()
+        height = math.ceil(text + 2 * self.document().documentMargin()) + margins.top() + margins.bottom()
+        self.setFixedHeight(min(96, height))
         # A scroll bar only once the text is taller than the field may grow.
         self.setVerticalScrollBarPolicy(
             Qt.ScrollBarPolicy.ScrollBarAsNeeded if height > 96 else Qt.ScrollBarPolicy.ScrollBarAlwaysOff

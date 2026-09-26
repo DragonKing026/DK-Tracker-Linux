@@ -377,3 +377,27 @@ def test_layer_panel_is_low_when_the_app_starts_unconfigured(qtbot):
     popup.set_preferred_size(QSize(520, 640))
     assert popup.panel_size().width() == 520
     assert popup.panel_size().height() < 300
+
+
+@pytest.mark.parametrize("text", ["pierwsza linia\ndruga linia", "slowo " * 9])
+def test_the_description_grows_so_every_line_stays_visible(window, qtbot, text):
+    """User report 2026-09-26: a second line (Enter with Shift, or wrapped) hid the first one."""
+    _state, popup = window
+    popup.show()
+    edit = popup.form.description
+    for number, line in enumerate(text.split("\n")):
+        if number:
+            qtbot.keyClick(edit, Qt.Key.Key_Return, Qt.KeyboardModifier.ShiftModifier)
+        qtbot.keyClicks(edit, line)
+    qtbot.waitUntil(lambda: edit.verticalScrollBar().maximum() == 0 and edit.height() < 96, timeout=1000)
+    assert (
+        edit.document().size().height() >= 2
+    )  # really two lines, drawn in full  # the whole text fits: nothing scrolled away
+
+
+def test_one_line_fits_without_scrolling(window):
+    """The old fixed 38 px was shorter than one line as Qt counts it: the text could scroll."""
+    _state, popup = window
+    popup.show()
+    popup.form.description.setPlainText("jedna linia")
+    assert popup.form.description.verticalScrollBar().maximum() == 0
