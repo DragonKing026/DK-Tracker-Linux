@@ -229,3 +229,15 @@ def test_the_package_ships_our_icon_not_the_kimai_logo():
     icon = next(line for line in commands["build-commands"] if "/icons/" in line)
     assert "dk-tracker.png" in icon and "kimai" not in icon
     assert not (ROOT / "src" / "dk_tracker" / "ui" / "assets" / "kimai.png").exists()
+
+
+def test_a_release_removes_the_pages_of_older_releases_but_keeps_their_tags():
+    """0067: the Releases list shows only the newest release; older versions stay as git tags."""
+    steps = workflow("wydanie.yml")["jobs"]["wydanie"]["steps"]
+    names = [step.get("name", "") for step in steps]
+    cleanup = next(step for step in steps if step.get("name", "").startswith("Starsze wydania"))
+    assert names.index(cleanup["name"]) > next(
+        i for i, s in enumerate(steps) if "action-gh-release" in s.get("uses", "")
+    )
+    assert "gh release delete" in cleanup["run"] and "--cleanup-tag" not in cleanup["run"]
+    assert cleanup["env"]["GH_TOKEN"] == "${{ github.token }}"
