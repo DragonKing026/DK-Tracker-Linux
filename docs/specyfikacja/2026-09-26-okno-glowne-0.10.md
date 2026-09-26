@@ -108,7 +108,8 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
 >   otwierają tę stronę. Osobnego okna ustawień nie ma.
 > - **Bez „Duplikuj”**: wznowienie ▶ tworzy ten sam wpis od teraz; w wierszu zamiast menu ⋮ jest kosz.
 > - **Okno edycji zamiast edycji w wierszu** (drugi test): kliknięcie wiersza otwiera okno ze wszystkimi opcjami
->   wpisu, jakie ma serwer (tagi, stawki, pola dodatkowe) — także tymi, których aplikacja nie przewidziała.
+>   wpisu, jakie ma serwer (tagi, pola dodatkowe) — także tymi, których aplikacja nie przewidziała; bez stawek, których
+>   formularz Kimai nie pokazuje kontu bez uprawnienia `edit_rate`.
 > - Opis w wielu liniach (Shift+Enter), zaokrąglone kontrolki, kursor rączki na przyciskach; projekt w kolorze
 >   projektu; `$` zielony (płatne) albo szary.
 

@@ -76,7 +76,7 @@ półgrube. Kursor rączki na wszystkim, co się klika.
   `divider`, pod kursorem `surface`.
 - **Okno edycji** (`Panel`, 600 px): tytuł, kłódka (wyeksportowany — pasek informacji), zamknij; formularz
   `FormRow`: Dzień, Godziny (od – do, czas trwania obok), Projekt, Rodzaj pracy, Płatne (`$` + słowo), Opis, Tagi,
-  stawki, pola dodatkowe; stopka po linii `divider`: **Usuń** (`danger`, kosz) z lewej, **Anuluj**, **Zapisz**
+  pola dodatkowe; stopka po linii `divider`: **Usuń** (`danger`, kosz) z lewej, **Anuluj**, **Zapisz**
   (`primary`) z prawej. Kliknięcie obok i Esc zamykają.
 - **Ustawienia**: ten sam `FormRow`, szerokość do 680 px.
 
