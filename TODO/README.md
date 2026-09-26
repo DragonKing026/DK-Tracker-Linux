@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 14:25
+zaktualizowano: 2026-09-26 14:46
 ---
 
 # Tablica zadań
@@ -27,13 +27,14 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | 🔨 w-trakcie | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
 | 0065 | [Poprawki po 0.9.1: zmiana rozmiaru okna, mała ikona, zrzut w Discover](W-TRAKCIE/0065-poprawki-po-0-9-1/todo.md) | 🔨 w-trakcie | p1 | — |
+| 0066 | [Zmiana rozmiaru okna przy tacce bez skoków: przezroczyste płótno i panel](W-TRAKCIE/0066-plotno-okna-przy-tacce/todo.md) | 🔨 w-trakcie | p1 | [0065](W-TRAKCIE/0065-poprawki-po-0-9-1/todo.md) |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0062 | [0.9.2: pełna aplikacja „WS Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) |
+| 0062 | [0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) |
 
 ## Zrobione
 
