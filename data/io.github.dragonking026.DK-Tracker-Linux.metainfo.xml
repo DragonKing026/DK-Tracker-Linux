@@ -39,6 +39,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.1" date="2026-09-26">
+      <description>
+        <p>Tags are chosen from the list Kimai has; the edit window shows no rates (as Kimai's own form for
+          accounts that may not change them); a stored token shows as a mask; lists show a scroll bar.</p>
+      </description>
+    </release>
     <release version="0.10.0" date="2026-09-26">
       <description>
         <p>A main window: your entries by week and day, an edit window with every option of an entry (hours,

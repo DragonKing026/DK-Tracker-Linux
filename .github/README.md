@@ -6,7 +6,7 @@ Natywna, linuksowa wersja firmowej wtyczki przeglądarkowej
 
 ![Okno DK Tracker przy tacce (ciemny motyw)](../docs/assets/zrzuty/okno-ciemny-motyw.png)
 
-> **Status:** wersja **0.10.0 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
+> **Status:** wersja **0.10.1 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
 
 ## Co potrafi
 
