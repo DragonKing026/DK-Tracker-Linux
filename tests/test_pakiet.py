@@ -49,7 +49,7 @@ def test_metainfo_release_and_licence_match_the_package():
 def test_metainfo_names_the_app_in_both_languages():
     root = metainfo()
     assert root.findtext("id") == APP_ID
-    assert root.findtext("name") == "WS Tracker Tray"
+    assert root.findtext("name") == "WS Tracker"
     summaries = {s.get(LANG, "en"): s.text for s in root.findall("summary")}
     assert set(summaries) == {"en", "pl"}
     assert root.find("launchable").text == f"{APP_ID}.desktop"
@@ -67,7 +67,7 @@ def test_desktop_entry_starts_the_installed_command():
     assert entry["Exec"] == "ws-tracker-tray"
     assert "ws-tracker-tray" in PYPROJECT["scripts"]
     assert entry["Icon"] == APP_ID
-    assert entry["Name"] == "WS Tracker Tray"
+    assert entry["Name"] == "WS Tracker"
 
 
 # -- Task 3: the Flatpak manifest --------------------------------------------------
@@ -221,3 +221,12 @@ def test_repository_signing_key_is_public_only():
     kinds = {line.split(":")[0] for line in listing}
     assert "pub" in kinds
     assert not kinds & {"sec", "ssb"}
+
+
+def test_the_package_ships_our_icon_not_the_kimai_logo():
+    commands = next(
+        m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker-tray"
+    )
+    icon = next(line for line in commands["build-commands"] if "/icons/" in line)
+    assert "ws-tracker.png" in icon and "kimai" not in icon
+    assert not (ROOT / "src" / "ws_tracker_tray" / "ui" / "assets" / "kimai.png").exists()

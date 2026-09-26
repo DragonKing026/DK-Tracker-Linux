@@ -17,7 +17,7 @@ if [[ "${1:-}" == "--usun" ]]; then
 fi
 
 mkdir -p "$APPS" "$ICONS"
-install -m 644 "$ROOT/src/ws_tracker_tray/ui/assets/kimai.png" "$ICONS/$APP.png"
+install -m 644 "$ROOT/src/ws_tracker_tray/ui/assets/ws-tracker.png" "$ICONS/$APP.png"
 sed "s|^Exec=.*|Exec=env PYTHONPATH=\"$ROOT/src\" /usr/bin/python3 -m ws_tracker_tray|" \
     "$ROOT/data/$APP.desktop" > "$APPS/$APP.desktop"
 command -v update-desktop-database >/dev/null && update-desktop-database -q "$APPS" || true

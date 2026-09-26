@@ -62,13 +62,17 @@ def test_glyphs_render_in_the_given_colour(qapp):
     assert centre(image).name() == "#ffffff"
 
 
-def test_app_icon_is_the_kimai_logo(qapp):
+def test_app_icon_is_our_own_ws_tile_not_the_kimai_logo(qapp):
+    """Kimai's trademark policy: no impression of being an official Kimai app (0063)."""
     from ws_tracker_tray.ui.icons import app_icon
 
     icon = app_icon()
     assert not icon.isNull()
     image = icon.pixmap(64, 64).toImage()
-    assert QColor(image.pixel(32, 32)).green() > 150  # the green Kimai clock
+    ring = QColor(image.pixel(32, 13))  # top of the green progress ring (inside the 8 % margin)
+    tile = QColor(image.pixel(20, 32))  # dark tile between the ring and the letters
+    assert ring.green() > 150 and ring.red() < 100
+    assert max(tile.red(), tile.green(), tile.blue()) < 90
 
 
 @pytest.mark.parametrize("label", ["0m", "47m", "1:22", "12:05"])

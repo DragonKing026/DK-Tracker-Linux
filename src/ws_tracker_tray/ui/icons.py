@@ -44,9 +44,10 @@ GLYPHS = tuple(_PATHS)
 
 
 def app_icon() -> QIcon:
-    """The Kimai logo (public/touch-icon-512x512.png of Kimai, AGPL-3.0-or-later), with a small
-    transparent margin: the logo's ring touches the image edge and looked glued to title bars."""
-    data = resources.files("ws_tracker_tray.ui").joinpath("assets", "kimai.png").read_bytes()
+    """Our own icon (data/icons/ws-tracker.svg rendered to 512 px), not Kimai's logo: Kimai's
+    trademark policy forbids looking like an official Kimai app. A small margin keeps it off
+    title-bar edges."""
+    data = resources.files("ws_tracker_tray.ui").joinpath("assets", "ws-tracker.png").read_bytes()
     logo = QPixmap()
     logo.loadFromData(data)
     icon = QIcon()
