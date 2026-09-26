@@ -5,7 +5,7 @@ tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-26 17:50
+zaktualizowano: 2026-09-26 18:22
 ---
 
 # Qt 6 / PySide6
@@ -97,6 +97,9 @@ build-options:
   Na KDE motyw platformy ustawia wcześniej styl `org.kde.desktop`, który tej palety nie bierze (białe pola na
   ciemnym oknie) — `MainWindow` zawsze wybiera Basic. Basic przebarwia też ikony kolorem tekstu: przyciski z
   kolorowym glifem mają `icon.color: "transparent"`.
+- **`QWindow.show()` to na pulpicie `showNormal()`** — wywołane na otwartym, zmaksymalizowanym oknie zdejmuje
+  maksymalizację. `MainWindow.show()` otwarte okno tylko podnosi.
+- **Wiersze listy**: przyciski (`$`, ▶, kosz) przejmują kliknięcie, `TapHandler` wiersza dostaje resztę (okno edycji).
 - **Zamykanie**: okno QML ma rodzica `MainBridge`, a `MainWindow.dispose()` usuwa okno i silnik od razu
   (`DeferredDelete`) — inaczej przy wyjściu QML zgłasza „app is null”.
 

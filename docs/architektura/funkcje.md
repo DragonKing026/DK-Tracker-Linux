@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-26 17:50
+zaktualizowano: 2026-09-26 18:22
 ---
 
 # Katalog funkcji
@@ -308,9 +308,13 @@ Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/20
   w jednym dniu).
 - **Lista**: tygodnie i dni z sumami, najnowsze u góry; przewijanie doładowuje poprzedni tydzień (najwyżej 8 pustych
   z rzędu); wyszukiwanie jak F-33.
-- **Wiersz**: opis, projekt · rodzaj pracy, `$`, od–do — edycja w miejscu (Enter/wyjście zapisuje, Esc cofa); błąd
-  Kimai pod wierszem; wpis wyeksportowany z kłódką; ▶ wznawia (nowy wpis od teraz z tym samym opisem i projektem);
-  kosz usuwa.
+- **Wiersz**: opis (do dwóch linii), projekt · rodzaj pracy w kolorze projektu, `$` (zielony — płatne), od–do, czas;
+  ▶ wznawia (nowy wpis od teraz z tym samym opisem i projektem), kosz usuwa, wpis wyeksportowany z kłódką.
+- **Okno edycji** (kliknięcie wiersza): wszystkie opcje wpisu z Kimai — dzień, od, do, czas trwania (zmienia koniec),
+  projekt i rodzaj pracy, opis w wielu liniach (Enter zapisuje, Shift+Enter — nowa linia), tagi (po przecinku),
+  płatne, stawka stała i godzinowa (gdy konto je widzi), przerwa, pola dodatkowe serwera; Usuń, Anuluj, Zapisz.
+  Wysyła tylko zmiany. Pola, których konto nie może zmieniać, Kimai odrzuca — zapis bez nich i komunikat; tag, którego
+  nie ma, Kimai po cichu pomija (konto bez prawa tworzenia tagów) — aplikacja czyta wpis ponownie i go nazywa.
 - **Usuwanie**: wiersz znika, pasek „Usunięto wpis · Cofnij” przez 6 s; do Kimai trafia po tym czasie albo od razu
   przy zamknięciu aplikacji.
 - **Odświeżanie** co minutę; nie przebudowuje listy w trakcie pisania w wierszu. Bez połączenia: ostatnie dane,

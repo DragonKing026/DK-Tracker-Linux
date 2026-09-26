@@ -4,7 +4,7 @@ tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
 status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-26 17:50
+zaktualizowano: 2026-09-26 18:22
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
@@ -107,8 +107,10 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
 > - **Ustawienia** są stroną okna głównego (pasek boczny); tacka, zębatka w okienku i pierwsze uruchomienie
 >   otwierają tę stronę. Osobnego okna ustawień nie ma.
 > - **Bez „Duplikuj”**: wznowienie ▶ tworzy ten sam wpis od teraz; w wierszu zamiast menu ⋮ jest kosz.
-> - Pola w wierszu wyglądają jak tekst, ramka pojawia się po najechaniu; projekt w kolorze projektu; `$` zielony
->   (płatne) albo szary.
+> - **Okno edycji zamiast edycji w wierszu** (drugi test): kliknięcie wiersza otwiera okno ze wszystkimi opcjami
+>   wpisu, jakie ma serwer (tagi, stawki, pola dodatkowe) — także tymi, których aplikacja nie przewidziała.
+> - Opis w wielu liniach (Shift+Enter), zaokrąglone kontrolki, kursor rączki na przyciskach; projekt w kolorze
+>   projektu; `$` zielony (płatne) albo szary.
 
 ## 6. Podsumowania (0.10.1)
 

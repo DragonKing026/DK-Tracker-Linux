@@ -5,7 +5,7 @@ tags: [integracja, kimai, api, http]
 status_integracji: w-uzyciu
 wersja: Kimai 2.x — firma 2.65.0; testowane na 2.65.0 i 2.67.0
 utworzono: 2026-09-25 17:19
-zaktualizowano: 2026-09-25 19:54
+zaktualizowano: 2026-09-26 18:22
 ---
 
 # Kimai REST API
@@ -50,7 +50,15 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | POST | `/api/timesheets` | ręczny wpis: `begin` i `end` (czas zegarowy w strefie Kimai), `project`, `activity`, `description`, `[billable]` | F-35 |
 | DELETE | `/api/timesheets/{id}` | usunięcie wpisu (po czasie na „Cofnij”) | F-35 |
 | PATCH | `/api/timesheets/{id}/stop` | stop „teraz”; na już zatrzymanym wpisie zwraca 200 (sprawdzone) | F-05 |
-| PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable`, `project` + `activity` (trwający wpis); `begin`/`end`, `project` + `activity` zakończonego wpisu | F-05, F-07, F-09, F-34, F-35 |
+| PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable`, `project` + `activity` (trwający wpis); `begin`/`end`, `project` + `activity`, `tags` (lista po przecinku), `fixedRate`, `hourlyRate` zakończonego wpisu | F-05, F-07, F-09, F-34, F-35 |
+| GET | `/api/timesheets/{id}` | okno edycji: wszystkie opcje wpisu — `tags`, `metaFields`, `break`; `fixedRate`/`hourlyRate` tylko dla konta, które widzi stawki | F-35 |
+| PATCH | `/api/timesheets/{id}/meta` | pole dodatkowe serwera: `name`, `value` (nieznanej nazwy Kimai nie przyjmuje) | F-35 |
+
+Pola zależne od uprawnień (`billable` — `edit_billable`, stawki — `edit_rate`) konto bez uprawnienia dostaje jako
+400 „This form should not contain extra fields.”, bez nazwy pola — aplikacja ponawia zapis bez nich. Tag, którego nie
+ma, Kimai **pomija bez błędu**, gdy konto nie może tworzyć tagów (sprawdzone na 2.67.0,
+`test_a_new_tag_from_a_plain_user_is_left_out_and_named`). Formularz edycji w źródle Kimai:
+`src/Form/API/TimesheetApiEditForm.php`, `src/API/TimesheetController.php#patchAction`.
 
 Kimai 2.67.0 domyślnie przyjmuje nakładające się wpisy (`timesheet.rules.allow_overlapping_records`) — sprawdza test
 kontraktowy `test_overlapping_entries_follow_the_server_rule`.
