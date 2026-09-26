@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-26 00:22
+zaktualizowano: 2026-09-26 17:50
 ---
 
 # Katalog funkcji
@@ -40,6 +40,7 @@ stateDiagram-v2
 | **Test połączenia** | `GET /api/users/me` → komunikat „Połączono jako *alias/username*” albo powód błędu. |
 | **Zapis** | URL obcięty z końcowych `/`. Zapis ustawień **resetuje blokadę billable** (F-09), bo inny serwer/token może mieć uprawnienie. |
 | **Źródło** | `options/options.js`, `lib/api.js#getSettings` |
+| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. |
 | **Różnica w aplikacji** | Token → magazyn sekretów ([Secret Service](../integracje/secret-service.md)), nie plik ustawień. Brak odpowiednika „host permissions” Chrome — Flatpak ma dostęp do sieci przez `--share=network`. |
 
 ## F-02 Ikona w tacce ze stanem
@@ -300,14 +301,16 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/2026-09-26-okno-glowne-0.10.md),
 [Plan 5](../plany/2026-09-26-plan-5-okno-glowne.md)).
 
-- **Pasek boczny**: Wpisy (0.10.0); Podsumowania i Kalendarz pojawią się w 0.10.1 i 0.10.2; na dole Ustawienia.
+- **Pasek boczny**: Wpisy (0.10.0); Podsumowania i Kalendarz pojawią się w 0.10.1 i 0.10.2; na dole Ustawienia —
+  strona okna głównego (F-01), także z tacki i z okienka; bez konfiguracji okno pokazuje tylko ją.
 - **Pasek timera**: opis (F-11), projekt z wyszukiwaniem, rodzaj pracy, `$`, start/stop; przy trwającym wpisie zegar,
   „od” i zmiana opisu, projektu i rodzaju pracy (F-07, F-34). Przełącznik ⏱/✎: dzień, od–do i „Dodaj” (ręczny wpis
   w jednym dniu).
 - **Lista**: tygodnie i dni z sumami, najnowsze u góry; przewijanie doładowuje poprzedni tydzień (najwyżej 8 pustych
   z rzędu); wyszukiwanie jak F-33.
 - **Wiersz**: opis, projekt · rodzaj pracy, `$`, od–do — edycja w miejscu (Enter/wyjście zapisuje, Esc cofa); błąd
-  Kimai pod wierszem; wpis wyeksportowany z kłódką; ▶ wznawia; ⋮ „Duplikuj” (wypełnia pasek w trybie ✎), „Usuń”.
+  Kimai pod wierszem; wpis wyeksportowany z kłódką; ▶ wznawia (nowy wpis od teraz z tym samym opisem i projektem);
+  kosz usuwa.
 - **Usuwanie**: wiersz znika, pasek „Usunięto wpis · Cofnij” przez 6 s; do Kimai trafia po tym czasie albo od razu
   przy zamknięciu aplikacji.
 - **Odświeżanie** co minutę; nie przebudowuje listy w trakcie pisania w wierszu. Bez połączenia: ostatnie dane,

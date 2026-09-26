@@ -60,5 +60,7 @@ Wykonać **zadanie 9** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ## Wynik
 
-[settings_dialog.py](../../../src/dk_tracker/ui/settings_dialog.py): `SettingsDialog`. Testy:
-[test_settings_dialog.py](../../../tests/ui/test_settings_dialog.py) — 9 zielonych. Bez odchyleń od planu.
+[settings_dialog.py](https://github.com/DragonKing026/DK-Tracker-Linux/blob/v0.9.4/src/dk_tracker/ui/settings_dialog.py):
+`SettingsDialog`. Testy:
+[test_settings_dialog.py](https://github.com/DragonKing026/DK-Tracker-Linux/blob/v0.9.4/tests/ui/test_settings_dialog.py)
+— 9 zielonych. Bez odchyleń od planu.

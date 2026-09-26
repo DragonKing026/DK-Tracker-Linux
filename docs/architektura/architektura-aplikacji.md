@@ -4,7 +4,7 @@ tytul: Architektura aplikacji
 tags: [architektura, komponenty, przeplywy]
 status_dokumentu: rdzeń-zaimplementowany
 utworzono: 2026-09-25 17:18
-zaktualizowano: 2026-09-25 23:11
+zaktualizowano: 2026-09-26 17:50
 ---
 
 # Architektura aplikacji
@@ -21,7 +21,7 @@ flowchart TB
     subgraph UI["Warstwa prezentacji"]
         TRAY[Tray<br/>ikona + menu + tooltip]
         WIN[Okno szybkiej obsługi<br/>tracker + lista ostatnich]
-        SET[Okno ustawień]
+        SET[Ustawienia<br/>strona okna głównego]
     end
     subgraph APP["Warstwa aplikacji"]
         STORE[Stan aplikacji<br/>running, projekty, wpisy, sumy]
@@ -67,7 +67,7 @@ flowchart TB
 | **Harmonogram** | odświeżanie co 60 s (jak `chrome.alarms` we wtyczce), natychmiast po akcjach, tyk zegara co 1 s gdy okno otwarte | stan | F-02, F-12 |
 | **Tray** | ikona zależna od stanu, tooltip z czasem, menu kontekstowe, otwieranie okna | stan, akcje | F-02, F-20 |
 | **Okno szybkiej obsługi** | odpowiednik popupu wtyczki | stan, akcje, domena | F-03…F-10, F-12 |
-| **Okno ustawień** | URL, token, język, min. długość opisu, test połączenia | ustawienia, sekrety, API | F-01, F-13 |
+| **Ustawienia (strona okna głównego)** | URL, token, język, min. długość opisu, test połączenia | ustawienia, sekrety, API | F-01, F-13 |
 | **Ustawienia** | trwały zapis nie-sekretnych ustawień i „ostatni wybór” | system plików (XDG config) | F-01, F-06 |
 | **Sekrety** | zapis/odczyt tokenu w magazynie systemu | Secret Service / portal | F-01 |
 
@@ -91,7 +91,7 @@ flowchart TB
 | Harmonogram, akcje, powiadomienia | [ui/app.py](../../src/dk_tracker/ui/app.py) — `Controller`, [ui/worker.py](../../src/dk_tracker/ui/worker.py) | F-02, F-12, F-20, F-21, F-22 |
 | Tray | [ui/tray.py](../../src/dk_tracker/ui/tray.py), [ui/icons.py](../../src/dk_tracker/ui/icons.py), tekst: [core/presentation.py](../../src/dk_tracker/core/presentation.py) | F-02, F-20 |
 | Okno szybkiej obsługi | [ui/popup.py](../../src/dk_tracker/ui/popup.py), [ui/form.py](../../src/dk_tracker/ui/form.py), [ui/recent.py](../../src/dk_tracker/ui/recent.py), [ui/placement.py](../../src/dk_tracker/ui/placement.py) | F-03…F-10, F-12 |
-| Okno ustawień | [ui/settings_dialog.py](../../src/dk_tracker/ui/settings_dialog.py) | F-01, F-13, F-21, F-22 |
+| Ustawienia | [ui/main_window/settings_form.py](../../src/dk_tracker/ui/main_window/settings_form.py), `qml/SettingsView.qml` | F-01, F-13, F-21, F-22 |
 | Sekrety, powiadomienia, autostart | [ui/desktop_bridge.py](../../src/dk_tracker/ui/desktop_bridge.py) → [desktop/](../../src/dk_tracker/desktop/) | F-01, F-21, F-22 |
 | Okno główne | [ui/main_window/](../../src/dk_tracker/ui/main_window/) — `MainWindow` (QML), `MainBridge` (`app`), modele | F-35 |
 | Start | [ui/main.py](../../src/dk_tracker/ui/main.py), [`__main__.py`](../../src/dk_tracker/__main__.py) | — |
@@ -103,7 +103,6 @@ flowchart LR
     subgraph gui[Wątek GUI]
         TRAY[Tray] --> CTRL[Controller]
         POP[QuickWindow] --> CTRL
-        DLG[SettingsDialog] --> CTRL
         MW[MainWindow - QML<br/>MainBridge] --> CTRL
         ST -->|changed| MW
         CTRL --> ST[AppState]

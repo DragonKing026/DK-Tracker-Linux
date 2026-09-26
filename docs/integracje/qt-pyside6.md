@@ -5,7 +5,7 @@ tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-25 23:11
+zaktualizowano: 2026-09-26 17:50
 ---
 
 # Qt 6 / PySide6
@@ -94,6 +94,9 @@ build-options:
   ostrzeżeniu przy ładowaniu. Wiersze `ListView` mają tylko rodzica wizualnego, więc `findChild` ich nie widzi —
   testy szukają po `childItems()`.
 - **Styl Basic** ma własne, jasne kolory kontrolek — paleta `ApplicationWindow` musi przyjść z motywu aplikacji.
+  Na KDE motyw platformy ustawia wcześniej styl `org.kde.desktop`, który tej palety nie bierze (białe pola na
+  ciemnym oknie) — `MainWindow` zawsze wybiera Basic. Basic przebarwia też ikony kolorem tekstu: przyciski z
+  kolorowym glifem mają `icon.color: "transparent"`.
 - **Zamykanie**: okno QML ma rodzica `MainBridge`, a `MainWindow.dispose()` usuwa okno i silnik od razu
   (`DeferredDelete`) — inaczej przy wyjściu QML zgłasza „app is null”.
 
@@ -115,9 +118,9 @@ pilnuje, by
 - [tray.py](../../src/dk_tracker/ui/tray.py) — `QSystemTrayIcon` i menu.
 - [popup.py](../../src/dk_tracker/ui/popup.py), [form.py](../../src/dk_tracker/ui/form.py),
   [recent.py](../../src/dk_tracker/ui/recent.py) — okno szybkiej obsługi.
-- [settings_dialog.py](../../src/dk_tracker/ui/settings_dialog.py) — okno ustawień.
 - [main_window/](../../src/dk_tracker/ui/main_window/) — okno główne: `window.py` (silnik QML, ikony
-  `image://glyph/…`), `bridge.py` (`MainBridge` jako `app` w kontekście QML), `models.py`, widoki w `qml/`.
+  `image://glyph/…`), `bridge.py` (`MainBridge` jako `app` w kontekście QML), `models.py`,
+  `settings_form.py` (ustawienia jako strona okna), widoki w `qml/`.
 - [placement.py](../../src/dk_tracker/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
 - [desktop_bridge.py](../../src/dk_tracker/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako
   `QThread`.

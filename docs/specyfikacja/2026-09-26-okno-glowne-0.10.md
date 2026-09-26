@@ -4,7 +4,7 @@ tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
 status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-26 16:05
+zaktualizowano: 2026-09-26 17:50
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
@@ -73,7 +73,8 @@ flowchart LR
 - **Okno główne (`ui/main_window/`)**: QML tylko rysuje; Python ma logikę w obiektach `QObject` (właściwości, sygnały,
   sloty) i modelach `QAbstractListModel` (tygodnie i dni, wpisy, bloki kalendarza, pozycje podziału). Do QML trafiają
   też tłumaczenia (`t(klucz, …)`) i paleta motywu — język i jasny/ciemny motyw jak w reszcie aplikacji.
-- **Bez zmian**: tacka, okienko przy tacce (Qt Widgets), okno ustawień, powiadomienia; kontroler łączy wszystko — zmiana
+- **Bez zmian**: tacka, okienko przy tacce (Qt Widgets), powiadomienia (ustawienia — patrz sekcja 5); kontroler łączy
+  wszystko — zmiana
   w jednym miejscu odświeża pozostałe.
 - **Wątki**: jak dotąd — zapytania do Kimai w wątku roboczym, wyniki w wątku GUI; QML nie czeka na sieć.
 - **Zależności**: brak nowych. `QtQuick`, `QtQml`, `QtQuickControls2` są w bazie PySide Flatpaka (sprawdzone
@@ -82,8 +83,8 @@ flowchart LR
 ## 5. Okno główne i widok „Wpisy” (0.10.0)
 
 **Okno**: zwykłe okno aplikacji; rozmiar, pozycja i ostatni widok zapamiętywane; minimum ok. 800×560. Pasek boczny:
-Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy są gotowe), na dole Ustawienia (otwiera
-obecne okno ustawień).
+Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy są gotowe), na dole Ustawienia —
+**strona okna głównego**, nie osobne okno (zmiana po teście na żywo, poniżej).
 
 **Pasek timera** (zawsze u góry): te same funkcje co okienko — opis (F-11), projekt z wyszukiwaniem, rodzaj pracy,
 `$`, start/stop; przy trwającym wpisie zegar, „od” i zmiana opisu/projektu/rodzaju pracy (F-07, F-34). Przełącznik
@@ -95,11 +96,19 @@ obecne okno ustawień).
   poprzednie tygodnie (w tle, z informacją „Wczytywanie…”);
 - pole wyszukiwania (F-33);
 - wiersz: kropka koloru projektu, **opis**, **projekt · rodzaj pracy**, **`$`**, **od–do**, czas, **▶ wznów**,
-  menu **⋮** („Duplikuj”, „Usuń”); pogrubione = edycja w miejscu (Enter/wyjście zapisuje, Esc anuluje, walidacja opisu
+  **usuń** (kosz); pogrubione = edycja w miejscu (Enter/wyjście zapisuje, Esc anuluje, walidacja opisu
   przy polu); wpis wyeksportowany: kłódka, bez edycji;
 - **usuwanie**: wiersz znika, pasek „Usunięto wpis · Cofnij” przez ok. 6 s; do Kimai trafia dopiero po tym czasie
   (zamknięcie aplikacji w tym czasie wysyła usunięcie od razu);
 - odświeżanie jak dotąd (co minutę) — widać zmiany z okienka, tacki i przeglądarki; edycji w toku nie nadpisuje.
+
+> [!note] Zmiany po teście na żywo 0.10.0 (użytkownik, 2026-09-26)
+>
+> - **Ustawienia** są stroną okna głównego (pasek boczny); tacka, zębatka w okienku i pierwsze uruchomienie
+>   otwierają tę stronę. Osobnego okna ustawień nie ma.
+> - **Bez „Duplikuj”**: wznowienie ▶ tworzy ten sam wpis od teraz; w wierszu zamiast menu ⋮ jest kosz.
+> - Pola w wierszu wyglądają jak tekst, ramka pojawia się po najechaniu; projekt w kolorze projektu; `$` zielony
+>   (płatne) albo szary.
 
 ## 6. Podsumowania (0.10.1)
 
