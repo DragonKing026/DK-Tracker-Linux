@@ -354,3 +354,13 @@ def test_a_theme_chosen_in_the_settings_applies_to_both_windows_at_once(harness)
         h.settle()
         assert h.controller.main_bridge.palette["bg"] == main["bg"]
         assert popup["surface"] in h.controller.popup.styleSheet()
+
+
+def test_opening_an_entry_brings_the_tags_to_choose(harness):  # noqa: F811
+    from dk_tracker.core.models import Tag
+
+    h = opened(harness)
+    h.client.tags_list = [Tag("frontend", "#9C27B0")]
+    h.controller.main_bridge.openEntry(2)
+    h.settle()
+    assert h.controller.main_bridge.tagOptions == [{"name": "frontend", "color": "#9C27B0"}]

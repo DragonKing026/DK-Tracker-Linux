@@ -7,7 +7,7 @@ from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
 from dk_tracker.core.errors import ApiError, ErrorKind
-from dk_tracker.core.models import Activity, Customer, Entry, EntryDetails, Project, User
+from dk_tracker.core.models import Activity, Customer, Entry, EntryDetails, Project, Tag, User
 from dk_tracker.core.timefmt import STAMP
 
 NOW = datetime(2026, 9, 25, 16, 4, 3, tzinfo=UTC)  # Friday, 18:04:03 in Warsaw
@@ -54,6 +54,7 @@ class FakeClient:
         self.start_timeout: str | None = None  # "before" (nothing saved) | "after" (saved, reply lost)
         self.range_entries: list[Entry] | None = None
         self.details: dict[int, dict] = {}  # what GET /api/timesheets/{id} adds: tags, meta
+        self.tags_list: list[Tag] = []
         self.known_tags: set[str] | None = None  # None: any tag; a set: others are dropped, as Kimai does
         self.projects_list = [
             Project(1, "Moduł rezerwacji", 10, "Hotel Morski", "#008000", True),
@@ -212,6 +213,11 @@ class FakeClient:
             **self.details.get(entry_id, {}),
         }  # fmt: skip
         return EntryDetails.from_api(raw)
+
+    def tags(self):
+        self.calls.append(("tags",))
+        self._check("tags")
+        return list(self.tags_list)
 
     def set_meta(self, entry_id, name, value):
         self.calls.append(("set_meta", entry_id, name, value))

@@ -14,7 +14,7 @@ from PySide6.QtCore import Property, QObject, QTimer, Signal, Slot
 
 from dk_tracker.core.entry_list import ListRow
 from dk_tracker.core.errors import describe
-from dk_tracker.core.models import Activity, Entry, EntryDetails, Project
+from dk_tracker.core.models import Activity, Entry, EntryDetails, Project, Tag
 from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, short_duration
 from dk_tracker.core.tracker import Snapshot, live_totals
 
@@ -46,6 +46,7 @@ class MainBridge(QObject):
     entryOpenRequested = Signal(int)  # a row clicked: the controller fetches every option of the entry
     entrySaveRequested = Signal(int, dict)  # the edit window: entry id, values (Tracker.save_details)
     editorChanged = Signal()
+    tagsChanged = Signal()
     settingsRequested = Signal()
     windowClosed = Signal()  # the window's own close button (QML's onClosing)
 
@@ -81,6 +82,7 @@ class MainBridge(QObject):
         self._row_errors: dict[str, str] = {}
         self._projects_version = 0
         self._editor: dict[str, Any] = {"open": False, "error": "", "busy": False}
+        self._tags: list[dict[str, str]] = []
         self._t: Callable[..., str] = str
         self._pending: int | None = None
         self._doomed: dict[int, Entry] = {}
@@ -123,6 +125,9 @@ class MainBridge(QObject):
     def _get_editor(self) -> dict[str, Any]:
         return self._editor
 
+    def _get_tags(self) -> list[dict[str, str]]:
+        return self._tags
+
     def _get_settings_form(self) -> SettingsForm:
         return self.settings_form
 
@@ -137,6 +142,7 @@ class MainBridge(QObject):
     rowActivityList = Property(QObject, _get_row_activities, constant=True)
     settingsForm = Property(QObject, _get_settings_form, constant=True)
     editor = Property("QVariantMap", _get_editor, notify=editorChanged)
+    tagOptions = Property("QVariantList", _get_tags, notify=tagsChanged)  # the edit window's tag list
 
     # -- from the controller ---------------------------------------------------------------
 
@@ -238,6 +244,10 @@ class MainBridge(QObject):
             "meta": [{"name": name, "value": value} for name, value in details.meta],
         }
         self.editorChanged.emit()
+
+    def set_tags(self, tags: list[Tag]) -> None:
+        self._tags = [{"name": tag.name, "color": tag.color} for tag in tags]
+        self.tagsChanged.emit()
 
     def editor_error(self, text: str) -> None:
         self._editor = {**self._editor, "error": text, "busy": False}

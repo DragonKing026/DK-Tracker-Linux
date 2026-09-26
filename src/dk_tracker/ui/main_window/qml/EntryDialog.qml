@@ -239,13 +239,11 @@ Popup {
                 }
                 FormRow {
                     label: app.texts.editTags || ""
-                    Field {
+                    TagPicker {
                         id: tags
                         objectName: "editTags"
                         enabled: !dialog.locked
                         Layout.fillWidth: true
-                        placeholderText: app.texts.editTagsHint || ""
-                        onAccepted: dialog.save()
                     }
                 }
                 FormRow {

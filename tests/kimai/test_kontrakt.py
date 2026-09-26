@@ -247,3 +247,14 @@ def test_a_new_tag_from_a_plain_user_is_left_out_and_named(user_tracker):
     snapshot = user_tracker.save_details(user_tracker.entry_details(entry), {"tags": marker})
     assert (snapshot.notice, snapshot.notice_params) == ("errTagsDropped", (("tags", marker),))
     user_tracker.delete_entry(entry)
+
+
+def test_the_tags_to_choose_are_the_visible_ones(kimai_env, user_tracker):
+    """/api/tags/find with an empty name: every visible tag, with its colour; hidden ones are left out."""
+    admin = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_ADMIN_TOKEN"])
+    marker = f"widoczny{datetime.now(UTC):%H%M%S%f}"
+    admin._request("POST", "/api/tags", json={"name": marker, "visible": True})
+    tags = {tag.name: tag for tag in user_tracker.tags()}
+    assert marker in tags and tags[marker].color.startswith("#")
+    assert "kontrakt" not in tags  # made without "visible" by an earlier test: hidden
+    admin.close()

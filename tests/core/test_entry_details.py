@@ -143,3 +143,24 @@ def test_tags_kimai_dropped_are_named():
     snapshot = edited(tracker, client, tags="frontend, całkiem-nowy")
     assert snapshot.notice == "errTagsDropped"
     assert snapshot.notice_params == (("tags", "całkiem-nowy"),)
+
+
+# -- tags to choose from (live test: a list, as in Kimai's form) ---------------------------
+
+
+def test_the_client_lists_the_tags_kimai_has():
+    """Kimai 2.67.0: /api/tags/find with an empty name gives every visible tag, with its colour."""
+    from dk_tracker.core.models import Tag
+
+    tags = [{"color-safe": "#9C27B0", "id": 2, "name": "frontend", "visible": True, "color": None}]
+    client, rec = client_for(lambda r: httpx.Response(200, json=tags))
+    assert client.tags() == [Tag("frontend", "#9C27B0")]
+    assert rec.last.url.path == "/api/tags/find" and dict(rec.last.url.params) == {"name": ""}
+
+
+def test_the_tracker_gives_the_tags_sorted_by_name():
+    from dk_tracker.core.models import Tag
+
+    tracker, client, _ = make_tracker()
+    client.tags_list = [Tag("pilne", "#e5534b"), Tag("Frontend", "#1f7ae0")]
+    assert [tag.name for tag in tracker.tags()] == ["Frontend", "pilne"]

@@ -783,6 +783,13 @@ class Controller(QObject):
             self.main_bridge.open_editor(details, tz)
 
         self.kimai.submit(lambda: tracker.entry_details(entry), done, self._main_failed)
+        # The tags to choose; without them the window still works (typed names), so no error bar.
+        self.kimai.submit(
+            tracker.tags,
+            self.main_bridge.set_tags,
+            lambda error: log.info("Tags not loaded: %s", describe(error, _ENGLISH)),
+            key="main-tags",
+        )
 
     def _save_details(self, entry_id: int, values: dict) -> None:
         tracker, details = self._tracker, self._editing_details

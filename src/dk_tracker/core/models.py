@@ -194,3 +194,15 @@ class EntryDetails:
                 if isinstance(field, dict) and field.get("name")
             ),
         )
+
+
+@dataclass(frozen=True)
+class Tag:
+    """A tag to choose in the edit window; `color` is Kimai's "color-safe" (always set)."""
+
+    name: str
+    color: str
+
+    @classmethod
+    def from_api(cls, data: dict[str, Any]) -> Self:
+        return cls(name=str(data["name"]), color=str(data.get("color-safe") or data.get("color") or ""))

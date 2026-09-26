@@ -16,7 +16,7 @@ from typing import Any
 from .billable import default_billable, is_billable_rejected
 from .errors import ApiError, ErrorKind, TrackerError
 from .grouping import sort_key
-from .models import Activity, Entry, EntryDetails, Project, User
+from .models import Activity, Entry, EntryDetails, Project, Tag, User
 from .settings import Memory, Settings
 from .timefmt import (
     at_wall_clock,
@@ -446,6 +446,10 @@ class Tracker:
     def entry_details(self, entry: Entry) -> EntryDetails:
         """Every option of the entry, for the edit window. Raises ApiError — the caller shows it."""
         return self._client.entry_details(entry.id)
+
+    def tags(self) -> list[Tag]:
+        """The tags Kimai has, by name, for the edit window's list. Raises ApiError."""
+        return sorted(self._client.tags(), key=lambda tag: tag.name.casefold())
 
     def save_details(self, details: EntryDetails, values: dict[str, Any]) -> Snapshot:
         """The edit window: only what changed is sent. Kimai rejects a field the account may not

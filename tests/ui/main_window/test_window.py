@@ -407,3 +407,21 @@ def test_the_settings_show_a_mask_for_a_stored_token(window, qtbot):
     assert window.child("settingsToken").property("text") == ""
     window.bridge.settings_form.load(Settings(url="https://kimai.test"), has_token=False)
     qtbot.waitUntil(lambda: mask.property("visible") is False)
+
+
+def test_tags_are_chosen_from_a_list(window, qtbot):
+    """Live test: tags from a list, as in Kimai's own form; chosen ones show as chips."""
+    from PySide6.QtCore import QMetaObject
+
+    from dk_tracker.core.models import Tag
+
+    window.bridge.set_tags([Tag("frontend", "#9C27B0"), Tag("pilne", "#e5534b")])
+    window.bridge.open_editor(entry_details(), WARSAW)
+    qtbot.waitUntil(lambda: window.child("entryDialog").property("opened") is True)
+    picker = window.child("editTags")
+    assert picker.property("text") == "frontend"
+    QMetaObject.invokeMethod(window.child("tagAdd"), "clicked")
+    listing = window.child("tagList")
+    qtbot.waitUntil(lambda: listing is not None and listing.property("count") == 1)  # "pilne": not chosen yet
+    picker.setProperty("text", "frontend, pilne")  # what a click on "pilne" does
+    qtbot.waitUntil(lambda: listing.property("count") == 0)

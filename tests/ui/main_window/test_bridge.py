@@ -298,3 +298,13 @@ def test_an_impossible_day_in_the_editor_is_reported(bridge, qtbot):
     with qtbot.assertNotEmitted(bridge.entrySaveRequested):
         bridge.saveEntry(dict(bridge.editor, day="2026-02-30"))
     assert bridge.editor["error"] == PL("errInvalidDay")
+
+
+def test_the_edit_window_gets_the_tags_to_choose(bridge):
+    from dk_tracker.core.models import Tag
+
+    bridge.set_tags([Tag("frontend", "#9C27B0"), Tag("pilne", "#e5534b")])
+    assert bridge.tagOptions == [
+        {"name": "frontend", "color": "#9C27B0"},
+        {"name": "pilne", "color": "#e5534b"},
+    ]
