@@ -14,8 +14,8 @@ Natywny odpowiednik wtyczki przeglądarkowej
 
 ![Wzorzec UI — wtyczka WS Tracker](docs/assets/referencja/popup-trwa.png)
 
-> **Status:** w budowie — gotowy rdzeń (API Kimai, logika timera) i integracje z pulpitem (portfel, powiadomienia,
-> autostart); interfejs w tacce w przygotowaniu.
+> **Status:** w budowie — działa aplikacja w tacce na KDE (okno przy tacce, ustawienia, powiadomienia, autostart);
+> paczka Flatpak w przygotowaniu.
 
 ## Dokumentacja
 
