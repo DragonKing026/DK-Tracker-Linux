@@ -23,7 +23,7 @@ Opisać w dokumentacji istniejące aplikacje tackowe dla Kimai, różnice wzglę
 ## Kontekst
 
 - Użytkownik znalazł [KimaiTray](https://github.com/Engazan/KimaiTray) w trakcie Planu 4
-  ([0047](../../W-TRAKCIE/0047-plan4-metainfo/todo.md)); nazwa „Kimai Tray” zlewa się z ich nazwą.
+  ([0047](../0047-plan4-metainfo/todo.md)); nazwa „Kimai Tray” zlewa się z ich nazwą.
 - Decyzja użytkownika: nie porzucamy projektu ani nie forkujemy KimaiTray; kontynuujemy Plan 4 pod nową nazwą.
 
 ## Kryteria akceptacji

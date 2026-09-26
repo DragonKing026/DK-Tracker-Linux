@@ -46,7 +46,7 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 - [x] **Nazwa:** „Kimai Tray” zostaje nazwą docelową (identyfikator `pl.websystems.KimaiTray`).
 - [x] **Zmiana nazwy (2026-09-26 11:45):** „WS Tracker Tray”, identyfikator `pl.websystems.WsTrackerTray`, bo
   „Kimai Tray” zlewa się z [KimaiTray](../../../docs/architektura/podobne-aplikacje.md); zadanie
-  [0055](../0055-zmiana-nazwy-ws-tracker-tray/todo.md).
+  [0055](../../ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md).
 - [x] **Pierwsza wersja:** 0.9.0 (beta) — 1.0.0 po testach na GNOME
       ([0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)).
 

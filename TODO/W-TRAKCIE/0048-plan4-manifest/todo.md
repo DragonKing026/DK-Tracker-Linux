@@ -1,25 +1,25 @@
 ---
-noteId: "e5b29f7ef4944b8eb1d5876bd560ddd1"
-tytul: "Plan 4 · Zadanie 2: MetaInfo (AppStream) i plik `.desktop`"
-numer: "0047"
+noteId: "b5fbe898f17d42b2b9914b094254556e"
+tytul: "Plan 4 · Zadanie 3: Manifest Flatpaka i zależności Pythona"
+numer: "0048"
 status: w-trakcie
 priorytet: p1
 tags: [todo, plan-4, flatpak]
-zalezy_od: ["0046"]
+zalezy_od: ["0047"]
 utworzono: 2026-09-26 11:28
-zaktualizowano: 2026-09-26 11:30
+zaktualizowano: 2026-09-26 11:48
 zamknieto:
 ---
 
-# 0047 — Plan 4 · Zadanie 2: MetaInfo (AppStream) i plik `.desktop`
+# 0048 — Plan 4 · Zadanie 3: Manifest Flatpaka i zależności Pythona
 
 > [!info] Status
 > **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
-Wykonać **zadanie 2** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-09-26-plan-4-flatpak.md)
-(sekcja „Task 2: MetaInfo (AppStream) i plik `.desktop`”) dokładnie według kroków planu, metodą TDD.
+Wykonać **zadanie 3** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-09-26-plan-4-flatpak.md)
+(sekcja „Task 3: Manifest Flatpaka i zależności Pythona”) dokładnie według kroków planu, metodą TDD.
 
 ## Kontekst
 
@@ -29,14 +29,13 @@ Wykonać **zadanie 2** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
   [0045](../0045-plan4-projekt-flatpak/todo.md).
 - Pliki:
 
-- Create: `data/pl.websystems.WsTrackerTray.metainfo.xml`
+- Create: `flatpak/pl.websystems.WsTrackerTray.yml`, `flatpak/python3-deps.yaml`
 - Modify: `tests/test_pakiet.py`
-- Uses: `data/pl.websystems.WsTrackerTray.desktop`, `docs/assets/zrzuty/okno-ciemny-motyw.png` (już w repozytorium)
 
 ## Kryteria akceptacji
 
 - [ ] Każdy test z zadania napisany przed kodem i widziany jako padający
-- [ ] Wynik planu: 403 passed, 1 skipped.
+- [ ] Wynik planu: 408 passed, 1 skipped.
 - [ ] Pełny `.venv/bin/pytest` zielony, `ruff format` + `ruff check` bez uwag
 - [ ] Commit(y) zgodne z planem; odchylenia zapisane jako „Ruling” w dzienniku
 
@@ -57,7 +56,7 @@ Brak (materiały pojawią się w podfolderach przy wykonaniu).
 ### 2026-09-26
 
 - **11:28** Utworzono zadanie z Planu 4.
-- **11:30** Start wykonania.
+- **11:48** Start wykonania.
 
 ## Wynik
 
