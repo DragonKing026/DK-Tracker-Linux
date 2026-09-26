@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 11:29
+zaktualizowano: 2026-09-26 11:30
 ---
 
 # Tablica zadań
@@ -26,15 +26,14 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0045 | [Plan 4 — projekt paczki Flatpak (decyzje przed planem)](W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md) | 🔨 w-trakcie | p1 | [0044](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) ✅ |
-| 0046 | [Plan 4 · Zadanie 1: Wersja 0.9.0 i licencja w pakiecie](W-TRAKCIE/0046-plan4-wersja-licencja/todo.md) | 🔨 w-trakcie | p1 | [0045](W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md) |
+| 0047 | [Plan 4 · Zadanie 2: MetaInfo (AppStream) i plik `.desktop`](W-TRAKCIE/0047-plan4-metainfo/todo.md) | 🔨 w-trakcie | p1 | [0046](ZROBIONE/0046-plan4-wersja-licencja/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0047 | [Plan 4 · Zadanie 2: MetaInfo (AppStream) i plik `.desktop`](DO-ZROBIENIA/0047-plan4-metainfo/todo.md) | 📋 do-zrobienia | p1 | [0046](W-TRAKCIE/0046-plan4-wersja-licencja/todo.md) |
-| 0048 | [Plan 4 · Zadanie 3: Manifest Flatpaka i zależności Pythona](DO-ZROBIENIA/0048-plan4-manifest/todo.md) | 📋 do-zrobienia | p1 | [0047](DO-ZROBIENIA/0047-plan4-metainfo/todo.md) |
+| 0048 | [Plan 4 · Zadanie 3: Manifest Flatpaka i zależności Pythona](DO-ZROBIENIA/0048-plan4-manifest/todo.md) | 📋 do-zrobienia | p1 | [0047](W-TRAKCIE/0047-plan4-metainfo/todo.md) |
 | 0049 | [Plan 4 · Zadanie 4: Budowa lokalna w kontenerze (`flatpak/buduj.sh`)](DO-ZROBIENIA/0049-plan4-budowa-lokalna/todo.md) | 📋 do-zrobienia | p1 | [0048](DO-ZROBIENIA/0048-plan4-manifest/todo.md) |
 | 0050 | [Plan 4 · Zadanie 5: Repozytorium Flatpaka dla GitHub Pages](DO-ZROBIENIA/0050-plan4-repo-pages/todo.md) | 📋 do-zrobienia | p1 | [0049](DO-ZROBIENIA/0049-plan4-budowa-lokalna/todo.md) |
 | 0051 | [Plan 4 · Zadanie 6: GitHub Actions — testy i wydanie](DO-ZROBIENIA/0051-plan4-github-actions/todo.md) | 📋 do-zrobienia | p1 | [0050](DO-ZROBIENIA/0050-plan4-repo-pages/todo.md) |
@@ -88,6 +87,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0042 | [Poprawki UI po teście na żywo (Plan 3)](ZROBIONE/0042-poprawki-po-tescie-na-zywo/todo.md) | ✅ zrobione | 2026-09-26 00:47 |
 | 0043 | [Dokumenty zgodne z markdownlint](ZROBIONE/0043-markdownlint/todo.md) | ✅ zrobione | 2026-09-25 23:45 |
 | 0044 | [Drobne uwagi z recenzji Planu 3 (ui)](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) | ✅ zrobione | 2026-09-26 10:14 |
+| 0046 | [Plan 4 · Zadanie 1: Wersja 0.9.0 i licencja w pakiecie](ZROBIONE/0046-plan4-wersja-licencja/todo.md) | ✅ zrobione | 2026-09-26 11:30 |
 
 <!-- tablica:end -->
 

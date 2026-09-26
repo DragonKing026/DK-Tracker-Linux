@@ -1,25 +1,25 @@
 ---
-noteId: "399710040deb43d4b12435b1527e025b"
-tytul: "Plan 4 · Zadanie 1: Wersja 0.9.0 i licencja w pakiecie"
-numer: "0046"
+noteId: "e5b29f7ef4944b8eb1d5876bd560ddd1"
+tytul: "Plan 4 · Zadanie 2: MetaInfo (AppStream) i plik `.desktop`"
+numer: "0047"
 status: w-trakcie
 priorytet: p1
 tags: [todo, plan-4, flatpak]
-zalezy_od: ["0045"]
+zalezy_od: ["0046"]
 utworzono: 2026-09-26 11:28
-zaktualizowano: 2026-09-26 11:29
+zaktualizowano: 2026-09-26 11:30
 zamknieto:
 ---
 
-# 0046 — Plan 4 · Zadanie 1: Wersja 0.9.0 i licencja w pakiecie
+# 0047 — Plan 4 · Zadanie 2: MetaInfo (AppStream) i plik `.desktop`
 
 > [!info] Status
 > **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
-Wykonać **zadanie 1** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-09-26-plan-4-flatpak.md)
-(sekcja „Task 1: Wersja 0.9.0 i licencja w pakiecie”) dokładnie według kroków planu, metodą TDD.
+Wykonać **zadanie 2** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-09-26-plan-4-flatpak.md)
+(sekcja „Task 2: MetaInfo (AppStream) i plik `.desktop`”) dokładnie według kroków planu, metodą TDD.
 
 ## Kontekst
 
@@ -29,13 +29,14 @@ Wykonać **zadanie 1** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
   [0045](../0045-plan4-projekt-flatpak/todo.md).
 - Pliki:
 
-- Modify: `pyproject.toml`, `src/kimai_tray/__init__.py`, `tests/core/test_package.py`
-- Create: `tests/test_pakiet.py`
+- Create: `data/pl.websystems.KimaiTray.metainfo.xml`
+- Modify: `tests/test_pakiet.py`
+- Uses: `data/pl.websystems.KimaiTray.desktop`, `docs/assets/zrzuty/okno-ciemny-motyw.png` (już w repozytorium)
 
 ## Kryteria akceptacji
 
 - [ ] Każdy test z zadania napisany przed kodem i widziany jako padający
-- [ ] Wynik planu: 399 passed, 1 skipped.
+- [ ] Wynik planu: 403 passed, 1 skipped.
 - [ ] Pełny `.venv/bin/pytest` zielony, `ruff format` + `ruff check` bez uwag
 - [ ] Commit(y) zgodne z planem; odchylenia zapisane jako „Ruling” w dzienniku
 
@@ -56,7 +57,7 @@ Brak (materiały pojawią się w podfolderach przy wykonaniu).
 ### 2026-09-26
 
 - **11:28** Utworzono zadanie z Planu 4.
-- **11:29** Start wykonania.
+- **11:30** Start wykonania.
 
 ## Wynik
 
