@@ -53,9 +53,8 @@ class FakeClient:
         self.billable_forbidden = False
         self.start_timeout: str | None = None  # "before" (nothing saved) | "after" (saved, reply lost)
         self.range_entries: list[Entry] | None = None
-        self.details: dict[
-            int, dict
-        ] = {}  # what GET /api/timesheets/{id} adds to an entry: tags, rates, meta
+        self.details: dict[int, dict] = {}  # what GET /api/timesheets/{id} adds: tags, rates, meta
+        self.known_tags: set[str] | None = None  # None: any tag; a set: others are dropped, as Kimai does
         self.projects_list = [
             Project(1, "Moduł rezerwacji", 10, "Hotel Morski", "#008000", True),
             Project(2, "Administracja", 20, "Sprawy wewnętrzne", "#808080", True),
@@ -223,6 +222,11 @@ class FakeClient:
         self._check("update")
         if "billable" in changes and self.billable_forbidden:
             raise ApiError(ErrorKind.REJECTED, 400, EXTRA_FIELDS)
+        if "tags" in changes:
+            tags = [tag for tag in str(changes["tags"]).split(",") if tag]
+            if self.known_tags is not None:
+                tags = [tag for tag in tags if tag in self.known_tags]
+            self.details.setdefault(entry_id, {})["tags"] = tags
         entry = self.entries[entry_id]
         if "description" in changes:
             entry = replace(entry, description=changes["description"])

@@ -236,7 +236,7 @@ class QuickWindow(QWidget):
             # again only for a new one (a second save carries the same text in a new Snapshot).
             if snapshot.notice and snapshot is not self._notice_shown:
                 if snapshot.notice.startswith("err"):
-                    self.show_error(t(snapshot.notice))
+                    self.show_error(t(snapshot.notice, **dict(snapshot.notice_params)))
                 else:
                     self.flash(t(snapshot.notice))
         self._notice_shown = snapshot

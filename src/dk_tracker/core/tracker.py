@@ -58,6 +58,7 @@ class Snapshot:
     timezone_mismatch: bool = False
     timezone_missing: bool = False  # Kimai did not report the account zone; the system's is used
     notice: str | None = None  # i18n key of a one-off message ("savedDescription", ...)
+    notice_params: tuple[tuple[str, str], ...] = ()  # its placeholders, e.g. (("tags", "a, b"),)
 
     @property
     def current(self) -> Entry | None:
@@ -490,8 +491,16 @@ class Tracker:
                 notice = "errFieldsDenied"
         for name, value in meta.items():
             self._client.set_meta(details.id, name, value)
+        params: tuple[tuple[str, str], ...] = ()
+        if "tags" in changes and notice == "savedEntry":
+            # Kimai leaves out, without a word, a tag that does not exist when the account may
+            # not create tags (2.67.0): read the entry again and name what is missing.
+            kept = self._client.entry_details(details.id).tags
+            dropped = [tag for tag in str(changes["tags"]).split(",") if tag and tag not in kept]
+            if dropped:
+                notice, params = "errTagsDropped", (("tags", ", ".join(dropped)),)
         self.refresh_full()
-        return self._set(notice=notice)
+        return self._set(notice=notice, notice_params=params)
 
     def _detail_changes(self, details: EntryDetails, values: dict[str, Any]) -> dict[str, object]:
         changes: dict[str, object] = {}

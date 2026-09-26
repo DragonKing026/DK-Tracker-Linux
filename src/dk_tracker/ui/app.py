@@ -735,6 +735,7 @@ class Controller(QObject):
 
         def done(result: tuple[Snapshot, list]) -> None:
             self._apply(result)
+            self._main_notice(result[0])
             self._reload_entries()
 
         def failed(error: Exception) -> None:
@@ -751,6 +752,11 @@ class Controller(QObject):
             self._reload_entries()  # the row shows again what Kimai has
 
         self.kimai.submit(lambda: (job(tracker), tracker.warnings()), done, failed)
+
+    def _main_notice(self, snapshot: Snapshot) -> None:
+        """What Kimai did not take (billable, rates, new tags) shows in the main window's bar."""
+        if snapshot.notice and snapshot.notice.startswith("err"):
+            self.main_bridge.show_error(self.state.t(snapshot.notice, **dict(snapshot.notice_params)))
 
     def _main_failed(self, error: Exception) -> None:
         """A background load (list, projects, activities); the next one that works clears it."""
@@ -783,6 +789,7 @@ class Controller(QObject):
         def done(result: tuple[Snapshot, list]) -> None:
             self._apply(result)
             self.main_bridge.close_editor()
+            self._main_notice(result[0])
             self._reload_entries()
 
         def failed(error: Exception) -> None:

@@ -61,6 +61,7 @@
   "cancel": "Cancel",
   "yes": "Yes",
   "no": "No",
+  "errTagsDropped": "Kimai did not save the tags {tags} — only accounts with that permission may create new tags. Pick existing ones.",
   "errInvalidDay": "Invalid date.",
   "errInvalidRate": "A rate must be a number, e.g. 120 or 99.50.",
   "errFieldsDenied": "Saved, but Kimai does not let your account change billable or rates.",

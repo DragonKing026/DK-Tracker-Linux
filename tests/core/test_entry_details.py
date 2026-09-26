@@ -141,3 +141,13 @@ def test_hours_with_seconds_are_not_sent_when_the_minutes_did_not_change():
     details = tracker.entry_details(entry)
     tracker.save_details(details, {"day": date(2026, 9, 25), "begin": "09:00", "end": "10:30", "tags": "x"})
     assert updates(client) == [{"tags": "x"}]
+
+
+def test_tags_kimai_dropped_are_named():
+    """Kimai 2.67.0 silently leaves out a tag that does not exist when the account may not create
+    tags (checked on the Docker instance): the save reads the entry again and says so."""
+    tracker, client, _ = make_tracker()
+    client.known_tags = {"frontend"}
+    snapshot = edited(tracker, client, tags="frontend, całkiem-nowy")
+    assert snapshot.notice == "errTagsDropped"
+    assert snapshot.notice_params == (("tags", "całkiem-nowy"),)

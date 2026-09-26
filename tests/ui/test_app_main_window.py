@@ -333,3 +333,13 @@ def test_a_refused_save_keeps_the_edit_window_open_with_the_reason(harness):  # 
     h.settle()
     editor = h.controller.main_bridge.editor
     assert editor["open"] is True and editor["error"] != "" and editor["busy"] is False
+
+
+def test_tags_kimai_left_out_are_told_in_the_main_window(harness):  # noqa: F811
+    h = opened(harness)
+    h.client.known_tags = {"frontend"}
+    h.controller.main_bridge.openEntry(2)
+    h.settle()
+    h.controller.main_bridge.saveEntry(dict(h.controller.main_bridge.editor, tags="frontend, nowy"))
+    h.settle()
+    assert "nowy" in h.controller.main_bridge.view["error"]

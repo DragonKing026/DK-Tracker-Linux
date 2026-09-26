@@ -61,6 +61,7 @@
   "cancel": "Anuluj",
   "yes": "Tak",
   "no": "Nie",
+  "errTagsDropped": "Kimai nie zapisało tagów: {tags} — nowe tagi może tworzyć tylko konto z takim uprawnieniem. Wybierz istniejące.",
   "errInvalidDay": "Nieprawidłowa data.",
   "errInvalidRate": "Stawka musi być liczbą, np. 120 albo 99,50.",
   "errFieldsDenied": "Zapisano, ale Kimai nie pozwala Twojemu kontu zmienić płatności ani stawek.",
