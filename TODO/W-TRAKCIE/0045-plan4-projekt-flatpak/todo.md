@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, plan-4, flatpak, projekt]
 zalezy_od: ["0044"]
 utworzono: 2026-09-26 10:19
-zaktualizowano: 2026-09-26 10:24
+zaktualizowano: 2026-09-26 11:01
 ---
 
 # 0045 — Plan 4 — projekt paczki Flatpak (decyzje przed planem)
@@ -49,6 +49,9 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 
 ## Materiały
 
+- [notatki/proba-budowy.md](notatki/proba-budowy.md) — próbna budowa i test paczki z użytkownikiem
+- [prototyp/](prototyp/) — manifest, zależności Pythona i MetaInfo z próby
+
 ## Dziennik
 
 ### 2026-09-26
@@ -56,3 +59,4 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 - **10:19** Utworzono. Licencja: AGPL-3.0-or-later (decyzja użytkownika).
 - **10:23** Dystrybucja: wariant C (paczka + Actions + repozytorium na Pages); repozytorium publiczne.
 - **10:24** Nazwa: Kimai Tray; wersja 0.9.0 (beta).
+- **11:01** Próba budowy w obrazie Flathuba udana (71 MB); test paczki z użytkownikiem: wszystko działa.
