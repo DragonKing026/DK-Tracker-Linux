@@ -70,7 +70,10 @@ class SingleInstance(QObject):
             socket.disconnectFromServer()
             return False
         QLocalServer.removeServer(self.name)  # left behind by a crash
-        return self.server.listen(self.name)
+        if not self.server.listen(self.name):
+            # Better two windows than none: the app runs, only without the single-instance guard.
+            log.warning("No single instance guard (%s): %s", self.name, self.server.errorString())
+        return True
 
     def release(self) -> None:
         self.server.close()

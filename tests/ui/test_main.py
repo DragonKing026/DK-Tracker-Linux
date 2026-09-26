@@ -55,3 +55,10 @@ def test_module_runs_and_shows_help():
     )
     assert result.returncode == 0
     assert "--hidden" in result.stdout
+
+
+def test_when_the_socket_cannot_be_opened_the_app_still_starts(qtbot, caplog):
+    instance = SingleInstance("/nonexistent-dir/kimai-tray-test")  # listen() fails here
+    with caplog.at_level("WARNING", logger="kimai_tray.ui.main"):
+        assert instance.claim() is True
+    assert "single instance" in caplog.text
