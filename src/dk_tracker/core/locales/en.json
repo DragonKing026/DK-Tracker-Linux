@@ -113,5 +113,8 @@
   "weekdaysShort": "Mon,Tue,Wed,Thu,Fri,Sat,Sun",
   "monthsShort": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
   "dayOther": "{weekday}, {day} {month}",
+  "weekThis": "This week",
+  "weekLast": "Last week",
+  "weekRange": "{first} – {last}",
   "projectSearch": "Search projects…"
 }
