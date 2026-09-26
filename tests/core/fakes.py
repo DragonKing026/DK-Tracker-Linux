@@ -97,6 +97,14 @@ class FakeClient:
         self._check("latest")
         return sorted(self.entries.values(), key=lambda e: e.begin, reverse=True)[:size]
 
+    def search(self, term, size=50):
+        """Like Kimai 2.67: every word must occur in the description, case-insensitive; newest first."""
+        self.calls.append(("search", term, size))
+        self._check("search")
+        words = term.lower().split()
+        found = [e for e in self.entries.values() if all(w in e.description.lower() for w in words)]
+        return sorted(found, key=lambda e: e.begin, reverse=True)[:size]
+
     def range(self, begin, end):
         self.calls.append(("range", begin, end))
         self._check("range")

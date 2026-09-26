@@ -196,3 +196,16 @@ def test_client_does_not_follow_redirects_but_reports_them():
         client.me()
     assert (caught.value.kind, caught.value.location) == (ErrorKind.REDIRECT, "https://kimai.test")
     assert len(rec.requests) == 1  # the token is not sent a second time
+
+
+def test_search_asks_kimai_for_the_term_newest_first():
+    client, rec = client_for(lambda r: httpx.Response(200, json=[ENTRY]))
+    entries = client.search("rezerwacja pokoi")
+    assert dict(rec.last.url.params) == {
+        "term": "rezerwacja pokoi",
+        "size": "50",
+        "orderBy": "begin",
+        "order": "DESC",
+        "full": "true",
+    }
+    assert entries[0].id == 8

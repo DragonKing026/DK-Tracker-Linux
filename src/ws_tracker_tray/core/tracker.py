@@ -32,6 +32,8 @@ from .timefmt import (
 from .validation import check_description
 
 RECENT_SIZE = 20
+SEARCH_SIZE = 50
+SEARCH_MIN_CHARS = 2
 log = logging.getLogger(__name__)
 
 
@@ -105,6 +107,7 @@ class Tracker:
         self._now = now
         self._local_now = local_now
         self._snapshot = Snapshot(billable_allowed=memory.billable_allowed)
+        self._found: tuple[Entry, ...] = ()  # the last search results (F-33), for the `$` on them
 
     @property
     def snapshot(self) -> Snapshot:
@@ -273,7 +276,8 @@ class Tracker:
         """F-09. The `$` on a running or a recent entry."""
         if not self._snapshot.billable_allowed:
             raise TrackerError("billableLocked")
-        known = next((e for e in (*self._snapshot.running, *self._snapshot.recent) if e.id == entry_id), None)
+        entries = (*self._snapshot.running, *self._snapshot.recent, *self._found)
+        known = next((e for e in entries if e.id == entry_id), None)
         if known is not None and known.exported:
             raise TrackerError("errExported")
         try:
@@ -284,6 +288,14 @@ class Tracker:
                 raise TrackerError("errBillableDenied") from error
             raise
         return self._merge(updated, notice="savedBillable")
+
+    def search(self, term: str) -> tuple[Entry, ...]:
+        """F-33. All of the user's finished entries whose description has every word, newest first."""
+        term = " ".join(term.split())
+        if len(term) < SEARCH_MIN_CHARS:
+            return ()
+        self._found = tuple(entry for entry in self._client.search(term, SEARCH_SIZE) if not entry.running)
+        return self._found
 
     def remember(self, **changes: Any) -> None:
         """Remembered UI state (e.g. a hint already shown), saved with the tracker's own memory."""

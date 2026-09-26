@@ -74,6 +74,11 @@ class KimaiClient:
         params = {"size": str(size), "orderBy": "begin", "order": "DESC", "full": "true"}
         return _many(Entry.from_api, self._json("GET", "/api/timesheets", params=params))
 
+    def search(self, term: str, size: int = 50) -> list[Entry]:
+        """F-33. Kimai matches every word of `term` in the description only (not project names)."""
+        params = {"term": term, "size": str(size), "orderBy": "begin", "order": "DESC", "full": "true"}
+        return _many(Entry.from_api, self._json("GET", "/api/timesheets", params=params))
+
     def range(self, begin: str, end: str, *, page_size: int = 500, max_pages: int = 10) -> list[Entry]:
         """Every entry starting inside the window; Kimai answers 404 past the last page."""
         collected: list[Entry] = []
