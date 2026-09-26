@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, plan-4, flatpak, projekt]
 zalezy_od: ["0044"]
 utworzono: 2026-09-26 10:19
-zaktualizowano: 2026-09-26 10:19
+zaktualizowano: 2026-09-26 10:23
 ---
 
 # 0045 — Plan 4 — projekt paczki Flatpak (decyzje przed planem)
@@ -38,6 +38,11 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 
 - [x] **Licencja:** AGPL-3.0-or-later (jak Kimai; logo Kimai może zostać). Plik `LICENSE` i pole licencji w
   `pyproject.toml` i MetaInfo — w Planie 4.
+- [x] **Dystrybucja:** wariant C — plik `.flatpak` budowany lokalnie (`flatpak/buduj.sh`, Docker) **i** przez
+  GitHub Actions po tagu wersji (wydanie na GitHubie z paczką), **plus** własne repozytorium Flatpaka na GitHub Pages
+  (podpisane GPG) z automatycznymi aktualizacjami przez Discover / GNOME Software.
+- [x] **Repozytorium kodu publiczne** (`DragonKing026/Kimai-App--Linux-`) — użytkownik zmienił widoczność; Pages działa
+  na darmowym koncie. Wypychanie, tagi i sekrety tylko na prośbę użytkownika.
 
 ## Materiały
 
@@ -46,3 +51,4 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 ### 2026-09-26
 
 - **10:19** Utworzono. Licencja: AGPL-3.0-or-later (decyzja użytkownika).
+- **10:23** Dystrybucja: wariant C (paczka + Actions + repozytorium na Pages); repozytorium publiczne.
