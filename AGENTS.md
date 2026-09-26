@@ -20,7 +20,8 @@ start/stop timera, lista ostatnich wpisów, wznawianie, edycja trwającego wpisu
 „billable”, sumy dzienne/tygodniowe, walidacja jakości opisu.
 Szczegóły: [docs/integracje/kimai-ws-tracker.md](docs/integracje/kimai-ws-tracker.md).
 
-Status: **faza 2 — implementacja**: rdzeń (Plan 1) i integracje desktopowe (Plan 2) gotowe, dalej UI (Plan 3).
+Status: **faza 2 — implementacja**: rdzeń (Plan 1), integracje desktopowe (Plan 2) i interfejs (Plan 3) gotowe,
+dalej paczka Flatpak (Plan 4).
 Stos: **Python + PySide6 (Qt 6), Flatpak na `org.kde.Platform` 6.11** —
 [ADR-0002](docs/decyzje/0002-stos-python-pyside6.md).
 
