@@ -52,6 +52,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | PATCH | `/api/timesheets/{id}/stop` | stop „teraz”; na już zatrzymanym wpisie zwraca 200 (sprawdzone) | F-05 |
 | PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable`, `project` + `activity` (trwający wpis); `begin`/`end`, `project` + `activity`, `tags` (lista po przecinku) zakończonego wpisu | F-05, F-07, F-09, F-34, F-35 |
 | GET | `/api/timesheets/{id}` | okno edycji: wszystkie opcje wpisu — `tags`, `metaFields`, `break`; stawek (`fixedRate`, `hourlyRate`) aplikacja nie pokazuje — patrz niżej | F-35 |
+| GET | `/api/tags/find?name=` | tagi do wyboru w oknie edycji: pusty `name` daje wszystkie **widoczne** (z kolorem `color-safe`); ukrytych nie ma (`/api/tags` to starsza, przestarzała lista samych nazw) | F-35 |
 | PATCH | `/api/timesheets/{id}/meta` | pole dodatkowe serwera: `name`, `value` (nieznanej nazwy Kimai nie przyjmuje) | F-35 |
 
 Pole zależne od uprawnienia (`billable` — `edit_billable`) konto bez uprawnienia dostaje jako 400 „This form should not

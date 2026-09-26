@@ -312,7 +312,8 @@ Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/20
   ▶ wznawia (nowy wpis od teraz z tym samym opisem i projektem), kosz usuwa, wpis wyeksportowany z kłódką.
 - **Okno edycji** (kliknięcie wiersza): wszystkie opcje wpisu z Kimai — dzień (kalendarz), od i do (wybór godziny i
   minut co 5), czas trwania (tylko do odczytu),
-  projekt i rodzaj pracy, opis w wielu liniach (Enter zapisuje, Shift+Enter — nowa linia), tagi (po przecinku),
+  projekt i rodzaj pracy, opis w wielu liniach (Enter zapisuje, Shift+Enter — nowa linia), tagi (wybór z listy tagów
+  Kimai, kafelki w ich kolorach; nowy tag można dopisać),
   `$` (płatne — ikona jak w wierszu), przerwa, pola dodatkowe serwera — to, co ma formularz Kimai (bez stawek);
   Usuń, Anuluj, Zapisz.
   Wpis wyeksportowany (zafakturowany): wszystko wyszarzone, tylko do odczytu. Wysyła tylko zmiany. Pola, których konto
