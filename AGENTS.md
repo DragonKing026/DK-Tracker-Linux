@@ -20,7 +20,7 @@ start/stop timera, lista ostatnich wpisów, wznawianie, edycja trwającego wpisu
 „billable”, sumy dzienne/tygodniowe, walidacja jakości opisu.
 Szczegóły: [docs/integracje/kimai-ws-tracker.md](docs/integracje/kimai-ws-tracker.md).
 
-Status: **wydana 0.9.2 (beta)**: rdzeń, integracje desktopowe, interfejs i paczka Flatpak (Plany 1–4) gotowe;
+Status: **wydana 0.9.3 (beta)**: rdzeń, integracje desktopowe, interfejs i paczka Flatpak (Plany 1–4) gotowe;
 dalej: aplikacja zamiast samej tacki i minutnik
 ([0062](TODO/DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md)), testy GNOME przed 1.0.
 Stos: **Python + PySide6 (Qt 6), Flatpak na `org.kde.Platform` 6.11** —

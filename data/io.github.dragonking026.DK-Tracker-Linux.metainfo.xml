@@ -39,6 +39,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.9.3" date="2026-09-26">
+      <description>
+        <p>The window next to the tray is low again while the app is not configured.</p>
+      </description>
+    </release>
     <release version="0.9.2" date="2026-09-26">
       <description>
         <p>New name DK Tracker with its own DK icon, a readable mark in the window header, GPL-3.0-or-later licence, and a new app id (reinstall from the new repository). Resizing the window next to the tray follows the pointer smoothly at any size.</p>
