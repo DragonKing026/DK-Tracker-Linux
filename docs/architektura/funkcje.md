@@ -129,9 +129,11 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 - Pomija wpis trwający (`end == null`).
 - Grupowanie po dniu lokalnym: „Dziś”, „Wczoraj”, dalej data (`pon., 22 wrz`), suma dnia
   w formacie `h:mm`.
-- Wiersz: kropka koloru projektu, opis (maks. 2 linie, znaki nowej linii → spacje,
-  pełny opis w podpowiedzi; brak opisu → „bez opisu”), „projekt - czynność”, czas trwania,
-  zakres `HH:MM-HH:MM`, przycisk `$` (F-09), przycisk ▶ wznów (F-10).
+- Wiersz: kropka koloru projektu, opis (znaki nowej linii → spacje, pełny opis w podpowiedzi; brak opisu → „bez
+  opisu”), „projekt - czynność”, czas trwania, zakres `HH:MM-HH:MM`, przycisk `$` (F-09), przycisk ▶ wznów (F-10).
+- Opis: wtyczka pokazuje 2 linie; u nas **2,5 linii od góry** (ucięta połowa trzeciej sygnalizuje dalszy tekst), a
+  **kliknięcie w wiersz rozwija cały opis**, drugie zwija. Rozwinięcie przetrwa odświeżenie listy
+  ([0058](../../TODO/W-TRAKCIE/0058-dlugie-opisy-na-liscie/todo.md), prośba użytkownika).
 - Pod listą link „Moje czasy” → `{url}/{locale}/timesheet/`. Kimai nie ma trasy bez
   locale; locale brane z `entry.user.language` i zapamiętywane.
 
