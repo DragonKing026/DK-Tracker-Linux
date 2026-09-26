@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dk-tracker"
-version = "0.10.1"
+version = "0.10.2"
 description = "System tray time tracking for Kimai"
 license = "GPL-3.0-or-later"
 license-files = ["LICENSE"]
