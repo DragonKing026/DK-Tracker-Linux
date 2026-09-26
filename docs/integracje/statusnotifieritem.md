@@ -19,7 +19,7 @@ zaktualizowano: 2026-09-25 23:09
 
 ```mermaid
 sequenceDiagram
-    participant App as WS Tracker Tray
+    participant App as WS Tracker
     participant W as StatusNotifierWatcher<br/>(org.kde.StatusNotifierWatcher)
     participant H as Host (panel Plasmy /<br/>rozszerzenie GNOME)
     App->>App: rejestruje usługę<br/>org.freedesktop.StatusNotifierItem-PID-ID
@@ -40,7 +40,7 @@ sequenceDiagram
 | Właściwość | Wartość u nas |
 | --- | --- |
 | `Category` | `ApplicationStatus` |
-| `Id`, `Title` | identyfikator aplikacji / „WS Tracker Tray” |
+| `Id`, `Title` | identyfikator aplikacji / „WS Tracker” |
 | `Status` | `Active` gdy timer trwa; `Passive` gdy bezczynny (host **może ukryć** ikonę Passive — Plasma chowa ją do „ukrytych”, dlatego raczej zawsze `Active`); `NeedsAttention` — błąd lub bardzo długi timer |
 | `IconName` / `IconPixmap` | ikona stanu: bezczynny / trwa / błąd (odpowiednik kolorów badge wtyczki) |
 | `OverlayIconName` | alternatywnie: nakładka stanu na stałą ikonę |

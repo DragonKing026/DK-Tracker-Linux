@@ -8,7 +8,7 @@ zaktualizowano: 2026-09-26 11:58
 
 # Wydania i instalacja
 
-Jak wydać nową wersję WS Tracker Tray i jak ją zainstalować. Decyzja o dystrybucji:
+Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybucji:
 [ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md); workflow:
 [wydanie.yml](../../.github/workflows/wydanie.yml) ([GitHub Actions](../integracje/github-actions.md)).
 

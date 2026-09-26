@@ -59,7 +59,7 @@ sequenceDiagram
 ```
 
 Atrybuty wyszukiwania elementu: `application=pl.websystems.WsTrackerTray`,
-`url=<adres Kimai>`. Etykieta: „`WS Tracker Tray — <adres Kimai>`”.
+`url=<adres Kimai>`. Etykieta: „`WS Tracker — <adres Kimai>`”.
 
 ## Sprawdzone na stacji deweloperskiej (2026-09-25)
 

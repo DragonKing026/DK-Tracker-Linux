@@ -41,7 +41,7 @@ zaktualizowano: 2026-09-26 00:13
 ```mermaid
 sequenceDiagram
     actor U as Użytkownik
-    participant App as WS Tracker Tray
+    participant App as WS Tracker
     participant P as Portal Background
     U->>App: ustawienia: „Uruchamiaj przy logowaniu” ✓
     App->>P: RequestBackground(autostart=true, commandline=[ws-tracker-tray, --hidden])

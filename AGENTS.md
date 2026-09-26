@@ -10,7 +10,7 @@ tags: []
 
 ## 1. Czym jest ten projekt
 
-**WS Tracker Tray** — natywna aplikacja desktopowa na Linuksa, dystrybuowana jako
+**WS Tracker** — natywna aplikacja desktopowa na Linuksa, dystrybuowana jako
 **Flatpak**, która siedzi w **tacce systemowej** (KDE Plasma i GNOME) i pozwala zarządzać
 czasem pracy w firmowym **Kimai** bez otwierania przeglądarki.
 

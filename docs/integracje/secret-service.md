@@ -27,7 +27,7 @@ zaktualizowano: 2026-09-25 22:05
 
 ```mermaid
 flowchart TB
-    APP[WS Tracker Tray<br/>libsecret / klient Secret Service]
+    APP[WS Tracker<br/>libsecret / klient Secret Service]
     subgraph A["Droga A: portal Secret (zalecana przez Flatpak)"]
         P[xdg-desktop-portal<br/>org.freedesktop.portal.Secret]
         PB[backend: kwallet.portal / gnome-keyring.portal]
@@ -45,7 +45,7 @@ flowchart TB
 | --- | --- | --- |
 | Uprawnienia Flatpaka | brak dodatkowych | `--talk-name=org.freedesktop.secrets` |
 | Izolacja | sekret per aplikacja | aplikacja widzi (potencjalnie) cały magazyn użytkownika |
-| Widoczność w KWallet/Seahorse | tylko klucz główny aplikacji | wpis „WS Tracker Tray” widoczny i usuwalny przez użytkownika |
+| Widoczność w KWallet/Seahorse | tylko klucz główny aplikacji | wpis „WS Tracker” widoczny i usuwalny przez użytkownika |
 | Działanie poza Flatpakiem (dev) | libsecret wtedy używa Secret Service bezpośrednio | tak |
 
 **Portal Secret**

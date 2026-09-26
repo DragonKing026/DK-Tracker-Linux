@@ -1,9 +1,10 @@
-# WS Tracker Tray
+# WS Tracker
 
 Mierzenie czasu w [Kimai](https://www.kimai.org/) prosto z tacki systemowej Linuksa — bez otwierania przeglądarki.
-Natywny odpowiednik firmowej wtyczki [WS Tracker](https://github.com/websystemspl/kimai-ws-tracker).
+Natywna, linuksowa wersja firmowej wtyczki przeglądarkowej
+[WS Tracker](https://github.com/websystemspl/kimai-ws-tracker).
 
-![Okno WS Tracker Tray przy tacce (ciemny motyw)](../docs/assets/zrzuty/okno-ciemny-motyw.png)
+![Okno WS Tracker przy tacce (ciemny motyw)](../docs/assets/zrzuty/okno-ciemny-motyw.png)
 
 > **Status:** wersja **0.9.1 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
 
@@ -32,7 +33,7 @@ ale tak zainstalowana aplikacja nie dostaje aktualizacji. Szczegóły i przejśc
 
 Na GNOME ikona w tacce wymaga rozszerzenia
 [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/);
-bez niego WS Tracker Tray działa jako zwykłe okno.
+bez niego WS Tracker działa jako zwykłe okno.
 
 ## Konfiguracja
 
@@ -49,4 +50,6 @@ bez niego WS Tracker Tray działa jako zwykłe okno.
 
 ## Licencja
 
-[AGPL-3.0-or-later](../LICENSE) — jak Kimai. Logo Kimai pochodzi z projektu [Kimai](https://github.com/kimai/kimai).
+[AGPL-3.0-or-later](../LICENSE) — jak Kimai. WS Tracker to niezależny projekt, nie jest oficjalną aplikacją
+[Kimai](https://www.kimai.org/) ani nie jest z nim powiązany; Kimai jest znakiem towarowym jego autora
+([zasady](https://www.kimai.org/en/trademark-policy.html)).

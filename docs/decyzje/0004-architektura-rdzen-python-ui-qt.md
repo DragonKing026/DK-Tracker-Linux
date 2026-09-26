@@ -51,7 +51,7 @@ Zaakceptowane przez użytkownika 2026-09-25.
 
 - Flatpak: `--talk-name=org.freedesktop.secrets`; paczki pip (`httpx` + zależności,
   `jeepney`) generowane przez `flatpak-pip-generator`.
-- Token jest widoczny w KWallet / GNOME Keyring jako „`WS Tracker Tray — <url>`” i użytkownik
+- Token jest widoczny w KWallet / GNOME Keyring jako „`WS Tracker — <url>`” i użytkownik
   może go usunąć.
 - Moduł sekretów jest za interfejsem, więc można go później zamienić na portal Secret.
 - Zablokowany portfel (`IsLocked`) wymaga `Unlock` → systemowe okno hasła. Obsługa
