@@ -70,6 +70,8 @@ Brak.
 - **14:25** Decyzja właściciela firmy: projekt prywatny użytkownika. Użytkownik: identyfikator
   io.github.dragonking026.WS-Tracker-Linux (Flathub: ostatni człon = nazwa repozytorium), wydawca Artur Ograbek, pakiet
   ws_tracker i komenda ws-tracker.
+- **14:30** Użytkownik: inicjały autora zamiast WS — nazwa **DK Tracker**, repozytorium `DK-Tracker-Linux`,
+  identyfikator `io.github.dragonking026.DK-Tracker-Linux`, pakiet `dk_tracker`, komenda `dk-tracker`, ikona „DK”.
 
 ## Wynik
 
