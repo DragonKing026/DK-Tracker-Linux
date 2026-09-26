@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 12:29
+zaktualizowano: 2026-09-26 12:40
 ---
 
 # Tablica zadań
@@ -27,7 +27,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0045 | [Plan 4 — projekt paczki Flatpak (decyzje przed planem)](W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md) | 🔨 w-trakcie | p1 | [0044](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) ✅ |
 | 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | ⛔ zablokowane | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
-| 0057 | [Drobne uwagi z recenzji Planu 4](W-TRAKCIE/0057-drobne-uwagi-z-recenzji-planu-4/todo.md) | 🔨 w-trakcie | p3 | — |
 
 ## Do zrobienia
 
@@ -92,6 +91,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0052 | [Plan 4 · Zadanie 7: Proces wydania i instrukcja instalacji](ZROBIONE/0052-plan4-proces-wydania/todo.md) | ✅ zrobione | 2026-09-26 11:59 |
 | 0054 | [Podobne aplikacje: KimaiTray i KimTrack w dokumentacji](ZROBIONE/0054-podobne-aplikacje/todo.md) | ✅ zrobione | 2026-09-26 11:43 |
 | 0055 | [Zmiana nazwy na WS Tracker Tray](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) | ✅ zrobione | 2026-09-26 11:48 |
+| 0057 | [Drobne uwagi z recenzji Planu 4](ZROBIONE/0057-drobne-uwagi-z-recenzji-planu-4/todo.md) | ✅ zrobione | 2026-09-26 12:40 |
 
 <!-- tablica:end -->
 
