@@ -24,6 +24,15 @@ def listed(h):
     return [model.data(model.index(i, 0), 0x0100 + 5) for i in range(model.rowCount())]  # "entryId"
 
 
+def settled(h):
+    """Until the list stops loading older weeks by itself (the QML list asks while it is short)."""
+    weeks = None
+    while weeks != h.controller._weeks:
+        weeks = h.controller._weeks
+        for _ in range(3):
+            h.settle()
+
+
 def entry_ids(h):
     return [row for row in listed(h) if row]
 
@@ -242,10 +251,11 @@ def test_a_delete_during_a_search_still_reaches_kimai(harness, qtbot):  # noqa: 
 def test_a_failed_refresh_clears_once_kimai_answers_again(harness):  # noqa: F811
     """Review I1: "no connection" stayed after the connection came back."""
     h = opened(harness)
-    h.client.fail["range"] = [ApiError(ErrorKind.CONNECTION, 0, "offline")]
+    h.client.fail["range"] = [ApiError(ErrorKind.CONNECTION, 0, "offline") for _ in range(20)]
     h.controller._on_poll()
     h.settle()
     assert h.controller.main_bridge.view["error"] != ""
+    h.client.fail["range"] = []  # the connection is back
     h.controller._on_poll()
     h.settle()
     assert h.controller.main_bridge.view["error"] == ""
@@ -268,10 +278,58 @@ def test_a_row_picker_gets_the_activities_of_its_project(harness):  # noqa: F811
 
 
 def test_the_minute_refresh_does_not_load_older_weeks(harness):  # noqa: F811
-    h = opened(harness)
-    h.controller._empty_weeks = 0  # as for a long list, far from the empty-weeks limit
+    """A list taller than the window: the minute's refresh reloads it, no older week is asked for.
+    (A short list does ask — the QML list is at its end — until it fills the window.)"""
+    h = harness()
+    for n in range(30):
+        begin = NOW - timedelta(hours=9) + timedelta(minutes=10 * n)
+        h.client.add(make_entry(200 + n, begin, begin + timedelta(minutes=5), description=f"{GOOD} {n}"))
+    for week in range(1, 13):  # one entry a week back: loading older weeks always finds something
+        begin = NOW - timedelta(weeks=week)
+        h.client.add(make_entry(300 + week, begin, begin + timedelta(hours=1), description=f"{GOOD} w{week}"))
+    h.controller.show_main_window()
+    settled(h)
+    for _ in range(2):  # scrolled down: older weeks in the list
+        h.controller._load_more()
+        settled(h)
     weeks = h.controller._weeks
+    assert weeks >= 3
     for _ in range(3):
         h.controller._on_poll()
         h.settle()
     assert h.controller._weeks == weeks
+
+
+# -- the edit window --------------------------------------------------------------------
+
+
+def test_clicking_a_row_opens_the_edit_window_with_what_kimai_has(harness):  # noqa: F811
+    h = opened(harness)
+    h.client.details[2] = {"tags": ["frontend"], "hourlyRate": 120.0}
+    h.controller.main_bridge.openEntry(2)
+    h.settle()
+    editor = h.controller.main_bridge.editor
+    assert editor["open"] is True and editor["entryId"] == 2
+    assert editor["tags"] == "frontend" and editor["hourlyRate"] == "120"
+    assert ("entry_details", 2) in h.client.calls
+
+
+def test_saving_the_edit_window_reaches_kimai_and_closes_it(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.openEntry(2)
+    h.settle()
+    h.controller.main_bridge.saveEntry(dict(h.controller.main_bridge.editor, tags="frontend, pilne"))
+    h.settle()
+    assert ("update", 2, {"tags": "frontend,pilne"}) in h.client.calls
+    assert h.controller.main_bridge.editor["open"] is False
+
+
+def test_a_refused_save_keeps_the_edit_window_open_with_the_reason(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.openEntry(2)
+    h.settle()
+    h.client.fail["update"] = [ApiError(ErrorKind.FORBIDDEN, 403, "Access denied")]
+    h.controller.main_bridge.saveEntry(dict(h.controller.main_bridge.editor, tags="frontend"))
+    h.settle()
+    editor = h.controller.main_bridge.editor
+    assert editor["open"] is True and editor["error"] != "" and editor["busy"] is False
