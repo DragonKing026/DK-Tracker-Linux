@@ -23,6 +23,7 @@ class Settings:
     notify_connection: bool = True
     notify_menu_actions: bool = True
     autostart: bool = False
+    show_tray: bool = True  # Plan 5: only where the desktop has a tray; off = the main window alone
 
     def normalized(self) -> Settings:
         return replace(
@@ -45,6 +46,9 @@ class Memory:
     tray_hint_shown: bool = False  # the "no system tray" hint is shown once (spec, section 7)
     popup_width: int = 460  # the quick window as the user last sized it (the add-on's popup is 460 × ≤600)
     popup_height: int = 600
+    main_width: int = 1000  # the main window (Plan 5); Wayland lets no app place its window, so no position
+    main_height: int = 700
+    main_view: str = "entries"  # entries | summary | calendar
 
 
 def _base(variable: str, fallback: Path) -> Path:
