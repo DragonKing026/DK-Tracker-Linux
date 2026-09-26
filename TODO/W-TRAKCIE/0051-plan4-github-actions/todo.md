@@ -1,25 +1,25 @@
 ---
-noteId: "cd296bd545804359a5a4559eb4f7e6e5"
-tytul: "Plan 4 · Zadanie 5: Repozytorium Flatpaka dla GitHub Pages"
-numer: "0050"
+noteId: "33cad5a935d24a40a9faabae4f43a1a9"
+tytul: "Plan 4 · Zadanie 6: GitHub Actions — testy i wydanie"
+numer: "0051"
 status: w-trakcie
 priorytet: p1
 tags: [todo, plan-4, flatpak]
-zalezy_od: ["0049"]
+zalezy_od: ["0050"]
 utworzono: 2026-09-26 11:28
-zaktualizowano: 2026-09-26 11:54
+zaktualizowano: 2026-09-26 11:55
 zamknieto:
 ---
 
-# 0050 — Plan 4 · Zadanie 5: Repozytorium Flatpaka dla GitHub Pages
+# 0051 — Plan 4 · Zadanie 6: GitHub Actions — testy i wydanie
 
 > [!info] Status
 > **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
-Wykonać **zadanie 5** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-09-26-plan-4-flatpak.md)
-(sekcja „Task 5: Repozytorium Flatpaka dla GitHub Pages”) dokładnie według kroków planu, metodą TDD.
+Wykonać **zadanie 6** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-09-26-plan-4-flatpak.md)
+(sekcja „Task 6: GitHub Actions — testy i wydanie”) dokładnie według kroków planu, metodą TDD.
 
 ## Kontekst
 
@@ -29,13 +29,15 @@ Wykonać **zadanie 5** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
   [0045](../0045-plan4-projekt-flatpak/todo.md).
 - Pliki:
 
-- Create: `flatpak/pages.py`, `flatpak/publikuj.sh`, `flatpak/klucz-gpg.sh`
-- Test: `tests/test_strona_repo.py`
+- Create: `.github/workflows/testy.yml`, `.github/workflows/wydanie.yml`
+- Modify: `tests/test_pakiet.py`
+- Create (skill `nowa-integracja`): `docs/integracje/github-actions.md`, `docs/integracje/github-pages.md`
+- Create (skill `nowa-decyzja`): `docs/decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md`
 
 ## Kryteria akceptacji
 
 - [ ] Każdy test z zadania napisany przed kodem i widziany jako padający
-- [ ] Wynik planu: 411 passed, 1 skipped; próba na sucho bez ostrzeżeń GPG.
+- [ ] Wynik planu: 413 passed, 1 skipped; `actionlint` bez uwag.
 - [ ] Pełny `.venv/bin/pytest` zielony, `ruff format` + `ruff check` bez uwag
 - [ ] Commit(y) zgodne z planem; odchylenia zapisane jako „Ruling” w dzienniku
 
@@ -45,7 +47,7 @@ Wykonać **zadanie 5** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
 - [ ] Step 2: Uruchom — mają paść
 - [ ] Step 3: Zaimplementuj
 - [ ] Step 4: Uruchom — mają przejść
-- [ ] Step 5: Próba na sucho w kontenerze
+- [ ] Step 5: Dokumentacja
 - [ ] Step 6: Commit
 
 ## Materiały
@@ -57,7 +59,7 @@ Brak (materiały pojawią się w podfolderach przy wykonaniu).
 ### 2026-09-26
 
 - **11:28** Utworzono zadanie z Planu 4.
-- **11:54** Start wykonania.
+- **11:55** Start wykonania.
 
 ## Wynik
 

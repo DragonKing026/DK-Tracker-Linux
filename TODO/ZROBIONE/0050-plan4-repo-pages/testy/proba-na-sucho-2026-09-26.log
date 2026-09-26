@@ -1,0 +1,28 @@
+gpg: keybox '/tmp/tmp.xKoHqgukZJ/pubring.kbx' created
+gpg: /tmp/tmp.xKoHqgukZJ/trustdb.gpg: trustdb created
+gpg: directory '/tmp/tmp.xKoHqgukZJ/openpgp-revocs.d' created
+gpg: revocation certificate stored as '/tmp/tmp.xKoHqgukZJ/openpgp-revocs.d/F5D3EB98CAC052B9B58D57DFBFF31A061666D24D.rev'
+gpg: checking the trustdb
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+gpg: depth: 0  valid:   1  signed:   0  trust: 0-, 0q, 0n, 0m, 0f, 1u
+Updating appstream branch
+Generating static deltas
+Generating delta: runtime/pl.websystems.WsTrackerTray.Locale/x86_64/master (280bf1df4a-c356797c15)
+Generating delta: runtime/pl.websystems.WsTrackerTray.Locale/x86_64/master (c356797c15)
+Generating delta: appstream2/x86_64 (5ecb80f17b)
+Generating delta: app/pl.websystems.WsTrackerTray/x86_64/master (847e48fa8c)
+Generating delta: app/pl.websystems.WsTrackerTray/x86_64/master (97d4e4c1dc-847e48fa8c)
+Generating delta: runtime/pl.websystems.WsTrackerTray.Debug/x86_64/master (81548c8aaf)
+Generating delta: runtime/pl.websystems.WsTrackerTray.Debug/x86_64/master (65e32ff199-81548c8aaf)
+Updating summary
+Pruning old commits
+Total objects: 8891
+No unreachable objects
+Strona repozytorium: /tmp/site (http://127.0.0.1:8765)
+Installing runtime/pl.websystems.WsTrackerTray.Locale/x86_64/master
+Installing app/pl.websystems.WsTrackerTray/x86_64/master
+Nothing to update.
+index.html
+pl.websystems.WsTrackerTray.flatpakref
+repo
+ws-tracker-tray.flatpakrepo
