@@ -108,6 +108,8 @@ class Controller(QObject):
     def start(self, *, hidden: bool) -> None:
         if self.tray is not None:
             self.tray.show()
+        if self._tray_hint:
+            self.state.update(warnings=[("hintNoTray", {})])  # before any configuration, too
         if self.listener is not None:
             self.listener.clicked.connect(self.on_notification)
             self.listener.start()

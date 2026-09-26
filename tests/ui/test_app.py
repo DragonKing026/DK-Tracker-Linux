@@ -369,3 +369,9 @@ def test_background_status_says_idle_once_after_stop(harness):
     h.controller._on_tray_timer()
     h.settle()
     assert h.desktop.statuses == ["Timer 0:30 — Moduł rezerwacji", "Nic nie jest mierzone"]
+
+
+def test_no_tray_hint_is_shown_before_the_app_is_configured(harness):
+    h = harness(settings=Settings(), tray=False)
+    assert h.state.configured is False
+    assert ("hintNoTray", {}) in h.state.warnings
