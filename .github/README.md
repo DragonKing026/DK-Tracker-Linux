@@ -50,6 +50,7 @@ bez niego WS Tracker działa jako zwykłe okno.
 
 ## Licencja
 
-[AGPL-3.0-or-later](../LICENSE) — jak Kimai. WS Tracker to niezależny projekt, nie jest oficjalną aplikacją
+[GPL-3.0-or-later](../LICENSE) (wersje 0.9.0 i 0.9.1: AGPL-3.0-or-later). WS Tracker to niezależny projekt, nie jest
+oficjalną aplikacją
 [Kimai](https://www.kimai.org/) ani nie jest z nim powiązany; Kimai jest znakiem towarowym jego autora
 ([zasady](https://www.kimai.org/en/trademark-policy.html)).

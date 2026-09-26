@@ -44,7 +44,7 @@ sprawdzony w kodzie źródłowym KimaiTray (klon repozytorium) i na stronach wyd
 
 | | KimaiTray | Nasza aplikacja |
 | --- | --- | --- |
-| Licencja | MIT | AGPL-3.0-or-later |
+| Licencja | MIT | GPL-3.0-or-later |
 | Technologia | Tauri + React (WebKitGTK) | Python + Qt 6 (natywnie w KDE) |
 | Systemy | Linux, Windows, macOS | Linux (KDE, GNOME) |
 | Paczki | deb, rpm, AppImage | Flatpak (sandbox) z repozytorium na GitHub Pages |

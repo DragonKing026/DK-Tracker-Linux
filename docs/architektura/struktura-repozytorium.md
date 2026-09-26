@@ -17,7 +17,7 @@ zaktualizowano: 2026-09-26 11:59
 ├── AGENTS.md                  reguły dla agentów AI (kanoniczne)
 ├── CLAUDE.md                  import AGENTS.md + specyfika Claude Code
 ├── README.md                  opis dla ludzi: co to jest, jak zainstalować
-├── LICENSE                    AGPL-3.0-or-later
+├── LICENSE                    GPL-3.0-or-later
 ├── .github/
 │   ├── README.md              strona repozytorium na GitHubie (bez frontmattera, treść jak README.md)
 │   └── workflows/             testy.yml (każdy push), wydanie.yml (tag v<wersja> → Flatpak, Pages)

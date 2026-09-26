@@ -31,10 +31,11 @@ def test_version_is_the_same_everywhere():
     assert PYPROJECT["version"] == ws_tracker_tray.__version__ == newest
 
 
-def test_licence_is_agpl():
-    assert PYPROJECT["license"] == "AGPL-3.0-or-later"
+def test_licence_is_gpl():
+    """A desktop app: AGPL's network clause does not apply, so GPL (0064; the company may relicense later)."""
+    assert PYPROJECT["license"] == "GPL-3.0-or-later"
     licence = (ROOT / "LICENSE").read_text(encoding="utf-8")
-    assert licence.lstrip().startswith("GNU AFFERO GENERAL PUBLIC LICENSE")
+    assert licence.lstrip().startswith("GNU GENERAL PUBLIC LICENSE")
 
 
 # -- Task 2: MetaInfo and the desktop entry ----------------------------------------
