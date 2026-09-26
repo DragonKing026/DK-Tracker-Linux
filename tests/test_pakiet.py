@@ -152,3 +152,35 @@ def test_release_builds_in_the_same_container_as_the_local_script():
 def test_release_runs_only_for_version_tags():
     triggers = workflow("wydanie.yml")[True]  # YAML 1.1 reads the key "on" as True
     assert triggers == {"push": {"tags": ["v*"]}}
+
+
+# -- Final review of Plan 4: release order, gates and permissions -------------------
+
+
+def test_release_waits_for_the_tests():
+    jobs = workflow("wydanie.yml")["jobs"]
+    assert jobs["testy"]["uses"] == "./.github/workflows/testy.yml"
+    assert "testy" in jobs["flatpak"]["needs"]
+    assert "workflow_call" in workflow("testy.yml")[True]
+
+
+def test_release_is_created_only_after_the_repository_is_on_pages():
+    """A release pointing at a .flatpakref that is not online yet would install nothing."""
+    jobs = workflow("wydanie.yml")["jobs"]
+    assert jobs["pages"]["needs"] == "flatpak"
+    assert jobs["wydanie"]["needs"] == "pages"
+    assert not any("action-gh-release" in step.get("uses", "") for step in jobs["flatpak"]["steps"])
+
+
+def test_only_the_jobs_that_need_them_get_write_permissions():
+    data = workflow("wydanie.yml")
+    assert data["permissions"] == {"contents": "read"}
+    jobs = data["jobs"]
+    assert jobs["pages"]["permissions"] == {"pages": "write", "id-token": "write"}
+    assert jobs["wydanie"]["permissions"] == {"contents": "write"}
+    assert "permissions" not in jobs["flatpak"]  # the job holding the GPG key keeps read-only access
+
+
+def test_build_does_not_copy_what_the_ci_action_leaves_in_the_checkout():
+    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker-tray")
+    assert {"flatpak_app", "repo", "site", "dist"} <= set(app["sources"][0]["skip"])

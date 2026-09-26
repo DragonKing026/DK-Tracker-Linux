@@ -41,4 +41,5 @@ modules:
     sources:
       - type: dir
         path: ..
-        skip: [.venv, .git, .superpowers, .pytest_cache, .ruff_cache, TODO, docs, build, .flatpak-builder]
+        # flatpak_app, repo, site: what the GitHub action leaves in the checkout; dist: local bundles.
+        skip: [.venv, .git, .superpowers, .pytest_cache, .ruff_cache, TODO, docs, build, .flatpak-builder, flatpak_app, repo, site, dist]

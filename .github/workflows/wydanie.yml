@@ -1,19 +1,22 @@
-# A release: pushing the tag v<version> builds the signed Flatpak, publishes the Flatpak repository
-# on GitHub Pages (updates reach everyone who installed from it) and attaches the bundle to a release.
-# Needs: secret FLATPAK_GPG_PRIVATE_KEY (flatpak/klucz-gpg.sh), Pages source = GitHub Actions.
+# A release: pushing the tag v<version> runs the tests, builds the signed Flatpak, publishes the Flatpak
+# repository on GitHub Pages (updates reach everyone who installed from it) and only then creates the
+# GitHub release with the bundle, so the release never points at a repository that is not online.
+# Needs: secret FLATPAK_GPG_PRIVATE_KEY (flatpak/klucz-gpg.sh), Pages source = GitHub Actions, and the
+# github-pages environment allowing tags v* (docs/procesy/wydania.md).
 name: Wydanie
 on:
   push:
     tags: ["v*"]
 permissions:
-  contents: write # the GitHub release with the bundle
-  pages: write
-  id-token: write
+  contents: read
 concurrency:
   group: pages
   cancel-in-progress: false
 jobs:
+  testy:
+    uses: ./.github/workflows/testy.yml
   flatpak:
+    needs: [testy]
     runs-on: ubuntu-24.04
     container:
       # The same image as flatpak/buduj.sh: Flatpak 1.18.1, KDE 6.11 SDK, appstreamcli, linter.
@@ -28,6 +31,10 @@ jobs:
             echo "Tag $GITHUB_REF_NAME, a pyproject.toml ma $version" >&2
             exit 1
           fi
+      - name: MetaInfo i plik .desktop
+        run: |
+          appstreamcli validate --no-net data/*.metainfo.xml
+          desktop-file-validate data/*.desktop
       - name: Klucz podpisujący repozytorium
         id: gpg
         uses: crazy-max/ghaction-import-gpg@v6
@@ -46,15 +53,18 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
-      - name: Wydanie na GitHubie z paczką
-        uses: softprops/action-gh-release@v2
+      - name: Paczka dla wydania
+        uses: actions/upload-artifact@v4
         with:
-          files: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
-          generate_release_notes: true
-          prerelease: ${{ startsWith(github.ref_name, 'v0.') }}
+          name: paczka
+          path: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
+          if-no-files-found: error
   pages:
     needs: flatpak
     runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -62,3 +72,26 @@ jobs:
       - name: Publikacja na GitHub Pages
         id: deploy
         uses: actions/deploy-pages@v4
+  wydanie:
+    needs: pages
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write # the GitHub release with the bundle
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: paczka
+      - name: Wydanie na GitHubie z paczką
+        uses: softprops/action-gh-release@v2
+        with:
+          files: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
+          generate_release_notes: true
+          prerelease: ${{ startsWith(github.ref_name, 'v0.') }}
+          body: |
+            Instalacja z aktualizacjami (Discover, GNOME Software, `flatpak update`):
+
+            ```bash
+            flatpak install --user https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.WsTrackerTray.flatpakref
+            ```
+
+            Plik `.flatpak` poniżej nie dostaje aktualizacji — tylko gdy strona repozytorium jest niedostępna.
