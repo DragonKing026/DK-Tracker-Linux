@@ -28,15 +28,18 @@ Rectangle {
             objectName: "viewEntries"
             icon.source: "image://glyph/list/" + (app.palette.fg || "#eceef2").slice(1)
             text: app.texts.viewEntries || ""
-            active: true
+            enabled: app.view.configured
+            active: app.view.page === "entries"
+            onClicked: app.showPage("entries")
         }
 
         Item { Layout.fillHeight: true }
 
         SideButton {
             objectName: "viewSettings"
-            icon.source: "image://glyph/gear/" + (app.palette.muted || "#9aa0ac").slice(1)
+            icon.source: "image://glyph/gear/" + (app.palette.fg || "#eceef2").slice(1)
             text: app.texts.navSettings || ""
+            active: app.view.page === "settings"
             onClicked: app.openSettings()
         }
     }

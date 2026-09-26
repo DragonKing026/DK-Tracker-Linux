@@ -184,10 +184,22 @@ def test_saving_settings_stores_the_token_and_switches_language(harness):
 
 def test_connection_test_reports_the_user(harness):
     h = harness()
-    dialog = h.controller.open_settings()
-    dialog.testRequested.emit(URL, "")
+    form = h.controller.open_settings()
+    form.testRequested.emit(URL, "")
     h.settle()
-    assert dialog.status.text() == "Połączono jako jan."
+    assert form.form["status"] == "Połączono jako jan."
+
+
+def test_settings_open_as_a_page_of_the_main_window(harness):
+    """Live test of 0.10.0: settings are part of the main window, not a window of their own."""
+    h = harness()
+    h.controller.show_popup()
+    h.controller.open_settings()
+    h.settle()
+    assert h.controller.main_window.isVisible()
+    assert h.controller.main_bridge.view["page"] == "settings"
+    assert not h.controller.popup.isVisible()
+    assert h.controller.settings_form.form["url"] == URL
 
 
 def test_open_kimai_uses_the_remembered_locale(harness, monkeypatch):
@@ -310,11 +322,11 @@ def test_activities_of_a_project_no_longer_chosen_are_ignored(harness):
 
 def test_connection_test_never_sends_the_stored_token_to_another_address(harness):
     h = harness()
-    dialog = h.controller.open_settings()
-    dialog.testRequested.emit("https://inny.example.com", "")
+    form = h.controller.open_settings()
+    form.testRequested.emit("https://inny.example.com", "")
     h.settle()
     assert ("https://inny.example.com", "secret-token") not in h.clients
-    assert dialog.status.text() == "Podaj token API."
+    assert form.form["status"] == "Podaj token API."
 
 
 def test_without_a_tray_closing_the_main_window_quits(harness, qtbot):
@@ -357,7 +369,7 @@ def test_clicks_on_other_apps_notifications_are_ignored(harness):
     h = harness()
     h.controller.on_notification(NotificationAction("org.kde.kdeconnect.3", "settings", None))
     h.settle()
-    assert h.controller.dialog is None
+    assert h.controller.main_window is None or not h.controller.main_window.isVisible()
     assert h.desktop.withdrawn == []
 
 
@@ -385,9 +397,10 @@ def test_after_a_locked_wallet_saving_takes_the_token_from_the_wallet(harness, q
     h = harness(desktop=desktop)
     assert h.state.configured is False
     desktop.fail = None  # the user unlocked the wallet
-    dialog = h.controller.open_settings()
-    with qtbot.waitSignal(dialog.saveRequested):
-        dialog.save_button.click()  # token field left empty
+    form = h.controller.open_settings()
+    shown = form.form
+    with qtbot.waitSignal(form.saveRequested):
+        form.save({"url": shown["url"], "language": shown["language"]}, "")  # token field left empty
     h.settle()
     assert h.state.configured is True
     assert h.clients[-1] == (URL, "secret-token")

@@ -39,9 +39,9 @@ from dk_tracker.desktop.secrets import SecretsLocked, SecretsUnavailable
 from . import placement
 from .desktop_bridge import ClickListener
 from .main_window.bridge import MainBridge
+from .main_window.settings_form import SettingsForm
 from .main_window.window import MainWindow
 from .popup import QuickWindow
-from .settings_dialog import SettingsDialog
 from .state import AppState
 from .theme import palette_for
 from .tray import Tray
@@ -108,10 +108,14 @@ class Controller(QObject):
         self.tray = Tray(self.state, now) if tray_available and self._settings.show_tray else None
         # Without a tray the window is the whole app: closing it must not leave a hidden process.
         self.popup.quit_on_close = self.tray is None
-        self.dialog: SettingsDialog | None = None
         self.listener = ClickListener() if listen_for_clicks else None
         # Plan 5: the main window, made on first use (QML takes a moment to load).
         self.main_bridge = MainBridge(self)
+        # Settings are a page of the main window (live test of 0.10.0), not a window of their own.
+        self.settings_form = self.main_bridge.settings_form
+        self.settings_form.retranslate(self.state.t)
+        self.settings_form.saveRequested.connect(self.save_settings)
+        self.settings_form.testRequested.connect(self._test_connection)
         self.main_window: MainWindow | None = None
         self._weeks = 1  # weeks the main list shows, this one included
         self._listed = 0  # entries in the main list after the last load
@@ -471,24 +475,19 @@ class Controller(QObject):
             locale = self._tracker.memory.kimai_locale if self._tracker else self._memory.kimai_locale
             QDesktopServices.openUrl(QUrl(all_entries_url(self._settings.url, locale)))
 
-    def open_settings(self) -> SettingsDialog:
-        if self.dialog is None:
-            self.dialog = SettingsDialog(self.state.t)
-            self.dialog.saveRequested.connect(self.save_settings)
-            self.dialog.testRequested.connect(self._test_connection)
+    def open_settings(self) -> SettingsForm:
         # A wallet that was locked or unreachable at start may hold the token: an empty field
         # then means "take it from the wallet" (saving looks it up) rather than "type it again".
         in_wallet = bool(self._token) or (self.state.secrets_problem is not None and bool(self._settings.url))
-        self.dialog.load(self._settings, has_token=in_wallet)
-        self.dialog.set_secrets_problem(self.state.secrets_problem)
+        self.settings_form.load(self._settings, has_token=in_wallet)
+        self.settings_form.set_secrets_problem(self.state.secrets_problem)
         self.popup.hide()
-        self.dialog.show()
-        self.dialog.raise_()
-        self.dialog.activateWindow()
-        return self.dialog
+        self.main_bridge.show_page("settings")
+        self.show_main_window()
+        return self.settings_form
 
     def _test_connection(self, url: str, token: str) -> None:
-        dialog, t = self.dialog, self.state.t
+        dialog, t = self.settings_form, self.state.t
         if not token:
             # The stored token belongs to the saved address only — never send it anywhere else.
             if url.strip().rstrip("/") != self._settings.url or not self._token:
@@ -511,8 +510,7 @@ class Controller(QObject):
         )
 
     def save_settings(self, settings: Settings, token: str | None) -> None:
-        if self.dialog is not None:
-            self.dialog.set_busy(True)
+        self.settings_form.set_busy(True)
         url = settings.url
 
         def store() -> str | None:
@@ -524,7 +522,7 @@ class Controller(QObject):
         self.dbus.submit(store, lambda stored: self._settings_saved(settings, stored), self._settings_failed)
 
     def _settings_saved(self, settings: Settings, token: str | None) -> None:
-        dialog, t = self.dialog, self.state.t
+        dialog, t = self.settings_form, self.state.t
         if dialog is not None:
             dialog.set_busy(False)
         if not token:
@@ -564,11 +562,9 @@ class Controller(QObject):
             dialog.show_status(t("optSaved"), ok=True)
 
     def _settings_failed(self, error: Exception) -> None:
-        if self.dialog is None:
-            return
-        self.dialog.set_busy(False)
+        self.settings_form.set_busy(False)
         key = "secretsLocked" if isinstance(error, SecretsLocked) else "secretsUnavailable"
-        self.dialog.show_status(self.state.t(key), ok=False)
+        self.settings_form.show_status(self.state.t(key), ok=False)
 
     def _request_autostart(self, enabled: bool) -> None:
         reason = self.state.t("optAutostartReason")
@@ -577,9 +573,8 @@ class Controller(QObject):
             if isinstance(error, PortalError | TimeoutError):
                 self._settings = replace(self._settings, autostart=False)
                 self._save_settings(self._settings)
-                if self.dialog is not None:
-                    self.dialog.autostart.setChecked(False)
-                    self.dialog.show_status(self.state.t("optAutostartDenied"), ok=False)
+                self.settings_form.set_autostart(False)
+                self.settings_form.show_status(self.state.t("optAutostartDenied"), ok=False)
             else:
                 log.warning("Autostart request failed: %s", error)
 

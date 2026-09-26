@@ -19,6 +19,7 @@ from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, short_duration
 from dk_tracker.core.tracker import Snapshot, live_totals
 
 from .models import ActivityModel, EntryListModel, ProjectModel
+from .settings_form import SettingsForm
 
 UNDO_MS = 6000
 
@@ -50,6 +51,7 @@ class MainBridge(QObject):
         self.projects = ProjectModel(self)
         self.activities = ActivityModel(self)
         self.rowActivities = ActivityModel(self)
+        self.settings_form = SettingsForm(str, self)
         self.undo_ms = UNDO_MS
         # Every key exists from the start: QML warns about a missing one.
         self._view: dict[str, Any] = dict.fromkeys(
@@ -68,7 +70,8 @@ class MainBridge(QObject):
             "",
         )
         self._view.update(configured=False, running=False, entryId=0, projectId=0, activityId=0,
-                          billable=True, billableAllowed=True, offline=False, loading=False)  # fmt: skip
+                          billable=True, billableAllowed=True, offline=False, loading=False,
+                          page="entries")  # fmt: skip
         self._texts: dict[str, str] = {}
         self._palette: dict[str, str] = {}
         self._row_errors: dict[str, str] = {}
@@ -112,6 +115,9 @@ class MainBridge(QObject):
     def _get_row_activities(self) -> ActivityModel:
         return self.rowActivities
 
+    def _get_settings_form(self) -> SettingsForm:
+        return self.settings_form
+
     view = Property("QVariantMap", _get_view, notify=viewChanged)
     texts = Property("QVariantMap", _get_texts, notify=textsChanged)
     palette = Property("QVariantMap", _get_palette, notify=paletteChanged)
@@ -121,6 +127,7 @@ class MainBridge(QObject):
     projectList = Property(QObject, _get_projects, constant=True)
     activityList = Property(QObject, _get_activities, constant=True)
     rowActivityList = Property(QObject, _get_row_activities, constant=True)
+    settingsForm = Property(QObject, _get_settings_form, constant=True)
 
     # -- from the controller ---------------------------------------------------------------
 
@@ -135,6 +142,7 @@ class MainBridge(QObject):
         current = snapshot.current
         totals = live_totals(snapshot, now, tz) if snapshot.totals is not None else None
         self._update(
+            page=self._view["page"] if configured else "settings",
             configured=configured,
             running=current is not None,
             entryId=current.id if current else 0,
@@ -332,6 +340,14 @@ class MainBridge(QObject):
     @Slot(int)
     def chooseProject(self, projectId: int) -> None:  # noqa: N802, N803
         self.activitiesRequested.emit(projectId)
+
+    def show_page(self, page: str) -> None:
+        """ "entries" or "settings"; without a configuration there is only the settings page."""
+        self._update(page=page if self._view["configured"] else "settings")
+
+    @Slot(str)
+    def showPage(self, page: str) -> None:  # noqa: N802
+        self.show_page(page)
 
     @Slot(int)
     def chooseRowProject(self, projectId: int) -> None:  # noqa: N802, N803

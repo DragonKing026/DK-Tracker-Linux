@@ -210,3 +210,25 @@ def test_a_row_picker_has_its_own_activities(bridge, qtbot):
     bridge.set_row_activities(CLIENT.activities_list)
     assert bridge.rowActivities.rowCount() == 2
     assert bridge.activities.rowCount() == 0
+
+
+# -- settings as a page (live test of 0.10.0) --------------------------------------------
+
+
+def test_the_window_starts_on_the_entries_and_switches_to_the_settings(bridge):
+    assert bridge.view["page"] == "entries"
+    bridge.show_page("settings")
+    assert bridge.view["page"] == "settings"
+    bridge.showPage("entries")
+    assert bridge.view["page"] == "entries"
+
+
+def test_without_a_configuration_only_the_settings_page_is_shown(bridge):
+    bridge.render(Snapshot(), configured=False, t=PL, now=NOW, tz=WARSAW)
+    assert bridge.view["page"] == "settings"
+    bridge.showPage("entries")
+    assert bridge.view["page"] == "settings"
+
+
+def test_the_settings_page_has_its_form(bridge):
+    assert bridge.settingsForm is bridge.settings_form

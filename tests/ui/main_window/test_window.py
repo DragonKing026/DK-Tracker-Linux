@@ -70,10 +70,43 @@ def test_the_list_shows_every_row_of_the_model(window, qtbot):
     qtbot.waitUntil(lambda: listing.property("count") == 4)
 
 
-def test_unconfigured_shows_only_the_settings_button(window, qtbot):
+def test_unconfigured_shows_the_settings_page(window, qtbot):
     window.bridge.render(Snapshot(), configured=False, t=PL, now=NOW, tz=WARSAW)
-    qtbot.waitUntil(lambda: window.child("unconfigured").property("visible") is True)
+    qtbot.waitUntil(lambda: window.child("settingsView").property("visible") is True)
     assert window.child("timerBar").property("visible") is False
+    assert window.child("entriesView").property("visible") is False
+
+
+def test_the_settings_page_has_its_fields(window, qtbot):
+    window.bridge.settings_form.retranslate(PL)
+    window.bridge.show_page("settings")
+    qtbot.waitUntil(lambda: window.child("settingsView").property("visible") is True)
+    for name in (
+        "settingsUrl",
+        "settingsToken",
+        "settingsLanguage",
+        "settingsMinDescription",
+        "settingsLongTimer",
+        "settingsAutostart",
+        "settingsShowTray",
+        "settingsSave",
+        "settingsTest",
+    ):
+        assert window.child(name) is not None, name
+    assert window.child("entriesView").property("visible") is False
+
+
+def test_the_settings_page_saves_what_was_typed(window, qtbot):
+    from dk_tracker.core.settings import Settings
+
+    form = window.bridge.settings_form
+    form.retranslate(PL)
+    form.load(Settings(url="https://kimai.test", language="pl"), has_token=True)
+    window.bridge.show_page("settings")
+    window.child("settingsUrl").setProperty("text", "https://kimai.firma.pl")
+    with qtbot.waitSignal(form.saveRequested) as signal:
+        window.child("settingsSave").clicked.emit()
+    assert signal.args[0].url == "https://kimai.firma.pl" and signal.args[1] is None
 
 
 def test_closing_hides_and_tells_the_controller(window, qtbot):

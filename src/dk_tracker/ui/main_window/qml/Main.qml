@@ -65,32 +65,16 @@ ApplicationWindow {
                 }
             }
 
-            ColumnLayout {
-                objectName: "unconfigured"
-                visible: !app.view.configured
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.margins: 24
-                spacing: 16
-                Item { Layout.fillHeight: true }
-                Label {
-                    Layout.alignment: Qt.AlignHCenter
-                    text: app.texts.notConfigured || ""
-                    color: app.palette.muted || "#9aa0ac"
-                }
-                Button {
-                    objectName: "openSettings"
-                    Layout.alignment: Qt.AlignHCenter
-                    text: app.texts.openSettings || ""
-                    onClicked: app.openSettings()
-                }
-                Item { Layout.fillHeight: true }
-            }
-
             EntriesView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                visible: app.view.configured
+                visible: app.view.configured && app.view.page === "entries"
+            }
+
+            SettingsView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                visible: app.view.page === "settings"
             }
         }
     }
