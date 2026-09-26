@@ -136,14 +136,6 @@ def test_quitting_sends_a_pending_delete(bridge, qtbot):
     assert signal.args == [2]
 
 
-def test_duplicate_fills_the_timer_bar_for_a_manual_entry(bridge, qtbot):
-    with qtbot.waitSignal(bridge.prefill) as signal:
-        bridge.duplicate(1)
-    assert signal.args == [
-        {"description": "Kalendarz dostępności pokoi", "projectId": 1, "activityId": 1, "billable": True}
-    ]
-
-
 def test_row_errors_are_kept_per_entry_and_cleared_by_the_next_edit(bridge, qtbot):
     bridge.show_row_error(1, "Opis jest za krótki")
     assert bridge.rowErrors == {"1": "Opis jest za krótki"}

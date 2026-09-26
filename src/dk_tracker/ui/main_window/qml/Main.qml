@@ -101,8 +101,4 @@ ApplicationWindow {
         anchors.bottomMargin: 16
     }
 
-    Connections {
-        target: app
-        function onPrefill(values) { timerBar.fillManual(values) }
-    }
 }

@@ -7,7 +7,6 @@ ColumnLayout {
     id: view
     objectName: "entriesView"
     spacing: 0
-    signal duplicateAsked(var values)
 
     TextField {
         objectName: "search"

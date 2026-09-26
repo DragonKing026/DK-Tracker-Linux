@@ -29,7 +29,6 @@ class MainBridge(QObject):
     paletteChanged = Signal()
     rowErrorsChanged = Signal()
     projectsChanged = Signal()
-    prefill = Signal("QVariantMap")  # "Duplicate": the timer bar in manual mode, filled in
     # -- to the controller
     startRequested = Signal(dict)
     stopRequested = Signal()
@@ -290,15 +289,6 @@ class MainBridge(QObject):
     @Slot(int)
     def resume(self, entryId: int) -> None:  # noqa: N803
         self.resumeRequested.emit(entryId)
-
-    @Slot(int)
-    def duplicate(self, entryId: int) -> None:  # noqa: N803
-        entry = self.entries.entry(entryId)
-        if entry is not None:
-            self.prefill.emit(
-                {"description": entry.description, "projectId": entry.project_id or 0,
-                 "activityId": entry.activity_id or 0, "billable": entry.billable}
-            )  # fmt: skip
 
     @Slot(str)
     def runningDescription(self, text: str) -> None:  # noqa: N802
