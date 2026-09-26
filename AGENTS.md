@@ -171,4 +171,9 @@ PYTHONPATH=src /usr/bin/python3 -m ws_tracker_tray                 # uruchomieni
 .venv/bin/python -m ws_tracker_tray                                # uruchomienie z .venv (okno bez ramki, bez layer-shell)
 ```
 
-> [!todo] Plan 4 dopisze: budowę Flatpaka.
+### Flatpak
+
+```bash
+flatpak/buduj.sh                                              # paczka w dist/ (Docker, obraz flathub-infra kde-6.11)
+flatpak/buduj.sh --zainstaluj                                 # to samo i instalacja u siebie
+```

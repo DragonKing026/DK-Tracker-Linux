@@ -5,7 +5,7 @@ tags: [adr, flatpak, build, docker]
 status: zaakceptowana
 zastapiona_przez:
 utworzono: 2026-09-25 20:37
-zaktualizowano: 2026-09-25 20:37
+zaktualizowano: 2026-09-26 11:49
 ---
 
 # ADR-0006: Paczkę Flatpak budujemy w kontenerze, nie na hoście
@@ -41,10 +41,19 @@ runtime'y hosta tylko do odczytu. Docelowo (Plan 4): ten sam obraz albo obraz CI
 
 Zaakceptowane przez użytkownika 2026-09-25 20:37.
 
+## Aktualizacja (2026-09-26 11:49)
+
+Obraz `debian:trixie` z prototypu zastąpił obraz CI Flathuba
+`ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11`: Flatpak 1.18.1 (bez regresji flatpak#6818), SDK KDE 6.11,
+`appstreamcli` i `flatpak-builder-lint`. Ten sam obraz buduje paczkę lokalnie ([buduj.sh](../../flatpak/buduj.sh)) i w
+GitHub Actions; na Fedorze 44 z SELinux zbudował aplikację z bazą PySide
+([próba budowy](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/notatki/proba-budowy.md)). Runtime'y hosta nie są już
+montowane — obraz pobiera je sam, a cache leży w `~/.cache/ws-tracker-tray-flatpak`.
+
 ## Konsekwencje
 
 - Wynik budowy: plik `.flatpak`, instalowany na hoście `flatpak install --user --bundle`.
-- Skrypt przeniesiemy z prototypu do repozytorium (np. `flatpak/buduj.sh`) w Planie 4.
+- Skrypt jest w repozytorium: [flatpak/buduj.sh](../../flatpak/buduj.sh) (Plan 4).
 - Gdy Fedora dostanie Flatpak 1.18.3, budowa na hoście znów będzie możliwa — kontener
   zostaje jako droga powtarzalna (CI).
 - Narzędzie agenta (Claude Code) uruchamia budowę poza swoją piaskownicą (Docker, `~/.local/share/flatpak`).

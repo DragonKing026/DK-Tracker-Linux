@@ -5,7 +5,7 @@ tags: [integracja, flatpak, dystrybucja, build]
 status_integracji: planowana
 wersja: Flatpak 1.18 (lokalnie); runtime'y na Flathub stan 2026-09-25
 utworzono: 2026-09-25 17:21
-zaktualizowano: 2026-09-25 20:39
+zaktualizowano: 2026-09-26 11:49
 ---
 
 # Flatpak — format dystrybucji
@@ -70,21 +70,29 @@ Sekrety: [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md),
 
 ## Budowanie lokalnie
 
-> [!note] Narzędzia na maszynie deweloperskiej
-> Fedora 44: Flatpak 1.18.2, **flatpak-builder 1.4.10** (`/usr/bin/flatpak-builder`).
-> Na innej maszynie: `sudo dnf install flatpak-builder` albo
-> `flatpak install flathub org.flatpak.Builder`.
-
-Szkic (dokładne komendy trafią do [AGENTS.md](../../AGENTS.md) → „Komendy” przy szkielecie projektu):
+Zawsze w kontenerze ([ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md)), tym samym obrazem co w CI:
 
 ```bash
-flatpak-builder --user --install --force-clean build-dir pl.websystems.WsTrackerTray.yml
-flatpak run pl.websystems.WsTrackerTray
-# paczka do rozesłania:
-flatpak build-bundle ~/.local/share/flatpak/repo ws-tracker-tray.flatpak pl.websystems.WsTrackerTray
+flatpak/buduj.sh              # dist/pl.websystems.WsTrackerTray-<wersja>.flatpak: walidacja AppStream, lint
+flatpak/buduj.sh --zainstaluj # to samo i instalacja paczki u siebie (flatpak install --user --bundle)
 ```
 
+Pierwsza budowa pobiera runtime KDE i bazę PySide (kilka GB, ok. 15 min); cache:
+`~/.cache/ws-tracker-tray-flatpak`. Wyjątki lintera dopuszczone w skrypcie dotyczą tylko Flathuba (adres z
+identyfikatora, zrzuty ekranu w repozytorium OSTree).
+
+## Gdzie w kodzie
+
+- [Manifest](../../flatpak/pl.websystems.WsTrackerTray.yml) — runtime, baza PySide, uprawnienia, moduły.
+- [python3-deps.yaml](../../flatpak/python3-deps.yaml) — httpx i jeepney (flatpak-pip-generator).
+- [buduj.sh](../../flatpak/buduj.sh) — budowa lokalna.
+- [.desktop](../../data/pl.websystems.WsTrackerTray.desktop) i
+  [MetaInfo](../../data/pl.websystems.WsTrackerTray.metainfo.xml).
+
 ## Dystrybucja — opcje
+
+Wybrana (zadanie [0045](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md)): **plik `.flatpak` w wydaniach
+na GitHubie i podpisane repozytorium na GitHub Pages** (aktualizacje przez `flatpak update`); Flathub później.
 
 | Opcja | Zalety | Wady |
 | --- | --- | --- |
