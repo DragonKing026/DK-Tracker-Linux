@@ -49,7 +49,6 @@ Opisać w dokumentacji istniejące aplikacje tackowe dla Kimai, różnice wzglę
 
 - **11:42** Utworzono zadanie i start.
 - **11:43** Zamknięte: dokument i kandydaci F-25…F-32, commity na main.
-- **11:43** Zamknięte: dokument i kandydaci F-25…F-32, commity na main.
 
 ## Wynik
 
