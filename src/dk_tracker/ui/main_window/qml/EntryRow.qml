@@ -11,6 +11,7 @@ Rectangle {
     readonly property bool locked: entry.exported
     enabled: !app.view.offline  // spec, section 9; the list still scrolls
     readonly property string rowError: app.rowErrors[String(entry.entryId)] || ""
+    readonly property string projectColor: entry.projectColor || (app.palette.muted || "#9aa0ac")
     implicitHeight: content.implicitHeight + 12
     color: hover.hovered ? (app.palette.surface || "#1e2127") : "transparent"
 
@@ -25,63 +26,67 @@ Rectangle {
         spacing: 2
 
         RowLayout {
-            spacing: 8
+            spacing: 6
             Rectangle {
                 width: 9; height: 9; radius: 5
-                color: entry.projectColor || (app.palette.line || "#2f333c")
+                color: row.projectColor
             }
-            TextField {
-                id: description
+            InlineField {
                 objectName: "rowDescription"
                 Layout.fillWidth: true
-                text: entry.description
+                Layout.minimumWidth: 150
+                Layout.preferredWidth: 400
+                shown: entry.description
                 readOnly: row.locked
-                background: Rectangle {
-                    color: "transparent"
-                    border.width: description.activeFocus ? 1 : 0
-                    border.color: app.palette.focus || "#7aa2ff"
-                    radius: 4
-                }
-                Component.onCompleted: cursorPosition = 0  // a long text shows its beginning
-                onActiveFocusChanged: { app.setEditing(activeFocus); if (!activeFocus) cursorPosition = 0 }
                 onEditingFinished: if (text !== entry.description) app.editDescription(entry.entryId, text)
-                Keys.onEscapePressed: { text = entry.description; focus = false }
             }
-            Button {
+            // Project · activity in the project's colour; a click opens both lists.
+            ToolButton {
+                id: workButton
                 objectName: "rowWork"
-                flat: true
                 enabled: !row.locked
-                text: entry.projectName + (entry.activityName ? " · " + entry.activityName : "")
+                Layout.fillWidth: true
+                Layout.minimumWidth: 60
+                Layout.maximumWidth: 280
+                contentItem: Label {
+                    text: entry.projectName + (entry.activityName ? " · " + entry.activityName : "")
+                    color: row.projectColor
+                    elide: Text.ElideRight
+                    verticalAlignment: Text.AlignVCenter
+                }
+                background: Rectangle {
+                    radius: 6
+                    color: workButton.hovered && workButton.enabled ? (app.palette.surface2 || "#272b33") : "transparent"
+                }
                 onClicked: { work.projectId = entry.projectId; work.open(); app.chooseRowProject(entry.projectId) }
             }
-            ToolButton {
+            IconButton {
                 objectName: "rowBillable"
                 enabled: !row.locked && app.view.billableAllowed
-                icon.source: "image://glyph/" + (entry.billable ? "money" : "money_off") + "/" + (entry.billable ? "16a34a" : "6b7280")
+                glyph: entry.billable ? "money" : "money_off"
+                tint: entry.billable ? (app.palette.start || "#16a34a") : (app.palette.muted || "#9aa0ac")
+                opacity: entry.billable ? 1 : 0.6
+                tip: entry.billable ? (app.texts.billableRowOn || "") : (app.texts.billableRowOff || "")
                 onClicked: app.setBillable(entry.entryId, !entry.billable)
             }
-            TextField {
-                id: begin
+            InlineField {
                 objectName: "rowBegin"
-                Layout.preferredWidth: 58
-                inputMask: "99:99"
-                onActiveFocusChanged: app.setEditing(activeFocus)
-                text: entry.begin
+                Layout.preferredWidth: 60
+                horizontalAlignment: Text.AlignHCenter
+                shown: entry.begin
                 readOnly: row.locked
+                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
                 onEditingFinished: if (text !== entry.begin) app.editTimes(entry.entryId, text, "")
-                Keys.onEscapePressed: { text = entry.begin; focus = false }
             }
             Label { text: "–"; color: app.palette.muted || "#9aa0ac" }
-            TextField {
-                id: end
+            InlineField {
                 objectName: "rowEnd"
-                Layout.preferredWidth: 58
-                inputMask: "99:99"
-                onActiveFocusChanged: app.setEditing(activeFocus)
-                text: entry.end
+                Layout.preferredWidth: 60
+                horizontalAlignment: Text.AlignHCenter
+                shown: entry.end
                 readOnly: row.locked
+                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
                 onEditingFinished: if (text !== entry.end) app.editTimes(entry.entryId, "", text)
-                Keys.onEscapePressed: { text = entry.end; focus = false }
             }
             Label {
                 Layout.preferredWidth: 48
@@ -90,31 +95,33 @@ Rectangle {
                 font.bold: true
                 color: app.palette.fg || "#eceef2"
             }
-            Image {
-                visible: row.locked
-                source: "image://glyph/lock/" + (app.palette.muted || "#9aa0ac").slice(1)
-                sourceSize.width: 16; sourceSize.height: 16
+            Item {  // the lock, or the same room when unlocked: the columns stay aligned
+                implicitWidth: 20
+                implicitHeight: 20
+                Image {
+                    anchors.centerIn: parent
+                    visible: row.locked
+                    source: "image://glyph/lock/" + (app.palette.muted || "#9aa0ac").slice(1)
+                    sourceSize.width: 16; sourceSize.height: 16
+                    ToolTip.visible: lockHover.hovered
+                    ToolTip.text: app.texts.errExported || ""
+                    HoverHandler { id: lockHover }
+                }
             }
-            ToolButton {
+            IconButton {
                 objectName: "rowResume"
-                icon.source: "image://glyph/play/" + (app.palette.muted || "#9aa0ac").slice(1)
-                ToolTip.visible: hovered
-                ToolTip.text: app.texts.resume || ""
+                glyph: "play"
+                tint: hovered ? (app.palette.start || "#16a34a") : (app.palette.muted || "#9aa0ac")
+                tip: app.texts.resume || ""
                 onClicked: app.resume(entry.entryId)
             }
-            ToolButton {
-                objectName: "rowMenu"
-                icon.source: "image://glyph/dots/" + (app.palette.muted || "#9aa0ac").slice(1)
-                onClicked: menu.popup()
-                Menu {
-                    id: menu
-                    MenuItem { text: app.texts.duplicate || ""; onTriggered: app.duplicate(entry.entryId) }
-                    MenuItem {
-                        text: app.texts.deleteEntry || ""
-                        enabled: !row.locked
-                        onTriggered: app.deleteEntry(entry.entryId)
-                    }
-                }
+            IconButton {
+                objectName: "rowDelete"
+                enabled: !row.locked
+                glyph: "trash"
+                tint: hovered ? (app.palette.stop || "#e02f2f") : (app.palette.muted || "#9aa0ac")
+                tip: app.texts.deleteEntry || ""
+                onClicked: app.deleteEntry(entry.entryId)
             }
         }
 
@@ -134,8 +141,13 @@ Rectangle {
         property int projectId: 0
         property int activityId: 0
         y: row.height
-        x: row.width - width - 60
+        x: Math.max(0, row.width - width - 200)
         padding: 10
+        background: Rectangle {
+            radius: 8
+            color: app.palette.surface || "#1e2127"
+            border.color: app.palette.line || "#2f333c"
+        }
         contentItem: ColumnLayout {
             spacing: 8
             ProjectPicker {

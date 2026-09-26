@@ -16,19 +16,11 @@ Rectangle {
     property var billableTouched: null  // null: Kimai decides, as at a start from the popup
     readonly property bool running: app.view.running
 
-    function fillManual(values) {
-        manual = true
-        description.text = values.description
-        projectId = values.projectId
-        activityId = values.activityId
-        billableTouched = values.billable
-        app.chooseProject(projectId)
-    }
-
     function submit() {
         if (running) { app.stop(); return }
         if (manual)
-            app.addManual(day.text, from.text, to.text, description.text, projectId, activityId, billableTouched)
+            app.addManual(day.text, manualFrom.text, manualTo.text, description.text, projectId, activityId,
+                          billableTouched)
         else
             app.start(description.text, projectId, activityId, billableTouched)
     }
@@ -64,117 +56,150 @@ Rectangle {
         function onViewChanged() { bar.sync() }
     }
 
-    RowLayout {
+    ColumnLayout {
         id: layout
         anchors.fill: parent
         anchors.margins: 12
         spacing: 8
 
-        ToolButton {
-            objectName: "modeSwitch"
-            visible: !bar.running
-            checkable: true
-            checked: bar.manual
-            icon.source: "image://glyph/" + (bar.manual ? "pencil" : "timer") + "/" + (app.palette.muted || "#9aa0ac").slice(1)
-            ToolTip.visible: hovered
-            ToolTip.text: bar.manual ? (app.texts.manualMode || "") : (app.texts.timerMode || "")
-            onToggled: bar.manual = checked
-        }
-
-        TextField {
-            id: description
-            objectName: "description"
+        RowLayout {
             Layout.fillWidth: true
-            placeholderText: app.texts.descriptionPlaceholder || ""
-            onAccepted: bar.running ? app.runningDescription(text) : bar.submit()
-            onEditingFinished: if (bar.running && text !== app.view.description) app.runningDescription(text)
-        }
+            spacing: 8
 
-        ProjectPicker {
-            objectName: "project"
-            projectId: bar.projectId
-            onChosen: function (id) {
-                bar.projectId = id
-                bar.activityId = 0
-                app.chooseProject(id)
+            IconButton {
+                objectName: "modeSwitch"
+                visible: !bar.running
+                glyph: bar.manual ? "pencil" : "timer"
+                tint: app.palette.accent || "#6f9bff"
+                tip: bar.manual ? (app.texts.manualMode || "") : (app.texts.timerMode || "")
+                onClicked: bar.manual = !bar.manual
+            }
+
+            TextField {
+                id: description
+                objectName: "description"
+                Layout.fillWidth: true
+                Layout.minimumWidth: 140
+                Layout.preferredWidth: 260
+                placeholderText: app.texts.descriptionPlaceholder || ""
+                onAccepted: bar.running ? app.runningDescription(text) : bar.submit()
+                onEditingFinished: if (bar.running && text !== app.view.description) app.runningDescription(text)
+            }
+
+            ProjectPicker {
+                objectName: "project"
+                Layout.fillWidth: true
+                Layout.minimumWidth: 110
+                Layout.maximumWidth: 200
+                projectId: bar.projectId
+                onChosen: function (id) {
+                    bar.projectId = id
+                    bar.activityId = 0
+                    app.chooseProject(id)
+                }
+            }
+
+            ComboBox {
+                id: activity
+                objectName: "activity"
+                Layout.fillWidth: true
+                Layout.minimumWidth: 110
+                Layout.maximumWidth: 180
+                model: app.activityList
+                textRole: "name"
+                valueRole: "activityId"
+                displayText: currentIndex < 0 ? (app.texts.chooseActivity || "") : currentText
+                Component.onCompleted: currentIndex = indexOfValue(bar.activityId)
+                onCountChanged: currentIndex = indexOfValue(bar.activityId)  // the list came after the choice
+                Connections {
+                    target: bar
+                    function onActivityIdChanged() { activity.currentIndex = activity.indexOfValue(bar.activityId) }
+                }
+                onActivated: {
+                    bar.activityId = currentValue
+                    if (bar.running) app.runningWork(bar.projectId, bar.activityId)
+                }
+            }
+
+            IconButton {
+                objectName: "billable"
+                enabled: app.view.billableAllowed
+                readonly property bool on: bar.running ? app.view.billable : (bar.billableTouched === null ? true : bar.billableTouched)
+                glyph: on ? "money" : "money_off"
+                tint: on ? (app.palette.start || "#16a34a") : (app.palette.muted || "#9aa0ac")
+                tip: on ? (app.texts.billableOn || "") : (app.texts.billableOff || "")
+                onClicked: bar.running ? app.runningBillable(!on) : (bar.billableTouched = !on)
+            }
+
+            TextField {
+                id: from
+                objectName: "from"
+                visible: bar.running
+                Layout.preferredWidth: 58
+                horizontalAlignment: Text.AlignHCenter
+                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
+                placeholderText: app.texts.fromLabel || ""
+                onEditingFinished: if (bar.running && text !== app.view.begin) app.runningBegin(text)
+            }
+
+            Label {
+                objectName: "clock"
+                visible: bar.running
+                text: app.view.clock
+                font.bold: true
+                font.pixelSize: 18
+                color: app.palette.fg || "#eceef2"
+            }
+
+            RoundButton {
+                objectName: "submit"
+                implicitWidth: 40
+                implicitHeight: 40
+                icon.source: "image://glyph/" + (bar.running ? "stop" : (bar.manual ? "plus" : "play")) + "/ffffff"
+                ToolTip.visible: hovered
+                ToolTip.text: bar.running ? (app.texts.stop || "") : (bar.manual ? (app.texts.addEntry || "") : (app.texts.start || ""))
+                background: Rectangle {
+                    radius: 20
+                    color: bar.running ? (app.palette.stop || "#e02f2f") : (bar.manual ? (app.palette.accent || "#6f9bff") : (app.palette.start || "#16a34a"))
+                }
+                onClicked: bar.submit()
             }
         }
 
-        ComboBox {
-            id: activity
-            objectName: "activity"
-            Layout.preferredWidth: 170
-            model: app.activityList
-            textRole: "name"
-            valueRole: "activityId"
-            displayText: currentIndex < 0 ? (app.texts.chooseActivity || "") : currentText
-            Component.onCompleted: currentIndex = indexOfValue(bar.activityId)
-            onCountChanged: currentIndex = indexOfValue(bar.activityId)  // the list came after the choice
-            Connections {
-                target: bar
-                function onActivityIdChanged() { activity.currentIndex = activity.indexOfValue(bar.activityId) }
-            }
-            onActivated: {
-                bar.activityId = currentValue
-                if (bar.running) app.runningWork(bar.projectId, bar.activityId)
-            }
-        }
-
-        ToolButton {
-            objectName: "billable"
-            enabled: app.view.billableAllowed
-            readonly property bool on: bar.running ? app.view.billable : (bar.billableTouched === null ? true : bar.billableTouched)
-            icon.source: "image://glyph/" + (on ? "money" : "money_off") + "/" + (on ? "16a34a" : "6b7280")
-            onClicked: bar.running ? app.runningBillable(!on) : (bar.billableTouched = !on)
-        }
-
-        TextField {
-            id: day
-            objectName: "day"
+        // Manual entry: the day and the hours, on a line of their own (the bar fits a narrow window).
+        RowLayout {
+            objectName: "manualRow"
             visible: bar.manual && !bar.running
-            Layout.preferredWidth: 110
-            inputMask: "9999-99-99"
-            text: Qt.formatDate(new Date(), "yyyy-MM-dd")
-        }
-        TextField {
-            id: from
-            objectName: "from"
-            visible: bar.manual || bar.running
-            Layout.preferredWidth: 64
-            inputMask: "99:99"
-            placeholderText: app.texts.fromLabel || ""
-            onEditingFinished: if (bar.running && text !== app.view.begin) app.runningBegin(text)
-        }
-        TextField {
-            id: to
-            objectName: "to"
-            visible: bar.manual && !bar.running
-            Layout.preferredWidth: 64
-            inputMask: "99:99"
-            placeholderText: app.texts.toLabel || ""
-        }
-
-        Label {
-            objectName: "clock"
-            visible: bar.running
-            text: app.view.clock
-            font.bold: true
-            font.pixelSize: 18
-            color: app.palette.fg || "#eceef2"
-        }
-
-        RoundButton {
-            objectName: "submit"
-            implicitWidth: 40
-            implicitHeight: 40
-            icon.source: "image://glyph/" + (bar.running ? "stop" : (bar.manual ? "plus" : "play")) + "/ffffff"
-            ToolTip.visible: hovered
-            ToolTip.text: bar.running ? (app.texts.stop || "") : (bar.manual ? (app.texts.addEntry || "") : (app.texts.start || ""))
-            background: Rectangle {
-                radius: 20
-                color: bar.running ? (app.palette.stop || "#e02f2f") : (bar.manual ? (app.palette.accent || "#6f9bff") : (app.palette.start || "#16a34a"))
+            Layout.fillWidth: true
+            spacing: 8
+            Item { implicitWidth: 32 }  // under the mode switch
+            TextField {
+                id: day
+                objectName: "day"
+                Layout.preferredWidth: 110
+                placeholderText: "RRRR-MM-DD"
+                validator: RegularExpressionValidator { regularExpression: /^[\d-]{0,10}$/ }
+                text: Qt.formatDate(new Date(), "yyyy-MM-dd")
             }
-            onClicked: bar.submit()
+            TextField {
+                id: manualFrom
+                objectName: "manualFrom"
+                Layout.preferredWidth: 64
+                horizontalAlignment: Text.AlignHCenter
+                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
+                placeholderText: app.texts.fromLabel || ""
+            }
+            Label { text: "–"; color: app.palette.muted || "#9aa0ac" }
+            TextField {
+                id: manualTo
+                objectName: "manualTo"
+                Layout.preferredWidth: 64
+                horizontalAlignment: Text.AlignHCenter
+                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
+                placeholderText: app.texts.toLabel || ""
+                onAccepted: bar.submit()
+            }
+            Item { Layout.fillWidth: true }
         }
     }
 }

@@ -8,7 +8,14 @@ Button {
     property int projectId: 0
     signal chosen(int id)
 
-    Layout.preferredWidth: 200
+    Layout.preferredWidth: 180
+    contentItem: Label {
+        text: picker.text
+        color: picker.projectId ? (app.palette.fg || "#eceef2") : (app.palette.muted || "#9aa0ac")
+        elide: Text.ElideRight
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+    }
     // projectsVersion: the name is read again once the projects arrive
     text: projectId ? (app.projectsVersion, app.projectName(projectId)) : (app.texts.chooseProject || "")
     onClicked: { search.text = ""; app.filterProjects(""); popup.open(); search.forceActiveFocus() }
