@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
-Name=WS Tracker
+Name=DK Tracker
 Comment=Time tracking for Kimai in the system tray
 Comment[pl]=Mierzenie czasu w Kimai z tacki systemowej
-Exec=ws-tracker
-Icon=io.github.dragonking026.WS-Tracker-Linux
+Exec=dk-tracker
+Icon=io.github.dragonking026.DK-Tracker-Linux
 Terminal=false
 Categories=Office;ProjectManagement;
 Keywords=Kimai;time;tracking;timesheet;czas;

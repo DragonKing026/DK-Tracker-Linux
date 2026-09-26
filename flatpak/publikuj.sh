@@ -5,10 +5,10 @@
 #
 # Runs inside the flathub-infra container (GitHub Actions: wydanie.yml; locally for a dry run).
 # The app commit is signed (again — idempotent) and the summary too, so `flatpak` on people's
-# computers verifies everything with the public key in flatpak/ws-tracker-repo.gpg.
+# computers verifies everything with the public key in flatpak/dk-tracker-repo.gpg.
 set -euo pipefail
 REPO="$1"; SITE="$2"; URL="$3"; KEY="$4"; HOMEDIR="${5:-}"
-APP=io.github.dragonking026.WS-Tracker-Linux
+APP=io.github.dragonking026.DK-Tracker-Linux
 HERE="$(cd "$(dirname "$0")" && pwd)"
 GPG=(--gpg-sign="$KEY")
 [[ -n "$HOMEDIR" ]] && GPG+=(--gpg-homedir="$HOMEDIR")
@@ -16,10 +16,10 @@ GPG=(--gpg-sign="$KEY")
 # Users trust only the committed public key; signing with any other key would break every install and update.
 GPG_HOME=()
 [[ -n "$HOMEDIR" ]] && GPG_HOME=(--homedir "$HOMEDIR")
-TRUSTED="$(gpg "${GPG_HOME[@]}" --show-keys --with-colons "$HERE/ws-tracker-repo.gpg" | awk -F: '/^fpr/ {print $10; exit}')"
+TRUSTED="$(gpg "${GPG_HOME[@]}" --show-keys --with-colons "$HERE/dk-tracker-repo.gpg" | awk -F: '/^fpr/ {print $10; exit}')"
 SIGNING="$(gpg "${GPG_HOME[@]}" --list-keys --with-colons "$KEY" | awk -F: '/^fpr/ {print $10; exit}')"
 if [[ -z "$TRUSTED" || "$TRUSTED" != "$SIGNING" ]]; then
-  echo "Klucz podpisujący ${SIGNING:-$KEY} to nie klucz z flatpak/ws-tracker-repo.gpg (${TRUSTED:-brak})." >&2
+  echo "Klucz podpisujący ${SIGNING:-$KEY} to nie klucz z flatpak/dk-tracker-repo.gpg (${TRUSTED:-brak})." >&2
   exit 1
 fi
 
@@ -41,5 +41,5 @@ flatpak build-update-repo "${GPG[@]}" --generate-static-deltas --prune "$REPO"
 mkdir -p "$SITE"
 rm -rf "$SITE/repo"
 cp -a "$REPO" "$SITE/repo"
-python3 "$HERE/pages.py" "$SITE" "$URL" "$HERE/ws-tracker-repo.gpg"
+python3 "$HERE/pages.py" "$SITE" "$URL" "$HERE/dk-tracker-repo.gpg"
 echo "Strona repozytorium: $SITE ($URL)"

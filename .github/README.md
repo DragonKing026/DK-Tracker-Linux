@@ -1,10 +1,10 @@
-# WS Tracker
+# DK Tracker
 
 Mierzenie czasu w [Kimai](https://www.kimai.org/) prosto z tacki systemowej Linuksa — bez otwierania przeglądarki.
 Natywna, linuksowa wersja firmowej wtyczki przeglądarkowej
 [WS Tracker](https://github.com/websystemspl/kimai-ws-tracker).
 
-![Okno WS Tracker przy tacce (ciemny motyw)](../docs/assets/zrzuty/okno-ciemny-motyw.png)
+![Okno DK Tracker przy tacce (ciemny motyw)](../docs/assets/zrzuty/okno-ciemny-motyw.png)
 
 > **Status:** wersja **0.9.1 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
 
@@ -24,16 +24,16 @@ Aplikacja jest dystrybuowana jako [Flatpak](https://flatpak.org/). Instalacja z 
 same (Discover, GNOME Software, `flatpak update`):
 
 ```bash
-flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
+flatpak install --user https://dragonking026.github.io/DK-Tracker-Linux/io.github.dragonking026.DK-Tracker-Linux.flatpakref
 ```
 
-Plik `.flatpak` jest też w [najnowszym wydaniu](https://github.com/DragonKing026/WS-Tracker-Linux/releases/latest),
+Plik `.flatpak` jest też w [najnowszym wydaniu](https://github.com/DragonKing026/DK-Tracker-Linux/releases/latest),
 ale tak zainstalowana aplikacja nie dostaje aktualizacji. Szczegóły i przejście z pliku na repozytorium:
 [wydania i instalacja](../docs/procesy/wydania.md).
 
 Na GNOME ikona w tacce wymaga rozszerzenia
 [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/);
-bez niego WS Tracker działa jako zwykłe okno.
+bez niego DK Tracker działa jako zwykłe okno.
 
 ## Konfiguracja
 
@@ -50,7 +50,7 @@ bez niego WS Tracker działa jako zwykłe okno.
 
 ## Licencja
 
-[GPL-3.0-or-later](../LICENSE) (wersje 0.9.0 i 0.9.1: AGPL-3.0-or-later). WS Tracker to niezależny projekt, nie jest
+[GPL-3.0-or-later](../LICENSE) (wersje 0.9.0 i 0.9.1: AGPL-3.0-or-later). DK Tracker to niezależny projekt, nie jest
 oficjalną aplikacją
 [Kimai](https://www.kimai.org/) ani nie jest z nim powiązany; Kimai jest znakiem towarowym jego autora
 ([zasady](https://www.kimai.org/en/trademark-policy.html)).

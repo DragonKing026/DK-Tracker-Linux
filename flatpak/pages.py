@@ -2,8 +2,8 @@
 
     python3 flatpak/pages.py <site-dir> <base-url> <public-key.gpg>
 
-writes <site-dir>/ws-tracker.flatpakrepo (adds the remote, updates come through Discover or GNOME
-Software), <site-dir>/io.github.dragonking026.WS-Tracker-Linux.flatpakref (installs the app in one
+writes <site-dir>/dk-tracker.flatpakrepo (adds the remote, updates come through Discover or GNOME
+Software), <site-dir>/io.github.dragonking026.DK-Tracker-Linux.flatpakref (installs the app in one
 command) and a small index.html. The repository itself goes to <site-dir>/repo (flatpak/publikuj.sh
 copies it).
 Format: https://docs.flatpak.org/en/latest/flatpak-command-reference.html (.flatpakrepo, .flatpakref).
@@ -16,9 +16,9 @@ import html
 import sys
 from pathlib import Path
 
-APP_ID = "io.github.dragonking026.WS-Tracker-Linux"
-TITLE = "WS Tracker"
-REMOTE = "ws-tracker"
+APP_ID = "io.github.dragonking026.DK-Tracker-Linux"
+TITLE = "DK Tracker"
+REMOTE = "dk-tracker"
 BRANCH = "master"  # flatpak-builder's default branch; the GitHub action builds it too
 FLATHUB = "https://dl.flathub.org/repo/flathub.flatpakrepo"  # where the KDE runtime and PySide base come from
 
@@ -62,7 +62,7 @@ def index_html(base_url: str) -> str:
 <p>Instalacja — aktualizacje przyjdą same (Discover, GNOME Software, <code>flatpak update</code>):</p>
 <pre>flatpak install --user {url}/{APP_ID}.flatpakref</pre>
 <p>Samo źródło aktualizacji: <a href="{REMOTE}.flatpakrepo">{REMOTE}.flatpakrepo</a> ·
-<a href="https://github.com/DragonKing026/WS-Tracker-Linux">kod źródłowy</a></p>
+<a href="https://github.com/DragonKing026/DK-Tracker-Linux">kod źródłowy</a></p>
 </body>
 </html>
 """

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.dragonking026.WS-Tracker-Linux</id>
+  <id>io.github.dragonking026.DK-Tracker-Linux</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  <name>WS Tracker</name>
+  <name>DK Tracker</name>
   <summary>Track your Kimai time from the system tray</summary>
   <summary xml:lang="pl">Mierzenie czasu w Kimai z tacki systemowej</summary>
   <developer id="io.github.dragonking026">
@@ -21,18 +21,18 @@
       <li xml:lang="pl">Token API trzymany w portfelu systemu</li>
     </ul>
   </description>
-  <launchable type="desktop-id">io.github.dragonking026.WS-Tracker-Linux.desktop</launchable>
-  <url type="homepage">https://github.com/DragonKing026/WS-Tracker-Linux</url>
-  <url type="bugtracker">https://github.com/DragonKing026/WS-Tracker-Linux/issues</url>
+  <launchable type="desktop-id">io.github.dragonking026.DK-Tracker-Linux.desktop</launchable>
+  <url type="homepage">https://github.com/DragonKing026/DK-Tracker-Linux</url>
+  <url type="bugtracker">https://github.com/DragonKing026/DK-Tracker-Linux/issues</url>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/DragonKing026/WS-Tracker-Linux/main/docs/assets/zrzuty/okno-ciemny-motyw.png</image>
+      <image>https://raw.githubusercontent.com/DragonKing026/DK-Tracker-Linux/main/docs/assets/zrzuty/okno-ciemny-motyw.png</image>
       <caption>The quick window next to the tray</caption>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1"/>
   <provides>
-    <binary>ws-tracker</binary>
+    <binary>dk-tracker</binary>
   </provides>
   <supports>
     <control>pointing</control>

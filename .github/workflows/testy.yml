@@ -24,7 +24,7 @@ jobs:
       - name: Format i lint
         run: ruff format --check . && ruff check .
       - name: Testy (bez Dockera i pulpitu), pokrycie rdzenia ≥ 90%
-        run: pytest --cov=ws_tracker.core --cov-fail-under=90
+        run: pytest --cov=dk_tracker.core --cov-fail-under=90
         env:
           QT_QPA_PLATFORM: offscreen
       - name: Dokumentacja
