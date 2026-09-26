@@ -375,3 +375,16 @@ def test_no_tray_hint_is_shown_before_the_app_is_configured(harness):
     h = harness(settings=Settings(), tray=False)
     assert h.state.configured is False
     assert ("hintNoTray", {}) in h.state.warnings
+
+
+def test_after_a_locked_wallet_saving_takes_the_token_from_the_wallet(harness, qtbot):
+    desktop = FakeDesktop(fail=SecretsLocked("dismissed"))
+    h = harness(desktop=desktop)
+    assert h.state.configured is False
+    desktop.fail = None  # the user unlocked the wallet
+    dialog = h.controller.open_settings()
+    with qtbot.waitSignal(dialog.saveRequested):
+        dialog.save_button.click()  # token field left empty
+    h.settle()
+    assert h.state.configured is True
+    assert h.clients[-1] == (URL, "secret-token")

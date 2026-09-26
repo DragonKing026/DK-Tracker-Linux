@@ -388,7 +388,10 @@ class Controller(QObject):
             self.dialog = SettingsDialog(self.state.t)
             self.dialog.saveRequested.connect(self.save_settings)
             self.dialog.testRequested.connect(self._test_connection)
-        self.dialog.load(self._settings, has_token=bool(self._token))
+        # A wallet that was locked or unreachable at start may hold the token: an empty field
+        # then means "take it from the wallet" (saving looks it up) rather than "type it again".
+        in_wallet = bool(self._token) or (self.state.secrets_problem is not None and bool(self._settings.url))
+        self.dialog.load(self._settings, has_token=in_wallet)
         self.dialog.set_secrets_problem(self.state.secrets_problem)
         self.popup.hide()
         self.dialog.show()
