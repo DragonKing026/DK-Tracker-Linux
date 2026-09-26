@@ -212,7 +212,11 @@ class TrackerForm(QWidget):
             model.appendRow(header)
             for project in projects:
                 self.project.addItem(dot(project.color), project.name, project.id)
-        self._select(self.project, chosen)
+        running = self._running
+        if running is not None and self.project.findData(running.project_id) < 0:
+            # The running entry's project may be missing from the catalog (hidden, archived).
+            self.project.addItem(dot(running.project_color), running.project_name or "?", running.project_id)
+        self._select(self.project, running.project_id if running is not None else chosen)
         if self._running is None:
             self._reset_billable()
 

@@ -34,6 +34,8 @@ class _Filter(QSortFilterProxyModel):
         model = self.sourceModel()
         if not self._needle:
             return True
+        if row == 0:
+            return False  # "choose a project" is a placeholder, never a result
         if _is_header(model, row):
             return any(self._matches(model, child) for child in _children(model, row))
         return self._matches(model, row)

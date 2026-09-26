@@ -255,3 +255,37 @@ def test_search_text_is_cleared_for_the_next_opening(form, qtbot):
 def test_search_placeholder_follows_the_language(form):
     form.retranslate(Translator("en"))
     assert form.project.popup.search.placeholderText() == "Search projects…"
+
+
+def test_the_choose_a_project_row_is_never_a_search_result(form, qtbot):
+    form.show()
+    form.project.showPopup()
+    QTest.keyClicks(form.project.popup.search, "projekt")
+    assert "+ projekt" not in visible_rows(form.project.popup)
+    form.project.hidePopup()
+
+
+def test_search_stays_fast_with_thousands_of_projects(form, qtbot):
+    import time
+
+    from kimai_tray.core.models import Project
+
+    many = tuple(
+        Project(1000 + n, f"Projekt {n}", 10 + n // 50, f"Klient {n // 50}", None, True) for n in range(3000)
+    )
+    form.set_catalog(replace(CATALOG, projects=many), remembered_project=None)
+    form.show()
+    form.project.showPopup()
+    started = time.perf_counter()
+    QTest.keyClicks(form.project.popup.search, "2999")
+    assert time.perf_counter() - started < 1.0
+    assert visible_rows(form.project.popup) == ["Klient 59", "Projekt 2999"]
+    form.project.hidePopup()
+
+
+def test_running_entry_outside_the_catalog_keeps_its_project_after_a_reload(form):
+    outside = replace(RUNNING, project_id=99, project_name="Archiwalny projekt")
+    form.render(replace(CATALOG, running=(outside,)), WARSAW, NOW)
+    form.set_catalog(CATALOG, remembered_project=1)
+    assert form.project.currentData() == 99
+    assert form.project.currentText() == "Archiwalny projekt"
