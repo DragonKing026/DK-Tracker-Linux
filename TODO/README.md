@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 12:22
+zaktualizowano: 2026-09-26 12:25
 ---
 
 # Tablica zadań
@@ -34,6 +34,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 | 0053 | [Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)](DO-ZROBIENIA/0053-plan4-pierwsze-wydanie/todo.md) | 📋 do-zrobienia | p1 | [0052](ZROBIONE/0052-plan4-proces-wydania/todo.md) ✅, [0056](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) |
+| 0057 | [Drobne uwagi z recenzji Planu 4](DO-ZROBIENIA/0057-drobne-uwagi-z-recenzji-planu-4/todo.md) | 📋 do-zrobienia | p3 | — |
 
 ## Zrobione
 
