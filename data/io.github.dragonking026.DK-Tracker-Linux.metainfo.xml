@@ -39,6 +39,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.9.2" date="2026-09-26">
+      <description>
+        <p>New name DK Tracker with its own DK icon, a readable mark in the window header, GPL-3.0-or-later licence, and a new app id (reinstall from the new repository). Resizing the window next to the tray follows the pointer smoothly at any size.</p>
+      </description>
+    </release>
     <release version="0.9.1" date="2026-09-26">
       <description>
         <p>New name WS Tracker and its own icon (no longer the Kimai logo). Search all your Kimai entries, long descriptions unfold on click, the running entry's project and activity can change, and the form suggests the project and activity of your newest entry.</p>
