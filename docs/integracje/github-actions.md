@@ -66,12 +66,22 @@ Użyte akcje:
 
 ## Przypięte akcje
 
-Akcje firm trzecich w [wydanie.yml](../../.github/workflows/wydanie.yml) są przypięte do commita (SHA), bo zadanie z
-nimi dostaje klucz prywatny GPG — przesunięty tag nie zmieni uruchamianego kodu. Akcje GitHuba (`actions/*`) zostają na
-tagach. Pilnuje tego `test_third_party_actions_are_pinned_to_a_commit` ([test_pakiet.py](../../tests/test_pakiet.py)).
+**Wszystkie** akcje są przypięte do commita (SHA). Repozytorium tego wymaga (Settings → Actions → General: tylko
+akcje GitHuba i trzy wymienione niżej, wymóg pełnego SHA), a zadanie z akcjami firm trzecich dostaje klucz prywatny GPG
+—
+przesunięty tag nie zmieni uruchamianego kodu. Wymóg obejmuje też akcje wywoływane **wewnątrz** akcji złożonych
+(composite), dlatego `upload-pages-artifact` jest w wersji v4.0.0, która sama przypina `upload-artifact` do SHA (v3
+wołała go po tagu). Pilnuje tego `test_every_action_is_pinned_to_a_commit`
+([test_pakiet.py](../../tests/test_pakiet.py)).
 
 | Akcja | Wersja | Commit |
 | --- | --- | --- |
+| actions/checkout | v4.4.0 | `11d5960a326750d5838078e36cf38b85af677262` |
+| actions/setup-python | v5.6.0 | `a26af69be951a213d495a4c3e4e4022e16d87065` |
+| actions/upload-pages-artifact | v4.0.0 | `7b1f4a764d45c48632c6b24a0339c27f5614fb0b` |
+| actions/deploy-pages | v4.0.5 | `d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e` |
+| actions/upload-artifact | v4.6.2 | `ea165f8d65b6e75b540449e92b4886f43607fa02` |
+| actions/download-artifact | v4.3.0 | `d3f86a106a0bac45b974a628896c90dbdf5c8093` |
 | crazy-max/ghaction-import-gpg | v6.3.0 | `e89d40939c28e39f97cf32126055eeae86ba74ec` |
 | flatpak/flatpak-github-actions/flatpak-builder | v6.8 | `79327416609af08178ad73b352877e51450790b3` |
 | softprops/action-gh-release | v2.6.2 | `3bb12739c298aeb8a4eeaf626c5b8d85266b0e65` |
@@ -82,7 +92,8 @@ Aktualizacja ręczna: przejrzeć zmiany między wersjami w repozytorium akcji, p
 gh api repos/<właściciel>/<akcja>/commits/<nowy-tag> --jq .sha
 ```
 
-i wpisać SHA z komentarzem `# <nowy-tag>`.
+i wpisać SHA z komentarzem `# <nowy-tag>`. Przy akcji złożonej sprawdzić w jej `action.yml`, czy wewnętrzne `uses:` też
+są przypięte do SHA.
 
 ## Pułapki i ograniczenia
 
