@@ -83,6 +83,7 @@ class MainBridge(QObject):
         self._projects_version = 0
         self._editor: dict[str, Any] = {"open": False, "error": "", "busy": False}
         self._tags: list[dict[str, str]] = []
+        self._chosen_page = "entries"  # what the user picked in the sidebar
         self._t: Callable[..., str] = str
         self._pending: int | None = None
         self._doomed: dict[int, Entry] = {}
@@ -157,7 +158,9 @@ class MainBridge(QObject):
         current = snapshot.current
         totals = live_totals(snapshot, now, tz) if snapshot.totals is not None else None
         self._update(
-            page=self._view["page"] if configured else "settings",
+            # Not configured (also for a moment at a start, before the wallet answers): the settings
+            # page only; then back to the page the user chose, not the forced one.
+            page=self._chosen_page if configured else "settings",
             configured=configured,
             running=current is not None,
             entryId=current.id if current else 0,
@@ -394,6 +397,7 @@ class MainBridge(QObject):
 
     def show_page(self, page: str) -> None:
         """ "entries" or "settings"; without a configuration there is only the settings page."""
+        self._chosen_page = page
         self._update(page=page if self._view["configured"] else "settings")
 
     @Slot(str)

@@ -65,6 +65,7 @@ def test_a_start_from_the_menu_loads_projects_and_entries_once_the_token_arrives
         h.settle()
         assert h.controller.main_bridge.projects.rowCount() > 0
         assert entry_ids(h)[:2] == [2, 1]
+        assert h.controller.main_bridge.view["page"] == "entries"  # live test: it stayed on the settings
     finally:
         h.controller.shutdown()
 

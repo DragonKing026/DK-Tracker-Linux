@@ -308,3 +308,18 @@ def test_the_edit_window_gets_the_tags_to_choose(bridge):
         {"name": "frontend", "color": "#9C27B0"},
         {"name": "pilne", "color": "#e5534b"},
     ]
+
+
+def test_the_window_goes_back_to_the_entries_once_the_token_arrives(bridge):
+    """Live test: at a start the window shows before the wallet answers (not configured yet) — it was
+    left on the settings page it was forced to."""
+    bridge.render(Snapshot(), configured=False, t=PL, now=NOW, tz=WARSAW)
+    assert bridge.view["page"] == "settings"
+    bridge.render(SNAPSHOT, configured=True, t=PL, now=NOW, tz=WARSAW)
+    assert bridge.view["page"] == "entries"
+
+
+def test_settings_chosen_by_the_user_stay_through_a_refresh(bridge):
+    bridge.show_page("settings")
+    bridge.render(SNAPSHOT, configured=True, t=PL, now=NOW, tz=WARSAW)
+    assert bridge.view["page"] == "settings"
