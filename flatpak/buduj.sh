@@ -15,8 +15,8 @@ CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/ws-tracker-tray-flatpak"
 VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' "$ROOT/pyproject.toml")"
 BUNDLE="$APP-$VERSION.flatpak"
 # Findings that only matter for Flathub, not for our own repository on GitHub Pages:
-# the websystems.pl certificate (from the app id) and screenshots mirrored into the OSTree repo.
-ALLOWED_LINT="appid-url-not-reachable appstream-screenshots-not-mirrored-in-ostree appstream-missing-screenshots"
+# the websystems.pl certificate (from the app id) and screenshots mirrored into the OSTree repo or Flathub media.
+ALLOWED_LINT="appid-url-not-reachable appstream-screenshots-not-mirrored-in-ostree appstream-missing-screenshots appstream-external-screenshot-url"
 
 mkdir -p "$CACHE" "$ROOT/dist"
 docker run --rm --privileged \
