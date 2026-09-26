@@ -18,6 +18,7 @@ Natywny odpowiednik firmowej wtyczki [WS Tracker](https://github.com/websystemsp
 - okno przy ikonie: opis, projekt (z wyszukiwaniem), rodzaj pracy, płatne / niepłatne, godziny „od / do”;
 - ostatnie wpisy pogrupowane po dniach, wznawianie jednym kliknięciem, sumy dnia i tygodnia;
 - wyszukiwanie we wszystkich swoich wpisach w Kimai (po opisie), długie opisy rozwijane kliknięciem;
+- zmiana projektu i rodzaju pracy trwającego wpisu (wtyczka tego nie pozwala);
 - przypomnienie o długim timerze, powiadomienia o utracie połączenia;
 - token API w portfelu systemu (KWallet / GNOME Keyring), autostart, wersja polska i angielska.
 

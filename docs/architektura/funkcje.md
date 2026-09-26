@@ -261,6 +261,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | F-31 | Start z przeglądarki przez link `…://start` | KimaiTray | później |
 | F-32 | Ekran „Co nowego” po aktualizacji | KimaiTray | później |
 | F-33 | Wyszukiwanie we wszystkich wpisach Kimai | prośba użytkownika po teście 0.9.0 | **w 0.9.1** ([szczegóły](#f-33-wyszukiwanie-we-wszystkich-wpisach)) |
+| F-34 | Zmiana projektu i rodzaju pracy trwającego wpisu (wtyczka je blokuje) | prośba użytkownika | **w 0.9.1** ([szczegóły](#f-34-zmiana-projektu-i-rodzaju-pracy-trwającego-wpisu)) |
 
 ## F-33 Wyszukiwanie we wszystkich wpisach
 
@@ -273,6 +274,18 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 - Trwający wpis nie jest wynikiem (jest na pasku). `$` na wyniku odświeża wyniki. Odpowiedź dla starszego tekstu jest
   pomijana. Esc w polu czyści wyszukiwanie; drugi Esc zamyka okno. Odświeżanie co minutę nie zastępuje wyników.
 - Zadanie: [0059](../../TODO/W-TRAKCIE/0059-wyszukiwanie-wpisow/todo.md).
+
+## F-34 Zmiana projektu i rodzaju pracy trwającego wpisu
+
+- Wtyczka blokuje obie listy przy trwającym wpisie; u nas są aktywne. Lista rodzajów pracy ładuje się dla projektu
+  wpisu.
+- Inny rodzaj pracy → `PATCH /api/timesheets/{id}` z `project` i `activity` od razu. Inny projekt → jego rodzaje
+  pracy; gdy obecny rodzaj pracy w nim jest, zapis od razu, inaczej lista prosi o wybór i nic nie idzie do Kimai.
+- `$` przyjmuje wartość domyślną nowego projektu i rodzaju pracy, jak przy starcie (decyzja użytkownika). Konto bez
+  uprawnienia do billable: Kimai odrzuca pole → przełącznik blokowany, zmiana zapisywana bez niego.
+- Odświeżanie nie cofa wyboru w toku; odmowa Kimai → pasek błędu i listy jak w Kimai. Komunikat „Projekt i rodzaj
+  pracy zapisane.”. Sprawdzone testem kontraktowym na Kimai 2.67.0.
+- Zadanie: [0060](../../TODO/W-TRAKCIE/0060-zmiana-projektu-trwajacego-wpisu/todo.md).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 

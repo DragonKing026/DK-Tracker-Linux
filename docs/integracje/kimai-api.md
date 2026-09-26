@@ -48,7 +48,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | GET | `/api/timesheets?term=…&size=50&orderBy=begin&order=DESC&full=true` | wyszukiwanie: tylko w opisie, każde słowo, bez wielkości liter, własne wpisy (Kimai 2.67.0 `TimesheetRepository`, test kontraktowy) | F-33 |
 | POST | `/api/timesheets` | start: `begin`, `project`, `activity`, `description`, `[billable]` | F-04 |
 | PATCH | `/api/timesheets/{id}/stop` | stop „teraz”; na już zatrzymanym wpisie zwraca 200 (sprawdzone) | F-05 |
-| PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable` | F-05, F-07, F-09 |
+| PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable`, `project` + `activity` (trwający wpis) | F-05, F-07, F-09, F-34 |
 
 > [!tip] Dlaczego nie `/api/timesheets/recent`
 > Ten endpoint zwija listę do jednej pozycji na parę projekt+czynność. Dzień spędzony nad
