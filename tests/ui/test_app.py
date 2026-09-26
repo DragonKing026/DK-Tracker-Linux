@@ -161,10 +161,10 @@ def test_stop_clicked_in_a_notification_stops_that_entry(harness):
     client = FakeClient()
     client.add(make_entry(7, NOW - timedelta(hours=9)))
     h = harness(client=client)
-    h.controller.on_notification(NotificationAction("long-timer-8", "stop", 8))  # another entry: ignored
+    h.controller.on_notification(NotificationAction("long-timer-8.1", "stop", 8))  # another entry: ignored
     h.settle()
     assert h.state.snapshot.current is not None
-    h.controller.on_notification(NotificationAction("long-timer-7", "stop", 7))
+    h.controller.on_notification(NotificationAction("long-timer-7.1", "stop", 7))
     h.settle()
     assert h.state.snapshot.current is None
 
@@ -234,12 +234,12 @@ def test_a_handled_notification_is_withdrawn(harness):
     client = FakeClient()
     client.add(make_entry(7, NOW - timedelta(hours=9)))
     h = harness(client=client)
-    h.controller.on_notification(NotificationAction("long-timer-7", "stop", 7))
+    h.controller.on_notification(NotificationAction("long-timer-7.1", "stop", 7))
     h.settle()
-    assert h.desktop.withdrawn == ["long-timer-7"]
-    h.controller.on_notification(NotificationAction("long-timer-7", "keep", 7))
+    assert h.desktop.withdrawn == ["long-timer-7.1"]
+    h.controller.on_notification(NotificationAction("long-timer-7.2", "keep", 7))
     h.settle()
-    assert h.desktop.withdrawn == ["long-timer-7", "long-timer-7"]
+    assert h.desktop.withdrawn == ["long-timer-7.1", "long-timer-7.2"]
 
 
 def test_window_size_chosen_by_the_user_is_remembered(harness):
@@ -346,3 +346,11 @@ def test_catalog_answer_after_the_window_closed_does_not_block_the_next_load(har
     h.controller.popup.hide()  # closed before the answers came back
     h.settle()
     assert h.controller.catalog_loaded is False  # the next opening loads projects again
+
+
+def test_clicks_on_other_apps_notifications_are_ignored(harness):
+    h = harness()
+    h.controller.on_notification(NotificationAction("org.kde.kdeconnect.3", "settings", None))
+    h.settle()
+    assert h.controller.dialog is None
+    assert h.desktop.withdrawn == []

@@ -32,3 +32,15 @@ def test_entry_id_from_notification_id():
 def test_entry_id_from_ignores_non_ascii_digits():
     assert entry_id_from("long-timer-²") is None
     assert entry_id_from("long-timer-٣") is None
+
+
+def test_our_notification_ids_are_recognised():
+    from kimai_tray.core.notification_policy import is_ours
+
+    assert is_ours("action.1790374275")
+    assert is_ours("connection.12")
+    assert is_ours("long-timer-7.1790374275")
+    assert not is_ours("action")  # we always add a number
+    assert not is_ours("org.kde.kdeconnect.3")
+    assert not is_ours("settings-reminder.5")
+    assert not is_ours("long-timer-x.5")

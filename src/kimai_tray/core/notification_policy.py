@@ -133,3 +133,11 @@ def entry_id_from(notification_id: str) -> int | None:
     if notification_id.startswith(prefix) and re.fullmatch(r"[0-9]+", number):
         return int(number)
     return None
+
+
+_OUR_ID = re.compile(rf"(?:{ACTION}|{CONNECTION}|{LONG_TIMER}-[0-9]+)\.[0-9]+")
+
+
+def is_ours(notification_id: str) -> bool:
+    """The portal broadcasts clicks on every app's notifications; ours are "<kind>.<number>"."""
+    return _OUR_ID.fullmatch(notification_id) is not None

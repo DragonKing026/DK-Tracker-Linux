@@ -20,7 +20,7 @@ from PySide6.QtGui import QDesktopServices
 from kimai_tray.core.errors import TrackerError, describe
 from kimai_tray.core.i18n import Translator, resolve_language, system_locale
 from kimai_tray.core.models import Entry
-from kimai_tray.core.notification_policy import PolicyState, action_confirmation, evaluate, render
+from kimai_tray.core.notification_policy import PolicyState, action_confirmation, evaluate, is_ours, render
 from kimai_tray.core.settings import Memory, Settings
 from kimai_tray.core.timefmt import short_duration
 from kimai_tray.core.tracker import Snapshot, Tracker, all_entries_url, utc_now
@@ -322,6 +322,8 @@ class Controller(QObject):
             self._notify(render(note, self.state.t))
 
     def on_notification(self, action: NotificationAction) -> None:
+        if not is_ours(action.notification_id):
+            return  # another app's notification: the portal tells every listener
         # KDE leaves a notification on screen after a button click: take it away ourselves.
         self.dbus.submit(lambda: self._desktop.withdraw(action.notification_id), on_error=lambda _e: None)
         if action.action == "settings":
