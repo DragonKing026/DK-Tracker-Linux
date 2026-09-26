@@ -97,11 +97,3 @@ jobs:
             ```
 
             Plik `.flatpak` poniżej nie dostaje aktualizacji — tylko gdy strona repozytorium jest niedostępna.
-      - name: Starsze wydania — tylko tagi (lista Releases pokazuje najnowsze)
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-        run: |
-          gh release list --limit 100 --json tagName --jq '.[].tagName' \
-            | grep -vx "$GITHUB_REF_NAME" \
-            | xargs -r -n1 gh release delete --yes

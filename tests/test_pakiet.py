@@ -231,13 +231,7 @@ def test_the_package_ships_our_icon_not_the_kimai_logo():
     assert not (ROOT / "src" / "dk_tracker" / "ui" / "assets" / "kimai.png").exists()
 
 
-def test_a_release_removes_the_pages_of_older_releases_but_keeps_their_tags():
-    """0067: the Releases list shows only the newest release; older versions stay as git tags."""
+def test_a_release_keeps_the_earlier_releases():
+    """Working releases stay; only faulty ones are removed, by hand (user's decision, 0067)."""
     steps = workflow("wydanie.yml")["jobs"]["wydanie"]["steps"]
-    names = [step.get("name", "") for step in steps]
-    cleanup = next(step for step in steps if step.get("name", "").startswith("Starsze wydania"))
-    assert names.index(cleanup["name"]) > next(
-        i for i, s in enumerate(steps) if "action-gh-release" in s.get("uses", "")
-    )
-    assert "gh release delete" in cleanup["run"] and "--cleanup-tag" not in cleanup["run"]
-    assert cleanup["env"]["GH_TOKEN"] == "${{ github.token }}"
+    assert not any("gh release delete" in step.get("run", "") for step in steps)
