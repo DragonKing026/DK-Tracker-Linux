@@ -93,7 +93,19 @@ ScrollView {
                 objectName: "settingsToken"
                 Layout.fillWidth: true
                 echoMode: TextInput.Password
-                placeholderText: page.form.tokenPlaceholder
+                placeholderText: ""  // the hint under the field says where to get one
+                // A stored token shows as a fixed mask — never the token, never its length (the
+                // token does not come back from the wallet). Typing a new one replaces it.
+                Row {
+                    objectName: "settingsTokenMask"
+                    visible: page.form.hasToken && token.text === "" && !token.activeFocus
+                    anchors.left: parent.left
+                    anchors.leftMargin: token.leftPadding
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: 10
+                    Label { text: "••••••••••••••••"; color: app.palette.fg }
+                    Label { text: app.texts.optTokenStored || ""; color: app.palette.muted; font.pixelSize: 12 }
+                }
             }
         }
         Hint { text: app.texts.optTokenHint || "" }

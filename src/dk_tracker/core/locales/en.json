@@ -134,6 +134,7 @@
   "optUrlRequired": "Enter the Kimai address.",
   "optTokenRequired": "Enter the API token.",
   "optTesting": "Checking…",
+  "optTokenStored": "saved in the wallet — type a new one to change it",
   "optTokenKeep": "A token is saved in the wallet. Leave this empty to keep it.",
   "optClose": "Close",
   "statusRunning": "Timer {time} — {project}",

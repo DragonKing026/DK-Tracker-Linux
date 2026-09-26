@@ -127,6 +127,7 @@ class SettingsForm(QObject):
             "theme": s.theme,
             "themes": [{"code": code, "label": t(key)} for code, key in THEMES],
             "tokenPlaceholder": t("optTokenKeep") if self._has_token else "",
+            "hasToken": self._has_token,  # the page draws a fixed mask; the token itself never comes here
             "warning": "\n\n".join(notes),
             "status": self._status,
             "okStatus": self._status_ok,

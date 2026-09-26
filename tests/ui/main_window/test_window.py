@@ -394,3 +394,16 @@ def test_long_lists_have_a_scroll_bar(window, qtbot):
     QMetaObject.invokeMethod(window.child("project"), "clicked")
     qtbot.waitUntil(lambda: window.child("projectScroll") is not None)
     assert window.child("entriesScroll") is not None
+
+
+def test_the_settings_show_a_mask_for_a_stored_token(window, qtbot):
+    from dk_tracker.core.settings import Settings
+
+    window.bridge.settings_form.retranslate(PL)
+    window.bridge.settings_form.load(Settings(url="https://kimai.test"), has_token=True)
+    window.bridge.show_page("settings")
+    mask = window.child("settingsTokenMask")
+    qtbot.waitUntil(lambda: mask is not None and mask.property("visible") is True)
+    assert window.child("settingsToken").property("text") == ""
+    window.bridge.settings_form.load(Settings(url="https://kimai.test"), has_token=False)
+    qtbot.waitUntil(lambda: mask.property("visible") is False)

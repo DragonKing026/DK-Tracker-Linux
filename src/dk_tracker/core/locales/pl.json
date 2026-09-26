@@ -134,6 +134,7 @@
   "optUrlRequired": "Podaj adres Kimai.",
   "optTokenRequired": "Podaj token API.",
   "optTesting": "Sprawdzam…",
+  "optTokenStored": "zapisany w portfelu — wpisz nowy, żeby go zmienić",
   "optTokenKeep": "Token jest zapisany w portfelu. Zostaw puste, żeby go nie zmieniać.",
   "optClose": "Zamknij",
   "statusRunning": "Timer {time} — {project}",

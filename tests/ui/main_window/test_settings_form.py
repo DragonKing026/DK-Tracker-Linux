@@ -119,3 +119,10 @@ def test_the_theme_is_chosen_in_the_settings(form, qtbot):
     with qtbot.waitSignal(form.saveRequested) as signal:
         form.save(values(theme="dark"), "")
     assert signal.args[0].theme == "dark"
+
+
+def test_a_stored_token_is_shown_as_a_mask_never_as_itself(form):
+    """Live test: the token field should show that a token is there. Only a fixed mask — the token
+    never comes back from the wallet into the window (spec 1.0, section 8)."""
+    assert form.form["hasToken"] is True
+    assert "token" not in {key.lower() for key in form.form} - {"hastoken", "tokenplaceholder"}
