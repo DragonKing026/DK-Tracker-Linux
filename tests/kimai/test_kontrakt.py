@@ -99,3 +99,17 @@ def test_editing_an_exported_entry_is_forbidden_not_auth(kimai_env, user_tracker
         user.update(entry.id, {"description": DESCRIPTION + " po eksporcie"})
     assert caught.value.kind is ErrorKind.FORBIDDEN
     assert any(e.id == entry.id and e.exported for e in user.latest(5))
+
+
+def test_search_matches_every_word_of_the_users_own_descriptions(kimai_env, user_tracker):
+    """F-33: `term` searches the description only; a team lead does not see the user's entries by default."""
+    project, activity = ids(user_tracker)
+    marker = f"szukaj{datetime.now(UTC):%H%M%S%f}"
+    text = f"{DESCRIPTION} {marker} kalendarz"
+    user_tracker.start(project_id=project, activity_id=activity, description=text, billable=None)
+    user_tracker.stop()
+    assert [entry.description for entry in user_tracker.search(f"{marker} kalendarz")] == [text]
+    assert [entry.description for entry in user_tracker.search(marker.upper())] == [text]
+    assert user_tracker.search(f"{marker} nieistniejące") == ()
+    lead = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_LEAD_TOKEN"])
+    assert lead.search(marker) == []
