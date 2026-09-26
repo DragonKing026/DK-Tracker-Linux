@@ -211,15 +211,14 @@ class QuickWindow(QWidget):
                 self._error_from_refresh = True
             elif self._error_from_refresh:
                 self.clear_error()  # Kimai answers again; an action's own error is left alone
-            if (
-                snapshot.notice
-                and snapshot.notice != self._notice_shown
-                and not snapshot.notice.startswith("err")
-            ):
-                self.flash(t(snapshot.notice))
-            elif snapshot.notice and snapshot.notice.startswith("err"):
-                self.show_error(t(snapshot.notice))
-        self._notice_shown = snapshot.notice
+            # A notice belongs to the Snapshot an action produced: shown once for that Snapshot,
+            # again only for a new one (a second save carries the same text in a new Snapshot).
+            if snapshot.notice and snapshot is not self._notice_shown:
+                if snapshot.notice.startswith("err"):
+                    self.show_error(t(snapshot.notice))
+                else:
+                    self.flash(t(snapshot.notice))
+        self._notice_shown = snapshot
         self.tick()
 
     def tick(self) -> None:

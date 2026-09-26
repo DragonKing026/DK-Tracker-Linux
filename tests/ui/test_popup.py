@@ -252,3 +252,20 @@ def test_size_set_by_the_compositor_is_reported_after_a_pause(window, qtbot):
     with qtbot.waitSignal(popup.sizeChosen) as signal:
         popup.resize(QSize(600, 700))  # e.g. a frameless window resized with startSystemResize
     assert signal.args == [QSize(600, 700)]
+
+
+def test_every_save_flashes_even_with_the_same_message(window):
+    state, popup = window
+    state.update(snapshot=replace(IDLE, notice="savedDescription"))
+    popup.saved.hide()
+    state.update(snapshot=replace(IDLE, notice="savedDescription"))  # a second save: a new Snapshot
+    assert not popup.saved.isHidden()
+
+
+def test_a_tracker_error_notice_is_not_brought_back_by_other_updates(window):
+    state, popup = window
+    state.update(snapshot=replace(IDLE, notice="errBillableDenied"))
+    assert not popup.error.isHidden()
+    popup.clear_error()  # the user typed
+    state.update(warnings=[])  # anything else redraws the window with the same Snapshot
+    assert popup.error.isHidden()
