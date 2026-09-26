@@ -17,8 +17,16 @@ Natywny odpowiednik firmowej wtyczki [WS Tracker](https://github.com/websystemsp
 
 ## Instalacja
 
-Aplikacja jest dystrybuowana jako [Flatpak](https://flatpak.org/). Paczki i repozytorium z aktualizacjami pojawią się
-przy pierwszym wydaniu (0.9.0).
+Aplikacja jest dystrybuowana jako [Flatpak](https://flatpak.org/). Instalacja z repozytorium — aktualizacje przyjdą
+same (Discover, GNOME Software, `flatpak update`):
+
+```bash
+flatpak install --user https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.WsTrackerTray.flatpakref
+```
+
+Plik `.flatpak` jest też w [najnowszym wydaniu](https://github.com/DragonKing026/Kimai-App--Linux-/releases/latest),
+ale tak zainstalowana aplikacja nie dostaje aktualizacji. Szczegóły i przejście z pliku na repozytorium:
+[wydania i instalacja](../docs/procesy/wydania.md).
 
 Na GNOME ikona w tacce wymaga rozszerzenia
 [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/);
