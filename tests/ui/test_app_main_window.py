@@ -305,12 +305,12 @@ def test_the_minute_refresh_does_not_load_older_weeks(harness):  # noqa: F811
 
 def test_clicking_a_row_opens_the_edit_window_with_what_kimai_has(harness):  # noqa: F811
     h = opened(harness)
-    h.client.details[2] = {"tags": ["frontend"], "hourlyRate": 120.0}
+    h.client.details[2] = {"tags": ["frontend"], "metaFields": [{"name": "ticket", "value": "KSEF-1"}]}
     h.controller.main_bridge.openEntry(2)
     h.settle()
     editor = h.controller.main_bridge.editor
     assert editor["open"] is True and editor["entryId"] == 2
-    assert editor["tags"] == "frontend" and editor["hourlyRate"] == "120"
+    assert editor["tags"] == "frontend" and editor["meta"] == [{"name": "ticket", "value": "KSEF-1"}]
     assert ("entry_details", 2) in h.client.calls
 
 

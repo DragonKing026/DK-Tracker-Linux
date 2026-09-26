@@ -31,19 +31,13 @@ def test_details_read_everything_kimai_returns():
     details = EntryDetails.from_api(RAW)
     assert (details.id, details.project_id, details.activity_id, details.description) == (92, 1, 1, GOOD)
     assert details.tags == ("frontend", "pilne")
-    assert (details.rates_visible, details.fixed_rate, details.hourly_rate) == (True, None, 120.0)
     assert details.meta == (("ticket", "KSEF-12"),)
     assert details.break_seconds == 0 and details.billable and not details.exported
 
 
-def test_an_account_without_rates_gets_no_rate_fields():
-    raw = {k: v for k, v in RAW.items() if k not in ("rate", "internalRate", "fixedRate", "hourlyRate")}
-    assert EntryDetails.from_api(raw).rates_visible is False
-
-
 def test_the_client_reads_one_entry_and_sets_a_meta_field():
     client, rec = client_for(lambda r: httpx.Response(200, json=RAW))
-    assert client.entry_details(92).hourly_rate == 120.0
+    assert client.entry_details(92).tags == ("frontend", "pilne")
     assert (rec.last.method, rec.last.url.path) == ("GET", "/api/timesheets/92")
     client.set_meta(92, "ticket", "KSEF-13")
     assert (rec.last.method, rec.last.url.path) == ("PATCH", "/api/timesheets/92/meta")
@@ -55,12 +49,11 @@ def test_the_client_reads_one_entry_and_sets_a_meta_field():
 
 def edited(tracker, client, **values):
     entry = client.add(make_entry(92, AT_9, AT_9 + timedelta(minutes=90), description=GOOD))
-    client.details[92] = {"tags": ["frontend"], "fixedRate": None, "hourlyRate": 120.0,
-                          "metaFields": [{"name": "ticket", "value": "KSEF-12"}]}  # fmt: skip
+    client.details[92] = {"tags": ["frontend"], "metaFields": [{"name": "ticket", "value": "KSEF-12"}]}
     details = tracker.entry_details(entry)
     base = {
         "day": date(2026, 9, 25), "begin": "09:00", "end": "10:30", "project_id": 1, "activity_id": 1,
-        "description": GOOD, "tags": "frontend", "billable": True, "fixed_rate": "", "hourly_rate": "120",
+        "description": GOOD, "tags": "frontend", "billable": True,
         "meta": {"ticket": "KSEF-12"},
     }  # fmt: skip
     return tracker.save_details(details, {**base, **values})
@@ -78,8 +71,8 @@ def test_nothing_changed_sends_nothing():
 
 def test_only_what_changed_is_sent():
     tracker, client, _ = make_tracker()
-    snapshot = edited(tracker, client, tags="frontend, pilne ,", fixed_rate="250,50", end="11:00")
-    assert updates(client) == [{"tags": "frontend,pilne", "fixedRate": 250.5, "end": "2026-09-25T11:00:00"}]
+    snapshot = edited(tracker, client, tags="frontend, pilne ,", end="11:00")
+    assert updates(client) == [{"tags": "frontend,pilne", "end": "2026-09-25T11:00:00"}]
     assert snapshot.notice == "savedEntry"
 
 
@@ -100,7 +93,6 @@ def test_another_day_moves_the_entry():
     [
         ({"end": "08:00"}, "errEndBeforeBegin"),
         ({"description": "krótko"}, "errDescShort"),
-        ({"hourly_rate": "dużo"}, "errInvalidRate"),
     ],
 )
 def test_rules_are_checked_before_asking_kimai(values, key):
@@ -116,9 +108,9 @@ def test_fields_the_account_may_not_change_are_dropped_and_named():
     the fields that depend on permissions, save the rest, say what was not saved."""
     tracker, client, _ = make_tracker()
     client.fail["update"] = [ApiError(ErrorKind.REJECTED, 400, EXTRA_FIELDS)]
-    snapshot = edited(tracker, client, hourly_rate="150", description=f"{GOOD} — poprawka")
+    snapshot = edited(tracker, client, billable=False, description=f"{GOOD} — poprawka")
     assert updates(client) == [
-        {"description": f"{GOOD} — poprawka", "hourlyRate": 150.0},
+        {"description": f"{GOOD} — poprawka", "billable": False},
         {"description": f"{GOOD} — poprawka"},
     ]
     assert snapshot.notice == "errFieldsDenied"

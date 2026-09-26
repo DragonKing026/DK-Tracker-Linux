@@ -244,7 +244,7 @@ def details(**changes):
     base = EntryDetails(
         id=1, begin=begin, end=begin + timedelta(minutes=90), project_id=1, activity_id=2,
         description="Kalendarz dostępności pokoi\nwidok tygodnia", tags=("frontend", "pilne"), billable=True,
-        exported=False, rates_visible=True, fixed_rate=None, hourly_rate=120.0, break_seconds=0,
+        exported=False, break_seconds=0,
         meta=(("ticket", "KSEF-12"),),
     )  # fmt: skip
     return replace(base, **changes)
@@ -268,7 +268,7 @@ def test_the_editor_shows_every_option_of_the_entry(bridge):
     )
     assert editor["description"] == "Kalendarz dostępności pokoi\nwidok tygodnia"
     assert editor["tags"] == "frontend, pilne"
-    assert (editor["ratesVisible"], editor["fixedRate"], editor["hourlyRate"]) == (True, "", "120")
+    assert not {"ratesVisible", "fixedRate", "hourlyRate"} & set(editor)  # as Kimai's own form: no rates
     assert editor["meta"] == [{"name": "ticket", "value": "KSEF-12"}]
 
 
@@ -280,7 +280,7 @@ def test_saving_the_editor_sends_what_was_typed(bridge, qtbot):
     entry_id, sent = signal.args
     assert entry_id == 1
     assert sent["day"] == date(2026, 9, 24) and sent["tags"] == "frontend" and sent["meta"] == {"ticket": "X"}
-    assert (sent["project_id"], sent["activity_id"], sent["hourly_rate"]) == (1, 2, "120")
+    assert (sent["project_id"], sent["activity_id"]) == (1, 2)
     assert bridge.editor["busy"] is True
 
 

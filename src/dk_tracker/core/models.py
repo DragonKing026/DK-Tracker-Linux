@@ -149,15 +149,12 @@ class Entry:
         )
 
 
-def _money(value: Any) -> float | None:
-    return float(value) if isinstance(value, int | float) and not isinstance(value, bool) else None
-
-
 @dataclass(frozen=True)
 class EntryDetails:
     """Everything Kimai tells about one entry (`GET /api/timesheets/{id}`), for the edit window.
 
-    Rates come only to accounts that may see them; `rates_visible` says whether they came.
+    Rates are left out on purpose: Kimai sends them to accounts that may see them, but offers them in
+    its edit form only to those that may change them (edit_rate), which the API does not tell.
     Meta fields are the custom fields the server keeps for this entry, whatever they are.
     """
 
@@ -170,9 +167,6 @@ class EntryDetails:
     tags: tuple[str, ...]
     billable: bool
     exported: bool
-    rates_visible: bool
-    fixed_rate: float | None
-    hourly_rate: float | None
     break_seconds: int
     meta: tuple[tuple[str, str], ...]
 
@@ -193,9 +187,6 @@ class EntryDetails:
             tags=tuple(str(tag.get("name", "") if isinstance(tag, dict) else tag) for tag in tags),
             billable=_flag(data.get("billable")),
             exported=data.get("exported") is True,
-            rates_visible="hourlyRate" in data or "fixedRate" in data,
-            fixed_rate=_money(data.get("fixedRate")),
-            hourly_rate=_money(data.get("hourlyRate")),
             break_seconds=int(data.get("break") or 0),
             meta=tuple(
                 (str(field.get("name", "")), "" if field.get("value") is None else str(field.get("value")))

@@ -1,7 +1,7 @@
 // The edit window of one entry: every option Kimai gave for it — day and hours, project and
-// activity, billable, the description in several lines, tags, rates (for accounts that see them),
-// break, and the server's own custom fields. A form: labels on the left, controls on the right
-// (docs/architektura/wyglad-okna-glownego.md). Enter saves, Shift+Enter adds a line to the
+// activity, billable, the description in several lines, tags, break, and the server's own custom
+// fields — what Kimai's own edit form offers (rates only with edit_rate, which the API does not
+// tell). A form: labels on the left, controls on the right (docs/architektura/wyglad-okna-glownego.md). Enter saves, Shift+Enter adds a line to the
 // description; Esc or a click beside it cancels.
 import QtQuick
 import QtQuick.Controls
@@ -40,8 +40,6 @@ Popup {
         billable = e.billable
         description.text = e.description
         tags.text = e.tags
-        fixedRate.text = e.fixedRate
-        hourlyRate.text = e.hourlyRate
         meta.model = e.meta
         app.chooseRowProject(projectId)
     }
@@ -53,8 +51,7 @@ Popup {
         }
         return {
             day: day.value, begin: begin.value, end: end.value, projectId: projectId, activityId: activityId,
-            description: description.text, tags: tags.text, billable: billable,
-            fixedRate: fixedRate.text, hourlyRate: hourlyRate.text, meta: fields
+            description: description.text, tags: tags.text, billable: billable, meta: fields
         }
     }
     function minutes(text) {
@@ -250,31 +247,6 @@ Popup {
                         placeholderText: app.texts.editTagsHint || ""
                         onAccepted: dialog.save()
                     }
-                }
-                FormRow {
-                    visible: dialog.editor.ratesVisible === true
-                    label: app.texts.editFixedRate || ""
-                    Field {
-                        id: fixedRate
-                        objectName: "editFixedRate"
-                        enabled: !dialog.locked
-                        Layout.preferredWidth: 160
-                        onAccepted: dialog.save()
-                    }
-                    Item { Layout.fillWidth: true }
-                }
-                FormRow {
-                    visible: dialog.editor.ratesVisible === true
-                    label: app.texts.editHourlyRate || ""
-                    Field {
-                        id: hourlyRate
-                        objectName: "editHourlyRate"
-                        visible: dialog.editor.ratesVisible === true
-                        enabled: !dialog.locked
-                        Layout.preferredWidth: 160
-                        onAccepted: dialog.save()
-                    }
-                    Item { Layout.fillWidth: true }
                 }
                 FormRow {
                     visible: (dialog.editor.breakTime || "") !== ""

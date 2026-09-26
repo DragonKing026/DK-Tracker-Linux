@@ -222,39 +222,10 @@ def test_the_edit_window_reads_and_saves_tags_of_an_entry(kimai_env, user_tracke
     )
     [entry] = user_tracker.entries(day, day)
     details = user_tracker.entry_details(entry)
-    assert details.tags == () and details.rates_visible is False  # a plain user sees no rates
+    assert details.tags == ()
     user_tracker.save_details(details, {"tags": "kontrakt"})
     assert user_tracker.entry_details(entry).tags == ("kontrakt",)
     user_tracker.delete_entry(entry)
-
-
-def test_an_admin_sees_and_saves_rates(kimai_env):
-    admin = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_ADMIN_TOKEN"])
-    tracker = next(_admin_tracker(kimai_env))
-    project, activity = ids(tracker)
-    day = _free_day(tracker, 5)
-    tracker.add_entry(
-        day=day,
-        begin="09:00",
-        end="10:00",
-        project_id=project,
-        activity_id=activity,
-        description=DESCRIPTION,
-        billable=None,
-    )
-    [entry] = tracker.entries(day, day)
-    details = tracker.entry_details(entry)
-    assert details.rates_visible is True
-    tracker.save_details(details, {"hourly_rate": "150"})
-    assert tracker.entry_details(entry).hourly_rate == 150.0
-    tracker.delete_entry(entry)
-    admin.close()
-
-
-def _admin_tracker(env):
-    from .conftest import _tracker
-
-    yield from _tracker(env, "KIMAI_TEST_ADMIN_TOKEN")
 
 
 def test_a_new_tag_from_a_plain_user_is_left_out_and_named(user_tracker):

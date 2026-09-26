@@ -53,7 +53,7 @@ class FakeClient:
         self.billable_forbidden = False
         self.start_timeout: str | None = None  # "before" (nothing saved) | "after" (saved, reply lost)
         self.range_entries: list[Entry] | None = None
-        self.details: dict[int, dict] = {}  # what GET /api/timesheets/{id} adds: tags, rates, meta
+        self.details: dict[int, dict] = {}  # what GET /api/timesheets/{id} adds: tags, meta
         self.known_tags: set[str] | None = None  # None: any tag; a set: others are dropped, as Kimai does
         self.projects_list = [
             Project(1, "Moduł rezerwacji", 10, "Hotel Morski", "#008000", True),

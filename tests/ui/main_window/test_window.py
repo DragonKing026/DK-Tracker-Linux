@@ -298,7 +298,7 @@ def entry_details(**changes):
         EntryDetails(
             id=1, begin=begin, end=begin + timedelta(minutes=90), project_id=1, activity_id=1,
             description="Kalendarz\nwidok tygodnia", tags=("frontend",), billable=True, exported=False,
-            rates_visible=True, fixed_rate=None, hourly_rate=120.0, break_seconds=0,
+            break_seconds=0,
             meta=(("ticket", "KSEF-12"),),
         ),
         **changes,
@@ -319,8 +319,6 @@ def test_the_edit_window_shows_every_option(window, qtbot):
         "editDescription",
         "editTags",
         "editBillable",
-        "editFixedRate",
-        "editHourlyRate",
         "editMeta",
         "editSave",
         "editCancel",
@@ -331,10 +329,12 @@ def test_the_edit_window_shows_every_option(window, qtbot):
     assert window.child("editDescription").property("text") == "Kalendarz\nwidok tygodnia"
 
 
-def test_the_rate_fields_hide_for_an_account_without_rates(window, qtbot):
-    window.bridge.open_editor(entry_details(rates_visible=False), WARSAW)
+def test_the_edit_window_shows_no_rates(window, qtbot):
+    """Live test: Kimai sends rates to accounts that may see them, but its own edit form offers
+    them only with edit_rate — the window had rate fields Kimai's form does not have."""
+    window.bridge.open_editor(entry_details(), WARSAW)
     qtbot.waitUntil(lambda: window.child("entryDialog").property("opened") is True)
-    assert window.child("editHourlyRate").property("visible") is False
+    assert window.child("editHourlyRate") is None and window.child("editFixedRate") is None
 
 
 def test_the_edit_window_saves_what_was_typed(window, qtbot):
@@ -369,8 +369,6 @@ def test_an_exported_entry_opens_locked(window, qtbot):
         "editBillable",
         "editDescription",
         "editTags",
-        "editFixedRate",
-        "editHourlyRate",
         "editSave",
         "editDelete",
     ):

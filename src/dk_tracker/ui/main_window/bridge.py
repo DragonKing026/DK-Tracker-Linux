@@ -234,9 +234,6 @@ class MainBridge(QObject):
             "tags": ", ".join(details.tags),
             "billable": details.billable,
             "exported": details.exported,
-            "ratesVisible": details.rates_visible,
-            "fixedRate": _money_text(details.fixed_rate),
-            "hourlyRate": _money_text(details.hourly_rate),
             "breakTime": short_duration(details.break_seconds) if details.break_seconds else "",
             "meta": [{"name": name, "value": value} for name, value in details.meta],
         }
@@ -418,8 +415,6 @@ class MainBridge(QObject):
                 "description": str(values.get("description", "")),
                 "tags": str(values.get("tags", "")),
                 "billable": bool(values.get("billable")),
-                "fixed_rate": str(values.get("fixedRate", "")),
-                "hourly_rate": str(values.get("hourlyRate", "")),
                 "meta": meta,
             },
         )
@@ -472,7 +467,3 @@ class MainBridge(QObject):
     def _update(self, **changes: Any) -> None:
         self._view = {**self._view, **changes}
         self.viewChanged.emit()
-
-
-def _money_text(value: float | None) -> str:
-    return "" if value is None else f"{value:g}"

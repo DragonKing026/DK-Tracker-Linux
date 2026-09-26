@@ -65,23 +65,9 @@ class Snapshot:
         return self.running[0] if self.running else None
 
 
-# Fields Kimai offers only with a permission (edit_billable, edit_rate): a rejected form is
-# retried without them (see Tracker.save_details).
-_PERMISSION_FIELDS = ("billable", "fixedRate", "hourlyRate")
-
-
-def _rate(value: object) -> float | None:
-    """A rate typed in the edit window: "" clears it, a comma is a decimal point."""
-    text = str(value if value is not None else "").strip().replace(",", ".").replace(" ", "")
-    if not text:
-        return None
-    try:
-        rate = float(text)
-    except ValueError:
-        raise TrackerError("errInvalidRate") from None
-    if rate < 0:
-        raise TrackerError("errInvalidRate")
-    return rate
+# Fields Kimai offers only with a permission (edit_billable): a rejected form is retried without
+# them (see Tracker.save_details).
+_PERMISSION_FIELDS = ("billable",)
 
 
 def _to_minute(moment: datetime) -> datetime:
@@ -542,15 +528,6 @@ class Tracker:
             if not self._snapshot.billable_allowed:
                 raise TrackerError("billableLocked")
             changes["billable"] = bool(values["billable"])
-        if details.rates_visible:
-            for key, field, current in (
-                ("fixed_rate", "fixedRate", details.fixed_rate),
-                ("hourly_rate", "hourlyRate", details.hourly_rate),
-            ):
-                if key in values:
-                    rate = _rate(values[key])
-                    if rate != current:
-                        changes[field] = rate
         return changes
 
     def remember(self, **changes: Any) -> None:
