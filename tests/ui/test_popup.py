@@ -269,3 +269,13 @@ def test_a_tracker_error_notice_is_not_brought_back_by_other_updates(window):
     popup.clear_error()  # the user typed
     state.update(warnings=[])  # anything else redraws the window with the same Snapshot
     assert popup.error.isHidden()
+
+
+def test_remembered_size_never_exceeds_the_screen(window):
+    from PySide6.QtCore import QSize
+
+    state, popup = window
+    area = popup.screen().availableGeometry()
+    popup.set_preferred_size(QSize(5000, 5000))  # remembered on a 4K monitor, started on a laptop
+    assert popup.width() <= area.width() - 24
+    assert popup.height() <= area.height() - 24

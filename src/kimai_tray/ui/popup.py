@@ -38,6 +38,7 @@ from .theme import palette_for, stylesheet, write_assets
 
 WIDTH, HEIGHT = 460, 600  # popup.css: 460 px wide, at most 600 px tall (the default size here)
 MIN_WIDTH, MIN_HEIGHT = 400, 420
+SCREEN_MARGIN = 12  # as the layer-shell margins from the screen edge
 
 
 class ResizeGrip(QWidget):
@@ -237,6 +238,10 @@ class QuickWindow(QWidget):
         self.week.show()
 
     def set_preferred_size(self, size: QSize) -> None:
+        screen = self.screen() or QGuiApplication.primaryScreen()
+        if screen is not None:  # a size remembered on a bigger monitor must still fit this one
+            area = screen.availableGeometry()
+            size = size.boundedTo(QSize(area.width() - 2 * SCREEN_MARGIN, area.height() - 2 * SCREEN_MARGIN))
         self._preferred = size.expandedTo(QSize(MIN_WIDTH, MIN_HEIGHT))
         if self._compact:
             self.resize(self._preferred.width(), self.height())
