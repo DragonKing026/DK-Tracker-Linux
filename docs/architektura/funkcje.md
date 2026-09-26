@@ -76,7 +76,10 @@ stateDiagram-v2
    (sprawdzone: [raport](../../TODO/ZROBIONE/0002-specyfikacja-projektu/testy/raport-kimai-docker-2026-09-25.md)).
 3. Zapamiętanie `lastProject`, `lastActivity` (F-06).
 4. Odświeżenie ikony (F-02) i okna.
-5. **Enter** w polu opisu = start; **Shift+Enter** = nowa linia.
+5. **Enter** w polu opisu = start; **Shift+Enter** = nowa linia. Pole rośnie z tekstem (także z zawiniętymi liniami),
+   aby
+   wszystkie linie były widoczne, do 96 px — dopiero dłuższy opis przewija się
+   ([0068](../../TODO/W-TRAKCIE/0068-pole-opisu-rosnie/todo.md)).
 
 Źródło: `popup.js#startTracking`, `api.js#start`, `api.js#localStamp`.
 

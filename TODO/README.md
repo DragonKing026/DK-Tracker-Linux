@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 15:45
+zaktualizowano: 2026-09-26 16:41
 ---
 
 # Tablica zadań
@@ -25,6 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
+| 0068 | [Pole opisu w okienku rośnie z kolejnymi liniami](W-TRAKCIE/0068-pole-opisu-rosnie/todo.md) | 🔨 w-trakcie | p1 | — |
 
 ## Do zrobienia
 
