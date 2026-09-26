@@ -57,6 +57,6 @@ Prośba użytkownika; projekt zaakceptowany 2026-09-26 13:27:
 
 ## Wynik
 
-F-34: [Tracker.change_work](../../../src/ws_tracker_tray/core/tracker.py), aktywne listy w
-[form.py](../../../src/ws_tracker_tray/ui/form.py), odmowa przywraca listy; test kontraktowy (także konto bez billable).
+F-34: [Tracker.change_work](../../../src/ws_tracker/core/tracker.py), aktywne listy w
+[form.py](../../../src/ws_tracker/ui/form.py), odmowa przywraca listy; test kontraktowy (także konto bez billable).
 Sprawdzone na żywo. Wydanie 0.9.1.

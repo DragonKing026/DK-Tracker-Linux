@@ -26,8 +26,8 @@ Ważną (I1: surowe wyjątki z usługi sekretów, wygasła sesja) poprawiono w c
 
 - [Plan 2](../../../docs/plany/2026-09-25-plan-2-desktop.md),
   [specyfikacja](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md)
-- Kod: [src/kimai_tray/desktop/](../../../src/ws_tracker_tray/desktop/),
-  [notification_policy.py](../../../src/ws_tracker_tray/core/notification_policy.py)
+- Kod: [src/kimai_tray/desktop/](../../../src/ws_tracker/desktop/),
+  [notification_policy.py](../../../src/ws_tracker/core/notification_policy.py)
 - Rozpoznanie API: [rozpoznanie.md](../0021-plan2-rozpoznanie-api-desktop/notatki/rozpoznanie.md)
 
 ## Kryteria akceptacji

@@ -62,7 +62,8 @@ Wykonać **zadanie 3** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
 
 ## Wynik
 
-[Manifest](../../../flatpak/pl.websystems.WsTrackerTray.yml) (KDE 6.11, baza PySide, layer-shell-qt 6.7.5, uprawnienia
+[Manifest](../../../flatpak/io.github.dragonking026.WS-Tracker-Linux.yml) (KDE 6.11, baza PySide, layer-shell-qt 6.7.5,
+uprawnienia
 ze
 specyfikacji) i [zależności Pythona](../../../flatpak/python3-deps.yaml); testy w
 [test_pakiet.py](../../../tests/test_pakiet.py). Bez odchyleń od planu.

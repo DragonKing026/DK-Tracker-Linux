@@ -56,6 +56,6 @@ Zrzut od użytkownika nie trafia do repozytorium — pokazuje prawdziwe firmowe 
 
 ## Wynik
 
-[recent.py](../../../src/ws_tracker_tray/ui/recent.py): opis wyrównany do góry, 2,5 linii, kliknięcie w wiersz
+[recent.py](../../../src/ws_tracker/ui/recent.py): opis wyrównany do góry, 2,5 linii, kliknięcie w wiersz
 rozwija/zwija; stan przetrwa odświeżenie. Testy w [test_recent.py](../../../tests/ui/test_recent.py). Sprawdzone przez
 użytkownika na żywo. Wydanie 0.9.1.

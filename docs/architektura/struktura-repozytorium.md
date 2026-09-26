@@ -22,13 +22,13 @@ zaktualizowano: 2026-09-26 11:59
 │   ├── README.md              strona repozytorium na GitHubie (bez frontmattera, treść jak README.md)
 │   └── workflows/             testy.yml (każdy push), wydanie.yml (tag v<wersja> → Flatpak, Pages)
 ├── .gitignore
-├── pyproject.toml             pakiet ws-tracker-tray, zależności, pytest, ruff
+├── pyproject.toml             pakiet ws-tracker, zależności, pytest, ruff
 ├── data/                      .desktop i MetaInfo (AppStream) aplikacji — host i Flatpak
 ├── flatpak/                   manifest, python3-deps.yaml, buduj.sh, publikuj.sh + pages.py (Pages), klucz-gpg.sh
 ├── dist/                      paczki .flatpak z buduj.sh (poza gitem)
 ├── scripts/                   instaluj-dev.sh — .desktop i ikona na hoście na czas rozwoju
-├── src/ws_tracker_tray/
-│   ├── __main__.py            `python -m ws_tracker_tray [--hidden]`
+├── src/ws_tracker/
+│   ├── __main__.py            `python -m ws_tracker [--hidden]`
 │   ├── core/                  rdzeń bez Qt i D-Bus (plan 1)
 │   ├── desktop/               D-Bus na jeepney bez Qt: sekrety, powiadomienia, autostart (plan 2)
 │   └── ui/                    Qt Widgets: tacka, okno, ustawienia, kontroler (plan 3)

@@ -110,13 +110,13 @@ Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okn
 
 ## Gdzie w kodzie
 
-- [src/ws_tracker_tray/ui/tray.py](../../src/ws_tracker_tray/ui/tray.py) — `Tray`: `QSystemTrayIcon` (SNI), menu z
+- [src/ws_tracker/ui/tray.py](../../src/ws_tracker/ui/tray.py) — `Tray`: `QSystemTrayIcon` (SNI), menu z
   dbusmenu, lewy
   klik → okno, środkowy → nic.
-- [src/ws_tracker_tray/ui/icons.py](../../src/ws_tracker_tray/ui/icons.py) — ikona w wariancie C (czas w ikonie),
+- [src/ws_tracker/ui/icons.py](../../src/ws_tracker/ui/icons.py) — ikona w wariancie C (czas w ikonie),
   rysowana w
   rozmiarach 16–64 px.
-- [src/ws_tracker_tray/core/presentation.py](../../src/ws_tracker_tray/core/presentation.py) — tekst ikony i tooltipa
+- [src/ws_tracker/core/presentation.py](../../src/ws_tracker/core/presentation.py) — tekst ikony i tooltipa
   (`tray_status`).
 
 ## Dokumentacja

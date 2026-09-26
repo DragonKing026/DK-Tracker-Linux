@@ -60,5 +60,5 @@ Wykonać **zadanie 9** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ## Wynik
 
-[settings_dialog.py](../../../src/ws_tracker_tray/ui/settings_dialog.py): `SettingsDialog`. Testy:
+[settings_dialog.py](../../../src/ws_tracker/ui/settings_dialog.py): `SettingsDialog`. Testy:
 [test_settings_dialog.py](../../../tests/ui/test_settings_dialog.py) — 9 zielonych. Bez odchyleń od planu.

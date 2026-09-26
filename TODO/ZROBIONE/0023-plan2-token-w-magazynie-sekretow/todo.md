@@ -62,7 +62,7 @@ Wykonać **zadanie 2** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Wynik
 
-[src/kimai_tray/desktop/secrets.py](../../../src/ws_tracker_tray/desktop/secrets.py): `SecretServiceStore`
+[src/kimai_tray/desktop/secrets.py](../../../src/ws_tracker/desktop/secrets.py): `SecretServiceStore`
 (get/set/delete,
 sesja plain, kolekcja `default`, odblokowanie przez prompt), `SecretsUnavailable`, `SecretsLocked`. Testy:
 [tests/desktop/test_secrets.py](../../../tests/desktop/test_secrets.py) — 12 zielonych. Dokumentacja:

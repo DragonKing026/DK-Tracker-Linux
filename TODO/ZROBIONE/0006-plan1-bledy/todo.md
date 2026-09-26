@@ -59,7 +59,7 @@ Wykonać **zadanie 2** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Wynik
 
-[src/kimai_tray/core/errors.py](../../../src/ws_tracker_tray/core/errors.py): `ApiError` (rodzaje błędów, zbieranie
+[src/kimai_tray/core/errors.py](../../../src/ws_tracker/core/errors.py): `ApiError` (rodzaje błędów, zbieranie
 błędów
 formularza Kimai), `TrackerError`, `describe()`. Testy: [tests/core/test_errors.py](../../../tests/core/test_errors.py)
 — 13 zielonych. Bez odchyleń od planu.

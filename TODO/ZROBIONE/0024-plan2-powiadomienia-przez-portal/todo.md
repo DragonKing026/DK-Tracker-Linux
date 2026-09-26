@@ -62,9 +62,9 @@ Wykonać **zadanie 3** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Wynik
 
-Rdzeń: [notification_policy.py](../../../src/ws_tracker_tray/core/notification_policy.py) — `RenderedNotification`,
+Rdzeń: [notification_policy.py](../../../src/ws_tracker/core/notification_policy.py) — `RenderedNotification`,
 `render()`, `entry_id_from()`, `ACTION_LABELS`. Pulpit:
-[notifications.py](../../../src/ws_tracker_tray/desktop/notifications.py) — `PortalNotifier`
+[notifications.py](../../../src/ws_tracker/desktop/notifications.py) — `PortalNotifier`
 (show/withdraw/listen/parse),
 `NotificationAction`. Testy: [test_notification_render.py](../../../tests/core/test_notification_render.py),
 [test_notifications.py](../../../tests/desktop/test_notifications.py) — 8 zielonych. Bez odchyleń od planu.

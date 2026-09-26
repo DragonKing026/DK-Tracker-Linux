@@ -15,12 +15,12 @@ Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybuc
 ## Jednorazowo: klucz i Pages
 
 1. `flatpak/klucz-gpg.sh` ([skrypt](../../flatpak/klucz-gpg.sh)) — klucz publiczny trafia do
-   `flatpak/ws-tracker-tray-repo.gpg` (commit), prywatny do `~/ws-tracker-tray-repo-private.asc`.
+   `flatpak/ws-tracker-repo.gpg` (commit), prywatny do `~/ws-tracker-repo-private.asc`.
 2. Sekret i sprzątnięcie klucza prywatnego:
 
    ```bash
-   gh secret set FLATPAK_GPG_PRIVATE_KEY < ~/ws-tracker-tray-repo-private.asc
-   shred -u ~/ws-tracker-tray-repo-private.asc
+   gh secret set FLATPAK_GPG_PRIVATE_KEY < ~/ws-tracker-repo-private.asc
+   shred -u ~/ws-tracker-repo-private.asc
    ```
 
 3. GitHub → **Settings → Pages → Source: GitHub Actions** ([GitHub Pages](../integracje/github-pages.md)).
@@ -41,9 +41,10 @@ Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybuc
 
 ## Każde wydanie
 
-1. Wersja w [pyproject.toml](../../pyproject.toml) i [`__init__.py`](../../src/ws_tracker_tray/__init__.py).
+1. Wersja w [pyproject.toml](../../pyproject.toml) i [`__init__.py`](../../src/ws_tracker/__init__.py).
 2. Nowy `<release version="…" date="…">` na **początku** `<releases>` w
-   [MetaInfo](../../data/pl.websystems.WsTrackerTray.metainfo.xml) — lista zmian po angielsku (Discover ją pokazuje);
+   [MetaInfo](../../data/io.github.dragonking026.WS-Tracker-Linux.metainfo.xml) — lista zmian po angielsku (Discover ją
+   pokazuje);
    po polsku opisuje ją commit.
 3. `.venv/bin/pytest` — test spójności wersji ([test_pakiet.py](../../tests/test_pakiet.py)) i reszta.
 4. Commit, potem tag i wypchnięcie (**tylko za zgodą właściciela repozytorium**):
@@ -56,7 +57,7 @@ Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybuc
 
 5. Kolejność w workflow: testy → budowa i podpis → Pages → dopiero wtedy wydanie na GitHubie. Gdy publikacja na
    Pages się nie uda, wydania nie ma; po naprawie przyczyny wystarczy **Re-run failed jobs** w zakładce Actions.
-6. Sprawdzenie: wydanie na GitHubie z plikiem `pl.websystems.WsTrackerTray-v<wersja>.flatpak`, strona
+6. Sprawdzenie: wydanie na GitHubie z plikiem `io.github.dragonking026.WS-Tracker-Linux-v<wersja>.flatpak`, strona
    <https://dragonking026.github.io/WS-Tracker-Linux/>, `flatpak update` u siebie.
 
 Wersje `0.x` wychodzą jako „pre-release”. **1.0.0** — po testach na GNOME
@@ -73,26 +74,29 @@ flowchart LR
 Zalecana — z repozytorium, aktualizacje przyjdą same (Discover, GNOME Software, `flatpak update`):
 
 ```bash
-flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/pl.websystems.WsTrackerTray.flatpakref
+flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
 ```
 
 Plik `.flatpak` z [najnowszego wydania](https://github.com/DragonKing026/WS-Tracker-Linux/releases/latest) — tylko bez
 dostępu do strony repozytorium; **nie dostaje aktualizacji**. Przejście z pliku na repozytorium:
 
 ```bash
-flatpak uninstall --user pl.websystems.WsTrackerTray    # ustawienia w ~/.var/app zostają
-flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/pl.websystems.WsTrackerTray.flatpakref
+flatpak uninstall --user io.github.dragonking026.WS-Tracker-Linux    # ustawienia w ~/.var/app zostają
+flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
 ```
 
-## Zmiana nazwy repozytorium na GitHubie
+## Zmiana nazwy repozytorium i identyfikatora (0.9.2)
 
-GitHub przekierowuje stare adresy repozytorium, ale **nie** strony GitHub Pages: po zmianie nazwy (2026-09-26:
-`Kimai-App--Linux-` → `WS-Tracker-Linux`) stary adres repozytorium Flatpaka daje 404 i zainstalowane kopie nie widzą
-aktualizacji. Nowy adres trafia do plików przy najbliższym wydaniu; zainstalowane kopie przestawia jedna komenda:
+- 2026-09-26 repozytorium zmieniło nazwę (`Kimai-App--Linux-` → `WS-Tracker-Linux`). GitHub przekierowuje stare adresy
+  repozytorium, ale **nie** strony GitHub Pages — stary adres repozytorium Flatpaka daje 404.
+- Od 0.9.2 identyfikator to `io.github.dragonking026.WS-Tracker-Linux` (projekt prywatny,
+  [0056](../../TODO/W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md)); dla systemu to nowa aplikacja. Kto ma 0.9.0 lub
+  0.9.1 (`pl.websystems.WsTrackerTray`), instaluje od nowa i raz wpisuje adres Kimai i token:
 
 ```bash
-flatpak remote-modify --user ws-tracker-tray --url=https://dragonking026.github.io/WS-Tracker-Linux/repo/
-flatpak update --user
+flatpak uninstall --user pl.websystems.WsTrackerTray
+flatpak remote-delete --user ws-tracker-tray
+flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
 ```
 
 ## Wersja deweloperska a Flatpak

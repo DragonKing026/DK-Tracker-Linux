@@ -26,7 +26,7 @@ Uwagi ważne zostały już poprawione. Poniżej są tylko uwagi odłożone.
 
 - [Plan 1](../../../docs/plany/2026-09-25-plan-1-rdzen.md),
   [specyfikacja](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md)
-- Kod: [src/kimai_tray/core/](../../../src/ws_tracker_tray/core/)
+- Kod: [src/kimai_tray/core/](../../../src/ws_tracker/core/)
 
 ## Kryteria akceptacji
 

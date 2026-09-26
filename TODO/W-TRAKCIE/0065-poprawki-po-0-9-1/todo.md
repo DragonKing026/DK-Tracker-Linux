@@ -44,7 +44,7 @@ Naprawić trzy zgłoszenia użytkownika po wydaniu 0.9.1.
 
 - [prototyp/zrzut-okna.py](prototyp/zrzut-okna.py) — zrzut okna do README i Discover na zmyślonych danych
   (`QT_QPA_PLATFORM=offscreen .venv/bin/python …/zrzut-okna.py docs/assets/zrzuty/okno-ciemny-motyw.png`)
-- [prototyp/znak.py](prototyp/znak.py) — generuje `src/ws_tracker_tray/ui/assets/ws-tracker-znak.svg`
+- [prototyp/znak.py](prototyp/znak.py) — generuje `src/ws_tracker/ui/assets/ws-tracker-znak.svg`
 
 ## Dziennik
 

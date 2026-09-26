@@ -65,7 +65,7 @@ Moduły manifestu generujemy narzędziem
 
 ## Gdzie w kodzie
 
-- [src/ws_tracker_tray/core/kimai_client.py](../../src/ws_tracker_tray/core/kimai_client.py) — jedyne miejsce użycia
+- [src/ws_tracker/core/kimai_client.py](../../src/ws_tracker/core/kimai_client.py) — jedyne miejsce użycia
   `httpx.Client`.
 - [tests/core/test_kimai_client.py](../../tests/core/test_kimai_client.py) — `httpx.MockTransport`.
 

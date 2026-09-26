@@ -85,7 +85,8 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 - Brak dostępnego magazynu → komunikat i **żadnego** cichego zapisu do pliku tekstowego.
   Trybu „token tylko w pamięci do końca sesji” w 1.0 **nie ma** (decyzja użytkownika 2026-09-25,
   [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/todo.md)).
-- Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu: `application=pl.websystems.WsTrackerTray`, `url`
+- Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu:
+  `application=io.github.dragonking026.WS-Tracker-Linux`, `url`
   bez
   końcowego `/`).
 - Błędy (`SecretServiceStore`): brak usługi, odmowa z piaskownicy, usługa, która nie wystartowała (`Spawn.*`),
@@ -108,10 +109,10 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 
 ## Gdzie w kodzie
 
-- [src/ws_tracker_tray/desktop/secrets.py](../../src/ws_tracker_tray/desktop/secrets.py) — `SecretServiceStore`
+- [src/ws_tracker/desktop/secrets.py](../../src/ws_tracker/desktop/secrets.py) — `SecretServiceStore`
   (get/set/delete,
   odblokowanie przez prompt).
-- [src/ws_tracker_tray/desktop/bus.py](../../src/ws_tracker_tray/desktop/bus.py) — szyna D-Bus na jeepney.
+- [src/ws_tracker/desktop/bus.py](../../src/ws_tracker/desktop/bus.py) — szyna D-Bus na jeepney.
 - Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 
 ## Dokumentacja

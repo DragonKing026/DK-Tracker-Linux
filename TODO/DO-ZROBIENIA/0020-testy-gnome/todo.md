@@ -26,7 +26,7 @@ sprawdził na KDE. Wykonują inne osoby (stacja deweloperska ma tylko KDE) — d
 - [ADR-0005](../../../docs/decyzje/0005-okno-przy-tacce-na-kde.md): na GNOME okno bezramkowe (bez `layer-shell`).
 - [GNOME AppIndicator](../../../docs/integracje/gnome-appindicator.md): bez rozszerzenia brak tacki.
 - Najlepiej wykonać na paczce z Planu 4; wcześniej można na prototypie
-  (`flatpak install --user --bundle pl.websystems.WsTrackerTray.Prototyp.flatpak` —
+  (`flatpak install --user --bundle io.github.dragonking026.WS-Tracker-Linux.Prototyp.flatpak` —
   plik z `prototyp/flatpak/buduj-w-dockerze.sh` zadania 0004).
 
 ## Kryteria akceptacji

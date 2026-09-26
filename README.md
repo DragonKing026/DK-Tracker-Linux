@@ -29,7 +29,7 @@ Aplikacja jest dystrybuowana jako [Flatpak](https://flatpak.org/). Instalacja z 
 same (Discover, GNOME Software, `flatpak update`):
 
 ```bash
-flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/pl.websystems.WsTrackerTray.flatpakref
+flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
 ```
 
 Plik `.flatpak` jest też w [najnowszym wydaniu](https://github.com/DragonKing026/WS-Tracker-Linux/releases/latest),

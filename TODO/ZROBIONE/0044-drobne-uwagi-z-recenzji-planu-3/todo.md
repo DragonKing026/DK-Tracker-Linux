@@ -23,7 +23,7 @@ commity `5bda209..fd3c4be`, 0 krytycznych, 5 ważnych (poprawione: I1–I5, comm
 
 ## Kontekst
 
-- [Plan 3](../../../docs/plany/2026-09-25-plan-3-ui.md), kod: [src/kimai_tray/ui/](../../../src/ws_tracker_tray/ui/)
+- [Plan 3](../../../docs/plany/2026-09-25-plan-3-ui.md), kod: [src/kimai_tray/ui/](../../../src/ws_tracker/ui/)
 
 ## Kryteria akceptacji
 

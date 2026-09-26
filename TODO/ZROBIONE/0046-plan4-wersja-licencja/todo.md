@@ -63,6 +63,6 @@ Wykonać **zadanie 1** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
 ## Wynik
 
 Wersja **0.9.0** i licencja **AGPL-3.0-or-later** (PEP 639) w [pyproject.toml](../../../pyproject.toml) i
-[`__init__.py`](../../../src/ws_tracker_tray/__init__.py); testy spójności:
+[`__init__.py`](../../../src/ws_tracker/__init__.py); testy spójności:
 [test_pakiet.py](../../../tests/test_pakiet.py).
 Bez odchyleń od planu.

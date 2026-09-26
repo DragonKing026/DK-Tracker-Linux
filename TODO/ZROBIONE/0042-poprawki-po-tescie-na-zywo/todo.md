@@ -75,7 +75,7 @@ Wszystkie uwagi potwierdzone przez użytkownika na żywo (KDE Plasma 6.7.5, Kima
 | --- | --- | --- |
 | 1 | Podpowiedzi w ustawieniach w jednej linii, siatka zamiast `QFormLayout` | `test_wrapped_hints_get_the_height_they_need` |
 | 2 | Logo Kimai: nagłówek okna, ikona aplikacji (z marginesem), plik `.desktop` + `scripts/instaluj-dev.sh` | `test_app_icon_is_the_kimai_logo`, `test_app_icon_keeps_a_margin_from_the_edge` |
-| 3 | Lista projektów z polem wyszukiwania na górze (jak Select2) — [project_picker.py](../../../src/ws_tracker_tray/ui/project_picker.py) | `test_typing_filters_by_project_or_customer_…` i 5 innych |
+| 3 | Lista projektów z polem wyszukiwania na górze (jak Select2) — [project_picker.py](../../../src/ws_tracker/ui/project_picker.py) | `test_typing_filters_by_project_or_customer_…` i 5 innych |
 | 4 | Konto `kierownik` w Dockerze w strefie komputera | testy kontraktowe 9/9 |
 | 5 | Gładkie strzałki list, cienkie paski przewijania | `test_combo_arrows_are_drawn_from_our_own_svg` |
 | 6 | Wyraźne przyciski `$`, wyśrodkowane w wierszu | `test_billable_states_stand_out`, `test_dot_and_buttons_are_centred_in_the_row` |

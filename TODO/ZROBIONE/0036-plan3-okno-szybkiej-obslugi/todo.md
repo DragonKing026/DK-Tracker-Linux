@@ -63,8 +63,8 @@ planu, metodą TDD.
 
 ## Wynik
 
-[popup.py](../../../src/ws_tracker_tray/ui/popup.py) (`QuickWindow`),
-[placement.py](../../../src/ws_tracker_tray/ui/placement.py)
+[popup.py](../../../src/ws_tracker/ui/popup.py) (`QuickWindow`),
+[placement.py](../../../src/ws_tracker/ui/placement.py)
 (layer / bez ramki / okno). Testy: [test_popup.py](../../../tests/ui/test_popup.py) — 16 zielonych, 1 pominięty (symbol
 layer-shell przy Qt z pip). Dokumentacja: [layer-shell-qt](../../../docs/integracje/layer-shell-qt.md). Ruling: inne
 brzmienie błędu na etapie RED, ta sama przyczyna.

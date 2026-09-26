@@ -59,7 +59,7 @@ Wykonać **zadanie 5** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Wynik
 
-[src/kimai_tray/core/validation.py](../../../src/ws_tracker_tray/core/validation.py): lista ogólników PL/EN 1:1 z
+[src/kimai_tray/core/validation.py](../../../src/ws_tracker/core/validation.py): lista ogólników PL/EN 1:1 z
 wtyczki,
 normalizacja, odwołania (#412, PROJ-88, linki). Testy:
 [tests/core/test_validation.py](../../../tests/core/test_validation.py) — 16 zielonych. Bez odchyleń.

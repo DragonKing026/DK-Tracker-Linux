@@ -48,7 +48,7 @@ Obraz `debian:trixie` z prototypu zastąpił obraz CI Flathuba
 `appstreamcli` i `flatpak-builder-lint`. Ten sam obraz buduje paczkę lokalnie ([buduj.sh](../../flatpak/buduj.sh)) i w
 GitHub Actions; na Fedorze 44 z SELinux zbudował aplikację z bazą PySide
 ([próba budowy](../../TODO/ZROBIONE/0045-plan4-projekt-flatpak/notatki/proba-budowy.md)). Runtime'y hosta nie są już
-montowane — obraz pobiera je sam, a cache leży w `~/.cache/ws-tracker-tray-flatpak`.
+montowane — obraz pobiera je sam, a cache leży w `~/.cache/ws-tracker-flatpak`.
 
 ## Konsekwencje
 

@@ -64,6 +64,6 @@ Wykonać **zadanie 1** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 ## Wynik
 
 Powstał pakiet `kimai_tray` (0668c20): [pyproject.toml](../../../pyproject.toml),
-[src/kimai_tray/](../../../src/ws_tracker_tray/), [tests/test_architektura.py](../../../tests/test_architektura.py).
+[src/kimai_tray/](../../../src/ws_tracker/), [tests/test_architektura.py](../../../tests/test_architektura.py).
 Środowisko `.venv` z pytest, ruff, httpx. Rulings: ruff ograniczony do kodu produktu (extend-exclude .claude, TODO,
 docs); poprawka końcowego / w linki.py.

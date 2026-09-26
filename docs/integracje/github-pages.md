@@ -23,8 +23,8 @@ Stronę publikuje workflow [wydanie.yml](../../.github/workflows/wydanie.yml) po
 | Ścieżka na stronie | Zawartość |
 | --- | --- |
 | `repo/` | repozytorium OSTree (aplikacja, `.Locale`, `.Debug`, appstream), podpisane GPG, z deltami statycznymi |
-| `ws-tracker-tray.flatpakrepo` | dodaje źródło aktualizacji (`flatpak remote-add`) |
-| `pl.websystems.WsTrackerTray.flatpakref` | instaluje aplikację jedną komendą; źródło dodaje się samo |
+| `ws-tracker.flatpakrepo` | dodaje źródło aktualizacji (`flatpak remote-add`) |
+| `io.github.dragonking026.WS-Tracker-Linux.flatpakref` | instaluje aplikację jedną komendą; źródło dodaje się samo |
 | `index.html` | krótka instrukcja instalacji |
 
 Format plików `.flatpakrepo` i `.flatpakref`:
@@ -42,7 +42,7 @@ flowchart LR
     F -- runtime KDE, baza PySide --> FH[Flathub]
 ```
 
-Klucz publiczny `flatpak/ws-tracker-tray-repo.gpg` (tworzy go [klucz-gpg.sh](../../flatpak/klucz-gpg.sh) przy pierwszym
+Klucz publiczny `flatpak/ws-tracker-repo.gpg` (tworzy go [klucz-gpg.sh](../../flatpak/klucz-gpg.sh) przy pierwszym
 wydaniu) jest wpisany w oba pliki jako `GPGKey`, więc `flatpak` sprawdza każdy commit i podsumowanie repozytorium.
 Runtime KDE i baza PySide
 przychodzą z Flathuba (`RuntimeRepo`).

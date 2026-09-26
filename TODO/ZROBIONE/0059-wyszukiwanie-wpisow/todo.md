@@ -59,9 +59,9 @@ Prośba użytkownika po teście 0.9.0; projekt zaakceptowany 2026-09-26 13:19:
 
 ## Wynik
 
-F-33: [KimaiClient.search](../../../src/ws_tracker_tray/core/kimai_client.py),
-[Tracker.search](../../../src/ws_tracker_tray/core/tracker.py), pole w
-[recent.py](../../../src/ws_tracker_tray/ui/recent.py),
+F-33: [KimaiClient.search](../../../src/ws_tracker/core/kimai_client.py),
+[Tracker.search](../../../src/ws_tracker/core/tracker.py), pole w
+[recent.py](../../../src/ws_tracker/ui/recent.py),
 kontroler; rok w nagłówku dnia z innego roku; test kontraktowy. Przy okazji: liniowe wyszukiwanie projektów (CI).
 Sprawdzone
 na żywo. Wydanie 0.9.1.

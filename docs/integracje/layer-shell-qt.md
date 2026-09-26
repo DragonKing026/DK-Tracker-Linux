@@ -33,7 +33,7 @@ layer.setProperty("anchors", 2 | 8)                # AnchorBottom | AnchorRight
 layer.setProperty("layer", 2)                      # LayerTop
 layer.setProperty("keyboardInteractivity", 2)      # OnDemand — da się pisać
 layer.setProperty("margins", QMargins(0, 0, 12, 12))
-layer.setProperty("scope", "ws-tracker-tray-popup")
+layer.setProperty("scope", "ws-tracker-popup")
 ```
 
 Wynik na Plaśmie 6.7.5: okno 12 px od prawej, tuż nad panelem (kompozytor respektuje strefę
@@ -82,7 +82,7 @@ Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
 
 ## Gdzie w kodzie
 
-- [src/ws_tracker_tray/ui/placement.py](../../src/ws_tracker_tray/ui/placement.py) — `choose_mode` / `detect_mode`
+- [src/ws_tracker/ui/placement.py](../../src/ws_tracker/ui/placement.py) — `choose_mode` / `detect_mode`
   (layer / bez
   ramki / okno), `apply`, wywołanie `LayerShellQt::Window::get` przez ctypes tylko dla okna szybkiej obsługi.
 - Test obecności symbolu: [tests/ui/test_popup.py](../../tests/ui/test_popup.py)

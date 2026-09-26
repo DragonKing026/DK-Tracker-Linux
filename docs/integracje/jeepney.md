@@ -58,7 +58,7 @@ sequenceDiagram
     end
 ```
 
-Atrybuty wyszukiwania elementu: `application=pl.websystems.WsTrackerTray`,
+Atrybuty wyszukiwania elementu: `application=io.github.dragonking026.WS-Tracker-Linux`,
 `url=<adres Kimai>`. Etykieta: „`WS Tracker — <adres Kimai>`”.
 
 ## Sprawdzone na stacji deweloperskiej (2026-09-25)
@@ -100,10 +100,10 @@ Collections            → ['/org/freedesktop/secrets/collection/kdewallet']
 
 ## Gdzie w kodzie
 
-- [src/ws_tracker_tray/desktop/secrets.py](../../src/ws_tracker_tray/desktop/secrets.py) — `SecretServiceStore`
+- [src/ws_tracker/desktop/secrets.py](../../src/ws_tracker/desktop/secrets.py) — `SecretServiceStore`
   (get/set/delete,
   odblokowanie przez prompt).
-- [src/ws_tracker_tray/desktop/bus.py](../../src/ws_tracker_tray/desktop/bus.py) — szyna D-Bus na jeepney.
+- [src/ws_tracker/desktop/bus.py](../../src/ws_tracker/desktop/bus.py) — szyna D-Bus na jeepney.
 - Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 
 ## Dokumentacja

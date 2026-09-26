@@ -61,7 +61,7 @@ Wykonać **zadanie 10** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ## Wynik
 
-[src/kimai_tray/core/tracker.py](../../../src/ws_tracker_tray/core/tracker.py) (część 1): `Snapshot`, `Totals`,
+[src/kimai_tray/core/tracker.py](../../../src/ws_tracker/core/tracker.py) (część 1): `Snapshot`, `Totals`,
 `Tracker.refresh_active/refresh_full/load_catalog/activities/default_billable/kimai_tz`, licznik błędów, flaga różnicy
 stref, zapamiętanie locale. Fałszywy klient: [tests/core/fakes.py](../../../tests/core/fakes.py). 14 testów zielonych.
 Bez odchyleń.
