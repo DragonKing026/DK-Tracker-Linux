@@ -39,6 +39,8 @@
   "savedBillable": "Zapisane.",
   "savedWork": "Projekt i rodzaj pracy zapisane.",
   "savedEntry": "Wpis zapisany.",
+  "deletedEntry": "Usunięto wpis",
+  "undo": "Cofnij",
   "errNoProject": "Wybierz projekt.",
   "errNoActivity": "Wybierz rodzaj pracy.",
   "errNothingRunning": "Nic nie jest mierzone.",

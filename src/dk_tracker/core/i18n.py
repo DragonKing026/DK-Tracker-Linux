@@ -48,6 +48,10 @@ class Translator:
             messages = {**messages, **load_messages(self.language)}
         self._messages = messages
 
+    def messages(self) -> dict[str, str]:
+        """Every text of this language (the QML main window binds to them by key)."""
+        return dict(self._messages)
+
     def __call__(self, key: str, **params: object) -> str:
         text = self._messages.get(key)
         if text is None:
