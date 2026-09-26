@@ -23,9 +23,9 @@ Button {
         radius: 4
         readonly property color accent: app.palette.accent || "#6f9bff"
         color: button.highlighted
-               ? Qt.rgba(accent.r, accent.g, accent.b, button.down ? 0.32 : (button.hovered ? 0.24 : 0.16))
+               ? (button.down || button.hovered ? (app.palette.control_hover || "#363c48") : (app.palette.control || "#2c313b"))
                : button.down || button.hovered ? (app.palette.control_hover || "#424a5a") : (app.palette.control || "#353b48")
         border.width: 1
-        border.color: button.highlighted ? Qt.rgba(accent.r, accent.g, accent.b, 0.7) : (app.palette.border || "#6b7486")
+        border.color: button.highlighted ? Qt.rgba(accent.r, accent.g, accent.b, 0.45) : (app.palette.border || "#6b7486")
     }
 }
