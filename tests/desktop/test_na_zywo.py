@@ -46,6 +46,6 @@ def test_notification_can_be_shown_and_withdrawn(bus):
 
 
 def test_background_request_without_autostart(bus):
-    result = BackgroundPortal(bus).request(autostart=False, reason="WS Tracker Tray — test")
+    result = BackgroundPortal(bus).request(autostart=False, reason="WS Tracker — test")
     assert result.autostart is False
-    assert isinstance(BackgroundPortal(bus).set_status("WS Tracker Tray — test"), bool)
+    assert isinstance(BackgroundPortal(bus).set_status("WS Tracker — test"), bool)

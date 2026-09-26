@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=WS Tracker Tray
+Name=WS Tracker
 Comment=Time tracking for Kimai in the system tray
 Comment[pl]=Mierzenie czasu w Kimai z tacki systemowej
 Exec=ws-tracker-tray

@@ -16,7 +16,7 @@ HOMEDIR="$(mktemp -d)"
 trap 'rm -rf "$HOMEDIR"' EXIT
 export GNUPGHOME="$HOMEDIR"
 gpg --batch --pinentry-mode loopback --passphrase '' \
-  --quick-gen-key "WS Tracker Tray Flatpak repository <ws-tracker-tray@users.noreply.github.com>" rsa4096 sign never
+  --quick-gen-key "WS Tracker Flatpak repository <ws-tracker-tray@users.noreply.github.com>" rsa4096 sign never
 KEY_ID="$(gpg --list-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}')"
 gpg --export "$KEY_ID" > "$HERE/ws-tracker-tray-repo.gpg"
 ( umask 077; gpg --armor --export-secret-keys "$KEY_ID" > "$PRIVATE" )

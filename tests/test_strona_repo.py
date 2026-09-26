@@ -24,7 +24,7 @@ def parse(text: str, section: str) -> dict[str, str]:
 def test_repo_file_lets_flatpak_add_the_remote():
     data = parse(pages.flatpakrepo(URL, KEY), "Flatpak Repo")
     assert data["Url"] == f"{URL}/repo/"
-    assert data["Title"] == "WS Tracker Tray"
+    assert data["Title"] == "WS Tracker"
     assert base64.b64decode(data["GPGKey"]) == KEY
     assert "RuntimeRepo" not in data  # a .flatpakref key only (flatpak command reference)
 

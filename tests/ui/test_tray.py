@@ -27,7 +27,7 @@ def test_running_entry_enables_stop_and_shows_the_time(qtbot):
     assert tray.status.label == "1:22"
     assert tray.stop_action.isEnabled()
     assert not tray.resume_action.isEnabled()
-    assert tray.icon.toolTip().startswith("WS Tracker Tray — 1:22:00")
+    assert tray.icon.toolTip().startswith("WS Tracker — 1:22:00")
 
 
 def test_idle_with_history_enables_resume(qtbot):

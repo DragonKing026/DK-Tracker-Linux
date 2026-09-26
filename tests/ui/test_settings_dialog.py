@@ -87,7 +87,7 @@ def test_secrets_problem_is_explained(dialog):
 
 def test_english(dialog):
     dialog.retranslate(Translator("en"))
-    assert dialog.windowTitle() == "WS Tracker Tray settings"
+    assert dialog.windowTitle() == "WS Tracker settings"
     assert dialog.save_button.text() == "Save"
 
 

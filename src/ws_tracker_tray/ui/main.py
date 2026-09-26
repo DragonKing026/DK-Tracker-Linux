@@ -157,8 +157,6 @@ def main(argv: list[str] | None = None) -> int:
     instance.showRequested.connect(controller.show_popup)
     controller.quitRequested.connect(app.quit)
     app.aboutToQuit.connect(controller.shutdown)
-    log.info(
-        "WS Tracker Tray started (tray: %s, window: %s, log: %s)", tray_available, controller.mode, log_path
-    )
+    log.info("WS Tracker started (tray: %s, window: %s, log: %s)", tray_available, controller.mode, log_path)
     controller.start(hidden=args.hidden)
     return app.exec()

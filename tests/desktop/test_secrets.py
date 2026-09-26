@@ -40,7 +40,7 @@ def test_set_creates_an_item_with_label_attributes_and_secret():
     properties, secret, replace = create[5]
     assert properties["org.freedesktop.Secret.Item.Label"] == (
         "s",
-        "WS Tracker Tray — https://kimai.firma.pl",
+        "WS Tracker — https://kimai.firma.pl",
     )
     assert properties["org.freedesktop.Secret.Item.Attributes"] == (
         "a{ss}",

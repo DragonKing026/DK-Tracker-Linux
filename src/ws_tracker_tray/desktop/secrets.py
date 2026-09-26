@@ -67,7 +67,7 @@ class SecretServiceStore:
         collection = self._collection()
         address = _normalize(url)
         properties = {
-            "org.freedesktop.Secret.Item.Label": ("s", f"WS Tracker Tray — {address}"),
+            "org.freedesktop.Secret.Item.Label": ("s", f"WS Tracker — {address}"),
             "org.freedesktop.Secret.Item.Attributes": ("a{ss}", self._attributes(url)),
         }
         value = token.strip().encode("utf-8")

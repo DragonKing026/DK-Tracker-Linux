@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 APP_ID = "pl.websystems.WsTrackerTray"
-TITLE = "WS Tracker Tray"
+TITLE = "WS Tracker"
 REMOTE = "ws-tracker-tray"
 BRANCH = "master"  # flatpak-builder's default branch; the GitHub action builds it too
 FLATHUB = "https://dl.flathub.org/repo/flathub.flatpakrepo"  # where the KDE runtime and PySide base come from
