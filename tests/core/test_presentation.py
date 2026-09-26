@@ -68,6 +68,13 @@ def test_day_labels():
     assert day_label(date(2026, 9, 22), today, Translator("en")) == "Tue, 22 Sep"
 
 
+def test_day_label_of_another_year_says_the_year():
+    """Search results (F-33) reach into earlier years; recent entries never do."""
+    today = date(2026, 9, 25)
+    assert day_label(date(2025, 7, 2), today, PL) == "śr., 2 lip 2025"
+    assert day_label(date(2025, 7, 2), today, Translator("en")) == "Wed, 2 Jul 2025"
+
+
 def test_entry_row_texts():
     entry = make_entry(
         5,

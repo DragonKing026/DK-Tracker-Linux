@@ -65,7 +65,8 @@ def day_label(day: date, today: date, t: Callable[..., str]) -> str:
         return t("dayYesterday")
     weekdays = t("weekdaysShort").split(",")
     months = t("monthsShort").split(",")
-    return t("dayOther", weekday=weekdays[day.weekday()], day=day.day, month=months[day.month - 1])
+    label = t("dayOther", weekday=weekdays[day.weekday()], day=day.day, month=months[day.month - 1])
+    return label if day.year == today.year else f"{label} {day.year}"
 
 
 def entry_row(entry: Entry, tz: tzinfo, t: Callable[..., str]) -> RowText:
