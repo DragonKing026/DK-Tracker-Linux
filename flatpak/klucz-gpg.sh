@@ -10,6 +10,8 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 PRIVATE="$HOME/ws-tracker-tray-repo-private.asc"
 [[ -e "$PRIVATE" ]] && { echo "$PRIVATE już istnieje — nie nadpisuję." >&2; exit 1; }
+# A second key would silently replace the one every installed copy trusts.
+[[ -e "$HERE/ws-tracker-tray-repo.gpg" ]] && { echo "$HERE/ws-tracker-tray-repo.gpg już jest — nie tworzę nowego klucza." >&2; exit 1; }
 HOMEDIR="$(mktemp -d)"
 trap 'rm -rf "$HOMEDIR"' EXIT
 export GNUPGHOME="$HOMEDIR"
