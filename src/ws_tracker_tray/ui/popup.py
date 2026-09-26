@@ -31,7 +31,7 @@ from ws_tracker_tray.core.timefmt import short_duration
 from ws_tracker_tray.core.tracker import live_totals, utc_now
 
 from .form import TrackerForm
-from .icons import app_icon, glyph
+from .icons import glyph, mark
 from .recent import RecentList
 from .state import AppState
 from .theme import palette_for, stylesheet, write_assets
@@ -39,6 +39,9 @@ from .theme import palette_for, stylesheet, write_assets
 WIDTH, HEIGHT = 460, 600  # popup.css: 460 px wide, at most 600 px tall (the default size here)
 MIN_WIDTH, MIN_HEIGHT = 400, 420
 SCREEN_MARGIN = 12  # as the layer-shell margins from the screen edge
+
+
+LOGO_SIZE = 24  # 18 px made the letters unreadable (0065)
 
 
 class ResizeGrip(QWidget):
@@ -129,8 +132,7 @@ class QuickWindow(QWidget):
 
         self.header = header = QFrame(objectName="header")
         header.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)  # never stretches
-        self.logo = QLabel()
-        self.logo.setPixmap(app_icon().pixmap(18, 18))
+        self.logo = QLabel()  # the WS mark, drawn in the theme's colours by apply_theme
         self.brand = QLabel(objectName="brand")
         self.today = QLabel(objectName="totals")
         self.week = QLabel(objectName="totals")
@@ -195,6 +197,7 @@ class QuickWindow(QWidget):
     def apply_theme(self) -> None:
         palette = palette_for(QGuiApplication.styleHints().colorScheme(), self.palette().window().color())
         self.setStyleSheet(stylesheet(palette, write_assets(palette)))
+        self.logo.setPixmap(mark(palette["fg"], LOGO_SIZE))
         self.settings_button.setIcon(glyph("gear", palette["muted"], 17))
         self.close_button.setIcon(glyph("close", palette["muted"], 17))
         self.all_entries.setIcon(glyph("external", palette["accent"], 13))

@@ -132,3 +132,24 @@ def test_asset_paths_with_spaces_are_quoted(tmp_path):
 
     assets = write_assets(DARK, tmp_path / "Kimai App" / "theme")
     assert f'url("{assets["chevron"]}")' in stylesheet(DARK, assets)
+
+
+def test_header_mark_is_readable_on_the_window_background(qapp):
+    """0065: the 18 px dark tile vanished on the dark header; the mark has no tile and themed letters."""
+    from ws_tracker_tray.ui.icons import mark
+
+    image = mark("#ffffff", 24).toImage()
+    assert image.width() >= 24
+    assert QColor.fromRgba(image.pixel(0, 0)).alpha() == 0  # no tile: the corners stay clear
+    letters = [QColor.fromRgba(image.pixel(x, image.height() // 2)) for x in range(image.width())]
+    assert any(c.alpha() > 200 and min(c.red(), c.green(), c.blue()) > 200 for c in letters)  # white letters
+
+
+def test_window_header_shows_the_mark_at_24_px(qapp):
+    from ws_tracker_tray.core.i18n import Translator
+    from ws_tracker_tray.core.settings import Settings
+    from ws_tracker_tray.ui.popup import QuickWindow
+    from ws_tracker_tray.ui.state import AppState
+
+    popup = QuickWindow(AppState(Settings(), Translator("pl")))
+    assert popup.logo.pixmap().deviceIndependentSize().width() == 24

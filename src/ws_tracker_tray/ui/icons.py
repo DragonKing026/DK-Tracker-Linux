@@ -65,6 +65,21 @@ def app_icon() -> QIcon:
     return icon
 
 
+def mark(color: str, size: int) -> QPixmap:
+    """The small WS mark for the window header (0065): the icon's dark tile vanished on a dark
+    header at 18 px, so this one has no tile and draws the letters in the theme's text colour."""
+    svg = resources.files("ws_tracker_tray.ui").joinpath("assets", "ws-tracker-znak.svg").read_text()
+    renderer = QSvgRenderer(QByteArray(svg.replace("currentColor", color).encode()))
+    pixmap = QPixmap(size * 2, size * 2)  # drawn at 2x: sharp on scaled screens
+    pixmap.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(pixmap)
+    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    renderer.render(painter)
+    painter.end()
+    pixmap.setDevicePixelRatio(2)
+    return pixmap
+
+
 def glyph(name: str, color: str, size: int = 20) -> QIcon:
     svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">{_PATHS[name]}</svg>'
     renderer = QSvgRenderer(QByteArray(svg.replace("currentColor", color).encode()))
