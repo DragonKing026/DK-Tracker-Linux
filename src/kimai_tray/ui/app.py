@@ -80,6 +80,7 @@ class Controller(QObject):
         self._tracker: Tracker | None = None
         self._policy = PolicyState()
         self._catalog_loaded = False
+        self._opening = 0  # counts window openings; a catalog answer counts only for its own opening
         self._last_wall = time.time()
         self._last_mono = time.monotonic()
         self._day = now().astimezone().date()
@@ -129,6 +130,10 @@ class Controller(QObject):
             log.warning("Kimai did not answer the last actions before quitting")
         self.dbus.submit(self._desktop.close)
         self.dbus.finish(timeout=SHUTDOWN_SECONDS)
+
+    @property
+    def catalog_loaded(self) -> bool:
+        return self._catalog_loaded
 
     def idle(self) -> bool:
         """No job waits for an answer (tests wait for this)."""
@@ -216,8 +221,11 @@ class Controller(QObject):
         if tracker is None:
             return
 
+        opening = self._opening
+
         def done(result: tuple[Snapshot, list]) -> None:
-            self._catalog_loaded = True
+            if opening == self._opening and self.popup.isVisible():
+                self._catalog_loaded = True
             self._apply(result)
             self.popup.form.set_catalog(result[0], tracker.memory.last_project)
             self._load_activities(self.popup.form.project.currentData())
@@ -349,6 +357,7 @@ class Controller(QObject):
         if not shown:
             self._tick.stop()
             self._catalog_loaded = False  # projects and activities are read again on the next open
+            self._opening += 1
             return
         self._tick.start()
         if self._tracker is not None:

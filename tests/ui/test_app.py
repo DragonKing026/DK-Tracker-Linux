@@ -338,3 +338,11 @@ def test_quitting_still_saves_a_description_typed_just_before(harness):
     form.description.blockSignals(False)
     h.controller.shutdown()  # hiding the window commits the description; the worker must still run it
     assert ("update", 7, {"description": "Walidacja dat przyjazdu i wyjazdu"}) in client.calls
+
+
+def test_catalog_answer_after_the_window_closed_does_not_block_the_next_load(harness):
+    h = harness()
+    h.controller.show_popup()  # queues refresh + catalog
+    h.controller.popup.hide()  # closed before the answers came back
+    h.settle()
+    assert h.controller.catalog_loaded is False  # the next opening loads projects again
