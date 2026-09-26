@@ -260,6 +260,19 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | F-30 | Własna godzina startu nowego wpisu | KimaiTray | później |
 | F-31 | Start z przeglądarki przez link `…://start` | KimaiTray | później |
 | F-32 | Ekran „Co nowego” po aktualizacji | KimaiTray | później |
+| F-33 | Wyszukiwanie we wszystkich wpisach Kimai | prośba użytkownika po teście 0.9.0 | **w 0.9.1** ([szczegóły](#f-33-wyszukiwanie-we-wszystkich-wpisach)) |
+
+## F-33 Wyszukiwanie we wszystkich wpisach
+
+- Pole „Szukaj we wszystkich wpisach…” nad listą ostatnich wpisów (F-08); bez ikony lupy.
+- Od 2 znaków, 0,4 s po ostatnim klawiszu: `GET /api/timesheets?term=…&size=50&orderBy=begin&order=DESC&full=true`.
+  Kimai szuka **tylko w opisie**, każde słowo musi wystąpić, bez względu na wielkość liter, domyślnie we własnych
+  wpisach (sprawdzone testem kontraktowym na Kimai 2.67.0).
+- Wyniki zamiast listy ostatnich, w tym samym wyglądzie: dni (z rokiem, gdy inny niż bieżący), ▶ wznów, `$`, rozwijany
+  opis. Nagłówek „Wyniki (n)”; brak trafień → „Żaden wpis nie ma tego tekstu w opisie.”; błąd → pasek błędu okna.
+- Trwający wpis nie jest wynikiem (jest na pasku). `$` na wyniku odświeża wyniki. Odpowiedź dla starszego tekstu jest
+  pomijana. Esc w polu czyści wyszukiwanie; drugi Esc zamyka okno. Odświeżanie co minutę nie zastępuje wyników.
+- Zadanie: [0059](../../TODO/W-TRAKCIE/0059-wyszukiwanie-wpisow/todo.md).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 

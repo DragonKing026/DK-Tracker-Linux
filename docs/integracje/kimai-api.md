@@ -45,6 +45,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | GET | `/api/activities?visible=1&globals=true[&project={id}]` | czynności projektu + globalne | F-06 |
 | GET | `/api/timesheets?size=20&orderBy=begin&order=DESC&full=true` | ostatnie wpisy z rozwiniętymi obiektami | F-08 |
 | GET | `/api/timesheets?begin=…&end=…&size=100&page=N` | wpisy tygodnia do sum | F-12 |
+| GET | `/api/timesheets?term=…&size=50&orderBy=begin&order=DESC&full=true` | wyszukiwanie: tylko w opisie, każde słowo, bez wielkości liter, własne wpisy (Kimai 2.67.0 `TimesheetRepository`, test kontraktowy) | F-33 |
 | POST | `/api/timesheets` | start: `begin`, `project`, `activity`, `description`, `[billable]` | F-04 |
 | PATCH | `/api/timesheets/{id}/stop` | stop „teraz”; na już zatrzymanym wpisie zwraca 200 (sprawdzone) | F-05 |
 | PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable` | F-05, F-07, F-09 |
