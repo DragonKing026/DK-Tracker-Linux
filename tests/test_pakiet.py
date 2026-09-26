@@ -195,13 +195,13 @@ def test_ci_enforces_core_coverage():
     assert "--cov=ws_tracker_tray.core" in command and "--cov-fail-under=90" in command
 
 
-def test_third_party_actions_are_pinned_to_a_commit():
-    """The release job hands the GPG private key to these actions; a moved tag must not change the code."""
+def test_every_action_is_pinned_to_a_commit():
+    """A moved tag must not change the code (the release job holds the GPG key); the repository also requires SHAs."""
     import re
 
     for name in ("testy.yml", "wydanie.yml"):
         for job in workflow(name)["jobs"].values():
             for step in job.get("steps", []):
                 uses = step.get("uses", "")
-                if uses and not uses.startswith(("actions/", "./")):
+                if uses:
                     assert re.fullmatch(r"[\w./-]+@[0-9a-f]{40}", uses), uses
