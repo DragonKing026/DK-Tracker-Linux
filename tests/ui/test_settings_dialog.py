@@ -1,8 +1,8 @@
 import pytest
 
-from ws_tracker_tray.core.i18n import Translator
-from ws_tracker_tray.core.settings import Settings
-from ws_tracker_tray.ui.settings_dialog import SettingsDialog
+from ws_tracker.core.i18n import Translator
+from ws_tracker.core.settings import Settings
+from ws_tracker.ui.settings_dialog import SettingsDialog
 
 SAVED = Settings(
     url="https://kimai.test", language="pl", min_description=20, long_timer_hours=6.0, autostart=True

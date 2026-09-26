@@ -17,22 +17,22 @@ from typing import Any
 from PySide6.QtCore import QObject, QSize, QTimer, QUrl, Signal
 from PySide6.QtGui import QDesktopServices
 
-from ws_tracker_tray.core.errors import TrackerError, describe
-from ws_tracker_tray.core.i18n import Translator, resolve_language, system_locale
-from ws_tracker_tray.core.models import Entry
-from ws_tracker_tray.core.notification_policy import (
+from ws_tracker.core.errors import TrackerError, describe
+from ws_tracker.core.i18n import Translator, resolve_language, system_locale
+from ws_tracker.core.models import Entry
+from ws_tracker.core.notification_policy import (
     PolicyState,
     action_confirmation,
     evaluate,
     is_ours,
     render,
 )
-from ws_tracker_tray.core.settings import Memory, Settings
-from ws_tracker_tray.core.timefmt import short_duration
-from ws_tracker_tray.core.tracker import Snapshot, Tracker, all_entries_url, utc_now
-from ws_tracker_tray.desktop.bus import PortalError
-from ws_tracker_tray.desktop.notifications import NotificationAction
-from ws_tracker_tray.desktop.secrets import SecretsLocked, SecretsUnavailable
+from ws_tracker.core.settings import Memory, Settings
+from ws_tracker.core.timefmt import short_duration
+from ws_tracker.core.tracker import Snapshot, Tracker, all_entries_url, utc_now
+from ws_tracker.desktop.bus import PortalError
+from ws_tracker.desktop.notifications import NotificationAction
+from ws_tracker.desktop.secrets import SecretsLocked, SecretsUnavailable
 
 from . import placement
 from .desktop_bridge import ClickListener

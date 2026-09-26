@@ -1,7 +1,7 @@
 import re
 
-import ws_tracker_tray
+import ws_tracker
 
 
 def test_package_has_version():
-    assert re.fullmatch(r"\d+\.\d+\.\d+", ws_tracker_tray.__version__)
+    assert re.fullmatch(r"\d+\.\d+\.\d+", ws_tracker.__version__)

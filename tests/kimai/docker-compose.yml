@@ -1,6 +1,6 @@
 # Local Kimai for contract/integration tests. Never exposed beyond 127.0.0.1.
 # Driven by tests/kimai/kimai-testowe.sh — see tests/kimai/README.md.
-name: ws-tracker-tray-test
+name: ws-tracker-test
 
 services:
   sqldb:
@@ -27,7 +27,7 @@ services:
     ports:
       - "127.0.0.1:${KIMAI_TEST_PORT:-8001}:8001"
     environment:
-      - APP_SECRET=ws-tracker-tray-tests-not-a-secret-0123456789
+      - APP_SECRET=ws-tracker-tests-not-a-secret-0123456789
       - TRUSTED_HOSTS=localhost|127.0.0.1
       - ADMINMAIL=admin@kimai.test
       - ADMINPASS=admin12345

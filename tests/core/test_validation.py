@@ -1,6 +1,6 @@
 import pytest
 
-from ws_tracker_tray.core.validation import check_description
+from ws_tracker.core.validation import check_description
 
 
 @pytest.mark.parametrize("text", ["poprawki", "Poprawki.", "  fixes!  ", "bug fixing", "Przegląd", "CALL"])

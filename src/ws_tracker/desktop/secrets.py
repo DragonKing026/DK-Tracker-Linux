@@ -12,7 +12,7 @@ from typing import Any
 
 from .bus import Bus, DBusCallError
 
-APP_ID = "pl.websystems.WsTrackerTray"
+APP_ID = "io.github.dragonking026.WS-Tracker-Linux"
 _SERVICE = "org.freedesktop.secrets"
 _ROOT = "/org/freedesktop/secrets"
 _SVC = "org.freedesktop.Secret.Service"

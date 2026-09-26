@@ -8,10 +8,10 @@ from PySide6.QtGui import QFocusEvent
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication
 
-from ws_tracker_tray.core.i18n import Translator
-from ws_tracker_tray.core.models import Activity
-from ws_tracker_tray.core.tracker import Snapshot
-from ws_tracker_tray.ui.form import TrackerForm
+from ws_tracker.core.i18n import Translator
+from ws_tracker.core.models import Activity
+from ws_tracker.core.tracker import Snapshot
+from ws_tracker.ui.form import TrackerForm
 
 from ..core.fakes import NOW, FakeClient, make_entry
 
@@ -269,7 +269,7 @@ def test_the_choose_a_project_row_is_never_a_search_result(form, qtbot):
 def test_search_stays_fast_with_thousands_of_projects(form, qtbot):
     import time
 
-    from ws_tracker_tray.core.models import Project
+    from ws_tracker.core.models import Project
 
     many = tuple(
         Project(1000 + n, f"Projekt {n}", 10 + n // 50, f"Klient {n // 50}", None, True) for n in range(3000)
@@ -296,7 +296,7 @@ def test_search_reads_each_row_a_bounded_number_of_times(qtbot):
     """Filtering is linear in the list: a slower machine must not turn typing into seconds (CI did)."""
     from PySide6.QtGui import QStandardItem, QStandardItemModel
 
-    from ws_tracker_tray.ui.project_picker import _Filter
+    from ws_tracker.ui.project_picker import _Filter
 
     class Counting(QStandardItemModel):
         reads = 0

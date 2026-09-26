@@ -4,9 +4,9 @@ from string import Formatter
 
 import pytest
 
-from ws_tracker_tray.core.i18n import SUPPORTED, Translator, load_messages, resolve_language, system_locale
+from ws_tracker.core.i18n import SUPPORTED, Translator, load_messages, resolve_language, system_locale
 
-SRC = Path(__file__).resolve().parents[2] / "src" / "ws_tracker_tray"
+SRC = Path(__file__).resolve().parents[2] / "src" / "ws_tracker"
 # String literals shaped like message keys; every one used in code must exist in the locales.
 KEY_LITERAL = re.compile(
     r"\"((?:err|warn|notif|action|opt|day|saved|billable|menu|tooltip|win|hint|secrets|status)[A-Z][A-Za-z]*)\""

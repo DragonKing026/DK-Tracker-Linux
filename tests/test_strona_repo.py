@@ -32,12 +32,12 @@ def test_repo_file_lets_flatpak_add_the_remote():
 def test_ref_file_installs_the_app_from_that_remote():
     data = parse(pages.flatpakref(URL, KEY), "Flatpak Ref")
     assert (data["Name"], data["Branch"], data["IsRuntime"]) == (
-        "pl.websystems.WsTrackerTray",
+        "io.github.dragonking026.WS-Tracker-Linux",
         "master",
         "false",
     )
     assert data["Url"] == f"{URL}/repo/"
-    assert data["SuggestRemoteName"] == "ws-tracker-tray"
+    assert data["SuggestRemoteName"] == "ws-tracker"
     assert base64.b64decode(data["GPGKey"]) == KEY
 
 
@@ -46,6 +46,10 @@ def test_site_writes_both_files_and_an_index(tmp_path):
     key.write_bytes(KEY)
     pages.write_site(tmp_path / "site", URL + "/", key)
     names = sorted(path.name for path in (tmp_path / "site").iterdir())
-    assert names == ["index.html", "pl.websystems.WsTrackerTray.flatpakref", "ws-tracker-tray.flatpakrepo"]
+    assert names == [
+        "index.html",
+        "io.github.dragonking026.WS-Tracker-Linux.flatpakref",
+        "ws-tracker.flatpakrepo",
+    ]
     index = (tmp_path / "site" / "index.html").read_text(encoding="utf-8")
-    assert f"flatpak install --user {URL}/pl.websystems.WsTrackerTray.flatpakref" in index
+    assert f"flatpak install --user {URL}/io.github.dragonking026.WS-Tracker-Linux.flatpakref" in index

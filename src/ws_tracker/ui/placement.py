@@ -76,7 +76,7 @@ def _anchor_to_panel(window: QWidget) -> bool:
         layer.setProperty("layer", _LAYER_TOP)
         layer.setProperty("keyboardInteractivity", _KEYBOARD_ON_DEMAND)
         layer.setProperty("margins", QMargins(0, 0, 12, 12))
-        layer.setProperty("scope", "ws-tracker-tray")
+        layer.setProperty("scope", "ws-tracker")
     except (OSError, AttributeError, RuntimeError, ImportError) as error:
         log.warning("layer-shell unavailable, using a frameless window: %s", error)
         return False

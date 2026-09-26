@@ -8,12 +8,12 @@ import os
 
 import pytest
 
-from ws_tracker_tray.core.i18n import Translator
-from ws_tracker_tray.core.notification_policy import Notification, render
-from ws_tracker_tray.desktop.autostart import BackgroundPortal
-from ws_tracker_tray.desktop.bus import SessionBus
-from ws_tracker_tray.desktop.notifications import PortalNotifier
-from ws_tracker_tray.desktop.secrets import SecretServiceStore
+from ws_tracker.core.i18n import Translator
+from ws_tracker.core.notification_policy import Notification, render
+from ws_tracker.desktop.autostart import BackgroundPortal
+from ws_tracker.desktop.bus import SessionBus
+from ws_tracker.desktop.notifications import PortalNotifier
+from ws_tracker.desktop.secrets import SecretServiceStore
 
 pytestmark = pytest.mark.desktop
 URL = "https://kimai.test.invalid"
@@ -29,7 +29,7 @@ def bus():
 
 
 def test_secret_round_trip(bus):
-    store = SecretServiceStore(bus, application="pl.websystems.WsTrackerTray.TEST")
+    store = SecretServiceStore(bus, application="io.github.dragonking026.WS-Tracker-Linux.TEST")
     try:
         store.set(URL, "test-token-123")
         assert store.get(URL) == "test-token-123"
@@ -40,7 +40,7 @@ def test_secret_round_trip(bus):
 
 def test_notification_can_be_shown_and_withdrawn(bus):
     notifier = PortalNotifier(bus)
-    note = render(Notification("ws-tracker-tray-test", "notifConnectionRestored"), Translator("pl"))
+    note = render(Notification("ws-tracker-test", "notifConnectionRestored"), Translator("pl"))
     notifier.show(note)
     notifier.withdraw(note.id)
 

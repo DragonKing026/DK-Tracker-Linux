@@ -1,11 +1,11 @@
-"""Scriptable stand-in for ws_tracker_tray.desktop.bus.Bus."""
+"""Scriptable stand-in for ws_tracker.desktop.bus.Bus."""
 
 from __future__ import annotations
 
 from collections.abc import Callable
 from typing import Any
 
-from ws_tracker_tray.desktop.bus import DBusCallError
+from ws_tracker.desktop.bus import DBusCallError
 
 Key = tuple[str, str, str]
 

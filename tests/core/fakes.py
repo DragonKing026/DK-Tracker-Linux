@@ -6,9 +6,9 @@ from dataclasses import replace
 from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
-from ws_tracker_tray.core.errors import ApiError, ErrorKind
-from ws_tracker_tray.core.models import Activity, Customer, Entry, Project, User
-from ws_tracker_tray.core.timefmt import STAMP
+from ws_tracker.core.errors import ApiError, ErrorKind
+from ws_tracker.core.models import Activity, Customer, Entry, Project, User
+from ws_tracker.core.timefmt import STAMP
 
 NOW = datetime(2026, 9, 25, 16, 4, 3, tzinfo=UTC)  # Friday, 18:04:03 in Warsaw
 EXTRA_FIELDS = "This form should not contain extra fields."

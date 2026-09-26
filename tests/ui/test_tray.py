@@ -2,11 +2,11 @@ from datetime import timedelta
 
 from PySide6.QtWidgets import QSystemTrayIcon
 
-from ws_tracker_tray.core.i18n import Translator
-from ws_tracker_tray.core.settings import Settings
-from ws_tracker_tray.core.tracker import Snapshot
-from ws_tracker_tray.ui.state import AppState
-from ws_tracker_tray.ui.tray import Tray
+from ws_tracker.core.i18n import Translator
+from ws_tracker.core.settings import Settings
+from ws_tracker.core.tracker import Snapshot
+from ws_tracker.ui.state import AppState
+from ws_tracker.ui.tray import Tray
 
 from ..core.fakes import NOW, FakeClient, make_entry
 
@@ -79,6 +79,6 @@ def test_icon_is_redrawn_only_when_the_label_changes(qtbot):
 
 def test_clicks_on_the_icon_are_logged(qtbot, caplog):
     _, tray = make(qtbot)
-    with caplog.at_level("INFO", logger="ws_tracker_tray.ui.tray"):
+    with caplog.at_level("INFO", logger="ws_tracker.ui.tray"):
         tray.icon.activated.emit(QSystemTrayIcon.ActivationReason.Trigger)
     assert "Trigger" in caplog.text

@@ -6,7 +6,7 @@
 #   scripts/instaluj-dev.sh --usun   remove
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-APP=pl.websystems.WsTrackerTray
+APP=io.github.dragonking026.WS-Tracker-Linux
 APPS="${XDG_DATA_HOME:-$HOME/.local/share}/applications"
 ICONS="${XDG_DATA_HOME:-$HOME/.local/share}/icons/hicolor/512x512/apps"
 
@@ -17,8 +17,8 @@ if [[ "${1:-}" == "--usun" ]]; then
 fi
 
 mkdir -p "$APPS" "$ICONS"
-install -m 644 "$ROOT/src/ws_tracker_tray/ui/assets/ws-tracker.png" "$ICONS/$APP.png"
-sed "s|^Exec=.*|Exec=env PYTHONPATH=\"$ROOT/src\" /usr/bin/python3 -m ws_tracker_tray|" \
+install -m 644 "$ROOT/src/ws_tracker/ui/assets/ws-tracker.png" "$ICONS/$APP.png"
+sed "s|^Exec=.*|Exec=env PYTHONPATH=\"$ROOT/src\" /usr/bin/python3 -m ws_tracker|" \
     "$ROOT/data/$APP.desktop" > "$APPS/$APP.desktop"
 command -v update-desktop-database >/dev/null && update-desktop-database -q "$APPS" || true
-echo "Zainstalowano $APPS/$APP.desktop (Exec: python3 -m ws_tracker_tray z $ROOT/src)."
+echo "Zainstalowano $APPS/$APP.desktop (Exec: python3 -m ws_tracker z $ROOT/src)."

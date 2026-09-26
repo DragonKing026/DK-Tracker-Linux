@@ -47,7 +47,7 @@ def app_icon() -> QIcon:
     """Our own icon (data/icons/ws-tracker.svg rendered to 512 px), not Kimai's logo: Kimai's
     trademark policy forbids looking like an official Kimai app. A small margin keeps it off
     title-bar edges."""
-    data = resources.files("ws_tracker_tray.ui").joinpath("assets", "ws-tracker.png").read_bytes()
+    data = resources.files("ws_tracker.ui").joinpath("assets", "ws-tracker.png").read_bytes()
     logo = QPixmap()
     logo.loadFromData(data)
     icon = QIcon()
@@ -68,7 +68,7 @@ def app_icon() -> QIcon:
 def mark(color: str, size: int) -> QPixmap:
     """The small WS mark for the window header (0065): the icon's dark tile vanished on a dark
     header at 18 px, so this one has no tile and draws the letters in the theme's text colour."""
-    svg = resources.files("ws_tracker_tray.ui").joinpath("assets", "ws-tracker-znak.svg").read_text()
+    svg = resources.files("ws_tracker.ui").joinpath("assets", "ws-tracker-znak.svg").read_text()
     renderer = QSvgRenderer(QByteArray(svg.replace("currentColor", color).encode()))
     pixmap = QPixmap(size * 2, size * 2)  # drawn at 2x: sharp on scaled screens
     pixmap.fill(Qt.GlobalColor.transparent)

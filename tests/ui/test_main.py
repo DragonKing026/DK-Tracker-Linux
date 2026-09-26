@@ -5,7 +5,7 @@ import uuid
 
 from PySide6.QtCore import QCoreApplication
 
-from ws_tracker_tray.ui.main import QtTranslations, SingleInstance, parse_args, setup_logging
+from ws_tracker.ui.main import QtTranslations, SingleInstance, parse_args, setup_logging
 
 
 def test_hidden_flag():
@@ -14,7 +14,7 @@ def test_hidden_flag():
 
 
 def test_second_instance_asks_the_first_to_show_its_window(qtbot):
-    name = f"ws-tracker-tray-test-{uuid.uuid4().hex[:8]}"
+    name = f"ws-tracker-test-{uuid.uuid4().hex[:8]}"
     first = SingleInstance(name)
     assert first.claim() is True
     second = SingleInstance(name)
@@ -24,7 +24,7 @@ def test_second_instance_asks_the_first_to_show_its_window(qtbot):
 
 
 def test_a_stale_server_name_is_taken_over(qtbot):
-    name = f"ws-tracker-tray-test-{uuid.uuid4().hex[:8]}"
+    name = f"ws-tracker-test-{uuid.uuid4().hex[:8]}"
     crashed = SingleInstance(name)
     crashed.claim()
     crashed.server.close()  # the socket file of a crashed instance stays; nobody answers
@@ -33,10 +33,10 @@ def test_a_stale_server_name_is_taken_over(qtbot):
 
 def test_log_file_rotates_and_says_where_it_is(tmp_path):
     path = setup_logging(tmp_path / "state", level=logging.INFO)
-    logging.getLogger("ws_tracker_tray.test").info("hello")
+    logging.getLogger("ws_tracker.test").info("hello")
     for handler in logging.getLogger().handlers:
         handler.flush()
-    assert path == tmp_path / "state" / "ws-tracker-tray.log"
+    assert path == tmp_path / "state" / "ws-tracker.log"
     assert "hello" in path.read_text(encoding="utf-8")
     logging.getLogger().handlers.clear()
 
@@ -51,14 +51,14 @@ def test_qt_standard_texts_follow_the_language(qapp):
 
 def test_module_runs_and_shows_help():
     result = subprocess.run(
-        [sys.executable, "-m", "ws_tracker_tray", "--help"], capture_output=True, text=True, timeout=60
+        [sys.executable, "-m", "ws_tracker", "--help"], capture_output=True, text=True, timeout=60
     )
     assert result.returncode == 0
     assert "--hidden" in result.stdout
 
 
 def test_when_the_socket_cannot_be_opened_the_app_still_starts(qtbot, caplog):
-    instance = SingleInstance("/nonexistent-dir/ws-tracker-tray-test")  # listen() fails here
-    with caplog.at_level("WARNING", logger="ws_tracker_tray.ui.main"):
+    instance = SingleInstance("/nonexistent-dir/ws-tracker-test")  # listen() fails here
+    with caplog.at_level("WARNING", logger="ws_tracker.ui.main"):
         assert instance.claim() is True
     assert "single instance" in caplog.text

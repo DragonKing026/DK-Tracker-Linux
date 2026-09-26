@@ -1,7 +1,7 @@
 import pytest
 
-from ws_tracker_tray.desktop.bus import DBusCallError
-from ws_tracker_tray.desktop.secrets import SecretServiceStore, SecretsLocked, SecretsUnavailable
+from ws_tracker.desktop.bus import DBusCallError
+from ws_tracker.desktop.secrets import SecretServiceStore, SecretsLocked, SecretsUnavailable
 
 from .fakes import FakeBus
 
@@ -44,7 +44,7 @@ def test_set_creates_an_item_with_label_attributes_and_secret():
     )
     assert properties["org.freedesktop.Secret.Item.Attributes"] == (
         "a{ss}",
-        {"application": "pl.websystems.WsTrackerTray", "url": "https://kimai.firma.pl"},
+        {"application": "io.github.dragonking026.WS-Tracker-Linux", "url": "https://kimai.firma.pl"},
     )
     assert secret == (SESSION, b"", b"kimai-token", "text/plain")
     assert replace is True

@@ -35,7 +35,7 @@ def resolve_language(setting: str, system: str | None) -> str:
 
 
 def load_messages(language: str) -> dict[str, str]:
-    text = resources.files("ws_tracker_tray.core").joinpath("locales", f"{language}.json").read_text("utf-8")
+    text = resources.files("ws_tracker.core").joinpath("locales", f"{language}.json").read_text("utf-8")
     return json.loads(text)
 
 

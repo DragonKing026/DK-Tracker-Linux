@@ -2,10 +2,10 @@ from dataclasses import replace
 from datetime import UTC, date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from ws_tracker_tray.core.errors import ApiError, ErrorKind
-from ws_tracker_tray.core.i18n import Translator
-from ws_tracker_tray.core.presentation import day_label, display_zone, entry_row, tray_status
-from ws_tracker_tray.core.tracker import Snapshot, Totals
+from ws_tracker.core.errors import ApiError, ErrorKind
+from ws_tracker.core.i18n import Translator
+from ws_tracker.core.presentation import day_label, display_zone, entry_row, tray_status
+from ws_tracker.core.tracker import Snapshot, Totals
 
 from .fakes import NOW, FakeClient, make_entry
 

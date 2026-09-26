@@ -1,7 +1,7 @@
-from ws_tracker_tray.core.notification_policy import RenderedNotification
-from ws_tracker_tray.desktop.bus import PORTAL_PATH
-from ws_tracker_tray.desktop.notifications import NotificationAction
-from ws_tracker_tray.ui.desktop_bridge import ClickListener, Desktop
+from ws_tracker.core.notification_policy import RenderedNotification
+from ws_tracker.desktop.bus import PORTAL_PATH
+from ws_tracker.desktop.notifications import NotificationAction
+from ws_tracker.ui.desktop_bridge import ClickListener, Desktop
 
 from ..desktop.fakes import FakeBus
 

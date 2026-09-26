@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pytest
 
-SRC = Path(__file__).resolve().parents[1] / "src" / "ws_tracker_tray"
+SRC = Path(__file__).resolve().parents[1] / "src" / "ws_tracker"
 FORBIDDEN = {
     "core": {"PySide6", "jeepney"},
     "desktop": {"PySide6"},
@@ -41,8 +41,6 @@ def test_lower_layers_never_import_the_ui(layer):
         for node in ast.walk(tree):
             if isinstance(node, ast.ImportFrom):
                 module = node.module or ""
-                if module.startswith("ws_tracker_tray.ui") or (
-                    node.level >= 2 and module.split(".")[0] == "ui"
-                ):
+                if module.startswith("ws_tracker.ui") or (node.level >= 2 and module.split(".")[0] == "ui"):
                     offenders.append(str(path.relative_to(SRC)))
     assert offenders == []

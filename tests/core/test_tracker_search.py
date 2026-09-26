@@ -5,7 +5,7 @@ from datetime import timedelta
 
 import pytest
 
-from ws_tracker_tray.core.errors import TrackerError
+from ws_tracker.core.errors import TrackerError
 
 from .fakes import NOW, make_entry
 from .test_tracker_refresh import make_tracker
