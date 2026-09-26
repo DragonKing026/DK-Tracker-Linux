@@ -62,13 +62,25 @@ class ResizeGrip(QWidget):
         edges = Qt.Edge.TopEdge | Qt.Edge.LeftEdge
         if self._window.placement_mode != "layer" and handle is not None and handle.startSystemResize(edges):
             return
-        self._start = (event.globalPosition().toPoint(), self._window.size())
+        if self._window.placement_mode == "layer":
+            self._start = (event.position().toPoint(), QSize())  # size unused: grows step by step
+        else:
+            self._start = (event.globalPosition().toPoint(), self._window.size())
 
     def mouseMoveEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
-        if self._start is not None:
-            origin, size = self._start
-            moved = origin - event.globalPosition().toPoint()
-            self._window.set_preferred_size(QSize(size.width() + moved.x(), size.height() + moved.y()))
+        if self._start is None:
+            return
+        origin, size = self._start
+        if self._window.placement_mode == "layer":
+            # Wayland tells a layer surface nothing about where it is, so global positions are
+            # made up and the corner jumped. The window is anchored bottom-right: each resize
+            # brings the grip back under the cursor, so the offset inside the grip is the step.
+            moved = origin - event.position().toPoint()
+            current = self._window.size()
+            self._window.set_preferred_size(QSize(current.width() + moved.x(), current.height() + moved.y()))
+            return
+        moved = origin - event.globalPosition().toPoint()
+        self._window.set_preferred_size(QSize(size.width() + moved.x(), size.height() + moved.y()))
 
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
         if self._start is not None:
