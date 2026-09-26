@@ -2,19 +2,19 @@
 noteId: "b7cc90570da84e4f9c711ffb6820486a"
 tytul: "Na GitHubie tylko najnowsze wydanie; starsze jako tagi"
 numer: "0067"
-status: w-trakcie
+status: zrobione
 priorytet: p2
 tags: [todo, wydanie, github]
 zalezy_od: []
 utworzono: 2026-09-26 15:44
-zaktualizowano: 2026-09-26 15:44
-zamknieto:
+zaktualizowano: 2026-09-26 15:45
+zamknieto: 2026-09-26 15:45
 ---
 
 # 0067 — Na GitHubie tylko najnowsze wydanie; starsze jako tagi
 
 > [!info] Status
-> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -29,24 +29,26 @@ pre-release do 1.0 (decyzja użytkownika).
 
 ## Kryteria akceptacji
 
-- [ ] Strony wydań 0.9.0–0.9.2 usunięte, tagi zostają
-- [ ] [wydanie.yml](../../../.github/workflows/wydanie.yml) po utworzeniu wydania usuwa strony poprzednich (test)
-- [ ] [wydania.md](../../../docs/procesy/wydania.md) opisuje zasadę i ukrycie „Deployments”
+- [x] Strony wydań 0.9.0–0.9.2 usunięte, tagi zostają
+- [x] [wydanie.yml](../../../.github/workflows/wydanie.yml) po utworzeniu wydania usuwa strony poprzednich (test)
+- [x] [wydania.md](../../../docs/procesy/wydania.md) opisuje zasadę i ukrycie „Deployments”
 
 ## Kroki
 
-- [ ] Test, workflow, usunięcie starych stron, dokumentacja
+- [x] Test, workflow, usunięcie starych stron, dokumentacja
 
 ## Materiały
 
-Brak.
+- Wynik: 467 passed, 1 skipped, 14 deselected in 3.52s
 
 ## Dziennik
 
 ### 2026-09-26
 
 - **15:44** Utworzono i start.
+- **15:45** Zamknięte: 467 passed, 1 skipped, 14 deselected in 3.52s, commity na main.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+Strony wydań 0.9.0–0.9.2 usunięte (tagi zostały); [wydanie.yml](../../../.github/workflows/wydanie.yml) usuwa strony
+poprzednich wydań po nowym; [wydania.md](../../../docs/procesy/wydania.md) opisuje zasadę i ukrycie „Deployments”.

@@ -62,7 +62,7 @@ Jak wydać nową wersję DK Tracker i jak ją zainstalować. Decyzja o dystrybuc
 
 Wersje `0.x` wychodzą jako „pre-release” (do 1.0). Lista Releases pokazuje **tylko najnowsze wydanie**: workflow po
 utworzeniu wydania usuwa strony poprzednich; ich tagi (`v0.9.0`…) zostają w historii gita
-([0067](../../TODO/W-TRAKCIE/0067-tylko-najnowsze-wydanie/todo.md)). Sekcja „Deployments” na stronie repozytorium to
+([0067](../../TODO/ZROBIONE/0067-tylko-najnowsze-wydanie/todo.md)). Sekcja „Deployments” na stronie repozytorium to
 publikacje GitHub Pages (repozytorium Flatpaka) — ukrywa się ją na stronie repozytorium: koło zębate przy „About” →
 odznaczyć „Deployments”. **1.0.0** — po testach na GNOME
 ([0020](../../TODO/DO-ZROBIENIA/0020-testy-gnome/todo.md)).

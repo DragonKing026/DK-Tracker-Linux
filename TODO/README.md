@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 15:44
+zaktualizowano: 2026-09-26 15:45
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0067 | [Na GitHubie tylko najnowsze wydanie; starsze jako tagi](W-TRAKCIE/0067-tylko-najnowsze-wydanie/todo.md) | 🔨 w-trakcie | p2 | — |
 
 ## Do zrobienia
 
@@ -102,6 +101,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0064 | [Licencja GPL-3.0-or-later zamiast AGPL](ZROBIONE/0064-licencja-gpl/todo.md) | ✅ zrobione | 2026-09-26 14:14 |
 | 0065 | [Poprawki po 0.9.1: zmiana rozmiaru okna, mała ikona, zrzut w Discover](ZROBIONE/0065-poprawki-po-0-9-1/todo.md) | ✅ zrobione | 2026-09-26 14:51 |
 | 0066 | [Zmiana rozmiaru okna przy tacce bez skoków: przezroczyste płótno i panel](ZROBIONE/0066-plotno-okna-przy-tacce/todo.md) | ✅ zrobione | 2026-09-26 14:51 |
+| 0067 | [Na GitHubie tylko najnowsze wydanie; starsze jako tagi](ZROBIONE/0067-tylko-najnowsze-wydanie/todo.md) | ✅ zrobione | 2026-09-26 15:45 |
 
 <!-- tablica:end -->
 
