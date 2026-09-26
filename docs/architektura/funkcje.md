@@ -80,7 +80,7 @@ stateDiagram-v2
 5. **Enter** w polu opisu = start; **Shift+Enter** = nowa linia. Pole rośnie z tekstem (także z zawiniętymi liniami),
    aby
    wszystkie linie były widoczne, do 96 px — dopiero dłuższy opis przewija się
-   ([0068](../../TODO/W-TRAKCIE/0068-pole-opisu-rosnie/todo.md)).
+   ([0068](../../TODO/ZROBIONE/0068-pole-opisu-rosnie/todo.md)).
 
 Źródło: `popup.js#startTracking`, `api.js#start`, `api.js#localStamp`.
 

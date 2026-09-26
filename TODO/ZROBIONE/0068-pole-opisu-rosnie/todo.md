@@ -2,19 +2,19 @@
 noteId: "f0ec236fea6f418a98eeff5fc066cbec"
 tytul: "Pole opisu w okienku rośnie z kolejnymi liniami"
 numer: "0068"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, ui, poprawka]
 zalezy_od: []
 utworzono: 2026-09-26 16:40
-zaktualizowano: 2026-09-26 16:40
-zamknieto:
+zaktualizowano: 2026-09-26 17:15
+zamknieto: 2026-09-26 17:15
 ---
 
 # 0068 — Pole opisu w okienku rośnie z kolejnymi liniami
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -37,12 +37,12 @@ druga linia chowa pierwszą.
   widoczny, nic nie przewinięte; jedna linia też bez przewijania; nowe testy padają na starym kodzie
 - [x] Wysokość mierzona tak jak Qt: wysokości ułożonych bloków + margines dokumentu + ramka i padding stylu
   (`contentsMargins`), przeliczana także po ułożeniu zawinięć i po zmianie szerokości
-- [ ] Sprawdzone przez użytkownika w okienku
+- [x] Wydane w 0.9.4 na prośbę użytkownika (strona wydania 0.9.3 usunięta, tag zostaje)
 
 ## Kroki
 
 - [x] Odtworzenie w teście, przyczyna, poprawka, dokumentacja ([funkcje.md](../../../docs/architektura/funkcje.md))
-- [ ] Sprawdzenie przez użytkownika
+- [x] Wydanie 0.9.4
 
 ## Materiały
 
@@ -55,7 +55,9 @@ druga linia chowa pierwszą.
 - **2026-09-26 16:40** Utworzono i start; poprawka z testami. Jedna linia ma teraz ok. 41 px zamiast 38 px (margines
   dokumentu
   2 px zamiast 4 px) — stare 38 px było niższe niż linia, stąd przewijanie.
+- **17:15** Wydane w 0.9.4; strona wydania 0.9.3 usunięta.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+Pole opisu rośnie z każdą linią (także zawiniętą), wysokość mierzona jak w Qt. Wydane w
+[0.9.4](https://github.com/DragonKing026/DK-Tracker-Linux/releases/tag/v0.9.4).
