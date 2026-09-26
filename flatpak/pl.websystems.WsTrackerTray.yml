@@ -1,0 +1,44 @@
+# WS Tracker Tray as a Flatpak. Built in the flathub-infra container (flatpak/buduj.sh, GitHub Actions).
+id: pl.websystems.WsTrackerTray
+runtime: org.kde.Platform
+runtime-version: '6.11'
+sdk: org.kde.Sdk
+base: io.qt.PySide.BaseApp
+base-version: '6.11'
+command: ws-tracker-tray
+finish-args:
+  - --share=network # only the Kimai address the user types (no telemetry)
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --talk-name=org.kde.StatusNotifierWatcher # tray icon (KDE, GNOME AppIndicator)
+  - --talk-name=org.freedesktop.secrets # API token in KWallet / GNOME Keyring
+cleanup-commands:
+  - /app/cleanup-BaseApp.sh
+build-options:
+  env:
+    BASEAPP_REMOVE_WEBENGINE: '1'
+modules:
+  # Not in org.kde.Platform; built against the runtime's Qt (private QtWaylandClient API).
+  - name: layer-shell-qt
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DBUILD_TESTING=OFF
+    sources:
+      - type: archive
+        url: https://download.kde.org/stable/plasma/6.7.5/layer-shell-qt-6.7.5.tar.xz
+        sha256: ccdcfec7081ca956f7a52c9113a4df3a226575bfbe98b56a2a9a4d7d7e19e8f0
+  - python3-deps.yaml
+  - name: ws-tracker-tray
+    buildsystem: simple
+    build-commands:
+      - pip3 install --no-index --no-deps --no-build-isolation --prefix=${FLATPAK_DEST} .
+      - install -Dm644 data/pl.websystems.WsTrackerTray.desktop -t ${FLATPAK_DEST}/share/applications
+      - install -Dm644 data/pl.websystems.WsTrackerTray.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
+      - install -Dm644 src/ws_tracker_tray/ui/assets/kimai.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/pl.websystems.WsTrackerTray.png
+    sources:
+      - type: dir
+        path: ..
+        skip: [.venv, .git, .superpowers, .pytest_cache, .ruff_cache, TODO, docs, build, .flatpak-builder]

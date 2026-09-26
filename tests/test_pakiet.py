@@ -66,3 +66,64 @@ def test_desktop_entry_starts_the_installed_command():
     assert "ws-tracker-tray" in PYPROJECT["scripts"]
     assert entry["Icon"] == APP_ID
     assert entry["Name"] == "WS Tracker Tray"
+
+
+# -- Task 3: the Flatpak manifest --------------------------------------------------
+
+
+def manifest() -> dict:
+    import yaml
+
+    return yaml.safe_load((ROOT / "flatpak" / f"{APP_ID}.yml").read_text(encoding="utf-8"))
+
+
+def test_manifest_builds_on_the_kde_runtime_with_pyside():
+    data = manifest()
+    assert data["id"] == APP_ID
+    assert (data["runtime"], data["runtime-version"]) == ("org.kde.Platform", "6.11")
+    assert (data["base"], data["base-version"]) == ("io.qt.PySide.BaseApp", "6.11")
+
+
+def test_permissions_are_exactly_those_of_the_specification():
+    """Spec, section 8 — nothing more (no home directory, no session bus at large)."""
+    assert set(manifest()["finish-args"]) == {
+        "--share=network",
+        "--share=ipc",
+        "--socket=wayland",
+        "--socket=fallback-x11",
+        "--device=dri",
+        "--talk-name=org.kde.StatusNotifierWatcher",
+        "--talk-name=org.freedesktop.secrets",
+    }
+
+
+def test_autostart_runs_the_command_the_manifest_installs():
+    from ws_tracker_tray.ui.desktop_bridge import AUTOSTART_COMMAND
+
+    assert manifest()["command"] == AUTOSTART_COMMAND[0] == "ws-tracker-tray"
+
+
+def test_bundled_python_libraries_satisfy_pyproject():
+    import re
+
+    import yaml
+    from packaging.requirements import Requirement
+
+    deps = yaml.safe_load((ROOT / "flatpak" / "python3-deps.yaml").read_text(encoding="utf-8"))
+    wheels = {
+        m.group(1).lower(): m.group(2)
+        for module in deps["modules"]
+        for source in module["sources"]
+        if (m := re.search(r"/([A-Za-z0-9_]+)-([0-9][^-]*)-py3-none-any\.whl$", source["url"]))
+    }
+    for requirement in map(Requirement, PYPROJECT["dependencies"]):
+        assert requirement.name in wheels, requirement.name
+        version = wheels[requirement.name]
+        assert requirement.specifier.contains(version), (requirement, version)
+    assert "python3-deps.yaml" in manifest()["modules"]
+
+
+def test_build_does_not_copy_the_virtualenv_or_git():
+    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker-tray")
+    skipped = set(app["sources"][0]["skip"])
+    assert {".venv", ".git"} <= skipped
