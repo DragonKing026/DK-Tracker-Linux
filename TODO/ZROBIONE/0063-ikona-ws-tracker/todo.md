@@ -28,7 +28,7 @@ Zastąpić logo Kimai własną ikoną i zmienić nazwę wyświetlaną na **WS Tr
 - Decyzje użytkownika (2026-09-26 13:45): wariant **C** (ciemny kafel, zielony pierścień postępu, „WS”); nazwa „WS
   Tracker” już
   teraz. Identyfikator, pakiet i komenda zostają do decyzji właściciela
-  ([0056](../../W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md),
+  ([0056](../0056-identyfikator-i-wydawca/todo.md),
   [0062](../../DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md)).
 - Poprawki wariantu C: litery zamienione na krzywe (bez zależności od czcionek), jaśniejsza obwódka kafla (widoczność
   na ciemnym pulpicie).

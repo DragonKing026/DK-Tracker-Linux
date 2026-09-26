@@ -2,23 +2,23 @@
 noteId: "709e67ca60b943a3b5e9e3e23a96ecd7"
 tytul: "Identyfikator aplikacji i wydawca — firma czy prywatnie"
 numer: "0056"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, decyzja, flatpak, wydanie]
 zalezy_od: ["0055"]
 utworzono: 2026-09-26 12:22
-zaktualizowano: 2026-09-26 14:25
-zamknieto:
+zaktualizowano: 2026-09-26 14:55
+zamknieto: 2026-09-26 14:55
 ---
 
 # 0056 — Identyfikator aplikacji i wydawca — firma czy prywatnie
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
-Ustalić przed pierwszym publicznym wydaniem ([0053](../../ZROBIONE/0053-plan4-pierwsze-wydanie/todo.md))
+Ustalić przed pierwszym publicznym wydaniem ([0053](../0053-plan4-pierwsze-wydanie/todo.md))
 identyfikator aplikacji i wydawcę w MetaInfo. Po wydaniu zmiana identyfikatora oznacza dla każdego ponowną instalację i
 utratę ustawień (`~/.var/app/<id>`) oraz tokenu w portfelu.
 
@@ -44,20 +44,21 @@ utratę ustawień (`~/.var/app/<id>`) oraz tokenu w portfelu.
 
 ## Kryteria akceptacji
 
-- [ ] Decyzja właściciela firmy zapisana w dzienniku
-- [ ] Identyfikator i `<developer>` w MetaInfo zmienione w kodzie, danych, testach i dokumentacji (jak w
-  [0055](../../ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md))
-- [ ] Budowa (`flatpak/buduj.sh`) i testy zielone
+- [x] Decyzja właściciela firmy zapisana w dzienniku
+- [x] Identyfikator i `<developer>` w MetaInfo zmienione w kodzie, danych, testach i dokumentacji (jak w
+  [0055](../0055-zmiana-nazwy-ws-tracker-tray/todo.md))
+- [x] Budowa (`flatpak/buduj.sh`) i testy zielone
 
 ## Kroki
 
-- [ ] Czekać na odpowiedź właściciela firmy
-- [ ] Zmienić identyfikator i wydawcę
-- [ ] Odblokować [0053](../../ZROBIONE/0053-plan4-pierwsze-wydanie/todo.md)
+- [x] Czekać na odpowiedź właściciela firmy
+- [x] Zmienić identyfikator i wydawcę
+- [x] Odblokować [0053](../0053-plan4-pierwsze-wydanie/todo.md)
 
 ## Materiały
 
-Brak.
+- [testy/pytest-2026-09-26.txt](testy/pytest-2026-09-26.txt) — końcowy przebieg:
+  `465 passed, 1 skipped, 14 deselected in 3.58s`
 
 ## Dziennik
 
@@ -72,7 +73,10 @@ Brak.
   ws_tracker i komenda ws-tracker.
 - **14:30** Użytkownik: inicjały autora zamiast WS — nazwa **DK Tracker**, repozytorium `DK-Tracker-Linux`,
   identyfikator `io.github.dragonking026.DK-Tracker-Linux`, pakiet `dk_tracker`, komenda `dk-tracker`, ikona „DK”.
+- **14:55** Zamknięte: 465 passed, 1 skipped, 14 deselected in 3.58s, commity na main.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+Projekt prywatny (decyzja właściciela firmy): **DK Tracker**, identyfikator `io.github.dragonking026.DK-Tracker-Linux`,
+repozytorium `DragonKing026/DK-Tracker-Linux`, pakiet `dk_tracker`, komenda `dk-tracker`, wydawca Artur Ograbek, ikona
+„DK”. Wydane w 0.9.2.

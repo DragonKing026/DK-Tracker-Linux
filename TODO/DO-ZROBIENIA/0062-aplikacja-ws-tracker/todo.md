@@ -24,7 +24,7 @@ na pasku zadań), a tacka — opcją. Nazwa bez „Tray”: **DK Tracker**.
 
 ## Kontekst
 
-- Zmiana nazwy łączy się z identyfikatorem i wydawcą ([0056](../../W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md)):
+- Zmiana nazwy łączy się z identyfikatorem i wydawcą ([0056](../../ZROBIONE/0056-identyfikator-i-wydawca/todo.md)):
   najlepiej jedna zmiana (nazwa + identyfikator), jedna ponowna instalacja u użytkowników.
 - „WS Tracker” to też nazwa wtyczki ([kimai-ws-tracker](../../../docs/integracje/kimai-ws-tracker.md)) — do rozważenia
   przy decyzji (spójność vs pomylenie).

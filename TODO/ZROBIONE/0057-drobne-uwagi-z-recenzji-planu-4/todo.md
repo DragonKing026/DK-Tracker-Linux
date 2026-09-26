@@ -25,7 +25,7 @@ już poprawione; te nie blokują wydania 0.9.0.
 ## Kontekst
 
 Recenzja: 2026-09-26, zakres `813461f..dc672f8`. Identyfikator aplikacji — osobno w
-[0056](../../W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md).
+[0056](../0056-identyfikator-i-wydawca/todo.md).
 
 ## Kryteria akceptacji
 

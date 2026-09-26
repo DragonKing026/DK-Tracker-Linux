@@ -1181,7 +1181,7 @@ Recenzja całości przed zadaniem 8 (dziennik wykonania, wpisy „Final”) — 
 - Manifest pomija katalogi, które akcja CI zostawia w checkoutcie (`flatpak_app`, `repo`, `site`) i `dist`.
 - Środowisko `github-pages` wymaga reguły dla tagów `v*` (zadanie 8, krok 3).
 - Identyfikator aplikacji i wydawca — do decyzji właściciela firmy
-  ([0056](../../TODO/W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md)); wydanie czeka.
+  ([0056](../../TODO/ZROBIONE/0056-identyfikator-i-wydawca/todo.md)); wydanie czeka.
 
 ## Poza tym planem
 

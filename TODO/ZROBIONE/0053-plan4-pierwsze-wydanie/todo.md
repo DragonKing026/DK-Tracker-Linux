@@ -68,4 +68,4 @@ Flatpaka na [Pages](https://dragonking026.github.io/Kimai-App--Linux-/) podpisan
 `FLATPAK_GPG_PRIVATE_KEY`, plik prywatny zniszczony), środowisko `github-pages` z regułą tagów `v*`. U użytkownika:
 instalacja z `.flatpakref` bez ostrzeżeń, źródło `ws-tracker-tray`, `flatpak update` → brak aktualizacji; aplikacja
 działa (test na żywo, zgłoszenia → [0058](../0058-dlugie-opisy-na-liscie/todo.md)). Wydanie z tymczasowym
-identyfikatorem — decyzja w [0056](../../W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md).
+identyfikatorem — decyzja w [0056](../0056-identyfikator-i-wydawca/todo.md).

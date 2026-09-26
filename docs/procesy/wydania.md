@@ -90,7 +90,7 @@ flatpak install --user https://dragonking026.github.io/DK-Tracker-Linux/io.githu
 - 2026-09-26 repozytorium zmieniło nazwę (`Kimai-App--Linux-` → `DK-Tracker-Linux`). GitHub przekierowuje stare adresy
   repozytorium, ale **nie** strony GitHub Pages — stary adres repozytorium Flatpaka daje 404.
 - Od 0.9.2 identyfikator to `io.github.dragonking026.DK-Tracker-Linux` (projekt prywatny,
-  [0056](../../TODO/W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md)); dla systemu to nowa aplikacja. Kto ma 0.9.0 lub
+  [0056](../../TODO/ZROBIONE/0056-identyfikator-i-wydawca/todo.md)); dla systemu to nowa aplikacja. Kto ma 0.9.0 lub
   0.9.1 (`pl.websystems.WsTrackerTray`), instaluje od nowa i raz wpisuje adres Kimai i token:
 
 ```bash

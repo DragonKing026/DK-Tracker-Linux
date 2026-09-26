@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 14:51
+zaktualizowano: 2026-09-26 14:55
 ---
 
 # Tablica zadań
@@ -25,14 +25,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | 🔨 w-trakcie | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0062 | [0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) |
+| 0062 | [0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](ZROBIONE/0056-identyfikator-i-wydawca/todo.md) ✅ |
 
 ## Zrobione
 
@@ -92,6 +91,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0053 | [Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)](ZROBIONE/0053-plan4-pierwsze-wydanie/todo.md) | ✅ zrobione | 2026-09-26 13:36 |
 | 0054 | [Podobne aplikacje: KimaiTray i KimTrack w dokumentacji](ZROBIONE/0054-podobne-aplikacje/todo.md) | ✅ zrobione | 2026-09-26 11:43 |
 | 0055 | [Zmiana nazwy na WS Tracker Tray](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) | ✅ zrobione | 2026-09-26 11:48 |
+| 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](ZROBIONE/0056-identyfikator-i-wydawca/todo.md) | ✅ zrobione | 2026-09-26 14:55 |
 | 0057 | [Drobne uwagi z recenzji Planu 4](ZROBIONE/0057-drobne-uwagi-z-recenzji-planu-4/todo.md) | ✅ zrobione | 2026-09-26 12:40 |
 | 0058 | [Długie opisy na liście ostatnich wpisów: 2,5 linii i rozwijanie kliknięciem](ZROBIONE/0058-dlugie-opisy-na-liscie/todo.md) | ✅ zrobione | 2026-09-26 13:35 |
 | 0059 | [Wyszukiwanie we wszystkich wpisach Kimai (F-33)](ZROBIONE/0059-wyszukiwanie-wpisow/todo.md) | ✅ zrobione | 2026-09-26 13:35 |
