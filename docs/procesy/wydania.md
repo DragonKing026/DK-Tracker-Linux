@@ -29,9 +29,9 @@ Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybuc
    ([API](https://docs.github.com/en/rest/deployments/branch-policies)):
 
    ```bash
-   gh api -X PUT repos/DragonKing026/Kimai-App--Linux-/environments/github-pages \
+   gh api -X PUT repos/DragonKing026/WS-Tracker-Linux/environments/github-pages \
      --input - <<< '{"deployment_branch_policy": {"protected_branches": false, "custom_branch_policies": true}}'
-   gh api -X POST repos/DragonKing026/Kimai-App--Linux-/environments/github-pages/deployment-branch-policies \
+   gh api -X POST repos/DragonKing026/WS-Tracker-Linux/environments/github-pages/deployment-branch-policies \
      -f name='v*' -f type=tag
    ```
 
@@ -57,7 +57,7 @@ Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybuc
 5. Kolejność w workflow: testy → budowa i podpis → Pages → dopiero wtedy wydanie na GitHubie. Gdy publikacja na
    Pages się nie uda, wydania nie ma; po naprawie przyczyny wystarczy **Re-run failed jobs** w zakładce Actions.
 6. Sprawdzenie: wydanie na GitHubie z plikiem `pl.websystems.WsTrackerTray-v<wersja>.flatpak`, strona
-   <https://dragonking026.github.io/Kimai-App--Linux-/>, `flatpak update` u siebie.
+   <https://dragonking026.github.io/WS-Tracker-Linux/>, `flatpak update` u siebie.
 
 Wersje `0.x` wychodzą jako „pre-release”. **1.0.0** — po testach na GNOME
 ([0020](../../TODO/DO-ZROBIENIA/0020-testy-gnome/todo.md)).
@@ -73,15 +73,26 @@ flowchart LR
 Zalecana — z repozytorium, aktualizacje przyjdą same (Discover, GNOME Software, `flatpak update`):
 
 ```bash
-flatpak install --user https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.WsTrackerTray.flatpakref
+flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/pl.websystems.WsTrackerTray.flatpakref
 ```
 
-Plik `.flatpak` z [najnowszego wydania](https://github.com/DragonKing026/Kimai-App--Linux-/releases/latest) — tylko bez
+Plik `.flatpak` z [najnowszego wydania](https://github.com/DragonKing026/WS-Tracker-Linux/releases/latest) — tylko bez
 dostępu do strony repozytorium; **nie dostaje aktualizacji**. Przejście z pliku na repozytorium:
 
 ```bash
 flatpak uninstall --user pl.websystems.WsTrackerTray    # ustawienia w ~/.var/app zostają
-flatpak install --user https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.WsTrackerTray.flatpakref
+flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/pl.websystems.WsTrackerTray.flatpakref
+```
+
+## Zmiana nazwy repozytorium na GitHubie
+
+GitHub przekierowuje stare adresy repozytorium, ale **nie** strony GitHub Pages: po zmianie nazwy (2026-09-26:
+`Kimai-App--Linux-` → `WS-Tracker-Linux`) stary adres repozytorium Flatpaka daje 404 i zainstalowane kopie nie widzą
+aktualizacji. Nowy adres trafia do plików przy najbliższym wydaniu; zainstalowane kopie przestawia jedna komenda:
+
+```bash
+flatpak remote-modify --user ws-tracker-tray --url=https://dragonking026.github.io/WS-Tracker-Linux/repo/
+flatpak update --user
 ```
 
 ## Wersja deweloperska a Flatpak

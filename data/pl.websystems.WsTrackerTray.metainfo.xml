@@ -22,11 +22,11 @@
     </ul>
   </description>
   <launchable type="desktop-id">pl.websystems.WsTrackerTray.desktop</launchable>
-  <url type="homepage">https://github.com/DragonKing026/Kimai-App--Linux-</url>
-  <url type="bugtracker">https://github.com/DragonKing026/Kimai-App--Linux-/issues</url>
+  <url type="homepage">https://github.com/DragonKing026/WS-Tracker-Linux</url>
+  <url type="bugtracker">https://github.com/DragonKing026/WS-Tracker-Linux/issues</url>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/DragonKing026/Kimai-App--Linux-/main/docs/assets/zrzuty/okno-ciemny-motyw.png</image>
+      <image>https://raw.githubusercontent.com/DragonKing026/WS-Tracker-Linux/main/docs/assets/zrzuty/okno-ciemny-motyw.png</image>
       <caption>The quick window next to the tray</caption>
     </screenshot>
   </screenshots>

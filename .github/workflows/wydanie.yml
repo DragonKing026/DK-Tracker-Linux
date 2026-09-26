@@ -50,7 +50,7 @@ jobs:
           gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
       - name: Repozytorium Flatpak dla GitHub Pages
         run: >-
-          flatpak/publikuj.sh repo site "https://dragonking026.github.io/Kimai-App--Linux-"
+          flatpak/publikuj.sh repo site "https://dragonking026.github.io/WS-Tracker-Linux"
           "${{ steps.gpg.outputs.fingerprint }}"
       - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0 (pins upload-artifact by SHA itself)
         with:
@@ -93,7 +93,7 @@ jobs:
             Instalacja z aktualizacjami (Discover, GNOME Software, `flatpak update`):
 
             ```bash
-            flatpak install --user https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.WsTrackerTray.flatpakref
+            flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/pl.websystems.WsTrackerTray.flatpakref
             ```
 
             Plik `.flatpak` poniżej nie dostaje aktualizacji — tylko gdy strona repozytorium jest niedostępna.

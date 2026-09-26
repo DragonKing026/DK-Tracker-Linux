@@ -57,7 +57,7 @@ def test_metainfo_names_the_app_in_both_languages():
 
 def test_screenshot_points_to_a_file_in_this_repository():
     image = metainfo().findtext("screenshots/screenshot/image")
-    prefix = "https://raw.githubusercontent.com/DragonKing026/Kimai-App--Linux-/main/"
+    prefix = "https://raw.githubusercontent.com/DragonKing026/WS-Tracker-Linux/main/"
     assert image.startswith(prefix)
     assert (ROOT / image.removeprefix(prefix)).is_file()
 

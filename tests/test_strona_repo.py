@@ -10,7 +10,7 @@ spec = importlib.util.spec_from_file_location("pages", ROOT / "flatpak" / "pages
 pages = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pages)
 
-URL = "https://dragonking026.github.io/Kimai-App--Linux-"
+URL = "https://dragonking026.github.io/WS-Tracker-Linux"
 KEY = b"\x99\x01\x0dfake public key bytes"
 
 

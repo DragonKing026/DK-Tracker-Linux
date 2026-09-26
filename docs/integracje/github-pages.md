@@ -16,7 +16,7 @@ zaktualizowano: 2026-09-26 11:57
 
 ## Do czego używamy
 
-Adres: **<https://dragonking026.github.io/Kimai-App--Linux->** (repozytorium kodu jest publiczne, konto darmowe).
+Adres: **<https://dragonking026.github.io/WS-Tracker-Linux>** (repozytorium kodu jest publiczne, konto darmowe).
 Stronę publikuje workflow [wydanie.yml](../../.github/workflows/wydanie.yml) po tagu wersji
 ([GitHub Actions](github-actions.md)).
 

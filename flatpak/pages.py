@@ -61,7 +61,7 @@ def index_html(base_url: str) -> str:
 <p>Instalacja — aktualizacje przyjdą same (Discover, GNOME Software, <code>flatpak update</code>):</p>
 <pre>flatpak install --user {url}/{APP_ID}.flatpakref</pre>
 <p>Samo źródło aktualizacji: <a href="{REMOTE}.flatpakrepo">{REMOTE}.flatpakrepo</a> ·
-<a href="https://github.com/DragonKing026/Kimai-App--Linux-">kod źródłowy</a></p>
+<a href="https://github.com/DragonKing026/WS-Tracker-Linux">kod źródłowy</a></p>
 </body>
 </html>
 """
