@@ -131,3 +131,13 @@ def test_an_exported_entry_is_not_saved():
     with pytest.raises(TrackerError) as error:
         tracker.save_details(details, {"description": GOOD})
     assert error.value.key == "errExported"
+
+
+def test_hours_with_seconds_are_not_sent_when_the_minutes_did_not_change():
+    """Kimai keeps seconds (a start "now"); the window shows minutes: the same minutes are no change."""
+    tracker, client, _ = make_tracker()
+    begin = AT_9 + timedelta(seconds=3)
+    entry = client.add(make_entry(94, begin, begin + timedelta(minutes=90), description=GOOD))
+    details = tracker.entry_details(entry)
+    tracker.save_details(details, {"day": date(2026, 9, 25), "begin": "09:00", "end": "10:30", "tags": "x"})
+    assert updates(client) == [{"tags": "x"}]

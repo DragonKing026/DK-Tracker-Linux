@@ -83,6 +83,10 @@ def _rate(value: object) -> float | None:
     return rate
 
 
+def _to_minute(moment: datetime) -> datetime:
+    return moment.replace(second=0, microsecond=0)
+
+
 def utc_now() -> datetime:
     return datetime.now(UTC)
 
@@ -512,9 +516,10 @@ class Tracker:
             end_at = self._wall_clock(noon, end_text, tz) if end_text else None
             if end_at is not None and end_at <= begin_at:
                 raise TrackerError("errEndBeforeBegin")
-            if begin_at != details.begin:
+            # The window shows minutes; Kimai may keep seconds (a start "now"): same minute, no change.
+            if begin_at != _to_minute(details.begin):
                 changes["begin"] = kimai_stamp(begin_at, tz)
-            if end_at is not None and end_at != details.end:
+            if end_at is not None and (details.end is None or end_at != _to_minute(details.end)):
                 changes["end"] = kimai_stamp(end_at, tz)
         if "tags" in values:
             tags = tuple(tag.strip() for tag in str(values["tags"]).split(",") if tag.strip())
