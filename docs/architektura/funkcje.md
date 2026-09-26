@@ -252,14 +252,14 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | F-22 | Autostart z sesją (portal Background, opcja w ustawieniach) | aplikacja tackowa powinna startować sama | **w 1.0** |
 | F-23 | Wykrywanie bezczynności | propozycja odjęcia czasu nieaktywności; trudne w Flatpaku na Waylandzie (brak portalu czasu bezczynności) | później |
 | F-24 | Globalny skrót klawiszowy (portal GlobalShortcuts) | start/stop bez myszy | później |
-| F-25 | Przypomnienie, gdy żaden timer nie działa | podpatrzone w WsTrackerTray ([podobne aplikacje](podobne-aplikacje.md)) | później |
-| F-26 | Ulubione zadania obok ostatnich wpisów | WsTrackerTray | później |
-| F-27 | Oś czasu dnia (dzisiejsze wpisy) | WsTrackerTray | później |
-| F-28 | Cel dzienny i szacowana godzina końca | WsTrackerTray | później |
-| F-29 | Tagi przy starcie i edycji | WsTrackerTray | później |
-| F-30 | Własna godzina startu nowego wpisu | WsTrackerTray | później |
-| F-31 | Start z przeglądarki przez link `…://start` | WsTrackerTray | później |
-| F-32 | Ekran „Co nowego” po aktualizacji | WsTrackerTray | później |
+| F-25 | Przypomnienie, gdy żaden timer nie działa | podpatrzone w KimaiTray ([podobne aplikacje](podobne-aplikacje.md)) | później |
+| F-26 | Ulubione zadania obok ostatnich wpisów | KimaiTray | później |
+| F-27 | Oś czasu dnia (dzisiejsze wpisy) | KimaiTray | później |
+| F-28 | Cel dzienny i szacowana godzina końca | KimaiTray | później |
+| F-29 | Tagi przy starcie i edycji | KimaiTray | później |
+| F-30 | Własna godzina startu nowego wpisu | KimaiTray | później |
+| F-31 | Start z przeglądarki przez link `…://start` | KimaiTray | później |
+| F-32 | Ekran „Co nowego” po aktualizacji | KimaiTray | później |
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 
