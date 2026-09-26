@@ -18,7 +18,7 @@ zamknieto:
 
 ## Cel
 
-Ustalić przed pierwszym publicznym wydaniem ([0053](../../DO-ZROBIENIA/0053-plan4-pierwsze-wydanie/todo.md))
+Ustalić przed pierwszym publicznym wydaniem ([0053](../0053-plan4-pierwsze-wydanie/todo.md))
 identyfikator aplikacji i wydawcę w MetaInfo. Po wydaniu zmiana identyfikatora oznacza dla każdego ponowną instalację i
 utratę ustawień (`~/.var/app/<id>`) oraz tokenu w portfelu.
 
@@ -53,7 +53,7 @@ utratę ustawień (`~/.var/app/<id>`) oraz tokenu w portfelu.
 
 - [ ] Czekać na odpowiedź właściciela firmy
 - [ ] Zmienić identyfikator i wydawcę
-- [ ] Odblokować [0053](../../DO-ZROBIENIA/0053-plan4-pierwsze-wydanie/todo.md)
+- [ ] Odblokować [0053](../0053-plan4-pierwsze-wydanie/todo.md)
 
 ## Materiały
 
@@ -64,6 +64,9 @@ Brak.
 ### 2026-09-26
 
 - **12:22** Utworzono po końcowej recenzji Planu 4; zablokowane do decyzji właściciela firmy.
+- **12:55** Użytkownik: pełne wydanie 0.9.0 **teraz** z tymczasowym identyfikatorem `pl.websystems.WsTrackerTray`
+  (świadomie: po zmianie identyfikatora instalacje trzeba będzie odinstalować i zainstalować od nowa, z nowym tokenem).
+  Wydanie 0053 już na to nie czeka; zmiana identyfikatora wyjdzie w kolejnej wersji.
 
 ## Wynik
 

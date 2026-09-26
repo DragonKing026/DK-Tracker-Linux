@@ -2,19 +2,19 @@
 noteId: "6de6b49e4f19404bbc64944d98ab24a3"
 tytul: "Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)"
 numer: "0053"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, plan-4, flatpak]
-zalezy_od: ["0052", "0056"]
+zalezy_od: ["0052"]
 utworzono: 2026-09-26 11:28
-zaktualizowano: 2026-09-26 11:28
+zaktualizowano: 2026-09-26 12:55
 zamknieto:
 ---
 
 # 0053 — Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -26,7 +26,7 @@ Wykonać **zadanie 8** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
 - Plan: [2026-09-26-plan-4-flatpak.md](../../../docs/plany/2026-09-26-plan-4-flatpak.md) — kod, testy i komendy każdego
   kroku.
 - Specyfikacja: [WS Tracker Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje:
-  [0045](../../W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md).
+  [0045](../0045-plan4-projekt-flatpak/todo.md).
 - Pliki:
 
 - Create: `flatpak/ws-tracker-tray-repo.gpg` (klucz publiczny)
@@ -57,6 +57,7 @@ Brak (materiały pojawią się w podfolderach przy wykonaniu).
 ### 2026-09-26
 
 - **11:28** Utworzono zadanie z Planu 4.
+- **12:55** Start: pełne wydanie z tymczasowym identyfikatorem (decyzja użytkownika, 0056).
 
 ## Wynik
 
