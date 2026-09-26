@@ -26,7 +26,9 @@ def desktop_entry() -> dict[str, str]:
 
 
 def test_version_is_the_same_everywhere():
-    assert PYPROJECT["version"] == ws_tracker_tray.__version__ == "0.9.0"
+    """No literal version here: a release changes pyproject.toml, __init__.py and MetaInfo, not the tests."""
+    newest = metainfo().find("releases/release").get("version")
+    assert PYPROJECT["version"] == ws_tracker_tray.__version__ == newest
 
 
 def test_licence_is_agpl():
@@ -184,3 +186,10 @@ def test_only_the_jobs_that_need_them_get_write_permissions():
 def test_build_does_not_copy_what_the_ci_action_leaves_in_the_checkout():
     app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker-tray")
     assert {"flatpak_app", "repo", "site", "dist"} <= set(app["sources"][0]["skip"])
+
+
+def test_ci_enforces_core_coverage():
+    """Spec 12.6: at least 90% of the core is covered by tests."""
+    steps = workflow("testy.yml")["jobs"]["testy"]["steps"]
+    command = next(step["run"] for step in steps if step.get("name", "").startswith("Testy"))
+    assert "--cov=ws_tracker_tray.core" in command and "--cov-fail-under=90" in command

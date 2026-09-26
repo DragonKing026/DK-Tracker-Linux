@@ -23,8 +23,8 @@ jobs:
         run: pip install -e ".[dev,ui]"
       - name: Format i lint
         run: ruff format --check . && ruff check .
-      - name: Testy (bez Dockera i pulpitu)
-        run: pytest
+      - name: Testy (bez Dockera i pulpitu), pokrycie rdzenia ≥ 90%
+        run: pytest --cov=ws_tracker_tray.core --cov-fail-under=90
         env:
           QT_QPA_PLATFORM: offscreen
       - name: Dokumentacja
