@@ -24,7 +24,12 @@ if [[ -z "$TRUSTED" || "$TRUSTED" != "$SIGNING" ]]; then
 fi
 
 # Every ref of the app — the app itself and its .Locale/.Debug extensions — must carry a signature.
-for ref in $(ostree --repo="$REPO" refs | grep -F "$APP"); do
+mapfile -t REFS < <(ostree --repo="$REPO" refs | grep -F "$APP" || true)
+if [[ ${#REFS[@]} -eq 0 ]]; then
+  echo "W $REPO nie ma refów $APP — nie publikuję pustego repozytorium." >&2
+  exit 1
+fi
+for ref in "${REFS[@]}"; do
   kind="${ref%%/*}"; rest="${ref#*/}"; id="${rest%%/*}"; branch="${ref##*/}"
   if [[ "$kind" == runtime ]]; then
     flatpak build-sign "${GPG[@]}" --runtime "$REPO" "$id" "$branch"

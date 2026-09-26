@@ -10,7 +10,9 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_KEY = "ws-tracker-tray-repo.gpg"
 
-pytestmark = pytest.mark.skipif(shutil.which("gpg") is None, reason="needs gpg")
+pytestmark = pytest.mark.skipif(
+    shutil.which("gpg") is None or shutil.which("ostree") is None, reason="needs gpg and ostree"
+)
 
 
 def new_key(home: Path, name: str) -> str:
@@ -81,3 +83,25 @@ def test_key_script_does_not_replace_the_committed_public_key(tmp_path, scripts)
     assert result.returncode != 0
     assert (scripts / PUBLIC_KEY).read_bytes() == b"the key users already trust"
     assert list(home.iterdir()) == []
+
+
+def test_publish_stops_when_the_repository_has_no_app(tmp_path, scripts):
+    """An empty `ostree refs` would otherwise publish a repository nobody can install from."""
+    home = tmp_path / "gnupg"
+    home.mkdir(mode=0o700)
+    key = new_key(home, "Trusted <a@example.com>")
+    env = {**os.environ, "GNUPGHOME": str(home)}
+    exported = subprocess.run(["gpg", "--export", key], env=env, check=True, capture_output=True).stdout
+    (scripts / PUBLIC_KEY).write_bytes(exported)
+    subprocess.run(["ostree", "init", "--mode=archive-z2", f"--repo={tmp_path / 'repo'}"], check=True)
+
+    result = subprocess.run(
+        [scripts / "publikuj.sh", tmp_path / "repo", tmp_path / "site", "http://127.0.0.1", key, str(home)],
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode != 0
+    assert "pl.websystems.WsTrackerTray" in result.stderr
+    assert not (tmp_path / "site").exists()
