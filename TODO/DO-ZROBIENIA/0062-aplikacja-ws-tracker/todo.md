@@ -38,6 +38,16 @@ na pasku zadań), a tacka — opcją. Nazwa bez „Tray”: **WS Tracker**.
 - [ ] Tacka: domyślnie włączona czy wyłączona; co gdy okno zamknięte
 - [ ] Nazwa „WS Tracker” i identyfikator (razem z 0056)
 
+## Minutnik (decyzja użytkownika 2026-09-26)
+
+Wzór: „pigułka” z ikoną i czasem, np. `⏸ 00:02` (jak wskaźnik nagrywania w panelu KDE). W 0.9.2:
+
+- [ ] **GNOME:** czas jako napis przy ikonie w tacce (AppIndicator `XAyatanaLabel` — GNOME/Ubuntu go pokazują).
+- [ ] **KDE:** w ustawieniach wybór: **tacka** (obecna, kwadratowa ikona z czasem) albo **widżet panelu** (plasmoid
+  z pigułką `⏸ 00:02`). Plasma pokazuje w tacce tylko kwadratową ikonę — napisu SNI nie obsługuje (brak
+  `XAyatanaLabel` w plasma-workspace), stąd osobny widżet.
+- [ ] Sprawdzić: jak widżet dostaje stan z aplikacji we Flatpaku (D-Bus) i jak się go instaluje.
+
 ## Kryteria akceptacji
 
 - [ ] Zakres zapisany jako specyfikacja i plan (brainstorming → spec → plan)
