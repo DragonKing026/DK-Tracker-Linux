@@ -10,7 +10,7 @@ zaktualizowano: 2026-09-26 09:51
 
 Zadanie: [0041](../todo.md). Środowisko: Fedora 44, KDE Plasma 6.7.5 (Wayland), systemowy PySide6 6.11.2,
 Kimai 2.67.0 w Dockerze (`tests/kimai/kimai-testowe.sh`), izolowana konfiguracja (`XDG_CONFIG_HOME`).
-Testuje użytkownik; poprawki z pierwszego przebiegu: [0042](../../../ZROBIONE/0042-poprawki-po-tescie-na-zywo/todo.md).
+Testuje użytkownik; poprawki z pierwszego przebiegu: [0042](../../0042-poprawki-po-tescie-na-zywo/todo.md).
 
 | Nr | Punkt | Wynik |
 | --- | --- | --- |

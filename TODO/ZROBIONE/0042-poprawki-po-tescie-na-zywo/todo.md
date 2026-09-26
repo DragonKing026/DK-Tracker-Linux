@@ -18,7 +18,7 @@ zamknieto: 2026-09-26 00:47
 
 ## Cel
 
-Poprawić to, co użytkownik znalazł w teście na żywo ([0041](../../W-TRAKCIE/0041-plan3-test-na-zywo/todo.md)),
+Poprawić to, co użytkownik znalazł w teście na żywo ([0041](../0041-plan3-test-na-zywo/todo.md)),
 każdą zmianę kodu metodą TDD, a potem wrócić do listy kontrolnej.
 
 ## Kontekst
