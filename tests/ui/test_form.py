@@ -289,3 +289,34 @@ def test_running_entry_outside_the_catalog_keeps_its_project_after_a_reload(form
     form.set_catalog(CATALOG, remembered_project=1)
     assert form.project.currentData() == 99
     assert form.project.currentText() == "Archiwalny projekt"
+
+
+def test_search_reads_each_row_a_bounded_number_of_times(qtbot):
+    """Filtering is linear in the list: a slower machine must not turn typing into seconds (CI did)."""
+    from PySide6.QtGui import QStandardItem, QStandardItemModel
+
+    from ws_tracker_tray.ui.project_picker import _Filter
+
+    class Counting(QStandardItemModel):
+        reads = 0
+
+        def data(self, index, role=Qt.ItemDataRole.DisplayRole):
+            Counting.reads += 1
+            return super().data(index, role)
+
+    model = Counting()
+    model.appendRow(QStandardItem("Wybierz projekt"))
+    for customer in range(60):
+        model.appendRow(QStandardItem(f"Klient {customer}"))
+        for n in range(50):
+            item = QStandardItem(f"Projekt {customer * 50 + n}")
+            item.setData(customer * 50 + n, Qt.ItemDataRole.UserRole)
+            model.appendRow(item)
+    proxy = _Filter()
+    proxy.setSourceModel(model)
+    Counting.reads = 0
+
+    proxy.set_text("2999")
+
+    assert proxy.rowCount() == 2
+    assert Counting.reads < 10 * model.rowCount()

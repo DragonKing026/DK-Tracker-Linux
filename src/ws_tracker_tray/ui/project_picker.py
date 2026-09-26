@@ -24,47 +24,48 @@ class _Filter(QSortFilterProxyModel):
     def __init__(self) -> None:
         super().__init__()
         self._needle = ""
+        self._accepted: set[int] | None = None  # rows kept for the current needle; None = not computed yet
+
+    def setSourceModel(self, model) -> None:  # noqa: N802 - Qt API
+        super().setSourceModel(model)
+        for signal in (model.modelReset, model.rowsInserted, model.rowsRemoved, model.dataChanged):
+            signal.connect(self._forget)
 
     def set_text(self, text: str) -> None:
         self.beginFilterChange()  # Qt 6.10+: replaces the deprecated invalidateFilter()
         self._needle = sort_key(text.strip())
+        self._accepted = None
         self.endFilterChange(QSortFilterProxyModel.Direction.Rows)
 
     def filterAcceptsRow(self, row: int, parent: QModelIndex) -> bool:  # noqa: N802 - Qt API
-        model = self.sourceModel()
         if not self._needle:
             return True
-        if row == 0:
-            return False  # "choose a project" is a placeholder, never a result
-        if _is_header(model, row):
-            return any(self._matches(model, child) for child in _children(model, row))
-        return self._matches(model, row)
+        if self._accepted is None:
+            self._accepted = self._matching_rows()
+        return row in self._accepted
 
-    def _matches(self, model, row: int) -> bool:
-        customer = _header_of(model, row)
-        text = f"{model.index(row, 0).data() or ''} {customer}"
-        return self._needle in sort_key(text)
+    def _forget(self, *_args) -> None:
+        self._accepted = None
+
+    def _matching_rows(self) -> set[int]:
+        """One pass over the list: each project knows its customer header, each header its matches."""
+        model = self.sourceModel()
+        accepted: set[int] = set()
+        header, customer = -1, ""
+        for row in range(1, model.rowCount()):  # row 0, "choose a project", is never a result
+            text = model.index(row, 0).data() or ""
+            if _is_header(model, row):
+                header, customer = row, text
+            elif self._needle in sort_key(f"{text} {customer}"):
+                accepted.add(row)
+                if header > 0:
+                    accepted.add(header)
+        return accepted
 
 
 def _is_header(model, row: int) -> bool:
     item = model.index(row, 0)
     return model.data(item, Qt.ItemDataRole.UserRole) is None and row > 0
-
-
-def _children(model, row: int) -> list[int]:
-    rows = []
-    for child in range(row + 1, model.rowCount()):
-        if _is_header(model, child):
-            break
-        rows.append(child)
-    return rows
-
-
-def _header_of(model, row: int) -> str:
-    for above in range(row - 1, 0, -1):
-        if _is_header(model, above):
-            return model.index(above, 0).data() or ""
-    return ""
 
 
 class _SearchField(QLineEdit):
