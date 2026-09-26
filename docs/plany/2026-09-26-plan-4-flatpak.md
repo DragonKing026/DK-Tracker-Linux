@@ -1131,9 +1131,16 @@ git commit -m "ci: testy na każdy push i wydanie Flatpaka po tagu wersji" -m "C
 
 
 def test_repository_signing_key_is_public_only():
+    """`gpg --export` writes binary, so the check reads the key packets instead of looking for text."""
+    import subprocess
+
     key = ROOT / "flatpak" / "ws-tracker-tray-repo.gpg"
-    assert key.is_file()
-    assert b"PRIVATE KEY" not in key.read_bytes()
+    listing = subprocess.run(
+        ["gpg", "--show-keys", "--with-colons", key], capture_output=True, text=True, check=True
+    ).stdout.splitlines()
+    kinds = {line.split(":")[0] for line in listing}
+    assert "pub" in kinds
+    assert not kinds & {"sec", "ssb"}
 ```
 
 Run: `.venv/bin/pytest tests/test_pakiet.py -q` → 1 FAIL (brak `flatpak/ws-tracker-tray-repo.gpg`).
@@ -1143,7 +1150,9 @@ Run: `.venv/bin/pytest tests/test_pakiet.py -q` → 1 FAIL (brak `flatpak/ws-tra
 - [ ] **Step 3: Sekret i Pages — za zgodą użytkownika w tej chwili:**
   `gh secret set FLATPAK_GPG_PRIVATE_KEY < ~/ws-tracker-tray-repo-private.asc && shred -u
   ~/ws-tracker-tray-repo-private.asc`;
-  `gh api -X POST repos/DragonKing026/Kimai-App--Linux-/pages -f build_type=workflow` (albo w ustawieniach repo).
+  `gh api -X POST repos/DragonKing026/Kimai-App--Linux-/pages -f build_type=workflow` (albo w ustawieniach repo);
+  reguła środowiska `github-pages` dla tagów `v*` — komendy w [wydania.md](../procesy/wydania.md) (bez niej publikacja
+  z tagu zostanie odrzucona).
 - [ ] **Step 4: Wypchnięcie i tag — za zgodą:** `git push origin main`, potem
       `git tag v0.9.0 && git push origin v0.9.0`;
   `gh run watch` dla „Testy” i „Wydanie”.
@@ -1159,6 +1168,20 @@ Run: `.venv/bin/pytest tests/test_pakiet.py -q` → 1 FAIL (brak `flatpak/ws-tra
   „wykonany”, README/AGENTS: status „0.9.0 wydana”.
 
 ---
+
+## Poprawki po recenzji końcowej (2026-09-26)
+
+Recenzja całości przed zadaniem 8 (dziennik wykonania, wpisy „Final”) — zmiany względem kodu z zadań 3, 5 i 6:
+
+- `wydanie.yml`: najpierw testy (`testy.yml` jako `workflow_call`) i walidacja MetaInfo; wydanie na GitHubie dopiero
+  **po** publikacji na Pages (osobne zadanie `wydanie`, paczka przez artefakt); uprawnienia zapisu tylko w zadaniach
+  `pages` i `wydanie`; opis wydania z instalacją z `.flatpakref`.
+- `publikuj.sh` odmawia podpisu kluczem innym niż `flatpak/ws-tracker-tray-repo.gpg`; `klucz-gpg.sh` nie nadpisuje
+  istniejącego klucza publicznego (testy: `tests/test_skrypty_flatpak.py`).
+- Manifest pomija katalogi, które akcja CI zostawia w checkoutcie (`flatpak_app`, `repo`, `site`) i `dist`.
+- Środowisko `github-pages` wymaga reguły dla tagów `v*` (zadanie 8, krok 3).
+- Identyfikator aplikacji i wydawca — do decyzji właściciela firmy
+  ([0056](../../TODO/W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md)); wydanie czeka.
 
 ## Poza tym planem
 
