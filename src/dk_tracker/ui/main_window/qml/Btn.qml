@@ -24,8 +24,8 @@ Button {
         readonly property color accent: app.palette.accent || "#6f9bff"
         color: button.highlighted
                ? Qt.rgba(accent.r, accent.g, accent.b, button.down ? 0.32 : (button.hovered ? 0.24 : 0.16))
-               : button.down || button.hovered ? (app.palette.line || "#2f333c") : (app.palette.surface2 || "#272b33")
+               : button.down || button.hovered ? (app.palette.control_hover || "#424a5a") : (app.palette.control || "#353b48")
         border.width: 1
-        border.color: button.highlighted ? Qt.rgba(accent.r, accent.g, accent.b, 0.7) : (app.palette.border || "#5a6270")
+        border.color: button.highlighted ? Qt.rgba(accent.r, accent.g, accent.b, 0.7) : (app.palette.border || "#6b7486")
     }
 }

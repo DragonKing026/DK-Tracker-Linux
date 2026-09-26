@@ -28,8 +28,8 @@ Btn {
         padding: 6
         background: Rectangle {
             radius: 4
-            color: app.palette.surface || "#1e2127"
-            border.color: (app.palette.border || "#5a6270")
+            color: (app.palette.panel || "#262b35")
+            border.color: (app.palette.border || "#6b7486")
         }
         contentItem: ColumnLayout {
             spacing: 6
@@ -55,7 +55,7 @@ Btn {
                     HoverHandler { cursorShape: parent.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
                     background: Rectangle {
                         radius: 4
-                        color: parent.hovered && parent.enabled ? (app.palette.surface2 || "#272b33") : "transparent"
+                        color: parent.hovered && parent.enabled ? (app.palette.control || "#353b48") : "transparent"
                     }
                     contentItem: RowLayout {
                         spacing: 8

@@ -11,13 +11,21 @@ Btn {
     signal edited()  // chosen by the user (not when `value` is set from outside)
     readonly property int hour: value ? Number(value.split(":")[0]) : -1
     readonly property int minute: value ? Number(value.split(":")[1]) : -1
-    implicitWidth: 84
+    implicitWidth: 96
     text: value || placeholderText
-    contentItem: Label {
-        text: field.text
-        color: field.value ? (app.palette.fg || "#eceef2") : (app.palette.muted || "#9aa0ac")
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
+    contentItem: Row {
+        spacing: 6
+        Image {
+            anchors.verticalCenter: parent.verticalCenter
+            source: "image://glyph/clock/" + (app.palette.muted || "#9aa0ac").slice(1)
+            sourceSize.width: 15
+            sourceSize.height: 15
+        }
+        Label {
+            anchors.verticalCenter: parent.verticalCenter
+            text: field.text
+            color: field.value ? (app.palette.fg || "#eceef2") : (app.palette.muted || "#9aa0ac")
+        }
     }
     onClicked: { picker.open(); hours.positionViewAtIndex(Math.max(0, hour), ListView.Center);
                  minutes.positionViewAtIndex(Math.max(0, minutes.model.indexOf(minute)), ListView.Center) }
@@ -31,8 +39,8 @@ Btn {
         padding: 6
         background: Rectangle {
             radius: 6
-            color: app.palette.surface || "#1e2127"
-            border.color: (app.palette.border || "#5a6270")
+            color: (app.palette.panel || "#262b35")
+            border.color: (app.palette.border || "#6b7486")
         }
         contentItem: RowLayout {
             spacing: 4
@@ -57,7 +65,7 @@ Btn {
                     }
                     background: Rectangle {
                         radius: 4
-                        color: parent.hovered ? (app.palette.surface2 || "#272b33") : "transparent"
+                        color: parent.hovered ? (app.palette.control || "#353b48") : "transparent"
                     }
                     onClicked: ListView.view.picked(modelData)
                 }

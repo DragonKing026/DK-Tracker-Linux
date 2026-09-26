@@ -22,7 +22,7 @@ SpinBox {
         height: spin.height
         implicitWidth: 38
         radius: 4
-        color: spin.up.hovered ? (app.palette.line || "#2f333c") : (app.palette.surface2 || "#272b33")
+        color: spin.up.hovered ? (app.palette.control_hover || "#424a5a") : (app.palette.control || "#353b48")
         Label { anchors.centerIn: parent; text: "+"; font.pixelSize: 18; color: app.palette.fg || "#eceef2" }
         HoverHandler { cursorShape: Qt.PointingHandCursor }
     }
@@ -30,15 +30,15 @@ SpinBox {
         height: spin.height
         implicitWidth: 38
         radius: 4
-        color: spin.down.hovered ? (app.palette.line || "#2f333c") : (app.palette.surface2 || "#272b33")
+        color: spin.down.hovered ? (app.palette.control_hover || "#424a5a") : (app.palette.control || "#353b48")
         Label { anchors.centerIn: parent; text: "−"; font.pixelSize: 18; color: app.palette.fg || "#eceef2" }
         HoverHandler { cursorShape: Qt.PointingHandCursor }
     }
     background: Rectangle {
         implicitHeight: 38
         radius: 4
-        color: app.palette.bg || "#16181d"
+        color: (app.palette.input || "#0d0f13")
         border.width: 1
-        border.color: spin.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#5a6270")
+        border.color: spin.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#6b7486")
     }
 }

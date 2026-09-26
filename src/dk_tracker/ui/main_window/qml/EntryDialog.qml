@@ -28,8 +28,8 @@ Popup {
     Overlay.modal: Rectangle { color: "#80000000" }
     background: Rectangle {
         radius: 6
-        color: app.palette.surface || "#1e2127"
-        border.color: (app.palette.border || "#5a6270")
+        color: (app.palette.panel || "#262b35")
+        border.color: (app.palette.border || "#6b7486")
     }
 
     // The fields take the entry's values when it opens; typing does not come back through `editor`.
@@ -114,40 +114,43 @@ Popup {
                 color: app.palette.fg || "#eceef2"
             }
 
-            // Day, from, to chosen from lists; the duration follows from them.
-            GridLayout {
+            // Day, from, to on one line, each chosen from a list; the duration follows from them.
+            RowLayout {
                 Layout.fillWidth: true
-                columns: 4
-                columnSpacing: 8
-                rowSpacing: 4
-                Caption { text: app.texts.editDay || "" }
-                Caption { text: app.texts.fromLabel || "" }
-                Caption { text: app.texts.toLabel || "" }
-                Caption { text: app.texts.editDuration || "" }
+                Layout.topMargin: 4
+                spacing: 8
+                component Inline: Label {
+                    font.bold: true
+                    color: app.palette.fg || "#eceef2"
+                }
+                Inline { text: app.texts.editDay || "" }
                 DateField {
                     id: day
                     objectName: "editDay"
                     enabled: !dialog.locked
-                    Layout.fillWidth: true
                 }
+                Item { implicitWidth: 6 }
+                Inline { text: app.texts.fromLabel || "" }
                 TimeField {
                     id: begin
                     objectName: "editBegin"
                     enabled: !dialog.locked
-                    Layout.preferredWidth: 90
                 }
+                Label { text: "–"; color: app.palette.muted || "#9aa0ac" }
+                Inline { text: app.texts.toLabel || "" }
                 TimeField {
                     id: end
                     objectName: "editEnd"
                     enabled: !dialog.locked
-                    Layout.preferredWidth: 90
                 }
+                Item { Layout.fillWidth: true }
                 Label {
                     objectName: "editDuration"
-                    Layout.preferredWidth: 90
-                    horizontalAlignment: Text.AlignHCenter
                     font.bold: true
                     color: app.palette.fg || "#eceef2"
+                    ToolTip.visible: durationHover.hovered
+                    ToolTip.text: app.texts.editDuration || ""
+                    HoverHandler { id: durationHover }
                     text: {
                         const a = dialog.minutes(begin.value), b = dialog.minutes(end.value)
                         if (a < 0 || b < 0) return ""

@@ -26,14 +26,14 @@ ComboBox {
     background: Rectangle {
         implicitHeight: 38
         radius: 4
-        color: combo.hovered ? (app.palette.line || "#2f333c") : (app.palette.surface2 || "#272b33")
+        color: combo.hovered ? (app.palette.control_hover || "#424a5a") : (app.palette.control || "#353b48")
         border.width: 1
-        border.color: combo.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#5a6270")
+        border.color: combo.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#6b7486")
     }
     popup.background: Rectangle {
         radius: 4
-        color: app.palette.surface || "#1e2127"
-        border.color: (app.palette.border || "#5a6270")
+        color: (app.palette.panel || "#262b35")
+        border.color: (app.palette.border || "#6b7486")
     }
     delegate: ItemDelegate {
         required property var model
@@ -48,7 +48,7 @@ ComboBox {
         }
         background: Rectangle {
             radius: 4
-            color: parent.highlighted || parent.hovered ? (app.palette.surface2 || "#272b33") : "transparent"
+            color: parent.highlighted || parent.hovered ? (app.palette.control || "#353b48") : "transparent"
         }
     }
 }

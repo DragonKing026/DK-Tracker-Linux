@@ -29,9 +29,9 @@ ScrollView {
         bottomPadding: 8
         background: Rectangle {
             radius: 4
-            color: app.palette.bg || "#16181d"
+            color: (app.palette.input || "#0d0f13")
             border.width: 1
-            border.color: area.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#5a6270")
+            border.color: area.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#6b7486")
         }
         Keys.onReturnPressed: function (event) {
             if (event.modifiers & Qt.ShiftModifier) { event.accepted = false; return }  // a new line

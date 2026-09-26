@@ -14,8 +14,8 @@ TextField {
     bottomPadding: 8
     background: Rectangle {
         radius: 4
-        color: field.enabled ? (app.palette.bg || "#16181d") : (app.palette.surface2 || "#272b33")
+        color: field.enabled ? (app.palette.input || "#0d0f13") : (app.palette.panel || "#262b35")
         border.width: 1
-        border.color: field.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#5a6270")
+        border.color: field.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#6b7486")
     }
 }

@@ -10,14 +10,21 @@ Btn {
     readonly property date day: value ? new Date(value + "T12:00:00") : new Date()
     property int shownMonth: day.getMonth()
     property int shownYear: day.getFullYear()
-    implicitWidth: 130
+    implicitWidth: 170
     text: value ? day.toLocaleDateString(Qt.locale(), "ddd, d MMM yyyy") : ""
-    contentItem: Label {
-        text: field.text
-        color: app.palette.fg || "#eceef2"
-        elide: Text.ElideRight
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
+    contentItem: Row {
+        spacing: 6
+        Image {
+            anchors.verticalCenter: parent.verticalCenter
+            source: "image://glyph/calendar/" + (app.palette.muted || "#9aa0ac").slice(1)
+            sourceSize.width: 15
+            sourceSize.height: 15
+        }
+        Label {
+            anchors.verticalCenter: parent.verticalCenter
+            text: field.text
+            color: app.palette.fg || "#eceef2"
+        }
     }
     onClicked: { shownMonth = day.getMonth(); shownYear = day.getFullYear(); picker.open() }
 
@@ -36,8 +43,8 @@ Btn {
         padding: 8
         background: Rectangle {
             radius: 6
-            color: app.palette.surface || "#1e2127"
-            border.color: (app.palette.border || "#5a6270")
+            color: (app.palette.panel || "#262b35")
+            border.color: (app.palette.border || "#6b7486")
         }
         contentItem: ColumnLayout {
             spacing: 4
@@ -49,7 +56,8 @@ Btn {
                     horizontalAlignment: Text.AlignHCenter
                     font.bold: true
                     color: app.palette.fg || "#eceef2"
-                    text: new Date(field.shownYear, field.shownMonth, 1).toLocaleDateString(Qt.locale(), "LLLL yyyy")
+                    // The month on its own ("wrzesień", not "września"); QML has no "LLLL" format.
+                    text: Qt.locale().standaloneMonthName(field.shownMonth, Locale.LongFormat) + " " + field.shownYear
                 }
                 IconButton { glyph: "chevron_right"; onClicked: field.shift(1) }
             }
@@ -78,7 +86,7 @@ Btn {
                     implicitWidth: 34
                     implicitHeight: 30
                     radius: 4
-                    color: chosen ? (app.palette.accent || "#6f9bff") : (dayHover.hovered ? (app.palette.surface2 || "#272b33") : "transparent")
+                    color: chosen ? (app.palette.accent || "#6f9bff") : (dayHover.hovered ? (app.palette.control || "#353b48") : "transparent")
                     opacity: model.month === grid.month ? 1 : 0.35
                     Label {
                         anchors.centerIn: parent

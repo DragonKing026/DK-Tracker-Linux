@@ -10,7 +10,7 @@ Rectangle {
     implicitHeight: 44
     radius: 5
     color: app.palette.surface2 || "#272b33"
-    border.color: (app.palette.border || "#5a6270")
+    border.color: (app.palette.border || "#6b7486")
 
     RowLayout {
         id: undoRow

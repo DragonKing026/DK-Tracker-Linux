@@ -21,6 +21,6 @@ ToolButton {
     background: Rectangle {
         radius: 4
         color: button.down ? (app.palette.line || "#2f333c")
-                           : (button.hovered && button.enabled ? (app.palette.surface2 || "#272b33") : "transparent")
+                           : (button.hovered && button.enabled ? (app.palette.control || "#353b48") : "transparent")
     }
 }
