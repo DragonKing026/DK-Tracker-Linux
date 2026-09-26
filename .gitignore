@@ -27,3 +27,6 @@ target/
 .pytest_cache/
 .ruff_cache/
 *.egg-info/
+
+# Dolphin: folder icon (local, absolute path)
+.directory
