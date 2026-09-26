@@ -27,7 +27,7 @@ Btn {
         height: 360
         padding: 6
         background: Rectangle {
-            radius: 10
+            radius: 4
             color: app.palette.surface || "#1e2127"
             border.color: app.palette.line || "#2f333c"
         }
@@ -54,7 +54,7 @@ Btn {
                     enabled: kind === "project"
                     HoverHandler { cursorShape: parent.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
                     background: Rectangle {
-                        radius: 6
+                        radius: 4
                         color: parent.hovered && parent.enabled ? (app.palette.surface2 || "#272b33") : "transparent"
                     }
                     contentItem: RowLayout {

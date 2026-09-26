@@ -57,7 +57,7 @@ Rectangle {
             Label { text: parent.parent.text; color: app.palette.fg || "#eceef2"; Layout.fillWidth: true }
         }
         background: Rectangle {
-            radius: 6
+            radius: 4
             color: parent.active ? (app.palette.surface2 || "#272b33") : (parent.hovered ? (app.palette.line || "#2f333c") : "transparent")
         }
     }

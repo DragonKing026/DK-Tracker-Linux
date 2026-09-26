@@ -27,7 +27,7 @@ ScrollView {
         topPadding: 8
         bottomPadding: 8
         background: Rectangle {
-            radius: 8
+            radius: 5
             color: app.palette.bg || "#16181d"
             border.width: 1
             border.color: area.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.line || "#2f333c")

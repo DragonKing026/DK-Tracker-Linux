@@ -26,7 +26,7 @@ Popup {
 
     Overlay.modal: Rectangle { color: "#80000000" }
     background: Rectangle {
-        radius: 12
+        radius: 8
         color: app.palette.surface || "#1e2127"
         border.color: app.palette.line || "#2f333c"
     }
@@ -200,6 +200,14 @@ Popup {
                     }
                     onActivated: dialog.activityId = currentValue
                 }
+                IconButton {  // billable: the same $ as in the rows and the timer bar
+                    objectName: "editBillable"
+                    enabled: app.view.billableAllowed
+                    glyph: dialog.billable ? "money" : "money_off"
+                    tint: dialog.billable ? (app.palette.start || "#16a34a") : (app.palette.muted || "#9aa0ac")
+                    tip: dialog.billable ? (app.texts.billableRowOn || "") : (app.texts.billableRowOff || "")
+                    onClicked: dialog.billable = !dialog.billable
+                }
             }
 
             Caption { text: app.texts.editDescription || "" }
@@ -219,18 +227,6 @@ Popup {
                 Layout.fillWidth: true
                 placeholderText: app.texts.editTagsHint || ""
                 onAccepted: dialog.save()
-            }
-
-            Caption { text: app.texts.editBillable || "" }
-            Combo {
-                objectName: "editBillable"
-                Layout.preferredWidth: 200
-                enabled: app.view.billableAllowed
-                model: [{ label: app.texts.yes || "Tak", value: true }, { label: app.texts.no || "Nie", value: false }]
-                textRole: "label"
-                valueRole: "value"
-                currentIndex: dialog.billable ? 0 : 1
-                onActivated: dialog.billable = currentValue
             }
 
             GridLayout {

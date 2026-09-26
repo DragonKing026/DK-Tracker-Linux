@@ -18,7 +18,7 @@ ToolButton {
     ToolTip.visible: hovered && tip !== ""
     ToolTip.text: tip
     background: Rectangle {
-        radius: 6
+        radius: 4
         color: button.down ? (app.palette.line || "#2f333c")
                            : (button.hovered && button.enabled ? (app.palette.surface2 || "#272b33") : "transparent")
     }

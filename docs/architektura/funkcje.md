@@ -312,7 +312,8 @@ Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/20
   ▶ wznawia (nowy wpis od teraz z tym samym opisem i projektem), kosz usuwa, wpis wyeksportowany z kłódką.
 - **Okno edycji** (kliknięcie wiersza): wszystkie opcje wpisu z Kimai — dzień, od, do, czas trwania (zmienia koniec),
   projekt i rodzaj pracy, opis w wielu liniach (Enter zapisuje, Shift+Enter — nowa linia), tagi (po przecinku),
-  płatne, stawka stała i godzinowa (gdy konto je widzi), przerwa, pola dodatkowe serwera; Usuń, Anuluj, Zapisz.
+  `$` (płatne — ikona jak w wierszu), stawka stała i godzinowa (gdy konto je widzi), przerwa, pola dodatkowe serwera;
+  Usuń, Anuluj, Zapisz.
   Wysyła tylko zmiany. Pola, których konto nie może zmieniać, Kimai odrzuca — zapis bez nich i komunikat; tag, którego
   nie ma, Kimai po cichu pomija (konto bez prawa tworzenia tagów) — aplikacja czyta wpis ponownie i go nazywa.
 - **Usuwanie**: wiersz znika, pasek „Usunięto wpis · Cofnij” przez 6 s; do Kimai trafia po tym czasie albo od razu

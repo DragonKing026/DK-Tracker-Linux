@@ -8,7 +8,7 @@ Rectangle {
     visible: app.view.undo !== ""
     implicitWidth: undoRow.implicitWidth + 24
     implicitHeight: 44
-    radius: 8
+    radius: 5
     color: app.palette.surface2 || "#272b33"
     border.color: app.palette.line || "#2f333c"
 
