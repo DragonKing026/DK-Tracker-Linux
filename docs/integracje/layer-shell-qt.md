@@ -5,7 +5,7 @@ tags: [integracja, wayland, kde, ui]
 status_integracji: planowana
 wersja: 6.7.5 (Plasma 6.7.5; moduł we Flatpaku ze źródeł KDE)
 utworzono: 2026-09-25 20:38
-zaktualizowano: 2026-09-25 23:09
+zaktualizowano: 2026-09-26 14:51
 ---
 
 # layer-shell-qt
@@ -58,6 +58,16 @@ pod Qt runtime'u (wymaga prywatnego API QtWaylandClient — dlatego nie działa 
 Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
 (`QT_PLUGIN_PATH` runtime'u obejmuje `/app/lib/plugins`). Budowa:
 [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
+
+## Zmiana rozmiaru: płótno zamiast zmiany powierzchni
+
+Powierzchnia layer-shell nie zna swojej pozycji na ekranie (pozycja globalna kursora jest zmyślona), a przy zmianie
+rozmiaru przyklejonej prawym dolnym rogiem powierzchni pozycje kursora odnoszą się do rozmiaru, który kompozytor
+dopiero nałoży. Dlatego okno w trybie layer to **przezroczyste płótno** o rozmiarze obszaru roboczego z **panelem**
+w prawym dolnym rogu i maską (`QWidget.setMask` → region wejścia) tylko na panelu; przeciąganie zmienia panel, nie
+powierzchnię ([ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md),
+[0066](../../TODO/W-TRAKCIE/0066-plotno-okna-przy-tacce/todo.md)). `WA_TranslucentBackground` trzeba ustawić przed
+utworzeniem natywnego okna — robi to `placement.apply` przed `layer-shell`.
 
 ## Pułapki
 
