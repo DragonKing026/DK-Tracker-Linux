@@ -4621,7 +4621,7 @@ Expected: „markdownlint OK.”, „Wszystkie linki OK.”, „Frontmatter OK.�
 - Consumes: zadania 1–11; proces [docs/procesy/wydania.md](../procesy/wydania.md).
 - Produces: wydanie `v0.10.0` (pre-release) z paczką `.flatpak` i aktualizacja w repozytorium Flatpaka na Pages.
 
-- [ ] **Step 1: Wersja** — `0.9.3` → `0.10.0` w `pyproject.toml` i `src/dk_tracker/__init__.py`; statusy w
+- [ ] **Step 1: Wersja** — `0.9.4` → `0.10.0` w `pyproject.toml` i `src/dk_tracker/__init__.py`; statusy w
   `README.md`, `.github/README.md` (edycja w miejscu, bez frontmattera) i `AGENTS.md`; na początku `<releases>` w
   MetaInfo:
 
@@ -4665,7 +4665,7 @@ gh run watch
 
 Expected: `wydanie.yml` — testy → budowa i podpis → Pages → wydanie `v0.10.0` (pre-release) z plikiem
 `io.github.dragonking026.DK-Tracker-Linux-v0.10.0.flatpak`; `flatpak update` u użytkownika pobiera 0.10.0.
-Wydania 0.9.3 nie usuwamy.
+Wydania 0.9.4 nie usuwamy.
 
 ---
 
