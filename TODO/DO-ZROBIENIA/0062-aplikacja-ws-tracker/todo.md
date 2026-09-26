@@ -1,0 +1,61 @@
+---
+noteId: "75c0a97a82984fe68a7831e3c92c54a9"
+tytul: "0.9.2: pełna aplikacja „WS Tracker”, tacka jako opcja — do omówienia"
+numer: "0062"
+status: pomysl
+priorytet: p2
+tags: [todo, pomysl, nazwa, ui, wydanie]
+zalezy_od: ["0056"]
+utworzono: 2026-09-26 13:32
+zaktualizowano: 2026-09-26 13:32
+zamknieto:
+---
+
+# 0062 — 0.9.2: pełna aplikacja „WS Tracker”, tacka jako opcja — do omówienia
+
+> [!info] Status
+> **pomysl** · priorytet **p2** · [← tablica zadań](../../README.md)
+
+## Cel
+
+Pomysł użytkownika (2026-09-26 13:32): od wersji 0.9.2 aplikacja ma być przede wszystkim **aplikacją dla Kimai** (okno w
+menu i
+na pasku zadań), a tacka — opcją. Nazwa bez „Tray”: **WS Tracker**.
+
+## Kontekst
+
+- Zmiana nazwy łączy się z identyfikatorem i wydawcą ([0056](../../W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md)):
+  najlepiej jedna zmiana (nazwa + identyfikator), jedna ponowna instalacja u użytkowników.
+- „WS Tracker” to też nazwa wtyczki ([kimai-ws-tracker](../../../docs/integracje/kimai-ws-tracker.md)) — do rozważenia
+  przy decyzji (spójność vs pomylenie).
+- Pomysły z [podobnych aplikacji](../../../docs/architektura/podobne-aplikacje.md) (F-25…F-32) jako kandydaci do
+  „wersji głównej”.
+
+## Do omówienia z użytkownikiem
+
+- [ ] Co ma być w głównym oknie aplikacji (zakres „wersji głównej”)
+- [ ] Wzorzec („tak jak w …” — którą aplikację użytkownik miał na myśli)
+- [ ] Tacka: domyślnie włączona czy wyłączona; co gdy okno zamknięte
+- [ ] Nazwa „WS Tracker” i identyfikator (razem z 0056)
+
+## Kryteria akceptacji
+
+- [ ] Zakres zapisany jako specyfikacja i plan (brainstorming → spec → plan)
+
+## Kroki
+
+- [ ] Rozmowa o zakresie
+
+## Materiały
+
+Brak.
+
+## Dziennik
+
+### 2026-09-26
+
+- **13:32** Zapisano pomysł użytkownika do omówienia po wydaniu 0.9.1.
+
+## Wynik
+
+<!-- Wypełniane przy zamknięciu. -->

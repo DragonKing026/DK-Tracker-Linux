@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 13:31
+zaktualizowano: 2026-09-26 13:32
 ---
 
 # Tablica zadań
@@ -38,6 +38,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
+| 0062 | [0.9.2: pełna aplikacja „WS Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) |
 
 ## Zrobione
 
