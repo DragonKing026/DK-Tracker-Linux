@@ -301,7 +301,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/2026-09-26-okno-glowne-0.10.md),
 [Plan 5](../plany/2026-09-26-plan-5-okno-glowne.md)).
 
-- **Pasek boczny**: Wpisy (0.10.0); Podsumowania i Kalendarz pojawią się w 0.10.2 i 0.10.3; na dole Ustawienia —
+- **Pasek boczny**: Wpisy (0.10.0); Podsumowania i Kalendarz pojawią się w 0.10.3 i 0.10.4; na dole Ustawienia —
   strona okna głównego (F-01), także z tacki i z okienka; bez konfiguracji okno pokazuje tylko ją.
 - **Pasek timera**: opis (F-11), projekt z wyszukiwaniem, rodzaj pracy, `$`, start/stop; przy trwającym wpisie zegar,
   „od” i zmiana opisu, projektu i rodzaju pracy (F-07, F-34). Przełącznik ⏱/✎: dzień, od–do i „Dodaj” (ręczny wpis

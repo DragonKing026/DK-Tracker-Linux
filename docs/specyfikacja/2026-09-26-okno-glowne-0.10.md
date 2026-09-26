@@ -4,7 +4,7 @@ tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
 status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-26 19:54
+zaktualizowano: 2026-09-26 20:08
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
@@ -27,10 +27,11 @@ czego brakuje w okienku i w firmowym Kimai: przegląd dni i tygodni, edycję i r
 | --- | --- |
 | **0.10.0** | Okno główne (pasek boczny, pasek timera), widok **Wpisy** (edycja w wierszu, ręczne wpisy, usuwanie z „Cofnij”, przewijanie bez końca), zmiany w uruchamianiu i tacce (sekcja 7) |
 | **0.10.1** | Poprawki po teście na żywo 0.10.0: tagi z listy, bez stawek, token jako maska, paski przewijania |
-| **0.10.2** | Widok **Podsumowania** (okresy, podział, wykres dzienny, średnie, norma) |
-| **0.10.3** | Widok **Kalendarz** (interaktywny: tworzenie, zmiana godzin, przesuwanie) |
+| **0.10.2** | Poprawka: po starcie okno główne na wpisach (zostawało na ustawieniach, zanim token dotarł) |
+| **0.10.3** | Widok **Podsumowania** (okresy, podział, wykres dzienny, średnie, norma) |
+| **0.10.4** | Widok **Kalendarz** (interaktywny: tworzenie, zmiana godzin, przesuwanie) |
 
-Dalsze kroki: 0.10.4… aż do pełnej wersji. Minutnik (GNOME: napis przy ikonie; KDE: widżet panelu) — osobno, w
+Dalsze kroki: 0.10.5… aż do pełnej wersji. Minutnik (GNOME: napis przy ikonie; KDE: widżet panelu) — osobno, w
 [0062](../../TODO/DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md). Jedna specyfikacja, osobny plan na każde wydanie.
 
 ## 3. Decyzje (użytkownik, 2026-09-26)
@@ -114,7 +115,7 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
 > - Opis w wielu liniach (Shift+Enter), zaokrąglone kontrolki, kursor rączki na przyciskach; projekt w kolorze
 >   projektu; `$` zielony (płatne) albo szary.
 
-## 6. Podsumowania (0.10.2)
+## 6. Podsumowania (0.10.3)
 
 - **Okres**: Tydzień / Miesiąc / Rok / Zakres (dwie daty), strzałki ◀ ▶, domyślnie bieżący tydzień.
 - **Liczby**: czas łączny; płatne/niepłatne (h i %); **średnia na dzień** = czas ÷ liczba dni z wpisami; **średnia na
@@ -137,9 +138,9 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
   okienka.
 - **Menu tacki**: nowa pozycja „Otwórz DK Tracker”. Link „Wszystkie moje wpisy” w okienku otwiera **okno główne**
   zamiast przeglądarki. Kliknięcie powiadomienia otwiera okno główne.
-- **Nowe ustawienia**: ikona w tacce; norma dzienna (0.10.2); zapamiętany rozmiar/pozycja/widok okna głównego.
+- **Nowe ustawienia**: ikona w tacce; norma dzienna (0.10.3); zapamiętany rozmiar/pozycja/widok okna głównego.
 
-## 8. Kalendarz (0.10.3)
+## 8. Kalendarz (0.10.4)
 
 - Dzień / tydzień (przełącznik 5/7 dni), ◀ ▶ i „Dziś”; siatka 0–24 przewinięta na godziny pracy; linia „teraz”.
 - Bloki = wpisy w kolorze projektu (opis, czas); trwający rośnie na żywo; nakładające się obok siebie; wyeksportowane z
@@ -179,6 +180,6 @@ kolejkowanie zapisów offline.
 - **0.10.0**: uruchomienie z menu otwiera okno główne; lista tygodni z edycją w wierszu, ręcznymi wpisami, usuwaniem z
   „Cofnij”, przewijaniem bez końca; tacka do wyłączenia; zamykanie zgodnie z sekcją 7; PL/EN, oba motywy; testy i
   test na żywo.
-- **0.10.2**: podsumowania z okresami, podziałem, wykresem, średnimi i normą; wyniki zgodne z sumami z Kimai dla tego
+- **0.10.3**: podsumowania z okresami, podziałem, wykresem, średnimi i normą; wyniki zgodne z sumami z Kimai dla tego
   samego okresu.
-- **0.10.3**: kalendarz z tworzeniem, zmianą godzin i przesuwaniem wpisów; przyciąganie 15 min, Alt wyłącza.
+- **0.10.4**: kalendarz z tworzeniem, zmianą godzin i przesuwaniem wpisów; przyciąganie 15 min, Alt wyłącza.
