@@ -1,5 +1,5 @@
-// One entry, edited in place (Toggl-style): the description, project · activity, $, the hours.
-// Enter or leaving a field saves; Esc restores. An exported entry is locked.
+// One entry: the description (two lines), project · activity, $, the hours. A click opens the edit
+// window with every option of the entry; $, ▶ and the bin act at once. An exported entry is locked.
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -15,7 +15,8 @@ Rectangle {
     implicitHeight: content.implicitHeight + 12
     color: hover.hovered ? (app.palette.surface || "#1e2127") : "transparent"
 
-    HoverHandler { id: hover }
+    HoverHandler { id: hover; cursorShape: Qt.PointingHandCursor }
+    TapHandler { onTapped: app.openEntry(entry.entryId) }  // every option in the edit window
 
     ColumnLayout {
         id: content
@@ -31,35 +32,25 @@ Rectangle {
                 width: 9; height: 9; radius: 5
                 color: row.projectColor
             }
-            InlineField {
+            Label {
                 objectName: "rowDescription"
                 Layout.fillWidth: true
                 Layout.minimumWidth: 150
                 Layout.preferredWidth: 400
-                shown: entry.description
-                readOnly: row.locked
-                onEditingFinished: if (text !== entry.description) app.editDescription(entry.entryId, text)
+                text: entry.description
+                color: app.palette.fg || "#eceef2"
+                wrapMode: Text.Wrap
+                maximumLineCount: 2  // the whole text in the edit window
+                elide: Text.ElideRight
             }
-            // Project · activity in the project's colour; a click opens both lists.
-            ToolButton {
-                id: workButton
+            Label {
                 objectName: "rowWork"
-                enabled: !row.locked
                 Layout.fillWidth: true
                 Layout.minimumWidth: 60
                 Layout.maximumWidth: 280
-                contentItem: Label {
-                    text: entry.projectName + (entry.activityName ? " · " + entry.activityName : "")
-                    color: row.projectColor
-                    elide: Text.ElideRight
-                    verticalAlignment: Text.AlignVCenter
-                }
-                background: Rectangle {
-                    radius: 6
-                    color: workButton.hovered && workButton.enabled ? (app.palette.surface2 || "#272b33") : "transparent"
-                }
-                HoverHandler { cursorShape: workButton.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
-                onClicked: { work.projectId = entry.projectId; work.open(); app.chooseRowProject(entry.projectId) }
+                text: entry.projectName + (entry.activityName ? " · " + entry.activityName : "")
+                color: row.projectColor
+                elide: Text.ElideRight
             }
             IconButton {
                 objectName: "rowBillable"
@@ -70,24 +61,12 @@ Rectangle {
                 tip: entry.billable ? (app.texts.billableRowOn || "") : (app.texts.billableRowOff || "")
                 onClicked: app.setBillable(entry.entryId, !entry.billable)
             }
-            InlineField {
-                objectName: "rowBegin"
-                Layout.preferredWidth: 60
+            Label {
+                objectName: "rowTimes"
+                Layout.preferredWidth: 110
                 horizontalAlignment: Text.AlignHCenter
-                shown: entry.begin
-                readOnly: row.locked
-                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
-                onEditingFinished: if (text !== entry.begin) app.editTimes(entry.entryId, text, "")
-            }
-            Label { text: "–"; color: app.palette.muted || "#9aa0ac" }
-            InlineField {
-                objectName: "rowEnd"
-                Layout.preferredWidth: 60
-                horizontalAlignment: Text.AlignHCenter
-                shown: entry.end
-                readOnly: row.locked
-                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
-                onEditingFinished: if (text !== entry.end) app.editTimes(entry.entryId, "", text)
+                text: entry.begin + " – " + entry.end
+                color: app.palette.fg || "#eceef2"
             }
             Label {
                 Layout.preferredWidth: 48
@@ -133,42 +112,6 @@ Rectangle {
             color: app.palette.err_fg || "#ff9d9d"
             font.pixelSize: 12
             Layout.leftMargin: 17
-        }
-    }
-
-    // Project and activity together: Kimai takes a project only with an activity it allows.
-    Popup {
-        id: work
-        property int projectId: 0
-        property int activityId: 0
-        y: row.height
-        x: Math.max(0, row.width - width - 200)
-        padding: 10
-        background: Rectangle {
-            radius: 8
-            color: app.palette.surface || "#1e2127"
-            border.color: app.palette.line || "#2f333c"
-        }
-        contentItem: ColumnLayout {
-            spacing: 8
-            ProjectPicker {
-                projectId: work.projectId
-                onChosen: function (id) { work.projectId = id; work.activityId = 0; app.chooseRowProject(id) }
-            }
-            Combo {
-                Layout.fillWidth: true
-                model: app.rowActivityList  // its own: the timer bar keeps its activities
-                textRole: "name"
-                valueRole: "activityId"
-                displayText: currentIndex < 0 ? (app.texts.chooseActivity || "") : currentText
-                onActivated: work.activityId = currentValue
-            }
-            Btn {
-                highlighted: true
-                text: app.texts.save || "OK"
-                enabled: work.projectId > 0 && work.activityId > 0
-                onClicked: { app.editWork(entry.entryId, work.projectId, work.activityId); work.close() }
-            }
         }
     }
 

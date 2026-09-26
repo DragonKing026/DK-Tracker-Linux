@@ -14,7 +14,7 @@ from PySide6.QtCore import Property, QObject, QTimer, Signal, Slot
 
 from dk_tracker.core.entry_list import ListRow
 from dk_tracker.core.errors import describe
-from dk_tracker.core.models import Activity, Entry, Project
+from dk_tracker.core.models import Activity, Entry, EntryDetails, Project
 from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, short_duration
 from dk_tracker.core.tracker import Snapshot, live_totals
 
@@ -42,6 +42,9 @@ class MainBridge(QObject):
     searchRequested = Signal(str)
     activitiesRequested = Signal(int)
     rowActivitiesRequested = Signal(int)
+    entryOpenRequested = Signal(int)  # a row clicked: the controller fetches every option of the entry
+    entrySaveRequested = Signal(int, dict)  # the edit window: entry id, values (Tracker.save_details)
+    editorChanged = Signal()
     settingsRequested = Signal()
     windowClosed = Signal()  # the window's own close button (QML's onClosing)
 
@@ -76,6 +79,7 @@ class MainBridge(QObject):
         self._palette: dict[str, str] = {}
         self._row_errors: dict[str, str] = {}
         self._projects_version = 0
+        self._editor: dict[str, Any] = {"open": False, "error": "", "busy": False}
         self._t: Callable[..., str] = str
         self._pending: int | None = None
         self._doomed: dict[int, Entry] = {}
@@ -115,6 +119,9 @@ class MainBridge(QObject):
     def _get_row_activities(self) -> ActivityModel:
         return self.rowActivities
 
+    def _get_editor(self) -> dict[str, Any]:
+        return self._editor
+
     def _get_settings_form(self) -> SettingsForm:
         return self.settings_form
 
@@ -128,6 +135,7 @@ class MainBridge(QObject):
     activityList = Property(QObject, _get_activities, constant=True)
     rowActivityList = Property(QObject, _get_row_activities, constant=True)
     settingsForm = Property(QObject, _get_settings_form, constant=True)
+    editor = Property("QVariantMap", _get_editor, notify=editorChanged)
 
     # -- from the controller ---------------------------------------------------------------
 
@@ -205,6 +213,41 @@ class MainBridge(QObject):
     def deleted_entry(self, entry_id: int) -> Entry | None:
         """The entry as it was when "Delete" was clicked; the list may have changed since."""
         return self._doomed.pop(entry_id, None)
+
+    def open_editor(self, details: EntryDetails, tz: tzinfo) -> None:
+        """The edit window with every option Kimai gave for the entry."""
+        begin = details.begin.astimezone(tz)
+        seconds = int((details.end - details.begin).total_seconds()) if details.end else 0
+        self._editor = {
+            "open": True,
+            "error": "",
+            "busy": False,
+            "entryId": details.id,
+            "day": begin.date().isoformat(),
+            "begin": hhmm(details.begin, tz),
+            "end": hhmm(details.end, tz) if details.end else "",
+            "duration": short_duration(seconds),
+            "projectId": details.project_id or 0,
+            "activityId": details.activity_id or 0,
+            "description": details.description,
+            "tags": ", ".join(details.tags),
+            "billable": details.billable,
+            "exported": details.exported,
+            "ratesVisible": details.rates_visible,
+            "fixedRate": _money_text(details.fixed_rate),
+            "hourlyRate": _money_text(details.hourly_rate),
+            "breakTime": short_duration(details.break_seconds) if details.break_seconds else "",
+            "meta": [{"name": name, "value": value} for name, value in details.meta],
+        }
+        self.editorChanged.emit()
+
+    def editor_error(self, text: str) -> None:
+        self._editor = {**self._editor, "error": text, "busy": False}
+        self.editorChanged.emit()
+
+    def close_editor(self) -> None:
+        self._editor = {**self._editor, "open": False, "busy": False}
+        self.editorChanged.emit()
 
     def show_row_error(self, entry_id: int, text: str) -> None:
         self._row_errors = {**self._row_errors, str(entry_id): text}
@@ -350,6 +393,48 @@ class MainBridge(QObject):
         self.show_page(page)
 
     @Slot(int)
+    def openEntry(self, entryId: int) -> None:  # noqa: N802, N803
+        self.entryOpenRequested.emit(entryId)
+
+    @Slot("QVariantMap")
+    def saveEntry(self, values: dict[str, Any]) -> None:  # noqa: N802
+        try:
+            day = date.fromisoformat(str(values.get("day", "")))
+        except ValueError:
+            self.editor_error(self._t("errInvalidDay"))
+            return
+        meta = {str(field["name"]): str(field.get("value", "")) for field in values.get("meta") or []}
+        self._editor = {**self._editor, "error": "", "busy": True}
+        self.editorChanged.emit()
+        self.entrySaveRequested.emit(
+            int(self._editor["entryId"]),
+            {
+                "day": day,
+                "begin": str(values.get("begin", "")),
+                "end": str(values.get("end", "")),
+                "project_id": int(values.get("projectId") or 0) or None,
+                "activity_id": int(values.get("activityId") or 0) or None,
+                "description": str(values.get("description", "")),
+                "tags": str(values.get("tags", "")),
+                "billable": bool(values.get("billable")),
+                "fixed_rate": str(values.get("fixedRate", "")),
+                "hourly_rate": str(values.get("hourlyRate", "")),
+                "meta": meta,
+            },
+        )
+
+    @Slot()
+    def closeEditor(self) -> None:  # noqa: N802
+        self.close_editor()
+
+    @Slot()
+    def deleteFromEditor(self) -> None:  # noqa: N802
+        entry_id = int(self._editor.get("entryId") or 0)
+        self.close_editor()
+        if entry_id:
+            self.deleteEntry(entry_id)
+
+    @Slot(int)
     def chooseRowProject(self, projectId: int) -> None:  # noqa: N802, N803
         self.rowActivitiesRequested.emit(projectId)
 
@@ -386,3 +471,7 @@ class MainBridge(QObject):
     def _update(self, **changes: Any) -> None:
         self._view = {**self._view, **changes}
         self.viewChanged.emit()
+
+
+def _money_text(value: float | None) -> str:
+    return "" if value is None else f"{value:g}"

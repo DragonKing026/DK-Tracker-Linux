@@ -20,7 +20,7 @@ from PySide6.QtGui import QDesktopServices, QGuiApplication
 from dk_tracker.core.entry_list import build_rows, first_day_of_week
 from dk_tracker.core.errors import TrackerError, describe
 from dk_tracker.core.i18n import Translator, resolve_language, system_locale
-from dk_tracker.core.models import Entry
+from dk_tracker.core.models import Entry, EntryDetails
 from dk_tracker.core.notification_policy import (
     PolicyState,
     action_confirmation,
@@ -117,6 +117,7 @@ class Controller(QObject):
         self.settings_form.saveRequested.connect(self.save_settings)
         self.settings_form.testRequested.connect(self._test_connection)
         self.main_window: MainWindow | None = None
+        self._editing_details: EntryDetails | None = None  # the entry open in the edit window
         self._weeks = 1  # weeks the main list shows, this one included
         self._listed = 0  # entries in the main list after the last load
         self._growing = False  # the last load asked for one more week
@@ -210,6 +211,8 @@ class Controller(QObject):
         main.loadMoreRequested.connect(self._load_more)
         main.searchRequested.connect(self._main_search)
         main.activitiesRequested.connect(self._main_activities)
+        main.entryOpenRequested.connect(self._open_entry)
+        main.entrySaveRequested.connect(self._save_details)
         main.rowActivitiesRequested.connect(
             lambda project_id: self._main_activities(project_id, deliver=self.main_bridge.set_row_activities)
         )
@@ -758,6 +761,36 @@ class Controller(QObject):
         entry = self.main_bridge.entries.entry(entry_id)
         if entry is not None:
             self._act_main(lambda t: t.edit_entry(entry, **changes), entry_id=entry_id)
+
+    def _open_entry(self, entry_id: int) -> None:
+        """A row clicked: every option Kimai has for the entry, in the edit window."""
+        tracker, entry = self._tracker, self.main_bridge.entries.entry(entry_id)
+        if tracker is None or entry is None:
+            return
+        tz = display_zone(self.state.snapshot, self._now().astimezone())
+
+        def done(details: EntryDetails) -> None:
+            self._editing_details = details
+            self.main_bridge.open_editor(details, tz)
+
+        self.kimai.submit(lambda: tracker.entry_details(entry), done, self._main_failed)
+
+    def _save_details(self, entry_id: int, values: dict) -> None:
+        tracker, details = self._tracker, self._editing_details
+        if tracker is None or details is None or details.id != entry_id:
+            return
+
+        def done(result: tuple[Snapshot, list]) -> None:
+            self._apply(result)
+            self.main_bridge.close_editor()
+            self._reload_entries()
+
+        def failed(error: Exception) -> None:
+            self.main_bridge.editor_error(describe(error, self.state.t))  # the window stays open
+            level = logging.INFO if isinstance(error, TrackerError) else logging.WARNING
+            log.log(level, "Saving an entry failed: %s", describe(error, _ENGLISH))
+
+        self.kimai.submit(lambda: (tracker.save_details(details, values), tracker.warnings()), done, failed)
 
     def _delete_entry(self, entry_id: int) -> None:
         entry = self.main_bridge.deleted_entry(entry_id) or self.main_bridge.entries.entry(entry_id)

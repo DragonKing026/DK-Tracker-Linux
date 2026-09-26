@@ -79,6 +79,8 @@ ApplicationWindow {
         }
     }
 
+    EntryDialog {}
+
     UndoBar {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom

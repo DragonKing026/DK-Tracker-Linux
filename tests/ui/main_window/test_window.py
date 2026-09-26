@@ -283,3 +283,72 @@ def test_showing_a_maximized_window_again_keeps_it_maximized(window, qtbot):
     window.show()
     qtbot.wait(20)
     assert window.window.windowStates() & Qt.WindowState.WindowMaximized
+
+
+# -- the edit window --------------------------------------------------------------------
+
+
+def entry_details(**changes):
+    from dk_tracker.core.models import EntryDetails
+
+    begin = datetime(2026, 9, 25, 9, tzinfo=WARSAW)
+    return replace(
+        EntryDetails(
+            id=1, begin=begin, end=begin + timedelta(minutes=90), project_id=1, activity_id=1,
+            description="Kalendarz\nwidok tygodnia", tags=("frontend",), billable=True, exported=False,
+            rates_visible=True, fixed_rate=None, hourly_rate=120.0, break_seconds=0,
+            meta=(("ticket", "KSEF-12"),),
+        ),
+        **changes,
+    )  # fmt: skip
+
+
+def test_the_edit_window_shows_every_option(window, qtbot):
+    window.bridge.open_editor(entry_details(), WARSAW)
+    dialog = window.child("entryDialog")
+    qtbot.waitUntil(lambda: dialog.property("opened") is True)
+    for name in (
+        "editDay",
+        "editBegin",
+        "editEnd",
+        "editDuration",
+        "editProject",
+        "editActivity",
+        "editDescription",
+        "editTags",
+        "editBillable",
+        "editFixedRate",
+        "editHourlyRate",
+        "editMeta",
+        "editSave",
+        "editCancel",
+        "editDelete",
+    ):
+        assert window.child(name) is not None, name
+    assert window.child("editTags").property("text") == "frontend"
+    assert window.child("editDescription").property("text") == "Kalendarz\nwidok tygodnia"
+
+
+def test_the_rate_fields_hide_for_an_account_without_rates(window, qtbot):
+    window.bridge.open_editor(entry_details(rates_visible=False), WARSAW)
+    qtbot.waitUntil(lambda: window.child("entryDialog").property("opened") is True)
+    assert window.child("editHourlyRate").property("visible") is False
+
+
+def test_the_edit_window_saves_what_was_typed(window, qtbot):
+    window.bridge.open_editor(entry_details(), WARSAW)
+    qtbot.waitUntil(lambda: window.child("entryDialog").property("opened") is True)
+    window.child("editTags").setProperty("text", "frontend, pilne")
+    window.child("editEnd").setProperty("text", "11:00")
+    with qtbot.waitSignal(window.bridge.entrySaveRequested) as signal:
+        window.child("editSave").clicked.emit()
+    sent = signal.args[1]
+    assert (sent["tags"], sent["end"], sent["meta"]) == ("frontend, pilne", "11:00", {"ticket": "KSEF-12"})
+
+
+def test_the_edit_window_closes_with_the_bridge(window, qtbot):
+    window.bridge.open_editor(entry_details(), WARSAW)
+    dialog = window.child("entryDialog")
+    qtbot.waitUntil(lambda: dialog.property("opened") is True)
+    window.bridge.close_editor()
+    qtbot.waitUntil(lambda: dialog.property("visible") is False)

@@ -232,3 +232,69 @@ def test_without_a_configuration_only_the_settings_page_is_shown(bridge):
 
 def test_the_settings_page_has_its_form(bridge):
     assert bridge.settingsForm is bridge.settings_form
+
+
+# -- the edit window (live test of 0.10.0) ------------------------------------------------
+
+
+def details(**changes):
+    from dk_tracker.core.models import EntryDetails
+
+    begin = datetime(2026, 9, 25, 9, tzinfo=WARSAW)
+    base = EntryDetails(
+        id=1, begin=begin, end=begin + timedelta(minutes=90), project_id=1, activity_id=2,
+        description="Kalendarz dostępności pokoi\nwidok tygodnia", tags=("frontend", "pilne"), billable=True,
+        exported=False, rates_visible=True, fixed_rate=None, hourly_rate=120.0, break_seconds=0,
+        meta=(("ticket", "KSEF-12"),),
+    )  # fmt: skip
+    return replace(base, **changes)
+
+
+def test_clicking_a_row_asks_for_the_entry(bridge, qtbot):
+    with qtbot.waitSignal(bridge.entryOpenRequested) as signal:
+        bridge.openEntry(2)
+    assert signal.args == [2]
+
+
+def test_the_editor_shows_every_option_of_the_entry(bridge):
+    bridge.open_editor(details(), WARSAW)
+    editor = bridge.editor
+    assert editor["open"] is True and editor["entryId"] == 1
+    assert (editor["day"], editor["begin"], editor["end"], editor["duration"]) == (
+        "2026-09-25",
+        "09:00",
+        "10:30",
+        "1:30",
+    )
+    assert editor["description"] == "Kalendarz dostępności pokoi\nwidok tygodnia"
+    assert editor["tags"] == "frontend, pilne"
+    assert (editor["ratesVisible"], editor["fixedRate"], editor["hourlyRate"]) == (True, "", "120")
+    assert editor["meta"] == [{"name": "ticket", "value": "KSEF-12"}]
+
+
+def test_saving_the_editor_sends_what_was_typed(bridge, qtbot):
+    bridge.open_editor(details(), WARSAW)
+    values = dict(bridge.editor, day="2026-09-24", tags="frontend", meta=[{"name": "ticket", "value": "X"}])
+    with qtbot.waitSignal(bridge.entrySaveRequested) as signal:
+        bridge.saveEntry(values)
+    entry_id, sent = signal.args
+    assert entry_id == 1
+    assert sent["day"] == date(2026, 9, 24) and sent["tags"] == "frontend" and sent["meta"] == {"ticket": "X"}
+    assert (sent["project_id"], sent["activity_id"], sent["hourly_rate"]) == (1, 2, "120")
+    assert bridge.editor["busy"] is True
+
+
+def test_an_error_keeps_the_editor_open(bridge):
+    bridge.open_editor(details(), WARSAW)
+    bridge.editor_error("Kimai odmówił")
+    assert bridge.editor["open"] is True and bridge.editor["error"] == "Kimai odmówił"
+    assert bridge.editor["busy"] is False
+    bridge.close_editor()
+    assert bridge.editor["open"] is False
+
+
+def test_an_impossible_day_in_the_editor_is_reported(bridge, qtbot):
+    bridge.open_editor(details(), WARSAW)
+    with qtbot.assertNotEmitted(bridge.entrySaveRequested):
+        bridge.saveEntry(dict(bridge.editor, day="2026-02-30"))
+    assert bridge.editor["error"] == PL("errInvalidDay")
