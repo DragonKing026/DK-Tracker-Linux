@@ -1,8 +1,8 @@
 """The quick window (F-03): header with totals, the tracker bar, messages and recent entries.
 
-It hides on Esc, on its close button and — as a popup — when it loses focus. A click on the
-tray icon cannot close it: Plasma does not deliver that click while the window is open
-(prototype 0004).
+It hides on Esc, on its close button and — as a popup — when it loses focus; a tray click
+toggles it (app.py guards against the click that itself took the focus away). Without a tray,
+closing it quits the app. The user can resize it with the corner grip; the size is remembered.
 """
 
 from __future__ import annotations

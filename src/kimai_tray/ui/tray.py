@@ -1,6 +1,6 @@
 """The tray icon (F-02) and its context menu (F-20).
 
-Left click opens the window. The middle button does nothing on purpose — the user chose
+Left click opens or closes the window. The middle button does nothing on purpose — the user chose
 that nothing should start or stop without the window or the menu. The menu is drawn by the
 tray host from dbusmenu, so it always appears next to the icon.
 """
