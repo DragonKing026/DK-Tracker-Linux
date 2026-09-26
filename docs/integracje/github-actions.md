@@ -19,20 +19,20 @@ zaktualizowano: 2026-09-26 11:57
 | Workflow | Kiedy | Co robi |
 | --- | --- | --- |
 | [testy.yml](../../.github/workflows/testy.yml) | push na `main`, pull request | `ruff format --check`, `ruff check`, `pytest` (Qt offscreen), linki, frontmatter, markdownlint |
-| [wydanie.yml](../../.github/workflows/wydanie.yml) | tag `v*` | sprawdza zgodność tagu z `pyproject.toml`, importuje klucz GPG, buduje i podpisuje Flatpak, publikuje Pages, tworzy wydanie |
+| [wydanie.yml](../../.github/workflows/wydanie.yml) | tag `v*` | testy (`testy.yml` jako `workflow_call`), zgodność tagu z `pyproject.toml`, walidacja MetaInfo, klucz GPG, budowa i podpis, Pages, na końcu wydanie |
 
 ## Jak to działa
 
 ```mermaid
 flowchart LR
-    TAG[git push tag v0.9.0] --> V{tag = wersja<br/>w pyproject?}
+    TAG[git push tag v0.9.0] --> T[testy.yml]
+    T --> V{tag = wersja<br/>w pyproject?}
     V -- nie --> STOP[koniec, bez budowy]
     V -- tak --> GPG[import klucza<br/>FLATPAK_GPG_PRIVATE_KEY]
     GPG --> B[flatpak-builder@v6<br/>repo + paczka]
-    B --> P[publikuj.sh<br/>podpis refów, strona]
-    P --> UP[upload-pages-artifact]
-    B --> REL[action-gh-release<br/>plik .flatpak]
-    UP --> DEP[deploy-pages]
+    B --> P[publikuj.sh<br/>klucz = repo.gpg?<br/>podpis refów, strona]
+    P --> DEP[deploy-pages]
+    DEP --> REL[action-gh-release<br/>plik .flatpak]
 ```
 
 Zadanie `flatpak` działa w kontenerze `ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11` z `--privileged` — tym
@@ -60,8 +60,8 @@ Użyte akcje:
 
 - Sekret repozytorium **`FLATPAK_GPG_PRIVATE_KEY`** — klucz prywatny z [klucz-gpg.sh](../../flatpak/klucz-gpg.sh)
   ([Using secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)).
-- `wydanie.yml`: `contents: write` (wydanie), `pages: write` i `id-token: write` (deploy-pages); `testy.yml`: tylko
-  `contents: read`.
+- `wydanie.yml`: domyślnie tylko `contents: read`; `pages: write` i `id-token: write` ma wyłącznie zadanie `pages`,
+  `contents: write` — zadanie `wydanie`. Zadanie z kluczem GPG nie ma uprawnień zapisu.
 - Ustawienia repozytorium → Pages → źródło **GitHub Actions** ([github-pages](github-pages.md)).
 
 ## Pułapki i ograniczenia
@@ -69,6 +69,9 @@ Użyte akcje:
 > [!warning]
 >
 > - Bez sekretu GPG krok importu kończy wydanie błędem — nic niepodpisanego nie trafia na Pages.
+> - Klucz z sekretu musi być tym z `flatpak/ws-tracker-tray-repo.gpg` — [publikuj.sh](../../flatpak/publikuj.sh) inaczej
+>   przerywa (podpis innym kluczem zepsułby instalacje i aktualizacje u wszystkich).
+> - Środowisko `github-pages` musi dopuszczać tagi `v*` ([github-pages](github-pages.md)).
 > - Tag niezgodny z wersją w `pyproject.toml` zatrzymuje wydanie przed budową.
 > - `repo-dir` i `state-dir` akcji muszą być na tej samej partycji (README akcji).
 > - Kontener wymaga `--privileged` (bubblewrap w flatpak-builder).

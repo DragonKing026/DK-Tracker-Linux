@@ -24,6 +24,16 @@ Jak wydać nową wersję WS Tracker Tray i jak ją zainstalować. Decyzja o dyst
    ```
 
 3. GitHub → **Settings → Pages → Source: GitHub Actions** ([GitHub Pages](../integracje/github-pages.md)).
+4. Środowisko `github-pages` domyślnie przyjmuje publikację tylko z gałęzi `main`, a wydanie idzie z tagu. Reguła dla
+   tagów `v*` (Settings → Environments → github-pages → Deployment branches and tags → Add rule → Tag, `v*`) albo
+   ([API](https://docs.github.com/en/rest/deployments/branch-policies)):
+
+   ```bash
+   gh api -X PUT repos/DragonKing026/Kimai-App--Linux-/environments/github-pages \
+     --input - <<< '{"deployment_branch_policy": {"protected_branches": false, "custom_branch_policies": true}}'
+   gh api -X POST repos/DragonKing026/Kimai-App--Linux-/environments/github-pages/deployment-branch-policies \
+     -f name='v*' -f type=tag
+   ```
 
 > [!warning] Klucz prywatny
 > Klucz prywatny istnieje tylko w sekrecie GitHuba — nigdy w repozytorium ani w logach. Jego utrata oznacza nowy klucz
@@ -44,7 +54,9 @@ Jak wydać nową wersję WS Tracker Tray i jak ją zainstalować. Decyzja o dyst
    gh run watch                      # testy i wydanie
    ```
 
-5. Sprawdzenie: wydanie na GitHubie z plikiem `pl.websystems.WsTrackerTray-v<wersja>.flatpak`, strona
+5. Kolejność w workflow: testy → budowa i podpis → Pages → dopiero wtedy wydanie na GitHubie. Gdy publikacja na
+   Pages się nie uda, wydania nie ma; po naprawie przyczyny wystarczy **Re-run failed jobs** w zakładce Actions.
+6. Sprawdzenie: wydanie na GitHubie z plikiem `pl.websystems.WsTrackerTray-v<wersja>.flatpak`, strona
    <https://dragonking026.github.io/Kimai-App--Linux-/>, `flatpak update` u siebie.
 
 Wersje `0.x` wychodzą jako „pre-release”. **1.0.0** — po testach na GNOME

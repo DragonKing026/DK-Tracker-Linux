@@ -51,7 +51,10 @@ przychodzą z Flathuba (`RuntimeRepo`).
 
 - Ustawienia repozytorium → **Pages → Source: GitHub Actions**
   ([Configuring a publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)).
-- Workflow: `pages: write`, `id-token: write`, środowisko `github-pages`.
+- Workflow: `pages: write`, `id-token: write` (tylko zadanie `pages`), środowisko `github-pages`.
+- Środowisko `github-pages` musi dopuszczać tagi `v*` — domyślnie publikuje tylko gałąź domyślna, a wydanie idzie z
+  tagu (komendy: [wydania](../procesy/wydania.md),
+  [deployment branch policies](https://docs.github.com/en/rest/deployments/branch-policies)).
 
 ## Pułapki i ograniczenia
 
