@@ -2,6 +2,8 @@ from dataclasses import replace
 from datetime import UTC, datetime
 from zoneinfo import ZoneInfo
 
+from PySide6.QtCore import Qt
+from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QLabel
 
 from ws_tracker_tray.core.i18n import Translator
@@ -99,3 +101,34 @@ def test_dot_and_buttons_are_centred_in_the_row(qtbot):
     for widget in (row.marker, row.billable, row.resume):
         middle = widget.geometry().center().y()
         assert abs(middle - centre) <= 2, (widget.objectName(), middle, centre)
+
+
+LONG = replace(TODAY_A, id=9, description="Trello: poprawić przepływ rejestracji pacjenta w aplikacji " * 6)
+
+
+def description_of(row):
+    return row.findChild(QLabel, "entryDesc")
+
+
+def test_long_description_shows_two_and_a_half_lines_from_the_top(qtbot):
+    recent = make(qtbot, Snapshot(recent=(LONG,)))
+    label = description_of(recent.rows[0])
+    assert label.alignment() & Qt.AlignmentFlag.AlignTop  # centred text was clipped at the top as well
+    assert label.maximumHeight() == round(label.fontMetrics().lineSpacing() * 2.5)
+
+
+def test_clicking_a_row_expands_and_collapses_its_description(qtbot):
+    recent = make(qtbot, Snapshot(recent=(LONG,)))
+    row = recent.rows[0]
+    collapsed = description_of(row).maximumHeight()
+    QTest.mouseClick(row, Qt.MouseButton.LeftButton)
+    assert description_of(recent.rows[0]).maximumHeight() > collapsed * 4
+    QTest.mouseClick(recent.rows[0], Qt.MouseButton.LeftButton)
+    assert description_of(recent.rows[0]).maximumHeight() == collapsed
+
+
+def test_an_expanded_row_stays_expanded_after_a_refresh(qtbot):
+    recent = make(qtbot, Snapshot(recent=(LONG, YESTERDAY)))
+    QTest.mouseClick(recent.rows[0], Qt.MouseButton.LeftButton)
+    recent.render(Snapshot(recent=(LONG, YESTERDAY)), WARSAW, NOW, Translator("pl"))
+    assert description_of(recent.rows[0]).maximumHeight() > description_of(recent.rows[1]).maximumHeight() * 4

@@ -7,6 +7,7 @@ from collections.abc import Callable
 from datetime import datetime, tzinfo
 
 from PySide6.QtCore import QSize, Qt, Signal
+from PySide6.QtGui import QMouseEvent
 from PySide6.QtWidgets import (
     QFrame,
     QGridLayout,
@@ -27,20 +28,29 @@ from ws_tracker_tray.core.tracker import Snapshot
 from .form import GREY_DOT, dot
 from .icons import glyph
 
+COLLAPSED_LINES = 2.5  # the add-on shows two; the cut half line tells that more text follows
+UNLIMITED = 16777215  # QWIDGETSIZE_MAX
+
 
 class EntryRow(QFrame):
-    def __init__(self, entry: Entry, tz: tzinfo, t: Callable[..., str], *, allowed: bool) -> None:
+    toggled = Signal()  # a click on the row (not on its buttons) expands or collapses the description
+
+    def __init__(
+        self, entry: Entry, tz: tzinfo, t: Callable[..., str], *, allowed: bool, expanded: bool = False
+    ) -> None:
         super().__init__(objectName="entry")
         self.entry = entry
         text = entry_row(entry, tz, t)
         self.marker = marker = QLabel()
         marker.setPixmap(dot(entry.project_color, 9).pixmap(9, 9))
-        description = QLabel(text.description, objectName="entryDescEmpty" if text.empty else "entryDesc")
+        self.description = description = QLabel(
+            text.description, objectName="entryDescEmpty" if text.empty else "entryDesc"
+        )
         description.setWordWrap(True)
-        description.setMaximumHeight(
-            description.fontMetrics().lineSpacing() * 2 + 2
-        )  # two lines, as in the add-on
+        # Top-aligned: centred text in a height-limited label is clipped at the top as well.
+        description.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
         description.setToolTip(entry.description)
+        self.set_expanded(expanded)
         meta = QLabel(text.meta, objectName="entryMeta")
         meta.setWordWrap(True)
         duration = QLabel(text.duration, objectName="entryDuration")
@@ -75,6 +85,16 @@ class EntryRow(QFrame):
         grid.addWidget(self.resume, 0, 4, 2, 1, centre)
         grid.setColumnStretch(1, 1)
 
+    def set_expanded(self, expanded: bool) -> None:
+        self.expanded = expanded
+        lines = round(self.description.fontMetrics().lineSpacing() * COLLAPSED_LINES)
+        self.description.setMaximumHeight(UNLIMITED if expanded else lines)
+
+    def mouseReleaseEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
+        if event.button() == Qt.MouseButton.LeftButton and self.rect().contains(event.position().toPoint()):
+            self.toggled.emit()
+        super().mouseReleaseEvent(event)
+
     def mark_pending(self, value: bool, t: Callable[..., str]) -> None:
         self._paint_billable(value, t)
         self.billable.setEnabled(False)
@@ -93,6 +113,7 @@ class RecentList(QWidget):
         super().__init__(parent)
         self.setObjectName("recentPanel")
         self.rows: list[EntryRow] = []
+        self._expanded: set[int] = set()  # entry ids whose description is unfolded; kept across refreshes
         self._t: Callable[..., str] = str
         self.head = QLabel(objectName="recentHead")
         self.empty = QLabel(objectName="empty")
@@ -125,7 +146,10 @@ class RecentList(QWidget):
         for day, entries in group_by_day(snapshot.recent, tz):
             column.addWidget(self._day(day_label(day, today, t).upper(), short_duration(day_total(entries))))
             for entry in entries:
-                row = EntryRow(entry, tz, t, allowed=snapshot.billable_allowed)
+                row = EntryRow(
+                    entry, tz, t, allowed=snapshot.billable_allowed, expanded=entry.id in self._expanded
+                )
+                row.toggled.connect(lambda r=row: self._toggle(r))
                 row.resume.clicked.connect(lambda _checked=False, e=entry: self.resumeRequested.emit(e))
                 row.billable.clicked.connect(lambda _checked=False, r=row: self._on_billable(r))
                 self.rows.append(row)
@@ -135,6 +159,10 @@ class RecentList(QWidget):
         self.scroll.verticalScrollBar().setValue(position)
         self.scroll.setVisible(bool(self.rows))
         self.empty.setVisible(not self.rows)
+
+    def _toggle(self, row: EntryRow) -> None:
+        self._expanded.symmetric_difference_update({row.entry.id})
+        row.set_expanded(row.entry.id in self._expanded)
 
     def _on_billable(self, row: EntryRow) -> None:
         value = not row.entry.billable
