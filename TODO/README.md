@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 12:55
+zaktualizowano: 2026-09-26 13:16
 ---
 
 # Tablica zadań
@@ -28,6 +28,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0045 | [Plan 4 — projekt paczki Flatpak (decyzje przed planem)](W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md) | 🔨 w-trakcie | p1 | [0044](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) ✅ |
 | 0053 | [Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)](W-TRAKCIE/0053-plan4-pierwsze-wydanie/todo.md) | 🔨 w-trakcie | p1 | [0052](ZROBIONE/0052-plan4-proces-wydania/todo.md) ✅ |
 | 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | ⛔ zablokowane | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
+| 0058 | [Długie opisy na liście ostatnich wpisów: 2,5 linii i rozwijanie kliknięciem](W-TRAKCIE/0058-dlugie-opisy-na-liscie/todo.md) | 🔨 w-trakcie | p1 | — |
 
 ## Do zrobienia
 
