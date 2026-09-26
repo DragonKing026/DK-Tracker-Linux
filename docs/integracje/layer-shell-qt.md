@@ -66,7 +66,7 @@ rozmiaru przyklejonej prawym dolnym rogiem powierzchni pozycje kursora odnoszą 
 dopiero nałoży. Dlatego okno w trybie layer to **przezroczyste płótno** o rozmiarze obszaru roboczego z **panelem**
 w prawym dolnym rogu i maską (`QWidget.setMask` → region wejścia) tylko na panelu; przeciąganie zmienia panel, nie
 powierzchnię ([ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md),
-[0066](../../TODO/W-TRAKCIE/0066-plotno-okna-przy-tacce/todo.md)). `WA_TranslucentBackground` trzeba ustawić przed
+[0066](../../TODO/ZROBIONE/0066-plotno-okna-przy-tacce/todo.md)). `WA_TranslucentBackground` trzeba ustawić przed
 utworzeniem natywnego okna — robi to `placement.apply` przed `layer-shell`.
 
 ## Pułapki

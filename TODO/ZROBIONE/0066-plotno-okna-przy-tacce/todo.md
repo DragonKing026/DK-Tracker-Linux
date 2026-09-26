@@ -2,19 +2,19 @@
 noteId: "d8221fd7d22b4305a4e3c4d5967aa69e"
 tytul: "Zmiana rozmiaru okna przy tacce bez skoków: przezroczyste płótno i panel"
 numer: "0066"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, ui, wayland, layer-shell]
 zalezy_od: ["0065"]
 utworzono: 2026-09-26 14:46
-zaktualizowano: 2026-09-26 14:46
-zamknieto:
+zaktualizowano: 2026-09-26 14:51
+zamknieto: 2026-09-26 14:51
 ---
 
 # 0066 — Zmiana rozmiaru okna przy tacce bez skoków: przezroczyste płótno i panel
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -38,25 +38,30 @@ pozycja kursora jest zawsze dokładna. Tryby frameless (GNOME) i window bez zmia
 
 ## Kryteria akceptacji
 
-- [ ] Płótno, panel w prawym dolnym rogu, maska = panel (TDD)
-- [ ] Uchwyt zmienia tylko panel, dokładnie o ruch kursora; płótno bez zmian (TDD)
-- [ ] Rozmiar zapamiętywany jak dotąd; tryb kompaktowy (nieskonfigurowane) działa
-- [ ] Test na żywo: płynnie w każdym rozmiarze, kliknięcia obok okna działają
+- [x] Płótno, panel w prawym dolnym rogu, maska = panel (TDD)
+- [x] Uchwyt zmienia tylko panel, dokładnie o ruch kursora; płótno bez zmian (TDD)
+- [x] Rozmiar zapamiętywany jak dotąd; tryb kompaktowy (nieskonfigurowane) działa
+- [x] Test na żywo: płynnie w każdym rozmiarze, kliknięcia obok okna działają
 
 ## Kroki
 
-- [ ] Testy, implementacja, test na żywo, dokumentacja (ADR-0005, layer-shell-qt)
+- [x] Testy, implementacja, test na żywo, dokumentacja (ADR-0005, layer-shell-qt)
 
 ## Materiały
 
-Brak.
+- [testy/pytest-2026-09-26.txt](testy/pytest-2026-09-26.txt) — końcowy przebieg:
+  `465 passed, 1 skipped, 14 deselected in 3.60s`
 
 ## Dziennik
 
 ### 2026-09-26
 
 - **14:46** Utworzono po trzeciej nieudanej próbie w 0065; nowa budowa zaakceptowana (wariant „najpierw przebudowa”).
+- **14:51** Zamknięte: 465 passed, 1 skipped, 14 deselected in 3.60s, commity na main.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+[popup.py](../../../src/dk_tracker/ui/popup.py): w trybie layer przezroczyste płótno (obszar roboczy minus marginesy),
+panel w prawym dolnym rogu, maska na panelu, uchwyt zmienia tylko panel;
+[placement.py](../../../src/dk_tracker/ui/placement.py) ustawia przezroczystość przed layer-shell. Testy w
+[test_popup.py](../../../tests/ui/test_popup.py). Test na żywo: zmiana rozmiaru płynna w każdym rozmiarze.

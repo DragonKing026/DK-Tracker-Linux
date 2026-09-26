@@ -54,9 +54,9 @@ Zaakceptowane przez użytkownika 2026-09-25 20:37.
 Zmiana rozmiaru uchwytem skakała: powierzchnia layer-shell przyklejona prawym dolnym rogiem przesuwa lewy górny róg
 przy każdej zmianie rozmiaru, a Wayland podaje pozycję kursora względem rozmiaru, który KWin właśnie pokazuje —
 nakłada go później niż aplikacja rysuje, a Qt nie przekazuje widżetom sygnału klatki. Trzy próby liczenia rozmiaru
-zawiodły ([0065](../../TODO/W-TRAKCIE/0065-poprawki-po-0-9-1/todo.md)).
+zawiodły ([0065](../../TODO/ZROBIONE/0065-poprawki-po-0-9-1/todo.md)).
 
-**Teraz** ([0066](../../TODO/W-TRAKCIE/0066-plotno-okna-przy-tacce/todo.md)): w trybie layer powierzchnia stale ma
+**Teraz** ([0066](../../TODO/ZROBIONE/0066-plotno-okna-przy-tacce/todo.md)): w trybie layer powierzchnia stale ma
 rozmiar obszaru roboczego ekranu minus marginesy i jest przezroczysta; widoczny **panel** leży w jej prawym dolnym rogu,
 a **maska** (region wejścia) obejmuje tylko panel, więc kliknięcia obok trafiają na pulpit. Uchwyt zmienia tylko panel
 — po stronie aplikacji, natychmiast, a pozycja kursora jest zawsze dokładna. Sprawdzone na żywo na KDE Plasma 6.

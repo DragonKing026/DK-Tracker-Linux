@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 14:46
+zaktualizowano: 2026-09-26 14:51
 ---
 
 # Tablica zadań
@@ -26,8 +26,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | 🔨 w-trakcie | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
-| 0065 | [Poprawki po 0.9.1: zmiana rozmiaru okna, mała ikona, zrzut w Discover](W-TRAKCIE/0065-poprawki-po-0-9-1/todo.md) | 🔨 w-trakcie | p1 | — |
-| 0066 | [Zmiana rozmiaru okna przy tacce bez skoków: przezroczyste płótno i panel](W-TRAKCIE/0066-plotno-okna-przy-tacce/todo.md) | 🔨 w-trakcie | p1 | [0065](W-TRAKCIE/0065-poprawki-po-0-9-1/todo.md) |
 
 ## Do zrobienia
 
@@ -101,6 +99,8 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0061 | [Domyślny projekt i rodzaj pracy z ostatniego wpisu w Kimai](ZROBIONE/0061-domyslnie-ostatni-wpis/todo.md) | ✅ zrobione | 2026-09-26 13:35 |
 | 0063 | [Własna ikona i nazwa „WS Tracker” w 0.9.1](ZROBIONE/0063-ikona-ws-tracker/todo.md) | ✅ zrobione | 2026-09-26 13:59 |
 | 0064 | [Licencja GPL-3.0-or-later zamiast AGPL](ZROBIONE/0064-licencja-gpl/todo.md) | ✅ zrobione | 2026-09-26 14:14 |
+| 0065 | [Poprawki po 0.9.1: zmiana rozmiaru okna, mała ikona, zrzut w Discover](ZROBIONE/0065-poprawki-po-0-9-1/todo.md) | ✅ zrobione | 2026-09-26 14:51 |
+| 0066 | [Zmiana rozmiaru okna przy tacce bez skoków: przezroczyste płótno i panel](ZROBIONE/0066-plotno-okna-przy-tacce/todo.md) | ✅ zrobione | 2026-09-26 14:51 |
 
 <!-- tablica:end -->
 
