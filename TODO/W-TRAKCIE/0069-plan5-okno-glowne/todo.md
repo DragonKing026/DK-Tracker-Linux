@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, ui, qml, okno-glowne, wydanie]
 zalezy_od: ["0062-aplikacja-ws-tracker"]
 utworzono: 2026-09-26 17:04
-zaktualizowano: 2026-09-26 17:51
+zaktualizowano: 2026-09-26 18:22
 zamknieto:
 ---
 
@@ -65,6 +65,10 @@ Brak.
   styl Basic, pola jak tekst z ramką po najechaniu, kolorowe ikony, projekt w kolorze projektu, kosz zamiast menu,
   dzień i godziny ręcznego wpisu w drugiej linii, ustawienia jako strona okna (bez osobnego okna). Worktree
   prototypu usunięty.
+- **18:22** Drugi test na żywo: kursor rączki, zmiana rozmiaru po kliknięciu Ustawień (`show()` zdejmował
+  maksymalizację), opis w wielu liniach (Shift+Enter), zaokrąglone kontrolki, okno edycji ze wszystkimi opcjami
+  wpisu (tagi, stawki, pola dodatkowe). Na Kimai w Dockerze: nowy tag od zwykłego konta Kimai pomija bez błędu —
+  aplikacja to wykrywa i mówi. Testy: 610 + 17 kontraktowych.
 
 ## Wynik
 
