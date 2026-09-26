@@ -2,14 +2,14 @@
 noteId: "13e2c3ade6dd4297b53b3ec94787fc3d"
 tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
-status: do-akceptacji
+status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-26 16:03
+zaktualizowano: 2026-09-26 16:05
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
 
-> [!todo] Status: do akceptacji przez użytkownika
+> [!success] Status: zaakceptowana przez użytkownika 2026-09-26 16:05
 > Uzgodniona w rozmowie 2026-09-26 (brainstorming, makiety w przeglądarce). Uzupełnia
 > [specyfikację 1.0](2026-09-25-kimai-tray-1.0.md); zadanie
 > [0062](../../TODO/DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md).

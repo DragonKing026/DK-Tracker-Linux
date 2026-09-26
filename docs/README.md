@@ -22,7 +22,7 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 - [Specyfikacja DK Tracker 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy,
   testy (zaakceptowana 2026-09-25)
 - [Specyfikacja 0.10 — okno główne](specyfikacja/2026-09-26-okno-glowne-0.10.md) — pełny klient Kimai na wzór Toggl
-  (Wpisy, Podsumowania, Kalendarz), QML; do akceptacji
+  (Wpisy, Podsumowania, Kalendarz), QML; zaakceptowana
 
 ## Plany implementacji
 
