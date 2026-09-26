@@ -2,19 +2,19 @@
 noteId: "709e67ca60b943a3b5e9e3e23a96ecd7"
 tytul: "Identyfikator aplikacji i wydawca — firma czy prywatnie"
 numer: "0056"
-status: zablokowane
+status: w-trakcie
 priorytet: p1
 tags: [todo, decyzja, flatpak, wydanie]
 zalezy_od: ["0055"]
 utworzono: 2026-09-26 12:22
-zaktualizowano: 2026-09-26 12:22
+zaktualizowano: 2026-09-26 14:25
 zamknieto:
 ---
 
 # 0056 — Identyfikator aplikacji i wydawca — firma czy prywatnie
 
 > [!info] Status
-> **zablokowane** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -67,6 +67,9 @@ Brak.
 - **12:55** Użytkownik: pełne wydanie 0.9.0 **teraz** z tymczasowym identyfikatorem `pl.websystems.WsTrackerTray`
   (świadomie: po zmianie identyfikatora instalacje trzeba będzie odinstalować i zainstalować od nowa, z nowym tokenem).
   Wydanie 0053 już na to nie czeka; zmiana identyfikatora wyjdzie w kolejnej wersji.
+- **14:25** Decyzja właściciela firmy: projekt prywatny użytkownika. Użytkownik: identyfikator
+  io.github.dragonking026.WS-Tracker-Linux (Flathub: ostatni człon = nazwa repozytorium), wydawca Artur Ograbek, pakiet
+  ws_tracker i komenda ws-tracker.
 
 ## Wynik
 

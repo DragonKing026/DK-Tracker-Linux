@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 14:14
+zaktualizowano: 2026-09-26 14:25
 ---
 
 # Tablica zadań
@@ -25,7 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | ⛔ zablokowane | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
+| 0056 | [Identyfikator aplikacji i wydawca — firma czy prywatnie](W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md) | 🔨 w-trakcie | p1 | [0055](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) ✅ |
 | 0065 | [Poprawki po 0.9.1: zmiana rozmiaru okna, mała ikona, zrzut w Discover](W-TRAKCIE/0065-poprawki-po-0-9-1/todo.md) | 🔨 w-trakcie | p1 | — |
 
 ## Do zrobienia
