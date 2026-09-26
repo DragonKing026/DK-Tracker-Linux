@@ -99,6 +99,7 @@ class QuickWindow(QWidget):
         self.resize(WIDTH, HEIGHT)
         self._preferred = QSize(WIDTH, HEIGHT)  # the user's size; used while there are lists to show
         self._compact: bool | None = None
+        self._error_from_refresh = False  # the red strip came from a failed refresh, not from an action
         self.hide_on_deactivate = True
         self.placement_mode = "frameless"
         self.hidden_by_focus_loss_at = 0.0  # monotonic time; a tray click right after must not reopen
@@ -201,6 +202,9 @@ class QuickWindow(QWidget):
             self.recent.render(snapshot, tz, now, t)
             if snapshot.error is not None:
                 self.show_error(describe(snapshot.error, t))
+                self._error_from_refresh = True
+            elif self._error_from_refresh:
+                self.clear_error()  # Kimai answers again; an action's own error is left alone
             if (
                 snapshot.notice
                 and snapshot.notice != self._notice_shown
@@ -253,6 +257,7 @@ class QuickWindow(QWidget):
         self.grip.raise_()
 
     def show_error(self, text: str) -> None:
+        self._error_from_refresh = False
         self.error.setText(text)
         self.error.setVisible(bool(text))
 

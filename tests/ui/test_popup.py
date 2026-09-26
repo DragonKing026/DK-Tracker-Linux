@@ -226,3 +226,18 @@ def test_unconfigured_window_is_only_as_tall_as_its_content(window, qtbot):
     assert popup.header.height() <= popup.header.sizeHint().height() + 2  # no stretching into empty space
     state.update(configured=True)
     assert popup.size() == QSize(460, 600)  # the user's size comes back with the lists
+
+
+def test_connection_error_strip_goes_away_when_kimai_is_back(window):
+    state, popup = window
+    state.update(snapshot=replace(IDLE, error=ApiError(ErrorKind.CONNECTION, 0, "down")))
+    assert not popup.error.isHidden()
+    state.update(snapshot=IDLE)
+    assert popup.error.isHidden()
+
+
+def test_an_action_error_is_not_wiped_by_a_refresh(window):
+    state, popup = window
+    popup.show_error("Wybierz projekt.")
+    state.update(snapshot=IDLE)
+    assert popup.error.text() == "Wybierz projekt."
