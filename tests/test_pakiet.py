@@ -205,3 +205,19 @@ def test_every_action_is_pinned_to_a_commit():
                 uses = step.get("uses", "")
                 if uses:
                     assert re.fullmatch(r"[\w./-]+@[0-9a-f]{40}", uses), uses
+
+
+# -- Task 8: the repository signing key (created for the first release) ------------
+
+
+def test_repository_signing_key_is_public_only():
+    """`gpg --export` writes binary, so the check reads the key packets instead of looking for text."""
+    import subprocess
+
+    key = ROOT / "flatpak" / "ws-tracker-tray-repo.gpg"
+    listing = subprocess.run(
+        ["gpg", "--show-keys", "--with-colons", key], capture_output=True, text=True, check=True
+    ).stdout.splitlines()
+    kinds = {line.split(":")[0] for line in listing}
+    assert "pub" in kinds
+    assert not kinds & {"sec", "ssb"}
