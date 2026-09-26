@@ -3,7 +3,7 @@ noteId: "f844bec41dc44a7b9a9d11e5d661d2c2"
 tytul: "Lista kontrolna testu na żywo (Plan 3)"
 tags: [todo, plan-3, testy, reczne]
 utworzono: 2026-09-26 00:48
-zaktualizowano: 2026-09-26 00:48
+zaktualizowano: 2026-09-26 09:51
 ---
 
 # Lista kontrolna testu na żywo (Plan 3)
@@ -23,7 +23,7 @@ Testuje użytkownik; poprawki z pierwszego przebiegu: [0042](../../../ZROBIONE/0
 | 7 | Menu: „Zatrzymaj timer” / „Wznów ostatni wpis” z powiadomieniem | tak (po poprawce identyfikatorów, 0042) |
 | 8 | Lista: ▶ wznawia, `$` w wierszu, link do Kimai | tak; link otworzył Firefoxa zamiast Brave — skutek izolacji testu (`XDG_CONFIG_HOME` dziedziczy `xdg-open`), normalnie Brave (sprawdzone `xdg-mime`) |
 | 9 | Język English bez restartu | tak |
-| 10 | Motyw jasny/ciemny na żywo | do potwierdzenia |
+| 10 | Motyw jasny/ciemny na żywo | tak (okno „nieskonfigurowana” było za wysokie — poprawione, potwierdzone) |
 | 11 | Długi timer (próg 0,1 h): powiadomienie z przyciskami, „Zatrzymaj” zatrzymuje i zamyka | tak |
 | 12 | Druga instancja pokazuje okno pierwszej | tak (sprawdzone: wyjście po 0,24 s, okno pokazane) |
 
