@@ -70,7 +70,7 @@ ScrollView {
         }
 
         Caption { text: app.texts.optUrl || "" }
-        TextField {
+        Field {
             id: url
             objectName: "settingsUrl"
             Layout.fillWidth: true
@@ -79,7 +79,7 @@ ScrollView {
         }
 
         Caption { text: app.texts.optToken || "" }
-        TextField {
+        Field {
             id: token
             objectName: "settingsToken"
             Layout.fillWidth: true
@@ -89,7 +89,7 @@ ScrollView {
         Hint { text: app.texts.optTokenHint || "" }
 
         Caption { text: app.texts.optLang || "" }
-        ComboBox {
+        Combo {
             id: language
             objectName: "settingsLanguage"
             Layout.preferredWidth: 260
@@ -99,7 +99,7 @@ ScrollView {
         }
 
         Caption { text: app.texts.optMinDesc || "" }
-        SpinBox {
+        Spin {
             id: minDescription
             objectName: "settingsMinDescription"
             from: 0
@@ -109,7 +109,7 @@ ScrollView {
         Hint { text: app.texts.optMinDescHint || "" }
 
         Caption { text: app.texts.optLongTimer || "" }
-        SpinBox {  // tenths of an hour: 0.0–24.0 in steps of 0.5
+        Spin {  // tenths of an hour: 0.0–24.0 in steps of 0.5
             id: longTimer
             objectName: "settingsLongTimer"
             from: 0
@@ -121,10 +121,10 @@ ScrollView {
         }
         Hint { text: app.texts.optLongTimerHint || "" }
 
-        CheckBox { id: notifyConnection; objectName: "settingsNotifyConnection"; Layout.topMargin: 12; text: app.texts.optNotifyConnection || "" }
-        CheckBox { id: notifyMenu; objectName: "settingsNotifyMenu"; text: app.texts.optNotifyMenu || "" }
-        CheckBox { id: autostart; objectName: "settingsAutostart"; text: app.texts.optAutostart || "" }
-        CheckBox { id: showTray; objectName: "settingsShowTray"; text: app.texts.optShowTray || "" }
+        Check { id: notifyConnection; objectName: "settingsNotifyConnection"; Layout.topMargin: 12; text: app.texts.optNotifyConnection || "" }
+        Check { id: notifyMenu; objectName: "settingsNotifyMenu"; text: app.texts.optNotifyMenu || "" }
+        Check { id: autostart; objectName: "settingsAutostart"; text: app.texts.optAutostart || "" }
+        Check { id: showTray; objectName: "settingsShowTray"; text: app.texts.optShowTray || "" }
 
         Label {
             objectName: "settingsWarning"
@@ -148,14 +148,14 @@ ScrollView {
             Layout.topMargin: 12
             Layout.bottomMargin: 24
             spacing: 8
-            Button {
+            Btn {
                 objectName: "settingsTest"
                 text: app.texts.optTest || ""
                 enabled: !page.form.busy
                 onClicked: app.settingsForm.test(url.text, token.text)
             }
             Item { Layout.fillWidth: true }
-            Button {
+            Btn {
                 objectName: "settingsSave"
                 text: app.texts.optSave || ""
                 enabled: !page.form.busy

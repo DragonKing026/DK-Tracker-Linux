@@ -36,9 +36,9 @@ Rectangle {
         }
         const v = app.view
         const fresh = synced.id !== v.entryId
-        if ((fresh || v.description !== synced.description) && !description.activeFocus) {
+        if ((fresh || v.description !== synced.description) && !description.area.activeFocus) {
             description.text = v.description
-            description.cursorPosition = 0
+            description.area.cursorPosition = 0
         }
         if ((fresh || v.begin !== synced.begin) && !from.activeFocus)
             from.text = v.begin
@@ -75,7 +75,7 @@ Rectangle {
                 onClicked: bar.manual = !bar.manual
             }
 
-            TextField {
+            DescriptionArea {
                 id: description
                 objectName: "description"
                 Layout.fillWidth: true
@@ -99,7 +99,7 @@ Rectangle {
                 }
             }
 
-            ComboBox {
+            Combo {
                 id: activity
                 objectName: "activity"
                 Layout.fillWidth: true
@@ -131,7 +131,7 @@ Rectangle {
                 onClicked: bar.running ? app.runningBillable(!on) : (bar.billableTouched = !on)
             }
 
-            TextField {
+            Field {
                 id: from
                 objectName: "from"
                 visible: bar.running
@@ -153,6 +153,7 @@ Rectangle {
 
             RoundButton {
                 objectName: "submit"
+                HoverHandler { cursorShape: Qt.PointingHandCursor }
                 implicitWidth: 40
                 implicitHeight: 40
                 icon.source: "image://glyph/" + (bar.running ? "stop" : (bar.manual ? "plus" : "play")) + "/ffffff"
@@ -173,7 +174,7 @@ Rectangle {
             Layout.fillWidth: true
             spacing: 8
             Item { implicitWidth: 32 }  // under the mode switch
-            TextField {
+            Field {
                 id: day
                 objectName: "day"
                 Layout.preferredWidth: 110
@@ -181,7 +182,7 @@ Rectangle {
                 validator: RegularExpressionValidator { regularExpression: /^[\d-]{0,10}$/ }
                 text: Qt.formatDate(new Date(), "yyyy-MM-dd")
             }
-            TextField {
+            Field {
                 id: manualFrom
                 objectName: "manualFrom"
                 Layout.preferredWidth: 64
@@ -190,7 +191,7 @@ Rectangle {
                 placeholderText: app.texts.fromLabel || ""
             }
             Label { text: "–"; color: app.palette.muted || "#9aa0ac" }
-            TextField {
+            Field {
                 id: manualTo
                 objectName: "manualTo"
                 Layout.preferredWidth: 64

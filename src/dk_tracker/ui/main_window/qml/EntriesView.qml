@@ -8,7 +8,7 @@ ColumnLayout {
     objectName: "entriesView"
     spacing: 0
 
-    TextField {
+    Field {
         objectName: "search"
         Layout.fillWidth: true
         Layout.margins: 12

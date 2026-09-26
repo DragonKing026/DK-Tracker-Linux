@@ -17,7 +17,7 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 16
         Label { text: app.view.undo; color: app.palette.fg || "#eceef2" }
-        Button {
+        Btn {
             objectName: "undo"
             flat: true
             text: app.texts.undo || ""

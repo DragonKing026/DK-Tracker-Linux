@@ -14,6 +14,7 @@ ToolButton {
     icon.color: "transparent"
     icon.width: 18
     icon.height: 18
+    HoverHandler { cursorShape: button.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
     ToolTip.visible: hovered && tip !== ""
     ToolTip.text: tip
     background: Rectangle {

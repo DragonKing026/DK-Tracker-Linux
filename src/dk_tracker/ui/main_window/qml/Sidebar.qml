@@ -46,6 +46,7 @@ Rectangle {
 
     component SideButton: ItemDelegate {
         Layout.fillWidth: true
+        HoverHandler { cursorShape: parent.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
         property bool active: false
         icon.width: 18
         icon.height: 18

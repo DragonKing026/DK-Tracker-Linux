@@ -58,6 +58,7 @@ Rectangle {
                     radius: 6
                     color: workButton.hovered && workButton.enabled ? (app.palette.surface2 || "#272b33") : "transparent"
                 }
+                HoverHandler { cursorShape: workButton.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
                 onClicked: { work.projectId = entry.projectId; work.open(); app.chooseRowProject(entry.projectId) }
             }
             IconButton {
@@ -154,7 +155,7 @@ Rectangle {
                 projectId: work.projectId
                 onChosen: function (id) { work.projectId = id; work.activityId = 0; app.chooseRowProject(id) }
             }
-            ComboBox {
+            Combo {
                 Layout.fillWidth: true
                 model: app.rowActivityList  // its own: the timer bar keeps its activities
                 textRole: "name"
@@ -162,7 +163,8 @@ Rectangle {
                 displayText: currentIndex < 0 ? (app.texts.chooseActivity || "") : currentText
                 onActivated: work.activityId = currentValue
             }
-            Button {
+            Btn {
+                highlighted: true
                 text: app.texts.save || "OK"
                 enabled: work.projectId > 0 && work.activityId > 0
                 onClicked: { app.editWork(entry.entryId, work.projectId, work.activityId); work.close() }

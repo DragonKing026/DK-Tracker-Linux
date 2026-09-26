@@ -3,7 +3,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Button {
+Btn {
     id: picker
     property int projectId: 0
     signal chosen(int id)
@@ -26,9 +26,14 @@ Button {
         width: 320
         height: 360
         padding: 6
+        background: Rectangle {
+            radius: 10
+            color: app.palette.surface || "#1e2127"
+            border.color: app.palette.line || "#2f333c"
+        }
         contentItem: ColumnLayout {
             spacing: 6
-            TextField {
+            Field {
                 id: search
                 objectName: "projectSearch"
                 Layout.fillWidth: true
@@ -47,6 +52,11 @@ Button {
                     required property string color
                     width: ListView.view.width
                     enabled: kind === "project"
+                    HoverHandler { cursorShape: parent.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
+                    background: Rectangle {
+                        radius: 6
+                        color: parent.hovered && parent.enabled ? (app.palette.surface2 || "#272b33") : "transparent"
+                    }
                     contentItem: RowLayout {
                         spacing: 8
                         Rectangle {
