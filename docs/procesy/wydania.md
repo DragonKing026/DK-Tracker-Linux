@@ -60,7 +60,11 @@ Jak wydać nową wersję DK Tracker i jak ją zainstalować. Decyzja o dystrybuc
 6. Sprawdzenie: wydanie na GitHubie z plikiem `io.github.dragonking026.DK-Tracker-Linux-v<wersja>.flatpak`, strona
    <https://dragonking026.github.io/DK-Tracker-Linux/>, `flatpak update` u siebie.
 
-Wersje `0.x` wychodzą jako „pre-release”. **1.0.0** — po testach na GNOME
+Wersje `0.x` wychodzą jako „pre-release” (do 1.0). Lista Releases pokazuje **tylko najnowsze wydanie**: workflow po
+utworzeniu wydania usuwa strony poprzednich; ich tagi (`v0.9.0`…) zostają w historii gita
+([0067](../../TODO/W-TRAKCIE/0067-tylko-najnowsze-wydanie/todo.md)). Sekcja „Deployments” na stronie repozytorium to
+publikacje GitHub Pages (repozytorium Flatpaka) — ukrywa się ją na stronie repozytorium: koło zębate przy „About” →
+odznaczyć „Deployments”. **1.0.0** — po testach na GNOME
 ([0020](../../TODO/DO-ZROBIENIA/0020-testy-gnome/todo.md)).
 
 ```mermaid
