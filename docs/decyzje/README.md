@@ -19,6 +19,7 @@ Statusy: `proponowana` → `zaakceptowana` / `odrzucona`; później ewentualnie 
 | [0004](0004-architektura-rdzen-python-ui-qt.md) | Rdzeń w czystym Pythonie (httpx, jeepney), UI w Qt Widgets | zaakceptowana | 2026-09-25 17:39 |
 | [0005](0005-okno-przy-tacce-na-kde.md) | Okno przy tacce na KDE (layer-shell), na środku gdzie indziej | zaakceptowana | 2026-09-25 20:37 |
 | [0006](0006-budowanie-flatpaka-w-kontenerze.md) | Budowanie Flatpaka w kontenerze (Debian, Flatpak 1.16) | zaakceptowana | 2026-09-25 20:37 |
+| [0007](0007-dystrybucja-repozytorium-flatpak-na-github-pages.md) | Dystrybucja: repozytorium Flatpaka na GitHub Pages + wydania na GitHubie | zaakceptowana | 2026-09-26 10:23 |
 
 > [!todo] Decyzje oczekujące
 >
