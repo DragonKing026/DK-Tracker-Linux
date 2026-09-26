@@ -57,6 +57,7 @@ class SettingsDialog(QDialog):
         self.notify_connection = QCheckBox()
         self.notify_menu = QCheckBox()
         self.autostart = QCheckBox()
+        self.show_tray = QCheckBox()
         self.warning = QLabel(wordWrap=True)
         self.status = QLabel(wordWrap=True)
         self.test_button = QPushButton()
@@ -93,7 +94,7 @@ class SettingsDialog(QDialog):
         # The window may not get smaller than its content: wrapped hints were cut off.
         layout.setSizeConstraint(QLayout.SizeConstraint.SetMinimumSize)
         layout.addLayout(self.form)
-        for box in (self.notify_connection, self.notify_menu, self.autostart):
+        for box in (self.notify_connection, self.notify_menu, self.autostart, self.show_tray):
             layout.addWidget(box)
         layout.addWidget(self.warning)
         layout.addWidget(self.status)
@@ -118,6 +119,7 @@ class SettingsDialog(QDialog):
         self.notify_connection.setChecked(settings.notify_connection)
         self.notify_menu.setChecked(settings.notify_menu_actions)
         self.autostart.setChecked(settings.autostart)
+        self.show_tray.setChecked(settings.show_tray)
         self.status.hide()
         self.retranslate(self._t)
 
@@ -153,6 +155,7 @@ class SettingsDialog(QDialog):
         self.notify_connection.setText(t("optNotifyConnection"))
         self.notify_menu.setText(t("optNotifyMenu"))
         self.autostart.setText(t("optAutostart"))
+        self.show_tray.setText(t("optShowTray"))
         self.test_button.setText(t("optTest"))
         self.save_button.setText(t("optSave"))
         self.close_button.setText(t("optClose"))
@@ -168,6 +171,7 @@ class SettingsDialog(QDialog):
             notify_connection=self.notify_connection.isChecked(),
             notify_menu_actions=self.notify_menu.isChecked(),
             autostart=self.autostart.isChecked(),
+            show_tray=self.show_tray.isChecked(),
         ).normalized()
 
     def _on_test(self) -> None:

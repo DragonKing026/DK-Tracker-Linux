@@ -107,6 +107,7 @@
   "optAutostart": "Uruchamiaj razem z systemem",
   "optAutostartReason": "DK Tracker pokazuje w tacce, czy mierzysz czas.",
   "optAutostartDenied": "System nie zezwolił na autostart.",
+  "optShowTray": "Pokazuj ikonę w tacce",
   "optUrlRequired": "Podaj adres Kimai.",
   "optTokenRequired": "Podaj token API.",
   "optTesting": "Sprawdzam…",

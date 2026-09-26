@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 import pytest
 
 from dk_tracker.core.i18n import Translator
@@ -99,3 +101,12 @@ def test_wrapped_hints_get_the_height_they_need(dialog, qtbot):
         assert label.height() >= label.heightForWidth(label.width()), label.text()
         assert label.height() >= label.sizeHint().height(), label.text()
         assert label.width() >= label.sizeHint().width(), label.text()
+
+
+def test_tray_icon_can_be_turned_off(dialog):
+    assert dialog.show_tray.isChecked()
+    assert dialog.show_tray.text() == "Pokazuj ikonę w tacce"
+    dialog.show_tray.setChecked(False)
+    assert dialog.current().show_tray is False
+    dialog.load(replace(SAVED, show_tray=False), has_token=True)
+    assert not dialog.show_tray.isChecked()

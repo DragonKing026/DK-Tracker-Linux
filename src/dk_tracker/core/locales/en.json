@@ -107,6 +107,7 @@
   "optAutostart": "Start with the system",
   "optAutostartReason": "DK Tracker shows in the tray whether you are tracking time.",
   "optAutostartDenied": "The system did not allow autostart.",
+  "optShowTray": "Show the tray icon",
   "optUrlRequired": "Enter the Kimai address.",
   "optTokenRequired": "Enter the API token.",
   "optTesting": "Checking…",
