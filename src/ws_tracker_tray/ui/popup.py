@@ -285,6 +285,11 @@ class QuickWindow(QWidget):
         self.grip.move(1, 1)
         self.grip.raise_()
 
+    def show_search_results(self, term: str, entries: tuple) -> None:
+        """F-33: results for `term`, drawn in the same zone as the recent list."""
+        now = self._now()
+        self.recent.show_results(term, entries, display_zone(self._state.snapshot, now.astimezone()), now)
+
     def show_error(self, text: str) -> None:
         self._error_from_refresh = False
         self.error.setText(text)

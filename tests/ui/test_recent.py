@@ -132,3 +132,66 @@ def test_an_expanded_row_stays_expanded_after_a_refresh(qtbot):
     QTest.mouseClick(recent.rows[0], Qt.MouseButton.LeftButton)
     recent.render(Snapshot(recent=(LONG, YESTERDAY)), WARSAW, NOW, Translator("pl"))
     assert description_of(recent.rows[0]).maximumHeight() > description_of(recent.rows[1]).maximumHeight() * 4
+
+
+# -- F-33: search in all entries ---------------------------------------------------
+
+
+def ids(recent):
+    return [row.entry.id for row in recent.rows]
+
+
+def test_search_asks_for_the_term_after_a_pause(qtbot):
+    recent = make(qtbot)
+    with qtbot.waitSignal(recent.searchRequested, timeout=2000) as signal:
+        QTest.keyClicks(recent.search, "rezerwacja")
+    assert signal.args == ["rezerwacja"]
+
+
+def test_one_character_does_not_search(qtbot):
+    recent = make(qtbot)
+    with qtbot.assertNotEmitted(recent.searchRequested, wait=700):
+        QTest.keyClicks(recent.search, "r")
+
+
+def test_results_replace_the_recent_list_until_the_field_is_cleared(qtbot):
+    recent = make(qtbot)
+    recent.search.setText("trello")
+    recent.show_results("trello", (LONG,), WARSAW, NOW)
+    assert ids(recent) == [9]
+    assert texts(recent, "recentHead") == ["WYNIKI (1)"]
+    recent.render(SNAPSHOT, WARSAW, NOW, Translator("pl"))  # the minute refresh keeps the results
+    assert ids(recent) == [9]
+    recent.search.clear()
+    assert ids(recent) == [5, 4, 3]
+    assert texts(recent, "recentHead") == ["OSTATNIE WPISY"]
+
+
+def test_late_results_for_an_older_term_are_ignored(qtbot):
+    recent = make(qtbot)
+    recent.search.setText("trello nowe")
+    recent.show_results("trello", (LONG,), WARSAW, NOW)
+    assert ids(recent) == [5, 4, 3]
+
+
+def test_no_results_says_so(qtbot):
+    recent = make(qtbot)
+    recent.search.setText("xyz")
+    recent.show_results("xyz", (), WARSAW, NOW)
+    assert ids(recent) == []
+    assert recent.empty.isVisibleTo(recent)
+    assert recent.empty.text() == "Żaden wpis nie ma tego tekstu w opisie."
+
+
+def test_escape_clears_the_search_first(qtbot):
+    recent = make(qtbot)
+    recent.search.setText("trello")
+    recent.show_results("trello", (LONG,), WARSAW, NOW)
+    QTest.keyClick(recent.search, Qt.Key.Key_Escape)
+    assert recent.search.text() == ""
+    assert ids(recent) == [5, 4, 3]
+
+
+def test_search_field_speaks_english(qtbot):
+    recent = make(qtbot, t=Translator("en"))
+    assert recent.search.placeholderText() == "Search all entries…"

@@ -162,8 +162,11 @@ class Controller(QObject):
         form.projectChosen.connect(self._load_activities)
         recent.resumeRequested.connect(lambda entry: self._act(lambda t: t.resume(entry)))
         recent.billableRequested.connect(
-            lambda entry_id, value: self._act(lambda t: t.set_billable(entry_id, value))
+            lambda entry_id, value: self._act(
+                lambda t: t.set_billable(entry_id, value), after=lambda _snapshot: self._search_again()
+            )
         )
+        recent.searchRequested.connect(self._search)
         popup.settingsRequested.connect(self.open_settings)
         popup.openKimaiRequested.connect(self.open_kimai)
         popup.shownChanged.connect(self._on_popup_shown)
@@ -281,6 +284,24 @@ class Controller(QObject):
 
         self.popup.clear_error()
         self.kimai.submit(lambda: (job(tracker), tracker.warnings()), done, self._on_error)
+
+    def _search(self, term: str) -> None:
+        """F-33. Answers for an older term are dropped by the list itself."""
+        tracker = self._tracker
+        if tracker is None:
+            return
+        self.popup.clear_error()
+        self.kimai.submit(
+            lambda: tracker.search(term),
+            lambda entries: self.popup.show_search_results(term, entries),
+            self._on_error,
+        )
+
+    def _search_again(self) -> None:
+        # A `$` on a result changes that entry; the results are Kimai's answer, so ask again.
+        recent = self.popup.recent
+        if recent.searching:
+            self._search(recent.term)
 
     def _apply(self, result: tuple[Snapshot, list]) -> None:
         snapshot, warnings = result

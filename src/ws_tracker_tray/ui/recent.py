@@ -1,18 +1,22 @@
 """The list of recent entries (F-08): days with totals, rows with the billable switch (F-09)
-and the resume button (F-10). Rebuilt from each Snapshot; the scroll position is kept."""
+and the resume button (F-10). Rebuilt from each Snapshot; the scroll position is kept.
+
+The search field above it (F-33) swaps the list for results from all of the user's entries in
+Kimai until the field is cleared; the controller runs the query and hands the results back."""
 
 from __future__ import annotations
 
 from collections.abc import Callable
 from datetime import datetime, tzinfo
 
-from PySide6.QtCore import QSize, Qt, Signal
-from PySide6.QtGui import QMouseEvent
+from PySide6.QtCore import QSize, Qt, QTimer, Signal
+from PySide6.QtGui import QKeyEvent, QMouseEvent
 from PySide6.QtWidgets import (
     QFrame,
     QGridLayout,
     QHBoxLayout,
     QLabel,
+    QLineEdit,
     QScrollArea,
     QToolButton,
     QVBoxLayout,
@@ -23,11 +27,12 @@ from ws_tracker_tray.core.grouping import day_total, group_by_day
 from ws_tracker_tray.core.models import Entry
 from ws_tracker_tray.core.presentation import day_label, entry_row
 from ws_tracker_tray.core.timefmt import local_day, short_duration
-from ws_tracker_tray.core.tracker import Snapshot
+from ws_tracker_tray.core.tracker import SEARCH_MIN_CHARS, Snapshot
 
 from .form import GREY_DOT, dot
 from .icons import glyph
 
+SEARCH_DELAY_MS = 400  # a query when typing pauses, not on every key
 COLLAPSED_LINES = 2.5  # the add-on shows two; the cut half line tells that more text follows
 UNLIMITED = 16777215  # QWIDGETSIZE_MAX
 
@@ -105,9 +110,23 @@ class EntryRow(QFrame):
         self.billable.setToolTip(t("billableRowOn" if on else "billableRowOff"))
 
 
+class _SearchField(QLineEdit):
+    """Esc clears the search first; only an empty field lets Esc close the window."""
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:  # noqa: N802 - Qt API
+        if event.key() == Qt.Key.Key_Escape and self.text():
+            self.clear()
+            event.accept()
+        else:
+            super().keyPressEvent(event)
+            if event.key() == Qt.Key.Key_Escape:
+                event.ignore()
+
+
 class RecentList(QWidget):
     resumeRequested = Signal(object)  # Entry
     billableRequested = Signal(int, bool)  # entry id, new value
+    searchRequested = Signal(str)  # normalised term, at least SEARCH_MIN_CHARS long
 
     def __init__(self, parent: QWidget | None = None) -> None:
         super().__init__(parent)
@@ -115,8 +134,15 @@ class RecentList(QWidget):
         self.rows: list[EntryRow] = []
         self._expanded: set[int] = set()  # entry ids whose description is unfolded; kept across refreshes
         self._t: Callable[..., str] = str
+        self._snapshot: Snapshot | None = None
+        self._tz: tzinfo | None = None
+        self._now: datetime | None = None
+        self._results: tuple[Entry, ...] | None = None  # None: the recent list is shown
         self.head = QLabel(objectName="recentHead")
+        self.search = _SearchField(objectName="recentSearch")
+        self.search.setClearButtonEnabled(True)
         self.empty = QLabel(objectName="empty")
+        self.empty.setWordWrap(True)
         self.scroll = QScrollArea(objectName="recentList")
         self.scroll.setWidgetResizable(True)
         self.scroll.setFrameShape(QFrame.Shape.NoFrame)
@@ -128,14 +154,66 @@ class RecentList(QWidget):
         head.setContentsMargins(14, 10, 14, 6)
         head.addWidget(self.head)
         layout.addLayout(head)
+        search = QHBoxLayout()
+        search.setContentsMargins(14, 0, 14, 8)
+        search.addWidget(self.search)
+        layout.addLayout(search)
         layout.addWidget(self.scroll)
         layout.addWidget(self.empty)
         self.empty.setContentsMargins(14, 18, 14, 18)
+        self._delay = QTimer(self, singleShot=True, interval=SEARCH_DELAY_MS)
+        self._delay.timeout.connect(self._ask)
+        self.search.textChanged.connect(self._on_text)
+
+    @property
+    def term(self) -> str:
+        return " ".join(self.search.text().split())
+
+    @property
+    def searching(self) -> bool:
+        return self._results is not None
 
     def render(self, snapshot: Snapshot, tz: tzinfo, now: datetime, t: Callable[..., str]) -> None:
-        self._t = t
-        self.head.setText(t("recent").upper())
-        self.empty.setText(t("recentEmpty"))
+        self._snapshot, self._tz, self._now, self._t = snapshot, tz, now, t
+        self.search.setPlaceholderText(t("searchEntries"))
+        if self._results is None:
+            self._show(snapshot.recent, allowed=snapshot.billable_allowed)
+        else:
+            self._show(self._results, allowed=snapshot.billable_allowed)
+
+    def show_results(self, term: str, entries: tuple[Entry, ...], tz: tzinfo, now: datetime) -> None:
+        """Results arrive later than typing: only those for the text still in the field count."""
+        if term != self.term or len(term) < SEARCH_MIN_CHARS:
+            return
+        self._results = tuple(entries)
+        self._tz, self._now = tz, now
+        allowed = self._snapshot.billable_allowed if self._snapshot is not None else True
+        self._show(self._results, allowed=allowed)
+
+    def _on_text(self, _text: str) -> None:
+        if len(self.term) < SEARCH_MIN_CHARS:
+            self._delay.stop()
+            if self._results is not None:
+                self._results = None
+                if self._snapshot is not None:
+                    self._show(self._snapshot.recent, allowed=self._snapshot.billable_allowed)
+            return
+        self._delay.start()
+
+    def _ask(self) -> None:
+        if len(self.term) >= SEARCH_MIN_CHARS:
+            self.searchRequested.emit(self.term)
+
+    def _show(self, entries: tuple[Entry, ...], *, allowed: bool) -> None:
+        t, tz, now = self._t, self._tz, self._now
+        if tz is None or now is None:
+            return
+        if self._results is None:
+            self.head.setText(t("recent").upper())
+            self.empty.setText(t("recentEmpty"))
+        else:
+            self.head.setText(t("searchResults", count=len(entries)).upper())
+            self.empty.setText(t("searchEmpty"))
         position = self.scroll.verticalScrollBar().value()
         body = QWidget()
         column = QVBoxLayout(body)
@@ -143,12 +221,12 @@ class RecentList(QWidget):
         column.setSpacing(0)
         self.rows = []
         today = local_day(now, tz)
-        for day, entries in group_by_day(snapshot.recent, tz):
-            column.addWidget(self._day(day_label(day, today, t).upper(), short_duration(day_total(entries))))
-            for entry in entries:
-                row = EntryRow(
-                    entry, tz, t, allowed=snapshot.billable_allowed, expanded=entry.id in self._expanded
-                )
+        for day, day_entries in group_by_day(entries, tz):
+            column.addWidget(
+                self._day(day_label(day, today, t).upper(), short_duration(day_total(day_entries)))
+            )
+            for entry in day_entries:
+                row = EntryRow(entry, tz, t, allowed=allowed, expanded=entry.id in self._expanded)
                 row.toggled.connect(lambda r=row: self._toggle(r))
                 row.resume.clicked.connect(lambda _checked=False, e=entry: self.resumeRequested.emit(e))
                 row.billable.clicked.connect(lambda _checked=False, r=row: self._on_billable(r))

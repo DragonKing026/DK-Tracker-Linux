@@ -388,3 +388,61 @@ def test_after_a_locked_wallet_saving_takes_the_token_from_the_wallet(harness, q
     h.settle()
     assert h.state.configured is True
     assert h.clients[-1] == (URL, "secret-token")
+
+
+# -- F-33: search in all entries ---------------------------------------------------
+
+
+def old_entries(client):
+    first = client.add(
+        make_entry(
+            41,
+            NOW - timedelta(days=60, hours=2),
+            NOW - timedelta(days=60),
+            description="Trello: raport dla recepcji",
+        )
+    )
+    second = client.add(
+        make_entry(
+            42,
+            NOW - timedelta(days=30, hours=1),
+            NOW - timedelta(days=30),
+            description="Trello: poprawki raportu",
+        )
+    )
+    return first, second
+
+
+def test_search_shows_matching_entries_from_all_of_kimai(harness):
+    h = harness()
+    old_entries(h.client)
+    recent = h.controller.popup.recent
+    recent.search.setText("raport")
+    recent.searchRequested.emit("raport")
+    h.settle()
+    assert [row.entry.id for row in recent.rows] == [42, 41]
+    assert ("search", "raport", 50) in h.client.calls
+
+
+def test_billable_on_a_result_refreshes_the_results(harness):
+    h = harness()
+    _first, second = old_entries(h.client)
+    recent = h.controller.popup.recent
+    recent.search.setText("poprawki")
+    recent.searchRequested.emit("poprawki")
+    h.settle()
+    recent.rows[0].billable.click()
+    h.settle()
+    assert [call for call in h.client.calls if call[0] == "search"][-2:] == [("search", "poprawki", 50)] * 2
+    assert recent.rows[0].entry.billable is False
+    assert recent.rows[0].billable.isEnabled()
+
+
+def test_search_error_is_shown_in_the_window(harness):
+    h = harness()
+    h.client.fail["search"] = [ApiError(ErrorKind.CONNECTION, 0, "offline")]
+    recent = h.controller.popup.recent
+    recent.search.setText("raport")
+    recent.searchRequested.emit("raport")
+    h.settle()
+    assert h.controller.popup.error.isVisibleTo(h.controller.popup)
