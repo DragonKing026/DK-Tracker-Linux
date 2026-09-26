@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Keep YAML front matter of every Markdown document consistent.
 
-Every .md file in the repository (outside .claude/, .git/ and build dirs) must
+Every .md file in the repository (outside .claude/, .github/, .git/ and build dirs) must
 start with front matter holding at least:
   noteId: 32 hex chars   - the VS Code "notebook" extension adds one to any file
                            that lacks it, which leaves the file dirty in git
@@ -25,8 +25,9 @@ import uuid
 from pathlib import Path
 
 ROOT = Path.cwd()
-SKIP_DIRS = {".git", ".claude", "node_modules", ".venv", "venv", "build", "build-dir", ".pytest_cache", ".ruff_cache",
-             ".flatpak-builder", ".obsidian"}
+# .github: GitHub renders front matter as a table on the repository page, so files there have none.
+SKIP_DIRS = {".git", ".claude", ".github", "node_modules", ".venv", "venv", "build", "build-dir", ".pytest_cache",
+             ".ruff_cache", ".flatpak-builder", ".obsidian", ".superpowers", "dist"}
 FRONT = re.compile(r"\A---\n(.*?\n)?---\n", re.S)
 DATE = re.compile(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}|\{\{DATA\}\}")
 NOTE_ID = re.compile(r"^noteId:\s*\"?([0-9a-f]{32}|\{\{NOTEID\}\})\"?\s*$", re.M)

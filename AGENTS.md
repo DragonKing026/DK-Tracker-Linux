@@ -87,7 +87,9 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
 - Każdy plik `.md` w `docs/` i `TODO/` zaczyna się od **frontmatter YAML**
   (`noteId`, `tytul`, `tags`, `utworzono`, `zaktualizowano`, dla zadań także `status`,
   `priorytet`). `noteId` i `tags` są obowiązkowe we **wszystkich** plikach `.md` poza
-  `.claude/`, bo inaczej dopisuje je rozszerzenie VS Code *notebook*. Skill
+  `.claude/` i `.github/`, bo inaczej dopisuje je rozszerzenie VS Code *notebook*. W `.github/` (np.
+  [.github/README.md](.github/README.md) — strona repozytorium na GitHubie) frontmattera **nie ma**: GitHub pokazuje go
+  jako tabelę. Skill
   [frontmatter](.claude/skills/frontmatter/SKILL.md): `frontmatter.py sprawdz` przed commitem.
 - Linki wewnętrzne: **względne linki markdown** `[etykieta](../ścieżka/plik.md)`, działają
   w VS Code, Obsidianie i na GitHubie. **Wikilinki `[[...]]` są zakazane.** Każde odwołanie
