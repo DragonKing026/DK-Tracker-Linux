@@ -2,18 +2,18 @@
 noteId: "b47deee8d3894b82b70e2645272acff3"
 tytul: "Drobne uwagi z recenzji Planu 3 (ui)"
 numer: "0044"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p3
 tags: [todo, ui, recenzja]
 zalezy_od: ["0041"]
 utworzono: 2026-09-26 09:59
-zaktualizowano: 2026-09-26 09:59
+zaktualizowano: 2026-09-26 10:09
 ---
 
 # 0044 — Drobne uwagi z recenzji Planu 3 (ui)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p3** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p3** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -54,3 +54,4 @@ commity `5bda209..fd3c4be`, 0 krytycznych, 5 ważnych (poprawione: I1–I5, comm
 ### 2026-09-26
 
 - **09:59** Utworzono z końcowej recenzji Planu 3.
+- **10:09** Start: wszystkie uwagi techniczne — poprawiam po kolei (TDD).
