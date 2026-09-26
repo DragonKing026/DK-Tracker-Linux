@@ -22,7 +22,8 @@ jedna drugą ([0069](../../TODO/W-TRAKCIE/0069-plan5-okno-glowne/todo.md)).
 - **Tekst zawsze czytelny**: wyłączona kontrolka ma tekst `muted` i tło `panel`, nie przezroczystość całości.
 - Kolor jest w adresie każdego rysowanego obrazka (`image://glyph/<nazwa>/<rrggbb>`, `image://icons/mark/<rrggbb>`):
   QML trzyma obrazki według adresu, więc po zmianie motywu stary kolor by został.
-- Motyw jasny i ciemny według systemu, jak okienko przy tacce i wtyczka.
+- Motyw jasny albo ciemny: jak w systemie (domyślnie) albo wybrany w ustawieniach (`Settings.theme`: `auto`,
+  `light`, `dark`) — ten sam dla okna głównego i okienka przy tacce.
 
 ## Kolory (`theme.py`: `MAIN_DARK`, `MAIN_LIGHT`)
 

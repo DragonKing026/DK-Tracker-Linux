@@ -40,7 +40,7 @@ stateDiagram-v2
 | **Test połączenia** | `GET /api/users/me` → komunikat „Połączono jako *alias/username*” albo powód błędu. |
 | **Zapis** | URL obcięty z końcowych `/`. Zapis ustawień **resetuje blokadę billable** (F-09), bo inny serwer/token może mieć uprawnienie. |
 | **Źródło** | `options/options.js`, `lib/api.js#getSettings` |
-| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. |
+| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. **Motyw**: jak w systemie (domyślnie), jasny albo ciemny — dla okna głównego i okienka przy tacce, zmienia się od razu po zapisie. |
 | **Różnica w aplikacji** | Token → magazyn sekretów ([Secret Service](../integracje/secret-service.md)), nie plik ustawień. Brak odpowiednika „host permissions” Chrome — Flatpak ma dostęp do sieci przez `--share=network`. |
 
 ## F-02 Ikona w tacce ze stanem

@@ -32,7 +32,8 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 
 - [Struktura repozytorium](architektura/struktura-repozytorium.md)
 - [Architektura aplikacji](architektura/architektura-aplikacji.md) — warstwy, komponenty, przepływy
-- [Wygląd okna głównego](architektura/wyglad-okna-glownego.md) — kolory obu motywów, kontrolki i ich stany, układ widoków
+- [Wygląd okna głównego](architektura/wyglad-okna-glownego.md) — kolory obu motywów, kontrolki i ich stany, układ
+  widoków
 
 ## Decyzje (ADR)
 
