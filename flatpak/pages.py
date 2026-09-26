@@ -33,7 +33,6 @@ def flatpakrepo(base_url: str, public_key: bytes) -> str:
         f"Url={base_url.rstrip('/')}/repo/\n"
         f"Homepage={base_url.rstrip('/')}/\n"
         f"Comment=Kimai time tracking in the system tray\n"
-        f"RuntimeRepo={FLATHUB}\n"
         f"GPGKey={_key(public_key)}\n"
     )
 

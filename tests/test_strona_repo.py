@@ -26,7 +26,7 @@ def test_repo_file_lets_flatpak_add_the_remote():
     assert data["Url"] == f"{URL}/repo/"
     assert data["Title"] == "WS Tracker Tray"
     assert base64.b64decode(data["GPGKey"]) == KEY
-    assert data["RuntimeRepo"] == "https://dl.flathub.org/repo/flathub.flatpakrepo"
+    assert "RuntimeRepo" not in data  # a .flatpakref key only (flatpak command reference)
 
 
 def test_ref_file_installs_the_app_from_that_remote():
