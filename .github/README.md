@@ -4,7 +4,7 @@ tags: []
 
 ---
 
-# <img src="../src/kimai_tray/ui/assets/kimai.png" alt="" width="36" align="top"> Kimai Tray
+# Kimai Tray
 
 Mierzenie czasu w [Kimai](https://www.kimai.org/) prosto z tacki systemowej Linuksa — bez otwierania przeglądarki.
 Natywny odpowiednik firmowej wtyczki [WS Tracker](https://github.com/websystemspl/kimai-ws-tracker).
