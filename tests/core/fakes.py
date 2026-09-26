@@ -171,6 +171,14 @@ class FakeClient:
             entry = replace(entry, description=changes["description"])
         if "billable" in changes:
             entry = replace(entry, billable=changes["billable"])
+        if "project" in changes:
+            project = next(p for p in self.projects_list if p.id == changes["project"])
+            entry = replace(
+                entry, project_id=project.id, project_name=project.name, project_color=project.color
+            )
+        if "activity" in changes:
+            activity = next(a for a in self.activities_list if a.id == changes["activity"])
+            entry = replace(entry, activity_id=activity.id, activity_name=activity.name)
         if "begin" in changes:
             entry = replace(entry, begin=self._parse(changes["begin"]))
         if "end" in changes:

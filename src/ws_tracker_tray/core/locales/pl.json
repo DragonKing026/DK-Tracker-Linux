@@ -37,6 +37,7 @@
   "savedDescription": "Opis zapisany.",
   "savedTime": "Godzina rozpoczęcia zapisana.",
   "savedBillable": "Zapisane.",
+  "savedWork": "Projekt i rodzaj pracy zapisane.",
   "errNoProject": "Wybierz projekt.",
   "errNoActivity": "Wybierz rodzaj pracy.",
   "errNothingRunning": "Nic nie jest mierzone.",

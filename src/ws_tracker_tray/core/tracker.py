@@ -272,6 +272,28 @@ class Tracker:
         updated = self._client.update(current.id, {"begin": kimai_stamp(begin, tz)})
         return self._merge(updated, notice="savedTime")
 
+    def change_work(self, project_id: int | None, activity_id: int | None) -> Snapshot:
+        """F-34. Unlike the add-on, the running entry's project and activity can change; `$` then
+        takes the default of the new pair, as at a start (user's decision)."""
+        current = self._require_running()
+        project, activity = self._require_choice(project_id, activity_id)
+        if (project, activity) == (current.project_id, current.activity_id):
+            return self._snapshot
+        changes: dict[str, object] = {"project": project, "activity": activity}
+        if self._snapshot.billable_allowed:
+            chosen = next((a for a in self.activities(project) if a.id == activity), None)
+            changes["billable"] = self.default_billable(project, chosen)
+        try:
+            self._client.update(current.id, changes)
+        except ApiError as error:
+            if "billable" not in changes or not is_billable_rejected(error):
+                raise
+            self._lock_billable()
+            del changes["billable"]
+            self._client.update(current.id, changes)
+        self.refresh_full()  # the PATCH reply names neither the project nor the activity
+        return self._set(notice="savedWork")
+
     def set_billable(self, entry_id: int, value: bool) -> Snapshot:
         """F-09. The `$` on a running or a recent entry."""
         if not self._snapshot.billable_allowed:
