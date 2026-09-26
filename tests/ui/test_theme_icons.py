@@ -153,3 +153,14 @@ def test_window_header_shows_the_mark_at_24_px(qapp):
 
     popup = QuickWindow(AppState(Settings(), Translator("pl")))
     assert popup.logo.pixmap().deviceIndependentSize().width() == 24
+
+
+def test_the_main_window_has_its_own_tokens_in_both_themes():
+    """docs/architektura/wyglad-okna-glownego.md: one token table, dark and light."""
+    from dk_tracker.ui.theme import MAIN_DARK, MAIN_LIGHT, main_palette_for
+
+    assert set(MAIN_DARK) == set(MAIN_LIGHT)
+    expected = {"bg", "surface", "panel", "input", "control", "border", "fg", "accent", "danger"}
+    assert expected <= set(MAIN_DARK)
+    assert main_palette_for(Qt.ColorScheme.Dark, QColor("#ffffff")) is MAIN_DARK
+    assert main_palette_for(Qt.ColorScheme.Unknown, QColor("#eff0f1")) is MAIN_LIGHT

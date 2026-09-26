@@ -1,17 +1,19 @@
-// A flat icon button: the glyph keeps its own colour (Basic would tint it with the text colour,
-// and a green "$" looked like a grey one), a background only under the pointer.
+// An icon button: no background until the pointer is over it. The glyph keeps its own colour
+// (Basic would tint it). `danger`: red background and a white glyph under the pointer, as a
+// window's own close button.
 import QtQuick
 import QtQuick.Controls
 
 ToolButton {
     id: button
     property string glyph: ""
-    property string tint: app.palette.muted || "#9aa0ac"
+    property color tint: app.palette.muted
     property string tip: ""
+    property bool danger: false
+    readonly property color ink: !enabled ? app.palette.placeholder : danger && hovered ? "#ffffff" : tint
     implicitWidth: 32
-    opacity: enabled ? 1 : 0.4
     implicitHeight: 32
-    icon.source: glyph ? "image://glyph/" + glyph + "/" + tint.replace("#", "") : ""
+    icon.source: glyph ? "image://glyph/" + glyph + "/" + ink.toString().slice(1, 7) : ""
     icon.color: "transparent"
     icon.width: 18
     icon.height: 18
@@ -20,7 +22,8 @@ ToolButton {
     ToolTip.text: tip
     background: Rectangle {
         radius: 4
-        color: button.down ? (app.palette.line || "#2f333c")
-                           : (button.hovered && button.enabled ? (app.palette.control || "#353b48") : "transparent")
+        color: !button.enabled || !(button.hovered || button.down) ? "transparent"
+             : button.danger ? app.palette.danger
+             : button.down ? app.palette.control_down : app.palette.control_hover
     }
 }

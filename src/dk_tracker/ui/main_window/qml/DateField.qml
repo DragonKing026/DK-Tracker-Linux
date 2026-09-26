@@ -1,31 +1,19 @@
-// A day chosen from a calendar, not typed (live test of 0.10.0). `value` is "YYYY-MM-DD".
+// A day chosen from a calendar, not typed. `value` is "YYYY-MM-DD".
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Btn {
+SelectButton {
     id: field
     property string value: ""
     signal edited()
     readonly property date day: value ? new Date(value + "T12:00:00") : new Date()
     property int shownMonth: day.getMonth()
     property int shownYear: day.getFullYear()
-    implicitWidth: 170
+    glyph: "calendar"
+    chevron: false
+    implicitWidth: 190
     text: value ? day.toLocaleDateString(Qt.locale(), "ddd, d MMM yyyy") : ""
-    contentItem: Row {
-        spacing: 6
-        Image {
-            anchors.verticalCenter: parent.verticalCenter
-            source: "image://glyph/calendar/" + (app.palette.muted || "#9aa0ac").slice(1)
-            sourceSize.width: 15
-            sourceSize.height: 15
-        }
-        Label {
-            anchors.verticalCenter: parent.verticalCenter
-            text: field.text
-            color: app.palette.fg || "#eceef2"
-        }
-    }
     onClicked: { shownMonth = day.getMonth(); shownYear = day.getFullYear(); picker.open() }
 
     function iso(d) {
@@ -40,22 +28,18 @@ Btn {
     Popup {
         id: picker
         y: field.height + 4
-        padding: 8
-        background: Rectangle {
-            radius: 6
-            color: (app.palette.panel || "#262b35")
-            border.color: (app.palette.border || "#6b7486")
-        }
+        padding: 10
+        background: Panel {}
         contentItem: ColumnLayout {
-            spacing: 4
+            spacing: 6
             RowLayout {
                 Layout.fillWidth: true
                 IconButton { glyph: "chevron_left"; onClicked: field.shift(-1) }
                 Label {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
-                    font.bold: true
-                    color: app.palette.fg || "#eceef2"
+                    font.weight: Font.DemiBold
+                    color: app.palette.fg
                     // The month on its own ("wrzesień", not "września"); QML has no "LLLL" format.
                     text: Qt.locale().standaloneMonthName(field.shownMonth, Locale.LongFormat) + " " + field.shownYear
                 }
@@ -68,7 +52,7 @@ Btn {
                     required property string shortName
                     text: shortName
                     horizontalAlignment: Text.AlignHCenter
-                    color: app.palette.muted || "#9aa0ac"
+                    color: app.palette.muted
                     font.pixelSize: 12
                 }
             }
@@ -76,23 +60,23 @@ Btn {
                 id: grid
                 objectName: "dateGrid"
                 Layout.fillWidth: true
-                implicitWidth: 260
+                implicitWidth: 266
                 month: field.shownMonth
                 year: field.shownYear
                 locale: Qt.locale()
                 delegate: Rectangle {
                     required property var model
                     readonly property bool chosen: field.value !== "" && field.iso(model.date) === field.value
-                    implicitWidth: 34
-                    implicitHeight: 30
+                    implicitWidth: 36
+                    implicitHeight: 32
                     radius: 4
-                    color: chosen ? (app.palette.accent || "#6f9bff") : (dayHover.hovered ? (app.palette.control || "#353b48") : "transparent")
-                    opacity: model.month === grid.month ? 1 : 0.35
+                    color: chosen ? app.palette.accent : dayHover.hovered ? app.palette.control_hover : "transparent"
+                    border.width: model.today && !chosen ? 1 : 0
+                    border.color: app.palette.accent
                     Label {
                         anchors.centerIn: parent
                         text: model.day
-                        font.bold: model.today
-                        color: parent.chosen ? "#ffffff" : (app.palette.fg || "#eceef2")
+                        color: parent.chosen ? "#ffffff" : model.month === grid.month ? app.palette.fg : app.palette.placeholder
                     }
                     HoverHandler { id: dayHover; cursorShape: Qt.PointingHandCursor }
                 }

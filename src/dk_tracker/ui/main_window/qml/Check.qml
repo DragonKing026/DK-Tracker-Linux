@@ -1,31 +1,31 @@
-// A check box of the main window: a rounded box in the theme's colours, a pointer under the mouse.
+// A check box: an 18 px square with an edge; checked — accent with a white tick.
 import QtQuick
 import QtQuick.Controls
 
 CheckBox {
     id: box
-    HoverHandler { cursorShape: Qt.PointingHandCursor }
+    HoverHandler { cursorShape: box.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
     indicator: Rectangle {
         x: box.leftPadding
         y: (box.height - height) / 2
-        implicitWidth: 20
-        implicitHeight: 20
-        radius: 5
-        color: box.checked ? (app.palette.accent || "#6f9bff") : (app.palette.bg || "#16181d")
+        implicitWidth: 18
+        implicitHeight: 18
+        radius: 4
+        color: box.checked ? app.palette.accent : app.palette.input
         border.width: box.checked ? 0 : 1
-        border.color: box.hovered ? (app.palette.muted || "#9aa0ac") : (app.palette.line || "#2f333c")
+        border.color: box.hovered ? app.palette.border_hover : app.palette.border
         Image {
             anchors.centerIn: parent
             visible: box.checked
             source: "image://glyph/check/ffffff"
-            sourceSize.width: 14
-            sourceSize.height: 14
+            sourceSize.width: 13
+            sourceSize.height: 13
         }
     }
     contentItem: Label {
         leftPadding: box.indicator.width + 10
         text: box.text
-        color: app.palette.fg || "#eceef2"
+        color: box.enabled ? app.palette.fg : app.palette.muted
         wrapMode: Text.Wrap
         verticalAlignment: Text.AlignVCenter
     }

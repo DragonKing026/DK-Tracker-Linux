@@ -18,6 +18,7 @@ from dk_tracker.core.models import Activity, Entry, EntryDetails, Project
 from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, short_duration
 from dk_tracker.core.tracker import Snapshot, live_totals
 
+from ..theme import MAIN_DARK
 from .models import ActivityModel, EntryListModel, ProjectModel
 from .settings_form import SettingsForm
 
@@ -76,7 +77,7 @@ class MainBridge(QObject):
                           billable=True, billableAllowed=True, offline=False, loading=False,
                           page="entries")  # fmt: skip
         self._texts: dict[str, str] = {}
-        self._palette: dict[str, str] = {}
+        self._palette: dict[str, str] = dict(MAIN_DARK)  # QML reads colours from the first frame
         self._row_errors: dict[str, str] = {}
         self._projects_version = 0
         self._editor: dict[str, Any] = {"open": False, "error": "", "busy": False}

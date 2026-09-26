@@ -1,5 +1,5 @@
-// The description: several lines. Enter confirms (`accepted`), Shift+Enter starts a new line, as in
-// the quick window. Grows with the text up to `maxLines`, then scrolls.
+// The description in several lines. Enter confirms (`accepted`), Shift+Enter starts a new line, as
+// in the quick window. Grows with the text up to `maxLines`, then scrolls.
 import QtQuick
 import QtQuick.Controls
 
@@ -12,32 +12,33 @@ ScrollView {
     property int maxLines: 4
     signal accepted()
     signal editingFinished()
-    implicitHeight: Math.min(area.implicitHeight, area.font.pixelSize * 1.45 * maxLines + 18)
+    implicitHeight: Math.min(area.implicitHeight, area.font.pixelSize * 1.45 * maxLines + 16)
     clip: true
-    opacity: enabled ? 1 : 0.7
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
     TextArea {
         id: area
         wrapMode: TextEdit.Wrap
-        color: app.palette.fg || "#eceef2"
-        placeholderTextColor: app.palette.muted || "#9aa0ac"
-        selectByMouse: true
         leftPadding: 10
         rightPadding: 10
         topPadding: 8
         bottomPadding: 8
+        color: box.enabled ? app.palette.fg : app.palette.muted
+        placeholderTextColor: app.palette.placeholder
+        selectByMouse: true
+        HoverHandler { id: hover; cursorShape: Qt.IBeamCursor }
         background: Rectangle {
             radius: 4
-            color: (app.palette.input || "#0d0f13")
+            color: box.enabled ? app.palette.input : app.palette.panel
             border.width: 1
-            border.color: area.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#6b7486")
+            border.color: area.activeFocus ? app.palette.accent
+                        : hover.hovered && box.enabled ? app.palette.border_hover : app.palette.border
         }
         Keys.onReturnPressed: function (event) {
             if (event.modifiers & Qt.ShiftModifier) { event.accepted = false; return }  // a new line
             box.accepted()
         }
-        Keys.onEnterPressed: function (event) { box.accepted() }
+        Keys.onEnterPressed: box.accepted()
         onActiveFocusChanged: if (!activeFocus) box.editingFinished()
     }
 }

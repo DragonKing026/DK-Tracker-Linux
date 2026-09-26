@@ -1,6 +1,6 @@
-// Settings as a page of the main window (live test of 0.10.0): the Kimai address and token,
-// language, description rule, the long-timer reminder, notifications, autostart and the tray.
-// The logic is in Python (`app.settingsForm`); the fields take its values when it loads them.
+// Settings as a page of the main window: the Kimai address and token, language, description rule,
+// the long-timer reminder, notifications, autostart and the tray. The same form layout as the edit
+// window. The logic is in Python (`app.settingsForm`); the fields take its values when it loads them.
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -9,8 +9,10 @@ ScrollView {
     id: page
     objectName: "settingsView"
     readonly property var form: app.settingsForm.form
+    readonly property int labelWidth: 230  // the settings' labels are longer than the edit window's
     contentWidth: availableWidth
     clip: true
+    background: Rectangle { color: app.palette.bg }
 
     function fill() {
         url.text = form.url
@@ -37,16 +39,16 @@ ScrollView {
     }
 
     ColumnLayout {
-        width: Math.min(page.availableWidth - 48, 620)
+        width: Math.min(page.availableWidth - 48, 680)
         x: 24
-        spacing: 6
+        spacing: 12
 
         Label {
             Layout.topMargin: 20
             text: app.texts.optTitle || ""
             font.pixelSize: 20
-            font.bold: true
-            color: app.palette.fg || "#eceef2"
+            font.weight: Font.Bold
+            color: app.palette.fg
         }
         Label {
             objectName: "settingsNotConfigured"
@@ -54,86 +56,99 @@ ScrollView {
             Layout.fillWidth: true
             wrapMode: Text.Wrap
             text: app.texts.notConfigured || ""
-            color: app.palette.muted || "#9aa0ac"
+            color: app.palette.muted
         }
 
-        component Caption: Label {
-            Layout.topMargin: 12
-            font.bold: true
-            color: app.palette.fg || "#eceef2"
-        }
         component Hint: Label {
             Layout.fillWidth: true
+            Layout.leftMargin: page.labelWidth + 12  // under the field, past the label column
+            Layout.topMargin: -6
             wrapMode: Text.Wrap
             font.pixelSize: 12
-            color: app.palette.muted || "#9aa0ac"
+            color: app.palette.muted
         }
 
-        Caption { text: app.texts.optUrl || "" }
-        Field {
-            id: url
-            objectName: "settingsUrl"
-            Layout.fillWidth: true
-            placeholderText: app.texts.optUrlHint || ""
-            onTextEdited: app.settingsForm.urlEdited(text)
+        FormRow {
+            labelWidth: page.labelWidth
+            label: app.texts.optUrl || ""
+            Field {
+                id: url
+                objectName: "settingsUrl"
+                Layout.fillWidth: true
+                placeholderText: app.texts.optUrlHint || ""
+                onTextEdited: app.settingsForm.urlEdited(text)
+            }
         }
-
-        Caption { text: app.texts.optToken || "" }
-        Field {
-            id: token
-            objectName: "settingsToken"
-            Layout.fillWidth: true
-            echoMode: TextInput.Password
-            placeholderText: page.form.tokenPlaceholder
+        FormRow {
+            labelWidth: page.labelWidth
+            label: app.texts.optToken || ""
+            Field {
+                id: token
+                objectName: "settingsToken"
+                Layout.fillWidth: true
+                echoMode: TextInput.Password
+                placeholderText: page.form.tokenPlaceholder
+            }
         }
         Hint { text: app.texts.optTokenHint || "" }
-
-        Caption { text: app.texts.optLang || "" }
-        Combo {
-            id: language
-            objectName: "settingsLanguage"
-            Layout.preferredWidth: 260
-            model: page.form.languages
-            textRole: "label"
-            valueRole: "code"
+        FormRow {
+            labelWidth: page.labelWidth
+            label: app.texts.optLang || ""
+            Combo {
+                id: language
+                objectName: "settingsLanguage"
+                Layout.preferredWidth: 240
+                model: page.form.languages
+                textRole: "label"
+                valueRole: "code"
+            }
+            Item { Layout.fillWidth: true }
         }
-
-        Caption { text: app.texts.optMinDesc || "" }
-        Spin {
-            id: minDescription
-            objectName: "settingsMinDescription"
-            from: 0
-            to: 200
-            editable: true
+        FormRow {
+            labelWidth: page.labelWidth
+            label: app.texts.optMinDesc || ""
+            Spin {
+                id: minDescription
+                objectName: "settingsMinDescription"
+                from: 0
+                to: 200
+            }
+            Item { Layout.fillWidth: true }
         }
         Hint { text: app.texts.optMinDescHint || "" }
-
-        Caption { text: app.texts.optLongTimer || "" }
-        Spin {  // tenths of an hour: 0.0–24.0 in steps of 0.5
-            id: longTimer
-            objectName: "settingsLongTimer"
-            from: 0
-            to: 240
-            stepSize: 5
-            editable: true
-            textFromValue: function (value, locale) { return Number(value / 10).toLocaleString(locale, "f", 1) }
-            valueFromText: function (text, locale) { return Math.round(Number.fromLocaleString(locale, text) * 10) }
+        FormRow {
+            labelWidth: page.labelWidth
+            label: app.texts.optLongTimer || ""
+            Spin {  // tenths of an hour: 0.0–24.0 in steps of 0.5
+                id: longTimer
+                objectName: "settingsLongTimer"
+                from: 0
+                to: 240
+                stepSize: 5
+                textFromValue: function (value, locale) { return Number(value / 10).toLocaleString(locale, "f", 1) }
+                valueFromText: function (text, locale) { return Math.round(Number.fromLocaleString(locale, text) * 10) }
+            }
+            Item { Layout.fillWidth: true }
         }
         Hint { text: app.texts.optLongTimerHint || "" }
 
-        Check { id: notifyConnection; objectName: "settingsNotifyConnection"; Layout.topMargin: 12; text: app.texts.optNotifyConnection || "" }
-        Check { id: notifyMenu; objectName: "settingsNotifyMenu"; text: app.texts.optNotifyMenu || "" }
-        Check { id: autostart; objectName: "settingsAutostart"; text: app.texts.optAutostart || "" }
-        Check { id: showTray; objectName: "settingsShowTray"; text: app.texts.optShowTray || "" }
+        ColumnLayout {
+            Layout.leftMargin: page.labelWidth + 12
+            Layout.topMargin: 4
+            spacing: 6
+            Check { id: notifyConnection; objectName: "settingsNotifyConnection"; text: app.texts.optNotifyConnection || "" }
+            Check { id: notifyMenu; objectName: "settingsNotifyMenu"; text: app.texts.optNotifyMenu || "" }
+            Check { id: autostart; objectName: "settingsAutostart"; text: app.texts.optAutostart || "" }
+            Check { id: showTray; objectName: "settingsShowTray"; text: app.texts.optShowTray || "" }
+        }
 
         Label {
             objectName: "settingsWarning"
             visible: page.form.warning !== ""
             Layout.fillWidth: true
-            Layout.topMargin: 8
             wrapMode: Text.Wrap
             text: page.form.warning
-            color: app.palette.err_fg || "#ff9d9d"
+            color: app.palette.danger
         }
         Label {
             objectName: "settingsStatus"
@@ -141,11 +156,12 @@ ScrollView {
             Layout.fillWidth: true
             wrapMode: Text.Wrap
             text: page.form.status
-            color: page.form.okStatus ? (app.palette.ok_fg || "#6ee7a0") : (app.palette.err_fg || "#ff9d9d")
+            color: page.form.okStatus ? app.palette.start : app.palette.danger
         }
 
+        Rectangle { Layout.fillWidth: true; Layout.topMargin: 4; implicitHeight: 1; color: app.palette.divider }
+
         RowLayout {
-            Layout.topMargin: 12
             Layout.bottomMargin: 24
             spacing: 8
             Btn {
@@ -157,9 +173,9 @@ ScrollView {
             Item { Layout.fillWidth: true }
             Btn {
                 objectName: "settingsSave"
+                variant: "primary"
                 text: app.texts.optSave || ""
                 enabled: !page.form.busy
-                highlighted: true
                 onClicked: app.settingsForm.save(page.values(), token.text)
             }
         }

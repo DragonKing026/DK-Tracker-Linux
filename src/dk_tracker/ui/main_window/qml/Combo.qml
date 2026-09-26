@@ -1,54 +1,55 @@
-// A drop-down list of the main window: rounded, its list rounded too, a pointer under the mouse.
+// A drop-down list with the SelectButton look; its list is a Panel.
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 
 ComboBox {
     id: combo
-    HoverHandler { cursorShape: Qt.PointingHandCursor }
+    implicitHeight: 34
     leftPadding: 10
-    opacity: enabled ? 1 : 0.7
-    // Our own arrow in the text colour: Basic's grey one vanished on the dark field (live test).
+    rightPadding: 10
+    HoverHandler { cursorShape: combo.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
     indicator: Image {
         x: combo.width - width - 10
         y: (combo.height - height) / 2
-        source: "image://glyph/chevron_down/" + (app.palette.fg || "#eceef2").slice(1)
+        source: "image://glyph/chevron_down/" + app.palette.muted.toString().slice(1, 7)
         sourceSize.width: 14
         sourceSize.height: 14
     }
     contentItem: Label {
-        leftPadding: 10
-        rightPadding: combo.indicator.width + 6
+        leftPadding: 0
+        rightPadding: combo.indicator.width + 8
         text: combo.displayText
-        color: combo.currentIndex < 0 ? (app.palette.muted || "#9aa0ac") : (app.palette.fg || "#eceef2")
         elide: Text.ElideRight
         verticalAlignment: Text.AlignVCenter
+        color: !combo.enabled ? app.palette.muted : combo.currentIndex < 0 ? app.palette.placeholder : app.palette.fg
     }
     background: Rectangle {
-        implicitHeight: 38
         radius: 4
-        color: combo.hovered ? (app.palette.control_hover || "#424a5a") : (app.palette.control || "#353b48")
+        readonly property bool over: combo.enabled && combo.hovered
+        color: !combo.enabled ? app.palette.panel : combo.down ? app.palette.control_down
+             : over ? app.palette.control_hover : app.palette.control
         border.width: 1
-        border.color: combo.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#6b7486")
+        border.color: combo.activeFocus || combo.popup.visible ? app.palette.accent
+                    : over ? app.palette.border_hover : app.palette.border
     }
-    popup.background: Rectangle {
-        radius: 4
-        color: (app.palette.panel || "#262b35")
-        border.color: (app.palette.border || "#6b7486")
-    }
+    popup.background: Panel {}
+    popup.padding: 4
     delegate: ItemDelegate {
         required property var model
         required property int index
-        width: combo.width
+        width: ListView.view ? ListView.view.width : combo.width
         highlighted: combo.highlightedIndex === index
         HoverHandler { cursorShape: Qt.PointingHandCursor }
         contentItem: Label {
             text: model[combo.textRole]
-            color: app.palette.fg || "#eceef2"
             elide: Text.ElideRight
+            color: app.palette.fg
+            font.weight: index === combo.currentIndex ? Font.DemiBold : Font.Normal
         }
         background: Rectangle {
             radius: 4
-            color: parent.highlighted || parent.hovered ? (app.palette.control || "#353b48") : "transparent"
+            color: parent.highlighted || parent.hovered ? app.palette.control_hover : "transparent"
         }
     }
 }

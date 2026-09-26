@@ -11,25 +11,26 @@ Rectangle {
     readonly property bool locked: entry.exported
     enabled: !app.view.offline  // spec, section 9; the list still scrolls
     readonly property string rowError: app.rowErrors[String(entry.entryId)] || ""
-    readonly property string projectColor: entry.projectColor || (app.palette.muted || "#9aa0ac")
-    implicitHeight: content.implicitHeight + 12
-    color: hover.hovered ? (app.palette.surface || "#1e2127") : "transparent"
+    readonly property color projectColor: entry.projectColor || app.palette.muted
+    implicitHeight: Math.max(44, content.implicitHeight + 12)
+    color: hover.hovered ? app.palette.surface : app.palette.bg
 
     HoverHandler { id: hover; cursorShape: Qt.PointingHandCursor }
     TapHandler { onTapped: app.openEntry(entry.entryId) }  // every option in the edit window
 
     ColumnLayout {
         id: content
-        anchors.fill: parent
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
         anchors.leftMargin: 16
         anchors.rightMargin: 8
-        anchors.topMargin: 6
         spacing: 2
 
         RowLayout {
-            spacing: 6
+            spacing: 10
             Rectangle {
-                width: 9; height: 9; radius: 5
+                implicitWidth: 9; implicitHeight: 9; radius: 5
                 color: row.projectColor
             }
             Label {
@@ -38,7 +39,7 @@ Rectangle {
                 Layout.minimumWidth: 150
                 Layout.preferredWidth: 400
                 text: entry.description
-                color: app.palette.fg || "#eceef2"
+                color: app.palette.fg
                 wrapMode: Text.Wrap
                 maximumLineCount: 2  // the whole text in the edit window
                 elide: Text.ElideRight
@@ -56,8 +57,7 @@ Rectangle {
                 objectName: "rowBillable"
                 enabled: !row.locked && app.view.billableAllowed
                 glyph: entry.billable ? "money" : "money_off"
-                tint: entry.billable ? (app.palette.start || "#16a34a") : (app.palette.muted || "#9aa0ac")
-                opacity: entry.billable ? 1 : 0.6
+                tint: entry.billable ? app.palette.start : app.palette.muted
                 tip: entry.billable ? (app.texts.billableRowOn || "") : (app.texts.billableRowOff || "")
                 onClicked: app.setBillable(entry.entryId, !entry.billable)
             }
@@ -66,14 +66,16 @@ Rectangle {
                 Layout.preferredWidth: 110
                 horizontalAlignment: Text.AlignHCenter
                 text: entry.begin + " – " + entry.end
-                color: app.palette.fg || "#eceef2"
+                color: app.palette.muted
+                font.features: { "tnum": 1 }
             }
             Label {
                 Layout.preferredWidth: 48
                 horizontalAlignment: Text.AlignRight
                 text: entry.total
-                font.bold: true
-                color: app.palette.fg || "#eceef2"
+                font.weight: Font.Bold
+                font.features: { "tnum": 1 }
+                color: app.palette.fg
             }
             Item {  // the lock, or the same room when unlocked: the columns stay aligned
                 implicitWidth: 20
@@ -81,7 +83,7 @@ Rectangle {
                 Image {
                     anchors.centerIn: parent
                     visible: row.locked
-                    source: "image://glyph/lock/" + (app.palette.muted || "#9aa0ac").slice(1)
+                    source: "image://glyph/lock/" + app.palette.muted.toString().slice(1, 7)
                     sourceSize.width: 16; sourceSize.height: 16
                     ToolTip.visible: lockHover.hovered
                     ToolTip.text: app.texts.errExported || ""
@@ -91,7 +93,7 @@ Rectangle {
             IconButton {
                 objectName: "rowResume"
                 glyph: "play"
-                tint: hovered ? (app.palette.start || "#16a34a") : (app.palette.muted || "#9aa0ac")
+                tint: hovered ? app.palette.start : app.palette.muted
                 tip: app.texts.resume || ""
                 onClicked: app.resume(entry.entryId)
             }
@@ -99,7 +101,7 @@ Rectangle {
                 objectName: "rowDelete"
                 enabled: !row.locked
                 glyph: "trash"
-                tint: hovered ? (app.palette.stop || "#e02f2f") : (app.palette.muted || "#9aa0ac")
+                danger: true
                 tip: app.texts.deleteEntry || ""
                 onClicked: app.deleteEntry(entry.entryId)
             }
@@ -109,9 +111,9 @@ Rectangle {
             objectName: "rowError"
             visible: row.rowError !== ""
             text: row.rowError
-            color: app.palette.err_fg || "#ff9d9d"
+            color: app.palette.danger
             font.pixelSize: 12
-            Layout.leftMargin: 17
+            Layout.leftMargin: 19
         }
     }
 
@@ -120,6 +122,6 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         height: 1
-        color: app.palette.line || "#2f333c"
+        color: app.palette.divider
     }
 }

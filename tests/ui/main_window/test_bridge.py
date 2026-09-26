@@ -10,7 +10,7 @@ from dk_tracker.core.entry_list import build_rows
 from dk_tracker.core.i18n import Translator
 from dk_tracker.core.tracker import Snapshot, Totals
 from dk_tracker.ui.main_window.bridge import MainBridge
-from dk_tracker.ui.theme import DARK
+from dk_tracker.ui.theme import MAIN_DARK as DARK
 
 from ...core.fakes import NOW, FakeClient, make_entry
 

@@ -1,75 +1,72 @@
-// A project button that opens a searchable list grouped by customer (as the popup's picker, F-06).
+// The project: a choice (SelectButton) that opens a searchable list grouped by customer, as the
+// quick window's picker (F-06).
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-Btn {
+SelectButton {
     id: picker
     property int projectId: 0
     signal chosen(int id)
 
-    Layout.preferredWidth: 180
-    contentItem: Label {
-        text: picker.text
-        color: picker.projectId ? (app.palette.fg || "#eceef2") : (app.palette.muted || "#9aa0ac")
-        elide: Text.ElideRight
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
-    }
+    implicitWidth: 200
+    empty: projectId === 0
     // projectsVersion: the name is read again once the projects arrive
     text: projectId ? (app.projectsVersion, app.projectName(projectId)) : (app.texts.chooseProject || "")
     onClicked: { search.text = ""; app.filterProjects(""); popup.open(); search.forceActiveFocus() }
 
     Popup {
         id: popup
-        y: picker.height
-        width: 320
-        height: 360
+        y: picker.height + 4
+        width: Math.max(picker.width, 320)
+        height: Math.min(380, search.implicitHeight + projects.contentHeight + 2 * padding + 6)
         padding: 6
-        background: Rectangle {
-            radius: 4
-            color: (app.palette.panel || "#262b35")
-            border.color: (app.palette.border || "#6b7486")
-        }
+        background: Panel {}
         contentItem: ColumnLayout {
             spacing: 6
             Field {
                 id: search
                 objectName: "projectSearch"
                 Layout.fillWidth: true
+                placeholderText: app.texts.searchProjects || ""
                 onTextChanged: app.filterProjects(text)
             }
             ListView {
+                id: projects
                 objectName: "projectList"
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
                 model: app.projectList
                 delegate: ItemDelegate {
+                    id: item
                     required property string kind
                     required property int projectId
                     required property string name
                     required property string color
                     width: ListView.view.width
+                    height: kind === "header" ? 28 : 34
                     enabled: kind === "project"
-                    HoverHandler { cursorShape: parent.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
-                    background: Rectangle {
-                        radius: 4
-                        color: parent.hovered && parent.enabled ? (app.palette.control || "#353b48") : "transparent"
-                    }
+                    HoverHandler { cursorShape: item.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
                     contentItem: RowLayout {
                         spacing: 8
                         Rectangle {
-                            visible: kind === "project"
-                            width: 9; height: 9; radius: 5
-                            color: parent.parent.color || (app.palette.line || "#2f333c")
+                            visible: item.kind === "project"
+                            implicitWidth: 9; implicitHeight: 9; radius: 5
+                            color: item.color || app.palette.muted
                         }
                         Label {
-                            text: name
-                            font.bold: kind === "header"
-                            color: kind === "header" ? (app.palette.muted || "#9aa0ac") : (app.palette.fg || "#eceef2")
                             Layout.fillWidth: true
+                            text: item.name
+                            elide: Text.ElideRight
+                            font.pixelSize: item.kind === "header" ? 12 : 14
+                            font.weight: item.kind === "header" ? Font.DemiBold : (item.projectId === picker.projectId ? Font.DemiBold : Font.Normal)
+                            color: item.kind === "header" ? app.palette.muted : app.palette.fg
                         }
+                    }
+                    background: Rectangle {
+                        radius: 4
+                        color: item.hovered && item.enabled ? app.palette.control_hover : "transparent"
                     }
                     onClicked: { popup.close(); picker.chosen(projectId) }
                 }

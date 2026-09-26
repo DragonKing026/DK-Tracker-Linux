@@ -18,7 +18,7 @@ QML_DIR = Path(__file__).with_name("qml")
 
 
 class _Icons(QQuickImageProvider):
-    """image://glyph/<name>/<rrggbb> and image://icons/mark — the icons the popup uses too."""
+    """image://glyph/<name>/<rrggbb> and image://icons/mark/<rrggbb> — the icons the popup uses too."""
 
     def __init__(self, bridge: MainBridge) -> None:
         super().__init__(QQuickImageProvider.ImageType.Pixmap)
@@ -27,8 +27,8 @@ class _Icons(QQuickImageProvider):
     def requestPixmap(self, id: str, size: QSize, requested: QSize) -> QPixmap:  # noqa: A002, N802
         side = max(requested.width(), requested.height(), 16)
         name, _, color = id.partition("/")
-        if name == "mark":
-            return mark(self._bridge.palette.get("fg", "#eceef2"), side)
+        if name == "mark":  # the colour is in the address: a theme change must not reuse a cached one
+            return mark(f"#{color}" if color else self._bridge.palette.get("fg", "#eceef2"), side)
         return glyph(name, f"#{color or 'eceef2'}", side).pixmap(side, side)
 
 

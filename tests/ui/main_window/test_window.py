@@ -12,7 +12,7 @@ from dk_tracker.core.i18n import Translator
 from dk_tracker.core.tracker import Snapshot
 from dk_tracker.ui.main_window.bridge import MainBridge
 from dk_tracker.ui.main_window.window import MainWindow
-from dk_tracker.ui.theme import DARK
+from dk_tracker.ui.theme import MAIN_DARK as DARK
 
 from ...core.fakes import NOW, FakeClient, make_entry
 
@@ -375,3 +375,14 @@ def test_an_exported_entry_opens_locked(window, qtbot):
     ):
         assert window.child(name).property("enabled") is False, name
     assert window.child("editCancel").property("enabled") is True
+
+
+def test_a_click_outside_closes_the_edit_window(window, qtbot):
+    from PySide6.QtCore import QPoint, Qt
+    from PySide6.QtTest import QTest
+
+    window.bridge.open_editor(entry_details(), WARSAW)
+    dialog = window.child("entryDialog")
+    qtbot.waitUntil(lambda: dialog.property("opened") is True)
+    QTest.mouseClick(window.window, Qt.MouseButton.LeftButton, Qt.KeyboardModifier.NoModifier, QPoint(5, 5))
+    qtbot.waitUntil(lambda: window.bridge.editor["open"] is False)

@@ -1,21 +1,21 @@
-// A text field of the main window: rounded, in the theme's colours (Basic draws square white ones).
+// A text field: darker (light theme: white) than what is around it, always with an edge.
 import QtQuick
 import QtQuick.Controls
 
 TextField {
     id: field
-    color: app.palette.fg || "#eceef2"
-    opacity: enabled ? 1 : 0.7
-    placeholderTextColor: app.palette.muted || "#9aa0ac"
-    selectByMouse: true
+    implicitHeight: 34
     leftPadding: 10
     rightPadding: 10
-    topPadding: 8
-    bottomPadding: 8
+    color: enabled ? app.palette.fg : app.palette.muted
+    placeholderTextColor: app.palette.placeholder
+    selectByMouse: true
+    HoverHandler { id: hover; cursorShape: Qt.IBeamCursor }
     background: Rectangle {
         radius: 4
-        color: field.enabled ? (app.palette.input || "#0d0f13") : (app.palette.panel || "#262b35")
+        color: field.enabled ? app.palette.input : app.palette.panel
         border.width: 1
-        border.color: field.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#6b7486")
+        border.color: field.activeFocus ? app.palette.accent
+                    : hover.hovered && field.enabled ? app.palette.border_hover : app.palette.border
     }
 }

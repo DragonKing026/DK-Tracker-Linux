@@ -19,13 +19,6 @@ LIGHT = {
     "fg": "#17181c",
     "muted": "#71757f",
     "line": "#e3e5ea",
-    # Main window layers (live test of 0.10.0: "everything blends"): fields darker (or white),
-    # buttons lighter, dialogs lifted off the dimmed window, edges clearly visible.
-    "border": "#b9bec7",
-    "input": "#ffffff",
-    "control": "#eceef2",
-    "control_hover": "#e1e4e9",
-    "panel": "#fbfbfc",
     "accent": "#2563eb",
     "start": "#16a34a",
     "stop": "#e02f2f",
@@ -43,17 +36,53 @@ DARK = {
     "fg": "#eceef2",
     "muted": "#9aa0ac",
     "line": "#2f333c",
-    "border": "#4d5462",
-    "input": "#15181e",
-    "control": "#2c313b",
-    "control_hover": "#363c48",
-    "panel": "#21252d",
     "accent": "#6f9bff",
     "ok_bg": "#14301f",
     "ok_fg": "#6ee7a0",
     "err_bg": "#3a1a1a",
     "err_fg": "#ff9d9d",
     "focus": "#7aa2ff",
+}
+# The main window (QML): its own tokens, docs/architektura/wyglad-okna-glownego.md. Layers are
+# told apart at once (fields darker, buttons lighter, dialogs lifted), every control has an edge,
+# one accent; green only start/billable, red only stop/delete.
+MAIN_DARK = {
+    "bg": "#1a1d23",
+    "surface": "#20242b",
+    "panel": "#272b34",
+    "input": "#14171c",
+    "control": "#2d323c",
+    "control_hover": "#373d48",
+    "control_down": "#414855",
+    "border": "#4a515e",
+    "border_hover": "#5f6776",
+    "divider": "#2c3038",
+    "fg": "#e6e8ec",
+    "muted": "#9ba2ae",
+    "placeholder": "#737a87",
+    "accent": "#6f9bf2",
+    "start": "#2ea043",
+    "danger": "#e5534b",
+    "danger_bg": "#3a2124",
+}
+MAIN_LIGHT = {
+    "bg": "#ffffff",
+    "surface": "#f4f5f7",
+    "panel": "#ffffff",
+    "input": "#ffffff",
+    "control": "#eef0f3",
+    "control_hover": "#e3e6eb",
+    "control_down": "#d6dae0",
+    "border": "#c3c8d0",
+    "border_hover": "#a4abb6",
+    "divider": "#e6e8ec",
+    "fg": "#1d2026",
+    "muted": "#626974",
+    "placeholder": "#8b919b",
+    "accent": "#2563eb",
+    "start": "#1a7f37",
+    "danger": "#cf222e",
+    "danger_bg": "#fdecec",
 }
 PROJECT_NONE = "line"  # palette key of the grey dot when no project is chosen
 
@@ -64,6 +93,10 @@ def palette_for(scheme: Qt.ColorScheme, window: QColor) -> dict[str, str]:
     if scheme == Qt.ColorScheme.Light:
         return LIGHT
     return DARK if window.lightness() < 128 else LIGHT
+
+
+def main_palette_for(scheme: Qt.ColorScheme, window: QColor) -> dict[str, str]:
+    return MAIN_DARK if palette_for(scheme, window) is DARK else MAIN_LIGHT
 
 
 _CHEVRON = (

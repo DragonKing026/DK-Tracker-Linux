@@ -1,7 +1,8 @@
-// The edit window of one entry (live test of 0.10.0): every option Kimai gave for it — day and
-// hours, duration, project and activity, the description in several lines, tags, billable, rates
-// (for accounts that see them), break, and the server's own custom fields. Enter saves,
-// Shift+Enter adds a line to the description.
+// The edit window of one entry: every option Kimai gave for it — day and hours, project and
+// activity, billable, the description in several lines, tags, rates (for accounts that see them),
+// break, and the server's own custom fields. A form: labels on the left, controls on the right
+// (docs/architektura/wyglad-okna-glownego.md). Enter saves, Shift+Enter adds a line to the
+// description; Esc or a click beside it cancels.
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -17,20 +18,16 @@ Popup {
 
     parent: Overlay.overlay
     anchors.centerIn: parent
-    width: Math.min(parent ? parent.width - 48 : 640, 640)
-    height: Math.min(parent ? parent.height - 48 : 720, content.implicitHeight + 40)
+    width: Math.min(parent ? parent.width - 48 : 600, 600)
+    height: Math.min(parent ? parent.height - 48 : 720, frame.implicitHeight + 2 * padding)
     modal: true
     focus: true
     padding: 20
-    closePolicy: Popup.CloseOnEscape
+    closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
     onClosed: if (app.editor.open) app.closeEditor()
 
-    Overlay.modal: Rectangle { color: "#80000000" }
-    background: Rectangle {
-        radius: 6
-        color: (app.palette.panel || "#262b35")
-        border.color: (app.palette.border || "#6b7486")
-    }
+    Overlay.modal: Rectangle { color: Qt.rgba(0, 0, 0, 0.45) }
+    background: Panel {}
 
     // The fields take the entry's values when it opens; typing does not come back through `editor`.
     function fill() {
@@ -64,7 +61,7 @@ Popup {
         const m = /^(\d{1,2}):?(\d{2})$/.exec(text.trim())
         return m ? Number(m[1]) * 60 + Number(m[2]) : -1
     }
-    function save() { if (!editor.busy) app.saveEntry(values()) }
+    function save() { if (!editor.busy && !locked) app.saveEntry(values()) }
 
     Connections {
         target: app
@@ -74,240 +71,273 @@ Popup {
         }
     }
 
-    contentItem: ScrollView {
-        clip: true
-        contentWidth: availableWidth
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+    contentItem: ColumnLayout {
+        id: frame
+        spacing: 14
 
-        ColumnLayout {
-            id: content
-            width: parent.width
-            spacing: 6
-
-            RowLayout {
+        // Title and close
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 8
+            Label {
                 Layout.fillWidth: true
-                Label {
-                    text: app.texts.editEntry || ""
-                    font.pixelSize: 18
-                    font.bold: true
-                    color: app.palette.fg || "#eceef2"
-                    Layout.fillWidth: true
-                }
+                text: app.texts.editEntry || ""
+                font.pixelSize: 18
+                font.weight: Font.Bold
+                color: app.palette.fg
+            }
+            IconButton {
+                objectName: "editClose"
+                glyph: "close"
+                danger: true
+                tip: app.texts.cancel || ""
+                onClicked: app.closeEditor()
+            }
+        }
+
+        // Invoiced: said once, above the form, which is shown but cannot be changed.
+        Rectangle {
+            visible: dialog.locked
+            Layout.fillWidth: true
+            implicitHeight: lockRow.implicitHeight + 16
+            radius: 4
+            color: app.palette.surface
+            border.width: 1
+            border.color: app.palette.border
+            RowLayout {
+                id: lockRow
+                anchors.fill: parent
+                anchors.margins: 8
+                spacing: 8
                 Image {
-                    visible: dialog.editor.exported === true
-                    source: "image://glyph/lock/" + (app.palette.muted || "#9aa0ac").slice(1)
-                    sourceSize.width: 18; sourceSize.height: 18
+                    source: "image://glyph/lock/" + app.palette.muted.toString().slice(1, 7)
+                    sourceSize.width: 16
+                    sourceSize.height: 16
                 }
-                IconButton { glyph: "close"; tip: app.texts.cancel || ""; onClicked: app.closeEditor() }
-            }
-            Label {
-                visible: dialog.editor.exported === true
-                Layout.fillWidth: true
-                wrapMode: Text.Wrap
-                text: app.texts.errExported || ""
-                color: app.palette.muted || "#9aa0ac"
-            }
-
-            component Caption: Label {
-                Layout.topMargin: 8
-                font.bold: true
-                color: app.palette.fg || "#eceef2"
-            }
-
-            // Day, from, to on one line, each chosen from a list; the duration follows from them.
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.topMargin: 4
-                spacing: 8
-                component Inline: Label {
-                    font.bold: true
-                    color: app.palette.fg || "#eceef2"
-                }
-                Inline { text: app.texts.editDay || "" }
-                DateField {
-                    id: day
-                    objectName: "editDay"
-                    enabled: !dialog.locked
-                }
-                Item { implicitWidth: 6 }
-                Inline { text: app.texts.fromLabel || "" }
-                TimeField {
-                    id: begin
-                    objectName: "editBegin"
-                    enabled: !dialog.locked
-                }
-                Label { text: "–"; color: app.palette.muted || "#9aa0ac" }
-                Inline { text: app.texts.toLabel || "" }
-                TimeField {
-                    id: end
-                    objectName: "editEnd"
-                    enabled: !dialog.locked
-                }
-                Item { Layout.fillWidth: true }
                 Label {
-                    objectName: "editDuration"
-                    font.bold: true
-                    color: app.palette.fg || "#eceef2"
-                    ToolTip.visible: durationHover.hovered
-                    ToolTip.text: app.texts.editDuration || ""
-                    HoverHandler { id: durationHover }
-                    text: {
-                        const a = dialog.minutes(begin.value), b = dialog.minutes(end.value)
-                        if (a < 0 || b < 0) return ""
-                        const d = b - a
-                        return d <= 0 ? "–" : Math.floor(d / 60) + ":" + ("0" + d % 60).slice(-2)
-                    }
-                }
-            }
-
-            Caption { text: app.texts.editWork || "" }
-            RowLayout {
-                Layout.fillWidth: true
-                spacing: 8
-                ProjectPicker {
-                    objectName: "editProject"
-                    enabled: !dialog.locked
                     Layout.fillWidth: true
-                    Layout.maximumWidth: 100000
-                    projectId: dialog.projectId
-                    onChosen: function (id) { dialog.projectId = id; dialog.activityId = 0; app.chooseRowProject(id) }
-                }
-                Combo {
-                    id: activity
-                    objectName: "editActivity"
-                    enabled: !dialog.locked
-                    Layout.fillWidth: true
-                    model: app.rowActivityList
-                    textRole: "name"
-                    valueRole: "activityId"
-                    displayText: currentIndex < 0 ? (app.texts.chooseActivity || "") : currentText
-                    onCountChanged: currentIndex = indexOfValue(dialog.activityId)
-                    Connections {
-                        target: dialog
-                        function onActivityIdChanged() { activity.currentIndex = activity.indexOfValue(dialog.activityId) }
-                    }
-                    onActivated: dialog.activityId = currentValue
-                }
-                IconButton {  // billable: the same $ as in the rows and the timer bar
-                    objectName: "editBillable"
-                    enabled: app.view.billableAllowed && !dialog.locked
-                    glyph: dialog.billable ? "money" : "money_off"
-                    tint: dialog.billable ? (app.palette.start || "#16a34a") : (app.palette.muted || "#9aa0ac")
-                    tip: dialog.billable ? (app.texts.billableRowOn || "") : (app.texts.billableRowOff || "")
-                    onClicked: dialog.billable = !dialog.billable
+                    wrapMode: Text.Wrap
+                    text: app.texts.errExported || ""
+                    color: app.palette.muted
                 }
             }
+        }
 
-            Caption { text: app.texts.editDescription || "" }
-            DescriptionArea {
-                id: description
-                objectName: "editDescription"
-                enabled: !dialog.locked
-                Layout.fillWidth: true
-                maxLines: 8
-                placeholderText: app.texts.descriptionPlaceholder || ""
-                onAccepted: dialog.save()
-            }
+        ScrollView {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            implicitHeight: form.implicitHeight
+            contentWidth: availableWidth
+            clip: true
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-            Caption { text: app.texts.editTags || "" }
-            Field {
-                id: tags
-                objectName: "editTags"
-                enabled: !dialog.locked
-                Layout.fillWidth: true
-                placeholderText: app.texts.editTagsHint || ""
-                onAccepted: dialog.save()
-            }
-
-            GridLayout {
-                visible: dialog.editor.ratesVisible === true
-                Layout.fillWidth: true
-                columns: 2
-                columnSpacing: 8
-                rowSpacing: 4
-                Caption { text: app.texts.editFixedRate || "" }
-                Caption { text: app.texts.editHourlyRate || "" }
-                Field {
-                    id: fixedRate
-                    objectName: "editFixedRate"
-                    enabled: !dialog.locked
-                    Layout.fillWidth: true
-                    onAccepted: dialog.save()
-                }
-                Field {
-                    id: hourlyRate
-                    objectName: "editHourlyRate"
-                    enabled: !dialog.locked
-                    visible: dialog.editor.ratesVisible === true
-                    Layout.fillWidth: true
-                    onAccepted: dialog.save()
-                }
-            }
-
-            Label {
-                visible: (dialog.editor.breakTime || "") !== ""
-                Layout.topMargin: 8
-                text: (app.texts.editBreak || "") + ": " + (dialog.editor.breakTime || "")
-                color: app.palette.muted || "#9aa0ac"
-            }
-
-            // The server's own custom fields, whatever they are called.
             ColumnLayout {
-                objectName: "editMeta"
-                Layout.fillWidth: true
-                spacing: 4
-                Repeater {
-                    id: meta
-                    delegate: ColumnLayout {
-                        required property var modelData
-                        readonly property string name: modelData.name
-                        property alias value: metaField.text
+                id: form
+                width: parent.width
+                spacing: 10
+
+                FormRow {
+                    label: app.texts.editDay || ""
+                    DateField {
+                        id: day
+                        objectName: "editDay"
+                        enabled: !dialog.locked
+                    }
+                    Item { Layout.fillWidth: true }
+                }
+                FormRow {
+                    label: app.texts.editHours || ""
+                    TimeField {
+                        id: begin
+                        objectName: "editBegin"
+                        enabled: !dialog.locked
+                    }
+                    Label { text: "–"; color: app.palette.muted }
+                    TimeField {
+                        id: end
+                        objectName: "editEnd"
+                        enabled: !dialog.locked
+                    }
+                    Label {
+                        Layout.leftMargin: 8
+                        text: app.texts.editDuration || ""
+                        color: app.palette.muted
+                    }
+                    Label {
+                        objectName: "editDuration"
+                        font.weight: Font.DemiBold
+                        color: app.palette.fg
+                        text: {
+                            const a = dialog.minutes(begin.value), b = dialog.minutes(end.value)
+                            if (a < 0 || b < 0) return "–"
+                            const d = b - a
+                            return d <= 0 ? "–" : Math.floor(d / 60) + ":" + ("0" + d % 60).slice(-2)
+                        }
+                    }
+                    Item { Layout.fillWidth: true }
+                }
+                FormRow {
+                    label: app.texts.editProject || ""
+                    ProjectPicker {
+                        objectName: "editProject"
+                        enabled: !dialog.locked
                         Layout.fillWidth: true
-                        Caption { text: modelData.name }
-                        Field {
-                            id: metaField
-                            enabled: !dialog.locked
-                            Layout.fillWidth: true
-                            text: modelData.value
-                            onAccepted: dialog.save()
+                        projectId: dialog.projectId
+                        onChosen: function (id) { dialog.projectId = id; dialog.activityId = 0; app.chooseRowProject(id) }
+                    }
+                }
+                FormRow {
+                    label: app.texts.editActivity || ""
+                    Combo {
+                        id: activity
+                        objectName: "editActivity"
+                        enabled: !dialog.locked
+                        Layout.fillWidth: true
+                        model: app.rowActivityList
+                        textRole: "name"
+                        valueRole: "activityId"
+                        displayText: currentIndex < 0 ? (app.texts.chooseActivity || "") : currentText
+                        onCountChanged: currentIndex = indexOfValue(dialog.activityId)
+                        Connections {
+                            target: dialog
+                            function onActivityIdChanged() { activity.currentIndex = activity.indexOfValue(dialog.activityId) }
+                        }
+                        onActivated: dialog.activityId = currentValue
+                    }
+                }
+                FormRow {
+                    label: app.texts.editBillable || ""
+                    IconButton {  // the same $ as in the rows and the timer bar
+                        objectName: "editBillable"
+                        enabled: app.view.billableAllowed && !dialog.locked
+                        glyph: dialog.billable ? "money" : "money_off"
+                        tint: dialog.billable ? app.palette.start : app.palette.muted
+                        tip: dialog.billable ? (app.texts.billableRowOn || "") : (app.texts.billableRowOff || "")
+                        onClicked: dialog.billable = !dialog.billable
+                    }
+                    Label {
+                        text: dialog.billable ? (app.texts.billableYes || "") : (app.texts.billableNo || "")
+                        color: app.palette.muted
+                    }
+                    Item { Layout.fillWidth: true }
+                }
+                FormRow {
+                    label: app.texts.editDescription || ""
+                    DescriptionArea {
+                        id: description
+                        objectName: "editDescription"
+                        enabled: !dialog.locked
+                        readOnly: dialog.locked
+                        Layout.fillWidth: true
+                        maxLines: 8
+                        placeholderText: app.texts.descriptionPlaceholder || ""
+                        onAccepted: dialog.save()
+                    }
+                }
+                FormRow {
+                    label: app.texts.editTags || ""
+                    Field {
+                        id: tags
+                        objectName: "editTags"
+                        enabled: !dialog.locked
+                        Layout.fillWidth: true
+                        placeholderText: app.texts.editTagsHint || ""
+                        onAccepted: dialog.save()
+                    }
+                }
+                FormRow {
+                    visible: dialog.editor.ratesVisible === true
+                    label: app.texts.editFixedRate || ""
+                    Field {
+                        id: fixedRate
+                        objectName: "editFixedRate"
+                        enabled: !dialog.locked
+                        Layout.preferredWidth: 160
+                        onAccepted: dialog.save()
+                    }
+                    Item { Layout.fillWidth: true }
+                }
+                FormRow {
+                    visible: dialog.editor.ratesVisible === true
+                    label: app.texts.editHourlyRate || ""
+                    Field {
+                        id: hourlyRate
+                        objectName: "editHourlyRate"
+                        visible: dialog.editor.ratesVisible === true
+                        enabled: !dialog.locked
+                        Layout.preferredWidth: 160
+                        onAccepted: dialog.save()
+                    }
+                    Item { Layout.fillWidth: true }
+                }
+                FormRow {
+                    visible: (dialog.editor.breakTime || "") !== ""
+                    label: app.texts.editBreak || ""
+                    Label {
+                        Layout.topMargin: 8
+                        text: dialog.editor.breakTime || ""
+                        color: app.palette.fg
+                    }
+                }
+                // The server's own custom fields, whatever they are called.
+                ColumnLayout {
+                    objectName: "editMeta"
+                    Layout.fillWidth: true
+                    spacing: 10
+                    Repeater {
+                        id: meta
+                        delegate: FormRow {
+                            required property var modelData
+                            readonly property string name: modelData.name
+                            property alias value: metaField.text
+                            label: modelData.name
+                            Field {
+                                id: metaField
+                                enabled: !dialog.locked
+                                Layout.fillWidth: true
+                                text: modelData.value
+                                onAccepted: dialog.save()
+                            }
                         }
                     }
                 }
             }
+        }
 
-            Label {
-                objectName: "editError"
-                visible: (dialog.editor.error || "") !== ""
-                Layout.fillWidth: true
-                Layout.topMargin: 8
-                wrapMode: Text.Wrap
-                text: dialog.editor.error || ""
-                color: app.palette.err_fg || "#ff9d9d"
+        Label {
+            objectName: "editError"
+            visible: (dialog.editor.error || "") !== ""
+            Layout.fillWidth: true
+            wrapMode: Text.Wrap
+            text: dialog.editor.error || ""
+            color: app.palette.danger
+        }
+
+        Rectangle { Layout.fillWidth: true; implicitHeight: 1; color: app.palette.divider }
+
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 8
+            Btn {
+                objectName: "editDelete"
+                variant: "danger"
+                glyph: "trash"
+                enabled: !dialog.locked
+                text: app.texts.deleteEntry || ""
+                onClicked: app.deleteFromEditor()
             }
-
-            RowLayout {
-                Layout.fillWidth: true
-                Layout.topMargin: 12
-                spacing: 8
-                Btn {
-                    objectName: "editDelete"
-                    enabled: dialog.editor.exported !== true
-                    text: app.texts.deleteEntry || ""
-                    onClicked: app.deleteFromEditor()
-                }
-                Item { Layout.fillWidth: true }
-                Btn {
-                    objectName: "editCancel"
-                    text: app.texts.cancel || ""
-                    onClicked: app.closeEditor()
-                }
-                Btn {
-                    objectName: "editSave"
-                    highlighted: true
-                    enabled: dialog.editor.exported !== true && !dialog.editor.busy
-                    text: app.texts.save || ""
-                    onClicked: dialog.save()
-                }
+            Item { Layout.fillWidth: true }
+            Btn {
+                objectName: "editCancel"
+                text: app.texts.cancel || ""
+                onClicked: app.closeEditor()
+            }
+            Btn {
+                objectName: "editSave"
+                variant: "primary"
+                enabled: !dialog.locked && !dialog.editor.busy
+                text: app.texts.save || ""
+                onClicked: dialog.save()
             }
         }
     }

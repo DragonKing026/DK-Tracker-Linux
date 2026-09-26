@@ -43,7 +43,7 @@ from .main_window.settings_form import SettingsForm
 from .main_window.window import MainWindow
 from .popup import QuickWindow
 from .state import AppState
-from .theme import palette_for
+from .theme import main_palette_for
 from .tray import Tray
 from .worker import Worker
 
@@ -607,7 +607,7 @@ class Controller(QObject):
 
     def _main_theme(self) -> None:
         hints, window = QGuiApplication.styleHints(), QGuiApplication.palette().window().color()
-        self.main_bridge.set_palette(palette_for(hints.colorScheme(), window))
+        self.main_bridge.set_palette(main_palette_for(hints.colorScheme(), window))
 
     def _render_main(self) -> None:
         if self.main_window is None:

@@ -9,25 +9,27 @@ ApplicationWindow {
     minimumWidth: 800
     minimumHeight: 560
     title: app.texts.appName || "DK Tracker"
-    color: app.palette.bg || "#16181d"
+    color: app.palette.bg
     font.pixelSize: 14
     onClosing: app.closeWindow()
 
-    // The Basic style draws its controls from this palette: our theme, light or dark.
-    palette.window: app.palette.bg || "#16181d"
-    palette.windowText: app.palette.fg || "#eceef2"
-    palette.base: app.palette.surface || "#1e2127"
-    palette.alternateBase: app.palette.surface2 || "#272b33"
-    palette.text: app.palette.fg || "#eceef2"
-    palette.button: app.palette.surface2 || "#272b33"
-    palette.buttonText: app.palette.fg || "#eceef2"
-    palette.highlight: app.palette.accent || "#6f9bff"
+    // The Basic style's own parts (scroll bars, tool tips, text selection) in our colours.
+    palette.window: app.palette.bg
+    palette.windowText: app.palette.fg
+    palette.base: app.palette.input
+    palette.alternateBase: app.palette.surface
+    palette.text: app.palette.fg
+    palette.button: app.palette.control
+    palette.buttonText: app.palette.fg
+    palette.highlight: app.palette.accent
     palette.highlightedText: "#ffffff"
-    palette.placeholderText: app.palette.muted || "#9aa0ac"
-    palette.mid: app.palette.line || "#2f333c"
-    palette.midlight: app.palette.line || "#2f333c"
-    palette.dark: app.palette.line || "#2f333c"
-    palette.light: app.palette.surface2 || "#272b33"
+    palette.placeholderText: app.palette.placeholder
+    palette.toolTipBase: app.palette.panel
+    palette.toolTipText: app.palette.fg
+    palette.mid: app.palette.border
+    palette.midlight: app.palette.control_hover
+    palette.dark: app.palette.border_hover
+    palette.light: app.palette.control
 
     RowLayout {
         anchors.fill: parent
@@ -54,13 +56,21 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 visible: app.view.error !== ""
                 implicitHeight: errorText.implicitHeight + 16
-                color: app.palette.err_bg || "#3a1a1a"
+                color: app.palette.danger_bg
+                Rectangle {
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.bottom: parent.bottom
+                    width: 3
+                    color: app.palette.danger
+                }
                 Label {
                     id: errorText
                     anchors.fill: parent
                     anchors.margins: 8
+                    anchors.leftMargin: 16
                     text: app.view.error
-                    color: app.palette.err_fg || "#ff9d9d"
+                    color: app.palette.fg
                     wrapMode: Text.Wrap
                 }
             }
