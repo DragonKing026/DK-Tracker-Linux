@@ -2,9 +2,10 @@
 
     python3 flatpak/pages.py <site-dir> <base-url> <public-key.gpg>
 
-writes <site-dir>/ws-tracker-tray.flatpakrepo (adds the remote, updates come through Discover or GNOME
-Software), <site-dir>/pl.websystems.WsTrackerTray.flatpakref (installs the app in one command) and a
-small index.html. The repository itself goes to <site-dir>/repo (flatpak/publikuj.sh copies it).
+writes <site-dir>/ws-tracker.flatpakrepo (adds the remote, updates come through Discover or GNOME
+Software), <site-dir>/io.github.dragonking026.WS-Tracker-Linux.flatpakref (installs the app in one
+command) and a small index.html. The repository itself goes to <site-dir>/repo (flatpak/publikuj.sh
+copies it).
 Format: https://docs.flatpak.org/en/latest/flatpak-command-reference.html (.flatpakrepo, .flatpakref).
 """
 
@@ -15,9 +16,9 @@ import html
 import sys
 from pathlib import Path
 
-APP_ID = "pl.websystems.WsTrackerTray"
+APP_ID = "io.github.dragonking026.WS-Tracker-Linux"
 TITLE = "WS Tracker"
-REMOTE = "ws-tracker-tray"
+REMOTE = "ws-tracker"
 BRANCH = "master"  # flatpak-builder's default branch; the GitHub action builds it too
 FLATHUB = "https://dl.flathub.org/repo/flathub.flatpakrepo"  # where the KDE runtime and PySide base come from
 

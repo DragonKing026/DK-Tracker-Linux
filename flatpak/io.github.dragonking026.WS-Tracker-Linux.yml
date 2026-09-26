@@ -1,11 +1,11 @@
 # WS Tracker as a Flatpak. Built in the flathub-infra container (flatpak/buduj.sh, GitHub Actions).
-id: pl.websystems.WsTrackerTray
+id: io.github.dragonking026.WS-Tracker-Linux
 runtime: org.kde.Platform
 runtime-version: '6.11'
 sdk: org.kde.Sdk
 base: io.qt.PySide.BaseApp
 base-version: '6.11'
-command: ws-tracker-tray
+command: ws-tracker
 finish-args:
   - --share=network # only the Kimai address the user types (no telemetry)
   - --share=ipc
@@ -31,13 +31,13 @@ modules:
         url: https://download.kde.org/stable/plasma/6.7.5/layer-shell-qt-6.7.5.tar.xz
         sha256: ccdcfec7081ca956f7a52c9113a4df3a226575bfbe98b56a2a9a4d7d7e19e8f0
   - python3-deps.yaml
-  - name: ws-tracker-tray
+  - name: ws-tracker
     buildsystem: simple
     build-commands:
       - pip3 install --no-index --no-deps --no-build-isolation --prefix=${FLATPAK_DEST} .
-      - install -Dm644 data/pl.websystems.WsTrackerTray.desktop -t ${FLATPAK_DEST}/share/applications
-      - install -Dm644 data/pl.websystems.WsTrackerTray.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
-      - install -Dm644 src/ws_tracker_tray/ui/assets/ws-tracker.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/pl.websystems.WsTrackerTray.png
+      - install -Dm644 data/io.github.dragonking026.WS-Tracker-Linux.desktop -t ${FLATPAK_DEST}/share/applications
+      - install -Dm644 data/io.github.dragonking026.WS-Tracker-Linux.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
+      - install -Dm644 src/ws_tracker/ui/assets/ws-tracker.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/io.github.dragonking026.WS-Tracker-Linux.png
     sources:
       - type: dir
         path: ..

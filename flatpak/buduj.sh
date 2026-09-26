@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 # Build the Flatpak in the same container GitHub Actions uses, then check it and (optionally) install it.
 #
-#   flatpak/buduj.sh              → dist/pl.websystems.WsTrackerTray-<version>.flatpak (+ OSTree repo in the cache)
+#   flatpak/buduj.sh              → dist/io.github.dragonking026.WS-Tracker-Linux-<version>.flatpak (+ OSTree repo in the cache)
 #   flatpak/buduj.sh --zainstaluj → the same, then `flatpak install --user --bundle` on this computer
 #
 # Why a container: Fedora 44's Flatpak 1.18.2 cannot build with a `base:` app (flatpak#6818, ADR-0006);
 # the flathub-infra image carries Flatpak 1.18.1 and the KDE 6.11 SDK, plus appstreamcli and the linter.
-# Downloads (runtime, PySide base) and build state are cached in ~/.cache/ws-tracker-tray-flatpak.
+# Downloads (runtime, PySide base) and build state are cached in ~/.cache/ws-tracker-flatpak.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-APP=pl.websystems.WsTrackerTray
+APP=io.github.dragonking026.WS-Tracker-Linux
 IMAGE=ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11
-CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/ws-tracker-tray-flatpak"
+CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/ws-tracker-flatpak"
 VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' "$ROOT/pyproject.toml")"
 BUNDLE="$APP-$VERSION.flatpak"
 # Findings that only matter for Flathub, not for our own repository on GitHub Pages:

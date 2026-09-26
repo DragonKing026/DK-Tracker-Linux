@@ -45,8 +45,8 @@ jobs:
       - name: Budowa Flatpaka
         uses: flatpak/flatpak-github-actions/flatpak-builder@79327416609af08178ad73b352877e51450790b3 # v6.8
         with:
-          manifest-path: flatpak/pl.websystems.WsTrackerTray.yml
-          bundle: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
+          manifest-path: flatpak/io.github.dragonking026.WS-Tracker-Linux.yml
+          bundle: io.github.dragonking026.WS-Tracker-Linux-${{ github.ref_name }}.flatpak
           gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
       - name: Repozytorium Flatpak dla GitHub Pages
         run: >-
@@ -59,7 +59,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: paczka
-          path: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
+          path: io.github.dragonking026.WS-Tracker-Linux-${{ github.ref_name }}.flatpak
           if-no-files-found: error
   pages:
     needs: flatpak
@@ -86,14 +86,14 @@ jobs:
       - name: Wydanie na GitHubie z paczką
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
-          files: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
+          files: io.github.dragonking026.WS-Tracker-Linux-${{ github.ref_name }}.flatpak
           generate_release_notes: true
           prerelease: ${{ startsWith(github.ref_name, 'v0.') }}
           body: |
             Instalacja z aktualizacjami (Discover, GNOME Software, `flatpak update`):
 
             ```bash
-            flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/pl.websystems.WsTrackerTray.flatpakref
+            flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
             ```
 
             Plik `.flatpak` poniżej nie dostaje aktualizacji — tylko gdy strona repozytorium jest niedostępna.

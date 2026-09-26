@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>pl.websystems.WsTrackerTray</id>
+  <id>io.github.dragonking026.WS-Tracker-Linux</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>WS Tracker</name>
   <summary>Track your Kimai time from the system tray</summary>
   <summary xml:lang="pl">Mierzenie czasu w Kimai z tacki systemowej</summary>
-  <developer id="pl.websystems">
-    <name>Web Systems</name>
+  <developer id="io.github.dragonking026">
+    <name>Artur Ograbek</name>
   </developer>
   <description>
     <p>Start, stop and resume Kimai timesheets without opening the browser. The tray icon shows how long the timer runs.</p>
@@ -21,7 +21,7 @@
       <li xml:lang="pl">Token API trzymany w portfelu systemu</li>
     </ul>
   </description>
-  <launchable type="desktop-id">pl.websystems.WsTrackerTray.desktop</launchable>
+  <launchable type="desktop-id">io.github.dragonking026.WS-Tracker-Linux.desktop</launchable>
   <url type="homepage">https://github.com/DragonKing026/WS-Tracker-Linux</url>
   <url type="bugtracker">https://github.com/DragonKing026/WS-Tracker-Linux/issues</url>
   <screenshots>
@@ -32,7 +32,7 @@
   </screenshots>
   <content_rating type="oars-1.1"/>
   <provides>
-    <binary>ws-tracker-tray</binary>
+    <binary>ws-tracker</binary>
   </provides>
   <supports>
     <control>pointing</control>
