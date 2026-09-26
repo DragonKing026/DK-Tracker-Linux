@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ws-tracker-tray"
-version = "0.9.0"
+version = "0.9.1"
 description = "System tray time tracking for Kimai"
 license = "AGPL-3.0-or-later"
 license-files = ["LICENSE"]

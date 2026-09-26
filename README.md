@@ -10,7 +10,7 @@ Natywny odpowiednik firmowej wtyczki [WS Tracker](https://github.com/websystemsp
 
 ![Okno WS Tracker Tray przy tacce (ciemny motyw)](docs/assets/zrzuty/okno-ciemny-motyw.png)
 
-> **Status:** wersja **0.9.0 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
+> **Status:** wersja **0.9.1 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
 
 ## Co potrafi
 
