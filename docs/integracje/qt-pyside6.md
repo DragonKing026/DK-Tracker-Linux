@@ -20,6 +20,7 @@ zaktualizowano: 2026-09-25 23:11
 | Obszar | Klasa Qt | Funkcje |
 | --- | --- | --- |
 | Ikona w tacce | `QSystemTrayIcon` (+ `QMenu` jako menu kontekstowe) | F-02, F-20 |
+| Okno główne | Qt Quick / QML (`QQmlApplicationEngine`, Qt Quick Controls w stylu Basic, `QQuickImageProvider`) — logika w Pythonie (`QObject`, `QAbstractListModel`) | F-35 |
 | Okno szybkiej obsługi, ustawienia | Qt Widgets ([ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)) | F-03…F-13 |
 | Zegar / odświeżanie | `QTimer` | F-02, F-12 |
 | Powiadomienia | `QSystemTrayIcon.showMessage` albo portal Notification | F-21 |
@@ -88,6 +89,14 @@ build-options:
 > - Wersja Pythona w runtime KDE może różnić się od lokalnej (3.14). Testy uruchamiamy
 >   też w Flatpaku.
 
+- **QML**: `checked` w `Button` jest `FINAL` — własna właściwość musi mieć inną nazwę (`active`). Brak klucza w mapie
+  `QVariantMap` to tylko ostrzeżenie w QML — `MainBridge` zakłada wszystkie klucze od startu, a test pada na każdym
+  ostrzeżeniu przy ładowaniu. Wiersze `ListView` mają tylko rodzica wizualnego, więc `findChild` ich nie widzi —
+  testy szukają po `childItems()`.
+- **Styl Basic** ma własne, jasne kolory kontrolek — paleta `ApplicationWindow` musi przyjść z motywu aplikacji.
+- **Zamykanie**: okno QML ma rodzica `MainBridge`, a `MainWindow.dispose()` usuwa okno i silnik od razu
+  (`DeferredDelete`) — inaczej przy wyjściu QML zgłasza „app is null”.
+
 ## Gdzie w kodzie
 
 Wszystko, co importuje PySide6, leży w [src/dk_tracker/ui/](../../src/dk_tracker/ui/) (test architektury
@@ -107,6 +116,8 @@ pilnuje, by
 - [popup.py](../../src/dk_tracker/ui/popup.py), [form.py](../../src/dk_tracker/ui/form.py),
   [recent.py](../../src/dk_tracker/ui/recent.py) — okno szybkiej obsługi.
 - [settings_dialog.py](../../src/dk_tracker/ui/settings_dialog.py) — okno ustawień.
+- [main_window/](../../src/dk_tracker/ui/main_window/) — okno główne: `window.py` (silnik QML, ikony
+  `image://glyph/…`), `bridge.py` (`MainBridge` jako `app` w kontekście QML), `models.py`, widoki w `qml/`.
 - [placement.py](../../src/dk_tracker/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
 - [desktop_bridge.py](../../src/dk_tracker/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako
   `QThread`.

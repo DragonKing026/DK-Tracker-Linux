@@ -31,7 +31,7 @@ zaktualizowano: 2026-09-26 11:59
 │   ├── __main__.py            `python -m dk_tracker [--hidden]`
 │   ├── core/                  rdzeń bez Qt i D-Bus (plan 1)
 │   ├── desktop/               D-Bus na jeepney bez Qt: sekrety, powiadomienia, autostart (plan 2)
-│   └── ui/                    Qt Widgets: tacka, okno, ustawienia, kontroler (plan 3)
+│   └── ui/                    Qt Widgets i Qt Quick: tacka, okienko, okno główne (QML), ustawienia, kontroler (plany 3, 5)
 ├── tests/
 │   ├── core/                  testy rdzenia (pytest, MockTransport, FakeClient)
 │   ├── desktop/               testy D-Bus (FakeBus) + `-m desktop` na prawdziwej sesji

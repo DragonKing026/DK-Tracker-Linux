@@ -79,6 +79,7 @@ flowchart TB
 | Domena | [validation](../../src/dk_tracker/core/validation.py), [billable](../../src/dk_tracker/core/billable.py), [timefmt](../../src/dk_tracker/core/timefmt.py), [grouping](../../src/dk_tracker/core/grouping.py), [models](../../src/dk_tracker/core/models.py) |
 | Stan aplikacji (logika) | [core/tracker.py](../../src/dk_tracker/core/tracker.py) |
 | Ustawienia | [core/settings.py](../../src/dk_tracker/core/settings.py) |
+| Lista tygodni i dni okna głównego (F-35) | [core/entry_list.py](../../src/dk_tracker/core/entry_list.py) — `build_rows` |
 | Powiadomienia (decyzja) | [core/notification_policy.py](../../src/dk_tracker/core/notification_policy.py) |
 | Teksty | [core/i18n.py](../../src/dk_tracker/core/i18n.py), [locales/](../../src/dk_tracker/core/locales/) |
 
@@ -92,6 +93,7 @@ flowchart TB
 | Okno szybkiej obsługi | [ui/popup.py](../../src/dk_tracker/ui/popup.py), [ui/form.py](../../src/dk_tracker/ui/form.py), [ui/recent.py](../../src/dk_tracker/ui/recent.py), [ui/placement.py](../../src/dk_tracker/ui/placement.py) | F-03…F-10, F-12 |
 | Okno ustawień | [ui/settings_dialog.py](../../src/dk_tracker/ui/settings_dialog.py) | F-01, F-13, F-21, F-22 |
 | Sekrety, powiadomienia, autostart | [ui/desktop_bridge.py](../../src/dk_tracker/ui/desktop_bridge.py) → [desktop/](../../src/dk_tracker/desktop/) | F-01, F-21, F-22 |
+| Okno główne | [ui/main_window/](../../src/dk_tracker/ui/main_window/) — `MainWindow` (QML), `MainBridge` (`app`), modele | F-35 |
 | Start | [ui/main.py](../../src/dk_tracker/ui/main.py), [`__main__.py`](../../src/dk_tracker/__main__.py) | — |
 
 Wątki (GUI tylko rysuje; tracker i D-Bus mają po jednym wątku — nie są bezpieczne wątkowo):
@@ -102,6 +104,8 @@ flowchart LR
         TRAY[Tray] --> CTRL[Controller]
         POP[QuickWindow] --> CTRL
         DLG[SettingsDialog] --> CTRL
+        MW[MainWindow - QML<br/>MainBridge] --> CTRL
+        ST -->|changed| MW
         CTRL --> ST[AppState]
         ST -->|changed| TRAY
         ST -->|changed| POP

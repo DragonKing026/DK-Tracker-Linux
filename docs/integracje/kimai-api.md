@@ -44,11 +44,16 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | GET | `/api/customers?visible=1` | flagi billable klientów | F-06, F-09 |
 | GET | `/api/activities?visible=1&globals=true[&project={id}]` | czynności projektu + globalne | F-06 |
 | GET | `/api/timesheets?size=20&orderBy=begin&order=DESC&full=true` | ostatnie wpisy z rozwiniętymi obiektami | F-08 |
-| GET | `/api/timesheets?begin=…&end=…&size=100&page=N` | wpisy tygodnia do sum | F-12 |
+| GET | `/api/timesheets?begin=…&end=…&full=true&size=100&page=N` | wpisy tygodnia do sum; wpisy okresu do listy okna głównego (z nazwami i kolorami projektów) | F-12, F-35 |
 | GET | `/api/timesheets?term=…&size=50&orderBy=begin&order=DESC&full=true` | wyszukiwanie: tylko w opisie, każde słowo, bez wielkości liter, własne wpisy (Kimai 2.67.0 `TimesheetRepository`, test kontraktowy) | F-33 |
 | POST | `/api/timesheets` | start: `begin`, `project`, `activity`, `description`, `[billable]` | F-04 |
+| POST | `/api/timesheets` | ręczny wpis: `begin` i `end` (czas zegarowy w strefie Kimai), `project`, `activity`, `description`, `[billable]` | F-35 |
+| DELETE | `/api/timesheets/{id}` | usunięcie wpisu (po czasie na „Cofnij”) | F-35 |
 | PATCH | `/api/timesheets/{id}/stop` | stop „teraz”; na już zatrzymanym wpisie zwraca 200 (sprawdzone) | F-05 |
-| PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable`, `project` + `activity` (trwający wpis) | F-05, F-07, F-09, F-34 |
+| PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable`, `project` + `activity` (trwający wpis); `begin`/`end`, `project` + `activity` zakończonego wpisu | F-05, F-07, F-09, F-34, F-35 |
+
+Kimai 2.67.0 domyślnie przyjmuje nakładające się wpisy (`timesheet.rules.allow_overlapping_records`) — sprawdza test
+kontraktowy `test_overlapping_entries_follow_the_server_rule`.
 
 > [!tip] Dlaczego nie `/api/timesheets/recent`
 > Ten endpoint zwija listę do jednej pozycji na parę projekt+czynność. Dzień spędzony nad

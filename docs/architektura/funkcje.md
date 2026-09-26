@@ -53,6 +53,7 @@ stateDiagram-v2
 | **Źródło** | `background.js` |
 | **Różnica w aplikacji** | Tacka SNI nie ma „badge z tekstem”, więc **czas rysujemy w samej ikonie** (wariant C, decyzja użytkownika 2026-09-25): nic nie trwa → szary zegar; trwa → `47m` / `1:22` białym pogrubionym tekstem na zielonym zaokrąglonym kwadracie; błąd → `!` na czerwonym. Pełna informacja (czas, projekt, opis) w **tooltipie**. Makieta: [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/zrzuty/ikony-warianty.png). Etykieta obok ikony na GNOME (`XAyatanaLabel`) — do sprawdzenia w [0020](../../TODO/DO-ZROBIENIA/0020-testy-gnome/todo.md). Patrz [StatusNotifierItem](../integracje/statusnotifieritem.md). |
 | **Kliknięcia ikony** | lewy → okno (F-03), prawy → menu (F-20), **środkowy → nic** (decyzja użytkownika 2026-09-25: żadnej akcji bez okna/menu, żeby nie zatrzymać timera przypadkiem). |
+| **Od 0.10.0** | Tacka jest opcjonalna: tylko gdy system ją ma i gdy włączona opcja „Pokazuj ikonę w tacce” (F-35). W menu „Otwórz DK Tracker” (okno główne) i „Szybkie okienko” (F-03). |
 
 ## F-03 Okno szybkiej obsługi (popup)
 
@@ -140,7 +141,8 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
   **kliknięcie w wiersz rozwija cały opis**, drugie zwija. Rozwinięcie przetrwa odświeżenie listy
   ([0058](../../TODO/ZROBIONE/0058-dlugie-opisy-na-liscie/todo.md), prośba użytkownika).
 - Pod listą link „Moje czasy” → `{url}/{locale}/timesheet/`. Kimai nie ma trasy bez
-  locale; locale brane z `entry.user.language` i zapamiętywane.
+  locale; locale brane z `entry.user.language` i zapamiętywane. **Od 0.10.0** link „Wszystkie moje wpisy” otwiera
+  okno główne (F-35) zamiast przeglądarki.
 
 Źródło: `popup.js#renderRecent`, `#recentRow`, `#rememberKimaiLocale`.
 
@@ -265,6 +267,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | F-30 | Własna godzina startu nowego wpisu | KimaiTray | później |
 | F-31 | Start z przeglądarki przez link `…://start` | KimaiTray | później |
 | F-32 | Ekran „Co nowego” po aktualizacji | KimaiTray | później |
+| F-35 | Okno główne: tygodnie i dni, edycja w wierszu, ręczne wpisy, usuwanie z „Cofnij” | prośba użytkownika, wzór Toggl Track | **w 0.10.0** ([szczegóły](#f-35-okno-główne-0100)) |
 | F-33 | Wyszukiwanie we wszystkich wpisach Kimai | prośba użytkownika po teście 0.9.0 | **w 0.9.1** ([szczegóły](#f-33-wyszukiwanie-we-wszystkich-wpisach)) |
 | F-34 | Zmiana projektu i rodzaju pracy trwającego wpisu (wtyczka je blokuje) | prośba użytkownika | **w 0.9.1** ([szczegóły](#f-34-zmiana-projektu-i-rodzaju-pracy-trwającego-wpisu)) |
 
@@ -291,6 +294,31 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 - Odświeżanie nie cofa wyboru w toku; odmowa Kimai → pasek błędu i listy jak w Kimai. Komunikat „Projekt i rodzaj
   pracy zapisane.”. Sprawdzone testem kontraktowym na Kimai 2.67.0.
 - Zadanie: [0060](../../TODO/ZROBIONE/0060-zmiana-projektu-trwajacego-wpisu/todo.md).
+
+## F-35 Okno główne (0.10.0)
+
+Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/2026-09-26-okno-glowne-0.10.md),
+[Plan 5](../plany/2026-09-26-plan-5-okno-glowne.md)).
+
+- **Pasek boczny**: Wpisy (0.10.0); Podsumowania i Kalendarz pojawią się w 0.10.1 i 0.10.2; na dole Ustawienia.
+- **Pasek timera**: opis (F-11), projekt z wyszukiwaniem, rodzaj pracy, `$`, start/stop; przy trwającym wpisie zegar,
+  „od” i zmiana opisu, projektu i rodzaju pracy (F-07, F-34). Przełącznik ⏱/✎: dzień, od–do i „Dodaj” (ręczny wpis
+  w jednym dniu).
+- **Lista**: tygodnie i dni z sumami, najnowsze u góry; przewijanie doładowuje poprzedni tydzień (najwyżej 8 pustych
+  z rzędu); wyszukiwanie jak F-33.
+- **Wiersz**: opis, projekt · rodzaj pracy, `$`, od–do — edycja w miejscu (Enter/wyjście zapisuje, Esc cofa); błąd
+  Kimai pod wierszem; wpis wyeksportowany z kłódką; ▶ wznawia; ⋮ „Duplikuj” (wypełnia pasek w trybie ✎), „Usuń”.
+- **Usuwanie**: wiersz znika, pasek „Usunięto wpis · Cofnij” przez 6 s; do Kimai trafia po tym czasie albo od razu
+  przy zamknięciu aplikacji.
+- **Odświeżanie** co minutę; nie przebudowuje listy w trakcie pisania w wierszu. Bez połączenia: ostatnie dane,
+  pasek błędu, edycja zablokowana.
+- **Uruchamianie**: z menu — okno główne (druga instancja przywołuje okno działającej); autostart z tacką — tylko
+  tacka. Zamknięcie okna z tacką chowa je, bez tacki kończy aplikację. Tacka tylko gdy system ją ma i gdy włączona
+  opcja „Pokazuj ikonę w tacce”. Menu tacki: „Otwórz DK Tracker”, „Szybkie okienko”. Kliknięcie powiadomienia
+  otwiera okno główne.
+- Kod: [ui/main_window/](../../src/dk_tracker/ui/main_window/),
+  [core/entry_list.py](../../src/dk_tracker/core/entry_list.py), `Tracker.entries` / `add_entry` / `edit_entry` /
+  `delete_entry` w [core/tracker.py](../../src/dk_tracker/core/tracker.py).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 
