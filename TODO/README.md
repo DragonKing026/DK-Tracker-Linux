@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 17:15
+zaktualizowano: 2026-09-26 19:32
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0069 | [Plan 5: okno główne 0.10.0 — wykonanie](W-TRAKCIE/0069-plan5-okno-glowne/todo.md) | 🔨 w-trakcie | p1 | [0062](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) |
 
 ## Do zrobienia
 
@@ -104,6 +103,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0066 | [Zmiana rozmiaru okna przy tacce bez skoków: przezroczyste płótno i panel](ZROBIONE/0066-plotno-okna-przy-tacce/todo.md) | ✅ zrobione | 2026-09-26 14:51 |
 | 0067 | [Na GitHubie tylko najnowsze wydanie; starsze jako tagi](ZROBIONE/0067-tylko-najnowsze-wydanie/todo.md) | ✅ zrobione | 2026-09-26 15:45 |
 | 0068 | [Pole opisu w okienku rośnie z kolejnymi liniami](ZROBIONE/0068-pole-opisu-rosnie/todo.md) | ✅ zrobione | 2026-09-26 17:15 |
+| 0069 | [Plan 5: okno główne 0.10.0 — wykonanie](ZROBIONE/0069-plan5-okno-glowne/todo.md) | ✅ zrobione | 2026-09-26 19:32 |
 
 <!-- tablica:end -->
 

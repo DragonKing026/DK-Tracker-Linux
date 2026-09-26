@@ -2,19 +2,19 @@
 noteId: "219dea77a68845c5b0e2608a2847dc87"
 tytul: "Plan 5: okno główne 0.10.0 — wykonanie"
 numer: "0069"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, ui, qml, okno-glowne, wydanie]
 zalezy_od: ["0062-aplikacja-ws-tracker"]
 utworzono: 2026-09-26 17:04
-zaktualizowano: 2026-09-26 19:15
-zamknieto:
+zaktualizowano: 2026-09-26 19:32
+zamknieto: 2026-09-26 19:32
 ---
 
 # 0069 — Plan 5: okno główne 0.10.0 — wykonanie
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -32,7 +32,7 @@ Wykonać [Plan 5](../../../docs/plany/2026-09-26-plan-5-okno-glowne.md) według
 - [x] Zadania 1–11 planu wykonane (TDD), cały zestaw testów zielony (575), ruff czysty
 - [x] Testy kontraktowe na Kimai w Dockerze zielone (14)
 - [x] Recenzja końcowa całości i poprawki (4 krytyczne, 6 ważnych — poprawione z testami; 7 drobnych odłożonych)
-- [ ] Test na żywo z użytkownikiem, wydanie 0.10.0 za zgodą użytkownika (zadanie 12)
+- [x] Test na żywo z użytkownikiem, wydanie 0.10.0 za zgodą użytkownika (zadanie 12)
 
 ## Kroki
 
@@ -47,7 +47,7 @@ Wykonać [Plan 5](../../../docs/plany/2026-09-26-plan-5-okno-glowne.md) według
 - [x] Zadanie 9: opcja tacki
 - [x] Zadanie 10: testy kontraktowe
 - [x] Zadanie 11: dokumentacja
-- [ ] Zadanie 12: wersja i wydanie
+- [x] Zadanie 12: wersja i wydanie
 
 ## Materiały
 
@@ -73,7 +73,12 @@ Brak.
   jako całość ([projekt wyglądu](../../../docs/architektura/wyglad-okna-glownego.md)): kolory obu motywów, kontrolki
   ze stanami, układ widoków; sprawdzony galerią zrzutów przed pokazaniem. Do tego: wybór godzin i dnia, okno edycji
   z czerwonym Usuń i zamykaniem kliknięciem obok, motyw do wyboru w ustawieniach. Testy: 617.
+- **19:32** Wydane 0.10.0.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+Wydane [0.10.0](https://github.com/DragonKing026/DK-Tracker-Linux/releases/tag/v0.10.0): okno główne z listą
+tygodni, oknem edycji wszystkich opcji wpisu, ręcznymi wpisami, usuwaniem z „Cofnij”, ustawieniami jako stroną okna,
+motywem do wyboru; tacka opcjonalna. Wygląd według
+[projektu wyglądu](../../../docs/architektura/wyglad-okna-glownego.md).
+Testy: 617 + 17 kontraktowych. Dalej: podsumowania (0.10.1), kalendarz (0.10.2).

@@ -11,7 +11,7 @@ zaktualizowano: 2026-09-26 18:57
 Jeden projekt wyglądu dla całego okna głównego ([F-35](funkcje.md#f-35-okno-główne-0100)): najpierw kolory, potem
 kontrolki ze wszystkimi stanami, na końcu układ widoków. Nowy widok (Podsumowania, Kalendarz) składa się z tych samych
 kontrolek. Powstał po teście na żywo 0.10.0, gdy poprawki pojedynczych uwag („zlewa się”, „bije po oczach”) psuły
-jedna drugą ([0069](../../TODO/W-TRAKCIE/0069-plan5-okno-glowne/todo.md)).
+jedna drugą ([0069](../../TODO/ZROBIONE/0069-plan5-okno-glowne/todo.md)).
 
 ## Zasady
 

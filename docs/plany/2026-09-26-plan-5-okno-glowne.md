@@ -2,9 +2,9 @@
 noteId: "9c1a167738ff409dbc5f485f76572a0a"
 tytul: "Plan 5: okno główne (0.10.0)"
 tags: [plan, implementacja, okno-glowne, qml, 0.10]
-status: do-akceptacji
+status: wykonany
 utworzono: 2026-09-26 16:48
-zaktualizowano: 2026-09-26 16:48
+zaktualizowano: 2026-09-26 19:32
 ---
 
 # Plan 5: okno główne (0.10.0) — plan implementacji
