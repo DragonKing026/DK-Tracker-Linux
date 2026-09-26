@@ -1,9 +1,3 @@
----
-noteId: "bba05b70b98a11f192c6552dfc273c7c"
-tags: []
-
----
-
 # Kimai Tray
 
 Mierzenie czasu w [Kimai](https://www.kimai.org/) prosto z tacki systemowej Linuksa — bez otwierania przeglądarki.
