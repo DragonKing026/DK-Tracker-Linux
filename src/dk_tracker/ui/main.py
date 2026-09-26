@@ -152,7 +152,7 @@ def main(argv: list[str] | None = None) -> int:
     translations = QtTranslations()
     translations.switch(controller.state.t.language)
     controller.languageChanged.connect(translations.switch)
-    instance.showRequested.connect(controller.show_popup)
+    instance.showRequested.connect(controller.show_main_window)  # spec 0.10, section 7
     controller.quitRequested.connect(app.quit)
     app.aboutToQuit.connect(controller.shutdown)
     log.info("DK Tracker started (tray: %s, window: %s, log: %s)", tray_available, controller.mode, log_path)

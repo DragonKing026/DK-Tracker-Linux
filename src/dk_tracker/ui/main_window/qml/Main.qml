@@ -44,6 +44,7 @@ ApplicationWindow {
 
             TimerBar {
                 id: timerBar
+                enabled: !app.view.offline  // spec, section 9: no edits without Kimai
                 Layout.fillWidth: true
                 visible: app.view.configured
             }

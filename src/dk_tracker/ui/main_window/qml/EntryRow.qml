@@ -9,6 +9,7 @@ Rectangle {
     objectName: "entryRow"
     required property var entry
     readonly property bool locked: entry.exported
+    enabled: !app.view.offline  // spec, section 9; the list still scrolls
     readonly property string rowError: app.rowErrors[String(entry.entryId)] || ""
     implicitHeight: content.implicitHeight + 12
     color: hover.hovered ? (app.palette.surface || "#1e2127") : "transparent"
@@ -42,7 +43,7 @@ Rectangle {
                     radius: 4
                 }
                 Component.onCompleted: cursorPosition = 0  // a long text shows its beginning
-                onActiveFocusChanged: if (!activeFocus) cursorPosition = 0
+                onActiveFocusChanged: { app.setEditing(activeFocus); if (!activeFocus) cursorPosition = 0 }
                 onEditingFinished: if (text !== entry.description) app.editDescription(entry.entryId, text)
                 Keys.onEscapePressed: { text = entry.description; focus = false }
             }
@@ -64,6 +65,7 @@ Rectangle {
                 objectName: "rowBegin"
                 Layout.preferredWidth: 58
                 inputMask: "99:99"
+                onActiveFocusChanged: app.setEditing(activeFocus)
                 text: entry.begin
                 readOnly: row.locked
                 onEditingFinished: if (text !== entry.begin) app.editTimes(entry.entryId, text, "")
@@ -75,6 +77,7 @@ Rectangle {
                 objectName: "rowEnd"
                 Layout.preferredWidth: 58
                 inputMask: "99:99"
+                onActiveFocusChanged: app.setEditing(activeFocus)
                 text: entry.end
                 readOnly: row.locked
                 onEditingFinished: if (text !== entry.end) app.editTimes(entry.entryId, "", text)

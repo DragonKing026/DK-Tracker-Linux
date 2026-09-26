@@ -82,3 +82,13 @@ def test_clicks_on_the_icon_are_logged(qtbot, caplog):
     with caplog.at_level("INFO", logger="dk_tracker.ui.tray"):
         tray.icon.activated.emit(QSystemTrayIcon.ActivationReason.Trigger)
     assert "Trigger" in caplog.text
+
+
+def test_menu_opens_the_main_window_first(qtbot):
+    """Plan 5: "Open DK Tracker" leads the menu's window entries."""
+    state, tray = make(qtbot)
+    assert tray.open_main_action.text() == "Otwórz DK Tracker"
+    with qtbot.waitSignal(tray.openMainRequested):
+        tray.open_main_action.trigger()
+    state.update(t=Translator("en"))
+    assert tray.open_main_action.text() == "Open DK Tracker"

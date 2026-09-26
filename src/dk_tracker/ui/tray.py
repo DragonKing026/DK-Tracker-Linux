@@ -26,6 +26,7 @@ log = logging.getLogger(__name__)
 
 class Tray(QObject):
     openRequested = Signal()
+    openMainRequested = Signal()  # Plan 5: the main window
     stopRequested = Signal()
     resumeLastRequested = Signal()
     openKimaiRequested = Signal()
@@ -46,6 +47,7 @@ class Tray(QObject):
         self.stop_action = self._action(self.stopRequested)
         self.resume_action = self._action(self.resumeLastRequested)
         self.menu.addSeparator()
+        self.open_main_action = self._action(self.openMainRequested)
         self.open_action = self._action(self.openRequested)
         self.open_kimai_action = self._action(self.openKimaiRequested)
         self.settings_action = self._action(self.settingsRequested)
@@ -77,6 +79,7 @@ class Tray(QObject):
 
         self.stop_action.setText(t("menuStop"))
         self.resume_action.setText(t("menuResumeLast"))
+        self.open_main_action.setText(t("menuOpenMain"))
         self.open_action.setText(t("menuOpen"))
         self.open_kimai_action.setText(t("menuOpenKimai"))
         self.settings_action.setText(t("settings"))

@@ -58,6 +58,10 @@ class Worker(QObject):
         self._executor.submit(run)
         return True
 
+    def pending(self, key: str) -> bool:
+        """A keyed job still waits or runs."""
+        return key in self._pending
+
     @property
     def busy(self) -> bool:
         return self._inflight > 0

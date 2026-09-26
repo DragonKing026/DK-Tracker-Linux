@@ -202,12 +202,15 @@ def test_open_kimai_uses_the_remembered_locale(harness, monkeypatch):
 
 def test_window_open_before_the_token_arrives_still_gets_projects(qtbot):
     h = Harness(qtbot)
-    h.controller.start(hidden=False)  # the window opens at once, the wallet answers later
-    h.settle()
-    form = h.controller.popup.form
-    assert form.project.findData(1) > 0
-    assert form.activity.findData(1) > 0
-    h.controller.shutdown()
+    try:
+        h.controller.start(hidden=True)
+        h.controller.show_popup()  # the window opens at once, the wallet answers later
+        h.settle()
+        form = h.controller.popup.form
+        assert form.project.findData(1) > 0
+        assert form.activity.findData(1) > 0
+    finally:
+        h.controller.shutdown()
 
 
 def test_failed_actions_are_logged_without_the_token(harness, caplog):
@@ -225,7 +228,7 @@ def test_failed_actions_are_logged_without_the_token(harness, caplog):
 def test_without_a_tray_the_window_explains_it_for_this_session_only(harness):
     h = harness(tray=False)
     assert h.controller.tray is None
-    assert h.controller.popup.isVisible()  # no icon to click, so the window opens at start
+    assert h.controller.main_window.isVisible()  # no icon to click, so the main window opens at start
     h.controller.refresh_active()
     h.settle()
     assert ("hintNoTray", {}) in h.state.warnings
@@ -314,10 +317,10 @@ def test_connection_test_never_sends_the_stored_token_to_another_address(harness
     assert dialog.status.text() == "Podaj token API."
 
 
-def test_without_a_tray_closing_the_window_quits(harness, qtbot):
+def test_without_a_tray_closing_the_main_window_quits(harness, qtbot):
     h = harness(tray=False)
     with qtbot.waitSignal(h.controller.quitRequested):
-        h.controller.popup.close_button.click()
+        h.controller.main_window.window.close()
 
 
 def test_with_a_tray_closing_the_window_only_hides_it(harness, qtbot):

@@ -7,6 +7,7 @@ from zoneinfo import ZoneInfo
 import pytest
 
 from dk_tracker.core.entry_list import build_rows
+from dk_tracker.core.errors import ApiError, ErrorKind
 from dk_tracker.core.i18n import Translator
 from dk_tracker.core.tracker import Snapshot
 from dk_tracker.ui.main_window.bridge import MainBridge
@@ -24,6 +25,16 @@ def entry(hour, entry_id, **extra):
     return replace(make_entry(entry_id, begin, begin + timedelta(hours=1)), **extra)
 
 
+def visual_child(item, name):
+    """List rows have a visual parent only, so `findChild` does not see them."""
+    for child in item.childItems():
+        if child.objectName() == name:
+            return child
+        if (found := visual_child(child, name)) is not None:
+            return found
+    return None
+
+
 @pytest.fixture
 def window(qapp):
     bridge = MainBridge()
@@ -36,7 +47,7 @@ def window(qapp):
     made = MainWindow(bridge)
     made.show()
     yield made
-    made.hide()
+    made.dispose()
 
 
 def test_the_window_has_its_parts(window):
@@ -104,7 +115,22 @@ def test_no_qml_warnings_on_load(qapp, qtbot):
         made = MainWindow(bridge)
         made.show()
         qtbot.wait(50)
-        made.hide()
+        made.dispose()
     finally:
         qInstallMessageHandler(previous)
     assert warnings == []
+
+
+def test_offline_locks_editing_but_not_the_list(window, qtbot):
+    """Spec, section 9: without a connection the last data stays visible and cannot be edited."""
+    qtbot.waitUntil(lambda: visual_child(window.child("entriesList"), "entryRow") is not None)
+    window.bridge.render(
+        Snapshot(user=FakeClient().user, error=ApiError(ErrorKind.CONNECTION, 0)),
+        configured=True,
+        t=PL,
+        now=NOW,
+        tz=WARSAW,
+    )
+    qtbot.waitUntil(lambda: window.child("timerBar").property("enabled") is False)
+    assert visual_child(window.child("entriesList"), "entryRow").property("enabled") is False
+    assert window.child("entriesList").property("enabled") is True

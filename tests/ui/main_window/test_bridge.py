@@ -163,3 +163,12 @@ def test_a_refresh_during_the_undo_time_keeps_the_row_hidden(bridge):
     bridge.deleteEntry(2)
     bridge.set_entries(build_rows([first(9, 1), first(11, 2)], WARSAW, date(2026, 9, 25), 0, PL), WARSAW)
     assert bridge.entries.rowCount() == 3  # week, day, entry 1: entry 2 waits for "Undo"
+
+
+def test_a_refresh_waits_while_a_field_is_being_edited(bridge):
+    """Spec, section 5: the minute's refresh does not overwrite an edit in progress."""
+    bridge.setEditing(True)
+    bridge.set_entries(build_rows([first(8, 3)], WARSAW, date(2026, 9, 25), 0, PL), WARSAW)
+    assert bridge.entries.entry(3) is None and bridge.entries.entry(1) is not None
+    bridge.setEditing(False)
+    assert bridge.entries.entry(3) is not None and bridge.entries.entry(1) is None

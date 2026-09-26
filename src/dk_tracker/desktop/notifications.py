@@ -22,7 +22,7 @@ _INTERFACE = "org.freedesktop.portal.Notification"
 @dataclass(frozen=True)
 class NotificationAction:
     notification_id: str
-    action: str  # "stop" | "keep" | "settings"
+    action: str  # "stop" | "keep" | "settings" | "open" (the notification itself)
     entry_id: int | None
 
 
@@ -41,7 +41,12 @@ class PortalNotifier:
         self._shown: dict[str, str] = {}  # kind ("action", "long-timer-7") -> id on screen
 
     def show(self, rendered: RenderedNotification) -> None:
-        payload: dict[str, Any] = {"title": ("s", rendered.title), "priority": ("s", "normal")}
+        # "default-action": a click on the notification itself (Plan 5 opens the main window).
+        payload: dict[str, Any] = {
+            "title": ("s", rendered.title),
+            "priority": ("s", "normal"),
+            "default-action": ("s", "open"),
+        }
         if rendered.body:
             payload["body"] = ("s", rendered.body)
         if rendered.buttons:

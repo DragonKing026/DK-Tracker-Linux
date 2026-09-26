@@ -5,7 +5,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6.QtCore import QObject, QSize, QUrl, Signal
+from PySide6.QtCore import QCoreApplication, QEvent, QObject, QSize, QUrl, Signal
 from PySide6.QtGui import QPixmap
 from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuick import QQuickImageProvider
@@ -68,6 +68,13 @@ class MainWindow(QObject):
 
     def size(self) -> QSize:
         return self.window.size()
+
+    def dispose(self) -> None:
+        """At exit: the QML goes before `app` does, or its bindings would read a deleted object."""
+        self.window.hide()
+        self.window.deleteLater()
+        self.engine.deleteLater()
+        QCoreApplication.sendPostedEvents(None, QEvent.Type.DeferredDelete)
 
     def child(self, name: str) -> QObject | None:
         """A QML object by its objectName (tests, and the controller's focus handling)."""

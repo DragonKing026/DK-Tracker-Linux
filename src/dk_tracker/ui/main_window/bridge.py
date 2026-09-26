@@ -72,6 +72,9 @@ class MainBridge(QObject):
         self._row_errors: dict[str, str] = {}
         self._t: Callable[..., str] = str
         self._pending: int | None = None
+        self._editing = False
+        self._deferred: tuple[list[ListRow], tzinfo] | None = None
+        self._action_error = ""
         self._undo_timer = QTimer(self, singleShot=True)
         self._undo_timer.timeout.connect(self._commit_delete)
 
@@ -134,10 +137,14 @@ class MainBridge(QObject):
             week=t("weekTotal", time=short_duration(totals.week)) if totals else "",
             billableAllowed=snapshot.billable_allowed,
             offline=snapshot.error is not None,
-            error=describe(snapshot.error, t) if snapshot.error is not None else "",
+            error=describe(snapshot.error, t) if snapshot.error is not None else self._action_error,
         )
 
     def set_entries(self, rows: list[ListRow], tz: tzinfo) -> None:
+        if self._editing:  # a refresh would recreate the row being typed in
+            self._deferred = (rows, tz)
+            return
+        self._deferred = None
         self.entries.set_rows(rows, tz)
 
     def set_projects(self, projects: list[Project]) -> None:
@@ -154,6 +161,8 @@ class MainBridge(QObject):
         self._update(loading=loading)
 
     def show_error(self, text: str) -> None:
+        """An action's error; it stays until the next action (a refresh does not clear it)."""
+        self._action_error = text
         self._update(error=text)
 
     def show_row_error(self, entry_id: int, text: str) -> None:
@@ -263,6 +272,12 @@ class MainBridge(QObject):
     @Slot(bool)
     def runningBillable(self, value: bool) -> None:  # noqa: N802
         self.runningEdited.emit({"billable": value})
+
+    @Slot(bool)
+    def setEditing(self, value: bool) -> None:  # noqa: N802
+        self._editing = value
+        if not value and self._deferred is not None:
+            self.set_entries(*self._deferred)
 
     @Slot()
     def loadMore(self) -> None:  # noqa: N802

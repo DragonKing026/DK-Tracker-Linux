@@ -38,7 +38,7 @@ def test_show_without_body_or_buttons_omits_them():
     bus.on(PORTAL_PATH, IFACE, "AddNotification", ())
     PortalNotifier(bus).show(RenderedNotification("connection", "Połączenie przywrócone", "", ()))
     payload = bus.calls[0][5][1]
-    assert set(payload) == {"title", "priority"}
+    assert set(payload) == {"title", "priority", "default-action"}
 
 
 def test_withdraw():
@@ -105,3 +105,12 @@ def test_withdraw_by_kind_removes_what_is_on_screen():
     notifier.show(RenderedNotification("connection", "Brak połączenia", "", ()))
     notifier.withdraw("connection")
     assert bus.calls[-1][3:] == ("RemoveNotification", "s", ("connection.5",))
+
+
+def test_clicking_the_notification_itself_asks_to_open_the_main_window():
+    """Plan 5: the portal's default action — a click on the notification, not on a button."""
+    bus = FakeBus()
+    bus.on(PORTAL_PATH, IFACE, "AddNotification", ())
+    PortalNotifier(bus, first_number=1).show(RenderedNotification("action", "Zatrzymano", "", ()))
+    payload = bus.calls[0][5][1]
+    assert payload["default-action"] == ("s", "open")

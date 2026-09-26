@@ -11,12 +11,13 @@ import logging
 import time
 from collections.abc import Callable
 from dataclasses import replace
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any
 
 from PySide6.QtCore import QObject, QSize, QTimer, QUrl, Signal
-from PySide6.QtGui import QDesktopServices
+from PySide6.QtGui import QDesktopServices, QGuiApplication
 
+from dk_tracker.core.entry_list import build_rows, first_day_of_week
 from dk_tracker.core.errors import TrackerError, describe
 from dk_tracker.core.i18n import Translator, resolve_language, system_locale
 from dk_tracker.core.models import Entry
@@ -27,18 +28,22 @@ from dk_tracker.core.notification_policy import (
     is_ours,
     render,
 )
+from dk_tracker.core.presentation import display_zone
 from dk_tracker.core.settings import Memory, Settings
-from dk_tracker.core.timefmt import short_duration
-from dk_tracker.core.tracker import Snapshot, Tracker, all_entries_url, utc_now
+from dk_tracker.core.timefmt import local_day, short_duration, weekday_index
+from dk_tracker.core.tracker import SEARCH_MIN_CHARS, Snapshot, Tracker, all_entries_url, utc_now
 from dk_tracker.desktop.bus import PortalError
 from dk_tracker.desktop.notifications import NotificationAction
 from dk_tracker.desktop.secrets import SecretsLocked, SecretsUnavailable
 
 from . import placement
 from .desktop_bridge import ClickListener
+from .main_window.bridge import MainBridge
+from .main_window.window import MainWindow
 from .popup import QuickWindow
 from .settings_dialog import SettingsDialog
 from .state import AppState
+from .theme import palette_for
 from .tray import Tray
 from .worker import Worker
 
@@ -49,6 +54,7 @@ TRAY_MS = 15_000  # tray label and clock-jump check
 REOPEN_GUARD_SECONDS = 0.4
 SHUTDOWN_SECONDS = 5.0
 JUMP_SECONDS = 120  # wall clock moved more than monotonic time: sleep or a clock change
+EMPTY_WEEKS_LIMIT = 8  # the main list stops loading older weeks after this many empty ones in a row
 _ENGLISH = Translator("en")
 
 
@@ -98,14 +104,23 @@ class Controller(QObject):
         self.popup = QuickWindow(self.state, now)
         self.mode = placement.apply(self.popup, window_mode)
         self.popup.set_preferred_size(QSize(memory.popup_width, memory.popup_height))
-        self.tray = Tray(self.state, now) if tray_available else None
+        self._tray_available = tray_available
+        self.tray = Tray(self.state, now) if tray_available and self._settings.show_tray else None
         # Without a tray the window is the whole app: closing it must not leave a hidden process.
         self.popup.quit_on_close = self.tray is None
         self.dialog: SettingsDialog | None = None
         self.listener = ClickListener() if listen_for_clicks else None
+        # Plan 5: the main window, made on first use (QML takes a moment to load).
+        self.main_bridge = MainBridge(self)
+        self.main_window: MainWindow | None = None
+        self._weeks = 1  # weeks the main list shows, this one included
+        self._listed = 0  # entries in the main list after the last load
+        self._growing = False  # the last load asked for one more week
+        self._empty_weeks = 0
+        self._main_term = ""  # the main list's search; "" = the weeks
 
-        self._poll = QTimer(self, interval=POLL_MS, timeout=self.refresh_active)
-        self._tick = QTimer(self, interval=TICK_MS, timeout=self.popup.tick)
+        self._poll = QTimer(self, interval=POLL_MS, timeout=self._on_poll)
+        self._tick = QTimer(self, interval=TICK_MS, timeout=self._on_tick)
         self._tray_timer = QTimer(self, interval=TRAY_MS, timeout=self._on_tray_timer)
         self._connect()
 
@@ -123,7 +138,7 @@ class Controller(QObject):
         self._tray_timer.start()
         self._load_token(self._settings.url)
         if not hidden or self.tray is None:
-            self.show_popup()
+            self.show_main_window()
 
     def shutdown(self) -> None:
         for timer in (self._poll, self._tick, self._tray_timer):
@@ -131,7 +146,11 @@ class Controller(QObject):
         if self.listener is not None:
             self.listener.stop()
             self.listener.wait(2000)
+        self.main_bridge.flush_deletes()  # a delete still in its undo time reaches Kimai
         self.popup.hide()  # first: leaving the description field saves what was typed
+        if self.main_window is not None:
+            self.main_window.dispose()
+            self.main_window = None
         if self.tray is not None:
             self.tray.icon.hide()
         # Queued actions still reach Kimai; a hung request does not hold the exit for long.
@@ -169,17 +188,34 @@ class Controller(QObject):
         )
         recent.searchRequested.connect(self._search)
         popup.settingsRequested.connect(self.open_settings)
-        popup.openKimaiRequested.connect(self.open_kimai)
+        popup.openKimaiRequested.connect(self.show_main_window)  # Plan 5: the main window, not the browser
         popup.shownChanged.connect(self._on_popup_shown)
         popup.sizeChosen.connect(self._remember_size)
         popup.closeRequested.connect(self.quitRequested.emit)
         if self.tray is not None:
-            self.tray.openRequested.connect(self.toggle_popup)
-            self.tray.stopRequested.connect(self._menu_stop)
-            self.tray.resumeLastRequested.connect(self._menu_resume)
-            self.tray.openKimaiRequested.connect(self.open_kimai)
-            self.tray.settingsRequested.connect(self.open_settings)
-            self.tray.quitRequested.connect(self.quitRequested.emit)
+            self._connect_tray(self.tray)
+        self.state.changed.connect(self._render_main)
+        main = self.main_bridge
+        main.startRequested.connect(lambda payload: self._act_main(lambda t: t.start(**payload)))
+        main.stopRequested.connect(lambda: self._act_main(lambda t: t.stop()))
+        main.addRequested.connect(lambda payload: self._act_main(lambda t: t.add_entry(**payload)))
+        main.editRequested.connect(self._edit_entry)
+        main.deleteRequested.connect(self._delete_entry)
+        main.resumeRequested.connect(self._resume_entry)
+        main.runningEdited.connect(self._edit_running)
+        main.loadMoreRequested.connect(self._load_more)
+        main.searchRequested.connect(self._main_search)
+        main.activitiesRequested.connect(self._main_activities)
+        main.settingsRequested.connect(self.open_settings)
+
+    def _connect_tray(self, tray: Tray) -> None:
+        tray.openRequested.connect(self.toggle_popup)
+        tray.openMainRequested.connect(self.show_main_window)
+        tray.stopRequested.connect(self._menu_stop)
+        tray.resumeLastRequested.connect(self._menu_resume)
+        tray.openKimaiRequested.connect(self.open_kimai)
+        tray.settingsRequested.connect(self.open_settings)
+        tray.quitRequested.connect(self.quitRequested.emit)
 
     # -- configuration -------------------------------------------------------------------
 
@@ -372,7 +408,9 @@ class Controller(QObject):
             return  # another app's notification: the portal tells every listener
         # KDE leaves a notification on screen after a button click: take it away ourselves.
         self.dbus.submit(lambda: self._desktop.withdraw(action.notification_id), on_error=lambda _e: None)
-        if action.action == "settings":
+        if action.action == "open":
+            self.show_main_window()
+        elif action.action == "settings":
             self.open_settings()
         elif action.action == "stop":
             current = self.state.snapshot.current
@@ -403,7 +441,8 @@ class Controller(QObject):
 
     def _on_popup_shown(self, shown: bool) -> None:
         if not shown:
-            self._tick.stop()
+            if not self._main_visible():
+                self._tick.stop()
             self._catalog_loaded = False  # projects and activities are read again on the next open
             self._opening += 1
             return
@@ -498,6 +537,8 @@ class Controller(QObject):
         self.state.update(settings=self._settings, secrets_problem=None)
         if previous.autostart != self._settings.autostart:
             self._request_autostart(self._settings.autostart)
+        if previous.show_tray != self._settings.show_tray:
+            self._set_tray(self._settings.show_tray)
         if self._tracker is None:
             self._on_token(token)
         else:
@@ -539,6 +580,209 @@ class Controller(QObject):
         self.dbus.submit(
             lambda: self._desktop.request_background(autostart=enabled, reason=reason), on_error=denied
         )
+
+    # -- the main window (Plan 5) ---------------------------------------------------------
+
+    def show_main_window(self) -> None:
+        if self.main_window is None:
+            self.main_window = MainWindow(self.main_bridge, parent=self.main_bridge)  # the engine goes first
+            self.main_window.closed.connect(self._on_main_closed)
+            self._main_theme()
+            QGuiApplication.styleHints().colorSchemeChanged.connect(lambda _scheme: self._main_theme())
+        memory = self._tracker.memory if self._tracker is not None else self._memory
+        self.popup.hide()
+        self._render_main()
+        self.main_window.show(QSize(memory.main_width, memory.main_height))
+        self._tick.start()
+        if self._tracker is not None:
+            self._main_catalog()
+            self._reload_entries()
+
+    def _main_visible(self) -> bool:
+        return self.main_window is not None and self.main_window.isVisible()
+
+    def _main_theme(self) -> None:
+        hints, window = QGuiApplication.styleHints(), QGuiApplication.palette().window().color()
+        self.main_bridge.set_palette(palette_for(hints.colorScheme(), window))
+
+    def _render_main(self) -> None:
+        if self.main_window is None:
+            return
+        snapshot, now = self.state.snapshot, self._now()
+        tz = display_zone(snapshot, now.astimezone())
+        self.main_bridge.render(snapshot, configured=self.state.configured, t=self.state.t, now=now, tz=tz)
+
+    def _on_main_closed(self) -> None:
+        size = self.main_window.size() if self.main_window is not None else QSize()
+        self._remember(main_width=size.width(), main_height=size.height())
+        if self.tray is None:
+            self.quitRequested.emit()  # no tray: the main window is the whole app
+        elif not self.popup.isVisible():
+            self._tick.stop()
+
+    def _set_tray(self, shown: bool) -> None:
+        if shown and self.tray is None and self._tray_available:
+            self.tray = Tray(self.state, self._now)
+            self._connect_tray(self.tray)
+            self.tray.show()
+        elif not shown and self.tray is not None:
+            self.tray.icon.hide()
+            self.tray.deleteLater()
+            self.tray = None
+            self.popup.hide()
+            self.show_main_window()  # otherwise nothing of the app would be left on screen
+        self.popup.quit_on_close = self.tray is None
+
+    def _main_catalog(self) -> None:
+        tracker = self._tracker
+        if tracker is None:
+            return
+
+        def done(result: tuple[Snapshot, list]) -> None:
+            self._apply(result)
+            self.main_bridge.set_projects(list(result[0].projects))
+
+        self.kimai.submit(
+            lambda: (tracker.load_catalog(), tracker.warnings()), done, self._main_failed, key="main-catalog"
+        )
+
+    def _main_activities(self, project_id: int) -> None:
+        tracker = self._tracker
+        if tracker is None or not project_id:
+            return
+        self.kimai.submit(
+            lambda: tracker.activities(project_id), self.main_bridge.set_activities, self._main_failed,
+            key=f"main-activities-{project_id}",
+        )  # fmt: skip
+
+    def _reload_entries(self) -> None:
+        tracker = self._tracker
+        if tracker is None or not self._main_visible():
+            return
+        if self._main_term:
+            self._main_search(self._main_term)
+            return
+        snapshot, now = self.state.snapshot, self._now()
+        tz = display_zone(snapshot, now.astimezone())
+        first_weekday = weekday_index(snapshot.user.first_weekday) if snapshot.user else 0
+        today = local_day(now, tz)
+        first = first_day_of_week(today, first_weekday) - timedelta(days=7 * (self._weeks - 1))
+        t = self.state.t
+
+        def done(entries: tuple) -> None:
+            if self._growing:
+                self._empty_weeks = 0 if len(entries) > self._listed else self._empty_weeks + 1
+                self._growing = False
+            self._listed = len(entries)
+            self.main_bridge.set_loading(False)
+            self.main_bridge.set_entries(build_rows(entries, tz, today, first_weekday, t), tz)
+
+        self.main_bridge.set_loading(True)
+        self.kimai.submit(lambda: tracker.entries(first, today), done, self._main_failed, key="main-entries")
+
+    def _load_more(self) -> None:
+        if self._main_term or self._empty_weeks >= EMPTY_WEEKS_LIMIT or self.kimai_pending("main-entries"):
+            return
+        self._weeks += 1
+        self._growing = True
+        self._reload_entries()
+
+    def kimai_pending(self, key: str) -> bool:
+        return self.kimai.pending(key)
+
+    def _main_search(self, term: str) -> None:
+        term = " ".join(term.split())
+        tracker = self._tracker
+        if len(term) < SEARCH_MIN_CHARS or tracker is None:
+            if self._main_term:
+                self._main_term = ""
+                self._reload_entries()
+            return
+        self._main_term = term
+        snapshot, now = self.state.snapshot, self._now()
+        tz = display_zone(snapshot, now.astimezone())
+        first_weekday = weekday_index(snapshot.user.first_weekday) if snapshot.user else 0
+        today, t = local_day(now, tz), self.state.t
+
+        def done(found: tuple) -> None:
+            if term == self._main_term:  # typing went on: an older answer is dropped
+                self.main_bridge.set_entries(build_rows(found, tz, today, first_weekday, t), tz)
+
+        self.kimai.submit(lambda: tracker.search(term), done, self._main_failed)
+
+    def _act_main(self, job: Callable[[Tracker], Snapshot], *, entry_id: int | None = None) -> None:
+        """An action from the main window: its error goes to the window (or under the row)."""
+        tracker = self._tracker
+        if tracker is None:
+            return
+        self.main_bridge.show_error("")
+
+        def done(result: tuple[Snapshot, list]) -> None:
+            self._apply(result)
+            self._reload_entries()
+
+        def failed(error: Exception) -> None:
+            text = describe(error, self.state.t)
+            if entry_id is not None:
+                self.main_bridge.show_row_error(entry_id, text)
+            else:
+                self.main_bridge.show_error(text)
+            level = logging.INFO if isinstance(error, TrackerError) else logging.WARNING
+            log.log(level, "Main window action failed: %s", describe(error, _ENGLISH))
+            self.state.update(snapshot=tracker.snapshot)
+            self._reload_entries()  # the row shows again what Kimai has
+
+        self.kimai.submit(lambda: (job(tracker), tracker.warnings()), done, failed)
+
+    def _main_failed(self, error: Exception) -> None:
+        self.main_bridge.set_loading(False)
+        self.main_bridge.show_error(describe(error, self.state.t))
+
+    def _edit_entry(self, entry_id: int, changes: dict) -> None:
+        entry = self.main_bridge.entries.entry(entry_id)
+        if entry is not None:
+            self._act_main(lambda t: t.edit_entry(entry, **changes), entry_id=entry_id)
+
+    def _delete_entry(self, entry_id: int) -> None:
+        entry = self.main_bridge.entries.entry(entry_id)
+        if entry is not None:
+            self._act_main(lambda t: t.delete_entry(entry), entry_id=entry_id)
+
+    def _resume_entry(self, entry_id: int) -> None:
+        entry = self.main_bridge.entries.entry(entry_id)
+        if entry is not None:
+            self._act_main(lambda t: t.resume(entry))
+
+    def _edit_running(self, changes: dict) -> None:
+        current = self.state.snapshot.current
+        if "description" in changes:
+            text = changes["description"]
+            self._act_main(lambda t: t.update_description(text) or t.snapshot)
+        elif "project_id" in changes:
+            self._act_main(lambda t: t.change_work(changes["project_id"], changes["activity_id"]))
+        elif "begin" in changes:
+            self._act_main(lambda t: t.update_begin(changes["begin"]))
+        elif "billable" in changes and current is not None:
+            self._act_main(lambda t: t.set_billable(current.id, changes["billable"]))
+
+    def _remember(self, **changes: Any) -> None:
+        tracker = self._tracker
+        if tracker is not None:
+            self.kimai.submit(lambda: tracker.remember(**changes))
+        else:
+            self._memory = replace(self._memory, **changes)
+            self._save_memory(self._memory)
+
+    def _on_poll(self) -> None:
+        self.refresh_active()
+        if self._main_visible():
+            self._reload_entries()  # changes made elsewhere (the browser) show up within a minute
+
+    def _on_tick(self) -> None:
+        if self.popup.isVisible():
+            self.popup.tick()
+        if self._main_visible():
+            self._render_main()
 
     # -- time ---------------------------------------------------------------------------
 
