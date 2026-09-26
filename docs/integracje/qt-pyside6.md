@@ -90,27 +90,27 @@ build-options:
 
 ## Gdzie w kodzie
 
-Wszystko, co importuje PySide6, leży w [src/ws_tracker/ui/](../../src/ws_tracker/ui/) (test architektury
+Wszystko, co importuje PySide6, leży w [src/dk_tracker/ui/](../../src/dk_tracker/ui/) (test architektury
 pilnuje, by
 `core/` i `desktop/` nie importowały Qt):
 
-- [app.py](../../src/ws_tracker/ui/app.py) — `Controller`: wątki, odświeżanie, akcje, powiadomienia, ustawienia,
+- [app.py](../../src/dk_tracker/ui/app.py) — `Controller`: wątki, odświeżanie, akcje, powiadomienia, ustawienia,
   autostart.
-- [main.py](../../src/ws_tracker/ui/main.py) — start: `--hidden`, jedna instancja (`QLocalServer`), logi,
+- [main.py](../../src/dk_tracker/ui/main.py) — start: `--hidden`, jedna instancja (`QLocalServer`), logi,
   `QTranslator`
   dla `qtbase`, czekanie na tackę.
-- [state.py](../../src/ws_tracker/ui/state.py) — `AppState`: ostatni Snapshot, ustawienia, język; jeden sygnał
+- [state.py](../../src/dk_tracker/ui/state.py) — `AppState`: ostatni Snapshot, ustawienia, język; jeden sygnał
   `changed`.
-- [worker.py](../../src/ws_tracker/ui/worker.py) — `Worker`: jeden wątek, wynik wraca do wątku GUI sygnałem w
+- [worker.py](../../src/dk_tracker/ui/worker.py) — `Worker`: jeden wątek, wynik wraca do wątku GUI sygnałem w
   kolejce.
-- [tray.py](../../src/ws_tracker/ui/tray.py) — `QSystemTrayIcon` i menu.
-- [popup.py](../../src/ws_tracker/ui/popup.py), [form.py](../../src/ws_tracker/ui/form.py),
-  [recent.py](../../src/ws_tracker/ui/recent.py) — okno szybkiej obsługi.
-- [settings_dialog.py](../../src/ws_tracker/ui/settings_dialog.py) — okno ustawień.
-- [placement.py](../../src/ws_tracker/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
-- [desktop_bridge.py](../../src/ws_tracker/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako
+- [tray.py](../../src/dk_tracker/ui/tray.py) — `QSystemTrayIcon` i menu.
+- [popup.py](../../src/dk_tracker/ui/popup.py), [form.py](../../src/dk_tracker/ui/form.py),
+  [recent.py](../../src/dk_tracker/ui/recent.py) — okno szybkiej obsługi.
+- [settings_dialog.py](../../src/dk_tracker/ui/settings_dialog.py) — okno ustawień.
+- [placement.py](../../src/dk_tracker/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
+- [desktop_bridge.py](../../src/dk_tracker/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako
   `QThread`.
-- [theme.py](../../src/ws_tracker/ui/theme.py), [icons.py](../../src/ws_tracker/ui/icons.py) — palety wtyczki
+- [theme.py](../../src/dk_tracker/ui/theme.py), [icons.py](../../src/dk_tracker/ui/icons.py) — palety wtyczki
   (motyw z
   `QStyleHints.colorScheme()`), ikony rysowane `QPainter` / `QSvgRenderer`.
 - Testy: [tests/ui/](../../tests/ui/) — pytest-qt na platformie `offscreen`.

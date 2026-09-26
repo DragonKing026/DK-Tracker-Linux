@@ -59,6 +59,6 @@ Wykonać **zadanie 2** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ## Wynik
 
-[presentation.py](../../../src/ws_tracker/core/presentation.py): `tray_status`, `display_zone`, `day_label`,
+[presentation.py](../../../src/dk_tracker/core/presentation.py): `tray_status`, `display_zone`, `day_label`,
 `entry_row`. Testy: [test_presentation.py](../../../tests/core/test_presentation.py) — 10 zielonych. Bez odchyleń od
 planu.

@@ -18,7 +18,7 @@ zaktualizowano: 2026-09-26 11:49
 
 ```mermaid
 flowchart LR
-    M[Manifest<br/>io.github.dragonking026.WS-Tracker-Linux.yml] --> FB[flatpak-builder]
+    M[Manifest<br/>io.github.dragonking026.DK-Tracker-Linux.yml] --> FB[flatpak-builder]
     SDK[SDK<br/>org.kde.Sdk / org.gnome.Sdk / org.freedesktop.Sdk] --> FB
     FB --> R[(Repozytorium OSTree)]
     R --> B[Paczka .flatpak]
@@ -32,7 +32,7 @@ flowchart LR
   budowania (`*.Sdk`).
 - **Manifest** (YAML/JSON) — ID aplikacji, runtime, uprawnienia (`finish-args`),
   moduły do zbudowania ze źródłami.
-- **ID aplikacji** — odwrócona domena. Propozycja: `io.github.dragonking026.WS-Tracker-Linux`
+- **ID aplikacji** — odwrócona domena. Propozycja: `io.github.dragonking026.DK-Tracker-Linux`
   (do potwierdzenia w ADR — ID trudno zmienić po publikacji).
 
 ## Runtime'y (Flathub, stan 2026-09-25)
@@ -73,24 +73,24 @@ Sekrety: [ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md),
 Zawsze w kontenerze ([ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md)), tym samym obrazem co w CI:
 
 ```bash
-flatpak/buduj.sh              # dist/io.github.dragonking026.WS-Tracker-Linux-<wersja>.flatpak: walidacja AppStream, lint
+flatpak/buduj.sh              # dist/io.github.dragonking026.DK-Tracker-Linux-<wersja>.flatpak: walidacja AppStream, lint
 flatpak/buduj.sh --zainstaluj # to samo i instalacja paczki u siebie (flatpak install --user --bundle)
 ```
 
 Pierwsza budowa pobiera runtime KDE i bazę PySide (kilka GB, ok. 15 min); cache:
-`~/.cache/ws-tracker-flatpak`. Wyjątki lintera dopuszczone w skrypcie dotyczą tylko Flathuba (adres z
+`~/.cache/dk-tracker-flatpak`. Wyjątki lintera dopuszczone w skrypcie dotyczą tylko Flathuba (adres z
 identyfikatora, zrzuty ekranu w repozytorium OSTree).
 
 ## Gdzie w kodzie
 
-- [Manifest](../../flatpak/io.github.dragonking026.WS-Tracker-Linux.yml) — runtime, baza PySide, uprawnienia, moduły.
+- [Manifest](../../flatpak/io.github.dragonking026.DK-Tracker-Linux.yml) — runtime, baza PySide, uprawnienia, moduły.
 - [python3-deps.yaml](../../flatpak/python3-deps.yaml) — httpx i jeepney (flatpak-pip-generator).
 - [buduj.sh](../../flatpak/buduj.sh) — budowa lokalna.
 - [publikuj.sh](../../flatpak/publikuj.sh) i [pages.py](../../flatpak/pages.py) — podpis repozytorium OSTree i strona
   GitHub Pages (`.flatpakrepo`, `.flatpakref`, `index.html`).
 - [klucz-gpg.sh](../../flatpak/klucz-gpg.sh) — jednorazowo: klucz podpisujący repozytorium.
-- [.desktop](../../data/io.github.dragonking026.WS-Tracker-Linux.desktop) i
-  [MetaInfo](../../data/io.github.dragonking026.WS-Tracker-Linux.metainfo.xml).
+- [.desktop](../../data/io.github.dragonking026.DK-Tracker-Linux.desktop) i
+  [MetaInfo](../../data/io.github.dragonking026.DK-Tracker-Linux.metainfo.xml).
 
 ## Dystrybucja — opcje
 

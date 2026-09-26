@@ -6,7 +6,7 @@ utworzono: 2026-09-25 17:15
 zaktualizowano: 2026-09-25 18:49
 ---
 
-# Dokumentacja WS Tracker
+# Dokumentacja DK Tracker
 
 Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault Obsidiana.
 
@@ -19,7 +19,7 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 
 ## Specyfikacja
 
-- [Specyfikacja WS Tracker 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy,
+- [Specyfikacja DK Tracker 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy,
   testy (zaakceptowana 2026-09-25)
 
 ## Plany implementacji

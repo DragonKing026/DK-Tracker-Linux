@@ -107,7 +107,7 @@ stateDiagram-v2
 
 - **W aplikacji (prośba użytkownika, poza wtyczką):** lista projektów otwiera się z polem wyszukiwania na górze
   (jak Select2): filtr po nazwie projektu i klienta, bez wielkości liter i polskich znaków, Enter wybiera pierwszy
-  wynik, strzałki chodzą tylko po projektach — [ui/project_picker.py](../../src/ws_tracker/ui/project_picker.py).
+  wynik, strzałki chodzą tylko po projektach — [ui/project_picker.py](../../src/dk_tracker/ui/project_picker.py).
 
 Źródło: `popup.js#fillPickers`, `#onProjectChange`, `#restoreLastActivity`.
 
@@ -314,4 +314,4 @@ Odrzucone na 1.0: „brak timera w godzinach pracy” (wymaga ustawień godzin p
 
 - [Przegląd projektu](przeglad.md)
 - [Kimai REST API](../integracje/kimai-api.md)
-- [WS Tracker](../integracje/kimai-ws-tracker.md)
+- [DK Tracker](../integracje/kimai-ws-tracker.md)

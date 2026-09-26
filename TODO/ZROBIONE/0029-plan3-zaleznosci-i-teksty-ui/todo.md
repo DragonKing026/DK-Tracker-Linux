@@ -63,6 +63,6 @@ Wykonać **zadanie 1** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 ## Wynik
 
 [pyproject.toml](../../../pyproject.toml): extra `ui` (PySide6 6.11), `pytest-qt`, skrypt `kimai-tray`,
-`qt_api = pyside6`. Teksty UI PL/EN w [locales](../../../src/ws_tracker/core/locales/). Testy:
+`qt_api = pyside6`. Teksty UI PL/EN w [locales](../../../src/dk_tracker/core/locales/). Testy:
 [test_i18n_ui.py](../../../tests/ui/test_i18n_ui.py), strażnik warstw w
 [test_architektura.py](../../../tests/test_architektura.py). Bez odchyleń od planu.

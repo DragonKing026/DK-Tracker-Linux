@@ -100,7 +100,7 @@ są przypięte do SHA.
 > [!warning]
 >
 > - Bez sekretu GPG krok importu kończy wydanie błędem — nic niepodpisanego nie trafia na Pages.
-> - Klucz z sekretu musi być tym z `flatpak/ws-tracker-repo.gpg` — [publikuj.sh](../../flatpak/publikuj.sh) inaczej
+> - Klucz z sekretu musi być tym z `flatpak/dk-tracker-repo.gpg` — [publikuj.sh](../../flatpak/publikuj.sh) inaczej
 >   przerywa (podpis innym kluczem zepsułby instalacje i aktualizacje u wszystkich).
 > - Środowisko `github-pages` musi dopuszczać tagi `v*` ([github-pages](github-pages.md)).
 > - Tag niezgodny z wersją w `pyproject.toml` zatrzymuje wydanie przed budową.

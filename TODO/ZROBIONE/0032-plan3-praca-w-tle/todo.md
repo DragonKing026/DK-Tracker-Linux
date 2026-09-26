@@ -59,5 +59,5 @@ Wykonać **zadanie 4** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ## Wynik
 
-[worker.py](../../../src/ws_tracker/ui/worker.py): `Worker` (jeden wątek, klucze, `busy`). Testy:
+[worker.py](../../../src/dk_tracker/ui/worker.py): `Worker` (jeden wątek, klucze, `busy`). Testy:
 [test_worker.py](../../../tests/ui/test_worker.py) — 6 zielonych. Bez odchyleń od planu.

@@ -1,6 +1,6 @@
 ---
 noteId: "75c0a97a82984fe68a7831e3c92c54a9"
-tytul: "0.9.2: pełna aplikacja „WS Tracker”, tacka jako opcja — do omówienia"
+tytul: "0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia"
 numer: "0062"
 status: pomysl
 priorytet: p2
@@ -11,7 +11,7 @@ zaktualizowano: 2026-09-26 13:32
 zamknieto:
 ---
 
-# 0062 — 0.9.2: pełna aplikacja „WS Tracker”, tacka jako opcja — do omówienia
+# 0062 — 0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia
 
 > [!info] Status
 > **pomysl** · priorytet **p2** · [← tablica zadań](../../README.md)
@@ -20,7 +20,7 @@ zamknieto:
 
 Pomysł użytkownika (2026-09-26 13:32): od wersji 0.9.2 aplikacja ma być przede wszystkim **aplikacją dla Kimai** (okno w
 menu i
-na pasku zadań), a tacka — opcją. Nazwa bez „Tray”: **WS Tracker**.
+na pasku zadań), a tacka — opcją. Nazwa bez „Tray”: **DK Tracker**.
 
 ## Kontekst
 
@@ -36,7 +36,7 @@ na pasku zadań), a tacka — opcją. Nazwa bez „Tray”: **WS Tracker**.
 - [ ] Co ma być w głównym oknie aplikacji (zakres „wersji głównej”)
 - [ ] Wzorzec („tak jak w …” — którą aplikację użytkownik miał na myśli)
 - [ ] Tacka: domyślnie włączona czy wyłączona; co gdy okno zamknięte
-- [ ] Nazwa „WS Tracker” i identyfikator (razem z 0056)
+- [ ] Nazwa „DK Tracker” i identyfikator (razem z 0056)
 
 ## Minutnik (decyzja użytkownika 2026-09-26)
 

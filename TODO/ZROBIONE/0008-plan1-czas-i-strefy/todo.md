@@ -59,7 +59,7 @@ Wykonać **zadanie 4** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Wynik
 
-[src/kimai_tray/core/timefmt.py](../../../src/ws_tracker/core/timefmt.py): `zone` (z bezpiecznym brakiem strefy),
+[src/kimai_tray/core/timefmt.py](../../../src/dk_tracker/core/timefmt.py): `zone` (z bezpiecznym brakiem strefy),
 stemple Kimai w strefie konta, formaty `h:mm`/`47m`, tydzień od poniedziałku (także przy zmianie czasu), walidacja
 HH:MM. Testy: [tests/core/test_timefmt.py](../../../tests/core/test_timefmt.py) — 18 zielonych. Ruling: plan podawał 19
 przypadków — błąd liczenia.

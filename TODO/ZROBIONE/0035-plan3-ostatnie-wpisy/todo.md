@@ -59,5 +59,5 @@ Wykonać **zadanie 7** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ## Wynik
 
-[recent.py](../../../src/ws_tracker/ui/recent.py): `RecentList`, `EntryRow`. Testy:
+[recent.py](../../../src/dk_tracker/ui/recent.py): `RecentList`, `EntryRow`. Testy:
 [test_recent.py](../../../tests/ui/test_recent.py) — 7 zielonych. Bez odchyleń od planu.

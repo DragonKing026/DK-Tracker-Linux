@@ -62,9 +62,9 @@ Nazwa repozytorium na GitHubie (`Kimai-App--Linux-`) zostaje.
 ## Wynik
 
 Kod, testy, dane, skrypty, Plan 4 i żywa dokumentacja pod nazwą **WS Tracker Tray**: pakiet
-[ws_tracker_tray](../../../src/ws_tracker/__init__.py),
-[.desktop](../../../data/io.github.dragonking026.WS-Tracker-Linux.desktop),
-[MetaInfo](../../../data/io.github.dragonking026.WS-Tracker-Linux.metainfo.xml). Historia (zamknięte zadania, plany 1–3,
+[ws_tracker_tray](../../../src/dk_tracker/__init__.py),
+[.desktop](../../../data/io.github.dragonking026.DK-Tracker-Linux.desktop),
+[MetaInfo](../../../data/io.github.dragonking026.DK-Tracker-Linux.metainfo.xml). Historia (zamknięte zadania, plany 1–3,
 prototypy
 w 0045) zostaje ze starą nazwą; nazwa pliku specyfikacji też. Stary Kimai testowy w Dockerze działa pod projektem
 `kimai-tray-test` — usunąć raz: `docker compose -p kimai-tray-test down -v`.

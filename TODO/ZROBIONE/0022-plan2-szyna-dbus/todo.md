@@ -63,7 +63,7 @@ Wykonać **zadanie 1** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Wynik
 
-[src/kimai_tray/desktop/bus.py](../../../src/ws_tracker/desktop/bus.py): `SessionBus` (jeepney), `DBusCallError`,
+[src/kimai_tray/desktop/bus.py](../../../src/dk_tracker/desktop/bus.py): `SessionBus` (jeepney), `DBusCallError`,
 `PortalError`, protokoły `Bus`/`Expectation`, `portal_request` (subskrypcja Response przed wywołaniem). Fałszywa szyna:
 [tests/desktop/fakes.py](../../../tests/desktop/fakes.py). Testy:
 [tests/desktop/test_bus.py](../../../tests/desktop/test_bus.py) — 5 zielonych. Bez odchyleń od planu.

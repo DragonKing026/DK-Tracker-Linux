@@ -42,7 +42,7 @@ Zastąpić logo Kimai własną ikoną i zmienić nazwę wyświetlaną na **WS Tr
 
 ## Kryteria akceptacji
 
-- [x] Ikona: źródło [data/icons/ws-tracker.svg](../../../data/icons/ws-tracker.svg), PNG 512 px w pakiecie, Flatpak i
+- [x] Ikona: źródło [data/icons/ws-tracker.svg](../../../data/icons/dk-tracker.svg), PNG 512 px w pakiecie, Flatpak i
   wersja deweloperska; logo Kimai usunięte
 - [x] Nazwa „WS Tracker” w oknie, menu, powiadomieniach, portfelu, `.desktop`, MetaInfo, stronie repozytorium, README
 - [x] Test ikony (TDD), pełny zestaw kontroli z CI
@@ -66,7 +66,7 @@ Zastąpić logo Kimai własną ikoną i zmienić nazwę wyświetlaną na **WS Tr
 
 ## Wynik
 
-Ikona [ws-tracker.svg](../../../data/icons/ws-tracker.svg) (wariant C, litery jako krzywe) zamiast logo Kimai; nazwa „WS
+Ikona [ws-tracker.svg](../../../data/icons/dk-tracker.svg) (wariant C, litery jako krzywe) zamiast logo Kimai; nazwa „WS
 Tracker” w aplikacji, `.desktop`, MetaInfo, stronie repozytorium i README (z informacją, że to niezależny projekt).
 Wydane w [v0.9.1](https://github.com/DragonKing026/WS-Tracker-Linux/releases/tag/v0.9.1); u użytkownika aktualizacja z
 nowego adresu repozytorium.

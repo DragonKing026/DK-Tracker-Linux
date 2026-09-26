@@ -63,9 +63,9 @@ Wykonać **zadanie 12** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 
 ## Wynik
 
-[main.py](../../../src/ws_tracker/ui/main.py) (`--hidden`, jedna instancja, logi, tłumaczenia Qt, czekanie na
+[main.py](../../../src/dk_tracker/ui/main.py) (`--hidden`, jedna instancja, logi, tłumaczenia Qt, czekanie na
 tackę),
-[`__main__.py`](../../../src/ws_tracker/__main__.py). Testy: [test_main.py](../../../tests/ui/test_main.py) — 6
+[`__main__.py`](../../../src/dk_tracker/__main__.py). Testy: [test_main.py](../../../tests/ui/test_main.py) — 6
 zielonych
 (334 w całości, trzy przebiegi). Dokumentacja: [qt-pyside6](../../../docs/integracje/qt-pyside6.md),
 [architektura](../../../docs/architektura/architektura-aplikacji.md),

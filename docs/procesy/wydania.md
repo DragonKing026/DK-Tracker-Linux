@@ -8,19 +8,19 @@ zaktualizowano: 2026-09-26 11:58
 
 # Wydania i instalacja
 
-Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybucji:
+Jak wydać nową wersję DK Tracker i jak ją zainstalować. Decyzja o dystrybucji:
 [ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md); workflow:
 [wydanie.yml](../../.github/workflows/wydanie.yml) ([GitHub Actions](../integracje/github-actions.md)).
 
 ## Jednorazowo: klucz i Pages
 
 1. `flatpak/klucz-gpg.sh` ([skrypt](../../flatpak/klucz-gpg.sh)) — klucz publiczny trafia do
-   `flatpak/ws-tracker-repo.gpg` (commit), prywatny do `~/ws-tracker-repo-private.asc`.
+   `flatpak/dk-tracker-repo.gpg` (commit), prywatny do `~/dk-tracker-repo-private.asc`.
 2. Sekret i sprzątnięcie klucza prywatnego:
 
    ```bash
-   gh secret set FLATPAK_GPG_PRIVATE_KEY < ~/ws-tracker-repo-private.asc
-   shred -u ~/ws-tracker-repo-private.asc
+   gh secret set FLATPAK_GPG_PRIVATE_KEY < ~/dk-tracker-repo-private.asc
+   shred -u ~/dk-tracker-repo-private.asc
    ```
 
 3. GitHub → **Settings → Pages → Source: GitHub Actions** ([GitHub Pages](../integracje/github-pages.md)).
@@ -29,9 +29,9 @@ Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybuc
    ([API](https://docs.github.com/en/rest/deployments/branch-policies)):
 
    ```bash
-   gh api -X PUT repos/DragonKing026/WS-Tracker-Linux/environments/github-pages \
+   gh api -X PUT repos/DragonKing026/DK-Tracker-Linux/environments/github-pages \
      --input - <<< '{"deployment_branch_policy": {"protected_branches": false, "custom_branch_policies": true}}'
-   gh api -X POST repos/DragonKing026/WS-Tracker-Linux/environments/github-pages/deployment-branch-policies \
+   gh api -X POST repos/DragonKing026/DK-Tracker-Linux/environments/github-pages/deployment-branch-policies \
      -f name='v*' -f type=tag
    ```
 
@@ -41,9 +41,9 @@ Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybuc
 
 ## Każde wydanie
 
-1. Wersja w [pyproject.toml](../../pyproject.toml) i [`__init__.py`](../../src/ws_tracker/__init__.py).
+1. Wersja w [pyproject.toml](../../pyproject.toml) i [`__init__.py`](../../src/dk_tracker/__init__.py).
 2. Nowy `<release version="…" date="…">` na **początku** `<releases>` w
-   [MetaInfo](../../data/io.github.dragonking026.WS-Tracker-Linux.metainfo.xml) — lista zmian po angielsku (Discover ją
+   [MetaInfo](../../data/io.github.dragonking026.DK-Tracker-Linux.metainfo.xml) — lista zmian po angielsku (Discover ją
    pokazuje);
    po polsku opisuje ją commit.
 3. `.venv/bin/pytest` — test spójności wersji ([test_pakiet.py](../../tests/test_pakiet.py)) i reszta.
@@ -57,8 +57,8 @@ Jak wydać nową wersję WS Tracker i jak ją zainstalować. Decyzja o dystrybuc
 
 5. Kolejność w workflow: testy → budowa i podpis → Pages → dopiero wtedy wydanie na GitHubie. Gdy publikacja na
    Pages się nie uda, wydania nie ma; po naprawie przyczyny wystarczy **Re-run failed jobs** w zakładce Actions.
-6. Sprawdzenie: wydanie na GitHubie z plikiem `io.github.dragonking026.WS-Tracker-Linux-v<wersja>.flatpak`, strona
-   <https://dragonking026.github.io/WS-Tracker-Linux/>, `flatpak update` u siebie.
+6. Sprawdzenie: wydanie na GitHubie z plikiem `io.github.dragonking026.DK-Tracker-Linux-v<wersja>.flatpak`, strona
+   <https://dragonking026.github.io/DK-Tracker-Linux/>, `flatpak update` u siebie.
 
 Wersje `0.x` wychodzą jako „pre-release”. **1.0.0** — po testach na GNOME
 ([0020](../../TODO/DO-ZROBIENIA/0020-testy-gnome/todo.md)).
@@ -74,29 +74,29 @@ flowchart LR
 Zalecana — z repozytorium, aktualizacje przyjdą same (Discover, GNOME Software, `flatpak update`):
 
 ```bash
-flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
+flatpak install --user https://dragonking026.github.io/DK-Tracker-Linux/io.github.dragonking026.DK-Tracker-Linux.flatpakref
 ```
 
-Plik `.flatpak` z [najnowszego wydania](https://github.com/DragonKing026/WS-Tracker-Linux/releases/latest) — tylko bez
+Plik `.flatpak` z [najnowszego wydania](https://github.com/DragonKing026/DK-Tracker-Linux/releases/latest) — tylko bez
 dostępu do strony repozytorium; **nie dostaje aktualizacji**. Przejście z pliku na repozytorium:
 
 ```bash
-flatpak uninstall --user io.github.dragonking026.WS-Tracker-Linux    # ustawienia w ~/.var/app zostają
-flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
+flatpak uninstall --user io.github.dragonking026.DK-Tracker-Linux    # ustawienia w ~/.var/app zostają
+flatpak install --user https://dragonking026.github.io/DK-Tracker-Linux/io.github.dragonking026.DK-Tracker-Linux.flatpakref
 ```
 
 ## Zmiana nazwy repozytorium i identyfikatora (0.9.2)
 
-- 2026-09-26 repozytorium zmieniło nazwę (`Kimai-App--Linux-` → `WS-Tracker-Linux`). GitHub przekierowuje stare adresy
+- 2026-09-26 repozytorium zmieniło nazwę (`Kimai-App--Linux-` → `DK-Tracker-Linux`). GitHub przekierowuje stare adresy
   repozytorium, ale **nie** strony GitHub Pages — stary adres repozytorium Flatpaka daje 404.
-- Od 0.9.2 identyfikator to `io.github.dragonking026.WS-Tracker-Linux` (projekt prywatny,
+- Od 0.9.2 identyfikator to `io.github.dragonking026.DK-Tracker-Linux` (projekt prywatny,
   [0056](../../TODO/W-TRAKCIE/0056-identyfikator-i-wydawca/todo.md)); dla systemu to nowa aplikacja. Kto ma 0.9.0 lub
   0.9.1 (`pl.websystems.WsTrackerTray`), instaluje od nowa i raz wpisuje adres Kimai i token:
 
 ```bash
 flatpak uninstall --user pl.websystems.WsTrackerTray
-flatpak remote-delete --user ws-tracker-tray
-flatpak install --user https://dragonking026.github.io/WS-Tracker-Linux/io.github.dragonking026.WS-Tracker-Linux.flatpakref
+flatpak remote-delete --user dk-tracker-tray
+flatpak install --user https://dragonking026.github.io/DK-Tracker-Linux/io.github.dragonking026.DK-Tracker-Linux.flatpakref
 ```
 
 ## Wersja deweloperska a Flatpak

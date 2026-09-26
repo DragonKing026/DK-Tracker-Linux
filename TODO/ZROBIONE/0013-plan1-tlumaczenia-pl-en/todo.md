@@ -62,7 +62,7 @@ Wykonać **zadanie 9** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Wynik
 
-[src/kimai_tray/core/i18n.py](../../../src/ws_tracker/core/i18n.py) i
-[locales/](../../../src/ws_tracker/core/locales/)
+[src/kimai_tray/core/i18n.py](../../../src/dk_tracker/core/i18n.py) i
+[locales/](../../../src/dk_tracker/core/locales/)
 (PL/EN, klucze z wtyczki + nowe: strefa czasowa, TLS, powiadomienia). Test pilnuje identycznych kluczy i placeholderów
 oraz istnienia każdego klucza użytego w kodzie. 12 testów zielonych. Bez odchyleń.

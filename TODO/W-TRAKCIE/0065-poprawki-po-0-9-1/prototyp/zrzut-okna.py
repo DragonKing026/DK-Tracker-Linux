@@ -7,15 +7,15 @@ from PySide6.QtCore import Qt, QSize
 from PySide6.QtWidgets import QApplication
 app = QApplication([])
 app.styleHints().setColorScheme(Qt.ColorScheme.Dark)
-from ws_tracker.core.i18n import Translator
-from ws_tracker.core.settings import Settings
-from ws_tracker.core.models import Activity
-from ws_tracker.core.tracker import Snapshot, Totals
-import ws_tracker.ui.popup as popup_module
-from ws_tracker.ui.theme import palette_for
+from dk_tracker.core.i18n import Translator
+from dk_tracker.core.settings import Settings
+from dk_tracker.core.models import Activity
+from dk_tracker.core.tracker import Snapshot, Totals
+import dk_tracker.ui.popup as popup_module
+from dk_tracker.ui.theme import palette_for
 popup_module.palette_for = lambda _scheme, window: palette_for(Qt.ColorScheme.Dark, window)
-from ws_tracker.ui.popup import QuickWindow
-from ws_tracker.ui.state import AppState
+from dk_tracker.ui.popup import QuickWindow
+from dk_tracker.ui.state import AppState
 from tests.core.fakes import NOW, FakeClient, make_entry
 c = FakeClient()
 H = timedelta(hours=1)

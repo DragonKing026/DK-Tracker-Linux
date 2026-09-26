@@ -59,5 +59,5 @@ Wykonać **zadanie 6** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ## Wynik
 
-[form.py](../../../src/ws_tracker/ui/form.py): `TrackerForm`, `DescriptionEdit`, `dot`. Testy:
+[form.py](../../../src/dk_tracker/ui/form.py): `TrackerForm`, `DescriptionEdit`, `dot`. Testy:
 [test_form.py](../../../tests/ui/test_form.py) — 19 zielonych. Bez odchyleń od planu.

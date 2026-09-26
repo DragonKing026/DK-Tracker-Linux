@@ -53,5 +53,5 @@ wpisów), a nie tylko ostatniego startu z tej aplikacji — także gdy wpis pows
 
 ## Wynik
 
-[Tracker.default_work](../../../src/ws_tracker/core/tracker.py): najnowszy wpis z Kimai, inaczej
+[Tracker.default_work](../../../src/dk_tracker/core/tracker.py): najnowszy wpis z Kimai, inaczej
 pamięć; używane przy wczytaniu katalogu i rodzajów pracy. Sprawdzone na żywo. Wydanie 0.9.1.

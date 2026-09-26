@@ -60,6 +60,6 @@ Wykonać **zadanie 3** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25-
 
 ## Wynik
 
-[theme.py](../../../src/ws_tracker/ui/theme.py) (palety z popup.css, QSS),
-[icons.py](../../../src/ws_tracker/ui/icons.py) (ikona tacki — wariant C, glify SVG). Testy:
+[theme.py](../../../src/dk_tracker/ui/theme.py) (palety z popup.css, QSS),
+[icons.py](../../../src/dk_tracker/ui/icons.py) (ikona tacki — wariant C, glify SVG). Testy:
 [test_theme_icons.py](../../../tests/ui/test_theme_icons.py) — 9 zielonych. Bez odchyleń od planu.

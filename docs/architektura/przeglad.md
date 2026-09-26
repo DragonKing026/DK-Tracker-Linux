@@ -11,7 +11,7 @@ zaktualizowano: 2026-09-25 20:38
 > [!info] W skrócie
 > Natywna aplikacja linuksowa w **tacce systemowej**, dystrybuowana jako **Flatpak**, która
 > pozwala mierzyć czas w firmowym **Kimai** jednym kliknięciem — tak jak wtyczka
-> przeglądarkowa [WS Tracker](../integracje/kimai-ws-tracker.md), ale bez przeglądarki.
+> przeglądarkowa [DK Tracker](../integracje/kimai-ws-tracker.md), ale bez przeglądarki.
 
 ## Problem
 
@@ -39,7 +39,7 @@ flowchart LR
     U([Użytkownik]) -- klik w ikonę / menu --> APP
     subgraph Pulpit Linux
         TRAY[Tacka systemowa<br/>KDE Plasma / GNOME + AppIndicator]
-        APP[WS Tracker<br/>Flatpak]
+        APP[DK Tracker<br/>Flatpak]
         SEC[(Magazyn sekretów<br/>KWallet / GNOME Keyring)]
         PORT[Portale XDG<br/>autostart, powiadomienia]
     end

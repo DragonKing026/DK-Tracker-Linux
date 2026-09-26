@@ -8,7 +8,7 @@ zaktualizowano: 2026-09-26 11:24
 
 # Plany implementacji
 
-Specyfikacja: [WS Tracker 1.0](../specyfikacja/2026-09-25-kimai-tray-1.0.md). Każdy plan daje
+Specyfikacja: [DK Tracker 1.0](../specyfikacja/2026-09-25-kimai-tray-1.0.md). Każdy plan daje
 działające, przetestowane oprogramowanie i jest wykonywany zadanie po zadaniu (TDD).
 
 | Plan | Zakres | Stan |

@@ -27,7 +27,7 @@ zaktualizowano: 2026-09-25 22:05
 
 ```mermaid
 flowchart TB
-    APP[WS Tracker<br/>libsecret / klient Secret Service]
+    APP[DK Tracker<br/>libsecret / klient Secret Service]
     subgraph A["Droga A: portal Secret (zalecana przez Flatpak)"]
         P[xdg-desktop-portal<br/>org.freedesktop.portal.Secret]
         PB[backend: kwallet.portal / gnome-keyring.portal]
@@ -45,7 +45,7 @@ flowchart TB
 | --- | --- | --- |
 | Uprawnienia Flatpaka | brak dodatkowych | `--talk-name=org.freedesktop.secrets` |
 | Izolacja | sekret per aplikacja | aplikacja widzi (potencjalnie) cały magazyn użytkownika |
-| Widoczność w KWallet/Seahorse | tylko klucz główny aplikacji | wpis „WS Tracker” widoczny i usuwalny przez użytkownika |
+| Widoczność w KWallet/Seahorse | tylko klucz główny aplikacji | wpis „DK Tracker” widoczny i usuwalny przez użytkownika |
 | Działanie poza Flatpakiem (dev) | libsecret wtedy używa Secret Service bezpośrednio | tak |
 
 **Portal Secret**
@@ -86,7 +86,7 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
   Trybu „token tylko w pamięci do końca sesji” w 1.0 **nie ma** (decyzja użytkownika 2026-09-25,
   [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/todo.md)).
 - Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu:
-  `application=io.github.dragonking026.WS-Tracker-Linux`, `url`
+  `application=io.github.dragonking026.DK-Tracker-Linux`, `url`
   bez
   końcowego `/`).
 - Błędy (`SecretServiceStore`): brak usługi, odmowa z piaskownicy, usługa, która nie wystartowała (`Spawn.*`),
@@ -109,10 +109,10 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 
 ## Gdzie w kodzie
 
-- [src/ws_tracker/desktop/secrets.py](../../src/ws_tracker/desktop/secrets.py) — `SecretServiceStore`
+- [src/dk_tracker/desktop/secrets.py](../../src/dk_tracker/desktop/secrets.py) — `SecretServiceStore`
   (get/set/delete,
   odblokowanie przez prompt).
-- [src/ws_tracker/desktop/bus.py](../../src/ws_tracker/desktop/bus.py) — szyna D-Bus na jeepney.
+- [src/dk_tracker/desktop/bus.py](../../src/dk_tracker/desktop/bus.py) — szyna D-Bus na jeepney.
 - Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 
 ## Dokumentacja

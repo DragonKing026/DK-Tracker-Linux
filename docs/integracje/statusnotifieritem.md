@@ -19,7 +19,7 @@ zaktualizowano: 2026-09-25 23:09
 
 ```mermaid
 sequenceDiagram
-    participant App as WS Tracker
+    participant App as DK Tracker
     participant W as StatusNotifierWatcher<br/>(org.kde.StatusNotifierWatcher)
     participant H as Host (panel Plasmy /<br/>rozszerzenie GNOME)
     App->>App: rejestruje usługę<br/>org.freedesktop.StatusNotifierItem-PID-ID
@@ -40,7 +40,7 @@ sequenceDiagram
 | Właściwość | Wartość u nas |
 | --- | --- |
 | `Category` | `ApplicationStatus` |
-| `Id`, `Title` | identyfikator aplikacji / „WS Tracker” |
+| `Id`, `Title` | identyfikator aplikacji / „DK Tracker” |
 | `Status` | `Active` gdy timer trwa; `Passive` gdy bezczynny (host **może ukryć** ikonę Passive — Plasma chowa ją do „ukrytych”, dlatego raczej zawsze `Active`); `NeedsAttention` — błąd lub bardzo długi timer |
 | `IconName` / `IconPixmap` | ikona stanu: bezczynny / trwa / błąd (odpowiednik kolorów badge wtyczki) |
 | `OverlayIconName` | alternatywnie: nakładka stanu na stałą ikonę |
@@ -110,13 +110,13 @@ Szczegóły: [ustalenia prototypu](../../TODO/ZROBIONE/0004-prototyp-tacki-i-okn
 
 ## Gdzie w kodzie
 
-- [src/ws_tracker/ui/tray.py](../../src/ws_tracker/ui/tray.py) — `Tray`: `QSystemTrayIcon` (SNI), menu z
+- [src/dk_tracker/ui/tray.py](../../src/dk_tracker/ui/tray.py) — `Tray`: `QSystemTrayIcon` (SNI), menu z
   dbusmenu, lewy
   klik → okno, środkowy → nic.
-- [src/ws_tracker/ui/icons.py](../../src/ws_tracker/ui/icons.py) — ikona w wariancie C (czas w ikonie),
+- [src/dk_tracker/ui/icons.py](../../src/dk_tracker/ui/icons.py) — ikona w wariancie C (czas w ikonie),
   rysowana w
   rozmiarach 16–64 px.
-- [src/ws_tracker/core/presentation.py](../../src/ws_tracker/core/presentation.py) — tekst ikony i tooltipa
+- [src/dk_tracker/core/presentation.py](../../src/dk_tracker/core/presentation.py) — tekst ikony i tooltipa
   (`tray_status`).
 
 ## Dokumentacja

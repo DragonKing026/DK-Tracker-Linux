@@ -62,7 +62,7 @@ Wykonać **zadanie 7** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Wynik
 
-[src/kimai_tray/core/kimai_client.py](../../../src/ws_tracker/core/kimai_client.py): wszystkie endpointy aplikacji,
+[src/kimai_tray/core/kimai_client.py](../../../src/dk_tracker/core/kimai_client.py): wszystkie endpointy aplikacji,
 błędy jako `ApiError`, stronicowanie po `X-Total-Pages` z obsługą 404, `billable` wysyłane tylko gdy podane. Testy:
 [tests/core/test_kimai_client.py](../../../tests/core/test_kimai_client.py) — 12 zielonych. Dokumentacja integracji
 (kimai-api, httpx) uzupełniona o „Gdzie w kodzie”, status w-uzyciu.

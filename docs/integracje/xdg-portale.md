@@ -41,10 +41,10 @@ zaktualizowano: 2026-09-26 00:13
 ```mermaid
 sequenceDiagram
     actor U as Użytkownik
-    participant App as WS Tracker
+    participant App as DK Tracker
     participant P as Portal Background
     U->>App: ustawienia: „Uruchamiaj przy logowaniu” ✓
-    App->>P: RequestBackground(autostart=true, commandline=[ws-tracker, --hidden])
+    App->>P: RequestBackground(autostart=true, commandline=[dk-tracker, --hidden])
     P-->>U: (opcjonalnie) okno zgody systemu
     P-->>App: background=true, autostart=true
     loop co zmianę stanu
@@ -108,7 +108,7 @@ kde-portals.conf:
 > Backend portalu w Plasmie 6.7.5 traktuje znany mu identyfikator jako aktualizację powiadomienia; jeśli
 > poprzednie już zniknęło z ekranu, nic się nie wyświetla (sprawdzone 2026-09-26 00:13: `action` → nic, unikalne id →
 > jest).
-> Dlatego [`PortalNotifier`](../../src/ws_tracker/desktop/notifications.py) nadaje każdemu powiadomieniu nowy
+> Dlatego [`PortalNotifier`](../../src/dk_tracker/desktop/notifications.py) nadaje każdemu powiadomieniu nowy
 > identyfikator (`action.1790374275`) i najpierw wycofuje poprzednie tego samego rodzaju.
 
 <!-- osobne callouty -->
@@ -116,17 +116,17 @@ kde-portals.conf:
 > [!note] Aplikacja uruchomiona poza Flatpakiem
 > Portal rozpoznaje aplikację po grupie systemd. Uruchomiona z terminala edytora dostaje jego nazwę
 > (np. powiadomienia „od VS Code”). Wywołanie `org.freedesktop.host.portal.Registry.Register` z identyfikatorem
-> `io.github.dragonking026.WS-Tracker-Linux` jako pierwsze na połączeniu to naprawia (xdg-desktop-portal ≥ 1.19; na
+> `io.github.dragonking026.DK-Tracker-Linux` jako pierwsze na połączeniu to naprawia (xdg-desktop-portal ≥ 1.19; na
 > Fedorze 44:
 > 1.22.1).
 >
 ## Gdzie w kodzie
 
-- [src/ws_tracker/desktop/notifications.py](../../src/ws_tracker/desktop/notifications.py) — `PortalNotifier`
+- [src/dk_tracker/desktop/notifications.py](../../src/dk_tracker/desktop/notifications.py) — `PortalNotifier`
   (AddNotification, RemoveNotification, ActionInvoked).
-- [src/ws_tracker/desktop/autostart.py](../../src/ws_tracker/desktop/autostart.py) — `BackgroundPortal`
+- [src/dk_tracker/desktop/autostart.py](../../src/dk_tracker/desktop/autostart.py) — `BackgroundPortal`
   (RequestBackground, SetStatus).
-- [src/ws_tracker/desktop/bus.py](../../src/ws_tracker/desktop/bus.py) — `portal_request` (Request/Response).
+- [src/dk_tracker/desktop/bus.py](../../src/dk_tracker/desktop/bus.py) — `portal_request` (Request/Response).
 
 ## Dokumentacja
 

@@ -63,7 +63,7 @@ Wykonać **zadanie 2** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
 
 ## Wynik
 
-[MetaInfo](../../../data/io.github.dragonking026.WS-Tracker-Linux.metainfo.xml) (PL/EN, wydanie 0.9.0, zrzut z
+[MetaInfo](../../../data/io.github.dragonking026.DK-Tracker-Linux.metainfo.xml) (PL/EN, wydanie 0.9.0, zrzut z
 repozytorium) i testy
 w [test_pakiet.py](../../../tests/test_pakiet.py). Po zadaniu zmiana nazwy na WS Tracker Tray
 ([0055](../0055-zmiana-nazwy-ws-tracker-tray/todo.md)).
