@@ -479,3 +479,15 @@ def test_a_refused_change_shows_the_error_and_the_entry_as_it_is(harness):
     ]
     assert h.controller.popup.error.isVisibleTo(h.controller.popup)
     assert form.project.currentData() == 1
+
+
+def test_the_form_offers_the_project_and_activity_of_the_newest_entry(harness):
+    h = harness()
+    h.client.add(
+        make_entry(8, NOW - timedelta(hours=2), NOW - timedelta(hours=1), project_id=2, activity_id=2)
+    )
+    h.controller.refresh_full()
+    h.controller.show_popup()
+    h.settle()
+    form = h.controller.popup.form
+    assert (form.project.currentData(), form.activity.currentData()) == (2, 2)

@@ -213,3 +213,20 @@ def test_remember_saves_a_flag_next_to_what_the_tracker_keeps():
     tracker.remember(tray_hint_shown=True)
     assert tracker.memory == Memory(last_project=1, tray_hint_shown=True)
     assert saved[-1].tray_hint_shown is True
+
+
+def test_default_work_is_the_newest_entry_in_kimai():
+    """Also when it was started elsewhere (the web), not only the last start from this app."""
+    tracker, client, _ = make_tracker(memory=Memory(last_project=1, last_activity=1))
+    client.add(
+        make_entry(3, NOW - timedelta(days=1, hours=1), NOW - timedelta(days=1), project_id=1, activity_id=1)
+    )
+    client.add(make_entry(4, NOW - timedelta(hours=2), NOW - timedelta(hours=1), project_id=2, activity_id=2))
+    tracker.refresh_full()
+    assert tracker.default_work() == (2, 2)
+
+
+def test_default_work_without_entries_is_the_remembered_choice():
+    tracker, _client, _ = make_tracker(memory=Memory(last_project=1, last_activity=2))
+    tracker.refresh_full()
+    assert tracker.default_work() == (1, 2)

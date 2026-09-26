@@ -240,7 +240,7 @@ class Controller(QObject):
             if opening == self._opening and self.popup.isVisible():
                 self._catalog_loaded = True
             self._apply(result)
-            self.popup.form.set_catalog(result[0], tracker.memory.last_project)
+            self.popup.form.set_catalog(result[0], tracker.default_work()[0])
             self._load_activities(self.popup.form.project.currentData())
 
         self.kimai.submit(
@@ -262,7 +262,7 @@ class Controller(QObject):
         # Answers can arrive for a project the user has already left: only the chosen one counts.
         if project_id != self.popup.form.project.currentData() or self._tracker is None:
             return
-        self.popup.form.set_activities(items, self._tracker.memory.last_activity)
+        self.popup.form.set_activities(items, self._tracker.default_work()[1])
 
     def _run(self, job: Callable[[Tracker], Snapshot], *, key: str | None = None) -> None:
         tracker = self._tracker

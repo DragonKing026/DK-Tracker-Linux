@@ -160,6 +160,14 @@ class Tracker:
     def activities(self, project_id: int | None) -> list[Activity]:
         return sorted(self._client.activities(project_id), key=lambda activity: sort_key(activity.name))
 
+    def default_work(self) -> tuple[int | None, int | None]:
+        """The project and activity the form offers when nothing runs: those of the newest entry in
+        Kimai (also one started elsewhere), else the last choice made in this app."""
+        newest = self._snapshot.recent[0] if self._snapshot.recent else None
+        if newest is not None:
+            return newest.project_id, newest.activity_id
+        return self._memory.last_project, self._memory.last_activity
+
     def default_billable(self, project_id: int | None, activity: Activity | None) -> bool:
         project = next((p for p in self._snapshot.projects if p.id == project_id), None)
         return default_billable(project, activity, self._snapshot.non_billable_customers)
