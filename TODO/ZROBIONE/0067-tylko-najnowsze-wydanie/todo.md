@@ -47,6 +47,8 @@ pre-release do 1.0 (decyzja użytkownika).
 
 - **15:44** Utworzono i start.
 - **15:45** Zamknięte: 467 passed, 1 skipped, 14 deselected in 3.52s, commity na main.
+- **16:02** Korekta użytkownika: działających wydań nie usuwamy (0.9.3 zostaje); automatyczne usuwanie
+  poprzednich wydań wycofane z workflow; usuwamy ręcznie tylko wydania z błędami. Numeracja kroków: 0.10.0, 0.10.1…
 
 ## Wynik
 
