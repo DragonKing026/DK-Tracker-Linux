@@ -1,25 +1,25 @@
 ---
-noteId: "b5fbe898f17d42b2b9914b094254556e"
-tytul: "Plan 4 · Zadanie 3: Manifest Flatpaka i zależności Pythona"
-numer: "0048"
+noteId: "fda18fd8e37947e5896f40e0f0b14a98"
+tytul: "Plan 4 · Zadanie 4: Budowa lokalna w kontenerze (`flatpak/buduj.sh`)"
+numer: "0049"
 status: w-trakcie
 priorytet: p1
 tags: [todo, plan-4, flatpak]
-zalezy_od: ["0047"]
+zalezy_od: ["0048"]
 utworzono: 2026-09-26 11:28
 zaktualizowano: 2026-09-26 11:48
 zamknieto:
 ---
 
-# 0048 — Plan 4 · Zadanie 3: Manifest Flatpaka i zależności Pythona
+# 0049 — Plan 4 · Zadanie 4: Budowa lokalna w kontenerze (`flatpak/buduj.sh`)
 
 > [!info] Status
 > **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
-Wykonać **zadanie 3** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-09-26-plan-4-flatpak.md)
-(sekcja „Task 3: Manifest Flatpaka i zależności Pythona”) dokładnie według kroków planu, metodą TDD.
+Wykonać **zadanie 4** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-09-26-plan-4-flatpak.md)
+(sekcja „Task 4: Budowa lokalna w kontenerze (`flatpak/buduj.sh`)”) dokładnie według kroków planu, metodą TDD.
 
 ## Kontekst
 
@@ -29,22 +29,23 @@ Wykonać **zadanie 3** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
   [0045](../0045-plan4-projekt-flatpak/todo.md).
 - Pliki:
 
-- Create: `flatpak/pl.websystems.WsTrackerTray.yml`, `flatpak/python3-deps.yaml`
-- Modify: `tests/test_pakiet.py`
+- Create: `flatpak/buduj.sh`
+- Modify: `.gitignore` (`dist/`), `docs/decyzje/0006-budowanie-flatpaka-w-kontenerze.md`, `docs/integracje/flatpak.md`,
+  `AGENTS.md` („Komendy”)
 
 ## Kryteria akceptacji
 
 - [ ] Każdy test z zadania napisany przed kodem i widziany jako padający
-- [ ] Wynik planu: 408 passed, 1 skipped.
+- [ ] Wynik planu: walidacja AppStream i lint bez uwag, paczka w `dist/`.
 - [ ] Pełny `.venv/bin/pytest` zielony, `ruff format` + `ruff check` bez uwag
 - [ ] Commit(y) zgodne z planem; odchylenia zapisane jako „Ruling” w dzienniku
 
 ## Kroki
 
-- [ ] Step 1: Napisz testy (padające)
-- [ ] Step 2: Uruchom — mają paść
-- [ ] Step 3: Zaimplementuj
-- [ ] Step 4: Uruchom — mają przejść
+- [ ] Step 1: Skrypt
+- [ ] Step 2: Uruchom budowę
+- [ ] Step 3: Sprawdź skrypt
+- [ ] Step 4: Dokumentacja
 - [ ] Step 5: Commit
 
 ## Materiały
