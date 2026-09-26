@@ -45,6 +45,7 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 - [Konwencja commitów](procesy/commity.md)
 - [Zasady dokumentowania](procesy/dokumentowanie.md)
 - [Zadania w folderze TODO](procesy/zadania.md)
+- [Wydania i instalacja](procesy/wydania.md) — klucz, tag, GitHub Actions, instalacja z repozytorium Flatpaka
 
 ## Zadania
 
