@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 11:43
+zaktualizowano: 2026-09-26 11:46
 ---
 
 # Tablica zadań
@@ -27,6 +27,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0045 | [Plan 4 — projekt paczki Flatpak (decyzje przed planem)](W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md) | 🔨 w-trakcie | p1 | [0044](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) ✅ |
 | 0047 | [Plan 4 · Zadanie 2: MetaInfo (AppStream) i plik `.desktop`](W-TRAKCIE/0047-plan4-metainfo/todo.md) | 🔨 w-trakcie | p1 | [0046](ZROBIONE/0046-plan4-wersja-licencja/todo.md) ✅ |
+| 0055 | [Zmiana nazwy na WS Tracker Tray](W-TRAKCIE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) | 🔨 w-trakcie | p1 | [0054](ZROBIONE/0054-podobne-aplikacje/todo.md) ✅ |
 
 ## Do zrobienia
 
