@@ -20,6 +20,7 @@ class FakeDesktop:
         self.fail = fail
         self.notified = []
         self.withdrawn = []
+        self.statuses = []
         self.background = []
 
     def get_token(self, url):
@@ -41,6 +42,7 @@ class FakeDesktop:
         return BackgroundResult(True, autostart)
 
     def set_status(self, message):
+        self.statuses.append(message)
         return False
 
     def close(self):
@@ -354,3 +356,16 @@ def test_clicks_on_other_apps_notifications_are_ignored(harness):
     h.settle()
     assert h.controller.dialog is None
     assert h.desktop.withdrawn == []
+
+
+def test_background_status_says_idle_once_after_stop(harness):
+    client = FakeClient()
+    client.add(make_entry(7, NOW - timedelta(minutes=30)))
+    h = harness(client=client)
+    h.controller._on_tray_timer()
+    h.controller.tray.stopRequested.emit()
+    h.settle()
+    h.controller._on_tray_timer()
+    h.controller._on_tray_timer()
+    h.settle()
+    assert h.desktop.statuses == ["Timer 0:30 — Moduł rezerwacji", "Nic nie jest mierzone"]

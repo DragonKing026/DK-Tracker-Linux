@@ -81,6 +81,7 @@ class Controller(QObject):
         self._policy = PolicyState()
         self._catalog_loaded = False
         self._opening = 0  # counts window openings; a catalog answer counts only for its own opening
+        self._status_sent: str | None = None  # last background status sent: "running" | "idle"
         self._last_wall = time.time()
         self._last_mono = time.monotonic()
         self._day = now().astimezone().date()
@@ -509,7 +510,12 @@ class Controller(QObject):
             message = self.state.t(
                 "statusRunning", time=short_duration(seconds), project=current.project_name or ""
             )
-            self.dbus.submit(lambda: self._desktop.set_status(message), on_error=lambda _e: None)
+        elif self._status_sent not in (None, "idle"):
+            message = self.state.t("tooltipIdle")  # once after a stop, so no old time stays shown
+        else:
+            return
+        self._status_sent = "running" if current is not None else "idle"
+        self.dbus.submit(lambda: self._desktop.set_status(message), on_error=lambda _e: None)
 
     @staticmethod
     def _translator(language: str) -> Translator:
