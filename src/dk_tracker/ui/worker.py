@@ -24,7 +24,7 @@ class Worker(QObject):
 
     def __init__(self, name: str, parent: QObject | None = None) -> None:
         super().__init__(parent)
-        self._executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix=f"ws-tracker-{name}")
+        self._executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix=f"dk-tracker-{name}")
         self._pending: set[str] = set()
         self._inflight = 0  # submitted and not yet answered
         self._closed = False

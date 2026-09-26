@@ -5,4 +5,4 @@ import os
 import tempfile
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
-os.environ["XDG_CACHE_HOME"] = tempfile.mkdtemp(prefix="ws-tracker-tests-")
+os.environ["XDG_CACHE_HOME"] = tempfile.mkdtemp(prefix="dk-tracker-tests-")

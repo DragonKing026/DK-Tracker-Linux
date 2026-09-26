@@ -14,15 +14,15 @@ from typing import Any
 
 from PySide6.QtCore import QThread, Signal
 
-from ws_tracker.core.notification_policy import RenderedNotification
-from ws_tracker.desktop.autostart import BackgroundPortal, BackgroundResult
-from ws_tracker.desktop.bus import Bus, SessionBus, register_host_app
-from ws_tracker.desktop.notifications import PortalNotifier
-from ws_tracker.desktop.secrets import SecretServiceStore, SecretsUnavailable
+from dk_tracker.core.notification_policy import RenderedNotification
+from dk_tracker.desktop.autostart import BackgroundPortal, BackgroundResult
+from dk_tracker.desktop.bus import Bus, SessionBus, register_host_app
+from dk_tracker.desktop.notifications import PortalNotifier
+from dk_tracker.desktop.secrets import SecretServiceStore, SecretsUnavailable
 
 log = logging.getLogger(__name__)
-AUTOSTART_COMMAND = ["ws-tracker", "--hidden"]
-APP_ID = "io.github.dragonking026.WS-Tracker-Linux"
+AUTOSTART_COMMAND = ["dk-tracker", "--hidden"]
+APP_ID = "io.github.dragonking026.DK-Tracker-Linux"
 
 
 class Desktop:

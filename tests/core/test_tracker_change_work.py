@@ -4,8 +4,8 @@ from datetime import timedelta
 
 import pytest
 
-from ws_tracker.core.errors import TrackerError
-from ws_tracker.core.settings import Memory
+from dk_tracker.core.errors import TrackerError
+from dk_tracker.core.settings import Memory
 
 from .fakes import NOW, make_entry
 from .test_tracker_refresh import make_tracker

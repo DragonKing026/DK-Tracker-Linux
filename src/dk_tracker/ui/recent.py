@@ -23,11 +23,11 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from ws_tracker.core.grouping import day_total, group_by_day
-from ws_tracker.core.models import Entry
-from ws_tracker.core.presentation import day_label, entry_row
-from ws_tracker.core.timefmt import local_day, short_duration
-from ws_tracker.core.tracker import SEARCH_MIN_CHARS, Snapshot
+from dk_tracker.core.grouping import day_total, group_by_day
+from dk_tracker.core.models import Entry
+from dk_tracker.core.presentation import day_label, entry_row
+from dk_tracker.core.timefmt import local_day, short_duration
+from dk_tracker.core.tracker import SEARCH_MIN_CHARS, Snapshot
 
 from .form import GREY_DOT, dot
 from .icons import glyph

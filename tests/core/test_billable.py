@@ -1,6 +1,6 @@
-from ws_tracker.core.billable import default_billable, is_billable_rejected, project_billable
-from ws_tracker.core.errors import ApiError, ErrorKind
-from ws_tracker.core.models import Activity, Project
+from dk_tracker.core.billable import default_billable, is_billable_rejected, project_billable
+from dk_tracker.core.errors import ApiError, ErrorKind
+from dk_tracker.core.models import Activity, Project
 
 BILLED = Project(1, "Rezerwacje", 10, "Hotel", None, True)
 UNBILLED_PROJECT = Project(2, "Wewnętrzny", 10, "Hotel", None, False)

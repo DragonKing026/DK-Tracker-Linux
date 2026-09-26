@@ -3,7 +3,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from ws_tracker.core.timefmt import (
+from dk_tracker.core.timefmt import (
     at_wall_clock,
     badge_label,
     clock,

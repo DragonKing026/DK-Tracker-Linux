@@ -1,7 +1,7 @@
 import pytest
 
-from ws_tracker.desktop.bus import DBusCallError
-from ws_tracker.desktop.secrets import SecretServiceStore, SecretsLocked, SecretsUnavailable
+from dk_tracker.desktop.bus import DBusCallError
+from dk_tracker.desktop.secrets import SecretServiceStore, SecretsLocked, SecretsUnavailable
 
 from .fakes import FakeBus
 
@@ -40,11 +40,11 @@ def test_set_creates_an_item_with_label_attributes_and_secret():
     properties, secret, replace = create[5]
     assert properties["org.freedesktop.Secret.Item.Label"] == (
         "s",
-        "WS Tracker — https://kimai.firma.pl",
+        "DK Tracker — https://kimai.firma.pl",
     )
     assert properties["org.freedesktop.Secret.Item.Attributes"] == (
         "a{ss}",
-        {"application": "io.github.dragonking026.WS-Tracker-Linux", "url": "https://kimai.firma.pl"},
+        {"application": "io.github.dragonking026.DK-Tracker-Linux", "url": "https://kimai.firma.pl"},
     )
     assert secret == (SESSION, b"", b"kimai-token", "text/plain")
     assert replace is True

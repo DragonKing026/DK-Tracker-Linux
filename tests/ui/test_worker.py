@@ -1,6 +1,6 @@
 import threading
 
-from ws_tracker.ui.worker import Worker
+from dk_tracker.ui.worker import Worker
 
 
 def test_job_runs_in_the_background_and_answers_on_the_gui_thread(qtbot):

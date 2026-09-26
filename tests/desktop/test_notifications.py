@@ -1,6 +1,6 @@
-from ws_tracker.core.notification_policy import RenderedNotification
-from ws_tracker.desktop.bus import PORTAL, PORTAL_PATH
-from ws_tracker.desktop.notifications import NotificationAction, PortalNotifier
+from dk_tracker.core.notification_policy import RenderedNotification
+from dk_tracker.desktop.bus import PORTAL, PORTAL_PATH
+from dk_tracker.desktop.notifications import NotificationAction, PortalNotifier
 
 from .fakes import FakeBus
 

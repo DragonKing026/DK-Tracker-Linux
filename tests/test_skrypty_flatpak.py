@@ -8,7 +8,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-PUBLIC_KEY = "ws-tracker-repo.gpg"
+PUBLIC_KEY = "dk-tracker-repo.gpg"
 
 pytestmark = pytest.mark.skipif(
     shutil.which("gpg") is None or shutil.which("ostree") is None, reason="needs gpg and ostree"
@@ -103,5 +103,5 @@ def test_publish_stops_when_the_repository_has_no_app(tmp_path, scripts):
     )
 
     assert result.returncode != 0
-    assert "io.github.dragonking026.WS-Tracker-Linux" in result.stderr
+    assert "io.github.dragonking026.DK-Tracker-Linux" in result.stderr
     assert not (tmp_path / "site").exists()

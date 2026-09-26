@@ -2,10 +2,10 @@ from dataclasses import replace
 from datetime import UTC, date, datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from ws_tracker.core.errors import ApiError, ErrorKind
-from ws_tracker.core.i18n import Translator
-from ws_tracker.core.presentation import day_label, display_zone, entry_row, tray_status
-from ws_tracker.core.tracker import Snapshot, Totals
+from dk_tracker.core.errors import ApiError, ErrorKind
+from dk_tracker.core.i18n import Translator
+from dk_tracker.core.presentation import day_label, display_zone, entry_row, tray_status
+from dk_tracker.core.tracker import Snapshot, Totals
 
 from .fakes import NOW, FakeClient, make_entry
 
@@ -21,20 +21,20 @@ def running(minutes, **kwargs):
 def test_unconfigured_has_no_label():
     status = tray_status(Snapshot(), False, NOW, PL)
     assert (status.kind, status.label) == ("unconfigured", "")
-    assert status.tooltip == "WS Tracker\nAplikacja nie jest jeszcze skonfigurowana."
+    assert status.tooltip == "DK Tracker\nAplikacja nie jest jeszcze skonfigurowana."
 
 
 def test_idle_shows_today_total_in_the_tooltip():
     status = tray_status(Snapshot(user=USER, totals=Totals(today=27120, week=0)), True, NOW, PL)
     assert (status.kind, status.label) == ("idle", "")
-    assert status.tooltip == "WS Tracker\nNic nie jest mierzone\nDziś 7:32"
+    assert status.tooltip == "DK Tracker\nNic nie jest mierzone\nDziś 7:32"
 
 
 def test_running_label_switches_format_at_an_hour():
     assert tray_status(Snapshot(user=USER, running=(running(47),)), True, NOW, PL).label == "47m"
     status = tray_status(Snapshot(user=USER, running=(running(82),)), True, NOW, PL)
     assert (status.kind, status.label) == ("running", "1:22")
-    assert status.tooltip == "WS Tracker — 1:22:00\nModuł rezerwacji — Formularz rezerwacji pokoi"
+    assert status.tooltip == "DK Tracker — 1:22:00\nModuł rezerwacji — Formularz rezerwacji pokoi"
 
 
 def test_running_without_description_or_project():
@@ -52,7 +52,7 @@ def test_error_wins_over_a_running_entry():
     error = ApiError(ErrorKind.CONNECTION, 0, "down")
     status = tray_status(Snapshot(user=USER, running=(running(5),), error=error), True, NOW, PL)
     assert (status.kind, status.label) == ("error", "!")
-    assert status.tooltip == "WS Tracker\nBrak połączenia z Kimai."
+    assert status.tooltip == "DK Tracker\nBrak połączenia z Kimai."
 
 
 def test_display_zone_prefers_the_kimai_account():

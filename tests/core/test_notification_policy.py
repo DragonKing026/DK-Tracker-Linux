@@ -1,8 +1,8 @@
 from datetime import UTC, datetime, timedelta
 
-from ws_tracker.core.errors import ApiError, ErrorKind
-from ws_tracker.core.models import Entry
-from ws_tracker.core.notification_policy import (
+from dk_tracker.core.errors import ApiError, ErrorKind
+from dk_tracker.core.models import Entry
+from dk_tracker.core.notification_policy import (
     ACTION,
     CONNECTION,
     LONG_TIMER,
@@ -10,8 +10,8 @@ from ws_tracker.core.notification_policy import (
     action_confirmation,
     evaluate,
 )
-from ws_tracker.core.settings import Settings
-from ws_tracker.core.tracker import Snapshot
+from dk_tracker.core.settings import Settings
+from dk_tracker.core.tracker import Snapshot
 
 BEGIN = datetime(2026, 9, 25, 6, 0, tzinfo=UTC)
 ENTRY = Entry(

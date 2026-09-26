@@ -5,13 +5,13 @@ import pytest
 from PySide6.QtCore import Qt
 from PySide6.QtTest import QTest
 
-from ws_tracker.core.errors import ApiError, ErrorKind
-from ws_tracker.core.i18n import Translator
-from ws_tracker.core.settings import Settings
-from ws_tracker.core.tracker import Snapshot, Totals
-from ws_tracker.ui import placement
-from ws_tracker.ui.popup import QuickWindow
-from ws_tracker.ui.state import AppState
+from dk_tracker.core.errors import ApiError, ErrorKind
+from dk_tracker.core.i18n import Translator
+from dk_tracker.core.settings import Settings
+from dk_tracker.core.tracker import Snapshot, Totals
+from dk_tracker.ui import placement
+from dk_tracker.ui.popup import QuickWindow
+from dk_tracker.ui.state import AppState
 
 from ..core.fakes import NOW, FakeClient, make_entry
 

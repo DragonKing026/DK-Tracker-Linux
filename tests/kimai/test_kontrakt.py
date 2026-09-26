@@ -2,8 +2,8 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from ws_tracker.core.errors import ApiError, ErrorKind
-from ws_tracker.core.kimai_client import KimaiClient
+from dk_tracker.core.errors import ApiError, ErrorKind
+from dk_tracker.core.kimai_client import KimaiClient
 
 pytestmark = pytest.mark.kimai
 DESCRIPTION = "Test kontraktowy — formularz rezerwacji"

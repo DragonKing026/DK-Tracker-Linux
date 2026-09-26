@@ -1,7 +1,7 @@
 import pytest
 from jeepney import HeaderFields, new_error, new_method_return
 
-from ws_tracker.desktop.bus import (
+from dk_tracker.desktop.bus import (
     PORTAL,
     PORTAL_PATH,
     DBusCallError,
@@ -147,16 +147,16 @@ def test_call_turns_error_replies_into_dbus_call_errors():
 def test_host_app_registers_its_id_with_the_portal():
     bus = FakeBus()
     bus.on(PORTAL_PATH, "org.freedesktop.host.portal.Registry", "Register", ())
-    assert register_host_app(bus, "io.github.dragonking026.WS-Tracker-Linux") is True
+    assert register_host_app(bus, "io.github.dragonking026.DK-Tracker-Linux") is True
     assert bus.calls[0] == (
         PORTAL,
         PORTAL_PATH,
         "org.freedesktop.host.portal.Registry",
         "Register",
         "sa{sv}",
-        ("io.github.dragonking026.WS-Tracker-Linux", {}),
+        ("io.github.dragonking026.DK-Tracker-Linux", {}),
     )
 
 
 def test_registration_refused_in_a_sandbox_or_old_portal_is_not_an_error():
-    assert register_host_app(FakeBus(), "io.github.dragonking026.WS-Tracker-Linux") is False  # UnknownMethod
+    assert register_host_app(FakeBus(), "io.github.dragonking026.DK-Tracker-Linux") is False  # UnknownMethod

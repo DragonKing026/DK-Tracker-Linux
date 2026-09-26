@@ -26,7 +26,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from ws_tracker.core.settings import Settings
+from dk_tracker.core.settings import Settings
 
 LANGUAGES = (("auto", "optLangAuto"), ("pl", "optLangPl"), ("en", "optLangEn"))
 

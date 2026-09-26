@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
-from ws_tracker.core.models import Activity, Customer, Entry, Project, User
+from dk_tracker.core.models import Activity, Customer, Entry, Project, User
 
 ACTIVE_ENTRY = {  # GET /api/timesheets/active — related objects expanded
     "id": 7,

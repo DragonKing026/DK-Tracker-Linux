@@ -39,11 +39,11 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from ws_tracker.core.billable import default_billable
-from ws_tracker.core.grouping import group_projects
-from ws_tracker.core.models import Activity, Entry, Project
-from ws_tracker.core.timefmt import clock, elapsed_seconds, hhmm
-from ws_tracker.core.tracker import Snapshot
+from dk_tracker.core.billable import default_billable
+from dk_tracker.core.grouping import group_projects
+from dk_tracker.core.models import Activity, Entry, Project
+from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm
+from dk_tracker.core.tracker import Snapshot
 
 from .icons import glyph
 from .project_picker import ProjectComboBox

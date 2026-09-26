@@ -1,5 +1,5 @@
-from ws_tracker.core.i18n import Translator
-from ws_tracker.core.notification_policy import Notification, entry_id_from, render
+from dk_tracker.core.i18n import Translator
+from dk_tracker.core.notification_policy import Notification, entry_id_from, render
 
 
 def test_render_long_timer_in_polish():
@@ -35,7 +35,7 @@ def test_entry_id_from_ignores_non_ascii_digits():
 
 
 def test_our_notification_ids_are_recognised():
-    from ws_tracker.core.notification_policy import is_ours
+    from dk_tracker.core.notification_policy import is_ours
 
     assert is_ours("action.1790374275")
     assert is_ours("connection.12")

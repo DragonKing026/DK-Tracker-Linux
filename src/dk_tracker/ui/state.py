@@ -10,8 +10,8 @@ from typing import Any
 
 from PySide6.QtCore import QObject, Signal
 
-from ws_tracker.core.settings import Settings
-from ws_tracker.core.tracker import Snapshot
+from dk_tracker.core.settings import Settings
+from dk_tracker.core.tracker import Snapshot
 
 
 class AppState(QObject):

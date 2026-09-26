@@ -1,6 +1,6 @@
 import json
 
-from ws_tracker.core.settings import Memory, Settings, config_path, load_json, save_json, state_path
+from dk_tracker.core.settings import Memory, Settings, config_path, load_json, save_json, state_path
 
 
 def test_missing_file_gives_defaults(tmp_path):
@@ -42,8 +42,8 @@ def test_http_warning():
 def test_paths_follow_xdg(monkeypatch, tmp_path):
     monkeypatch.setenv("XDG_CONFIG_HOME", str(tmp_path / "cfg"))
     monkeypatch.setenv("XDG_STATE_HOME", str(tmp_path / "state"))
-    assert config_path() == tmp_path / "cfg" / "ws-tracker" / "settings.json"
-    assert state_path() == tmp_path / "state" / "ws-tracker" / "state.json"
+    assert config_path() == tmp_path / "cfg" / "dk-tracker" / "settings.json"
+    assert state_path() == tmp_path / "state" / "dk-tracker" / "state.json"
 
 
 def test_settings_file_never_contains_a_token(tmp_path):
@@ -62,7 +62,7 @@ def test_fields_with_wrong_types_fall_back_one_by_one(tmp_path):
 
 
 def test_broken_settings_file_still_builds_a_tracker(tmp_path):
-    from ws_tracker.core.tracker import Tracker
+    from dk_tracker.core.tracker import Tracker
 
     path = tmp_path / "settings.json"
     path.write_text(json.dumps({"min_description": "abc", "url": None, "long_timer_hours": True}))

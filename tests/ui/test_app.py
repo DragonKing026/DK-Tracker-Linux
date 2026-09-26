@@ -2,12 +2,12 @@ from datetime import timedelta
 
 import pytest
 
-from ws_tracker.core.errors import ApiError, ErrorKind
-from ws_tracker.core.settings import Memory, Settings
-from ws_tracker.desktop.autostart import BackgroundResult
-from ws_tracker.desktop.notifications import NotificationAction
-from ws_tracker.desktop.secrets import SecretsLocked
-from ws_tracker.ui.app import Controller
+from dk_tracker.core.errors import ApiError, ErrorKind
+from dk_tracker.core.settings import Memory, Settings
+from dk_tracker.desktop.autostart import BackgroundResult
+from dk_tracker.desktop.notifications import NotificationAction
+from dk_tracker.desktop.secrets import SecretsLocked
+from dk_tracker.ui.app import Controller
 
 from ..core.fakes import NOW, FakeClient, make_entry
 
@@ -193,7 +193,7 @@ def test_connection_test_reports_the_user(harness):
 def test_open_kimai_uses_the_remembered_locale(harness, monkeypatch):
     opened = []
     monkeypatch.setattr(
-        "ws_tracker.ui.app.QDesktopServices.openUrl", lambda url: opened.append(url.toString())
+        "dk_tracker.ui.app.QDesktopServices.openUrl", lambda url: opened.append(url.toString())
     )
     h = harness()
     h.controller.tray.openKimaiRequested.emit()
@@ -213,7 +213,7 @@ def test_window_open_before_the_token_arrives_still_gets_projects(qtbot):
 def test_failed_actions_are_logged_without_the_token(harness, caplog):
     h = harness()
     h.client.fail["start"] = [ApiError(ErrorKind.REJECTED, 400, "Overlapping entry")]
-    with caplog.at_level("WARNING", logger="ws_tracker.ui.app"):
+    with caplog.at_level("WARNING", logger="dk_tracker.ui.app"):
         h.controller.popup.form.startRequested.emit(
             {"project_id": 1, "activity_id": 1, "description": "Walidacja dat przyjazdu", "billable": None}
         )
@@ -298,7 +298,7 @@ def test_activities_of_a_project_no_longer_chosen_are_ignored(harness):
     form.set_catalog(h.state.snapshot.__class__(projects=tuple(h.client.projects_list)), 1)
     form.select_project(2)
     h.settle()
-    from ws_tracker.core.models import Activity
+    from dk_tracker.core.models import Activity
 
     stale = [Activity(99, "Z innego projektu", True, 1)]
     h.controller._apply_activities(1, stale)  # an answer for project 1 arriving after 2 was chosen

@@ -13,9 +13,9 @@ from pathlib import Path
 
 import pytest
 
-from ws_tracker.core.kimai_client import KimaiClient
-from ws_tracker.core.settings import Memory, Settings
-from ws_tracker.core.tracker import Tracker
+from dk_tracker.core.kimai_client import KimaiClient
+from dk_tracker.core.settings import Memory, Settings
+from dk_tracker.core.tracker import Tracker
 
 SCRIPT = Path(__file__).resolve().parent / "kimai-testowe.sh"
 

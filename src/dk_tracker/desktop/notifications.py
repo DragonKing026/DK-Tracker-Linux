@@ -12,7 +12,7 @@ import time
 from dataclasses import dataclass
 from typing import Any
 
-from ws_tracker.core.notification_policy import RenderedNotification, entry_id_from
+from dk_tracker.core.notification_policy import RenderedNotification, entry_id_from
 
 from .bus import PORTAL, PORTAL_PATH, Bus, DBusCallError, Expectation
 

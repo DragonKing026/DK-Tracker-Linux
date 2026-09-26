@@ -1,8 +1,8 @@
 from datetime import UTC, date, datetime
 from zoneinfo import ZoneInfo
 
-from ws_tracker.core.grouping import day_total, group_by_day, group_projects, sort_key
-from ws_tracker.core.models import Entry, Project
+from dk_tracker.core.grouping import day_total, group_by_day, group_projects, sort_key
+from dk_tracker.core.models import Entry, Project
 
 WAW = ZoneInfo("Europe/Warsaw")
 

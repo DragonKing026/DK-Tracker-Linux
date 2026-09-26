@@ -2,8 +2,8 @@ import pytest
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
 
-from ws_tracker.ui.icons import GLYPHS, glyph, tray_icon, tray_pixmap
-from ws_tracker.ui.theme import DARK, LIGHT, palette_for, stylesheet
+from dk_tracker.ui.icons import GLYPHS, glyph, tray_icon, tray_pixmap
+from dk_tracker.ui.theme import DARK, LIGHT, palette_for, stylesheet
 
 
 def test_palettes_match_the_add_on():
@@ -64,7 +64,7 @@ def test_glyphs_render_in_the_given_colour(qapp):
 
 def test_app_icon_is_our_own_ws_tile_not_the_kimai_logo(qapp):
     """Kimai's trademark policy: no impression of being an official Kimai app (0063)."""
-    from ws_tracker.ui.icons import app_icon
+    from dk_tracker.ui.icons import app_icon
 
     icon = app_icon()
     assert not icon.isNull()
@@ -88,7 +88,7 @@ def test_badge_text_keeps_a_margin_from_the_edge(qapp, label):
 def test_combo_arrows_are_drawn_from_our_own_svg(tmp_path):
     from pathlib import Path
 
-    from ws_tracker.ui.theme import write_assets
+    from dk_tracker.ui.theme import write_assets
 
     assets = write_assets(DARK, tmp_path)
     css = stylesheet(DARK, assets)
@@ -110,7 +110,7 @@ def test_billable_states_stand_out():
 
 
 def test_app_icon_keeps_a_margin_from_the_edge(qapp):
-    from ws_tracker.ui.icons import app_icon
+    from dk_tracker.ui.icons import app_icon
 
     image = app_icon().pixmap(64, 64).toImage()
     for x in range(64):
@@ -119,7 +119,7 @@ def test_app_icon_keeps_a_margin_from_the_edge(qapp):
 
 
 def test_theme_assets_that_cannot_be_written_are_skipped(tmp_path):
-    from ws_tracker.ui.theme import write_assets
+    from dk_tracker.ui.theme import write_assets
 
     blocker = tmp_path / "not-a-directory"
     blocker.write_text("")
@@ -128,7 +128,7 @@ def test_theme_assets_that_cannot_be_written_are_skipped(tmp_path):
 
 
 def test_asset_paths_with_spaces_are_quoted(tmp_path):
-    from ws_tracker.ui.theme import write_assets
+    from dk_tracker.ui.theme import write_assets
 
     assets = write_assets(DARK, tmp_path / "Kimai App" / "theme")
     assert f'url("{assets["chevron"]}")' in stylesheet(DARK, assets)
@@ -136,7 +136,7 @@ def test_asset_paths_with_spaces_are_quoted(tmp_path):
 
 def test_header_mark_is_readable_on_the_window_background(qapp):
     """0065: the 18 px dark tile vanished on the dark header; the mark has no tile and themed letters."""
-    from ws_tracker.ui.icons import mark
+    from dk_tracker.ui.icons import mark
 
     image = mark("#ffffff", 24).toImage()
     assert image.width() >= 24
@@ -146,10 +146,10 @@ def test_header_mark_is_readable_on_the_window_background(qapp):
 
 
 def test_window_header_shows_the_mark_at_24_px(qapp):
-    from ws_tracker.core.i18n import Translator
-    from ws_tracker.core.settings import Settings
-    from ws_tracker.ui.popup import QuickWindow
-    from ws_tracker.ui.state import AppState
+    from dk_tracker.core.i18n import Translator
+    from dk_tracker.core.settings import Settings
+    from dk_tracker.ui.popup import QuickWindow
+    from dk_tracker.ui.state import AppState
 
     popup = QuickWindow(AppState(Settings(), Translator("pl")))
     assert popup.logo.pixmap().deviceIndependentSize().width() == 24

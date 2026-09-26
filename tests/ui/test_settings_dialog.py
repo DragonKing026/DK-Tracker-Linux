@@ -1,8 +1,8 @@
 import pytest
 
-from ws_tracker.core.i18n import Translator
-from ws_tracker.core.settings import Settings
-from ws_tracker.ui.settings_dialog import SettingsDialog
+from dk_tracker.core.i18n import Translator
+from dk_tracker.core.settings import Settings
+from dk_tracker.ui.settings_dialog import SettingsDialog
 
 SAVED = Settings(
     url="https://kimai.test", language="pl", min_description=20, long_timer_hours=6.0, autostart=True
@@ -87,7 +87,7 @@ def test_secrets_problem_is_explained(dialog):
 
 def test_english(dialog):
     dialog.retranslate(Translator("en"))
-    assert dialog.windowTitle() == "WS Tracker settings"
+    assert dialog.windowTitle() == "DK Tracker settings"
     assert dialog.save_button.text() == "Save"
 
 

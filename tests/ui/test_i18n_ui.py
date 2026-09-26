@@ -1,4 +1,4 @@
-from ws_tracker.core.i18n import Translator, load_messages
+from dk_tracker.core.i18n import Translator, load_messages
 
 UI_KEYS = {
     "menuStop",

@@ -15,9 +15,9 @@ COMPOSE=(docker compose -f "$DIR/docker-compose.yml")
 PORT="${KIMAI_TEST_PORT:-8001}"
 URL="http://127.0.0.1:${PORT}"
 
-ADMIN_TOKEN="ws-tracker-test-admin-token-000000000001"
-USER_TOKEN="ws-tracker-test-user-token-0000000000002"
-LEAD_TOKEN="ws-tracker-test-lead-token-0000000000003"
+ADMIN_TOKEN="dk-tracker-test-admin-token-000000000001"
+USER_TOKEN="dk-tracker-test-user-token-0000000000002"
+LEAD_TOKEN="dk-tracker-test-lead-token-0000000000003"
 
 console() { "${COMPOSE[@]}" exec -T kimai /opt/kimai/bin/console "$@"; }
 sql() { "${COMPOSE[@]}" exec -T sqldb mysql -ukimai -pkimai kimai -N -e "$1" 2>/dev/null; }
@@ -49,7 +49,7 @@ set_timezone() { # login zone — Kimai reads the account zone from kimai2_user_
 
 ensure_token() { # login token
   sql "INSERT INTO kimai2_access_token (user_id, token, name)
-       SELECT id, '$2', 'ws-tracker-tests' FROM kimai2_users WHERE username = '$1'
+       SELECT id, '$2', 'dk-tracker-tests' FROM kimai2_users WHERE username = '$1'
        AND NOT EXISTS (SELECT 1 FROM kimai2_access_token WHERE token = '$2');"
   if ! api "$2" GET /api/users/me >/dev/null; then
     echo "Token for '$1' is rejected — did Kimai change how API tokens are stored?" >&2

@@ -6,9 +6,9 @@ from PySide6.QtCore import Qt
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QLabel
 
-from ws_tracker.core.i18n import Translator
-from ws_tracker.core.tracker import Snapshot
-from ws_tracker.ui.recent import RecentList
+from dk_tracker.core.i18n import Translator
+from dk_tracker.core.tracker import Snapshot
+from dk_tracker.ui.recent import RecentList
 
 from ..core.fakes import NOW, make_entry
 

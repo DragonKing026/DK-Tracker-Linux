@@ -15,8 +15,8 @@ from PySide6.QtCore import QObject, Signal
 from PySide6.QtGui import QAction
 from PySide6.QtWidgets import QMenu, QSystemTrayIcon
 
-from ws_tracker.core.presentation import TrayStatus, tray_status
-from ws_tracker.core.tracker import utc_now
+from dk_tracker.core.presentation import TrayStatus, tray_status
+from dk_tracker.core.tracker import utc_now
 
 from .icons import tray_icon
 from .state import AppState

@@ -2,11 +2,11 @@ from datetime import timedelta
 
 from PySide6.QtWidgets import QSystemTrayIcon
 
-from ws_tracker.core.i18n import Translator
-from ws_tracker.core.settings import Settings
-from ws_tracker.core.tracker import Snapshot
-from ws_tracker.ui.state import AppState
-from ws_tracker.ui.tray import Tray
+from dk_tracker.core.i18n import Translator
+from dk_tracker.core.settings import Settings
+from dk_tracker.core.tracker import Snapshot
+from dk_tracker.ui.state import AppState
+from dk_tracker.ui.tray import Tray
 
 from ..core.fakes import NOW, FakeClient, make_entry
 
@@ -27,7 +27,7 @@ def test_running_entry_enables_stop_and_shows_the_time(qtbot):
     assert tray.status.label == "1:22"
     assert tray.stop_action.isEnabled()
     assert not tray.resume_action.isEnabled()
-    assert tray.icon.toolTip().startswith("WS Tracker — 1:22:00")
+    assert tray.icon.toolTip().startswith("DK Tracker — 1:22:00")
 
 
 def test_idle_with_history_enables_resume(qtbot):
@@ -79,6 +79,6 @@ def test_icon_is_redrawn_only_when_the_label_changes(qtbot):
 
 def test_clicks_on_the_icon_are_logged(qtbot, caplog):
     _, tray = make(qtbot)
-    with caplog.at_level("INFO", logger="ws_tracker.ui.tray"):
+    with caplog.at_level("INFO", logger="dk_tracker.ui.tray"):
         tray.icon.activated.emit(QSystemTrayIcon.ActivationReason.Trigger)
     assert "Trigger" in caplog.text

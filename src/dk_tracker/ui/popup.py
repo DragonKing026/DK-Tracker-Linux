@@ -25,10 +25,10 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from ws_tracker.core.errors import describe
-from ws_tracker.core.presentation import display_zone
-from ws_tracker.core.timefmt import short_duration
-from ws_tracker.core.tracker import live_totals, utc_now
+from dk_tracker.core.errors import describe
+from dk_tracker.core.presentation import display_zone
+from dk_tracker.core.timefmt import short_duration
+from dk_tracker.core.tracker import live_totals, utc_now
 
 from .form import TrackerForm
 from .icons import glyph, mark

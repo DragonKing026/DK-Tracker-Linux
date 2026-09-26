@@ -13,7 +13,7 @@ from PySide6.QtCore import QModelIndex, QPoint, QSortFilterProxyModel, Qt, Signa
 from PySide6.QtGui import QKeyEvent
 from PySide6.QtWidgets import QComboBox, QFrame, QLineEdit, QListView, QVBoxLayout, QWidget
 
-from ws_tracker.core.grouping import sort_key
+from dk_tracker.core.grouping import sort_key
 
 LIST_HEIGHT = 320
 

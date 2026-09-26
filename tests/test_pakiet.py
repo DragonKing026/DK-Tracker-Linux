@@ -8,10 +8,10 @@ import tomllib
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-import ws_tracker
+import dk_tracker
 
 ROOT = Path(__file__).resolve().parents[1]
-APP_ID = "io.github.dragonking026.WS-Tracker-Linux"
+APP_ID = "io.github.dragonking026.DK-Tracker-Linux"
 PYPROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
 LANG = "{http://www.w3.org/XML/1998/namespace}lang"
 
@@ -28,7 +28,7 @@ def desktop_entry() -> dict[str, str]:
 def test_version_is_the_same_everywhere():
     """No literal version here: a release changes pyproject.toml, __init__.py and MetaInfo, not the tests."""
     newest = metainfo().find("releases/release").get("version")
-    assert PYPROJECT["version"] == ws_tracker.__version__ == newest
+    assert PYPROJECT["version"] == dk_tracker.__version__ == newest
 
 
 def test_licence_is_gpl():
@@ -43,14 +43,14 @@ def test_licence_is_gpl():
 
 def test_metainfo_release_and_licence_match_the_package():
     root = metainfo()
-    assert root.find("releases/release").get("version") == ws_tracker.__version__
+    assert root.find("releases/release").get("version") == dk_tracker.__version__
     assert root.findtext("project_license") == PYPROJECT["license"]
 
 
 def test_metainfo_names_the_app_in_both_languages():
     root = metainfo()
     assert root.findtext("id") == APP_ID
-    assert root.findtext("name") == "WS Tracker"
+    assert root.findtext("name") == "DK Tracker"
     summaries = {s.get(LANG, "en"): s.text for s in root.findall("summary")}
     assert set(summaries) == {"en", "pl"}
     assert root.find("launchable").text == f"{APP_ID}.desktop"
@@ -58,17 +58,17 @@ def test_metainfo_names_the_app_in_both_languages():
 
 def test_screenshot_points_to_a_file_in_this_repository():
     image = metainfo().findtext("screenshots/screenshot/image")
-    prefix = "https://raw.githubusercontent.com/DragonKing026/WS-Tracker-Linux/main/"
+    prefix = "https://raw.githubusercontent.com/DragonKing026/DK-Tracker-Linux/main/"
     assert image.startswith(prefix)
     assert (ROOT / image.removeprefix(prefix)).is_file()
 
 
 def test_desktop_entry_starts_the_installed_command():
     entry = desktop_entry()
-    assert entry["Exec"] == "ws-tracker"
-    assert "ws-tracker" in PYPROJECT["scripts"]
+    assert entry["Exec"] == "dk-tracker"
+    assert "dk-tracker" in PYPROJECT["scripts"]
     assert entry["Icon"] == APP_ID
-    assert entry["Name"] == "WS Tracker"
+    assert entry["Name"] == "DK Tracker"
 
 
 # -- Task 3: the Flatpak manifest --------------------------------------------------
@@ -101,9 +101,9 @@ def test_permissions_are_exactly_those_of_the_specification():
 
 
 def test_autostart_runs_the_command_the_manifest_installs():
-    from ws_tracker.ui.desktop_bridge import AUTOSTART_COMMAND
+    from dk_tracker.ui.desktop_bridge import AUTOSTART_COMMAND
 
-    assert manifest()["command"] == AUTOSTART_COMMAND[0] == "ws-tracker"
+    assert manifest()["command"] == AUTOSTART_COMMAND[0] == "dk-tracker"
 
 
 def test_bundled_python_libraries_satisfy_pyproject():
@@ -127,7 +127,7 @@ def test_bundled_python_libraries_satisfy_pyproject():
 
 
 def test_build_does_not_copy_the_virtualenv_or_git():
-    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker")
+    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "dk-tracker")
     skipped = set(app["sources"][0]["skip"])
     assert {".venv", ".git"} <= skipped
 
@@ -185,7 +185,7 @@ def test_only_the_jobs_that_need_them_get_write_permissions():
 
 
 def test_build_does_not_copy_what_the_ci_action_leaves_in_the_checkout():
-    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker")
+    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "dk-tracker")
     assert {"flatpak_app", "repo", "site", "dist"} <= set(app["sources"][0]["skip"])
 
 
@@ -193,7 +193,7 @@ def test_ci_enforces_core_coverage():
     """Spec 12.6: at least 90% of the core is covered by tests."""
     steps = workflow("testy.yml")["jobs"]["testy"]["steps"]
     command = next(step["run"] for step in steps if step.get("name", "").startswith("Testy"))
-    assert "--cov=ws_tracker.core" in command and "--cov-fail-under=90" in command
+    assert "--cov=dk_tracker.core" in command and "--cov-fail-under=90" in command
 
 
 def test_every_action_is_pinned_to_a_commit():
@@ -215,7 +215,7 @@ def test_repository_signing_key_is_public_only():
     """`gpg --export` writes binary, so the check reads the key packets instead of looking for text."""
     import subprocess
 
-    key = ROOT / "flatpak" / "ws-tracker-repo.gpg"
+    key = ROOT / "flatpak" / "dk-tracker-repo.gpg"
     listing = subprocess.run(
         ["gpg", "--show-keys", "--with-colons", key], capture_output=True, text=True, check=True
     ).stdout.splitlines()
@@ -225,7 +225,7 @@ def test_repository_signing_key_is_public_only():
 
 
 def test_the_package_ships_our_icon_not_the_kimai_logo():
-    commands = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker")
+    commands = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "dk-tracker")
     icon = next(line for line in commands["build-commands"] if "/icons/" in line)
-    assert "ws-tracker.png" in icon and "kimai" not in icon
-    assert not (ROOT / "src" / "ws_tracker" / "ui" / "assets" / "kimai.png").exists()
+    assert "dk-tracker.png" in icon and "kimai" not in icon
+    assert not (ROOT / "src" / "dk_tracker" / "ui" / "assets" / "kimai.png").exists()
