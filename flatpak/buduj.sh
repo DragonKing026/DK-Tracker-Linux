@@ -37,7 +37,8 @@ docker run --rm --privileged \
       flatpak-builder-lint "$1" "$2" > /work/lint.json || true
       python3 - "$1" <<PY
 import json, os, sys
-found = set(json.load(open("/work/lint.json")).get("errors", []))
+text = open("/work/lint.json").read().strip()  # nothing at all when there are no findings
+found = set(json.loads(text).get("errors", [])) if text else set()
 unexpected = found - set(os.environ["ALLOWED_LINT"].split())
 print(f"lint {sys.argv[1]}: " + (", ".join(sorted(unexpected)) or "OK"))
 sys.exit(1 if unexpected else 0)
