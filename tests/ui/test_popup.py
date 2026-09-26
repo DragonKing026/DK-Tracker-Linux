@@ -2,7 +2,7 @@ from dataclasses import replace
 from datetime import timedelta
 
 import pytest
-from PySide6.QtCore import Qt
+from PySide6.QtCore import QPoint, Qt
 from PySide6.QtTest import QTest
 
 from dk_tracker.core.errors import ApiError, ErrorKind
@@ -281,45 +281,85 @@ def test_remembered_size_never_exceeds_the_screen(window):
     assert popup.height() <= area.height() - 24
 
 
-def test_grip_on_a_layer_surface_counts_from_the_drawn_size(window, qtbot):
-    """Wayland gives a layer surface no global position, and pointer positions refer to the size
-    last drawn: fast moves arrive before the window redraws, and adding each one to the requested
-    size multiplied the step (tested live: smooth when slow, jumps when fast and growing)."""
-    from PySide6.QtCore import QEvent, QPointF, QSize
+def layer_canvas(popup):
+    """The canvas the layer surface keeps (0066): the screen's work area, less the margins."""
+    from PySide6.QtCore import QSize
+    from PySide6.QtGui import QGuiApplication
+
+    area = QGuiApplication.primaryScreen().availableGeometry()
+    return QSize(area.width() - 24, area.height() - 24)
+
+
+def send_to_grip(popup, kind, x, y, buttons=Qt.MouseButton.LeftButton):
+    """A pointer event in grip coordinates; the global position is made up, as on a layer surface."""
+    from PySide6.QtCore import QEvent, QPointF
     from PySide6.QtGui import QMouseEvent
     from PySide6.QtWidgets import QApplication
 
+    event_type = {
+        "press": QEvent.Type.MouseButtonPress,
+        "move": QEvent.Type.MouseMove,
+        "release": QEvent.Type.MouseButtonRelease,
+    }[kind]
+    event = QMouseEvent(
+        event_type,
+        QPointF(x, y),
+        QPointF(0, 0),
+        Qt.MouseButton.LeftButton,
+        buttons,
+        Qt.KeyboardModifier.NoModifier,
+    )
+    QApplication.sendEvent(popup.grip, event)
+
+
+def test_layer_canvas_holds_the_panel_bottom_right_and_lets_clicks_through_elsewhere(window):
+    from PySide6.QtCore import QRect, QSize
+
     _, popup = window
-    popup.set_preferred_size(QSize(460, 600))
-    popup.placement_mode = "layer"
+    popup.set_placement("layer")
+    popup.set_preferred_size(QSize(460, 500))
     popup.show()
-    QApplication.processEvents()  # drawn at 460 x 600
-    nowhere = QPointF(0, 0)  # what a layer surface reports as the global cursor position
+    canvas = layer_canvas(popup)
+    panel = QRect(canvas.width() - 460, canvas.height() - 500, 460, 500)
+    assert popup.size() == canvas  # the surface itself never changes size while dragging
+    assert popup.panel_rect() == panel
+    assert popup.panel_size() == QSize(460, 500)
+    assert popup.mask().boundingRect() == panel  # input region: clicks beside the panel reach the desktop
+    assert popup.grip.geometry().topLeft() == panel.topLeft() + QPoint(1, 1)
+    assert popup.header.mapTo(popup, QPoint(0, 0)) == panel.topLeft()
 
-    def send(kind, x, y, buttons=Qt.MouseButton.LeftButton):
-        event_type = {
-            "press": QEvent.Type.MouseButtonPress,
-            "move": QEvent.Type.MouseMove,
-            "release": QEvent.Type.MouseButtonRelease,
-        }[kind]
-        event = QMouseEvent(
-            event_type,
-            QPointF(x, y),
-            nowhere,
-            Qt.MouseButton.LeftButton,
-            buttons,
-            Qt.KeyboardModifier.NoModifier,
-        )
-        QApplication.sendEvent(popup.grip, event)
 
-    send("press", 3, 3)
-    send("move", -17, -7)  # 20 px left, 10 px up
-    assert popup.size() == QSize(480, 610)
-    send("move", -27, -17)  # fast: still relative to the 460 x 600 drawing, 30 and 20 px out
-    assert popup.size() == QSize(490, 620)
-    QApplication.processEvents()  # drawn at 490 x 620; anchored bottom-right, the grip is under the cursor
-    send("move", 3, 3)
-    assert popup.size() == QSize(490, 620)
+def test_grip_on_the_layer_canvas_follows_the_pointer_exactly(window, qtbot):
+    """Only the panel changes, inside a surface that stays put: the pointer is always exact (0066) —
+    counting against a resizing layer surface jumped (three attempts in 0065)."""
+    from PySide6.QtCore import QSize
+
+    _, popup = window
+    popup.set_placement("layer")
+    popup.set_preferred_size(QSize(460, 500))
+    popup.show()
+    canvas = popup.size()
+    send_to_grip(popup, "press", 3, 3)
+    send_to_grip(popup, "move", -17, -7)  # grip coordinates at press: 20 px left, 10 px up
+    assert popup.panel_size() == QSize(480, 510)
+    send_to_grip(popup, "move", -9, -13)  # the grip moved with the panel: 12 px left and 16 px up of it now
+    assert popup.panel_size() == QSize(492, 526)
+    send_to_grip(popup, "move", 13, 17)  # back right and down: smaller
+    assert popup.panel_size() == QSize(482, 512)
+    assert popup.size() == canvas
     with qtbot.waitSignal(popup.sizeChosen) as signal:
-        send("release", 3, 3, Qt.MouseButton.NoButton)
-    assert signal.args == [QSize(490, 620)]
+        send_to_grip(popup, "release", 3, 3, Qt.MouseButton.NoButton)
+    assert signal.args == [QSize(482, 512)]
+
+
+def test_layer_panel_is_low_while_not_configured(window):
+    from PySide6.QtCore import QSize
+
+    state, popup = window
+    popup.set_placement("layer")
+    popup.set_preferred_size(QSize(520, 600))
+    popup.show()
+    state.update(configured=False)
+    assert popup.panel_size().width() == 520
+    assert popup.panel_size().height() < 300
+    assert popup.mask().boundingRect() == popup.panel_rect()

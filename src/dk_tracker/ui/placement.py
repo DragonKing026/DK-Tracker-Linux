@@ -57,9 +57,15 @@ def apply(window: QWidget, mode: str) -> str:
     else:
         window.setWindowFlags(Qt.WindowType.Tool | Qt.WindowType.FramelessWindowHint)
         window.hide_on_deactivate = True
-        if mode == "layer" and not _anchor_to_panel(window):
-            mode = "frameless"
-    window.placement_mode = mode
+        if mode == "layer":
+            # A see-through canvas (0066) must be translucent before its native window exists.
+            window.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, True)
+            if not _anchor_to_panel(window):
+                mode = "frameless"
+    if hasattr(window, "set_placement"):
+        window.set_placement(mode)
+    else:
+        window.placement_mode = mode
     return mode
 
 

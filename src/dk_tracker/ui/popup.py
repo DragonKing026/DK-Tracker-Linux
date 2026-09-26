@@ -11,8 +11,8 @@ import time
 from collections.abc import Callable
 from datetime import datetime
 
-from PySide6.QtCore import QEvent, QPoint, QPointF, QSize, Qt, QTimer, Signal
-from PySide6.QtGui import QGuiApplication, QKeyEvent, QMouseEvent, QPainter, QPen
+from PySide6.QtCore import QEvent, QPoint, QPointF, QRect, QSize, Qt, QTimer, Signal
+from PySide6.QtGui import QGuiApplication, QKeyEvent, QMouseEvent, QPainter, QPen, QRegion
 from PySide6.QtWidgets import (
     QApplication,
     QFrame,
@@ -66,7 +66,7 @@ class ResizeGrip(QWidget):
         if self._window.placement_mode != "layer" and handle is not None and handle.startSystemResize(edges):
             return
         if self._window.placement_mode == "layer":
-            self._start = (event.position().toPoint(), QSize())  # the size comes from the drawn window
+            self._start = (self.mapTo(self._window, event.position().toPoint()), self._window.panel_size())
         else:
             self._start = (event.globalPosition().toPoint(), self._window.size())
 
@@ -75,14 +75,10 @@ class ResizeGrip(QWidget):
             return
         origin, size = self._start
         if self._window.placement_mode == "layer":
-            # Wayland tells a layer surface nothing about where it is (global positions are made
-            # up) and reports the pointer against the size last drawn, which lags behind fast
-            # moves. The window is anchored bottom-right, so the grip's offset from where it was
-            # pressed, added to the drawn size, is the wanted size — however many moves arrive
-            # before the next redraw.
-            moved = origin - event.position().toPoint()
-            drawn = self._window.drawn_size
-            self._window.set_preferred_size(QSize(drawn.width() + moved.x(), drawn.height() + moved.y()))
+            # The layer surface never changes size (0066): only the panel inside it does, so the
+            # pointer, in canvas coordinates, is exact however fast it moves.
+            moved = origin - self.mapTo(self._window, event.position().toPoint())
+            self._window.set_preferred_size(QSize(size.width() + moved.x(), size.height() + moved.y()))
             return
         moved = origin - event.globalPosition().toPoint()
         self._window.set_preferred_size(QSize(size.width() + moved.x(), size.height() + moved.y()))
@@ -117,7 +113,8 @@ class QuickWindow(QWidget):
         self.setMinimumSize(MIN_WIDTH, MIN_HEIGHT)
         self.resize(WIDTH, HEIGHT)
         self._preferred = QSize(WIDTH, HEIGHT)  # the user's size; used while there are lists to show
-        self.drawn_size = QSize(WIDTH, HEIGHT)  # the size last painted: what pointer positions refer to
+        self._canvas = False  # layer mode: a transparent surface holding the panel bottom-right (0066)
+        self._panel = QSize(WIDTH, HEIGHT)  # the visible window inside the canvas
         self._compact: bool | None = None
         self._error_from_refresh = False  # the red strip came from a failed refresh, not from an action
         self.quit_on_close = False
@@ -133,6 +130,8 @@ class QuickWindow(QWidget):
         self._now = now
         self._notice_shown: object = None
 
+        self.backdrop = QFrame(self, objectName="backdrop")  # the panel's background on the canvas
+        self.backdrop.hide()
         self.header = header = QFrame(objectName="header")
         header.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)  # never stretches
         self.logo = QLabel()  # the WS mark, drawn in the theme's colours by apply_theme
@@ -199,7 +198,10 @@ class QuickWindow(QWidget):
 
     def apply_theme(self) -> None:
         palette = palette_for(QGuiApplication.styleHints().colorScheme(), self.palette().window().color())
-        self.setStyleSheet(stylesheet(palette, write_assets(palette)))
+        css = stylesheet(palette, write_assets(palette))
+        if self._canvas:  # only the panel is painted; the rest of the surface stays see-through
+            css += f"#popup {{ background: transparent; }} QFrame#backdrop {{ background: {palette['bg']}; }}"
+        self.setStyleSheet(css)
         self.logo.setPixmap(mark(palette["fg"], LOGO_SIZE))
         self.settings_button.setIcon(glyph("gear", palette["muted"], 17))
         self.close_button.setIcon(glyph("close", palette["muted"], 17))
@@ -262,9 +264,9 @@ class QuickWindow(QWidget):
             size = size.boundedTo(QSize(area.width() - 2 * SCREEN_MARGIN, area.height() - 2 * SCREEN_MARGIN))
         self._preferred = size.expandedTo(QSize(MIN_WIDTH, MIN_HEIGHT))
         if self._compact:
-            self.resize(self._preferred.width(), self.height())
+            self._set_panel(QSize(self._preferred.width(), self.panel_size().height()))
         else:
-            self.resize(self._preferred)
+            self._set_panel(self._preferred)
 
     def _fit(self, *, compact: bool) -> None:
         """Without lists (not configured) the window is as low as its content, as in the add-on."""
@@ -272,12 +274,76 @@ class QuickWindow(QWidget):
             return
         self._compact = compact
         if compact:
-            self.setMinimumHeight(0)
+            if not self._canvas:
+                self.setMinimumHeight(0)
             self.layout().activate()
-            self.resize(self._preferred.width(), self.sizeHint().height())
+            height = self.layout().sizeHint().height() - self.layout().contentsMargins().top()
+            self._set_panel(QSize(self._preferred.width(), height))
         else:
-            self.setMinimumHeight(MIN_HEIGHT)
-            self.resize(self._preferred)
+            if not self._canvas:
+                self.setMinimumHeight(MIN_HEIGHT)
+            self._set_panel(self._preferred)
+
+    # -- the canvas (layer mode, 0066) ----------------------------------------------
+
+    def set_placement(self, mode: str) -> None:
+        """Layer mode keeps a transparent surface as big as allowed and moves only the panel inside
+        it: a layer surface that changes size while the pointer drags it makes the pointer's
+        position refer to a size the compositor has not shown yet, and the corner jumped."""
+        self.placement_mode = mode
+        self._canvas = mode == "layer"
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, self._canvas)
+        self.backdrop.setVisible(self._canvas)
+        if self._canvas:
+            self.setMinimumSize(0, 0)
+        else:
+            self.clearMask()
+            self.layout().setContentsMargins(0, 0, 0, 0)
+            self.setMinimumSize(MIN_WIDTH, MIN_HEIGHT if not self._compact else 0)
+        self.apply_theme()
+        self._set_panel(self._panel if self._canvas else self.size())
+
+    def panel_size(self) -> QSize:
+        return QSize(self._panel) if self._canvas else self.size()
+
+    def panel_rect(self) -> QRect:
+        if not self._canvas:
+            return self.rect()
+        return QRect(
+            self.width() - self._panel.width(),
+            self.height() - self._panel.height(),
+            self._panel.width(),
+            self._panel.height(),
+        )
+
+    def _canvas_size(self) -> QSize:
+        screen = self.screen() or QGuiApplication.primaryScreen()
+        if screen is None:
+            return self._panel
+        area = screen.availableGeometry()
+        return QSize(area.width() - 2 * SCREEN_MARGIN, area.height() - 2 * SCREEN_MARGIN)
+
+    def _set_panel(self, size: QSize) -> None:
+        if not self._canvas:
+            self.resize(size)
+            return
+        self._panel = QSize(size)
+        canvas = self._canvas_size()
+        if self.size() != canvas:
+            self.resize(canvas)  # once; the resize event places the panel
+        else:
+            self._place_panel()
+        if self.isVisible() and not self._compact:
+            self._size_timer.start(self.size_report_ms)
+
+    def _place_panel(self) -> None:
+        rect = self.panel_rect()
+        self.layout().setContentsMargins(rect.left(), rect.top(), 0, 0)
+        self.backdrop.setGeometry(rect)
+        self.backdrop.lower()
+        self.setMask(QRegion(rect))  # input region: beside the panel, clicks reach the desktop
+        self.grip.move(rect.topLeft() + QPoint(1, 1))
+        self.grip.raise_()
 
     def dismiss(self) -> None:
         """Close as the user asked: hide to the tray, or — with no tray to come back from — quit."""
@@ -292,16 +358,16 @@ class QuickWindow(QWidget):
             self.closeRequested.emit()
 
     def report_size(self) -> None:
-        if not self._compact and self.isVisible() and self.size() != self._reported:
-            self._reported = self.size()
-            self.sizeChosen.emit(self.size())
-
-    def paintEvent(self, event) -> None:  # noqa: N802 - Qt API
-        super().paintEvent(event)
-        self.drawn_size = self.size()
+        size = self.panel_size()
+        if not self._compact and self.isVisible() and size != self._reported:
+            self._reported = size
+            self.sizeChosen.emit(size)
 
     def resizeEvent(self, event) -> None:  # noqa: N802 - Qt API
         super().resizeEvent(event)
+        if self._canvas:
+            self._place_panel()
+            return
         if self.isVisible() and not self._compact:
             self._size_timer.start(self.size_report_ms)
         self.grip.move(1, 1)
