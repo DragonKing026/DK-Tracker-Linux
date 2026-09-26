@@ -24,7 +24,8 @@ if [[ -z "$TRUSTED" || "$TRUSTED" != "$SIGNING" ]]; then
 fi
 
 # Every ref of the app — the app itself and its .Locale/.Debug extensions — must carry a signature.
-mapfile -t REFS < <(ostree --repo="$REPO" refs | grep -F "$APP" || true)
+# Extensions (.Locale, .Debug) spell the id with underscores: a dash is not allowed there.
+mapfile -t REFS < <(ostree --repo="$REPO" refs | grep -F -e "$APP" -e "${APP//-/_}" || true)
 if [[ ${#REFS[@]} -eq 0 ]]; then
   echo "W $REPO nie ma refów $APP — nie publikuję pustego repozytorium." >&2
   exit 1
