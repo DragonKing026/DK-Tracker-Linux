@@ -18,11 +18,11 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from kimai_tray.core.grouping import day_total, group_by_day
-from kimai_tray.core.models import Entry
-from kimai_tray.core.presentation import day_label, entry_row
-from kimai_tray.core.timefmt import local_day, short_duration
-from kimai_tray.core.tracker import Snapshot
+from ws_tracker_tray.core.grouping import day_total, group_by_day
+from ws_tracker_tray.core.models import Entry
+from ws_tracker_tray.core.presentation import day_label, entry_row
+from ws_tracker_tray.core.timefmt import local_day, short_duration
+from ws_tracker_tray.core.tracker import Snapshot
 
 from .form import GREY_DOT, dot
 from .icons import glyph

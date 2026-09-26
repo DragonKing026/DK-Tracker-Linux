@@ -1,7 +1,7 @@
-from kimai_tray.core.notification_policy import RenderedNotification
-from kimai_tray.desktop.bus import PORTAL_PATH
-from kimai_tray.desktop.notifications import NotificationAction
-from kimai_tray.ui.desktop_bridge import ClickListener, Desktop
+from ws_tracker_tray.core.notification_policy import RenderedNotification
+from ws_tracker_tray.desktop.bus import PORTAL_PATH
+from ws_tracker_tray.desktop.notifications import NotificationAction
+from ws_tracker_tray.ui.desktop_bridge import ClickListener, Desktop
 
 from ..desktop.fakes import FakeBus
 

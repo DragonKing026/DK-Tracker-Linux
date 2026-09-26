@@ -1,6 +1,6 @@
 import httpx
 
-from kimai_tray.core.errors import ApiError, ErrorKind, TrackerError, describe, read_error
+from ws_tracker_tray.core.errors import ApiError, ErrorKind, TrackerError, describe, read_error
 
 # Payloads captured from Kimai 2.67.0 (TODO/…/0002…/testy/wynik-probe-*.txt).
 EXTRA_FIELDS = {

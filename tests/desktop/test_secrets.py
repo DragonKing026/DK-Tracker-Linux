@@ -1,7 +1,7 @@
 import pytest
 
-from kimai_tray.desktop.bus import DBusCallError
-from kimai_tray.desktop.secrets import SecretServiceStore, SecretsLocked, SecretsUnavailable
+from ws_tracker_tray.desktop.bus import DBusCallError
+from ws_tracker_tray.desktop.secrets import SecretServiceStore, SecretsLocked, SecretsUnavailable
 
 from .fakes import FakeBus
 
@@ -38,10 +38,13 @@ def test_set_creates_an_item_with_label_attributes_and_secret():
     SecretServiceStore(bus).set("https://kimai.firma.pl/", "  kimai-token  ")
     create = next(call for call in bus.calls if call[3] == "CreateItem")
     properties, secret, replace = create[5]
-    assert properties["org.freedesktop.Secret.Item.Label"] == ("s", "Kimai Tray — https://kimai.firma.pl")
+    assert properties["org.freedesktop.Secret.Item.Label"] == (
+        "s",
+        "WS Tracker Tray — https://kimai.firma.pl",
+    )
     assert properties["org.freedesktop.Secret.Item.Attributes"] == (
         "a{ss}",
-        {"application": "pl.websystems.KimaiTray", "url": "https://kimai.firma.pl"},
+        {"application": "pl.websystems.WsTrackerTray", "url": "https://kimai.firma.pl"},
     )
     assert secret == (SESSION, b"", b"kimai-token", "text/plain")
     assert replace is True

@@ -2,8 +2,8 @@ from datetime import UTC, timedelta
 
 import pytest
 
-from kimai_tray.core.errors import ApiError, ErrorKind, TrackerError
-from kimai_tray.core.settings import Memory, Settings
+from ws_tracker_tray.core.errors import ApiError, ErrorKind, TrackerError
+from ws_tracker_tray.core.settings import Memory, Settings
 
 from .fakes import NOW, FakeClient, make_entry
 from .test_tracker_refresh import make_tracker
@@ -233,7 +233,7 @@ def test_memory_that_cannot_be_saved_never_fails_an_action(caplog):
     def disk_full(memory):
         raise OSError(28, "No space left on device")
 
-    from kimai_tray.core.tracker import Tracker
+    from ws_tracker_tray.core.tracker import Tracker
 
     tracker = Tracker(
         client,

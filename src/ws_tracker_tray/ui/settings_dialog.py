@@ -26,7 +26,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from kimai_tray.core.settings import Settings
+from ws_tracker_tray.core.settings import Settings
 
 LANGUAGES = (("auto", "optLangAuto"), ("pl", "optLangPl"), ("en", "optLangEn"))
 

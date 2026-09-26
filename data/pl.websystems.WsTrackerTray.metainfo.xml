@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>pl.websystems.KimaiTray</id>
+  <id>pl.websystems.WsTrackerTray</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>AGPL-3.0-or-later</project_license>
-  <name>Kimai Tray</name>
+  <name>WS Tracker Tray</name>
   <summary>Track your Kimai time from the system tray</summary>
   <summary xml:lang="pl">Mierzenie czasu w Kimai z tacki systemowej</summary>
   <developer id="pl.websystems">
@@ -21,7 +21,7 @@
       <li xml:lang="pl">Token API trzymany w portfelu systemu</li>
     </ul>
   </description>
-  <launchable type="desktop-id">pl.websystems.KimaiTray.desktop</launchable>
+  <launchable type="desktop-id">pl.websystems.WsTrackerTray.desktop</launchable>
   <url type="homepage">https://github.com/DragonKing026/Kimai-App--Linux-</url>
   <url type="bugtracker">https://github.com/DragonKing026/Kimai-App--Linux-/issues</url>
   <screenshots>
@@ -32,7 +32,7 @@
   </screenshots>
   <content_rating type="oars-1.1"/>
   <provides>
-    <binary>kimai-tray</binary>
+    <binary>ws-tracker-tray</binary>
   </provides>
   <supports>
     <control>pointing</control>

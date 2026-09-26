@@ -1,8 +1,8 @@
 from datetime import UTC, date, datetime
 from zoneinfo import ZoneInfo
 
-from kimai_tray.core.grouping import day_total, group_by_day, group_projects, sort_key
-from kimai_tray.core.models import Entry, Project
+from ws_tracker_tray.core.grouping import day_total, group_by_day, group_projects, sort_key
+from ws_tracker_tray.core.models import Entry, Project
 
 WAW = ZoneInfo("Europe/Warsaw")
 

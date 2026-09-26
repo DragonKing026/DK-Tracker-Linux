@@ -8,10 +8,10 @@ from PySide6.QtGui import QFocusEvent
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication
 
-from kimai_tray.core.i18n import Translator
-from kimai_tray.core.models import Activity
-from kimai_tray.core.tracker import Snapshot
-from kimai_tray.ui.form import TrackerForm
+from ws_tracker_tray.core.i18n import Translator
+from ws_tracker_tray.core.models import Activity
+from ws_tracker_tray.core.tracker import Snapshot
+from ws_tracker_tray.ui.form import TrackerForm
 
 from ..core.fakes import NOW, FakeClient, make_entry
 
@@ -268,7 +268,7 @@ def test_the_choose_a_project_row_is_never_a_search_result(form, qtbot):
 def test_search_stays_fast_with_thousands_of_projects(form, qtbot):
     import time
 
-    from kimai_tray.core.models import Project
+    from ws_tracker_tray.core.models import Project
 
     many = tuple(
         Project(1000 + n, f"Projekt {n}", 10 + n // 50, f"Klient {n // 50}", None, True) for n in range(3000)

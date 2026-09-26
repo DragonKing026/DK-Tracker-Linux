@@ -14,15 +14,15 @@ from typing import Any
 
 from PySide6.QtCore import QThread, Signal
 
-from kimai_tray.core.notification_policy import RenderedNotification
-from kimai_tray.desktop.autostart import BackgroundPortal, BackgroundResult
-from kimai_tray.desktop.bus import Bus, SessionBus, register_host_app
-from kimai_tray.desktop.notifications import PortalNotifier
-from kimai_tray.desktop.secrets import SecretServiceStore, SecretsUnavailable
+from ws_tracker_tray.core.notification_policy import RenderedNotification
+from ws_tracker_tray.desktop.autostart import BackgroundPortal, BackgroundResult
+from ws_tracker_tray.desktop.bus import Bus, SessionBus, register_host_app
+from ws_tracker_tray.desktop.notifications import PortalNotifier
+from ws_tracker_tray.desktop.secrets import SecretServiceStore, SecretsUnavailable
 
 log = logging.getLogger(__name__)
-AUTOSTART_COMMAND = ["kimai-tray", "--hidden"]
-APP_ID = "pl.websystems.KimaiTray"
+AUTOSTART_COMMAND = ["ws-tracker-tray", "--hidden"]
+APP_ID = "pl.websystems.WsTrackerTray"
 
 
 class Desktop:

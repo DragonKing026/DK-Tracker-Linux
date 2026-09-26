@@ -11,7 +11,7 @@ import os
 from dataclasses import asdict, dataclass, fields, replace
 from pathlib import Path
 
-APP_DIR = "kimai-tray"
+APP_DIR = "ws-tracker-tray"
 
 
 @dataclass(frozen=True)

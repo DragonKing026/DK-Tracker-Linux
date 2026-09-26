@@ -63,7 +63,7 @@ _CHEVRON = (
 def write_assets(p: dict[str, str], directory: Path | None = None) -> dict[str, str]:
     """QSS can only take images from files: the smooth combo-box chevron, in the palette's colours."""
     cache = os.environ.get("XDG_CACHE_HOME") or str(Path.home() / ".cache")
-    directory = directory or Path(cache) / "kimai-tray" / "theme"
+    directory = directory or Path(cache) / "ws-tracker-tray" / "theme"
     assets = {}
     try:
         directory.mkdir(parents=True, exist_ok=True)

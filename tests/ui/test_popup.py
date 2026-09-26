@@ -5,13 +5,13 @@ import pytest
 from PySide6.QtCore import Qt
 from PySide6.QtTest import QTest
 
-from kimai_tray.core.errors import ApiError, ErrorKind
-from kimai_tray.core.i18n import Translator
-from kimai_tray.core.settings import Settings
-from kimai_tray.core.tracker import Snapshot, Totals
-from kimai_tray.ui import placement
-from kimai_tray.ui.popup import QuickWindow
-from kimai_tray.ui.state import AppState
+from ws_tracker_tray.core.errors import ApiError, ErrorKind
+from ws_tracker_tray.core.i18n import Translator
+from ws_tracker_tray.core.settings import Settings
+from ws_tracker_tray.core.tracker import Snapshot, Totals
+from ws_tracker_tray.ui import placement
+from ws_tracker_tray.ui.popup import QuickWindow
+from ws_tracker_tray.ui.state import AppState
 
 from ..core.fakes import NOW, FakeClient, make_entry
 

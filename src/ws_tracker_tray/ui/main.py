@@ -25,15 +25,17 @@ from PySide6.QtCore import (
 from PySide6.QtNetwork import QLocalServer, QLocalSocket
 from PySide6.QtWidgets import QApplication
 
-from kimai_tray.core.settings import Memory, Settings, config_path, load_json, save_json, state_path
+from ws_tracker_tray.core.settings import Memory, Settings, config_path, load_json, save_json, state_path
 
-APP_ID = "pl.websystems.KimaiTray"
+APP_ID = "pl.websystems.WsTrackerTray"
 TRAY_WAIT_MS = 30_000  # at login the tray host may register after the autostarted app
 log = logging.getLogger(__name__)
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(prog="kimai-tray", description="Kimai time tracking in the system tray.")
+    parser = argparse.ArgumentParser(
+        prog="ws-tracker-tray", description="Kimai time tracking in the system tray."
+    )
     parser.add_argument("--hidden", action="store_true", help="start in the tray without opening the window")
     return parser.parse_args(argv)
 
@@ -41,7 +43,7 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 def setup_logging(directory: Path, level: int = logging.INFO) -> Path:
     """A small rotating file next to the app state; tokens and headers are never logged."""
     directory.mkdir(parents=True, exist_ok=True)
-    path = directory / "kimai-tray.log"
+    path = directory / "ws-tracker-tray.log"
     handler = RotatingFileHandler(path, maxBytes=512_000, backupCount=3, encoding="utf-8")
     handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s"))
     root = logging.getLogger()
@@ -118,18 +120,18 @@ def main(argv: list[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
     log_path = setup_logging(state_path().parent)
     app = QApplication(sys.argv[:1])
-    app.setApplicationName("kimai-tray")
+    app.setApplicationName("ws-tracker-tray")
     app.setDesktopFileName(APP_ID)
     app.setQuitOnLastWindowClosed(False)
     from .icons import app_icon
 
     app.setWindowIcon(app_icon())  # Wayland: sent with xdg-toplevel-icon (KWin 6, Qt >= 6.8)
 
-    instance = SingleInstance(f"kimai-tray-{os.getuid()}")
+    instance = SingleInstance(f"ws-tracker-tray-{os.getuid()}")
     if not instance.claim():
         return 0  # the running instance opens its window
 
-    from kimai_tray.core.kimai_client import KimaiClient
+    from ws_tracker_tray.core.kimai_client import KimaiClient
 
     from . import placement
     from .app import Controller
@@ -155,6 +157,8 @@ def main(argv: list[str] | None = None) -> int:
     instance.showRequested.connect(controller.show_popup)
     controller.quitRequested.connect(app.quit)
     app.aboutToQuit.connect(controller.shutdown)
-    log.info("Kimai Tray started (tray: %s, window: %s, log: %s)", tray_available, controller.mode, log_path)
+    log.info(
+        "WS Tracker Tray started (tray: %s, window: %s, log: %s)", tray_available, controller.mode, log_path
+    )
     controller.start(hidden=args.hidden)
     return app.exec()

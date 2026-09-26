@@ -4,9 +4,9 @@ from zoneinfo import ZoneInfo
 
 from PySide6.QtWidgets import QLabel
 
-from kimai_tray.core.i18n import Translator
-from kimai_tray.core.tracker import Snapshot
-from kimai_tray.ui.recent import RecentList
+from ws_tracker_tray.core.i18n import Translator
+from ws_tracker_tray.core.tracker import Snapshot
+from ws_tracker_tray.ui.recent import RecentList
 
 from ..core.fakes import NOW, make_entry
 

@@ -3,7 +3,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from kimai_tray.core.timefmt import (
+from ws_tracker_tray.core.timefmt import (
     at_wall_clock,
     badge_label,
     clock,

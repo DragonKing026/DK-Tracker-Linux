@@ -2,8 +2,8 @@ import pytest
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
 
-from kimai_tray.ui.icons import GLYPHS, glyph, tray_icon, tray_pixmap
-from kimai_tray.ui.theme import DARK, LIGHT, palette_for, stylesheet
+from ws_tracker_tray.ui.icons import GLYPHS, glyph, tray_icon, tray_pixmap
+from ws_tracker_tray.ui.theme import DARK, LIGHT, palette_for, stylesheet
 
 
 def test_palettes_match_the_add_on():
@@ -63,7 +63,7 @@ def test_glyphs_render_in_the_given_colour(qapp):
 
 
 def test_app_icon_is_the_kimai_logo(qapp):
-    from kimai_tray.ui.icons import app_icon
+    from ws_tracker_tray.ui.icons import app_icon
 
     icon = app_icon()
     assert not icon.isNull()
@@ -84,7 +84,7 @@ def test_badge_text_keeps_a_margin_from_the_edge(qapp, label):
 def test_combo_arrows_are_drawn_from_our_own_svg(tmp_path):
     from pathlib import Path
 
-    from kimai_tray.ui.theme import write_assets
+    from ws_tracker_tray.ui.theme import write_assets
 
     assets = write_assets(DARK, tmp_path)
     css = stylesheet(DARK, assets)
@@ -106,7 +106,7 @@ def test_billable_states_stand_out():
 
 
 def test_app_icon_keeps_a_margin_from_the_edge(qapp):
-    from kimai_tray.ui.icons import app_icon
+    from ws_tracker_tray.ui.icons import app_icon
 
     image = app_icon().pixmap(64, 64).toImage()
     for x in range(64):
@@ -115,7 +115,7 @@ def test_app_icon_keeps_a_margin_from_the_edge(qapp):
 
 
 def test_theme_assets_that_cannot_be_written_are_skipped(tmp_path):
-    from kimai_tray.ui.theme import write_assets
+    from ws_tracker_tray.ui.theme import write_assets
 
     blocker = tmp_path / "not-a-directory"
     blocker.write_text("")
@@ -124,7 +124,7 @@ def test_theme_assets_that_cannot_be_written_are_skipped(tmp_path):
 
 
 def test_asset_paths_with_spaces_are_quoted(tmp_path):
-    from kimai_tray.ui.theme import write_assets
+    from ws_tracker_tray.ui.theme import write_assets
 
     assets = write_assets(DARK, tmp_path / "Kimai App" / "theme")
     assert f'url("{assets["chevron"]}")' in stylesheet(DARK, assets)

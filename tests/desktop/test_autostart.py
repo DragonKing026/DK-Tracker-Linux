@@ -1,7 +1,7 @@
 import pytest
 
-from kimai_tray.desktop.autostart import STATUS_MAX, BackgroundPortal, BackgroundResult
-from kimai_tray.desktop.bus import PORTAL_PATH, DBusCallError, PortalError
+from ws_tracker_tray.desktop.autostart import STATUS_MAX, BackgroundPortal, BackgroundResult
+from ws_tracker_tray.desktop.bus import PORTAL_PATH, DBusCallError, PortalError
 
 from .fakes import FakeBus
 
@@ -24,14 +24,14 @@ def portal(code=0, results=None):
 def test_request_autostart_with_commandline():
     bus = portal(results={"background": ("b", True), "autostart": ("b", True)})
     result = BackgroundPortal(bus).request(
-        autostart=True, reason="Pomiar czasu w tle", commandline=["kimai-tray", "--hidden"]
+        autostart=True, reason="Pomiar czasu w tle", commandline=["ws-tracker-tray", "--hidden"]
     )
     assert result == BackgroundResult(background=True, autostart=True)
     parent_window, options = bus.calls[0][5]
     assert parent_window == ""
     assert options["autostart"] == ("b", True)
     assert options["reason"] == ("s", "Pomiar czasu w tle")
-    assert options["commandline"] == ("as", ["kimai-tray", "--hidden"])
+    assert options["commandline"] == ("as", ["ws-tracker-tray", "--hidden"])
 
 
 def test_request_without_commandline_omits_it():

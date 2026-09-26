@@ -1,9 +1,9 @@
 from datetime import datetime, timedelta
 from zoneinfo import ZoneInfo
 
-from kimai_tray.core.errors import ApiError, ErrorKind
-from kimai_tray.core.settings import Memory, Settings
-from kimai_tray.core.tracker import Snapshot, Totals, Tracker, all_entries_url, live_totals
+from ws_tracker_tray.core.errors import ApiError, ErrorKind
+from ws_tracker_tray.core.settings import Memory, Settings
+from ws_tracker_tray.core.tracker import Snapshot, Totals, Tracker, all_entries_url, live_totals
 
 from .fakes import NOW, FakeClient, make_entry
 
@@ -163,7 +163,7 @@ def test_initial_snapshot_respects_billable_memory():
 def test_refresh_survives_a_captive_portal_page():
     import httpx
 
-    from kimai_tray.core.kimai_client import KimaiClient
+    from ws_tracker_tray.core.kimai_client import KimaiClient
 
     client = KimaiClient(
         "https://kimai.test", "t", transport=httpx.MockTransport(lambda r: httpx.Response(200, text="<html>"))

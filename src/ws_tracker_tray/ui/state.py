@@ -10,8 +10,8 @@ from typing import Any
 
 from PySide6.QtCore import QObject, Signal
 
-from kimai_tray.core.settings import Settings
-from kimai_tray.core.tracker import Snapshot
+from ws_tracker_tray.core.settings import Settings
+from ws_tracker_tray.core.tracker import Snapshot
 
 
 class AppState(QObject):

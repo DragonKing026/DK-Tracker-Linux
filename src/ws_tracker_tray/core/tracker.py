@@ -1,4 +1,4 @@
-"""Application logic of Kimai Tray — what the WS Tracker popup did, without any UI.
+"""Application logic of WS Tracker Tray — what the WS Tracker popup did, without any UI.
 
 Every public method returns a new Snapshot, the single source of truth the UI renders.
 Actions raise TrackerError when a rule of the app says no and ApiError when Kimai does;

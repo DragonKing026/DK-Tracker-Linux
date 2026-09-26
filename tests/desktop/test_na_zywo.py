@@ -8,12 +8,12 @@ import os
 
 import pytest
 
-from kimai_tray.core.i18n import Translator
-from kimai_tray.core.notification_policy import Notification, render
-from kimai_tray.desktop.autostart import BackgroundPortal
-from kimai_tray.desktop.bus import SessionBus
-from kimai_tray.desktop.notifications import PortalNotifier
-from kimai_tray.desktop.secrets import SecretServiceStore
+from ws_tracker_tray.core.i18n import Translator
+from ws_tracker_tray.core.notification_policy import Notification, render
+from ws_tracker_tray.desktop.autostart import BackgroundPortal
+from ws_tracker_tray.desktop.bus import SessionBus
+from ws_tracker_tray.desktop.notifications import PortalNotifier
+from ws_tracker_tray.desktop.secrets import SecretServiceStore
 
 pytestmark = pytest.mark.desktop
 URL = "https://kimai.test.invalid"
@@ -29,7 +29,7 @@ def bus():
 
 
 def test_secret_round_trip(bus):
-    store = SecretServiceStore(bus, application="pl.websystems.KimaiTray.TEST")
+    store = SecretServiceStore(bus, application="pl.websystems.WsTrackerTray.TEST")
     try:
         store.set(URL, "test-token-123")
         assert store.get(URL) == "test-token-123"
@@ -40,12 +40,12 @@ def test_secret_round_trip(bus):
 
 def test_notification_can_be_shown_and_withdrawn(bus):
     notifier = PortalNotifier(bus)
-    note = render(Notification("kimai-tray-test", "notifConnectionRestored"), Translator("pl"))
+    note = render(Notification("ws-tracker-tray-test", "notifConnectionRestored"), Translator("pl"))
     notifier.show(note)
     notifier.withdraw(note.id)
 
 
 def test_background_request_without_autostart(bus):
-    result = BackgroundPortal(bus).request(autostart=False, reason="Kimai Tray — test")
+    result = BackgroundPortal(bus).request(autostart=False, reason="WS Tracker Tray — test")
     assert result.autostart is False
-    assert isinstance(BackgroundPortal(bus).set_status("Kimai Tray — test"), bool)
+    assert isinstance(BackgroundPortal(bus).set_status("WS Tracker Tray — test"), bool)

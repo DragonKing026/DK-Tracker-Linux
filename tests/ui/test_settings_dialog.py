@@ -1,8 +1,8 @@
 import pytest
 
-from kimai_tray.core.i18n import Translator
-from kimai_tray.core.settings import Settings
-from kimai_tray.ui.settings_dialog import SettingsDialog
+from ws_tracker_tray.core.i18n import Translator
+from ws_tracker_tray.core.settings import Settings
+from ws_tracker_tray.ui.settings_dialog import SettingsDialog
 
 SAVED = Settings(
     url="https://kimai.test", language="pl", min_description=20, long_timer_hours=6.0, autostart=True
@@ -87,7 +87,7 @@ def test_secrets_problem_is_explained(dialog):
 
 def test_english(dialog):
     dialog.retranslate(Translator("en"))
-    assert dialog.windowTitle() == "Kimai Tray settings"
+    assert dialog.windowTitle() == "WS Tracker Tray settings"
     assert dialog.save_button.text() == "Save"
 
 

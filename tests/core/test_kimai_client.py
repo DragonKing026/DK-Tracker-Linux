@@ -3,8 +3,8 @@ import json
 import httpx
 import pytest
 
-from kimai_tray.core.errors import ApiError, ErrorKind
-from kimai_tray.core.kimai_client import KimaiClient
+from ws_tracker_tray.core.errors import ApiError, ErrorKind
+from ws_tracker_tray.core.kimai_client import KimaiClient
 
 ENTRY = {
     "id": 8,

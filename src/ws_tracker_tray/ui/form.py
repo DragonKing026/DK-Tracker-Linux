@@ -39,11 +39,11 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from kimai_tray.core.billable import default_billable
-from kimai_tray.core.grouping import group_projects
-from kimai_tray.core.models import Activity, Entry, Project
-from kimai_tray.core.timefmt import clock, elapsed_seconds, hhmm
-from kimai_tray.core.tracker import Snapshot
+from ws_tracker_tray.core.billable import default_billable
+from ws_tracker_tray.core.grouping import group_projects
+from ws_tracker_tray.core.models import Activity, Entry, Project
+from ws_tracker_tray.core.timefmt import clock, elapsed_seconds, hhmm
+from ws_tracker_tray.core.tracker import Snapshot
 
 from .icons import glyph
 from .project_picker import ProjectComboBox

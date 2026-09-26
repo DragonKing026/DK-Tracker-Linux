@@ -2,11 +2,11 @@ from datetime import timedelta
 
 from PySide6.QtWidgets import QSystemTrayIcon
 
-from kimai_tray.core.i18n import Translator
-from kimai_tray.core.settings import Settings
-from kimai_tray.core.tracker import Snapshot
-from kimai_tray.ui.state import AppState
-from kimai_tray.ui.tray import Tray
+from ws_tracker_tray.core.i18n import Translator
+from ws_tracker_tray.core.settings import Settings
+from ws_tracker_tray.core.tracker import Snapshot
+from ws_tracker_tray.ui.state import AppState
+from ws_tracker_tray.ui.tray import Tray
 
 from ..core.fakes import NOW, FakeClient, make_entry
 
@@ -27,7 +27,7 @@ def test_running_entry_enables_stop_and_shows_the_time(qtbot):
     assert tray.status.label == "1:22"
     assert tray.stop_action.isEnabled()
     assert not tray.resume_action.isEnabled()
-    assert tray.icon.toolTip().startswith("Kimai Tray — 1:22:00")
+    assert tray.icon.toolTip().startswith("WS Tracker Tray — 1:22:00")
 
 
 def test_idle_with_history_enables_resume(qtbot):
@@ -79,6 +79,6 @@ def test_icon_is_redrawn_only_when_the_label_changes(qtbot):
 
 def test_clicks_on_the_icon_are_logged(qtbot, caplog):
     _, tray = make(qtbot)
-    with caplog.at_level("INFO", logger="kimai_tray.ui.tray"):
+    with caplog.at_level("INFO", logger="ws_tracker_tray.ui.tray"):
         tray.icon.activated.emit(QSystemTrayIcon.ActivationReason.Trigger)
     assert "Trigger" in caplog.text

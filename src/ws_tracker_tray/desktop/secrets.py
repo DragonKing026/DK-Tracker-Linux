@@ -12,7 +12,7 @@ from typing import Any
 
 from .bus import Bus, DBusCallError
 
-APP_ID = "pl.websystems.KimaiTray"
+APP_ID = "pl.websystems.WsTrackerTray"
 _SERVICE = "org.freedesktop.secrets"
 _ROOT = "/org/freedesktop/secrets"
 _SVC = "org.freedesktop.Secret.Service"
@@ -67,7 +67,7 @@ class SecretServiceStore:
         collection = self._collection()
         address = _normalize(url)
         properties = {
-            "org.freedesktop.Secret.Item.Label": ("s", f"Kimai Tray — {address}"),
+            "org.freedesktop.Secret.Item.Label": ("s", f"WS Tracker Tray — {address}"),
             "org.freedesktop.Secret.Item.Attributes": ("a{ss}", self._attributes(url)),
         }
         value = token.strip().encode("utf-8")

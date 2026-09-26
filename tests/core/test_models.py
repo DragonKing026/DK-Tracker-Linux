@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 
-from kimai_tray.core.models import Activity, Customer, Entry, Project, User
+from ws_tracker_tray.core.models import Activity, Customer, Entry, Project, User
 
 ACTIVE_ENTRY = {  # GET /api/timesheets/active — related objects expanded
     "id": 7,

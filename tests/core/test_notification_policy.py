@@ -1,8 +1,8 @@
 from datetime import UTC, datetime, timedelta
 
-from kimai_tray.core.errors import ApiError, ErrorKind
-from kimai_tray.core.models import Entry
-from kimai_tray.core.notification_policy import (
+from ws_tracker_tray.core.errors import ApiError, ErrorKind
+from ws_tracker_tray.core.models import Entry
+from ws_tracker_tray.core.notification_policy import (
     ACTION,
     CONNECTION,
     LONG_TIMER,
@@ -10,8 +10,8 @@ from kimai_tray.core.notification_policy import (
     action_confirmation,
     evaluate,
 )
-from kimai_tray.core.settings import Settings
-from kimai_tray.core.tracker import Snapshot
+from ws_tracker_tray.core.settings import Settings
+from ws_tracker_tray.core.tracker import Snapshot
 
 BEGIN = datetime(2026, 9, 25, 6, 0, tzinfo=UTC)
 ENTRY = Entry(
