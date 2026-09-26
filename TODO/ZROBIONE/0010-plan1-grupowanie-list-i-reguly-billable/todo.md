@@ -61,6 +61,7 @@ kroków planu, metodą TDD.
 
 ## Wynik
 
-[grouping.py](../../../src/kimai_tray/core/grouping.py) (wpisy po dniach w strefie konta, projekty po klientach,
-sortowanie bez znaczenia wielkości liter i polskich znaków) i [billable.py](../../../src/kimai_tray/core/billable.py)
+[grouping.py](../../../src/ws_tracker_tray/core/grouping.py) (wpisy po dniach w strefie konta, projekty po klientach,
+sortowanie bez znaczenia wielkości liter i polskich znaków) i
+[billable.py](../../../src/ws_tracker_tray/core/billable.py)
 (domyślne billable jak w Kimai, rozpoznanie 400 „extra fields”). Testy: 7 zielonych. Bez odchyleń.

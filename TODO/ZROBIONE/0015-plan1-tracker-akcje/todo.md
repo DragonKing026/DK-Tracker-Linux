@@ -61,7 +61,7 @@ Wykonać **zadanie 11** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ## Wynik
 
-[src/kimai_tray/core/tracker.py](../../../src/kimai_tray/core/tracker.py) (część 2): `start` (czas w strefie konta,
+[src/kimai_tray/core/tracker.py](../../../src/ws_tracker_tray/core/tracker.py) (część 2): `start` (czas w strefie konta,
 ponowienie bez billable i blokada, timeout bez ponownego POST), `stop` (także z godziną końca), `resume` (sprawdzenie
 przed zatrzymaniem), `update_description/update_begin`, `set_billable`, `apply_settings`. Testy:
 [tests/core/test_tracker_actions.py](../../../tests/core/test_tracker_actions.py) — 25 zielonych (RED: 25×

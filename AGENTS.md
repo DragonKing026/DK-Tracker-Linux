@@ -10,7 +10,7 @@ tags: []
 
 ## 1. Czym jest ten projekt
 
-**Kimai Tray** (nazwa robocza) — natywna aplikacja desktopowa na Linuksa, dystrybuowana jako
+**WS Tracker Tray** — natywna aplikacja desktopowa na Linuksa, dystrybuowana jako
 **Flatpak**, która siedzi w **tacce systemowej** (KDE Plasma i GNOME) i pozwala zarządzać
 czasem pracy w firmowym **Kimai** bez otwierania przeglądarki.
 
@@ -162,13 +162,13 @@ python3 .claude/skills/markdownlint/mdfix.py sprawdz
 ```bash
 python3 -m venv .venv && .venv/bin/pip install -e ".[dev,ui]" # raz (PySide6 z pip — do testów)
 .venv/bin/pytest                                              # testy (bez Dockera i pulpitu)
-.venv/bin/pytest --cov=kimai_tray.core --cov-fail-under=90    # pokrycie rdzenia
+.venv/bin/pytest --cov=ws_tracker_tray.core --cov-fail-under=90    # pokrycie rdzenia
 .venv/bin/pytest -m kimai                                     # testy kontraktowe (Docker)
 .venv/bin/pytest -m desktop                                   # D-Bus na prawdziwej sesji (portfel, powiadomienie, portal)
 .venv/bin/ruff format . && .venv/bin/ruff check .             # format + lint (tylko kod produktu)
 scripts/instaluj-dev.sh                                       # raz: .desktop + ikona w ~/.local/share (nazwa i ikona w powiadomieniach)
-PYTHONPATH=src /usr/bin/python3 -m kimai_tray                 # uruchomienie na KDE (systemowy PySide6 — layer-shell działa)
-.venv/bin/python -m kimai_tray                                # uruchomienie z .venv (okno bez ramki, bez layer-shell)
+PYTHONPATH=src /usr/bin/python3 -m ws_tracker_tray                 # uruchomienie na KDE (systemowy PySide6 — layer-shell działa)
+.venv/bin/python -m ws_tracker_tray                                # uruchomienie z .venv (okno bez ramki, bez layer-shell)
 ```
 
 > [!todo] Plan 4 dopisze: budowę Flatpaka.

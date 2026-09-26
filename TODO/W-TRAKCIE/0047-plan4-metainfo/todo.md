@@ -25,13 +25,13 @@ Wykonać **zadanie 2** z [Planu 4: Flatpak i wydanie](../../../docs/plany/2026-0
 
 - Plan: [2026-09-26-plan-4-flatpak.md](../../../docs/plany/2026-09-26-plan-4-flatpak.md) — kod, testy i komendy każdego
   kroku.
-- Specyfikacja: [Kimai Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje:
+- Specyfikacja: [WS Tracker Tray 1.0](../../../docs/specyfikacja/2026-09-25-kimai-tray-1.0.md); decyzje:
   [0045](../0045-plan4-projekt-flatpak/todo.md).
 - Pliki:
 
-- Create: `data/pl.websystems.KimaiTray.metainfo.xml`
+- Create: `data/pl.websystems.WsTrackerTray.metainfo.xml`
 - Modify: `tests/test_pakiet.py`
-- Uses: `data/pl.websystems.KimaiTray.desktop`, `docs/assets/zrzuty/okno-ciemny-motyw.png` (już w repozytorium)
+- Uses: `data/pl.websystems.WsTrackerTray.desktop`, `docs/assets/zrzuty/okno-ciemny-motyw.png` (już w repozytorium)
 
 ## Kryteria akceptacji
 

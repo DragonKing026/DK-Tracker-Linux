@@ -50,7 +50,7 @@ Zweryfikowane 2026-09-25 w repozytorium Fedory 44: pakiet `gnome-shell-extension
 ```mermaid
 flowchart LR
     subgraph flatpak["Flatpak (piaskownica)"]
-        APP[Kimai Tray<br/>QSystemTrayIcon]
+        APP[WS Tracker Tray<br/>QSystemTrayIcon]
     end
     subgraph host["System użytkownika"]
         BUS((szyna D-Bus sesji))

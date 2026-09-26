@@ -18,11 +18,11 @@ zaktualizowano: 2026-09-25 23:36
 ├── CLAUDE.md                  import AGENTS.md + specyfika Claude Code
 ├── README.md                  opis dla ludzi: co to jest, jak zainstalować
 ├── .gitignore
-├── pyproject.toml             pakiet kimai-tray, zależności, pytest, ruff
+├── pyproject.toml             pakiet ws-tracker-tray, zależności, pytest, ruff
 ├── data/                      plik .desktop aplikacji (host i Flatpak)
 ├── scripts/                   instaluj-dev.sh — .desktop i ikona na hoście na czas rozwoju
-├── src/kimai_tray/
-│   ├── __main__.py            `python -m kimai_tray [--hidden]`
+├── src/ws_tracker_tray/
+│   ├── __main__.py            `python -m ws_tracker_tray [--hidden]`
 │   ├── core/                  rdzeń bez Qt i D-Bus (plan 1)
 │   ├── desktop/               D-Bus na jeepney bez Qt: sekrety, powiadomienia, autostart (plan 2)
 │   └── ui/                    Qt Widgets: tacka, okno, ustawienia, kontroler (plan 3)

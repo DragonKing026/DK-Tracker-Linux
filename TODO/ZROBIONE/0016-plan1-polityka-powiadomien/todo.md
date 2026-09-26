@@ -60,7 +60,7 @@ Wykonać **zadanie 12** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-
 
 ## Wynik
 
-[src/kimai_tray/core/notification_policy.py](../../../src/kimai_tray/core/notification_policy.py): N-01 długi timer
+[src/kimai_tray/core/notification_policy.py](../../../src/ws_tracker_tray/core/notification_policy.py): N-01 długi timer
 (próg + co godzinę), N-02/N-02b połączenie (3 błędy lub od razu przy 401), N-03 potwierdzenie akcji z menu. Czysta
 funkcja — bez D-Bus. Testy: [tests/core/test_notification_policy.py](../../../tests/core/test_notification_policy.py) —
 9 zielonych. Bez odchyleń.

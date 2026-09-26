@@ -172,9 +172,10 @@ Locale bierzemy z `user.language` (np. z `/api/users/me` albo z wpisów).
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/core/kimai_client.py](../../src/kimai_tray/core/kimai_client.py) — `KimaiClient`
+- [src/ws_tracker_tray/core/kimai_client.py](../../src/ws_tracker_tray/core/kimai_client.py) — `KimaiClient`
   (wszystkie endpointy z tabeli powyżej, stronicowanie `range`).
-- [src/kimai_tray/core/errors.py](../../src/kimai_tray/core/errors.py) — `ApiError`, zbieranie błędów formularza.
+- [src/ws_tracker_tray/core/errors.py](../../src/ws_tracker_tray/core/errors.py) — `ApiError`, zbieranie błędów
+  formularza.
 - Testy: [tests/core/test_kimai_client.py](../../tests/core/test_kimai_client.py) (MockTransport).
 
 ## Powiązane

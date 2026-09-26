@@ -6,7 +6,7 @@ utworzono: 2026-09-25 17:15
 zaktualizowano: 2026-09-25 18:49
 ---
 
-# Dokumentacja Kimai Tray
+# Dokumentacja WS Tracker Tray
 
 Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault Obsidiana.
 
@@ -15,11 +15,11 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 - [Przegląd projektu](architektura/przeglad.md) — co budujemy, dla kogo, zakres
 - [Katalog funkcji](architektura/funkcje.md) — każda funkcja opisana szczegółowo
 - [Słownik pojęć](architektura/slownik.md) — Kimai, SNI, portal, billable…
-- [Podobne aplikacje](architektura/podobne-aplikacje.md) — KimaiTray i KimTrack: różnice i co warto przejąć
+- [Podobne aplikacje](architektura/podobne-aplikacje.md) — WsTrackerTray i KimTrack: różnice i co warto przejąć
 
 ## Specyfikacja
 
-- [Specyfikacja Kimai Tray 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy,
+- [Specyfikacja WS Tracker Tray 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy,
   testy (zaakceptowana 2026-09-25)
 
 ## Plany implementacji

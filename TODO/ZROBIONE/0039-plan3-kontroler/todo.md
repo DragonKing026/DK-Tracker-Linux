@@ -65,6 +65,6 @@ Wykonać **zadanie 11** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 
 ## Wynik
 
-[app.py](../../../src/kimai_tray/ui/app.py): `Controller`; w rdzeniu `Memory.tray_hint_shown` i `Tracker.remember`.
+[app.py](../../../src/ws_tracker_tray/ui/app.py): `Controller`; w rdzeniu `Memory.tray_hint_shown` i `Tracker.remember`.
 Testy: [test_app.py](../../../tests/ui/test_app.py) — 14 zielonych,
 [test_tracker_refresh.py](../../../tests/core/test_tracker_refresh.py) +1. Bez odchyleń od planu.

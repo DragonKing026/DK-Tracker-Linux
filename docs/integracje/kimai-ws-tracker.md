@@ -46,7 +46,7 @@ wpisy” z nagłówkami dni i sumami → link „Wszystkie moje wpisy w Kimai”
 > [!warning] Zrzuty powyżej pokazują tylko motyw jasny
 > Wtyczka ma **oba motywy** i wybiera je według systemu (`@media (prefers-color-scheme: dark)`),
 > [popup/popup.css](https://github.com/websystemspl/kimai-ws-tracker/blob/main/popup/popup.css)
-> (commit `86d4594`, sprawdzone 2026-09-25 21:52). Kimai Tray robi tak samo: motyw według systemu.
+> (commit `86d4594`, sprawdzone 2026-09-25 21:52). WS Tracker Tray robi tak samo: motyw według systemu.
 
 Paleta okna (`popup.css`, zmienne `:root`):
 

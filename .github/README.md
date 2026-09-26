@@ -1,9 +1,9 @@
-# Kimai Tray
+# WS Tracker Tray
 
 Mierzenie czasu w [Kimai](https://www.kimai.org/) prosto z tacki systemowej Linuksa — bez otwierania przeglądarki.
 Natywny odpowiednik firmowej wtyczki [WS Tracker](https://github.com/websystemspl/kimai-ws-tracker).
 
-![Okno Kimai Tray przy tacce (ciemny motyw)](../docs/assets/zrzuty/okno-ciemny-motyw.png)
+![Okno WS Tracker Tray przy tacce (ciemny motyw)](../docs/assets/zrzuty/okno-ciemny-motyw.png)
 
 > **Status:** wersja **0.9.0 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
 
@@ -22,7 +22,7 @@ przy pierwszym wydaniu (0.9.0).
 
 Na GNOME ikona w tacce wymaga rozszerzenia
 [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/);
-bez niego Kimai Tray działa jako zwykłe okno.
+bez niego WS Tracker Tray działa jako zwykłe okno.
 
 ## Konfiguracja
 

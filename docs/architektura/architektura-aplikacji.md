@@ -75,24 +75,24 @@ flowchart TB
 
 | Komponent | Moduł |
 | --- | --- |
-| Klient Kimai API | [core/kimai_client.py](../../src/kimai_tray/core/kimai_client.py), [core/errors.py](../../src/kimai_tray/core/errors.py) |
-| Domena | [validation](../../src/kimai_tray/core/validation.py), [billable](../../src/kimai_tray/core/billable.py), [timefmt](../../src/kimai_tray/core/timefmt.py), [grouping](../../src/kimai_tray/core/grouping.py), [models](../../src/kimai_tray/core/models.py) |
-| Stan aplikacji (logika) | [core/tracker.py](../../src/kimai_tray/core/tracker.py) |
-| Ustawienia | [core/settings.py](../../src/kimai_tray/core/settings.py) |
-| Powiadomienia (decyzja) | [core/notification_policy.py](../../src/kimai_tray/core/notification_policy.py) |
-| Teksty | [core/i18n.py](../../src/kimai_tray/core/i18n.py), [locales/](../../src/kimai_tray/core/locales/) |
+| Klient Kimai API | [core/kimai_client.py](../../src/ws_tracker_tray/core/kimai_client.py), [core/errors.py](../../src/ws_tracker_tray/core/errors.py) |
+| Domena | [validation](../../src/ws_tracker_tray/core/validation.py), [billable](../../src/ws_tracker_tray/core/billable.py), [timefmt](../../src/ws_tracker_tray/core/timefmt.py), [grouping](../../src/ws_tracker_tray/core/grouping.py), [models](../../src/ws_tracker_tray/core/models.py) |
+| Stan aplikacji (logika) | [core/tracker.py](../../src/ws_tracker_tray/core/tracker.py) |
+| Ustawienia | [core/settings.py](../../src/ws_tracker_tray/core/settings.py) |
+| Powiadomienia (decyzja) | [core/notification_policy.py](../../src/ws_tracker_tray/core/notification_policy.py) |
+| Teksty | [core/i18n.py](../../src/ws_tracker_tray/core/i18n.py), [locales/](../../src/ws_tracker_tray/core/locales/) |
 
 ### Moduły UI (Plan 3)
 
 | Komponent | Moduł | Funkcje |
 | --- | --- | --- |
-| Stan aplikacji (UI) | [ui/state.py](../../src/kimai_tray/ui/state.py) — `AppState` | wszystkie |
-| Harmonogram, akcje, powiadomienia | [ui/app.py](../../src/kimai_tray/ui/app.py) — `Controller`, [ui/worker.py](../../src/kimai_tray/ui/worker.py) | F-02, F-12, F-20, F-21, F-22 |
-| Tray | [ui/tray.py](../../src/kimai_tray/ui/tray.py), [ui/icons.py](../../src/kimai_tray/ui/icons.py), tekst: [core/presentation.py](../../src/kimai_tray/core/presentation.py) | F-02, F-20 |
-| Okno szybkiej obsługi | [ui/popup.py](../../src/kimai_tray/ui/popup.py), [ui/form.py](../../src/kimai_tray/ui/form.py), [ui/recent.py](../../src/kimai_tray/ui/recent.py), [ui/placement.py](../../src/kimai_tray/ui/placement.py) | F-03…F-10, F-12 |
-| Okno ustawień | [ui/settings_dialog.py](../../src/kimai_tray/ui/settings_dialog.py) | F-01, F-13, F-21, F-22 |
-| Sekrety, powiadomienia, autostart | [ui/desktop_bridge.py](../../src/kimai_tray/ui/desktop_bridge.py) → [desktop/](../../src/kimai_tray/desktop/) | F-01, F-21, F-22 |
-| Start | [ui/main.py](../../src/kimai_tray/ui/main.py), [`__main__.py`](../../src/kimai_tray/__main__.py) | — |
+| Stan aplikacji (UI) | [ui/state.py](../../src/ws_tracker_tray/ui/state.py) — `AppState` | wszystkie |
+| Harmonogram, akcje, powiadomienia | [ui/app.py](../../src/ws_tracker_tray/ui/app.py) — `Controller`, [ui/worker.py](../../src/ws_tracker_tray/ui/worker.py) | F-02, F-12, F-20, F-21, F-22 |
+| Tray | [ui/tray.py](../../src/ws_tracker_tray/ui/tray.py), [ui/icons.py](../../src/ws_tracker_tray/ui/icons.py), tekst: [core/presentation.py](../../src/ws_tracker_tray/core/presentation.py) | F-02, F-20 |
+| Okno szybkiej obsługi | [ui/popup.py](../../src/ws_tracker_tray/ui/popup.py), [ui/form.py](../../src/ws_tracker_tray/ui/form.py), [ui/recent.py](../../src/ws_tracker_tray/ui/recent.py), [ui/placement.py](../../src/ws_tracker_tray/ui/placement.py) | F-03…F-10, F-12 |
+| Okno ustawień | [ui/settings_dialog.py](../../src/ws_tracker_tray/ui/settings_dialog.py) | F-01, F-13, F-21, F-22 |
+| Sekrety, powiadomienia, autostart | [ui/desktop_bridge.py](../../src/ws_tracker_tray/ui/desktop_bridge.py) → [desktop/](../../src/ws_tracker_tray/desktop/) | F-01, F-21, F-22 |
+| Start | [ui/main.py](../../src/ws_tracker_tray/ui/main.py), [`__main__.py`](../../src/ws_tracker_tray/__main__.py) | — |
 
 Wątki (GUI tylko rysuje; tracker i D-Bus mają po jednym wątku — nie są bezpieczne wątkowo):
 

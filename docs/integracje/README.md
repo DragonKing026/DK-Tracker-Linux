@@ -13,7 +13,7 @@ dokumentacji. Nową dodajesz skillem `nowa-integracja`.
 
 ```mermaid
 flowchart LR
-    APP((Kimai Tray))
+    APP((WS Tracker Tray))
     APP --> K[Kimai REST API]
     APP --> SNI[StatusNotifierItem]
     SNI --> GN[GNOME AppIndicator]

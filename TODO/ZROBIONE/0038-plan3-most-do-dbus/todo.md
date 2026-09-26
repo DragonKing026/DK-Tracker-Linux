@@ -60,6 +60,6 @@ Wykonać **zadanie 10** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 
 ## Wynik
 
-[desktop_bridge.py](../../../src/kimai_tray/ui/desktop_bridge.py): `Desktop` (jedno połączenie w wątku „desktop”),
+[desktop_bridge.py](../../../src/ws_tracker_tray/ui/desktop_bridge.py): `Desktop` (jedno połączenie w wątku „desktop”),
 `ClickListener` (osobne połączenie). Testy: [test_desktop_bridge.py](../../../tests/ui/test_desktop_bridge.py) — 3
 zielone. Bez odchyleń od planu.

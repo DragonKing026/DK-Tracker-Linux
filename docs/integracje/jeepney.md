@@ -58,8 +58,8 @@ sequenceDiagram
     end
 ```
 
-Atrybuty wyszukiwania elementu: `application=pl.websystems.KimaiTray`,
-`url=<adres Kimai>`. Etykieta: „`Kimai Tray — <adres Kimai>`”.
+Atrybuty wyszukiwania elementu: `application=pl.websystems.WsTrackerTray`,
+`url=<adres Kimai>`. Etykieta: „`WS Tracker Tray — <adres Kimai>`”.
 
 ## Sprawdzone na stacji deweloperskiej (2026-09-25)
 
@@ -100,9 +100,10 @@ Collections            → ['/org/freedesktop/secrets/collection/kdewallet']
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/desktop/secrets.py](../../src/kimai_tray/desktop/secrets.py) — `SecretServiceStore` (get/set/delete,
+- [src/ws_tracker_tray/desktop/secrets.py](../../src/ws_tracker_tray/desktop/secrets.py) — `SecretServiceStore`
+  (get/set/delete,
   odblokowanie przez prompt).
-- [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — szyna D-Bus na jeepney.
+- [src/ws_tracker_tray/desktop/bus.py](../../src/ws_tracker_tray/desktop/bus.py) — szyna D-Bus na jeepney.
 - Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 
 ## Dokumentacja

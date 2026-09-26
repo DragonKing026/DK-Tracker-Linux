@@ -39,7 +39,7 @@ flowchart LR
     U([Użytkownik]) -- klik w ikonę / menu --> APP
     subgraph Pulpit Linux
         TRAY[Tacka systemowa<br/>KDE Plasma / GNOME + AppIndicator]
-        APP[Kimai Tray<br/>Flatpak]
+        APP[WS Tracker Tray<br/>Flatpak]
         SEC[(Magazyn sekretów<br/>KWallet / GNOME Keyring)]
         PORT[Portale XDG<br/>autostart, powiadomienia]
     end

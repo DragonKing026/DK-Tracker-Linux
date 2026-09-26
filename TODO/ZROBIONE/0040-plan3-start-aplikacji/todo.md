@@ -63,8 +63,10 @@ Wykonać **zadanie 12** z [Planu 3: Interfejs Qt](../../../docs/plany/2026-09-25
 
 ## Wynik
 
-[main.py](../../../src/kimai_tray/ui/main.py) (`--hidden`, jedna instancja, logi, tłumaczenia Qt, czekanie na tackę),
-[`__main__.py`](../../../src/kimai_tray/__main__.py). Testy: [test_main.py](../../../tests/ui/test_main.py) — 6 zielonych
+[main.py](../../../src/ws_tracker_tray/ui/main.py) (`--hidden`, jedna instancja, logi, tłumaczenia Qt, czekanie na
+tackę),
+[`__main__.py`](../../../src/ws_tracker_tray/__main__.py). Testy: [test_main.py](../../../tests/ui/test_main.py) — 6
+zielonych
 (334 w całości, trzy przebiegi). Dokumentacja: [qt-pyside6](../../../docs/integracje/qt-pyside6.md),
 [architektura](../../../docs/architektura/architektura-aplikacji.md),
 [struktura](../../../docs/architektura/struktura-repozytorium.md), [AGENTS.md](../../../AGENTS.md). Bez odchyleń od

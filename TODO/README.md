@@ -89,7 +89,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0043 | [Dokumenty zgodne z markdownlint](ZROBIONE/0043-markdownlint/todo.md) | ✅ zrobione | 2026-09-25 23:45 |
 | 0044 | [Drobne uwagi z recenzji Planu 3 (ui)](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) | ✅ zrobione | 2026-09-26 10:14 |
 | 0046 | [Plan 4 · Zadanie 1: Wersja 0.9.0 i licencja w pakiecie](ZROBIONE/0046-plan4-wersja-licencja/todo.md) | ✅ zrobione | 2026-09-26 11:30 |
-| 0054 | [Podobne aplikacje: KimaiTray i KimTrack w dokumentacji](ZROBIONE/0054-podobne-aplikacje/todo.md) | ✅ zrobione | 2026-09-26 11:43 |
+| 0054 | [Podobne aplikacje: WsTrackerTray i KimTrack w dokumentacji](ZROBIONE/0054-podobne-aplikacje/todo.md) | ✅ zrobione | 2026-09-26 11:43 |
 
 <!-- tablica:end -->
 

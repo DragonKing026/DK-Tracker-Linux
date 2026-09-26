@@ -62,7 +62,8 @@ Wykonać **zadanie 4** z [Planu 2: Integracje desktopowe](../../../docs/plany/20
 
 ## Wynik
 
-[src/kimai_tray/desktop/autostart.py](../../../src/kimai_tray/desktop/autostart.py): `BackgroundPortal` (`request` przez
+[src/kimai_tray/desktop/autostart.py](../../../src/ws_tracker_tray/desktop/autostart.py): `BackgroundPortal` (`request`
+przez
 Request/Response, `set_status` z limitem `STATUS_MAX` = 96 i ignorowaniem odmowy poza piaskownicą), `BackgroundResult`.
 Testy: [tests/desktop/test_autostart.py](../../../tests/desktop/test_autostart.py) — 6 zielonych. Dokumentacja:
 [portale XDG](../../../docs/integracje/xdg-portale.md). Bez odchyleń od planu.

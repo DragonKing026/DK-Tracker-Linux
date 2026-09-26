@@ -59,6 +59,6 @@ Wykonać **zadanie 3** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Wynik
 
-[src/kimai_tray/core/models.py](../../../src/kimai_tray/core/models.py): `User`, `Customer`, `Project`, `Activity`,
+[src/kimai_tray/core/models.py](../../../src/ws_tracker_tray/core/models.py): `User`, `Customer`, `Project`, `Activity`,
 `Entry` z `from_api` (obiekty rozwinięte lub same id, brakujące pola). Testy:
 [tests/core/test_models.py](../../../tests/core/test_models.py) — 7 zielonych. Bez odchyleń.

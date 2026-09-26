@@ -59,6 +59,6 @@ Wykonać **zadanie 8** z [Planu 1: Rdzeń](../../../docs/plany/2026-09-25-plan-1
 
 ## Wynik
 
-[src/kimai_tray/core/settings.py](../../../src/kimai_tray/core/settings.py): `Settings` (normalizacja, ostrzeżenie
+[src/kimai_tray/core/settings.py](../../../src/ws_tracker_tray/core/settings.py): `Settings` (normalizacja, ostrzeżenie
 http://), `Memory`, ścieżki XDG, zapis atomowy, odporność na uszkodzony plik; token nigdy w pliku. Testy:
 [tests/core/test_settings.py](../../../tests/core/test_settings.py) — 8 zielonych. Bez odchyleń.

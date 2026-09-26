@@ -12,10 +12,10 @@ zaktualizowano: 2026-09-26 11:29
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or
 > superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Wydać Kimai Tray 0.9.0 (beta) jako Flatpak: paczka `.flatpak` budowana lokalnie i przez GitHub Actions,
+**Goal:** Wydać WS Tracker Tray 0.9.0 (beta) jako Flatpak: paczka `.flatpak` budowana lokalnie i przez GitHub Actions,
 podpisane repozytorium Flatpaka na GitHub Pages z automatycznymi aktualizacjami, licencja AGPL-3.0-or-later.
 
-**Architecture:** Jeden manifest (`flatpak/pl.websystems.KimaiTray.yml`: runtime `org.kde.Platform` 6.11, baza
+**Architecture:** Jeden manifest (`flatpak/pl.websystems.WsTrackerTray.yml`: runtime `org.kde.Platform` 6.11, baza
 `io.qt.PySide.BaseApp`, moduły `layer-shell-qt` i zależności Pythona) budowany zawsze w tym samym obrazie
 `ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11` — lokalnie (`flatpak/buduj.sh`) i w CI (`wydanie.yml`).
 Po tagu `v<wersja>` CI podpisuje repozytorium OSTree kluczem GPG, publikuje je na GitHub Pages z plikami
@@ -36,7 +36,8 @@ decyzje: [zadanie 0045](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md)
 
 - Pracujemy na `main`, małe commity po polsku z `Co-Authored-By`. **Push, tagi, sekrety GitHuba i ustawienia Pages —
   tylko za wyraźną zgodą użytkownika w danej chwili** (zadanie 8).
-- Identyfikator `pl.websystems.KimaiTray`, nazwa „Kimai Tray”, wersja **0.9.0**, licencja **AGPL-3.0-or-later**.
+- Identyfikator `pl.websystems.WsTrackerTray`, nazwa „WS Tracker Tray”, wersja **0.9.0**, licencja
+  **AGPL-3.0-or-later**.
 - Uprawnienia dokładnie ze specyfikacji (sekcja 8): `--share=network`, `--share=ipc`, `--socket=wayland`,
   `--socket=fallback-x11`, `--device=dri`, `--talk-name=org.kde.StatusNotifierWatcher`,
   `--talk-name=org.freedesktop.secrets`.
@@ -44,7 +45,7 @@ decyzje: [zadanie 0045](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md)
   flatpak#6818 z Fedory 44).
 - Repozytorium kodu jest publiczne; adres Pages: `https://dragonking026.github.io/Kimai-App--Linux-`.
 - Klucz prywatny GPG nigdy w repozytorium ani w logach — tylko sekret `FLATPAK_GPG_PRIVATE_KEY`; w repo wyłącznie
-  klucz publiczny `flatpak/kimai-tray-repo.gpg`.
+  klucz publiczny `flatpak/ws-tracker-tray-repo.gpg`.
 - Każdy plik `.md` bez uwag markdownlint; pliki w `.github/` bez frontmattera.
 - Przed commitem: `mdfix.py sprawdz`, `ruff format`, `ruff check`, `pytest`.
 
@@ -59,24 +60,24 @@ decyzje: [zadanie 0045](../../TODO/W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md)
 4. **Aplikacja zainstalowana z pliku `.flatpak`** nie dostaje aktualizacji z Pages (inne źródło). Instrukcja w
    `docs/procesy/wydania.md` i README (zadanie 7): odinstaluj, zainstaluj z `.flatpakref`; sprawdzone w
    zadaniu 8.
-5. **Wersja deweloperska przesłania Flatpak** (ten sam `pl.websystems.KimaiTray.desktop` w `~/.local/share`) —
+5. **Wersja deweloperska przesłania Flatpak** (ten sam `pl.websystems.WsTrackerTray.desktop` w `~/.local/share`) —
    `scripts/instaluj-dev.sh --usun` przed instalacją paczki (zadanie 7, instrukcja; zadanie 8, sprawdzenie).
 
 ## Struktura plików
 
 ```text
 LICENSE                                        (już w repo) AGPL-3.0 — tekst z gnu.org
-pyproject.toml, src/kimai_tray/__init__.py     zadanie 1   wersja 0.9.0, licencja, pyyaml/packaging w dev
+pyproject.toml, src/ws_tracker_tray/__init__.py     zadanie 1   wersja 0.9.0, licencja, pyyaml/packaging w dev
 tests/test_pakiet.py                           zadania 1–3, 6, 8   spójność paczki
-data/pl.websystems.KimaiTray.metainfo.xml      zadanie 2   AppStream (PL/EN), wydanie 0.9.0
-flatpak/pl.websystems.KimaiTray.yml            zadanie 3   manifest
+data/pl.websystems.WsTrackerTray.metainfo.xml      zadanie 2   AppStream (PL/EN), wydanie 0.9.0
+flatpak/pl.websystems.WsTrackerTray.yml            zadanie 3   manifest
 flatpak/python3-deps.yaml                      zadanie 3   httpx + jeepney (flatpak-pip-generator)
 flatpak/buduj.sh                               zadanie 4   budowa w kontenerze, walidacja, lint, --zainstaluj
 flatpak/pages.py, tests/test_strona_repo.py    zadanie 5   .flatpakrepo, .flatpakref, index.html
 flatpak/publikuj.sh, flatpak/klucz-gpg.sh      zadanie 5   podpis i strona repozytorium; klucz
 .github/workflows/testy.yml, wydanie.yml       zadanie 6   CI i wydanie
 docs/procesy/wydania.md, .github/README.md     zadanie 7   proces wydania, instalacja
-flatpak/kimai-tray-repo.gpg                    zadanie 8   klucz publiczny (pierwsze wydanie)
+flatpak/ws-tracker-tray-repo.gpg                    zadanie 8   klucz publiczny (pierwsze wydanie)
 ```
 
 ```mermaid
@@ -95,13 +96,13 @@ flowchart LR
 
 **Files:**
 
-- Modify: `pyproject.toml`, `src/kimai_tray/__init__.py`, `tests/core/test_package.py`
+- Modify: `pyproject.toml`, `src/ws_tracker_tray/__init__.py`, `tests/core/test_package.py`
 - Create: `tests/test_pakiet.py`
 
 **Interfaces:**
 
 - Consumes: `LICENSE` (już w repozytorium, commit „chore: licencja AGPL-3.0-or-later”).
-- Produces: `kimai_tray.__version__ == "0.9.0"`; w `tests/test_pakiet.py`: `ROOT`, `APP_ID`, `PYPROJECT`, `LANG`,
+- Produces: `ws_tracker_tray.__version__ == "0.9.0"`; w `tests/test_pakiet.py`: `ROOT`, `APP_ID`, `PYPROJECT`, `LANG`,
   `metainfo()`, `desktop_entry()` — używane w zadaniach 2, 3, 6, 8.
 
 - [ ] **Step 1: Napisz testy (padające)** — `tests/test_pakiet.py`:
@@ -117,10 +118,10 @@ import tomllib
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-import kimai_tray
+import ws_tracker_tray
 
 ROOT = Path(__file__).resolve().parents[1]
-APP_ID = "pl.websystems.KimaiTray"
+APP_ID = "pl.websystems.WsTrackerTray"
 PYPROJECT = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["project"]
 LANG = "{http://www.w3.org/XML/1998/namespace}lang"
 
@@ -135,7 +136,7 @@ def desktop_entry() -> dict[str, str]:
 
 
 def test_version_is_the_same_everywhere():
-    assert PYPROJECT["version"] == kimai_tray.__version__ == "0.9.0"
+    assert PYPROJECT["version"] == ws_tracker_tray.__version__ == "0.9.0"
 
 
 def test_licence_is_agpl():
@@ -167,7 +168,7 @@ license-files = ["LICENSE"]
 dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "pytest-qt>=4.4", "pyyaml>=6", "packaging>=24"]
 ```
 
-(pola `license` i `license-files` pod `description`; resztę sekcji zostaw). W `src/kimai_tray/__init__.py`:
+(pola `license` i `license-files` pod `description`; resztę sekcji zostaw). W `src/ws_tracker_tray/__init__.py`:
 `__version__ = "0.9.0"`. Potem `.venv/bin/pip install -e ".[dev,ui]"` (dochodzą `pyyaml`, `packaging`).
 
 - [ ] **Step 4: Uruchom — mają przejść**
@@ -179,7 +180,7 @@ Expected: całość zielona — 399 passed, 1 skipped (397 + 2 nowe testy).
 
 ```bash
 python3 .claude/skills/markdownlint/mdfix.py sprawdz && .venv/bin/ruff format . && .venv/bin/ruff check . && .venv/bin/pytest
-git add pyproject.toml src/kimai_tray/__init__.py tests/core/test_package.py tests/test_pakiet.py
+git add pyproject.toml src/ws_tracker_tray/__init__.py tests/core/test_package.py tests/test_pakiet.py
 git commit -m "build: wersja 0.9.0 i licencja AGPL-3.0-or-later w pakiecie" -m "Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ```
 
@@ -189,9 +190,9 @@ git commit -m "build: wersja 0.9.0 i licencja AGPL-3.0-or-later w pakiecie" -m "
 
 **Files:**
 
-- Create: `data/pl.websystems.KimaiTray.metainfo.xml`
+- Create: `data/pl.websystems.WsTrackerTray.metainfo.xml`
 - Modify: `tests/test_pakiet.py`
-- Uses: `data/pl.websystems.KimaiTray.desktop`, `docs/assets/zrzuty/okno-ciemny-motyw.png` (już w repozytorium)
+- Uses: `data/pl.websystems.WsTrackerTray.desktop`, `docs/assets/zrzuty/okno-ciemny-motyw.png` (już w repozytorium)
 
 **Interfaces:**
 
@@ -206,14 +207,14 @@ git commit -m "build: wersja 0.9.0 i licencja AGPL-3.0-or-later w pakiecie" -m "
 
 def test_metainfo_release_and_licence_match_the_package():
     root = metainfo()
-    assert root.find("releases/release").get("version") == kimai_tray.__version__
+    assert root.find("releases/release").get("version") == ws_tracker_tray.__version__
     assert root.findtext("project_license") == PYPROJECT["license"]
 
 
 def test_metainfo_names_the_app_in_both_languages():
     root = metainfo()
     assert root.findtext("id") == APP_ID
-    assert root.findtext("name") == "Kimai Tray"
+    assert root.findtext("name") == "WS Tracker Tray"
     summaries = {s.get(LANG, "en"): s.text for s in root.findall("summary")}
     assert set(summaries) == {"en", "pl"}
     assert root.find("launchable").text == f"{APP_ID}.desktop"
@@ -228,10 +229,10 @@ def test_screenshot_points_to_a_file_in_this_repository():
 
 def test_desktop_entry_starts_the_installed_command():
     entry = desktop_entry()
-    assert entry["Exec"] == "kimai-tray"
-    assert "kimai-tray" in PYPROJECT["scripts"]
+    assert entry["Exec"] == "ws-tracker-tray"
+    assert "ws-tracker-tray" in PYPROJECT["scripts"]
     assert entry["Icon"] == APP_ID
-    assert entry["Name"] == "Kimai Tray"
+    assert entry["Name"] == "WS Tracker Tray"
 ```
 
 - [ ] **Step 2: Uruchom — mają paść**
@@ -241,16 +242,16 @@ Expected: 3 FAIL (`FileNotFoundError` — brak pliku MetaInfo); `test_desktop_en
 
 - [ ] **Step 3: Zaimplementuj**
 
-`data/pl.websystems.KimaiTray.metainfo.xml` — opis PL/EN, wydawca Web Systems, zrzut z repozytorium; sprawdzone
+`data/pl.websystems.WsTrackerTray.metainfo.xml` — opis PL/EN, wydawca Web Systems, zrzut z repozytorium; sprawdzone
 `appstreamcli validate` (próba budowy):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>pl.websystems.KimaiTray</id>
+  <id>pl.websystems.WsTrackerTray</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>AGPL-3.0-or-later</project_license>
-  <name>Kimai Tray</name>
+  <name>WS Tracker Tray</name>
   <summary>Track your Kimai time from the system tray</summary>
   <summary xml:lang="pl">Mierzenie czasu w Kimai z tacki systemowej</summary>
   <developer id="pl.websystems">
@@ -268,7 +269,7 @@ Expected: 3 FAIL (`FileNotFoundError` — brak pliku MetaInfo); `test_desktop_en
       <li xml:lang="pl">Token API trzymany w portfelu systemu</li>
     </ul>
   </description>
-  <launchable type="desktop-id">pl.websystems.KimaiTray.desktop</launchable>
+  <launchable type="desktop-id">pl.websystems.WsTrackerTray.desktop</launchable>
   <url type="homepage">https://github.com/DragonKing026/Kimai-App--Linux-</url>
   <url type="bugtracker">https://github.com/DragonKing026/Kimai-App--Linux-/issues</url>
   <screenshots>
@@ -279,7 +280,7 @@ Expected: 3 FAIL (`FileNotFoundError` — brak pliku MetaInfo); `test_desktop_en
   </screenshots>
   <content_rating type="oars-1.1"/>
   <provides>
-    <binary>kimai-tray</binary>
+    <binary>ws-tracker-tray</binary>
   </provides>
   <supports>
     <control>pointing</control>
@@ -304,7 +305,7 @@ Expected: 403 passed, 1 skipped.
 
 ```bash
 python3 .claude/skills/markdownlint/mdfix.py sprawdz && .venv/bin/ruff format . && .venv/bin/ruff check . && .venv/bin/pytest
-git add data/pl.websystems.KimaiTray.metainfo.xml tests/test_pakiet.py
+git add data/pl.websystems.WsTrackerTray.metainfo.xml tests/test_pakiet.py
 git commit -m "feat(flatpak): MetaInfo AppStream — opis PL/EN i wydanie 0.9.0" -m "Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ```
 
@@ -314,14 +315,15 @@ git commit -m "feat(flatpak): MetaInfo AppStream — opis PL/EN i wydanie 0.9.0"
 
 **Files:**
 
-- Create: `flatpak/pl.websystems.KimaiTray.yml`, `flatpak/python3-deps.yaml`
+- Create: `flatpak/pl.websystems.WsTrackerTray.yml`, `flatpak/python3-deps.yaml`
 - Modify: `tests/test_pakiet.py`
 
 **Interfaces:**
 
-- Consumes: `kimai_tray.ui.desktop_bridge.AUTOSTART_COMMAND` (`["kimai-tray", "--hidden"]`), MetaInfo (zadanie 2),
-  `data/pl.websystems.KimaiTray.desktop`, `src/kimai_tray/ui/assets/kimai.png`.
-- Produces: manifest `flatpak/pl.websystems.KimaiTray.yml` (budują go zadania 4 i 6); `manifest()` w testach.
+- Consumes: `ws_tracker_tray.ui.desktop_bridge.AUTOSTART_COMMAND` (`["ws-tracker-tray", "--hidden"]`), MetaInfo (zadanie
+  2),
+  `data/pl.websystems.WsTrackerTray.desktop`, `src/ws_tracker_tray/ui/assets/kimai.png`.
+- Produces: manifest `flatpak/pl.websystems.WsTrackerTray.yml` (budują go zadania 4 i 6); `manifest()` w testach.
 
 - [ ] **Step 1: Napisz testy (padające)** — Na końcu `tests/test_pakiet.py` dopisz:
 
@@ -356,9 +358,9 @@ def test_permissions_are_exactly_those_of_the_specification():
 
 
 def test_autostart_runs_the_command_the_manifest_installs():
-    from kimai_tray.ui.desktop_bridge import AUTOSTART_COMMAND
+    from ws_tracker_tray.ui.desktop_bridge import AUTOSTART_COMMAND
 
-    assert manifest()["command"] == AUTOSTART_COMMAND[0] == "kimai-tray"
+    assert manifest()["command"] == AUTOSTART_COMMAND[0] == "ws-tracker-tray"
 
 
 def test_bundled_python_libraries_satisfy_pyproject():
@@ -382,7 +384,7 @@ def test_bundled_python_libraries_satisfy_pyproject():
 
 
 def test_build_does_not_copy_the_virtualenv_or_git():
-    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "kimai-tray")
+    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "ws-tracker-tray")
     skipped = set(app["sources"][0]["skip"])
     assert {".venv", ".git"} <= skipped
 ```
@@ -394,17 +396,17 @@ Expected: 5 FAIL (`FileNotFoundError` — brak manifestu).
 
 - [ ] **Step 3: Zaimplementuj**
 
-`flatpak/pl.websystems.KimaiTray.yml`:
+`flatpak/pl.websystems.WsTrackerTray.yml`:
 
 ```yaml
-# Kimai Tray as a Flatpak. Built in the flathub-infra container (flatpak/buduj.sh, GitHub Actions).
-id: pl.websystems.KimaiTray
+# WS Tracker Tray as a Flatpak. Built in the flathub-infra container (flatpak/buduj.sh, GitHub Actions).
+id: pl.websystems.WsTrackerTray
 runtime: org.kde.Platform
 runtime-version: '6.11'
 sdk: org.kde.Sdk
 base: io.qt.PySide.BaseApp
 base-version: '6.11'
-command: kimai-tray
+command: ws-tracker-tray
 finish-args:
   - --share=network # only the Kimai address the user types (no telemetry)
   - --share=ipc
@@ -430,13 +432,13 @@ modules:
         url: https://download.kde.org/stable/plasma/6.7.5/layer-shell-qt-6.7.5.tar.xz
         sha256: ccdcfec7081ca956f7a52c9113a4df3a226575bfbe98b56a2a9a4d7d7e19e8f0
   - python3-deps.yaml
-  - name: kimai-tray
+  - name: ws-tracker-tray
     buildsystem: simple
     build-commands:
       - pip3 install --no-index --no-deps --no-build-isolation --prefix=${FLATPAK_DEST} .
-      - install -Dm644 data/pl.websystems.KimaiTray.desktop -t ${FLATPAK_DEST}/share/applications
-      - install -Dm644 data/pl.websystems.KimaiTray.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
-      - install -Dm644 src/kimai_tray/ui/assets/kimai.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/pl.websystems.KimaiTray.png
+      - install -Dm644 data/pl.websystems.WsTrackerTray.desktop -t ${FLATPAK_DEST}/share/applications
+      - install -Dm644 data/pl.websystems.WsTrackerTray.metainfo.xml -t ${FLATPAK_DEST}/share/metainfo
+      - install -Dm644 src/ws_tracker_tray/ui/assets/kimai.png ${FLATPAK_DEST}/share/icons/hicolor/512x512/apps/pl.websystems.WsTrackerTray.png
     sources:
       - type: dir
         path: ..
@@ -506,7 +508,7 @@ Expected: 408 passed, 1 skipped.
 
 ```bash
 python3 .claude/skills/markdownlint/mdfix.py sprawdz && .venv/bin/ruff format . && .venv/bin/ruff check . && .venv/bin/pytest
-git add flatpak/pl.websystems.KimaiTray.yml flatpak/python3-deps.yaml tests/test_pakiet.py
+git add flatpak/pl.websystems.WsTrackerTray.yml flatpak/python3-deps.yaml tests/test_pakiet.py
 git commit -m "feat(flatpak): manifest — KDE 6.11, baza PySide, layer-shell-qt, httpx i jeepney" -m "Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>"
 ```
 
@@ -523,7 +525,8 @@ git commit -m "feat(flatpak): manifest — KDE 6.11, baza PySide, layer-shell-qt
 **Interfaces:**
 
 - Consumes: manifest (zadanie 3), MetaInfo (zadanie 2), `pyproject.toml` (wersja).
-- Produces: `dist/pl.websystems.KimaiTray-<wersja>.flatpak`; repozytorium OSTree i cache w `~/.cache/kimai-tray-flatpak`
+- Produces: `dist/pl.websystems.WsTrackerTray-<wersja>.flatpak`; repozytorium OSTree i cache w
+  `~/.cache/ws-tracker-tray-flatpak`
   (`repo/` — używa go próba publikacji w zadaniu 5); stała `IMAGE` (sprawdzana w zadaniu 6).
 
 - [ ] **Step 1: Skrypt**
@@ -534,17 +537,17 @@ git commit -m "feat(flatpak): manifest — KDE 6.11, baza PySide, layer-shell-qt
 #!/usr/bin/env bash
 # Build the Flatpak in the same container GitHub Actions uses, then check it and (optionally) install it.
 #
-#   flatpak/buduj.sh              → dist/pl.websystems.KimaiTray-<version>.flatpak (+ OSTree repo in the cache)
+#   flatpak/buduj.sh              → dist/pl.websystems.WsTrackerTray-<version>.flatpak (+ OSTree repo in the cache)
 #   flatpak/buduj.sh --zainstaluj → the same, then `flatpak install --user --bundle` on this computer
 #
 # Why a container: Fedora 44's Flatpak 1.18.2 cannot build with a `base:` app (flatpak#6818, ADR-0006);
 # the flathub-infra image carries Flatpak 1.18.1 and the KDE 6.11 SDK, plus appstreamcli and the linter.
-# Downloads (runtime, PySide base) and build state are cached in ~/.cache/kimai-tray-flatpak.
+# Downloads (runtime, PySide base) and build state are cached in ~/.cache/ws-tracker-tray-flatpak.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-APP=pl.websystems.KimaiTray
+APP=pl.websystems.WsTrackerTray
 IMAGE=ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11
-CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/kimai-tray-flatpak"
+CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/ws-tracker-tray-flatpak"
 VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' "$ROOT/pyproject.toml")"
 BUNDLE="$APP-$VERSION.flatpak"
 # Findings that only matter for Flathub, not for our own repository on GitHub Pages:
@@ -590,7 +593,7 @@ fi
 
 Run: `flatpak/buduj.sh` (Docker, poza piaskownicą Claude; pierwszy raz ok. 15 min — pobiera runtime i bazę PySide)
 Expected: `✔ Validation was successful`, `lint manifest: OK`, `lint repo: OK`,
-`Paczka: …/dist/pl.websystems.KimaiTray-0.9.0.flatpak` (ok. 70 MB).
+`Paczka: …/dist/pl.websystems.WsTrackerTray-0.9.0.flatpak` (ok. 70 MB).
 
 - [ ] **Step 3: Sprawdź skrypt** — `docker run --rm -v "$PWD":/mnt -w /mnt koalaman/shellcheck:stable flatpak/buduj.sh`
   → brak uwag.
@@ -664,16 +667,16 @@ def parse(text: str, section: str) -> dict[str, str]:
 def test_repo_file_lets_flatpak_add_the_remote():
     data = parse(pages.flatpakrepo(URL, KEY), "Flatpak Repo")
     assert data["Url"] == f"{URL}/repo/"
-    assert data["Title"] == "Kimai Tray"
+    assert data["Title"] == "WS Tracker Tray"
     assert base64.b64decode(data["GPGKey"]) == KEY
     assert data["RuntimeRepo"] == "https://dl.flathub.org/repo/flathub.flatpakrepo"
 
 
 def test_ref_file_installs_the_app_from_that_remote():
     data = parse(pages.flatpakref(URL, KEY), "Flatpak Ref")
-    assert (data["Name"], data["Branch"], data["IsRuntime"]) == ("pl.websystems.KimaiTray", "master", "false")
+    assert (data["Name"], data["Branch"], data["IsRuntime"]) == ("pl.websystems.WsTrackerTray", "master", "false")
     assert data["Url"] == f"{URL}/repo/"
-    assert data["SuggestRemoteName"] == "kimai-tray"
+    assert data["SuggestRemoteName"] == "ws-tracker-tray"
     assert base64.b64decode(data["GPGKey"]) == KEY
 
 
@@ -682,9 +685,9 @@ def test_site_writes_both_files_and_an_index(tmp_path):
     key.write_bytes(KEY)
     pages.write_site(tmp_path / "site", URL + "/", key)
     names = sorted(path.name for path in (tmp_path / "site").iterdir())
-    assert names == ["index.html", "kimai-tray.flatpakrepo", "pl.websystems.KimaiTray.flatpakref"]
+    assert names == ["index.html", "ws-tracker-tray.flatpakrepo", "pl.websystems.WsTrackerTray.flatpakref"]
     index = (tmp_path / "site" / "index.html").read_text(encoding="utf-8")
-    assert f"flatpak install --user {URL}/pl.websystems.KimaiTray.flatpakref" in index
+    assert f"flatpak install --user {URL}/pl.websystems.WsTrackerTray.flatpakref" in index
 ```
 
 - [ ] **Step 2: Uruchom — mają paść**
@@ -701,8 +704,8 @@ Expected: błąd — brak `flatpak/pages.py`.
 
     python3 flatpak/pages.py <site-dir> <base-url> <public-key.gpg>
 
-writes <site-dir>/kimai-tray.flatpakrepo (adds the remote, updates come through Discover or GNOME
-Software), <site-dir>/pl.websystems.KimaiTray.flatpakref (installs the app in one command) and a
+writes <site-dir>/ws-tracker-tray.flatpakrepo (adds the remote, updates come through Discover or GNOME
+Software), <site-dir>/pl.websystems.WsTrackerTray.flatpakref (installs the app in one command) and a
 small index.html. The repository itself goes to <site-dir>/repo (flatpak/publikuj.sh copies it).
 Format: https://docs.flatpak.org/en/latest/flatpak-command-reference.html (.flatpakrepo, .flatpakref).
 """
@@ -714,9 +717,9 @@ import html
 import sys
 from pathlib import Path
 
-APP_ID = "pl.websystems.KimaiTray"
-TITLE = "Kimai Tray"
-REMOTE = "kimai-tray"
+APP_ID = "pl.websystems.WsTrackerTray"
+TITLE = "WS Tracker Tray"
+REMOTE = "ws-tracker-tray"
 BRANCH = "master"  # flatpak-builder's default branch; the GitHub action builds it too
 FLATHUB = "https://dl.flathub.org/repo/flathub.flatpakrepo"  # where the KDE runtime and PySide base come from
 
@@ -791,10 +794,10 @@ if __name__ == "__main__":
 #
 # Runs inside the flathub-infra container (GitHub Actions: wydanie.yml; locally for a dry run).
 # The app commit is signed (again — idempotent) and the summary too, so `flatpak` on people's
-# computers verifies everything with the public key in flatpak/kimai-tray-repo.gpg.
+# computers verifies everything with the public key in flatpak/ws-tracker-tray-repo.gpg.
 set -euo pipefail
 REPO="$1"; SITE="$2"; URL="$3"; KEY="$4"; HOMEDIR="${5:-}"
-APP=pl.websystems.KimaiTray
+APP=pl.websystems.WsTrackerTray
 HERE="$(cd "$(dirname "$0")" && pwd)"
 GPG=(--gpg-sign="$KEY")
 [[ -n "$HOMEDIR" ]] && GPG+=(--gpg-homedir="$HOMEDIR")
@@ -812,7 +815,7 @@ flatpak build-update-repo "${GPG[@]}" --generate-static-deltas --prune "$REPO"
 mkdir -p "$SITE"
 rm -rf "$SITE/repo"
 cp -a "$REPO" "$SITE/repo"
-python3 "$HERE/pages.py" "$SITE" "$URL" "$HERE/kimai-tray-repo.gpg"
+python3 "$HERE/pages.py" "$SITE" "$URL" "$HERE/ws-tracker-tray-repo.gpg"
 echo "Strona repozytorium: $SITE ($URL)"
 ```
 
@@ -825,22 +828,22 @@ echo "Strona repozytorium: $SITE ($URL)"
 #   flatpak/klucz-gpg.sh
 #
 # Creates the key in a throwaway GnuPG home (your own keyring stays untouched), writes the PUBLIC key
-# to flatpak/kimai-tray-repo.gpg (committed — it goes into .flatpakrepo/.flatpakref) and the PRIVATE key
-# to ~/kimai-tray-repo-private.asc for the GitHub secret FLATPAK_GPG_PRIVATE_KEY. Then delete that file.
+# to flatpak/ws-tracker-tray-repo.gpg (committed — it goes into .flatpakrepo/.flatpakref) and the PRIVATE key
+# to ~/ws-tracker-tray-repo-private.asc for the GitHub secret FLATPAK_GPG_PRIVATE_KEY. Then delete that file.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
-PRIVATE="$HOME/kimai-tray-repo-private.asc"
+PRIVATE="$HOME/ws-tracker-tray-repo-private.asc"
 [[ -e "$PRIVATE" ]] && { echo "$PRIVATE już istnieje — nie nadpisuję." >&2; exit 1; }
 HOMEDIR="$(mktemp -d)"
 trap 'rm -rf "$HOMEDIR"' EXIT
 export GNUPGHOME="$HOMEDIR"
 gpg --batch --pinentry-mode loopback --passphrase '' \
-  --quick-gen-key "Kimai Tray Flatpak repository <kimai-tray@users.noreply.github.com>" rsa4096 sign never
+  --quick-gen-key "WS Tracker Tray Flatpak repository <ws-tracker-tray@users.noreply.github.com>" rsa4096 sign never
 KEY_ID="$(gpg --list-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}')"
-gpg --export "$KEY_ID" > "$HERE/kimai-tray-repo.gpg"
+gpg --export "$KEY_ID" > "$HERE/ws-tracker-tray-repo.gpg"
 ( umask 077; gpg --armor --export-secret-keys "$KEY_ID" > "$PRIVATE" )
 echo "Klucz: $KEY_ID"
-echo "Publiczny: $HERE/kimai-tray-repo.gpg (do commita)"
+echo "Publiczny: $HERE/ws-tracker-tray-repo.gpg (do commita)"
 echo "Prywatny:  $PRIVATE → gh secret set FLATPAK_GPG_PRIVATE_KEY < \"$PRIVATE\" && shred -u \"$PRIVATE\""
 ```
 
@@ -854,18 +857,18 @@ Expected: 411 passed, 1 skipped.
 - [ ] **Step 5: Próba na sucho w kontenerze** (tymczasowy klucz, repozytorium z zadania 4):
 
 ```bash
-docker run --rm --privileged -v "$PWD":/src:ro -v ~/.cache/kimai-tray-flatpak:/work:ro \
+docker run --rm --privileged -v "$PWD":/src:ro -v ~/.cache/ws-tracker-tray-flatpak:/work:ro \
   ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11 bash -euo pipefail -c '
 export GNUPGHOME=$(mktemp -d)
 gpg --batch --pinentry-mode loopback --passphrase "" --quick-gen-key "Test <t@example.com>" rsa2048 sign never
 KEY=$(gpg --list-keys --with-colons | awk -F: "/^fpr/ {print \$10; exit}")
-mkdir /tmp/f && cp -a /src/flatpak/. /tmp/f/ && gpg --export $KEY > /tmp/f/kimai-tray-repo.gpg
+mkdir /tmp/f && cp -a /src/flatpak/. /tmp/f/ && gpg --export $KEY > /tmp/f/ws-tracker-tray-repo.gpg
 cp -a /work/repo /tmp/repo
 /tmp/f/publikuj.sh /tmp/repo /tmp/site http://127.0.0.1:8765 $KEY "$GNUPGHOME"
 cd /tmp/site && (python3 -m http.server 8765 >/dev/null 2>&1 &) && sleep 1
 export HOME=/tmp/home; mkdir -p $HOME
 flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install --user -y --noninteractive http://127.0.0.1:8765/pl.websystems.KimaiTray.flatpakref
+flatpak install --user -y --noninteractive http://127.0.0.1:8765/pl.websystems.WsTrackerTray.flatpakref
 flatpak update --user -y --noninteractive'
 ```
 
@@ -894,7 +897,7 @@ git commit -m "feat(flatpak): podpisane repozytorium dla GitHub Pages — .flatp
 **Interfaces:**
 
 - Consumes: `flatpak/buduj.sh` (`IMAGE`), manifest, `flatpak/publikuj.sh`, sekret `FLATPAK_GPG_PRIVATE_KEY`.
-- Produces: wydanie po tagu `v*`: paczka `pl.websystems.KimaiTray-<tag>.flatpak` w wydaniu GitHuba, strona Pages.
+- Produces: wydanie po tagu `v*`: paczka `pl.websystems.WsTrackerTray-<tag>.flatpak` w wydaniu GitHuba, strona Pages.
 
 - [ ] **Step 1: Napisz testy (padające)** — Na końcu `tests/test_pakiet.py` dopisz:
 
@@ -1010,8 +1013,8 @@ jobs:
       - name: Budowa Flatpaka
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          manifest-path: flatpak/pl.websystems.KimaiTray.yml
-          bundle: pl.websystems.KimaiTray-${{ github.ref_name }}.flatpak
+          manifest-path: flatpak/pl.websystems.WsTrackerTray.yml
+          bundle: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
           gpg-sign: ${{ steps.gpg.outputs.fingerprint }}
       - name: Repozytorium Flatpak dla GitHub Pages
         run: >-
@@ -1023,7 +1026,7 @@ jobs:
       - name: Wydanie na GitHubie z paczką
         uses: softprops/action-gh-release@v2
         with:
-          files: pl.websystems.KimaiTray-${{ github.ref_name }}.flatpak
+          files: pl.websystems.WsTrackerTray-${{ github.ref_name }}.flatpak
           generate_release_notes: true
           prerelease: ${{ startsWith(github.ref_name, 'v0.') }}
   pages:
@@ -1081,17 +1084,18 @@ git commit -m "ci: testy na każdy push i wydanie Flatpaka po tagu wersji" -m "C
 - Produces: instrukcje, według których zadanie 8 robi pierwsze wydanie.
 
 - [ ] **Step 1: `docs/procesy/wydania.md`** — treść:
-  1. **Jednorazowo:** `flatpak/klucz-gpg.sh` → commit `flatpak/kimai-tray-repo.gpg`; `gh secret set
+  1. **Jednorazowo:** `flatpak/klucz-gpg.sh` → commit `flatpak/ws-tracker-tray-repo.gpg`; `gh secret set
      FLATPAK_GPG_PRIVATE_KEY <
-     ~/kimai-tray-repo-private.asc` i `shred -u` pliku; GitHub → Settings → Pages → Source: **GitHub Actions**.
-  2. **Każde wydanie:** wersja w `pyproject.toml` i `src/kimai_tray/__init__.py`; nowy `<release version date>` na
+     ~/ws-tracker-tray-repo-private.asc` i `shred -u` pliku; GitHub → Settings → Pages → Source: **GitHub Actions**.
+  2. **Każde wydanie:** wersja w `pyproject.toml` i `src/ws_tracker_tray/__init__.py`; nowy `<release version date>` na
      początku `<releases>` w MetaInfo (lista zmian po angielsku, zdanie po polsku w commicie); `pytest` (test
      spójności wersji); commit; `git tag v<wersja>`; `git push origin main v<wersja>` (za zgodą); śledzenie
      `gh run watch`; sprawdzenie strony i wydania.
   3. **Instalacja dla ludzi:** `flatpak install --user
-     https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.KimaiTray.flatpakref`
+     https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.WsTrackerTray.flatpakref`
      (aktualizacje przez Discover / GNOME Software / `flatpak update`); plik `.flatpak` z wydania — tylko bez dostępu do
-     repozytorium (bez aktualizacji); przejście z pliku na repozytorium: `flatpak uninstall pl.websystems.KimaiTray`,
+     repozytorium (bez aktualizacji); przejście z pliku na repozytorium:
+     `flatpak uninstall pl.websystems.WsTrackerTray`,
      potem instalacja z `.flatpakref` (ustawienia w `~/.var/app` zostają).
   4. **Wersja deweloperska a Flatpak:** `scripts/instaluj-dev.sh --usun` przed instalacją paczki (ten sam
      identyfikator).
@@ -1112,7 +1116,7 @@ git commit -m "ci: testy na każdy push i wydanie Flatpaka po tagu wersji" -m "C
 
 **Files:**
 
-- Create: `flatpak/kimai-tray-repo.gpg` (klucz publiczny)
+- Create: `flatpak/ws-tracker-tray-repo.gpg` (klucz publiczny)
 - Modify: `tests/test_pakiet.py`
 
 **Interfaces:**
@@ -1127,27 +1131,29 @@ git commit -m "ci: testy na każdy push i wydanie Flatpaka po tagu wersji" -m "C
 
 
 def test_repository_signing_key_is_public_only():
-    key = ROOT / "flatpak" / "kimai-tray-repo.gpg"
+    key = ROOT / "flatpak" / "ws-tracker-tray-repo.gpg"
     assert key.is_file()
     assert b"PRIVATE KEY" not in key.read_bytes()
 ```
 
-Run: `.venv/bin/pytest tests/test_pakiet.py -q` → 1 FAIL (brak `flatpak/kimai-tray-repo.gpg`).
+Run: `.venv/bin/pytest tests/test_pakiet.py -q` → 1 FAIL (brak `flatpak/ws-tracker-tray-repo.gpg`).
 
 - [ ] **Step 2: Klucz** — `flatpak/klucz-gpg.sh` (**za zgodą użytkownika**: plik prywatny powstaje w jego `~`);
   `.venv/bin/pytest -q` → 414 passed, 1 skipped; commit klucza publicznego i testu.
 - [ ] **Step 3: Sekret i Pages — za zgodą użytkownika w tej chwili:**
-  `gh secret set FLATPAK_GPG_PRIVATE_KEY < ~/kimai-tray-repo-private.asc && shred -u ~/kimai-tray-repo-private.asc`;
+  `gh secret set FLATPAK_GPG_PRIVATE_KEY < ~/ws-tracker-tray-repo-private.asc && shred -u
+  ~/ws-tracker-tray-repo-private.asc`;
   `gh api -X POST repos/DragonKing026/Kimai-App--Linux-/pages -f build_type=workflow` (albo w ustawieniach repo).
 - [ ] **Step 4: Wypchnięcie i tag — za zgodą:** `git push origin main`, potem
       `git tag v0.9.0 && git push origin v0.9.0`;
   `gh run watch` dla „Testy” i „Wydanie”.
-  Expected: oba zielone; wydanie `v0.9.0` (pre-release) z plikiem `pl.websystems.KimaiTray-v0.9.0.flatpak`;
+  Expected: oba zielone; wydanie `v0.9.0` (pre-release) z plikiem `pl.websystems.WsTrackerTray-v0.9.0.flatpak`;
   `https://dragonking026.github.io/Kimai-App--Linux-/` pokazuje instrukcję.
-- [ ] **Step 5: Instalacja z repozytorium u użytkownika:** `flatpak uninstall --user -y pl.websystems.KimaiTray`
+- [ ] **Step 5: Instalacja z repozytorium u użytkownika:** `flatpak uninstall --user -y pl.websystems.WsTrackerTray`
   (wersja z pliku), `flatpak install --user
-  https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.KimaiTray.flatpakref`;
-  `flatpak remotes --user` pokazuje `kimai-tray`; Discover pokazuje Kimai Tray ze źródłem „Kimai Tray”; aplikacja
+  https://dragonking026.github.io/Kimai-App--Linux-/pl.websystems.WsTrackerTray.flatpakref`;
+  `flatpak remotes --user` pokazuje `ws-tracker-tray`; Discover pokazuje WS Tracker Tray ze źródłem „WS Tracker Tray”;
+  aplikacja
   działa jak w próbie (tacka, okno przy tacce, portfel, powiadomienia).
 - [ ] **Step 6: Zamknięcie** — raport w zadaniu TODO (zrzut strony Pages i Discover — tylko wycinki), status planu
   „wykonany”, README/AGENTS: status „0.9.0 wydana”.

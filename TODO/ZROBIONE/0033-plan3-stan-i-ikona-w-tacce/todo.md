@@ -62,6 +62,7 @@ TDD.
 
 ## Wynik
 
-[state.py](../../../src/kimai_tray/ui/state.py) (`AppState`), [tray.py](../../../src/kimai_tray/ui/tray.py) (`Tray`:
+[state.py](../../../src/ws_tracker_tray/ui/state.py) (`AppState`), [tray.py](../../../src/ws_tracker_tray/ui/tray.py)
+(`Tray`:
 ikona, tooltip, menu). Testy: [test_tray.py](../../../tests/ui/test_tray.py) — 7 zielonych. Dokumentacja:
 [StatusNotifierItem](../../../docs/integracje/statusnotifieritem.md). Bez odchyleń od planu.

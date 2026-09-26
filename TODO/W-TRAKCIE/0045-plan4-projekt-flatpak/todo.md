@@ -44,6 +44,9 @@ a potem napisać Plan 4 (Flatpak i wydanie).
 - [x] **Repozytorium kodu publiczne** (`DragonKing026/Kimai-App--Linux-`) — użytkownik zmienił widoczność; Pages działa
   na darmowym koncie. Wypychanie, tagi i sekrety tylko na prośbę użytkownika.
 - [x] **Nazwa:** „Kimai Tray” zostaje nazwą docelową (identyfikator `pl.websystems.KimaiTray`).
+- [x] **Zmiana nazwy (2026-09-26 11:45):** „WS Tracker Tray”, identyfikator `pl.websystems.WsTrackerTray`, bo
+  „Kimai Tray” zlewa się z [KimaiTray](../../../docs/architektura/podobne-aplikacje.md); zadanie
+  [0055](../0055-zmiana-nazwy-ws-tracker-tray/todo.md).
 - [x] **Pierwsza wersja:** 0.9.0 (beta) — 1.0.0 po testach na GNOME
       ([0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)).
 

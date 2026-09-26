@@ -41,10 +41,10 @@ zaktualizowano: 2026-09-26 00:13
 ```mermaid
 sequenceDiagram
     actor U as Użytkownik
-    participant App as Kimai Tray
+    participant App as WS Tracker Tray
     participant P as Portal Background
     U->>App: ustawienia: „Uruchamiaj przy logowaniu” ✓
-    App->>P: RequestBackground(autostart=true, commandline=[kimai-tray, --hidden])
+    App->>P: RequestBackground(autostart=true, commandline=[ws-tracker-tray, --hidden])
     P-->>U: (opcjonalnie) okno zgody systemu
     P-->>App: background=true, autostart=true
     loop co zmianę stanu
@@ -108,7 +108,7 @@ kde-portals.conf:
 > Backend portalu w Plasmie 6.7.5 traktuje znany mu identyfikator jako aktualizację powiadomienia; jeśli
 > poprzednie już zniknęło z ekranu, nic się nie wyświetla (sprawdzone 2026-09-26 00:13: `action` → nic, unikalne id →
 > jest).
-> Dlatego [`PortalNotifier`](../../src/kimai_tray/desktop/notifications.py) nadaje każdemu powiadomieniu nowy
+> Dlatego [`PortalNotifier`](../../src/ws_tracker_tray/desktop/notifications.py) nadaje każdemu powiadomieniu nowy
 > identyfikator (`action.1790374275`) i najpierw wycofuje poprzednie tego samego rodzaju.
 
 <!-- osobne callouty -->
@@ -116,15 +116,16 @@ kde-portals.conf:
 > [!note] Aplikacja uruchomiona poza Flatpakiem
 > Portal rozpoznaje aplikację po grupie systemd. Uruchomiona z terminala edytora dostaje jego nazwę
 > (np. powiadomienia „od VS Code”). Wywołanie `org.freedesktop.host.portal.Registry.Register` z identyfikatorem
-> `pl.websystems.KimaiTray` jako pierwsze na połączeniu to naprawia (xdg-desktop-portal ≥ 1.19; na Fedorze 44: 1.22.1).
+> `pl.websystems.WsTrackerTray` jako pierwsze na połączeniu to naprawia (xdg-desktop-portal ≥ 1.19; na Fedorze 44:
+> 1.22.1).
 >
 ## Gdzie w kodzie
 
-- [src/kimai_tray/desktop/notifications.py](../../src/kimai_tray/desktop/notifications.py) — `PortalNotifier`
+- [src/ws_tracker_tray/desktop/notifications.py](../../src/ws_tracker_tray/desktop/notifications.py) — `PortalNotifier`
   (AddNotification, RemoveNotification, ActionInvoked).
-- [src/kimai_tray/desktop/autostart.py](../../src/kimai_tray/desktop/autostart.py) — `BackgroundPortal`
+- [src/ws_tracker_tray/desktop/autostart.py](../../src/ws_tracker_tray/desktop/autostart.py) — `BackgroundPortal`
   (RequestBackground, SetStatus).
-- [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — `portal_request` (Request/Response).
+- [src/ws_tracker_tray/desktop/bus.py](../../src/ws_tracker_tray/desktop/bus.py) — `portal_request` (Request/Response).
 
 ## Dokumentacja
 

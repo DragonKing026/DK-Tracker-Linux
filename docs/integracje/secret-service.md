@@ -27,7 +27,7 @@ zaktualizowano: 2026-09-25 22:05
 
 ```mermaid
 flowchart TB
-    APP[Kimai Tray<br/>libsecret / klient Secret Service]
+    APP[WS Tracker Tray<br/>libsecret / klient Secret Service]
     subgraph A["Droga A: portal Secret (zalecana przez Flatpak)"]
         P[xdg-desktop-portal<br/>org.freedesktop.portal.Secret]
         PB[backend: kwallet.portal / gnome-keyring.portal]
@@ -45,7 +45,7 @@ flowchart TB
 | --- | --- | --- |
 | Uprawnienia Flatpaka | brak dodatkowych | `--talk-name=org.freedesktop.secrets` |
 | Izolacja | sekret per aplikacja | aplikacja widzi (potencjalnie) cały magazyn użytkownika |
-| Widoczność w KWallet/Seahorse | tylko klucz główny aplikacji | wpis „Kimai Tray” widoczny i usuwalny przez użytkownika |
+| Widoczność w KWallet/Seahorse | tylko klucz główny aplikacji | wpis „WS Tracker Tray” widoczny i usuwalny przez użytkownika |
 | Działanie poza Flatpakiem (dev) | libsecret wtedy używa Secret Service bezpośrednio | tak |
 
 **Portal Secret**
@@ -85,7 +85,8 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 - Brak dostępnego magazynu → komunikat i **żadnego** cichego zapisu do pliku tekstowego.
   Trybu „token tylko w pamięci do końca sesji” w 1.0 **nie ma** (decyzja użytkownika 2026-09-25,
   [0028](../../TODO/ZROBIONE/0028-plan3-projekt-ui/todo.md)).
-- Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu: `application=pl.websystems.KimaiTray`, `url` bez
+- Zmiana URL Kimai = token przypisany do nowego URL (atrybuty sekretu: `application=pl.websystems.WsTrackerTray`, `url`
+  bez
   końcowego `/`).
 - Błędy (`SecretServiceStore`): brak usługi, odmowa z piaskownicy, usługa, która nie wystartowała (`Spawn.*`),
   brak odpowiedzi (timeout) lub zerwane połączenie → `SecretsUnavailable`; odrzucone okno odblokowania →
@@ -107,9 +108,10 @@ KWallet (`ksecretd`), a Secret Service również obsługuje `ksecretd`.
 
 ## Gdzie w kodzie
 
-- [src/kimai_tray/desktop/secrets.py](../../src/kimai_tray/desktop/secrets.py) — `SecretServiceStore` (get/set/delete,
+- [src/ws_tracker_tray/desktop/secrets.py](../../src/ws_tracker_tray/desktop/secrets.py) — `SecretServiceStore`
+  (get/set/delete,
   odblokowanie przez prompt).
-- [src/kimai_tray/desktop/bus.py](../../src/kimai_tray/desktop/bus.py) — szyna D-Bus na jeepney.
+- [src/ws_tracker_tray/desktop/bus.py](../../src/ws_tracker_tray/desktop/bus.py) — szyna D-Bus na jeepney.
 - Testy: [tests/desktop/test_secrets.py](../../tests/desktop/test_secrets.py) (FakeBus).
 
 ## Dokumentacja

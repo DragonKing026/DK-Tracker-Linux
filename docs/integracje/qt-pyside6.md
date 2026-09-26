@@ -90,23 +90,28 @@ build-options:
 
 ## Gdzie w kodzie
 
-Wszystko, co importuje PySide6, leży w [src/kimai_tray/ui/](../../src/kimai_tray/ui/) (test architektury pilnuje, by
+Wszystko, co importuje PySide6, leży w [src/ws_tracker_tray/ui/](../../src/ws_tracker_tray/ui/) (test architektury
+pilnuje, by
 `core/` i `desktop/` nie importowały Qt):
 
-- [app.py](../../src/kimai_tray/ui/app.py) — `Controller`: wątki, odświeżanie, akcje, powiadomienia, ustawienia,
+- [app.py](../../src/ws_tracker_tray/ui/app.py) — `Controller`: wątki, odświeżanie, akcje, powiadomienia, ustawienia,
   autostart.
-- [main.py](../../src/kimai_tray/ui/main.py) — start: `--hidden`, jedna instancja (`QLocalServer`), logi, `QTranslator`
+- [main.py](../../src/ws_tracker_tray/ui/main.py) — start: `--hidden`, jedna instancja (`QLocalServer`), logi,
+  `QTranslator`
   dla `qtbase`, czekanie na tackę.
-- [state.py](../../src/kimai_tray/ui/state.py) — `AppState`: ostatni Snapshot, ustawienia, język; jeden sygnał
+- [state.py](../../src/ws_tracker_tray/ui/state.py) — `AppState`: ostatni Snapshot, ustawienia, język; jeden sygnał
   `changed`.
-- [worker.py](../../src/kimai_tray/ui/worker.py) — `Worker`: jeden wątek, wynik wraca do wątku GUI sygnałem w kolejce.
-- [tray.py](../../src/kimai_tray/ui/tray.py) — `QSystemTrayIcon` i menu.
-- [popup.py](../../src/kimai_tray/ui/popup.py), [form.py](../../src/kimai_tray/ui/form.py),
-  [recent.py](../../src/kimai_tray/ui/recent.py) — okno szybkiej obsługi.
-- [settings_dialog.py](../../src/kimai_tray/ui/settings_dialog.py) — okno ustawień.
-- [placement.py](../../src/kimai_tray/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
-- [desktop_bridge.py](../../src/kimai_tray/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako `QThread`.
-- [theme.py](../../src/kimai_tray/ui/theme.py), [icons.py](../../src/kimai_tray/ui/icons.py) — palety wtyczki (motyw z
+- [worker.py](../../src/ws_tracker_tray/ui/worker.py) — `Worker`: jeden wątek, wynik wraca do wątku GUI sygnałem w
+  kolejce.
+- [tray.py](../../src/ws_tracker_tray/ui/tray.py) — `QSystemTrayIcon` i menu.
+- [popup.py](../../src/ws_tracker_tray/ui/popup.py), [form.py](../../src/ws_tracker_tray/ui/form.py),
+  [recent.py](../../src/ws_tracker_tray/ui/recent.py) — okno szybkiej obsługi.
+- [settings_dialog.py](../../src/ws_tracker_tray/ui/settings_dialog.py) — okno ustawień.
+- [placement.py](../../src/ws_tracker_tray/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
+- [desktop_bridge.py](../../src/ws_tracker_tray/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako
+  `QThread`.
+- [theme.py](../../src/ws_tracker_tray/ui/theme.py), [icons.py](../../src/ws_tracker_tray/ui/icons.py) — palety wtyczki
+  (motyw z
   `QStyleHints.colorScheme()`), ikony rysowane `QPainter` / `QSvgRenderer`.
 - Testy: [tests/ui/](../../tests/ui/) — pytest-qt na platformie `offscreen`.
 
