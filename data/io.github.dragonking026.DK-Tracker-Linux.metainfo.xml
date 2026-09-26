@@ -39,6 +39,14 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.0" date="2026-09-26">
+      <description>
+        <p>A main window: your entries by week and day, an edit window with every option of an entry (hours,
+          project, description in several lines, tags, rates, custom fields), entries added by hand, deleted with
+          undo, and the settings as a page of the window. The app opens this window from the menu; the tray icon is
+          optional, and the theme can be light, dark or as the system's.</p>
+      </description>
+    </release>
     <release version="0.9.4" date="2026-09-26">
       <description>
         <p>The description field in the quick window grows with every line, so the first line no longer
