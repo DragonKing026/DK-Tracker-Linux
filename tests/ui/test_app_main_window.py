@@ -2,11 +2,12 @@
 
 from datetime import timedelta
 
+from dk_tracker.core.errors import ApiError, ErrorKind
 from dk_tracker.core.settings import Settings
 from dk_tracker.desktop.notifications import NotificationAction
 
 from ..core.fakes import NOW, make_entry
-from .test_app import URL, harness  # noqa: F401 - the fixture
+from .test_app import URL, Harness, harness  # noqa: F401 - the fixture
 
 GOOD = "Formularz rezerwacji — walidacja dat"
 
@@ -44,6 +45,19 @@ def test_a_start_from_the_menu_opens_the_main_window(harness, qtbot):  # noqa: F
     h.settle()
     assert h.controller.main_window.isVisible()
     assert not h.controller.popup.isVisible()
+
+
+def test_a_start_from_the_menu_loads_projects_and_entries_once_the_token_arrives(qtbot):
+    """Review C1: the window opened before the wallet answered, and nothing loaded afterwards."""
+    h = Harness(qtbot)
+    booked(h.client)
+    try:
+        h.controller.start(hidden=False)  # the token is read in the background
+        h.settle()
+        assert h.controller.main_bridge.projects.rowCount() > 0
+        assert entry_ids(h)[:2] == [2, 1]
+    finally:
+        h.controller.shutdown()
 
 
 def test_autostart_with_a_tray_stays_in_the_tray(harness):  # noqa: F811
@@ -196,3 +210,68 @@ def test_scrolling_through_search_results_does_not_load_weeks(harness):  # noqa:
     h.settle()
     assert len([call for call in h.client.calls if call[0] == "range"]) == before
     assert entry_ids(h) == [3]
+
+
+# -- review fixes ------------------------------------------------------------------------
+
+
+def test_a_failed_delete_brings_the_row_back_with_the_error(harness, qtbot):  # noqa: F811
+    """Review I2: the row stayed hidden for good and its error went to a row nobody saw."""
+    h = opened(harness)
+    h.client.fail["delete_entry"] = [ApiError(ErrorKind.FORBIDDEN, 403, "Access denied")]
+    h.controller.main_bridge.undo_ms = 20
+    h.controller.main_bridge.deleteEntry(2)
+    qtbot.waitUntil(lambda: ("delete_entry", 2) in h.client.calls)
+    h.settle()
+    assert 2 in entry_ids(h)
+    assert h.controller.main_bridge.view["error"] != ""
+
+
+def test_a_delete_during_a_search_still_reaches_kimai(harness, qtbot):  # noqa: F811
+    """Review I3: the search replaced the list, the entry was not found and nothing was sent."""
+    h = opened(harness)
+    h.controller.main_bridge.undo_ms = 10_000
+    h.controller.main_bridge.deleteEntry(2)
+    h.controller.main_bridge.search("walidacja dat 3")
+    h.settle()
+    h.controller.main_bridge.flush_deletes()
+    h.settle()
+    assert ("delete_entry", 2) in h.client.calls
+
+
+def test_a_failed_refresh_clears_once_kimai_answers_again(harness):  # noqa: F811
+    """Review I1: "no connection" stayed after the connection came back."""
+    h = opened(harness)
+    h.client.fail["range"] = [ApiError(ErrorKind.CONNECTION, 0, "offline")]
+    h.controller._on_poll()
+    h.settle()
+    assert h.controller.main_bridge.view["error"] != ""
+    h.controller._on_poll()
+    h.settle()
+    assert h.controller.main_bridge.view["error"] == ""
+
+
+def test_empty_weeks_are_skipped_until_an_entry_or_the_limit(harness):  # noqa: F811
+    """Review I5: loading stopped at the first empty week while the list was still short."""
+    h = harness()
+    h.client.add(make_entry(7, NOW - timedelta(days=30), NOW - timedelta(days=30) + timedelta(hours=1)))
+    h.controller.show_main_window()
+    h.settle()
+    assert 7 in entry_ids(h)
+
+
+def test_a_row_picker_gets_the_activities_of_its_project(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.chooseRowProject(2)
+    h.settle()
+    assert h.controller.main_bridge.rowActivities.rowCount() == 2
+
+
+def test_the_minute_refresh_does_not_load_older_weeks(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller._empty_weeks = 0  # as for a long list, far from the empty-weeks limit
+    weeks = h.controller._weeks
+    for _ in range(3):
+        h.controller._on_poll()
+        h.settle()
+    assert h.controller._weeks == weeks

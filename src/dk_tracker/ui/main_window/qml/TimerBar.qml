@@ -34,17 +34,29 @@ Rectangle {
     }
 
     // The running entry fills the bar; the fields stay free to type in when nothing runs.
+    // Only what Kimai changed is copied in: `view` is replaced every second (the clock), and
+    // copying on every change undid a project being picked or a start time being typed.
+    property var synced: ({})
     function sync() {
-        if (!bar.running) return
-        if (!description.activeFocus) {
-            description.text = app.view.description
+        if (!bar.running) {
+            if (synced.id !== undefined) { from.text = ""; synced = ({}) }
+            return
+        }
+        const v = app.view
+        const fresh = synced.id !== v.entryId
+        if ((fresh || v.description !== synced.description) && !description.activeFocus) {
+            description.text = v.description
             description.cursorPosition = 0
         }
-        if (bar.projectId !== app.view.projectId) {
-            bar.projectId = app.view.projectId
+        if ((fresh || v.begin !== synced.begin) && !from.activeFocus)
+            from.text = v.begin
+        if (fresh || v.projectId !== synced.projectId || v.activityId !== synced.activityId) {
+            bar.projectId = v.projectId
+            bar.activityId = v.activityId
             app.chooseProject(bar.projectId)
         }
-        bar.activityId = app.view.activityId
+        synced = { id: v.entryId, description: v.description, begin: v.begin,
+                   projectId: v.projectId, activityId: v.activityId }
     }
     Component.onCompleted: sync()
     Connections {
@@ -97,6 +109,7 @@ Rectangle {
             valueRole: "activityId"
             displayText: currentIndex < 0 ? (app.texts.chooseActivity || "") : currentText
             Component.onCompleted: currentIndex = indexOfValue(bar.activityId)
+            onCountChanged: currentIndex = indexOfValue(bar.activityId)  // the list came after the choice
             Connections {
                 target: bar
                 function onActivityIdChanged() { activity.currentIndex = activity.indexOfValue(bar.activityId) }
@@ -130,7 +143,6 @@ Rectangle {
             Layout.preferredWidth: 64
             inputMask: "99:99"
             placeholderText: app.texts.fromLabel || ""
-            text: bar.running ? app.view.begin : ""
             onEditingFinished: if (bar.running && text !== app.view.begin) app.runningBegin(text)
         }
         TextField {

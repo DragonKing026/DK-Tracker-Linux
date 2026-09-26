@@ -47,6 +47,7 @@
   "errDescShort": "The description is too short — write at least {chars} characters.",
   "errDescGeneric": "“{word}” tells the client nothing. Write what you are actually doing.",
   "errInvalidTime": "Enter the time as HH:MM.",
+  "errInvalidDay": "Invalid date.",
   "errBeginFuture": "The start cannot be in the future.",
   "errEndBeforeBegin": "The end has to be later than the start.",
   "errBillableDenied": "Your Kimai account cannot set billable / not billable. The entry was saved the way the project defines it. An administrator grants this with the edit_billable_own_timesheet permission.",

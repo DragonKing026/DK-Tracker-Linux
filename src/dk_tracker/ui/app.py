@@ -206,6 +206,9 @@ class Controller(QObject):
         main.loadMoreRequested.connect(self._load_more)
         main.searchRequested.connect(self._main_search)
         main.activitiesRequested.connect(self._main_activities)
+        main.rowActivitiesRequested.connect(
+            lambda project_id: self._main_activities(project_id, deliver=self.main_bridge.set_row_activities)
+        )
         main.settingsRequested.connect(self.open_settings)
 
     def _connect_tray(self, tray: Tray) -> None:
@@ -245,6 +248,9 @@ class Controller(QObject):
             self._load_catalog()
         else:
             self.refresh_active()
+        if self._main_visible():  # opened at start, before the wallet answered
+            self._main_catalog()
+            self._reload_entries()
 
     def _on_secrets_error(self, error: Exception) -> None:
         if isinstance(error, SecretsLocked):
@@ -646,13 +652,14 @@ class Controller(QObject):
             lambda: (tracker.load_catalog(), tracker.warnings()), done, self._main_failed, key="main-catalog"
         )
 
-    def _main_activities(self, project_id: int) -> None:
+    def _main_activities(self, project_id: int, deliver: Callable[[list], None] | None = None) -> None:
         tracker = self._tracker
         if tracker is None or not project_id:
             return
+        deliver = deliver or self.main_bridge.set_activities
         self.kimai.submit(
-            lambda: tracker.activities(project_id), self.main_bridge.set_activities, self._main_failed,
-            key=f"main-activities-{project_id}",
+            lambda: tracker.activities(project_id), deliver, self._main_failed,
+            key=f"main-activities-{deliver.__name__}-{project_id}",
         )  # fmt: skip
 
     def _reload_entries(self) -> None:
@@ -670,12 +677,17 @@ class Controller(QObject):
         t = self.state.t
 
         def done(entries: tuple) -> None:
-            if self._growing:
-                self._empty_weeks = 0 if len(entries) > self._listed else self._empty_weeks + 1
+            grew, growing = len(entries) > self._listed, self._growing
+            if growing:
+                self._empty_weeks = 0 if grew else self._empty_weeks + 1
                 self._growing = False
             self._listed = len(entries)
             self.main_bridge.set_loading(False)
             self.main_bridge.set_entries(build_rows(entries, tz, today, first_weekday, t), tz)
+            if (growing and not grew) or (self._weeks == 1 and not entries):
+                # An empty week adds no rows, so the list cannot ask for more: keep going
+                # until an entry turns up or EMPTY_WEEKS_LIMIT empty weeks in a row.
+                self._load_more()
 
         self.main_bridge.set_loading(True)
         self.kimai.submit(lambda: tracker.entries(first, today), done, self._main_failed, key="main-entries")
@@ -710,7 +722,13 @@ class Controller(QObject):
 
         self.kimai.submit(lambda: tracker.search(term), done, self._main_failed)
 
-    def _act_main(self, job: Callable[[Tracker], Snapshot], *, entry_id: int | None = None) -> None:
+    def _act_main(
+        self,
+        job: Callable[[Tracker], Snapshot],
+        *,
+        entry_id: int | None = None,
+        on_error: Callable[[], None] | None = None,
+    ) -> None:
         """An action from the main window: its error goes to the window (or under the row)."""
         tracker = self._tracker
         if tracker is None:
@@ -727,6 +745,8 @@ class Controller(QObject):
                 self.main_bridge.show_row_error(entry_id, text)
             else:
                 self.main_bridge.show_error(text)
+            if on_error is not None:
+                on_error()
             level = logging.INFO if isinstance(error, TrackerError) else logging.WARNING
             log.log(level, "Main window action failed: %s", describe(error, _ENGLISH))
             self.state.update(snapshot=tracker.snapshot)
@@ -735,8 +755,9 @@ class Controller(QObject):
         self.kimai.submit(lambda: (job(tracker), tracker.warnings()), done, failed)
 
     def _main_failed(self, error: Exception) -> None:
+        """A background load (list, projects, activities); the next one that works clears it."""
         self.main_bridge.set_loading(False)
-        self.main_bridge.show_error(describe(error, self.state.t))
+        self.main_bridge.show_load_error(describe(error, self.state.t))
 
     def _edit_entry(self, entry_id: int, changes: dict) -> None:
         entry = self.main_bridge.entries.entry(entry_id)
@@ -744,9 +765,13 @@ class Controller(QObject):
             self._act_main(lambda t: t.edit_entry(entry, **changes), entry_id=entry_id)
 
     def _delete_entry(self, entry_id: int) -> None:
-        entry = self.main_bridge.entries.entry(entry_id)
+        entry = self.main_bridge.deleted_entry(entry_id) or self.main_bridge.entries.entry(entry_id)
         if entry is not None:
-            self._act_main(lambda t: t.delete_entry(entry), entry_id=entry_id)
+            # The row is hidden: an error goes to the bar, and the row comes back (spec, section 9).
+            self._act_main(
+                lambda t: t.delete_entry(entry),
+                on_error=lambda: self.main_bridge.entries.show_entry(entry_id),
+            )
 
     def _resume_entry(self, entry_id: int) -> None:
         entry = self.main_bridge.entries.entry(entry_id)

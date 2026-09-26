@@ -134,3 +134,84 @@ def test_offline_locks_editing_but_not_the_list(window, qtbot):
     qtbot.waitUntil(lambda: window.child("timerBar").property("enabled") is False)
     assert visual_child(window.child("entriesList"), "entryRow").property("enabled") is False
     assert window.child("entriesList").property("enabled") is True
+
+
+# -- review fixes: the timer bar, the scroll position ------------------------------------
+
+
+def running_view(window, *, now=NOW, activities=True):
+    """The window with an entry running since 16:42 (Warsaw) on project 1, activity 2."""
+    current = replace(make_entry(9, now - timedelta(minutes=82), activity_id=2), description="Trwa")
+    window.bridge.render(
+        Snapshot(user=FakeClient().user, running=(current,)), configured=True, t=PL, now=now, tz=WARSAW
+    )
+    if activities:
+        window.bridge.set_activities(FakeClient().activities_list)
+    return current
+
+
+def test_a_start_time_being_typed_is_not_overwritten_by_the_clock(window, qtbot):
+    """Review C2: the 1 s tick put the old start time back into the field being typed in."""
+    running_view(window)
+    field = window.child("from")
+    qtbot.waitUntil(lambda: field.property("text") != ":")
+    window.window.requestActivate()
+    field.forceActiveFocus()
+    field.setProperty("text", "07:15")
+    running_view(window, now=NOW + timedelta(seconds=1))
+    assert field.property("text") == "07:15"
+
+
+def test_a_project_chosen_for_the_running_entry_survives_the_clock(window):
+    """Review C3: sync() reset the picked project before an activity could be chosen."""
+    running_view(window)
+    bar = window.child("timerBar")
+    assert bar.property("projectId") == 1
+    bar.setProperty("projectId", 2)  # as the picker does
+    running_view(window, now=NOW + timedelta(seconds=1))
+    assert bar.property("projectId") == 2
+
+
+def test_the_activity_of_the_running_entry_shows_once_activities_arrive(window, qtbot):
+    """Review I4: the combo was indexed before its model filled and showed the placeholder."""
+    window.bridge.set_activities([])
+    running_view(window, activities=False)
+    window.bridge.set_activities(FakeClient().activities_list)
+    combo = window.child("activity")
+    qtbot.waitUntil(lambda: combo.property("currentText") == "Spotkanie")
+
+
+def test_the_project_name_shows_once_projects_arrive(qapp, qtbot):
+    bridge = MainBridge()
+    bridge.set_palette(DARK)
+    made = MainWindow(bridge)
+    made.show()
+    try:
+        running_view(made)
+        bridge.set_projects(FakeClient().projects_list)
+        picker = made.child("project")
+        qtbot.waitUntil(lambda: picker.property("text") == "Moduł rezerwacji")
+    finally:
+        made.dispose()
+
+
+def test_the_list_keeps_its_scroll_position_on_refresh(window, qtbot):
+    """Review C4: every refresh reset the model and the list jumped to the top."""
+    many = [entry(9, i) for i in range(1, 2)] + [
+        replace(
+            make_entry(
+                i,
+                datetime(2026, 9, 25, 8, tzinfo=WARSAW).astimezone(UTC) - timedelta(hours=3 * i),
+                datetime(2026, 9, 25, 9, tzinfo=WARSAW).astimezone(UTC) - timedelta(hours=3 * i),
+            )
+        )
+        for i in range(2, 80)
+    ]
+    rows = build_rows(many, WARSAW, date(2026, 9, 25), 0, PL)
+    window.bridge.set_entries(rows, WARSAW)
+    listing = window.child("entriesList")
+    qtbot.waitUntil(lambda: listing.property("contentHeight") > 2000)
+    listing.setProperty("contentY", 1500)
+    window.bridge.set_entries(rows, WARSAW)
+    qtbot.wait(20)
+    assert listing.property("contentY") == 1500

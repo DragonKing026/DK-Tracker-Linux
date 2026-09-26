@@ -172,3 +172,49 @@ def test_a_refresh_waits_while_a_field_is_being_edited(bridge):
     assert bridge.entries.entry(3) is None and bridge.entries.entry(1) is not None
     bridge.setEditing(False)
     assert bridge.entries.entry(3) is not None and bridge.entries.entry(1) is None
+
+
+# -- review fixes ------------------------------------------------------------------------
+
+
+def test_a_failed_load_clears_after_the_next_successful_one(bridge):
+    """Review I1: a failed background load stuck in the error bar after the connection came back."""
+    bridge.show_load_error("Brak połączenia")
+    bridge.render(SNAPSHOT, configured=True, t=PL, now=NOW, tz=WARSAW)
+    assert bridge.view["error"] == "Brak połączenia"
+    bridge.set_entries(build_rows([first(9, 1)], WARSAW, date(2026, 9, 25), 0, PL), WARSAW)
+    assert bridge.view["error"] == ""
+
+
+def test_an_action_error_is_not_cleared_by_a_load(bridge):
+    bridge.show_error("Wpis wyeksportowany")
+    bridge.set_entries(build_rows([first(9, 1)], WARSAW, date(2026, 9, 25), 0, PL), WARSAW)
+    assert bridge.view["error"] == "Wpis wyeksportowany"
+
+
+def test_a_delete_keeps_its_entry_when_the_list_changes_meanwhile(bridge, qtbot):
+    """Review I3: a search during the undo time replaced the list and the delete was lost."""
+    bridge.undo_ms = 10_000
+    bridge.deleteEntry(2)
+    bridge.set_entries(build_rows([first(9, 1)], WARSAW, date(2026, 9, 25), 0, PL), WARSAW)
+    with qtbot.waitSignal(bridge.deleteRequested) as signal:
+        bridge.flush_deletes()
+    assert signal.args == [2]
+    assert bridge.deleted_entry(2).id == 2
+
+
+def test_an_impossible_day_is_reported_not_raised(bridge, qtbot):
+    """Review I6: date.fromisoformat raised inside the slot; the user saw nothing."""
+    with qtbot.assertNotEmitted(bridge.addRequested):
+        bridge.addManual("2026-13-01", "09:00", "10:00", "Opis wpisu ręcznego", 1, 1, None)
+    assert bridge.view["error"] == PL("errInvalidDay")
+
+
+def test_a_row_picker_has_its_own_activities(bridge, qtbot):
+    """Review I4: one activity list for the timer bar and the rows — a row's project changed the bar's."""
+    with qtbot.waitSignal(bridge.rowActivitiesRequested) as signal:
+        bridge.chooseRowProject(2)
+    assert signal.args == [2]
+    bridge.set_row_activities(CLIENT.activities_list)
+    assert bridge.rowActivities.rowCount() == 2
+    assert bridge.activities.rowCount() == 0

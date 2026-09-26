@@ -47,6 +47,7 @@
   "errDescShort": "Opis jest za krótki — napisz co najmniej {chars} znaków.",
   "errDescGeneric": "„{word}” nic nie mówi klientowi. Napisz, co konkretnie robisz.",
   "errInvalidTime": "Podaj godzinę w formacie GG:MM.",
+  "errInvalidDay": "Nieprawidłowa data.",
   "errBeginFuture": "Rozpoczęcie nie może być w przyszłości.",
   "errEndBeforeBegin": "Zakończenie musi być późniejsze niż rozpoczęcie.",
   "errBillableDenied": "Twoje konto Kimai nie może ustawiać „płatne / niepłatne”. Wpis zapisany tak, jak wynika z projektu. Administrator włącza to uprawnieniem edit_billable_own_timesheet.",

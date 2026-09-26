@@ -14,7 +14,7 @@ from PySide6.QtCore import Property, QObject, QTimer, Signal, Slot
 
 from dk_tracker.core.entry_list import ListRow
 from dk_tracker.core.errors import describe
-from dk_tracker.core.models import Activity, Project
+from dk_tracker.core.models import Activity, Entry, Project
 from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, short_duration
 from dk_tracker.core.tracker import Snapshot, live_totals
 
@@ -28,6 +28,7 @@ class MainBridge(QObject):
     textsChanged = Signal()
     paletteChanged = Signal()
     rowErrorsChanged = Signal()
+    projectsChanged = Signal()
     prefill = Signal("QVariantMap")  # "Duplicate": the timer bar in manual mode, filled in
     # -- to the controller
     startRequested = Signal(dict)
@@ -40,6 +41,7 @@ class MainBridge(QObject):
     loadMoreRequested = Signal()
     searchRequested = Signal(str)
     activitiesRequested = Signal(int)
+    rowActivitiesRequested = Signal(int)
     settingsRequested = Signal()
     windowClosed = Signal()  # the window's own close button (QML's onClosing)
 
@@ -48,6 +50,7 @@ class MainBridge(QObject):
         self.entries = EntryListModel(self)
         self.projects = ProjectModel(self)
         self.activities = ActivityModel(self)
+        self.rowActivities = ActivityModel(self)
         self.undo_ms = UNDO_MS
         # Every key exists from the start: QML warns about a missing one.
         self._view: dict[str, Any] = dict.fromkeys(
@@ -65,13 +68,16 @@ class MainBridge(QObject):
             ),
             "",
         )
-        self._view.update(configured=False, running=False, projectId=0, activityId=0, billable=True,
-                          billableAllowed=True, offline=False, loading=False)  # fmt: skip
+        self._view.update(configured=False, running=False, entryId=0, projectId=0, activityId=0,
+                          billable=True, billableAllowed=True, offline=False, loading=False)  # fmt: skip
         self._texts: dict[str, str] = {}
         self._palette: dict[str, str] = {}
         self._row_errors: dict[str, str] = {}
+        self._projects_version = 0
         self._t: Callable[..., str] = str
         self._pending: int | None = None
+        self._doomed: dict[int, Entry] = {}
+        self._load_error = ""
         self._editing = False
         self._deferred: tuple[list[ListRow], tzinfo] | None = None
         self._action_error = ""
@@ -92,6 +98,9 @@ class MainBridge(QObject):
     def _get_row_errors(self) -> dict[str, str]:
         return self._row_errors
 
+    def _get_projects_version(self) -> int:
+        return self._projects_version
+
     def _get_entries(self) -> EntryListModel:
         return self.entries
 
@@ -101,13 +110,18 @@ class MainBridge(QObject):
     def _get_activities(self) -> ActivityModel:
         return self.activities
 
+    def _get_row_activities(self) -> ActivityModel:
+        return self.rowActivities
+
     view = Property("QVariantMap", _get_view, notify=viewChanged)
     texts = Property("QVariantMap", _get_texts, notify=textsChanged)
     palette = Property("QVariantMap", _get_palette, notify=paletteChanged)
     rowErrors = Property("QVariantMap", _get_row_errors, notify=rowErrorsChanged)
+    projectsVersion = Property(int, _get_projects_version, notify=projectsChanged)  # names re-read
     entryList = Property(QObject, _get_entries, constant=True)
     projectList = Property(QObject, _get_projects, constant=True)
     activityList = Property(QObject, _get_activities, constant=True)
+    rowActivityList = Property(QObject, _get_row_activities, constant=True)
 
     # -- from the controller ---------------------------------------------------------------
 
@@ -124,6 +138,7 @@ class MainBridge(QObject):
         self._update(
             configured=configured,
             running=current is not None,
+            entryId=current.id if current else 0,
             description=current.description if current else "",
             projectId=(current.project_id or 0) if current else 0,
             projectName=(current.project_name or "") if current else "",
@@ -137,7 +152,7 @@ class MainBridge(QObject):
             week=t("weekTotal", time=short_duration(totals.week)) if totals else "",
             billableAllowed=snapshot.billable_allowed,
             offline=snapshot.error is not None,
-            error=describe(snapshot.error, t) if snapshot.error is not None else self._action_error,
+            error=describe(snapshot.error, t) if snapshot.error is not None else self._shown_error(),
         )
 
     def set_entries(self, rows: list[ListRow], tz: tzinfo) -> None:
@@ -146,12 +161,22 @@ class MainBridge(QObject):
             return
         self._deferred = None
         self.entries.set_rows(rows, tz)
+        self._loaded()
 
     def set_projects(self, projects: list[Project]) -> None:
         self.projects.set_projects(projects)
+        self._loaded()
+        self._projects_version += 1
+        self.projectsChanged.emit()
 
     def set_activities(self, activities: list[Activity]) -> None:
         self.activities.set_activities(activities)
+        self._loaded()
+
+    def set_row_activities(self, activities: list[Activity]) -> None:
+        """The activities for the project picked in a row's popup; the timer bar keeps its own."""
+        self.rowActivities.set_activities(activities)
+        self._loaded()
 
     def set_palette(self, palette: dict[str, str]) -> None:
         self._palette = dict(palette)
@@ -164,6 +189,15 @@ class MainBridge(QObject):
         """An action's error; it stays until the next action (a refresh does not clear it)."""
         self._action_error = text
         self._update(error=text)
+
+    def show_load_error(self, text: str) -> None:
+        """A background load failed; the next load that works clears it (an action's error stays)."""
+        self._load_error = text
+        self._update(error=self._shown_error())
+
+    def deleted_entry(self, entry_id: int) -> Entry | None:
+        """The entry as it was when "Delete" was clicked; the list may have changed since."""
+        return self._doomed.pop(entry_id, None)
 
     def show_row_error(self, entry_id: int, text: str) -> None:
         self._row_errors = {**self._row_errors, str(entry_id): text}
@@ -199,9 +233,14 @@ class MainBridge(QObject):
         activityId: int,
         billable: Any,  # noqa: N803
     ) -> None:
+        try:
+            chosen_day = date.fromisoformat(day)
+        except ValueError:  # half typed or impossible (2026-13-01)
+            self.show_error(self._t("errInvalidDay"))
+            return
         self.addRequested.emit(
             {
-                "day": date.fromisoformat(day),
+                "day": chosen_day,
                 "begin": begin,
                 "end": end,
                 "description": description,
@@ -230,6 +269,9 @@ class MainBridge(QObject):
     @Slot(int)
     def deleteEntry(self, entryId: int) -> None:  # noqa: N802, N803
         self.flush_deletes()  # one undo at a time, as in Toggl
+        entry = self.entries.entry(entryId)
+        if entry is not None:
+            self._doomed[entryId] = entry
         self._pending = entryId
         self.entries.hide_entry(entryId)
         self._update(undo=self._t("deletedEntry"))
@@ -241,6 +283,7 @@ class MainBridge(QObject):
             return
         self._undo_timer.stop()
         self.entries.show_entry(self._pending)
+        self._doomed.pop(self._pending, None)
         self._pending = None
         self._update(undo="")
 
@@ -300,6 +343,10 @@ class MainBridge(QObject):
     def chooseProject(self, projectId: int) -> None:  # noqa: N802, N803
         self.activitiesRequested.emit(projectId)
 
+    @Slot(int)
+    def chooseRowProject(self, projectId: int) -> None:  # noqa: N802, N803
+        self.rowActivitiesRequested.emit(projectId)
+
     @Slot()
     def closeWindow(self) -> None:  # noqa: N802
         self.windowClosed.emit()
@@ -321,6 +368,14 @@ class MainBridge(QObject):
         self._update(undo="")
         if entry_id is not None:
             self.deleteRequested.emit(entry_id)
+
+    def _loaded(self) -> None:
+        if self._load_error:
+            self._load_error = ""
+            self._update(error=self._shown_error())
+
+    def _shown_error(self) -> str:
+        return self._action_error or self._load_error
 
     def _update(self, **changes: Any) -> None:
         self._view = {**self._view, **changes}

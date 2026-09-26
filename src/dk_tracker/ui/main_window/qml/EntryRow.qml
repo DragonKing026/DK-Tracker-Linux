@@ -52,7 +52,7 @@ Rectangle {
                 flat: true
                 enabled: !row.locked
                 text: entry.projectName + (entry.activityName ? " · " + entry.activityName : "")
-                onClicked: { work.projectId = entry.projectId; work.open(); app.chooseProject(entry.projectId) }
+                onClicked: { work.projectId = entry.projectId; work.open(); app.chooseRowProject(entry.projectId) }
             }
             ToolButton {
                 objectName: "rowBillable"
@@ -140,11 +140,11 @@ Rectangle {
             spacing: 8
             ProjectPicker {
                 projectId: work.projectId
-                onChosen: function (id) { work.projectId = id; work.activityId = 0; app.chooseProject(id) }
+                onChosen: function (id) { work.projectId = id; work.activityId = 0; app.chooseRowProject(id) }
             }
             ComboBox {
                 Layout.fillWidth: true
-                model: app.activityList
+                model: app.rowActivityList  // its own: the timer bar keeps its activities
                 textRole: "name"
                 valueRole: "activityId"
                 displayText: currentIndex < 0 ? (app.texts.chooseActivity || "") : currentText

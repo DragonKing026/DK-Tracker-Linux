@@ -9,7 +9,8 @@ Button {
     signal chosen(int id)
 
     Layout.preferredWidth: 200
-    text: projectId ? app.projectName(projectId) : (app.texts.chooseProject || "")
+    // projectsVersion: the name is read again once the projects arrive
+    text: projectId ? (app.projectsVersion, app.projectName(projectId)) : (app.texts.chooseProject || "")
     onClicked: { search.text = ""; app.filterProjects(""); popup.open(); search.forceActiveFocus() }
 
     Popup {
