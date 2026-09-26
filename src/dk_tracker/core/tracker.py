@@ -16,12 +16,13 @@ from typing import Any
 from .billable import default_billable, is_billable_rejected
 from .errors import ApiError, ErrorKind, TrackerError
 from .grouping import sort_key
-from .models import Activity, Entry, Project, User
+from .models import Activity, Entry, EntryDetails, Project, User
 from .settings import Memory, Settings
 from .timefmt import (
     at_wall_clock,
     day_end,
     elapsed_seconds,
+    hhmm,
     kimai_stamp,
     local_day,
     start_stamp,
@@ -61,6 +62,25 @@ class Snapshot:
     @property
     def current(self) -> Entry | None:
         return self.running[0] if self.running else None
+
+
+# Fields Kimai offers only with a permission (edit_billable, edit_rate): a rejected form is
+# retried without them (see Tracker.save_details).
+_PERMISSION_FIELDS = ("billable", "fixedRate", "hourlyRate")
+
+
+def _rate(value: object) -> float | None:
+    """A rate typed in the edit window: "" clears it, a comma is a decimal point."""
+    text = str(value if value is not None else "").strip().replace(",", ".").replace(" ", "")
+    if not text:
+        return None
+    try:
+        rate = float(text)
+    except ValueError:
+        raise TrackerError("errInvalidRate") from None
+    if rate < 0:
+        raise TrackerError("errInvalidRate")
+    return rate
 
 
 def utc_now() -> datetime:
@@ -431,6 +451,93 @@ class Tracker:
             raise TrackerError("errExported")
         self._client.delete_entry(entry.id)
         return self.refresh_full()
+
+    def entry_details(self, entry: Entry) -> EntryDetails:
+        """Every option of the entry, for the edit window. Raises ApiError — the caller shows it."""
+        return self._client.entry_details(entry.id)
+
+    def save_details(self, details: EntryDetails, values: dict[str, Any]) -> Snapshot:
+        """The edit window: only what changed is sent. Kimai rejects a field the account may not
+        change with an "extra fields" error that does not name it: the fields that depend on
+        permissions are then dropped and the rest saved, with a notice saying so."""
+        if details.exported:
+            raise TrackerError("errExported")
+        changes = self._detail_changes(details, values)
+        meta = {
+            name: value
+            for name, value in (values.get("meta") or {}).items()
+            if value != dict(details.meta).get(name, "")
+        }
+        if not changes and not meta:
+            return self._snapshot
+        notice = "savedEntry"
+        if changes:
+            try:
+                self._client.update(details.id, changes)
+            except ApiError as error:
+                optional = {key: changes[key] for key in _PERMISSION_FIELDS if key in changes}
+                if not optional or not is_billable_rejected(error):
+                    raise
+                if "billable" in optional:
+                    self._lock_billable()
+                rest = {key: value for key, value in changes.items() if key not in optional}
+                if rest:
+                    self._client.update(details.id, rest)
+                notice = "errFieldsDenied"
+        for name, value in meta.items():
+            self._client.set_meta(details.id, name, value)
+        self.refresh_full()
+        return self._set(notice=notice)
+
+    def _detail_changes(self, details: EntryDetails, values: dict[str, Any]) -> dict[str, object]:
+        changes: dict[str, object] = {}
+        if "description" in values:
+            text = str(values["description"]).strip()
+            if text != details.description:
+                self._check(text)
+                changes["description"] = text
+        if values.get("project_id") or values.get("activity_id"):
+            project, activity = self._require_choice(
+                values.get("project_id") or details.project_id,
+                values.get("activity_id") or details.activity_id,
+            )
+            if (project, activity) != (details.project_id, details.activity_id):
+                changes.update(project=project, activity=activity)
+        if "begin" in values or "end" in values or "day" in values:
+            tz = self.kimai_tz()
+            day = values.get("day") or details.begin.astimezone(tz).date()
+            noon = datetime.combine(day, time(12), tz)
+            begin_at = self._wall_clock(noon, values.get("begin") or hhmm(details.begin, tz), tz)
+            end_text = values.get("end") or (hhmm(details.end, tz) if details.end else "")
+            end_at = self._wall_clock(noon, end_text, tz) if end_text else None
+            if end_at is not None and end_at <= begin_at:
+                raise TrackerError("errEndBeforeBegin")
+            if begin_at != details.begin:
+                changes["begin"] = kimai_stamp(begin_at, tz)
+            if end_at is not None and end_at != details.end:
+                changes["end"] = kimai_stamp(end_at, tz)
+        if "tags" in values:
+            tags = tuple(tag.strip() for tag in str(values["tags"]).split(",") if tag.strip())
+            if tags != details.tags:
+                changes["tags"] = ",".join(tags)
+        if (
+            "billable" in values
+            and values["billable"] is not None
+            and bool(values["billable"]) != details.billable
+        ):
+            if not self._snapshot.billable_allowed:
+                raise TrackerError("billableLocked")
+            changes["billable"] = bool(values["billable"])
+        if details.rates_visible:
+            for key, field, current in (
+                ("fixed_rate", "fixedRate", details.fixed_rate),
+                ("hourly_rate", "hourlyRate", details.hourly_rate),
+            ):
+                if key in values:
+                    rate = _rate(values[key])
+                    if rate != current:
+                        changes[field] = rate
+        return changes
 
     def remember(self, **changes: Any) -> None:
         """Remembered UI state (e.g. a hint already shown), saved with the tracker's own memory."""

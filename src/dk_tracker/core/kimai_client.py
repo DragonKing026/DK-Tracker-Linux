@@ -11,7 +11,7 @@ from typing import Any
 import httpx
 
 from .errors import ApiError, ErrorKind
-from .models import Activity, Customer, Entry, Project, User
+from .models import Activity, Customer, Entry, EntryDetails, Project, User
 
 
 class KimaiClient:
@@ -144,6 +144,14 @@ class KimaiClient:
 
     def update(self, entry_id: int, changes: dict[str, object]) -> Entry:
         return _one(Entry.from_api, self._json("PATCH", f"/api/timesheets/{entry_id}", json=changes))
+
+    def entry_details(self, entry_id: int) -> EntryDetails:
+        """Every option of one entry, for the edit window (tags, rates, custom fields)."""
+        return _one(EntryDetails.from_api, self._json("GET", f"/api/timesheets/{entry_id}"))
+
+    def set_meta(self, entry_id: int, name: str, value: str) -> None:
+        """A custom field the server defines; Kimai refuses names it does not know."""
+        self._request("PATCH", f"/api/timesheets/{entry_id}/meta", json={"name": name, "value": value})
 
 
 _BAD_SHAPE = (KeyError, TypeError, ValueError, AttributeError)

@@ -48,6 +48,8 @@
   "errDescGeneric": "„{word}” nic nie mówi klientowi. Napisz, co konkretnie robisz.",
   "errInvalidTime": "Podaj godzinę w formacie GG:MM.",
   "errInvalidDay": "Nieprawidłowa data.",
+  "errInvalidRate": "Stawka musi być liczbą, np. 120 albo 99,50.",
+  "errFieldsDenied": "Zapisano, ale Kimai nie pozwala Twojemu kontu zmienić płatności ani stawek.",
   "errBeginFuture": "Rozpoczęcie nie może być w przyszłości.",
   "errEndBeforeBegin": "Zakończenie musi być późniejsze niż rozpoczęcie.",
   "errBillableDenied": "Twoje konto Kimai nie może ustawiać „płatne / niepłatne”. Wpis zapisany tak, jak wynika z projektu. Administrator włącza to uprawnieniem edit_billable_own_timesheet.",

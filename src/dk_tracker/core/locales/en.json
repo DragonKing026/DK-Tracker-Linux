@@ -48,6 +48,8 @@
   "errDescGeneric": "“{word}” tells the client nothing. Write what you are actually doing.",
   "errInvalidTime": "Enter the time as HH:MM.",
   "errInvalidDay": "Invalid date.",
+  "errInvalidRate": "A rate must be a number, e.g. 120 or 99.50.",
+  "errFieldsDenied": "Saved, but Kimai does not let your account change billable or rates.",
   "errBeginFuture": "The start cannot be in the future.",
   "errEndBeforeBegin": "The end has to be later than the start.",
   "errBillableDenied": "Your Kimai account cannot set billable / not billable. The entry was saved the way the project defines it. An administrator grants this with the edit_billable_own_timesheet permission.",

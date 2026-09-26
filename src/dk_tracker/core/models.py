@@ -147,3 +147,59 @@ class Entry:
             user_language=user.get("language"),
             exported=data.get("exported") is True,
         )
+
+
+def _money(value: Any) -> float | None:
+    return float(value) if isinstance(value, int | float) and not isinstance(value, bool) else None
+
+
+@dataclass(frozen=True)
+class EntryDetails:
+    """Everything Kimai tells about one entry (`GET /api/timesheets/{id}`), for the edit window.
+
+    Rates come only to accounts that may see them; `rates_visible` says whether they came.
+    Meta fields are the custom fields the server keeps for this entry, whatever they are.
+    """
+
+    id: int
+    begin: datetime
+    end: datetime | None
+    project_id: int | None
+    activity_id: int | None
+    description: str
+    tags: tuple[str, ...]
+    billable: bool
+    exported: bool
+    rates_visible: bool
+    fixed_rate: float | None
+    hourly_rate: float | None
+    break_seconds: int
+    meta: tuple[tuple[str, str], ...]
+
+    @classmethod
+    def from_api(cls, data: dict[str, Any]) -> Self:
+        project_id, _ = _ref(data.get("project"))
+        activity_id, _ = _ref(data.get("activity"))
+        end = data.get("end")
+        tags = data.get("tags") or []
+        meta = data.get("metaFields") or []
+        return cls(
+            id=data["id"],
+            begin=datetime.fromisoformat(data["begin"]),
+            end=datetime.fromisoformat(end) if end else None,
+            project_id=project_id,
+            activity_id=activity_id,
+            description=data.get("description") or "",
+            tags=tuple(str(tag.get("name", "") if isinstance(tag, dict) else tag) for tag in tags),
+            billable=_flag(data.get("billable")),
+            exported=data.get("exported") is True,
+            rates_visible="hourlyRate" in data or "fixedRate" in data,
+            fixed_rate=_money(data.get("fixedRate")),
+            hourly_rate=_money(data.get("hourlyRate")),
+            break_seconds=int(data.get("break") or 0),
+            meta=tuple(
+                (str(field.get("name", "")), "" if field.get("value") is None else str(field.get("value")))
+                for field in meta
+                if isinstance(field, dict) and field.get("name")
+            ),
+        )
