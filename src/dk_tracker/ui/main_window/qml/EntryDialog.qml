@@ -124,12 +124,18 @@ Popup {
         }
 
         ScrollView {
+            id: formScroll
             Layout.fillWidth: true
             Layout.fillHeight: true
             implicitHeight: form.implicitHeight
             contentWidth: availableWidth
             clip: true
             ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+            ScrollBar.vertical: Scroller {
+                parent: formScroll
+                x: formScroll.width - width
+                height: formScroll.availableHeight
+            }
 
             ColumnLayout {
                 id: form

@@ -13,6 +13,11 @@ ScrollView {
     contentWidth: availableWidth
     clip: true
     background: Rectangle { color: app.palette.bg }
+    ScrollBar.vertical: Scroller {
+        parent: page
+        x: page.width - width
+        height: page.availableHeight
+    }
 
     function fill() {
         url.text = form.url

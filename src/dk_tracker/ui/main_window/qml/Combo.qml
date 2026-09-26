@@ -35,6 +35,13 @@ ComboBox {
     }
     popup.background: Panel {}
     popup.padding: 4
+    popup.contentItem: ListView {
+        clip: true
+        implicitHeight: Math.min(contentHeight, 320)
+        model: combo.popup.visible ? combo.delegateModel : null
+        currentIndex: combo.highlightedIndex
+        ScrollBar.vertical: Scroller {}
+    }
     delegate: ItemDelegate {
         required property var model
         required property int index

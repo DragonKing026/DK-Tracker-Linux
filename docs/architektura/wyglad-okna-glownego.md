@@ -62,6 +62,7 @@ półgrube. Kursor rączki na wszystkim, co się klika.
 | Lista godzin, kalendarz | `TimeField.qml`, `DateField.qml` | wybrana pozycja: tło `control`, ramka i pogrubiony tekst `accent` (bez pełnego niebieskiego tła); dziś — ramka `border` |
 | Pole wyboru | `Check.qml` | kwadrat 18 px, zaznaczony — `accent` z białym ✓ |
 | Liczba | `Spin.qml` | [−] pole [+] w jednej ramce |
+| Pasek przewijania | `Scroller.qml` | uchwyt 6 px, zaokrąglony, w kolorze `border` (pod kursorem `border_hover`); widoczny zawsze, gdy jest co przewijać — w każdej liście i stronie |
 | Okno / lista rozwijana | `Panel.qml` | `panel`, ramka `border`, promień 8 |
 | Wiersz formularza | `FormRow.qml` | etykieta z lewej (130 px, w ustawieniach 230 px; długa zawija się), kontrolka z prawej — w oknie edycji i w ustawieniach |
 

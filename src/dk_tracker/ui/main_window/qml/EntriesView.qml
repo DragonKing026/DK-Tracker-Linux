@@ -27,7 +27,7 @@ Rectangle {
             Layout.fillHeight: true
             clip: true
             model: app.entryList
-            ScrollBar.vertical: ScrollBar {}
+            ScrollBar.vertical: Scroller { objectName: "entriesScroll" }
             onAtYEndChanged: if (atYEnd && !app.view.loading) app.loadMore()
             onCountChanged: if (count > 0 && contentHeight <= height && !app.view.loading) app.loadMore()
             footer: Label {

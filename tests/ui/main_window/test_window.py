@@ -387,3 +387,12 @@ def test_a_click_outside_closes_the_edit_window(window, qtbot):
     qtbot.waitUntil(lambda: dialog.property("opened") is True)
     QTest.mouseClick(window.window, Qt.MouseButton.LeftButton, Qt.KeyboardModifier.NoModifier, QPoint(5, 5))
     qtbot.waitUntil(lambda: window.bridge.editor["open"] is False)
+
+
+def test_long_lists_have_a_scroll_bar(window, qtbot):
+    """Live test: a long project list had no visible scroll bar."""
+    from PySide6.QtCore import QMetaObject
+
+    QMetaObject.invokeMethod(window.child("project"), "clicked")
+    qtbot.waitUntil(lambda: window.child("projectScroll") is not None)
+    assert window.child("entriesScroll") is not None

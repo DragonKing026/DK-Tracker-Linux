@@ -38,6 +38,7 @@ SelectButton {
                 implicitWidth: 56
                 implicitHeight: 224
                 clip: true
+                ScrollBar.vertical: Scroller {}
                 delegate: ItemDelegate {
                     id: cell
                     required property int modelData

@@ -15,6 +15,11 @@ ScrollView {
     implicitHeight: Math.min(area.implicitHeight, area.font.pixelSize * 1.45 * maxLines + 16)
     clip: true
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+    ScrollBar.vertical: Scroller {
+        parent: box
+        x: box.width - width
+        height: box.availableHeight
+    }
 
     TextArea {
         id: area

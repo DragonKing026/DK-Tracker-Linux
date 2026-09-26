@@ -34,6 +34,7 @@ SelectButton {
             ListView {
                 id: projects
                 objectName: "projectList"
+                ScrollBar.vertical: Scroller { objectName: "projectScroll" }
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 clip: true
