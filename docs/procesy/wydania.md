@@ -61,8 +61,8 @@ Jak wydać nową wersję DK Tracker i jak ją zainstalować. Decyzja o dystrybuc
    <https://dragonking026.github.io/DK-Tracker-Linux/>, `flatpak update` u siebie.
 
 Wersje `0.x` wychodzą jako „pre-release” (do 1.0). **Działających wydań nie usuwamy**; stronę wydania z błędem usuwa
-się ręcznie (`gh release delete v<wersja> --yes`, bez `--cleanup-tag` — tag zostaje w historii), jak 0.9.0–0.9.3 i
-0.10.0 ([0067](../../TODO/ZROBIONE/0067-tylko-najnowsze-wydanie/todo.md)). **Wydanie z poprawkami zastępuje
+się ręcznie (`gh release delete v<wersja> --yes`, bez `--cleanup-tag` — tag zostaje w historii), jak 0.9.0–0.9.3,
+0.10.0 i 0.10.1 ([0067](../../TODO/ZROBIONE/0067-tylko-najnowsze-wydanie/todo.md)). **Wydanie z poprawkami zastępuje
 poprawiane**: po wydaniu 0.10.1 (poprawki błędów 0.10.0) strona 0.10.0 znika od razu (decyzja użytkownika
 2026-09-26). Numeracja: kolejne kroki jednej wersji to
 `0.10.0`, `0.10.1`, `0.10.2`… aż do pełnej wersji. Sekcja „Deployments” na stronie repozytorium to
