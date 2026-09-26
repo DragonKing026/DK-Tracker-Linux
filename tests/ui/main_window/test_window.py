@@ -215,3 +215,16 @@ def test_the_list_keeps_its_scroll_position_on_refresh(window, qtbot):
     window.bridge.set_entries(rows, WARSAW)
     qtbot.wait(20)
     assert listing.property("contentY") == 1500
+
+
+def test_the_basic_style_is_used_even_when_the_desktop_chose_another(qapp):
+    """Live test on KDE: the platform theme picks org.kde.desktop first, our palette then did not
+    apply and the fields were white with dark text on the dark window."""
+    from PySide6.QtQuickControls2 import QQuickStyle
+
+    QQuickStyle.setStyle("Fusion")
+    made = MainWindow(MainBridge())
+    try:
+        assert QQuickStyle.name() == "Basic"
+    finally:
+        made.dispose()

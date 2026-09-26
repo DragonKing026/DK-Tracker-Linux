@@ -39,7 +39,9 @@ class MainWindow(QObject):
 
     def __init__(self, bridge: MainBridge, parent: QObject | None = None) -> None:
         super().__init__(parent)
-        if not QQuickStyle.name():
+        # Always Basic: on KDE the platform theme picks org.kde.desktop first, which ignores the
+        # window's palette — white fields with dark text on our dark window (live test 0.10.0).
+        if QQuickStyle.name() != "Basic":
             QQuickStyle.setStyle("Basic")
         self.bridge = bridge
         self.engine = QQmlApplicationEngine(self)
