@@ -226,10 +226,16 @@ class Controller(QObject):
             return
         self.kimai.submit(
             lambda: tracker.activities(project_id),
-            lambda items: self.popup.form.set_activities(items, tracker.memory.last_activity),
+            lambda items: self._apply_activities(project_id, items),
             self._on_error,
             key=f"activities-{project_id}",
         )
+
+    def _apply_activities(self, project_id: int | None, items: list) -> None:
+        # Answers can arrive for a project the user has already left: only the chosen one counts.
+        if project_id != self.popup.form.project.currentData() or self._tracker is None:
+            return
+        self.popup.form.set_activities(items, self._tracker.memory.last_activity)
 
     def _run(self, job: Callable[[Tracker], Snapshot], *, key: str | None = None) -> None:
         tracker = self._tracker
@@ -372,7 +378,13 @@ class Controller(QObject):
 
     def _test_connection(self, url: str, token: str) -> None:
         dialog, t = self.dialog, self.state.t
-        token = token or self._token or ""
+        if not token:
+            # The stored token belongs to the saved address only — never send it anywhere else.
+            if url.strip().rstrip("/") != self._settings.url or not self._token:
+                if dialog is not None:
+                    dialog.show_status(t("optTokenRequired"), ok=False)
+                return
+            token = self._token
 
         def probe() -> str:
             client = self._client_factory(url, token)

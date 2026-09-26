@@ -288,3 +288,25 @@ def test_click_that_took_the_focus_away_does_not_reopen_the_window(harness):
     popup.hide_after_focus_loss()  # the click on the panel took the focus first...
     h.controller.toggle_popup()  # ...then the same click reached the icon
     assert not popup.isVisible()
+
+
+def test_activities_of_a_project_no_longer_chosen_are_ignored(harness):
+    h = harness()
+    form = h.controller.popup.form
+    form.set_catalog(h.state.snapshot.__class__(projects=tuple(h.client.projects_list)), 1)
+    form.select_project(2)
+    h.settle()
+    from kimai_tray.core.models import Activity
+
+    stale = [Activity(99, "Z innego projektu", True, 1)]
+    h.controller._apply_activities(1, stale)  # an answer for project 1 arriving after 2 was chosen
+    assert form.activity.findData(99) == -1
+
+
+def test_connection_test_never_sends_the_stored_token_to_another_address(harness):
+    h = harness()
+    dialog = h.controller.open_settings()
+    dialog.testRequested.emit("https://inny.example.com", "")
+    h.settle()
+    assert ("https://inny.example.com", "secret-token") not in h.clients
+    assert dialog.status.text() == "Podaj token API."
