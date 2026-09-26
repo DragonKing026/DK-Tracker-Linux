@@ -9,6 +9,7 @@ ToolButton {
     property string tint: app.palette.muted || "#9aa0ac"
     property string tip: ""
     implicitWidth: 32
+    opacity: enabled ? 1 : 0.4
     implicitHeight: 32
     icon.source: glyph ? "image://glyph/" + glyph + "/" + tint.replace("#", "") : ""
     icon.color: "transparent"

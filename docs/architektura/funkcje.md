@@ -310,11 +310,13 @@ Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/20
   z rzędu); wyszukiwanie jak F-33.
 - **Wiersz**: opis (do dwóch linii), projekt · rodzaj pracy w kolorze projektu, `$` (zielony — płatne), od–do, czas;
   ▶ wznawia (nowy wpis od teraz z tym samym opisem i projektem), kosz usuwa, wpis wyeksportowany z kłódką.
-- **Okno edycji** (kliknięcie wiersza): wszystkie opcje wpisu z Kimai — dzień, od, do, czas trwania (zmienia koniec),
+- **Okno edycji** (kliknięcie wiersza): wszystkie opcje wpisu z Kimai — dzień (kalendarz), od i do (wybór godziny i
+  minut co 5), czas trwania (tylko do odczytu),
   projekt i rodzaj pracy, opis w wielu liniach (Enter zapisuje, Shift+Enter — nowa linia), tagi (po przecinku),
   `$` (płatne — ikona jak w wierszu), stawka stała i godzinowa (gdy konto je widzi), przerwa, pola dodatkowe serwera;
   Usuń, Anuluj, Zapisz.
-  Wysyła tylko zmiany. Pola, których konto nie może zmieniać, Kimai odrzuca — zapis bez nich i komunikat; tag, którego
+  Wpis wyeksportowany (zafakturowany): wszystko wyszarzone, tylko do odczytu. Wysyła tylko zmiany. Pola, których konto
+  nie może zmieniać, Kimai odrzuca — zapis bez nich i komunikat; tag, którego
   nie ma, Kimai po cichu pomija (konto bez prawa tworzenia tagów) — aplikacja czyta wpis ponownie i go nazywa.
 - **Usuwanie**: wiersz znika, pasek „Usunięto wpis · Cofnij” przez 6 s; do Kimai trafia po tym czasie albo od razu
   przy zamknięciu aplikacji.

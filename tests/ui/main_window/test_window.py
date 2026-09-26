@@ -183,16 +183,17 @@ def running_view(window, *, now=NOW, activities=True):
     return current
 
 
-def test_a_start_time_being_typed_is_not_overwritten_by_the_clock(window, qtbot):
-    """Review C2: the 1 s tick put the old start time back into the field being typed in."""
+def test_a_start_time_chosen_is_sent_and_not_overwritten_by_the_clock(window, qtbot):
+    """Review C2, now with a time picker: the 1 s tick must not put the old start time back."""
     running_view(window)
     field = window.child("from")
-    qtbot.waitUntil(lambda: field.property("text") != ":")
-    window.window.requestActivate()
-    field.forceActiveFocus()
-    field.setProperty("text", "07:15")
+    qtbot.waitUntil(lambda: field.property("value") == "16:42")
+    with qtbot.waitSignal(window.bridge.runningEdited) as signal:
+        field.setProperty("value", "07:15")
+        field.edited.emit()
+    assert signal.args == [{"begin": "07:15"}]
     running_view(window, now=NOW + timedelta(seconds=1))
-    assert field.property("text") == "07:15"
+    assert field.property("value") == "07:15"
 
 
 def test_a_project_chosen_for_the_running_entry_survives_the_clock(window):
@@ -339,7 +340,7 @@ def test_the_edit_window_saves_what_was_typed(window, qtbot):
     window.bridge.open_editor(entry_details(), WARSAW)
     qtbot.waitUntil(lambda: window.child("entryDialog").property("opened") is True)
     window.child("editTags").setProperty("text", "frontend, pilne")
-    window.child("editEnd").setProperty("text", "11:00")
+    window.child("editEnd").setProperty("value", "11:00")
     with qtbot.waitSignal(window.bridge.entrySaveRequested) as signal:
         window.child("editSave").clicked.emit()
     sent = signal.args[1]
@@ -352,3 +353,25 @@ def test_the_edit_window_closes_with_the_bridge(window, qtbot):
     qtbot.waitUntil(lambda: dialog.property("opened") is True)
     window.bridge.close_editor()
     qtbot.waitUntil(lambda: dialog.property("visible") is False)
+
+
+def test_an_exported_entry_opens_locked(window, qtbot):
+    """Live test: in an invoiced (exported) entry the description could still be typed in."""
+    window.bridge.open_editor(entry_details(exported=True), WARSAW)
+    qtbot.waitUntil(lambda: window.child("entryDialog").property("opened") is True)
+    for name in (
+        "editDay",
+        "editBegin",
+        "editEnd",
+        "editProject",
+        "editActivity",
+        "editBillable",
+        "editDescription",
+        "editTags",
+        "editFixedRate",
+        "editHourlyRate",
+        "editSave",
+        "editDelete",
+    ):
+        assert window.child(name).property("enabled") is False, name
+    assert window.child("editCancel").property("enabled") is True

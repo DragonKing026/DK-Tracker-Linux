@@ -6,6 +6,15 @@ ComboBox {
     id: combo
     HoverHandler { cursorShape: Qt.PointingHandCursor }
     leftPadding: 10
+    opacity: enabled ? 1 : 0.5
+    // Our own arrow in the text colour: Basic's grey one vanished on the dark field (live test).
+    indicator: Image {
+        x: combo.width - width - 10
+        y: (combo.height - height) / 2
+        source: "image://glyph/chevron_down/" + (app.palette.fg || "#eceef2").slice(1)
+        sourceSize.width: 14
+        sourceSize.height: 14
+    }
     contentItem: Label {
         leftPadding: 10
         rightPadding: combo.indicator.width + 6

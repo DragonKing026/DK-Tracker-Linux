@@ -8,12 +8,12 @@ Button {
     rightPadding: 14
     topPadding: 8
     bottomPadding: 8
+    opacity: enabled ? 1 : 0.5  // the whole button: pickers bring their own label
     HoverHandler { cursorShape: button.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
     contentItem: Label {
         text: button.text
         font: button.font
         color: button.highlighted ? (app.palette.accent || "#6f9bff") : (app.palette.fg || "#eceef2")
-        opacity: button.enabled ? 1 : 0.5
         elide: Text.ElideRight
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
@@ -27,6 +27,5 @@ Button {
                : button.down || button.hovered ? (app.palette.line || "#2f333c") : (app.palette.surface2 || "#272b33")
         border.width: button.highlighted ? 1 : 0
         border.color: Qt.rgba(accent.r, accent.g, accent.b, 0.55)
-        opacity: button.enabled ? 1 : 0.6
     }
 }

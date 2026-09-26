@@ -13,6 +13,7 @@ Popup {
     property int projectId: 0
     property int activityId: 0
     property bool billable: true
+    readonly property bool locked: editor.exported === true  // invoiced: shown, not changed
 
     parent: Overlay.overlay
     anchors.centerIn: parent
@@ -34,10 +35,9 @@ Popup {
     // The fields take the entry's values when it opens; typing does not come back through `editor`.
     function fill() {
         const e = editor
-        day.text = e.day
-        begin.text = e.begin
-        end.text = e.end
-        duration.text = e.duration
+        day.value = e.day
+        begin.value = e.begin
+        end.value = e.end
         projectId = e.projectId
         activityId = e.activityId
         billable = e.billable
@@ -55,7 +55,7 @@ Popup {
             fields.push({ name: item.name, value: item.value })
         }
         return {
-            day: day.text, begin: begin.text, end: end.text, projectId: projectId, activityId: activityId,
+            day: day.value, begin: begin.value, end: end.value, projectId: projectId, activityId: activityId,
             description: description.text, tags: tags.text, billable: billable,
             fixedRate: fixedRate.text, hourlyRate: hourlyRate.text, meta: fields
         }
@@ -63,10 +63,6 @@ Popup {
     function minutes(text) {
         const m = /^(\d{1,2}):?(\d{2})$/.exec(text.trim())
         return m ? Number(m[1]) * 60 + Number(m[2]) : -1
-    }
-    function clock(total) {
-        const m = ((total % 1440) + 1440) % 1440
-        return Math.floor(m / 60).toString().padStart(2, "0") + ":" + (m % 60).toString().padStart(2, "0")
     }
     function save() { if (!editor.busy) app.saveEntry(values()) }
 
@@ -118,7 +114,7 @@ Popup {
                 color: app.palette.fg || "#eceef2"
             }
 
-            // Day, from, to, duration: the duration moves the end, the end changes the duration.
+            // Day, from, to chosen from lists; the duration follows from them.
             GridLayout {
                 Layout.fillWidth: true
                 columns: 4
@@ -128,49 +124,36 @@ Popup {
                 Caption { text: app.texts.fromLabel || "" }
                 Caption { text: app.texts.toLabel || "" }
                 Caption { text: app.texts.editDuration || "" }
-                Field {
+                DateField {
                     id: day
                     objectName: "editDay"
+                    enabled: !dialog.locked
                     Layout.fillWidth: true
-                    placeholderText: "RRRR-MM-DD"
-                    validator: RegularExpressionValidator { regularExpression: /^[\d-]{0,10}$/ }
-                    onAccepted: dialog.save()
                 }
-                Field {
+                TimeField {
                     id: begin
                     objectName: "editBegin"
+                    enabled: !dialog.locked
                     Layout.preferredWidth: 90
-                    horizontalAlignment: Text.AlignHCenter
-                    validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
-                    onTextEdited: {
-                        const a = dialog.minutes(text), b = dialog.minutes(end.text)
-                        if (a >= 0 && b >= 0) duration.text = dialog.clock(b - a).replace(/^0/, "")
-                    }
-                    onAccepted: dialog.save()
                 }
-                Field {
+                TimeField {
                     id: end
                     objectName: "editEnd"
+                    enabled: !dialog.locked
                     Layout.preferredWidth: 90
-                    horizontalAlignment: Text.AlignHCenter
-                    validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
-                    onTextEdited: {
-                        const a = dialog.minutes(begin.text), b = dialog.minutes(text)
-                        if (a >= 0 && b >= 0) duration.text = dialog.clock(b - a).replace(/^0/, "")
-                    }
-                    onAccepted: dialog.save()
                 }
-                Field {
-                    id: duration
+                Label {
                     objectName: "editDuration"
                     Layout.preferredWidth: 90
                     horizontalAlignment: Text.AlignHCenter
-                    validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
-                    onTextEdited: {
-                        const a = dialog.minutes(begin.text), d = dialog.minutes(text)
-                        if (a >= 0 && d >= 0) end.text = dialog.clock(a + d)
+                    font.bold: true
+                    color: app.palette.fg || "#eceef2"
+                    text: {
+                        const a = dialog.minutes(begin.value), b = dialog.minutes(end.value)
+                        if (a < 0 || b < 0) return ""
+                        const d = b - a
+                        return d <= 0 ? "–" : Math.floor(d / 60) + ":" + ("0" + d % 60).slice(-2)
                     }
-                    onAccepted: dialog.save()
                 }
             }
 
@@ -180,6 +163,7 @@ Popup {
                 spacing: 8
                 ProjectPicker {
                     objectName: "editProject"
+                    enabled: !dialog.locked
                     Layout.fillWidth: true
                     Layout.maximumWidth: 100000
                     projectId: dialog.projectId
@@ -188,6 +172,7 @@ Popup {
                 Combo {
                     id: activity
                     objectName: "editActivity"
+                    enabled: !dialog.locked
                     Layout.fillWidth: true
                     model: app.rowActivityList
                     textRole: "name"
@@ -202,7 +187,7 @@ Popup {
                 }
                 IconButton {  // billable: the same $ as in the rows and the timer bar
                     objectName: "editBillable"
-                    enabled: app.view.billableAllowed
+                    enabled: app.view.billableAllowed && !dialog.locked
                     glyph: dialog.billable ? "money" : "money_off"
                     tint: dialog.billable ? (app.palette.start || "#16a34a") : (app.palette.muted || "#9aa0ac")
                     tip: dialog.billable ? (app.texts.billableRowOn || "") : (app.texts.billableRowOff || "")
@@ -214,6 +199,7 @@ Popup {
             DescriptionArea {
                 id: description
                 objectName: "editDescription"
+                enabled: !dialog.locked
                 Layout.fillWidth: true
                 maxLines: 8
                 placeholderText: app.texts.descriptionPlaceholder || ""
@@ -224,6 +210,7 @@ Popup {
             Field {
                 id: tags
                 objectName: "editTags"
+                enabled: !dialog.locked
                 Layout.fillWidth: true
                 placeholderText: app.texts.editTagsHint || ""
                 onAccepted: dialog.save()
@@ -240,12 +227,14 @@ Popup {
                 Field {
                     id: fixedRate
                     objectName: "editFixedRate"
+                    enabled: !dialog.locked
                     Layout.fillWidth: true
                     onAccepted: dialog.save()
                 }
                 Field {
                     id: hourlyRate
                     objectName: "editHourlyRate"
+                    enabled: !dialog.locked
                     visible: dialog.editor.ratesVisible === true
                     Layout.fillWidth: true
                     onAccepted: dialog.save()
@@ -274,6 +263,7 @@ Popup {
                         Caption { text: modelData.name }
                         Field {
                             id: metaField
+                            enabled: !dialog.locked
                             Layout.fillWidth: true
                             text: modelData.value
                             onAccepted: dialog.save()

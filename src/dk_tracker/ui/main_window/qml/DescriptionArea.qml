@@ -14,6 +14,7 @@ ScrollView {
     signal editingFinished()
     implicitHeight: Math.min(area.implicitHeight, area.font.pixelSize * 1.45 * maxLines + 18)
     clip: true
+    opacity: enabled ? 1 : 0.5
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
     TextArea {

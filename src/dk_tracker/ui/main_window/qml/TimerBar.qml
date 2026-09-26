@@ -19,7 +19,7 @@ Rectangle {
     function submit() {
         if (running) { app.stop(); return }
         if (manual)
-            app.addManual(day.text, manualFrom.text, manualTo.text, description.text, projectId, activityId,
+            app.addManual(day.value, manualFrom.value, manualTo.value, description.text, projectId, activityId,
                           billableTouched)
         else
             app.start(description.text, projectId, activityId, billableTouched)
@@ -31,7 +31,7 @@ Rectangle {
     property var synced: ({})
     function sync() {
         if (!bar.running) {
-            if (synced.id !== undefined) { from.text = ""; synced = ({}) }
+            if (synced.id !== undefined) { from.value = ""; synced = ({}) }
             return
         }
         const v = app.view
@@ -40,8 +40,8 @@ Rectangle {
             description.text = v.description
             description.area.cursorPosition = 0
         }
-        if ((fresh || v.begin !== synced.begin) && !from.activeFocus)
-            from.text = v.begin
+        if (fresh || v.begin !== synced.begin)
+            from.value = v.begin
         if (fresh || v.projectId !== synced.projectId || v.activityId !== synced.activityId) {
             bar.projectId = v.projectId
             bar.activityId = v.activityId
@@ -131,15 +131,12 @@ Rectangle {
                 onClicked: bar.running ? app.runningBillable(!on) : (bar.billableTouched = !on)
             }
 
-            Field {
+            TimeField {
                 id: from
                 objectName: "from"
                 visible: bar.running
-                Layout.preferredWidth: 58
-                horizontalAlignment: Text.AlignHCenter
-                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
                 placeholderText: app.texts.fromLabel || ""
-                onEditingFinished: if (bar.running && text !== app.view.begin) app.runningBegin(text)
+                onEdited: if (bar.running && value !== app.view.begin) app.runningBegin(value)
             }
 
             Label {
@@ -174,31 +171,21 @@ Rectangle {
             Layout.fillWidth: true
             spacing: 8
             Item { implicitWidth: 32 }  // under the mode switch
-            Field {
+            DateField {
                 id: day
                 objectName: "day"
-                Layout.preferredWidth: 110
-                placeholderText: "RRRR-MM-DD"
-                validator: RegularExpressionValidator { regularExpression: /^[\d-]{0,10}$/ }
-                text: Qt.formatDate(new Date(), "yyyy-MM-dd")
+                value: Qt.formatDate(new Date(), "yyyy-MM-dd")
             }
-            Field {
+            TimeField {
                 id: manualFrom
                 objectName: "manualFrom"
-                Layout.preferredWidth: 64
-                horizontalAlignment: Text.AlignHCenter
-                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
                 placeholderText: app.texts.fromLabel || ""
             }
             Label { text: "–"; color: app.palette.muted || "#9aa0ac" }
-            Field {
+            TimeField {
                 id: manualTo
                 objectName: "manualTo"
-                Layout.preferredWidth: 64
-                horizontalAlignment: Text.AlignHCenter
-                validator: RegularExpressionValidator { regularExpression: /^\d{0,2}:?\d{0,2}$/ }
                 placeholderText: app.texts.toLabel || ""
-                onAccepted: bar.submit()
             }
             Item { Layout.fillWidth: true }
         }

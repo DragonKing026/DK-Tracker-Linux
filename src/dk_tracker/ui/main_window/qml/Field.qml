@@ -5,6 +5,7 @@ import QtQuick.Controls
 TextField {
     id: field
     color: app.palette.fg || "#eceef2"
+    opacity: enabled ? 1 : 0.5
     placeholderTextColor: app.palette.muted || "#9aa0ac"
     selectByMouse: true
     leftPadding: 10
