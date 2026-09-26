@@ -200,3 +200,79 @@ def test_overlapping_entries_follow_the_server_rule(user_tracker):
     assert len(found) == 2
     for entry in found:
         user_tracker.delete_entry(entry)
+
+
+def test_the_edit_window_reads_and_saves_tags_of_an_entry(kimai_env, user_tracker):
+    """Live test of 0.10.0: tags from GET /api/timesheets/{id}, saved as a comma list."""
+    project, activity = ids(user_tracker)
+    day = _free_day(user_tracker, 4)
+    admin = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_ADMIN_TOKEN"])
+    try:
+        admin._request("POST", "/api/tags", json={"name": "kontrakt"})  # an existing tag
+    except ApiError:
+        pass  # already made by an earlier run on a kept instance
+    user_tracker.add_entry(
+        day=day,
+        begin="09:00",
+        end="10:00",
+        project_id=project,
+        activity_id=activity,
+        description=DESCRIPTION,
+        billable=None,
+    )
+    [entry] = user_tracker.entries(day, day)
+    details = user_tracker.entry_details(entry)
+    assert details.tags == () and details.rates_visible is False  # a plain user sees no rates
+    user_tracker.save_details(details, {"tags": "kontrakt"})
+    assert user_tracker.entry_details(entry).tags == ("kontrakt",)
+    user_tracker.delete_entry(entry)
+
+
+def test_an_admin_sees_and_saves_rates(kimai_env):
+    admin = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_ADMIN_TOKEN"])
+    tracker = next(_admin_tracker(kimai_env))
+    project, activity = ids(tracker)
+    day = _free_day(tracker, 5)
+    tracker.add_entry(
+        day=day,
+        begin="09:00",
+        end="10:00",
+        project_id=project,
+        activity_id=activity,
+        description=DESCRIPTION,
+        billable=None,
+    )
+    [entry] = tracker.entries(day, day)
+    details = tracker.entry_details(entry)
+    assert details.rates_visible is True
+    tracker.save_details(details, {"hourly_rate": "150"})
+    assert tracker.entry_details(entry).hourly_rate == 150.0
+    tracker.delete_entry(entry)
+    admin.close()
+
+
+def _admin_tracker(env):
+    from .conftest import _tracker
+
+    yield from _tracker(env, "KIMAI_TEST_ADMIN_TOKEN")
+
+
+def test_a_new_tag_from_a_plain_user_is_left_out_and_named(user_tracker):
+    """Kimai 2.67.0 drops a tag that does not exist, without an error, for an account that may not
+    create tags; the save reads the entry again and says which tags are missing."""
+    project, activity = ids(user_tracker)
+    day = _free_day(user_tracker, 6)
+    user_tracker.add_entry(
+        day=day,
+        begin="09:00",
+        end="10:00",
+        project_id=project,
+        activity_id=activity,
+        description=DESCRIPTION,
+        billable=None,
+    )
+    [entry] = user_tracker.entries(day, day)
+    marker = f"nowy{datetime.now(UTC):%H%M%S%f}"
+    snapshot = user_tracker.save_details(user_tracker.entry_details(entry), {"tags": marker})
+    assert (snapshot.notice, snapshot.notice_params) == ("errTagsDropped", (("tags", marker),))
+    user_tracker.delete_entry(entry)
