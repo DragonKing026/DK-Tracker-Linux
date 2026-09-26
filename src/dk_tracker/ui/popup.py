@@ -301,7 +301,12 @@ class QuickWindow(QWidget):
             self.layout().setContentsMargins(0, 0, 0, 0)
             self.setMinimumSize(MIN_WIDTH, MIN_HEIGHT if not self._compact else 0)
         self.apply_theme()
-        self._set_panel(self._panel if self._canvas else self.size())
+        # The window may already be low (made while unconfigured): size the panel for that again.
+        compact, self._compact = self._compact, None
+        if compact is None:
+            self._set_panel(self._preferred)
+        else:
+            self._fit(compact=compact)
 
     def panel_size(self) -> QSize:
         return QSize(self._panel) if self._canvas else self.size()

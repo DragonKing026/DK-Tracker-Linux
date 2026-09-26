@@ -363,3 +363,17 @@ def test_layer_panel_is_low_while_not_configured(window):
     assert popup.panel_size().width() == 520
     assert popup.panel_size().height() < 300
     assert popup.mask().boundingRect() == popup.panel_rect()
+
+
+def test_layer_panel_is_low_when_the_app_starts_unconfigured(qtbot):
+    """The app's order: the window is made (unconfigured, so low), then placed on the layer canvas,
+    then given the remembered size — the panel must stay low (tested live: it came up full height)."""
+    from PySide6.QtCore import QSize
+
+    state = AppState(Settings(), Translator("pl"))
+    popup = QuickWindow(state, now=lambda: NOW)
+    qtbot.addWidget(popup)
+    popup.set_placement("layer")
+    popup.set_preferred_size(QSize(520, 640))
+    assert popup.panel_size().width() == 520
+    assert popup.panel_size().height() < 300
