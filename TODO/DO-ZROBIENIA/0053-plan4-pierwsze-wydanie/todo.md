@@ -5,7 +5,7 @@ numer: "0053"
 status: do-zrobienia
 priorytet: p1
 tags: [todo, plan-4, flatpak]
-zalezy_od: ["0052"]
+zalezy_od: ["0052", "0056"]
 utworzono: 2026-09-26 11:28
 zaktualizowano: 2026-09-26 11:28
 zamknieto:
