@@ -90,6 +90,8 @@ class Controller(QObject):
         self.mode = placement.apply(self.popup, window_mode)
         self.popup.set_preferred_size(QSize(memory.popup_width, memory.popup_height))
         self.tray = Tray(self.state, now) if tray_available else None
+        # Without a tray the window is the whole app: closing it must not leave a hidden process.
+        self.popup.quit_on_close = self.tray is None
         self.dialog: SettingsDialog | None = None
         self.listener = ClickListener() if listen_for_clicks else None
 
@@ -149,6 +151,7 @@ class Controller(QObject):
         popup.openKimaiRequested.connect(self.open_kimai)
         popup.shownChanged.connect(self._on_popup_shown)
         popup.sizeChosen.connect(self._remember_size)
+        popup.closeRequested.connect(self.quitRequested.emit)
         if self.tray is not None:
             self.tray.openRequested.connect(self.toggle_popup)
             self.tray.stopRequested.connect(self._menu_stop)

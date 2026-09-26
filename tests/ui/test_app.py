@@ -310,3 +310,17 @@ def test_connection_test_never_sends_the_stored_token_to_another_address(harness
     h.settle()
     assert ("https://inny.example.com", "secret-token") not in h.clients
     assert dialog.status.text() == "Podaj token API."
+
+
+def test_without_a_tray_closing_the_window_quits(harness, qtbot):
+    h = harness(tray=False)
+    with qtbot.waitSignal(h.controller.quitRequested):
+        h.controller.popup.close_button.click()
+
+
+def test_with_a_tray_closing_the_window_only_hides_it(harness, qtbot):
+    h = harness()
+    h.controller.show_popup()
+    with qtbot.assertNotEmitted(h.controller.quitRequested):
+        h.controller.popup.close_button.click()
+    assert not h.controller.popup.isVisible()

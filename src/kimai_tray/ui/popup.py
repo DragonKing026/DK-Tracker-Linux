@@ -72,7 +72,7 @@ class ResizeGrip(QWidget):
     def mouseReleaseEvent(self, event: QMouseEvent) -> None:  # noqa: N802 - Qt API
         if self._start is not None:
             self._start = None
-            self._window.sizeChosen.emit(self._window.size())
+            self._window.report_size()
 
     def paintEvent(self, event) -> None:  # noqa: N802 - Qt API
         painter = QPainter(self)
@@ -87,6 +87,7 @@ class QuickWindow(QWidget):
     settingsRequested = Signal()
     openKimaiRequested = Signal()
     shownChanged = Signal(bool)
+    closeRequested = Signal()  # ✕, Esc or the window frame while quit_on_close (no tray to come back from)
     sizeChosen = Signal(QSize)  # after the user resized the window with the grip
 
     def __init__(
@@ -100,6 +101,11 @@ class QuickWindow(QWidget):
         self._preferred = QSize(WIDTH, HEIGHT)  # the user's size; used while there are lists to show
         self._compact: bool | None = None
         self._error_from_refresh = False  # the red strip came from a failed refresh, not from an action
+        self.quit_on_close = False
+        self.size_report_ms = 600  # a resize by the compositor is reported once it settles
+        self._reported = QSize()
+        self._size_timer = QTimer(self, singleShot=True)
+        self._size_timer.timeout.connect(self.report_size)
         self.hide_on_deactivate = True
         self.placement_mode = "frameless"
         self.hidden_by_focus_loss_at = 0.0  # monotonic time; a tray click right after must not reopen
@@ -164,7 +170,7 @@ class QuickWindow(QWidget):
         self.settings_button.clicked.connect(self.settingsRequested.emit)
         self.open_settings.clicked.connect(self.settingsRequested.emit)
         self.all_entries.clicked.connect(self.openKimaiRequested.emit)
-        self.close_button.clicked.connect(self.hide)
+        self.close_button.clicked.connect(self.dismiss)
         self.form.edited.connect(self.clear_error)
         state.changed.connect(self.render)
         QGuiApplication.styleHints().colorSchemeChanged.connect(lambda _scheme: self.apply_theme())
@@ -251,8 +257,27 @@ class QuickWindow(QWidget):
             self.setMinimumHeight(MIN_HEIGHT)
             self.resize(self._preferred)
 
+    def dismiss(self) -> None:
+        """Close as the user asked: hide to the tray, or — with no tray to come back from — quit."""
+        if self.quit_on_close:
+            self.closeRequested.emit()
+        else:
+            self.hide()
+
+    def closeEvent(self, event) -> None:  # noqa: N802 - Qt API
+        super().closeEvent(event)
+        if self.quit_on_close:
+            self.closeRequested.emit()
+
+    def report_size(self) -> None:
+        if not self._compact and self.isVisible() and self.size() != self._reported:
+            self._reported = self.size()
+            self.sizeChosen.emit(self.size())
+
     def resizeEvent(self, event) -> None:  # noqa: N802 - Qt API
         super().resizeEvent(event)
+        if self.isVisible() and not self._compact:
+            self._size_timer.start(self.size_report_ms)
         self.grip.move(1, 1)
         self.grip.raise_()
 
@@ -273,7 +298,7 @@ class QuickWindow(QWidget):
 
     def keyPressEvent(self, event: QKeyEvent) -> None:  # noqa: N802 - Qt API
         if event.key() == Qt.Key.Key_Escape:
-            self.hide()
+            self.dismiss()
             return
         super().keyPressEvent(event)
 

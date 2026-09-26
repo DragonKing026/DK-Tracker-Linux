@@ -241,3 +241,14 @@ def test_an_action_error_is_not_wiped_by_a_refresh(window):
     popup.show_error("Wybierz projekt.")
     state.update(snapshot=IDLE)
     assert popup.error.text() == "Wybierz projekt."
+
+
+def test_size_set_by_the_compositor_is_reported_after_a_pause(window, qtbot):
+    from PySide6.QtCore import QSize
+
+    state, popup = window
+    popup.size_report_ms = 20
+    popup.show()
+    with qtbot.waitSignal(popup.sizeChosen) as signal:
+        popup.resize(QSize(600, 700))  # e.g. a frameless window resized with startSystemResize
+    assert signal.args == [QSize(600, 700)]
