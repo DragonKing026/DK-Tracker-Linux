@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 10:09
+zaktualizowano: 2026-09-26 10:14
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0044 | [Drobne uwagi z recenzji Planu 3 (ui)](W-TRAKCIE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) | 🔨 w-trakcie | p3 | [0041](ZROBIONE/0041-plan3-test-na-zywo/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -79,6 +78,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0041 | [Plan 3 · Zadanie 13: Test na żywo na KDE z Kimai w Dockerze](ZROBIONE/0041-plan3-test-na-zywo/todo.md) | ✅ zrobione | 2026-09-26 09:51 |
 | 0042 | [Poprawki UI po teście na żywo (Plan 3)](ZROBIONE/0042-poprawki-po-tescie-na-zywo/todo.md) | ✅ zrobione | 2026-09-26 00:47 |
 | 0043 | [Dokumenty zgodne z markdownlint](ZROBIONE/0043-markdownlint/todo.md) | ✅ zrobione | 2026-09-25 23:45 |
+| 0044 | [Drobne uwagi z recenzji Planu 3 (ui)](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) | ✅ zrobione | 2026-09-26 10:14 |
 
 <!-- tablica:end -->
 
