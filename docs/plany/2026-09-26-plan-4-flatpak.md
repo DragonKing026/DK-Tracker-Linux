@@ -173,7 +173,7 @@ dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.6", "pytest-qt>=4.4", "pyyaml>=6",
 - [ ] **Step 4: Uruchom — mają przejść**
 
 Run: `.venv/bin/pytest -q`
-Expected: całość zielona — 397 passed, 1 skipped (395 + 2 nowe testy).
+Expected: całość zielona — 399 passed, 1 skipped (397 + 2 nowe testy).
 
 - [ ] **Step 5: Commit**
 
@@ -298,7 +298,7 @@ Expected: 3 FAIL (`FileNotFoundError` — brak pliku MetaInfo); `test_desktop_en
 - [ ] **Step 4: Uruchom — mają przejść**
 
 Run: `.venv/bin/pytest -q`
-Expected: 401 passed, 1 skipped.
+Expected: 403 passed, 1 skipped.
 
 - [ ] **Step 5: Commit**
 
@@ -500,7 +500,7 @@ modules:
 - [ ] **Step 4: Uruchom — mają przejść**
 
 Run: `.venv/bin/pytest -q`
-Expected: 406 passed, 1 skipped.
+Expected: 408 passed, 1 skipped.
 
 - [ ] **Step 5: Commit**
 
@@ -849,7 +849,7 @@ echo "Prywatny:  $PRIVATE → gh secret set FLATPAK_GPG_PRIVATE_KEY < \"$PRIVATE
 - [ ] **Step 4: Uruchom — mają przejść**
 
 Run: `.venv/bin/pytest -q`
-Expected: 409 passed, 1 skipped.
+Expected: 411 passed, 1 skipped.
 
 - [ ] **Step 5: Próba na sucho w kontenerze** (tymczasowy klucz, repozytorium z zadania 4):
 
@@ -1041,7 +1041,7 @@ jobs:
 - [ ] **Step 4: Uruchom — mają przejść**
 
 Run: `.venv/bin/pytest -q && docker run --rm -v "$PWD":/repo -w /repo rhysd/actionlint:latest -no-color`
-Expected: 411 passed, 1 skipped; `actionlint` bez uwag (sprawdza też skrypty `run:` shellcheckiem).
+Expected: 413 passed, 1 skipped; `actionlint` bez uwag (sprawdza też skrypty `run:` shellcheckiem).
 
 - [ ] **Step 5: Dokumentacja**
 
@@ -1097,9 +1097,11 @@ git commit -m "ci: testy na każdy push i wydanie Flatpaka po tagu wersji" -m "C
      identyfikator).
   5. Wersje 0.x oznaczane jako „pre-release”; 1.0.0 po testach GNOME
      ([0020](../../TODO/DO-ZROBIENIA/0020-testy-gnome/todo.md)).
-- [ ] **Step 2: `.github/README.md` → „Instalacja”** — polecenie z `.flatpakref`, link do najnowszego wydania
+- [ ] **Step 2: `.github/README.md` i `README.md` → „Instalacja”** (oba z tą samą treścią — pilnuje tego
+  `tests/test_readme.py`; w głównym zostaje frontmatter, w `.github/` linki zaczynają się od `../`) — polecenie z
+  `.flatpakref`, link do najnowszego wydania
   (`https://github.com/DragonKing026/Kimai-App--Linux-/releases/latest`), link do `wydania.md`. Bez frontmattera.
-- [ ] **Step 3: `README.md`** — status „0.9.0 (beta)”, krótka sekcja „Instalacja” jak wyżej; `struktura-repozytorium.md`
+- [ ] **Step 3: Struktura** — `struktura-repozytorium.md`
   — katalogi `flatpak/`, `data/`, `.github/` (workflowy, README strony repozytorium).
 - [ ] **Step 4: Kontrole** — `linki.py sprawdz`, `frontmatter.py sprawdz`, `mdfix.py napraw` + `sprawdz`.
 - [ ] **Step 5: Commit** (proces, README, struktura osobno) — `docs(procesy): wydania…`, `docs: instalacja…`.
@@ -1133,7 +1135,7 @@ def test_repository_signing_key_is_public_only():
 Run: `.venv/bin/pytest tests/test_pakiet.py -q` → 1 FAIL (brak `flatpak/kimai-tray-repo.gpg`).
 
 - [ ] **Step 2: Klucz** — `flatpak/klucz-gpg.sh` (**za zgodą użytkownika**: plik prywatny powstaje w jego `~`);
-  `.venv/bin/pytest -q` → 412 passed, 1 skipped; commit klucza publicznego i testu.
+  `.venv/bin/pytest -q` → 414 passed, 1 skipped; commit klucza publicznego i testu.
 - [ ] **Step 3: Sekret i Pages — za zgodą użytkownika w tej chwili:**
   `gh secret set FLATPAK_GPG_PRIVATE_KEY < ~/kimai-tray-repo-private.asc && shred -u ~/kimai-tray-repo-private.asc`;
   `gh api -X POST repos/DragonKing026/Kimai-App--Linux-/pages -f build_type=workflow` (albo w ustawieniach repo).
