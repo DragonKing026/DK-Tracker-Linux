@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-26 11:58
+zaktualizowano: 2026-09-26 11:59
 ---
 
 # Tablica zadań
@@ -26,14 +26,13 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0045 | [Plan 4 — projekt paczki Flatpak (decyzje przed planem)](W-TRAKCIE/0045-plan4-projekt-flatpak/todo.md) | 🔨 w-trakcie | p1 | [0044](ZROBIONE/0044-drobne-uwagi-z-recenzji-planu-3/todo.md) ✅ |
-| 0052 | [Plan 4 · Zadanie 7: Proces wydania i instrukcja instalacji](W-TRAKCIE/0052-plan4-proces-wydania/todo.md) | 🔨 w-trakcie | p1 | [0051](ZROBIONE/0051-plan4-github-actions/todo.md) ✅ |
 
 ## Do zrobienia
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
-| 0053 | [Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)](DO-ZROBIENIA/0053-plan4-pierwsze-wydanie/todo.md) | 📋 do-zrobienia | p1 | [0052](W-TRAKCIE/0052-plan4-proces-wydania/todo.md) |
+| 0053 | [Plan 4 · Zadanie 8: Pierwsze wydanie 0.9.0 (z użytkownikiem)](DO-ZROBIENIA/0053-plan4-pierwsze-wydanie/todo.md) | 📋 do-zrobienia | p1 | [0052](ZROBIONE/0052-plan4-proces-wydania/todo.md) ✅ |
 
 ## Zrobione
 
@@ -88,6 +87,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0049 | [Plan 4 · Zadanie 4: Budowa lokalna w kontenerze (`flatpak/buduj.sh`)](ZROBIONE/0049-plan4-budowa-lokalna/todo.md) | ✅ zrobione | 2026-09-26 11:54 |
 | 0050 | [Plan 4 · Zadanie 5: Repozytorium Flatpaka dla GitHub Pages](ZROBIONE/0050-plan4-repo-pages/todo.md) | ✅ zrobione | 2026-09-26 11:55 |
 | 0051 | [Plan 4 · Zadanie 6: GitHub Actions — testy i wydanie](ZROBIONE/0051-plan4-github-actions/todo.md) | ✅ zrobione | 2026-09-26 11:58 |
+| 0052 | [Plan 4 · Zadanie 7: Proces wydania i instrukcja instalacji](ZROBIONE/0052-plan4-proces-wydania/todo.md) | ✅ zrobione | 2026-09-26 11:59 |
 | 0054 | [Podobne aplikacje: KimaiTray i KimTrack w dokumentacji](ZROBIONE/0054-podobne-aplikacje/todo.md) | ✅ zrobione | 2026-09-26 11:43 |
 | 0055 | [Zmiana nazwy na WS Tracker Tray](ZROBIONE/0055-zmiana-nazwy-ws-tracker-tray/todo.md) | ✅ zrobione | 2026-09-26 11:48 |
 
