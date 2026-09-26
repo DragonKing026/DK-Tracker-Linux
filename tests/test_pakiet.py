@@ -196,7 +196,7 @@ def test_ci_enforces_core_coverage():
 
 
 def test_every_action_is_pinned_to_a_commit():
-    """A moved tag must not change the code (the release job holds the GPG key); the repository also requires SHAs."""
+    """A moved tag must not change the code (the release job holds the GPG key); the repo requires it."""
     import re
 
     for name in ("testy.yml", "wydanie.yml"):
