@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, ui, qml, okno-glowne, wydanie]
 zalezy_od: ["0062-aplikacja-ws-tracker"]
 utworzono: 2026-09-26 17:04
-zaktualizowano: 2026-09-26 17:04
+zaktualizowano: 2026-09-26 17:23
 zamknieto:
 ---
 
@@ -29,24 +29,24 @@ Wykonać [Plan 5](../../../docs/plany/2026-09-26-plan-5-okno-glowne.md) według
 
 ## Kryteria akceptacji
 
-- [ ] Zadania 1–11 planu wykonane (TDD), cały zestaw testów zielony, ruff czysty
-- [ ] Testy kontraktowe na Kimai w Dockerze zielone
-- [ ] Recenzja końcowa całości i poprawki
+- [x] Zadania 1–11 planu wykonane (TDD), cały zestaw testów zielony (575), ruff czysty
+- [x] Testy kontraktowe na Kimai w Dockerze zielone (14)
+- [x] Recenzja końcowa całości i poprawki (4 krytyczne, 6 ważnych — poprawione z testami; 7 drobnych odłożonych)
 - [ ] Test na żywo z użytkownikiem, wydanie 0.10.0 za zgodą użytkownika (zadanie 12)
 
 ## Kroki
 
-- [ ] Zadanie 1: klient API
-- [ ] Zadanie 2: Tracker
-- [ ] Zadanie 3: ustawienia
-- [ ] Zadanie 4: lista tygodni
-- [ ] Zadanie 5: modele
-- [ ] Zadanie 6: MainBridge
-- [ ] Zadanie 7: okno w QML
-- [ ] Zadanie 8: kontroler
-- [ ] Zadanie 9: opcja tacki
-- [ ] Zadanie 10: testy kontraktowe
-- [ ] Zadanie 11: dokumentacja
+- [x] Zadanie 1: klient API
+- [x] Zadanie 2: Tracker
+- [x] Zadanie 3: ustawienia
+- [x] Zadanie 4: lista tygodni
+- [x] Zadanie 5: modele
+- [x] Zadanie 6: MainBridge
+- [x] Zadanie 7: okno w QML
+- [x] Zadanie 8: kontroler
+- [x] Zadanie 9: opcja tacki
+- [x] Zadanie 10: testy kontraktowe
+- [x] Zadanie 11: dokumentacja
 - [ ] Zadanie 12: wersja i wydanie
 
 ## Materiały
@@ -58,6 +58,8 @@ Brak.
 ### 2026-09-26
 
 - **17:04** Utworzono i start.
+- **17:23** Zadania 1–11 zrobione; recenzja końcowa: 4 krytyczne i 6 ważnych uwag poprawionych z testami,
+  7 drobnych odłożonych (lista w dzienniku planu). Czeka: test na żywo z użytkownikiem i wydanie 0.10.0.
 
 ## Wynik
 
