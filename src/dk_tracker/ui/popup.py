@@ -197,7 +197,11 @@ class QuickWindow(QWidget):
     # -- drawing -------------------------------------------------------------------
 
     def apply_theme(self) -> None:
-        palette = palette_for(QGuiApplication.styleHints().colorScheme(), self.palette().window().color())
+        palette = palette_for(
+            QGuiApplication.styleHints().colorScheme(),
+            self.palette().window().color(),
+            self._state.settings.theme,
+        )
         css = stylesheet(palette, write_assets(palette))
         if self._canvas:  # only the panel is painted; the rest of the surface stays see-through
             css += f"#popup {{ background: transparent; }} QFrame#backdrop {{ background: {palette['bg']}; }}"

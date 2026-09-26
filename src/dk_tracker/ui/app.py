@@ -544,6 +544,9 @@ class Controller(QObject):
         self.state.update(settings=self._settings, secrets_problem=None)
         if previous.autostart != self._settings.autostart:
             self._request_autostart(self._settings.autostart)
+        if previous.theme != self._settings.theme:  # both windows at once, no restart
+            self._main_theme()
+            self.popup.apply_theme()
         if previous.show_tray != self._settings.show_tray:
             self._set_tray(self._settings.show_tray)
         if self._tracker is None:
@@ -607,7 +610,7 @@ class Controller(QObject):
 
     def _main_theme(self) -> None:
         hints, window = QGuiApplication.styleHints(), QGuiApplication.palette().window().color()
-        self.main_bridge.set_palette(main_palette_for(hints.colorScheme(), window))
+        self.main_bridge.set_palette(main_palette_for(hints.colorScheme(), window, self._settings.theme))
 
     def _render_main(self) -> None:
         if self.main_window is None:

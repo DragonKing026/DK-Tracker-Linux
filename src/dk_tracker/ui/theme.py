@@ -87,7 +87,12 @@ MAIN_LIGHT = {
 PROJECT_NONE = "line"  # palette key of the grey dot when no project is chosen
 
 
-def palette_for(scheme: Qt.ColorScheme, window: QColor) -> dict[str, str]:
+def palette_for(scheme: Qt.ColorScheme, window: QColor, choice: str = "auto") -> dict[str, str]:
+    """The theme chosen in the settings, or — "auto" — the system's."""
+    if choice == "dark":
+        return DARK
+    if choice == "light":
+        return LIGHT
     if scheme == Qt.ColorScheme.Dark:
         return DARK
     if scheme == Qt.ColorScheme.Light:
@@ -95,8 +100,8 @@ def palette_for(scheme: Qt.ColorScheme, window: QColor) -> dict[str, str]:
     return DARK if window.lightness() < 128 else LIGHT
 
 
-def main_palette_for(scheme: Qt.ColorScheme, window: QColor) -> dict[str, str]:
-    return MAIN_DARK if palette_for(scheme, window) is DARK else MAIN_LIGHT
+def main_palette_for(scheme: Qt.ColorScheme, window: QColor, choice: str = "auto") -> dict[str, str]:
+    return MAIN_DARK if palette_for(scheme, window, choice) is DARK else MAIN_LIGHT
 
 
 _CHEVRON = (

@@ -111,3 +111,11 @@ def test_busy_and_a_denied_autostart(form):
     assert form.form["busy"] is True
     form.set_autostart(False)
     assert form.form["autostart"] is False
+
+
+def test_the_theme_is_chosen_in_the_settings(form, qtbot):
+    assert form.form["theme"] == "auto"
+    assert [option["code"] for option in form.form["themes"]] == ["auto", "light", "dark"]
+    with qtbot.waitSignal(form.saveRequested) as signal:
+        form.save(values(theme="dark"), "")
+    assert signal.args[0].theme == "dark"

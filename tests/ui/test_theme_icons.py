@@ -164,3 +164,13 @@ def test_the_main_window_has_its_own_tokens_in_both_themes():
     assert expected <= set(MAIN_DARK)
     assert main_palette_for(Qt.ColorScheme.Dark, QColor("#ffffff")) is MAIN_DARK
     assert main_palette_for(Qt.ColorScheme.Unknown, QColor("#eff0f1")) is MAIN_LIGHT
+
+
+def test_a_chosen_theme_wins_over_the_system():
+    from dk_tracker.ui.theme import MAIN_DARK, MAIN_LIGHT, main_palette_for
+
+    assert palette_for(Qt.ColorScheme.Dark, QColor("#000000"), "light") is LIGHT
+    assert palette_for(Qt.ColorScheme.Light, QColor("#ffffff"), "dark") is DARK
+    assert main_palette_for(Qt.ColorScheme.Dark, QColor("#000000"), "light") is MAIN_LIGHT
+    assert main_palette_for(Qt.ColorScheme.Light, QColor("#ffffff"), "auto") is MAIN_LIGHT
+    assert main_palette_for(Qt.ColorScheme.Light, QColor("#ffffff"), "dark") is MAIN_DARK

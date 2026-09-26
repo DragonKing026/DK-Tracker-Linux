@@ -14,6 +14,9 @@ from pathlib import Path
 APP_DIR = "dk-tracker"
 
 
+THEMES = ("auto", "light", "dark")
+
+
 @dataclass(frozen=True)
 class Settings:
     url: str = ""
@@ -24,6 +27,7 @@ class Settings:
     notify_menu_actions: bool = True
     autostart: bool = False
     show_tray: bool = True  # Plan 5: only where the desktop has a tray; off = the main window alone
+    theme: str = "auto"  # auto (the system's) | light | dark — the popup and the main window
 
     def normalized(self) -> Settings:
         return replace(
@@ -31,6 +35,7 @@ class Settings:
             url=self.url.strip().rstrip("/"),
             min_description=max(0, int(self.min_description)),
             long_timer_hours=max(0.0, float(self.long_timer_hours)),
+            theme=self.theme if self.theme in THEMES else "auto",
         )
 
     def warnings(self) -> list[str]:

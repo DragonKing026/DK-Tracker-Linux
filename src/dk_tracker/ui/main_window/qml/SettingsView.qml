@@ -18,6 +18,7 @@ ScrollView {
         url.text = form.url
         token.text = ""
         language.currentIndex = Math.max(0, language.indexOfValue(form.language))
+        theme.currentIndex = Math.max(0, theme.indexOfValue(form.theme))
         minDescription.value = form.minDescription
         longTimer.value = Math.round(form.longTimer * 10)
         notifyConnection.checked = form.notifyConnection
@@ -27,7 +28,7 @@ ScrollView {
     }
     function values() {
         return {
-            url: url.text, language: language.currentValue, minDescription: minDescription.value,
+            url: url.text, language: language.currentValue, theme: theme.currentValue, minDescription: minDescription.value,
             longTimer: longTimer.value / 10, notifyConnection: notifyConnection.checked,
             notifyMenu: notifyMenu.checked, autostart: autostart.checked, showTray: showTray.checked
         }
@@ -99,6 +100,19 @@ ScrollView {
                 objectName: "settingsLanguage"
                 Layout.preferredWidth: 240
                 model: page.form.languages
+                textRole: "label"
+                valueRole: "code"
+            }
+            Item { Layout.fillWidth: true }
+        }
+        FormRow {
+            labelWidth: page.labelWidth
+            label: app.texts.optTheme || ""
+            Combo {
+                id: theme
+                objectName: "settingsTheme"
+                Layout.preferredWidth: 240
+                model: page.form.themes
                 textRole: "label"
                 valueRole: "code"
             }

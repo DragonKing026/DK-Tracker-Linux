@@ -17,6 +17,7 @@ from PySide6.QtCore import Property, QObject, Signal, Slot
 from dk_tracker.core.settings import Settings
 
 LANGUAGES = (("auto", "optLangAuto"), ("pl", "optLangPl"), ("en", "optLangEn"))
+THEMES = (("auto", "optThemeAuto"), ("light", "optThemeLight"), ("dark", "optThemeDark"))
 
 
 class SettingsForm(QObject):
@@ -90,6 +91,7 @@ class SettingsForm(QObject):
             notify_menu_actions=bool(values.get("notifyMenu", True)),
             autostart=bool(values.get("autostart", False)),
             show_tray=bool(values.get("showTray", True)),
+            theme=str(values.get("theme", "auto")),
         ).normalized()
         token = token.strip()
         if not settings.url:
@@ -122,6 +124,8 @@ class SettingsForm(QObject):
             "notifyMenu": s.notify_menu_actions,
             "autostart": s.autostart,
             "showTray": s.show_tray,
+            "theme": s.theme,
+            "themes": [{"code": code, "label": t(key)} for code, key in THEMES],
             "tokenPlaceholder": t("optTokenKeep") if self._has_token else "",
             "warning": "\n\n".join(notes),
             "status": self._status,

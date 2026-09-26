@@ -23,3 +23,10 @@ def test_settings_from_an_older_version_get_the_tray_on(tmp_path):
     path = tmp_path / "settings.json"
     path.write_text('{"url": "https://kimai.test"}', encoding="utf-8")
     assert load_json(Settings, path).show_tray is True
+
+
+def test_the_theme_follows_the_system_unless_chosen():
+    """User's choice (live test of 0.10.0): Systemowy / Jasny / Ciemny in the settings."""
+    assert Settings().theme == "auto"
+    assert Settings(theme="dark").normalized().theme == "dark"
+    assert Settings(theme="fioletowy").normalized().theme == "auto"  # an unknown value from an old file

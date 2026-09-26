@@ -343,3 +343,14 @@ def test_tags_kimai_left_out_are_told_in_the_main_window(harness):  # noqa: F811
     h.controller.main_bridge.saveEntry(dict(h.controller.main_bridge.editor, tags="frontend, nowy"))
     h.settle()
     assert "nowy" in h.controller.main_bridge.view["error"]
+
+
+def test_a_theme_chosen_in_the_settings_applies_to_both_windows_at_once(harness):  # noqa: F811
+    from dk_tracker.ui.theme import DARK, LIGHT, MAIN_DARK, MAIN_LIGHT
+
+    h = opened(harness)
+    for theme, main, popup in (("light", MAIN_LIGHT, LIGHT), ("dark", MAIN_DARK, DARK)):
+        h.controller.save_settings(Settings(url=URL, language="pl", theme=theme), None)
+        h.settle()
+        assert h.controller.main_bridge.palette["bg"] == main["bg"]
+        assert popup["surface"] in h.controller.popup.styleSheet()
