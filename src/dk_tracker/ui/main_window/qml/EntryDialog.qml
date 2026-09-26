@@ -27,9 +27,9 @@ Popup {
 
     Overlay.modal: Rectangle { color: "#80000000" }
     background: Rectangle {
-        radius: 8
+        radius: 6
         color: app.palette.surface || "#1e2127"
-        border.color: app.palette.line || "#2f333c"
+        border.color: (app.palette.border || "#5a6270")
     }
 
     // The fields take the entry's values when it opens; typing does not come back through `editor`.

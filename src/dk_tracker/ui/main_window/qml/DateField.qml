@@ -37,7 +37,7 @@ Btn {
         background: Rectangle {
             radius: 6
             color: app.palette.surface || "#1e2127"
-            border.color: app.palette.line || "#2f333c"
+            border.color: (app.palette.border || "#5a6270")
         }
         contentItem: ColumnLayout {
             spacing: 4

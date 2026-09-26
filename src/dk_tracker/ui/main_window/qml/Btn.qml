@@ -8,7 +8,7 @@ Button {
     rightPadding: 14
     topPadding: 8
     bottomPadding: 8
-    opacity: enabled ? 1 : 0.5  // the whole button: pickers bring their own label
+    opacity: enabled ? 1 : 0.7  // the whole button: pickers bring their own label
     HoverHandler { cursorShape: button.enabled ? Qt.PointingHandCursor : Qt.ArrowCursor }
     contentItem: Label {
         text: button.text
@@ -20,12 +20,12 @@ Button {
     }
     // The main action: the accent as a tint and a thin border, not a bright block (live test).
     background: Rectangle {
-        radius: 5
+        radius: 4
         readonly property color accent: app.palette.accent || "#6f9bff"
         color: button.highlighted
                ? Qt.rgba(accent.r, accent.g, accent.b, button.down ? 0.32 : (button.hovered ? 0.24 : 0.16))
                : button.down || button.hovered ? (app.palette.line || "#2f333c") : (app.palette.surface2 || "#272b33")
-        border.width: button.highlighted ? 1 : 0
-        border.color: Qt.rgba(accent.r, accent.g, accent.b, 0.55)
+        border.width: 1
+        border.color: button.highlighted ? Qt.rgba(accent.r, accent.g, accent.b, 0.7) : (app.palette.border || "#5a6270")
     }
 }

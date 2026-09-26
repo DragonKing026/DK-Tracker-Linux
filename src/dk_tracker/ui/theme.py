@@ -19,6 +19,7 @@ LIGHT = {
     "fg": "#17181c",
     "muted": "#71757f",
     "line": "#e3e5ea",
+    "border": "#b4bac4",  # edges of fields and buttons in the main window: clearly visible
     "accent": "#2563eb",
     "start": "#16a34a",
     "stop": "#e02f2f",
@@ -36,6 +37,7 @@ DARK = {
     "fg": "#eceef2",
     "muted": "#9aa0ac",
     "line": "#2f333c",
+    "border": "#5a6270",
     "accent": "#6f9bff",
     "ok_bg": "#14301f",
     "ok_fg": "#6ee7a0",

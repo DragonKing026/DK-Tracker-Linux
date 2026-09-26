@@ -14,7 +14,7 @@ ScrollView {
     signal editingFinished()
     implicitHeight: Math.min(area.implicitHeight, area.font.pixelSize * 1.45 * maxLines + 18)
     clip: true
-    opacity: enabled ? 1 : 0.5
+    opacity: enabled ? 1 : 0.7
     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
     TextArea {
@@ -28,10 +28,10 @@ ScrollView {
         topPadding: 8
         bottomPadding: 8
         background: Rectangle {
-            radius: 5
+            radius: 4
             color: app.palette.bg || "#16181d"
             border.width: 1
-            border.color: area.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.line || "#2f333c")
+            border.color: area.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#5a6270")
         }
         Keys.onReturnPressed: function (event) {
             if (event.modifiers & Qt.ShiftModifier) { event.accepted = false; return }  // a new line

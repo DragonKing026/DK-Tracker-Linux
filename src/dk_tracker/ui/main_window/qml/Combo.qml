@@ -6,7 +6,7 @@ ComboBox {
     id: combo
     HoverHandler { cursorShape: Qt.PointingHandCursor }
     leftPadding: 10
-    opacity: enabled ? 1 : 0.5
+    opacity: enabled ? 1 : 0.7
     // Our own arrow in the text colour: Basic's grey one vanished on the dark field (live test).
     indicator: Image {
         x: combo.width - width - 10
@@ -25,15 +25,15 @@ ComboBox {
     }
     background: Rectangle {
         implicitHeight: 38
-        radius: 5
+        radius: 4
         color: combo.hovered ? (app.palette.line || "#2f333c") : (app.palette.surface2 || "#272b33")
-        border.width: combo.activeFocus ? 1 : 0
-        border.color: app.palette.focus || "#7aa2ff"
+        border.width: 1
+        border.color: combo.activeFocus ? (app.palette.focus || "#7aa2ff") : (app.palette.border || "#5a6270")
     }
     popup.background: Rectangle {
-        radius: 5
+        radius: 4
         color: app.palette.surface || "#1e2127"
-        border.color: app.palette.line || "#2f333c"
+        border.color: (app.palette.border || "#5a6270")
     }
     delegate: ItemDelegate {
         required property var model
