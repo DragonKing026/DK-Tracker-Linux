@@ -235,3 +235,12 @@ def test_a_release_keeps_the_earlier_releases():
     """Working releases stay; only faulty ones are removed, by hand (user's decision, 0067)."""
     steps = workflow("wydanie.yml")["jobs"]["wydanie"]["steps"]
     assert not any("gh release delete" in step.get("run", "") for step in steps)
+
+
+def test_the_main_windows_qml_is_part_of_the_package():
+    """Plan 5: `pip install .` in the Flatpak must carry the QML files, or the window is empty."""
+    data = tomllib.loads((ROOT / "pyproject.toml").read_text(encoding="utf-8"))["tool"]["setuptools"][
+        "package-data"
+    ]
+    assert data["dk_tracker.ui.main_window"] == ["qml/*.qml"]
+    assert (ROOT / "src" / "dk_tracker" / "ui" / "main_window" / "qml" / "Main.qml").is_file()

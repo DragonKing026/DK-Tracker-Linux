@@ -41,6 +41,7 @@ class MainBridge(QObject):
     searchRequested = Signal(str)
     activitiesRequested = Signal(int)
     settingsRequested = Signal()
+    windowClosed = Signal()  # the window's own close button (QML's onClosing)
 
     def __init__(self, parent: QObject | None = None) -> None:
         super().__init__(parent)
@@ -48,13 +49,24 @@ class MainBridge(QObject):
         self.projects = ProjectModel(self)
         self.activities = ActivityModel(self)
         self.undo_ms = UNDO_MS
-        self._view: dict[str, Any] = {
-            "configured": False,
-            "running": False,
-            "undo": "",
-            "error": "",
-            "offline": False,
-        }
+        # Every key exists from the start: QML warns about a missing one.
+        self._view: dict[str, Any] = dict.fromkeys(
+            (
+                "description",
+                "projectName",
+                "projectColor",
+                "activityName",
+                "begin",
+                "clock",
+                "today",
+                "week",
+                "error",
+                "undo",
+            ),
+            "",
+        )
+        self._view.update(configured=False, running=False, projectId=0, activityId=0, billable=True,
+                          billableAllowed=True, offline=False, loading=False)  # fmt: skip
         self._texts: dict[str, str] = {}
         self._palette: dict[str, str] = {}
         self._row_errors: dict[str, str] = {}
@@ -77,10 +89,22 @@ class MainBridge(QObject):
     def _get_row_errors(self) -> dict[str, str]:
         return self._row_errors
 
+    def _get_entries(self) -> EntryListModel:
+        return self.entries
+
+    def _get_projects(self) -> ProjectModel:
+        return self.projects
+
+    def _get_activities(self) -> ActivityModel:
+        return self.activities
+
     view = Property("QVariantMap", _get_view, notify=viewChanged)
     texts = Property("QVariantMap", _get_texts, notify=textsChanged)
     palette = Property("QVariantMap", _get_palette, notify=paletteChanged)
     rowErrors = Property("QVariantMap", _get_row_errors, notify=rowErrorsChanged)
+    entryList = Property(QObject, _get_entries, constant=True)
+    projectList = Property(QObject, _get_projects, constant=True)
+    activityList = Property(QObject, _get_activities, constant=True)
 
     # -- from the controller ---------------------------------------------------------------
 
@@ -252,9 +276,18 @@ class MainBridge(QObject):
     def filterProjects(self, text: str) -> None:  # noqa: N802
         self.projects.set_filter(text)
 
+    @Slot(int, result=str)
+    def projectName(self, projectId: int) -> str:  # noqa: N802, N803
+        project = self.projects.project(projectId)
+        return project.name if project else ""
+
     @Slot(int)
     def chooseProject(self, projectId: int) -> None:  # noqa: N802, N803
         self.activitiesRequested.emit(projectId)
+
+    @Slot()
+    def closeWindow(self) -> None:  # noqa: N802
+        self.windowClosed.emit()
 
     @Slot()
     def openSettings(self) -> None:  # noqa: N802

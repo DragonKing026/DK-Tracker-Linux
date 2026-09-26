@@ -118,5 +118,14 @@
   "weekThis": "Ten tydzień",
   "weekLast": "Poprzedni tydzień",
   "weekRange": "{first} – {last}",
-  "projectSearch": "Szukaj projektu…"
+  "projectSearch": "Szukaj projektu…",
+  "viewEntries": "Wpisy",
+  "navSettings": "Ustawienia",
+  "manualMode": "Wpis ręczny: dzień i godziny",
+  "timerMode": "Timer",
+  "addEntry": "Dodaj wpis",
+  "duplicate": "Duplikuj",
+  "deleteEntry": "Usuń",
+  "loading": "Wczytywanie…",
+  "save": "Zapisz"
 }

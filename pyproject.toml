@@ -25,6 +25,7 @@ where = ["src"]
 [tool.setuptools.package-data]
 "dk_tracker.core" = ["locales/*.json"]
 "dk_tracker.ui" = ["assets/*"]
+"dk_tracker.ui.main_window" = ["qml/*.qml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

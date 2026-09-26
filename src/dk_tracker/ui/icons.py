@@ -39,6 +39,28 @@ _PATHS = {
         '<g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
         '<path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></g>'
     ),
+    # Plan 5, the main window (lucide-style outlines, 24 x 24).
+    "timer": (
+        '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">'
+        '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M10 2h4"/></g>'
+    ),
+    "pencil": (
+        '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" '
+        'd="M17 3a2.8 2.8 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5z"/>'
+    ),
+    "dots": (
+        '<g fill="currentColor"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/>'
+        '<circle cx="12" cy="19" r="1.8"/></g>'
+    ),
+    "lock": (
+        '<g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">'
+        '<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></g>'
+    ),
+    "list": (
+        '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+        'd="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'
+    ),
+    "plus": '<path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 5v14M5 12h14"/>',
 }
 GLYPHS = tuple(_PATHS)
 

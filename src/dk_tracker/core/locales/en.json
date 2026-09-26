@@ -118,5 +118,14 @@
   "weekThis": "This week",
   "weekLast": "Last week",
   "weekRange": "{first} – {last}",
-  "projectSearch": "Search projects…"
+  "projectSearch": "Search projects…",
+  "viewEntries": "Entries",
+  "navSettings": "Settings",
+  "manualMode": "Manual entry: day and hours",
+  "timerMode": "Timer",
+  "addEntry": "Add entry",
+  "duplicate": "Duplicate",
+  "deleteEntry": "Delete",
+  "loading": "Loading…",
+  "save": "Save"
 }
