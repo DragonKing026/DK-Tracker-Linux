@@ -104,3 +104,28 @@ def test_activities_for_a_project(qapp):
     model.set_activities([Activity(2, "Spotkanie", True, None), Activity(1, "Programowanie", True, None)])
     assert [roles(model, i)["name"] for i in range(model.rowCount())] == ["Spotkanie", "Programowanie"]
     assert roles(model, 0)["activityId"] == 2
+
+
+def listed_entry(entry_id, hour, *, days=0):
+    begin = datetime(2026, 9, 25, hour, tzinfo=WARSAW).astimezone(UTC) - timedelta(days=days)
+    return make_entry(entry_id, begin, begin + timedelta(hours=1))
+
+
+def test_the_entry_list_changes_rows_in_place_instead_of_resetting(qapp):
+    """Review C4: a reset scrolled the list to the top every minute and on every older week."""
+    model = EntryListModel()
+    events = []
+    model.modelReset.connect(lambda: events.append("reset"))
+    model.rowsInserted.connect(lambda _p, first, last: events.append(("insert", first, last)))
+    model.rowsRemoved.connect(lambda _p, first, last: events.append(("remove", first, last)))
+    week = build_rows([listed_entry(1, 9)], WARSAW, date(2026, 9, 25), 0, Translator("pl"))
+    model.set_rows(week, WARSAW)
+    events.clear()
+    model.set_rows(week, WARSAW)
+    assert events == []  # the minute's refresh with nothing new
+    older = build_rows(
+        [listed_entry(1, 9), listed_entry(2, 9, days=8)], WARSAW, date(2026, 9, 25), 0, Translator("pl")
+    )
+    model.set_rows(older, WARSAW)
+    assert "reset" not in events and events[0][0] == "insert"
+    assert [model.entry(e).id for e in (1, 2)] == [1, 2]

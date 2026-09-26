@@ -47,6 +47,29 @@ class _RoleModel(QAbstractListModel):
         self._rows = rows
         self.endResetModel()
 
+    def _merge(self, rows: list[dict[str, Any]]) -> None:
+        """Rows matched by their "key": what stays keeps its delegate, so a refresh neither scrolls
+        the list back to the top nor closes a popup open in a row (a reset did both)."""
+        old = self._rows
+        head = 0
+        while head < min(len(old), len(rows)) and old[head]["key"] == rows[head]["key"]:
+            head += 1
+        tail = 0
+        while tail < min(len(old), len(rows)) - head and old[-1 - tail]["key"] == rows[-1 - tail]["key"]:
+            tail += 1
+        if len(old) - tail > head:
+            self.beginRemoveRows(QModelIndex(), head, len(old) - tail - 1)
+            del self._rows[head : len(old) - tail]
+            self.endRemoveRows()
+        if len(rows) - tail > head:
+            self.beginInsertRows(QModelIndex(), head, len(rows) - tail - 1)
+            self._rows[head:head] = rows[head : len(rows) - tail]
+            self.endInsertRows()
+        for row, fresh in enumerate(rows):
+            if self._rows[row] != fresh:
+                self._rows[row] = fresh
+                self.dataChanged.emit(self.index(row), self.index(row))
+
 
 class EntryListModel(_RoleModel):
     """Weeks, days and entries (core/entry_list.py), minus entries hidden by the undo bar."""
@@ -105,7 +128,7 @@ class EntryListModel(_RoleModel):
                     "exported": entry.exported if entry else False,
                 }
             )
-        self._replace(rows)
+        self._merge(rows)
 
 
 class ProjectModel(_RoleModel):
