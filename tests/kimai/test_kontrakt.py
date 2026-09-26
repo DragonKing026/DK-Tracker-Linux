@@ -128,3 +128,75 @@ def test_running_entry_moves_to_another_project_and_activity(user_tracker, lead_
         if billable_sent:
             assert current.billable is False  # "Sprawy wewnętrzne" is a non-billable customer
         tracker.stop()
+
+
+def _free_day(tracker, offset):
+    """A past day of its own for each test, so runs on a kept instance do not meet each other."""
+    day = datetime.now(UTC).date() - timedelta(days=400 + offset)
+    for entry in tracker.entries(day, day):
+        tracker.delete_entry(entry)
+    return day
+
+
+def test_an_entry_typed_in_by_hand_is_created_listed_and_deleted(user_tracker):
+    """0.10.0: POST with begin and end, the week's list via `range`, DELETE."""
+    project, activity = ids(user_tracker)
+    day = _free_day(user_tracker, 1)
+    user_tracker.add_entry(
+        day=day,
+        begin="09:00",
+        end="10:30",
+        project_id=project,
+        activity_id=activity,
+        description=DESCRIPTION,
+        billable=None,
+    )
+    [entry] = user_tracker.entries(day, day)
+    assert (entry.description, entry.project_id, entry.activity_id) == (DESCRIPTION, project, activity)
+    assert (entry.end - entry.begin) == timedelta(minutes=90)
+    user_tracker.delete_entry(entry)
+    assert user_tracker.entries(day, day) == ()
+
+
+def test_a_finished_entry_gets_new_hours_and_another_project(user_tracker):
+    """0.10.0: PATCH begin/end/project/activity of a finished entry."""
+    project, activity = ids(user_tracker)
+    day = _free_day(user_tracker, 2)
+    user_tracker.add_entry(
+        day=day,
+        begin="09:00",
+        end="10:00",
+        project_id=project,
+        activity_id=activity,
+        description=DESCRIPTION,
+        billable=None,
+    )
+    [entry] = user_tracker.entries(day, day)
+    other = next(p for p in user_tracker.snapshot.projects if p.name == "Administracja")
+    meeting = user_tracker.activities(other.id)[0]
+    user_tracker.edit_entry(entry, begin="08:15", end="11:45", project_id=other.id, activity_id=meeting.id)
+    [edited] = user_tracker.entries(day, day)
+    assert edited.id == entry.id
+    assert (edited.project_name, edited.activity_id) == ("Administracja", meeting.id)
+    assert edited.end - edited.begin == timedelta(hours=3, minutes=30)
+    user_tracker.delete_entry(edited)
+
+
+def test_overlapping_entries_follow_the_server_rule(user_tracker):
+    """Kimai allows overlapping entries by default (timesheet.rules.allow_overlapping_records)."""
+    project, activity = ids(user_tracker)
+    day = _free_day(user_tracker, 3)
+    for begin, end in (("09:00", "11:00"), ("10:00", "12:00")):
+        user_tracker.add_entry(
+            day=day,
+            begin=begin,
+            end=end,
+            project_id=project,
+            activity_id=activity,
+            description=DESCRIPTION,
+            billable=None,
+        )
+    found = user_tracker.entries(day, day)
+    assert len(found) == 2
+    for entry in found:
+        user_tracker.delete_entry(entry)
