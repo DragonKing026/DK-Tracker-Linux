@@ -39,6 +39,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.9.4" date="2026-09-26">
+      <description>
+        <p>The description field in the quick window grows with every line, so the first line no longer
+          scrolls out of sight.</p>
+      </description>
+    </release>
     <release version="0.9.3" date="2026-09-26">
       <description>
         <p>The window next to the tray is low again while the app is not configured.</p>
