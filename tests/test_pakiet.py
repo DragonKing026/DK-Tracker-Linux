@@ -33,3 +33,36 @@ def test_licence_is_agpl():
     assert PYPROJECT["license"] == "AGPL-3.0-or-later"
     licence = (ROOT / "LICENSE").read_text(encoding="utf-8")
     assert licence.lstrip().startswith("GNU AFFERO GENERAL PUBLIC LICENSE")
+
+
+# -- Task 2: MetaInfo and the desktop entry ----------------------------------------
+
+
+def test_metainfo_release_and_licence_match_the_package():
+    root = metainfo()
+    assert root.find("releases/release").get("version") == kimai_tray.__version__
+    assert root.findtext("project_license") == PYPROJECT["license"]
+
+
+def test_metainfo_names_the_app_in_both_languages():
+    root = metainfo()
+    assert root.findtext("id") == APP_ID
+    assert root.findtext("name") == "Kimai Tray"
+    summaries = {s.get(LANG, "en"): s.text for s in root.findall("summary")}
+    assert set(summaries) == {"en", "pl"}
+    assert root.find("launchable").text == f"{APP_ID}.desktop"
+
+
+def test_screenshot_points_to_a_file_in_this_repository():
+    image = metainfo().findtext("screenshots/screenshot/image")
+    prefix = "https://raw.githubusercontent.com/DragonKing026/Kimai-App--Linux-/main/"
+    assert image.startswith(prefix)
+    assert (ROOT / image.removeprefix(prefix)).is_file()
+
+
+def test_desktop_entry_starts_the_installed_command():
+    entry = desktop_entry()
+    assert entry["Exec"] == "kimai-tray"
+    assert "kimai-tray" in PYPROJECT["scripts"]
+    assert entry["Icon"] == APP_ID
+    assert entry["Name"] == "Kimai Tray"

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>pl.websystems.KimaiTray</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>AGPL-3.0-or-later</project_license>
+  <name>Kimai Tray</name>
+  <summary>Track your Kimai time from the system tray</summary>
+  <summary xml:lang="pl">Mierzenie czasu w Kimai z tacki systemowej</summary>
+  <developer id="pl.websystems">
+    <name>Web Systems</name>
+  </developer>
+  <description>
+    <p>Start, stop and resume Kimai timesheets without opening the browser. The tray icon shows how long the timer runs.</p>
+    <p xml:lang="pl">Start, stop i wznawianie pomiaru czasu w Kimai bez otwierania przeglądarki. Ikona w tacce pokazuje, jak długo trwa pomiar.</p>
+    <ul>
+      <li>Quick window next to the tray icon with the running entry, projects and recent entries</li>
+      <li xml:lang="pl">Okno przy ikonie w tacce z trwającym wpisem, projektami i ostatnimi wpisami</li>
+      <li>Reminders about long timers and lost connection</li>
+      <li xml:lang="pl">Przypomnienia o długim timerze i utracie połączenia</li>
+      <li>The API token is kept in the system wallet</li>
+      <li xml:lang="pl">Token API trzymany w portfelu systemu</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">pl.websystems.KimaiTray.desktop</launchable>
+  <url type="homepage">https://github.com/DragonKing026/Kimai-App--Linux-</url>
+  <url type="bugtracker">https://github.com/DragonKing026/Kimai-App--Linux-/issues</url>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/DragonKing026/Kimai-App--Linux-/main/docs/assets/zrzuty/okno-ciemny-motyw.png</image>
+      <caption>The quick window next to the tray</caption>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
+  <provides>
+    <binary>kimai-tray</binary>
+  </provides>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <releases>
+    <release version="0.9.0" date="2026-09-26">
+      <description>
+        <p>First beta: tray icon, quick window, settings, notifications and autostart.</p>
+      </description>
+    </release>
+  </releases>
+</component>
