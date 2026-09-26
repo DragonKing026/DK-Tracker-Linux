@@ -38,6 +38,7 @@
   "savedTime": "Start time saved.",
   "savedBillable": "Saved.",
   "savedWork": "Project and activity saved.",
+  "savedEntry": "Entry saved.",
   "errNoProject": "Pick a project.",
   "errNoActivity": "Pick a type of work.",
   "errNothingRunning": "Nothing is being tracked.",

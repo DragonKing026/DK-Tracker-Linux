@@ -106,9 +106,46 @@ class FakeClient:
         return sorted(found, key=lambda e: e.begin, reverse=True)[:size]
 
     def range(self, begin, end):
+        """Like Kimai: entries that start inside the window (begin and end are Kimai-local stamps)."""
         self.calls.append(("range", begin, end))
         self._check("range")
-        return list(self.range_entries if self.range_entries is not None else self.entries.values())
+        if self.range_entries is not None:
+            return list(self.range_entries)
+        try:
+            low, high = self._parse(begin), self._parse(end)
+        except (ValueError, KeyError):  # a made-up account zone: the tracker falls back, so do we
+            return list(self.entries.values())
+        return [e for e in self.entries.values() if low <= e.begin <= high]
+
+    def create_entry(self, *, project_id, activity_id, description, begin, end, billable=None):
+        self.calls.append(("create_entry", project_id, activity_id, description, begin, end, billable))
+        self._check("create_entry")
+        if billable is not None and self.billable_forbidden:
+            raise ApiError(ErrorKind.REJECTED, 400, EXTRA_FIELDS)
+        project = next((p for p in self.projects_list if p.id == project_id), None)
+        activity = next((a for a in self.activities_list if a.id == activity_id), None)
+        entry = replace(
+            make_entry(
+                self.next_id,
+                self._parse(begin),
+                self._parse(end),
+                description=description,
+                billable=True if billable is None else billable,
+                project_id=project_id,
+                activity_id=activity_id,
+            ),
+            project_name=project.name if project else None,
+            project_color=project.color if project else None,
+            activity_name=activity.name if activity else None,
+        )
+        self.next_id += 1
+        self.add(entry)
+        return self._as_posted(entry)
+
+    def delete_entry(self, entry_id):
+        self.calls.append(("delete_entry", entry_id))
+        self._check("delete_entry")
+        del self.entries[entry_id]
 
     def projects(self):
         self._check("projects")

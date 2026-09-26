@@ -10,7 +10,7 @@ from __future__ import annotations
 import logging
 from collections.abc import Callable
 from dataclasses import dataclass, replace
-from datetime import UTC, datetime, tzinfo
+from datetime import UTC, date, datetime, time, tzinfo
 from typing import Any
 
 from .billable import default_billable, is_billable_rejected
@@ -326,6 +326,111 @@ class Tracker:
             return ()
         self._found = tuple(entry for entry in self._client.search(term, SEARCH_SIZE) if not entry.running)
         return self._found
+
+    # -- the main window's entries (Plan 5) -----------------------------------------
+
+    def entries(self, first_day: date, last_day: date) -> tuple[Entry, ...]:
+        """Finished entries starting on these days (Kimai's zone), newest first. The running one
+        is left out: it sits in the timer bar. Raises ApiError — the caller shows it."""
+        tz = self.kimai_tz()
+        begin = datetime.combine(first_day, time.min, tz)
+        end = datetime.combine(last_day, time(23, 59, 59), tz)
+        found = self._client.range(kimai_stamp(begin, tz), kimai_stamp(end, tz))
+        return tuple(sorted((e for e in found if not e.running), key=lambda e: e.begin, reverse=True))
+
+    def add_entry(
+        self,
+        *,
+        day: date,
+        begin: str,
+        end: str,
+        project_id: int | None,
+        activity_id: int | None,
+        description: str,
+        billable: bool | None,
+    ) -> Snapshot:
+        """Time typed in by hand: the same rules as a start, plus hours that make sense."""
+        project, activity = self._require_choice(project_id, activity_id)
+        text = description.strip()
+        self._check(text)
+        tz = self.kimai_tz()
+        noon = datetime.combine(day, time(12), tz)
+        begin_at, end_at = self._wall_clock(noon, begin, tz), self._wall_clock(noon, end, tz)
+        if end_at <= begin_at:
+            raise TrackerError("errEndBeforeBegin")
+        wanted = billable if self._snapshot.billable_allowed else None
+        stamps = {"begin": kimai_stamp(begin_at, tz), "end": kimai_stamp(end_at, tz)}
+        notice = "savedEntry"
+        try:
+            self._client.create_entry(
+                project_id=project, activity_id=activity, description=text, billable=wanted, **stamps
+            )
+        except ApiError as error:
+            if wanted is None or not is_billable_rejected(error):
+                raise
+            self._lock_billable()
+            self._client.create_entry(
+                project_id=project, activity_id=activity, description=text, billable=None, **stamps
+            )
+            notice = "errBillableDenied"
+        self.refresh_full()
+        return self._set(notice=notice)
+
+    def edit_entry(
+        self,
+        entry: Entry,
+        *,
+        description: str | None = None,
+        project_id: int | None = None,
+        activity_id: int | None = None,
+        begin: str | None = None,
+        end: str | None = None,
+        billable: bool | None = None,
+    ) -> Snapshot:
+        """A finished entry edited in place; only what changed is sent. Hours stay on its day."""
+        if entry.exported:
+            raise TrackerError("errExported")
+        changes: dict[str, object] = {}
+        if description is not None and description.strip() != entry.description:
+            self._check(description.strip())
+            changes["description"] = description.strip()
+        if project_id is not None or activity_id is not None:
+            project, activity = self._require_choice(
+                project_id or entry.project_id, activity_id or entry.activity_id
+            )
+            if (project, activity) != (entry.project_id, entry.activity_id):
+                changes.update(project=project, activity=activity)
+        if begin is not None or end is not None:
+            tz = self.kimai_tz()
+            begin_at = self._wall_clock(entry.begin, begin, tz) if begin else entry.begin
+            end_at = self._wall_clock(entry.begin, end, tz) if end else entry.end
+            if end_at is not None and end_at <= begin_at:
+                raise TrackerError("errEndBeforeBegin")
+            if begin_at != entry.begin:
+                changes["begin"] = kimai_stamp(begin_at, tz)
+            if end_at is not None and end_at != entry.end:
+                changes["end"] = kimai_stamp(end_at, tz)
+        if billable is not None and billable != entry.billable:
+            if not self._snapshot.billable_allowed:
+                raise TrackerError("billableLocked")
+            changes["billable"] = billable
+        if not changes:
+            return self._snapshot
+        try:
+            self._client.update(entry.id, changes)
+        except ApiError as error:
+            if "billable" in changes and is_billable_rejected(error):
+                self._lock_billable()
+                raise TrackerError("errBillableDenied") from error
+            raise
+        self.refresh_full()  # names, colours and the totals follow from Kimai
+        return self._set(notice="savedEntry")
+
+    def delete_entry(self, entry: Entry) -> Snapshot:
+        if entry.exported:
+            raise TrackerError("errExported")
+        self._client.delete_entry(entry.id)
+        return self.refresh_full()
 
     def remember(self, **changes: Any) -> None:
         """Remembered UI state (e.g. a hint already shown), saved with the tracker's own memory."""

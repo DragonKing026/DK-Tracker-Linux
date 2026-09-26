@@ -38,6 +38,7 @@
   "savedTime": "Godzina rozpoczęcia zapisana.",
   "savedBillable": "Zapisane.",
   "savedWork": "Projekt i rodzaj pracy zapisane.",
+  "savedEntry": "Wpis zapisany.",
   "errNoProject": "Wybierz projekt.",
   "errNoActivity": "Wybierz rodzaj pracy.",
   "errNothingRunning": "Nic nie jest mierzone.",
