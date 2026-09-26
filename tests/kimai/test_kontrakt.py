@@ -113,3 +113,18 @@ def test_search_matches_every_word_of_the_users_own_descriptions(kimai_env, user
     assert user_tracker.search(f"{marker} nieistniejące") == ()
     lead = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_LEAD_TOKEN"])
     assert lead.search(marker) == []
+
+
+def test_running_entry_moves_to_another_project_and_activity(user_tracker, lead_tracker):
+    """F-34: Kimai takes `project` and `activity` in a PATCH of the running entry; `$` only from a lead."""
+    for tracker, billable_sent in ((user_tracker, False), (lead_tracker, True)):
+        project, activity = ids(tracker)
+        tracker.start(project_id=project, activity_id=activity, description=DESCRIPTION, billable=None)
+        other = next(p for p in tracker.snapshot.projects if p.name == "Administracja")
+        meeting = next(a for a in tracker.activities(other.id) if a.id != activity)
+        snapshot = tracker.change_work(other.id, meeting.id)
+        current = snapshot.current
+        assert (current.project_name, current.activity_name) == ("Administracja", meeting.name)
+        if billable_sent:
+            assert current.billable is False  # "Sprawy wewnętrzne" is a non-billable customer
+        tracker.stop()
