@@ -2,9 +2,9 @@
 noteId: "b0da64e7ccf0452d890020d3a9deb527"
 tytul: "Plan 4: Flatpak i wydanie"
 tags: [plan, implementacja, flatpak, wydanie, github]
-status: do-akceptacji
+status: w-realizacji
 utworzono: 2026-09-26 11:23
-zaktualizowano: 2026-09-26 11:23
+zaktualizowano: 2026-09-26 11:29
 ---
 
 # Plan 4: Flatpak i wydanie — plan implementacji
