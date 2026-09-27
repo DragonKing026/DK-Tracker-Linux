@@ -3,7 +3,7 @@ noteId: "947ac69bba214ddcada484a736d2c8fd"
 tytul: Wydania i instalacja
 tags: [proces, wydanie, flatpak]
 utworzono: 2026-09-26 11:58
-zaktualizowano: 2026-09-26 11:58
+zaktualizowano: 2026-09-27 12:40
 ---
 
 # Wydania i instalacja
@@ -57,7 +57,10 @@ Jak wydać nową wersję DK Tracker i jak ją zainstalować. Decyzja o dystrybuc
 
 5. Kolejność w workflow: testy → budowa i podpis → Pages → dopiero wtedy wydanie na GitHubie. Gdy publikacja na
    Pages się nie uda, wydania nie ma; po naprawie przyczyny wystarczy **Re-run failed jobs** w zakładce Actions.
-6. Sprawdzenie: wydanie na GitHubie z plikiem `io.github.dragonking026.DK-Tracker-Linux-v<wersja>.flatpak`, strona
+6. Sama strona projektu (bez nowej wersji aplikacji) wychodzi workflow **Strona**
+   ([strona.yml](../../.github/workflows/strona.yml), [GitHub Pages](../integracje/github-pages.md)): sama po pushu
+   zmiany strony na `main` albo `gh workflow run strona.yml`. Nie w trakcie wydania — oba dzielą kolejkę Pages.
+7. Sprawdzenie: wydanie na GitHubie z plikiem `io.github.dragonking026.DK-Tracker-Linux-v<wersja>.flatpak`, strona
    <https://dragonking026.github.io/DK-Tracker-Linux/>, `flatpak update` u siebie.
 
 Wersje `0.x` wychodzą jako „pre-release” (do 1.0). **Działających wydań nie usuwamy**; stronę wydania z błędem usuwa

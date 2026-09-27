@@ -5,7 +5,7 @@ tags: [integracja, ci, wydanie, github]
 status_integracji: w-uzyciu
 wersja: "akcje: checkout@v4, setup-python@v5, flatpak-builder@v6, ghaction-import-gpg@v6, upload-pages-artifact@v3, deploy-pages@v4, action-gh-release@v2"
 utworzono: 2026-09-26 11:57
-zaktualizowano: 2026-09-26 11:57
+zaktualizowano: 2026-09-27 12:40
 ---
 
 # GitHub Actions
@@ -20,6 +20,7 @@ zaktualizowano: 2026-09-26 11:57
 | --- | --- | --- |
 | [testy.yml](../../.github/workflows/testy.yml) | push na `main`, pull request | `ruff format --check`, `ruff check`, `pytest` (Qt offscreen), linki, frontmatter, markdownlint |
 | [wydanie.yml](../../.github/workflows/wydanie.yml) | tag `v*` | testy (`testy.yml` jako `workflow_call`), zgodność tagu z `pyproject.toml`, walidacja MetaInfo, klucz GPG, budowa i podpis, Pages, na końcu wydanie |
+| [strona.yml](../../.github/workflows/strona.yml) | ręcznie; push na `main` zmieniający stronę | kopia opublikowanego repozytorium Flatpaka (weryfikacja kluczem), ponowny podpis, nowa strona na Pages — bez wydania ([GitHub Pages](github-pages.md)) |
 
 ## Jak to działa
 
@@ -61,7 +62,8 @@ Użyte akcje:
 - Sekret repozytorium **`FLATPAK_GPG_PRIVATE_KEY`** — klucz prywatny z [klucz-gpg.sh](../../flatpak/klucz-gpg.sh)
   ([Using secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions)).
 - `wydanie.yml`: domyślnie tylko `contents: read`; `pages: write` i `id-token: write` ma wyłącznie zadanie `pages`,
-  `contents: write` — zadanie `wydanie`. Zadanie z kluczem GPG nie ma uprawnień zapisu.
+  `contents: write` — zadanie `wydanie`. Zadanie z kluczem GPG nie ma uprawnień zapisu. Tak samo `strona.yml`:
+  zapis Pages tylko w zadaniu `pages`.
 - Ustawienia repozytorium → Pages → źródło **GitHub Actions** ([github-pages](github-pages.md)).
 
 ## Przypięte akcje
