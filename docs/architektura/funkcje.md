@@ -360,7 +360,7 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 6](../specyfikacja/2026-09-26-
   wczytuje się od pustego widoku; odpowiedź dla okresu, którego już nie widać, jest pomijana.
 - Kod: [core/summary.py](../../src/dk_tracker/core/summary.py),
   [ui/main_window/summary_page.py](../../src/dk_tracker/ui/main_window/summary_page.py), `SummaryView.qml`,
-  `BarChart.qml`, `DonutChart.qml`. Zadanie: [0070](../../TODO/W-TRAKCIE/0070-plan6-podsumowania/todo.md).
+  `BarChart.qml`, `DonutChart.qml`. Zadanie: [0070](../../TODO/ZROBIONE/0070-plan6-podsumowania/todo.md).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 

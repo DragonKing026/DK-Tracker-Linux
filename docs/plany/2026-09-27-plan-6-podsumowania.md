@@ -2,9 +2,9 @@
 noteId: "ee1474d2c5eb453b88a4ca9e2a97044d"
 tytul: "Plan 6: podsumowania (0.10.3)"
 tags: [plan, implementacja, okno-glowne, podsumowania, qml, 0.10]
-status: w-trakcie
+status: wykonany
 utworzono: 2026-09-27 11:43
-zaktualizowano: 2026-09-27 13:40
+zaktualizowano: 2026-09-27 13:20
 ---
 
 # Plan 6: podsumowania (0.10.3) — plan implementacji
@@ -14,7 +14,7 @@ zakres), liczby (czas, płatne, średnie, dni z wpisami, norma), wykres słupkow
 podział (wykres pierścieniowy i tabela wg projektu, klienta albo rodzaju pracy).
 
 **Specyfikacja:** [0.10, sekcja 6](../specyfikacja/2026-09-26-okno-glowne-0.10.md#6-podsumowania-0103) (i 3, 9, 10,
-12). Zadanie: [0070](../../TODO/W-TRAKCIE/0070-plan6-podsumowania/todo.md).
+12). Zadanie: [0070](../../TODO/ZROBIONE/0070-plan6-podsumowania/todo.md).
 
 **Architektura:** liczenie w czystym `core/summary.py` (bez Qt): okres, kubełki wykresu, podziały, średnie, skala osi
 i gotowe teksty. W oknie głównym obiekt `SummaryPage` (`app.summary` w QML) trzyma wybrany okres i podział, prosi

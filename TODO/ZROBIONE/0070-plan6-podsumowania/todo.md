@@ -2,19 +2,19 @@
 noteId: "c2288cb0e4434bc09f25e23ae16aea64"
 tytul: "Plan 6: podsumowania 0.10.3 — wykonanie"
 numer: "0070"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, ui, qml, okno-glowne, podsumowania, wydanie]
 zalezy_od: ["0069-plan5-okno-glowne"]
 utworzono: 2026-09-27 11:41
-zaktualizowano: 2026-09-27 13:55
-zamknieto:
+zaktualizowano: 2026-09-27 12:58
+zamknieto: 2026-09-27 12:58
 ---
 
 # 0070 — Plan 6: podsumowania 0.10.3 — wykonanie
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -25,7 +25,7 @@ i wydanie 0.10.3.
 ## Kontekst
 
 - Użytkownik (2026-09-27): „Kontynuuj dalszy ciąg implementacji wersji 0.10” — po wydaniu
-  [0.10.2](../../ZROBIONE/0069-plan5-okno-glowne/todo.md) kolejny krok to podsumowania.
+  [0.10.2](../0069-plan5-okno-glowne/todo.md) kolejny krok to podsumowania.
 - Plan: [Plan 6](../../../docs/plany/2026-09-27-plan-6-podsumowania.md).
 - Wygląd z tych samych kolorów i kontrolek:
   [wygląd okna głównego](../../../docs/architektura/wyglad-okna-glownego.md).
@@ -40,7 +40,7 @@ i wydanie 0.10.3.
 - [x] Wyniki zgodne z sumami Kimai dla tego samego okresu (test kontraktowy)
 - [x] Galeria zrzutów w obu motywach sprawdzona przed pokazaniem; PL/EN
 - [x] Testy i ruff czyste, dokumentacja zaktualizowana
-- [ ] Test na żywo z użytkownikiem, wydanie 0.10.3 za zgodą użytkownika
+- [x] Test na żywo z użytkownikiem, wydanie 0.10.3 za zgodą użytkownika
 
 ## Kroki
 
@@ -53,7 +53,7 @@ i wydanie 0.10.3.
 - [x] Test kontraktowy
 - [x] Galeria zrzutów
 - [x] Dokumentacja
-- [ ] Wersja i wydanie
+- [x] Wersja i wydanie
 
 ## Materiały
 
@@ -92,7 +92,12 @@ Galeria bez ekranu (`grabWindow`), dane wymyślone — skrypt: [testy/galeria.py
 
 - **13:55** Test na żywo: dymek słupka ma wyliczać wpisy — pod każdym projektem opisy z czasem (dzień do 10,
   miesiąc do 3 na projekt, żeby zmieścić się w oknie 560 px). Testy: 692.
+- **12:58** Wydane 0.10.3 (d72702c, tag v0.10.3); CI i Pages zielone.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+Wydane [0.10.3](https://github.com/DragonKing026/DK-Tracker-Linux/releases/tag/v0.10.3): widok Podsumowania
+(F-36) — okresy, średnia na dzień roboczy wobec normy, wykres słupkowy i podział z dymkami z wpisami. Kod:
+[core/summary.py](../../../src/dk_tracker/core/summary.py),
+[summary_page.py](../../../src/dk_tracker/ui/main_window/summary_page.py), widoki QML. Dalej: „O programie”
+([0072](../../W-TRAKCIE/0072-o-programie/todo.md), 0.10.4), kalendarz (0.10.5).
