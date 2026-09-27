@@ -296,3 +296,27 @@ def test_summary_totals_match_what_kimai_lists_for_the_period(kimai_env, lead_tr
     assert summary.billable == sum(item["duration"] for item in finished if item["billable"])
     assert summary.days_with == len({item["begin"][:10] for item in finished})
     assert summary.total >= (135 + 90 + 45) * 60
+
+
+def test_the_calendar_moves_an_entry_to_another_day_and_until_midnight(user_tracker):
+    """0.10.5: a block dragged to another day, then its end to 24:00."""
+    project, activity = ids(user_tracker)
+    day = _free_day(user_tracker, 7)
+    other = _free_day(user_tracker, 8)
+    user_tracker.add_entry(
+        day=day,
+        begin="09:00",
+        end="10:00",
+        project_id=project,
+        activity_id=activity,
+        description=DESCRIPTION,
+        billable=None,
+    )
+    [entry] = user_tracker.entries(day, day)
+    user_tracker.reschedule(entry, other, 22 * 60, 24 * 60)
+    assert user_tracker.entries(day, day) == ()
+    [moved] = user_tracker.entries(other, other)
+    tz = user_tracker.kimai_tz()
+    assert (moved.begin.astimezone(tz).hour, moved.end - moved.begin) == (22, timedelta(hours=2))
+    assert moved.end.astimezone(tz).date() == other + timedelta(days=1)
+    user_tracker.delete_entry(moved)
