@@ -10,15 +10,16 @@ tags: []
 
 ## 1. Czym jest ten projekt
 
-**DK Tracker** — natywna aplikacja desktopowa na Linuksa, dystrybuowana jako
-**Flatpak**, która siedzi w **tacce systemowej** (KDE Plasma i GNOME) i pozwala zarządzać
-czasem pracy w firmowym **Kimai** bez otwierania przeglądarki.
+**DK Tracker** — natywny klient firmowego **Kimai** na pulpit Linuksa (KDE Plasma i GNOME), dystrybuowany jako
+**Flatpak**. Centrum aplikacji jest **okno główne** w Qt Quick na wzór Toggl Track: pasek timera i widoki **Wpisy**,
+**Podsumowania**, **Kalendarz**, **Ustawienia**
+([specyfikacja 0.10](docs/specyfikacja/2026-09-26-okno-glowne-0.10.md)). **Ikona w tacce** z czasem trwającego wpisu i
+okienko przy niej służą do szybkiego startu i stopu; tacka jest opcjonalna — bez niej aplikacja działa w samym oknie.
 
-Funkcjonalnie odwzorowuje wtyczkę przeglądarkową
-[kimai-ws-tracker](https://github.com/websystemspl/kimai-ws-tracker) (Web Systems):
-start/stop timera, lista ostatnich wpisów, wznawianie, edycja trwającego wpisu, flaga
-„billable”, sumy dzienne/tygodniowe, walidacja jakości opisu.
-Szczegóły: [docs/integracje/kimai-ws-tracker.md](docs/integracje/kimai-ws-tracker.md).
+Pierwszym etapem był parytet z wtyczką przeglądarkową
+[kimai-ws-tracker](https://github.com/websystemspl/kimai-ws-tracker) (Web Systems) — jej zasady (walidacja opisu,
+billable, sumy) obowiązują nadal: [docs/integracje/kimai-ws-tracker.md](docs/integracje/kimai-ws-tracker.md).
+Przegląd: [docs/architektura/przeglad.md](docs/architektura/przeglad.md).
 
 Status: **wydana 0.10.5 (beta)**: rdzeń, integracje desktopowe, interfejs, paczka Flatpak, okno główne, podsumowania,
 „O programie” i kalendarz (Plany 1–7); dalej:

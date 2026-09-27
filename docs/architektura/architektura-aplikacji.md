@@ -2,26 +2,28 @@
 noteId: "37087e28b1424401b8b40e0978e26b37"
 tytul: Architektura aplikacji
 tags: [architektura, komponenty, przeplywy]
-status_dokumentu: rdzeń-zaimplementowany
+status_dokumentu: zaimplementowany
 utworzono: 2026-09-25 17:18
-zaktualizowano: 2026-09-27 14:10
+zaktualizowano: 2026-09-27 14:30
 ---
 
 # Architektura aplikacji
 
 > [!note] Stan
-> Rdzeń (warstwy „Domena” i logika „Stanu aplikacji”, klient API, ustawienia, decyzje
-> o powiadomieniach) jest zaimplementowany — [Plan 1](../plany/2026-09-25-plan-1-rdzen.md),
-> mapa modułów niżej. Warstwa prezentacji, sekrety i portale — plany 2–4.
+> Wszystkie warstwy są zaimplementowane ([plany 1–7](../plany/README.md)). Warstwa prezentacji ma dwa wejścia:
+> **okno główne** w Qt Quick (pasek timera, Wpisy, Podsumowania, Kalendarz, Ustawienia) i — gdy pulpit ma tackę —
+> **ikonę w tacce** z okienkiem szybkiej obsługi w Qt Widgets. Oba korzystają z tego samego stanu i akcji przez
+> kontroler, więc zmiana w jednym od razu widać w drugim.
 
 ## Warstwy
 
 ```mermaid
 flowchart TB
     subgraph UI["Warstwa prezentacji"]
-        TRAY[Tray<br/>ikona + menu + tooltip]
-        WIN[Okno szybkiej obsługi<br/>tracker + lista ostatnich]
+        MAIN[Okno główne QML<br/>timer, Wpisy, Podsumowania, Kalendarz]
         SET[Ustawienia<br/>strona okna głównego]
+        TRAY[Tacka - opcjonalna<br/>ikona + menu + tooltip]
+        WIN[Okno szybkiej obsługi<br/>przy ikonie]
     end
     subgraph APP["Warstwa aplikacji"]
         STORE[Stan aplikacji<br/>running, projekty, wpisy, sumy]
@@ -40,6 +42,7 @@ flowchart TB
         SEC[Sekrety<br/>Secret Service]
         NOT[Powiadomienia / autostart<br/>portale XDG]
     end
+    MAIN --> ACT
     TRAY --> ACT
     WIN --> ACT
     SET --> CFG
@@ -48,12 +51,14 @@ flowchart TB
     ACT --> STORE
     POLL --> API
     POLL --> STORE
+    STORE --> MAIN
     STORE --> TRAY
     STORE --> WIN
     ACT --> VAL
     ACT --> BILL
     WIN --> FMT
     WIN --> GRP
+    MAIN --> FMT
     API --> SEC
 ```
 
@@ -65,6 +70,7 @@ flowchart TB
 | **Domena** | walidacja opisu, domyślne billable, formatowanie `h:mm`/`47m`, nazwy dni, grupowanie | nic | F-02, F-08, F-09, F-11, F-12 |
 | **Stan aplikacji** | jedno źródło prawdy o trwającym wpisie, listach i sumach; powiadamia UI o zmianach | API, domena | wszystkie |
 | **Harmonogram** | odświeżanie co 60 s (jak `chrome.alarms` we wtyczce), natychmiast po akcjach, tyk zegara co 1 s gdy okno otwarte | stan | F-02, F-12 |
+| **Okno główne** | pasek timera, Wpisy (tygodnie, okno edycji, ręczne wpisy, „Cofnij”), Podsumowania, Kalendarz; QML rysuje, logika w Pythonie | stan, akcje, domena | F-35…F-37 |
 | **Tray** | ikona zależna od stanu, tooltip z czasem, menu kontekstowe, otwieranie okna | stan, akcje | F-02, F-20 |
 | **Okno szybkiej obsługi** | odpowiednik popupu wtyczki | stan, akcje, domena | F-03…F-10, F-12 |
 | **Ustawienia (strona okna głównego)** | URL, token, język, min. długość opisu, test połączenia | ustawienia, sekrety, API | F-01, F-13 |

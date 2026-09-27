@@ -3,30 +3,35 @@ noteId: "0011a9e6b88646238c8e2c7b3f01fddc"
 tytul: Dokumentacja — indeks
 tags: [indeks, moc]
 utworzono: 2026-09-25 17:15
-zaktualizowano: 2026-09-25 18:49
+zaktualizowano: 2026-09-27 14:25
 ---
 
 # Dokumentacja DK Tracker
 
 Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault Obsidiana.
 
+DK Tracker to klient Kimai na pulpit Linuksa: okno główne z wpisami, podsumowaniami i kalendarzem oraz — gdy pulpit
+ma tackę — ikona z czasem trwającego wpisu i okienko do szybkiego startu i stopu.
+
 ## Start
 
-- [Przegląd projektu](architektura/przeglad.md) — co budujemy, dla kogo, zakres
+- [Przegląd projektu](architektura/przeglad.md) — czym jest aplikacja, jak z niej korzystać, zakres i co zostało do 1.0
 - [Katalog funkcji](architektura/funkcje.md) — każda funkcja opisana szczegółowo
 - [Słownik pojęć](architektura/slownik.md) — Kimai, SNI, portal, billable…
 - [Podobne aplikacje](architektura/podobne-aplikacje.md) — KimaiTray i KimTrack: różnice i co warto przejąć
 
 ## Specyfikacja
 
-- [Specyfikacja DK Tracker 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — zakres, architektura, przepływ, błędy,
-  testy (zaakceptowana 2026-09-25)
-- [Specyfikacja 0.10 — okno główne](specyfikacja/2026-09-26-okno-glowne-0.10.md) — pełny klient Kimai na wzór Toggl
-  (Wpisy, Podsumowania, Kalendarz), QML; zaakceptowana
+- [Specyfikacja 0.10 — okno główne](specyfikacja/2026-09-26-okno-glowne-0.10.md) — pełny klient Kimai na wzór Toggl:
+  Wpisy, Podsumowania, Kalendarz (wydane 0.10.0–0.10.5)
+- [Specyfikacja DK Tracker 1.0](specyfikacja/2026-09-25-kimai-tray-1.0.md) — pierwszy etap: parytet z wtyczką WS
+  Tracker (tacka, okienko, ustawienia, powiadomienia, Flatpak; wydane jako 0.9.x); dalej obowiązują jej zasady błędów,
+  sekretów i testów
 
 ## Plany implementacji
 
-- [Indeks planów](plany/README.md) — Plan 1: rdzeń (do akceptacji), plany 2–4
+- [Indeks planów](plany/README.md) — plany 1–7: rdzeń, integracje, interfejs, Flatpak, okno główne, podsumowania,
+  kalendarz (wszystkie wykonane)
 
 ## Architektura
 
@@ -41,8 +46,8 @@ Mapa treści (MOC) całej dokumentacji. Repozytorium można otworzyć jako vault
 
 ## Integracje
 
-- [Indeks integracji](integracje/README.md) — Kimai API, Flatpak, tacka systemowa,
-  GNOME, sekrety, portale, projekt referencyjny
+- [Indeks integracji](integracje/README.md) — Kimai API, Qt / QML, Flatpak, tacka systemowa, GNOME, sekrety,
+  portale, projekt referencyjny
 
 ## Procesy
 
