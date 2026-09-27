@@ -105,8 +105,19 @@ Item {
             MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
-                onContainsMouseChanged: if (containsMouse) chart.hovered = column.index
-                                        else if (chart.hovered === column.index) chart.hovered = -1
+                acceptedButtons: Qt.NoButton
+                onPositionChanged: function (mouse) {
+                    chart.hovered = column.index
+                    if (column.bar.seconds > 0)
+                        tip.follow(this, mouse.x, mouse.y)
+                    else
+                        tip.close()
+                }
+                onExited: {
+                    if (chart.hovered === column.index)
+                        chart.hovered = -1
+                    tip.close()
+                }
             }
         }
     }
@@ -129,26 +140,37 @@ Item {
         opacity: 0.55
     }
 
-    // The tooltip: the day or month, its total, each project, the norm.
-    Panel {
+    // The tooltip: the day or month, its total, each project with its entries (live test of 0.10.3),
+    // the norm. In the window's overlay, beside the pointer, as the breakdown's.
+    Popup {
         id: tip
         objectName: "barTip"
         readonly property var bar: chart.hovered >= 0 && chart.hovered < chart.bars.length ? chart.bars[chart.hovered] : null
-        visible: bar !== null && bar.seconds > 0
-        width: 230
-        height: tipColumn.implicitHeight + 20
-        z: 2
-        x: {
-            const middle = chart.plotX + (chart.hovered + 0.5) * chart.slot
-            const right = middle + chart.slot / 2 + 8
-            return right + width <= chart.width ? right : Math.max(0, middle - chart.slot / 2 - 8 - width)
+        property point pointer: Qt.point(0, 0)
+        parent: Overlay.overlay
+        width: 320
+        padding: 12
+        closePolicy: Popup.NoAutoClose
+        focus: false
+        background: Panel {}
+
+        function follow(item, x, y) {
+            pointer = item.mapToItem(parent, x, y)
+            if (!opened)
+                open()
+            place()
         }
-        y: 8
-        ColumnLayout {
-            id: tipColumn
-            x: 10
-            y: 10
-            width: tip.width - 20
+        function place() {
+            if (!parent)
+                return
+            const right = pointer.x + 18
+            x = right + width <= parent.width - 8 ? right : Math.max(8, pointer.x - 18 - width)
+            const below = pointer.y + 18
+            y = below + height <= parent.height - 8 ? below : Math.max(8, pointer.y - 18 - height)
+        }
+        onHeightChanged: place()
+
+        contentItem: ColumnLayout {
             spacing: 4
             RowLayout {
                 Layout.fillWidth: true
@@ -168,23 +190,56 @@ Item {
             Repeater {
                 // The biggest of this bar first (the layers keep the period's order).
                 model: tip.bar ? tip.bar.parts.slice().sort((a, b) => b.seconds - a.seconds) : []
-                delegate: RowLayout {
+                delegate: ColumnLayout {
+                    id: project
                     required property var modelData
                     Layout.fillWidth: true
-                    spacing: 6
-                    Rectangle { width: 8; height: 8; radius: 4; color: modelData.color || app.palette.muted }
-                    Label {
+                    Layout.topMargin: 4
+                    spacing: 2
+                    RowLayout {
                         Layout.fillWidth: true
-                        text: modelData.name
-                        elide: Text.ElideRight
-                        font.pixelSize: 13
-                        color: app.palette.fg
+                        spacing: 6
+                        Rectangle { width: 8; height: 8; radius: 4; color: project.modelData.color || app.palette.muted }
+                        Label {
+                            Layout.fillWidth: true
+                            text: project.modelData.name
+                            elide: Text.ElideRight
+                            font.pixelSize: 13
+                            font.weight: Font.DemiBold
+                            color: app.palette.fg
+                        }
+                        Label { text: project.modelData.time; font.pixelSize: 13; color: app.palette.fg }
                     }
-                    Label { text: modelData.time; font.pixelSize: 13; color: app.palette.muted }
+                    Repeater {
+                        model: project.modelData.entries
+                        delegate: RowLayout {
+                            required property var modelData
+                            Layout.fillWidth: true
+                            Layout.leftMargin: 14
+                            spacing: 12
+                            Label {
+                                Layout.fillWidth: true
+                                text: modelData.text
+                                textFormat: Text.PlainText
+                                elide: Text.ElideRight
+                                font.pixelSize: 12
+                                color: app.palette.fg
+                            }
+                            Label { text: modelData.time; font.pixelSize: 12; color: app.palette.muted }
+                        }
+                    }
+                    Label {
+                        visible: text !== ""
+                        Layout.leftMargin: 14
+                        text: project.modelData.more
+                        font.pixelSize: 12
+                        color: app.palette.muted
+                    }
                 }
             }
             Label {
                 visible: text !== ""
+                Layout.topMargin: 4
                 text: tip.bar ? tip.bar.normText : ""
                 font.pixelSize: 12
                 color: app.palette.muted

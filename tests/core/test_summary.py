@@ -414,3 +414,31 @@ def test_the_others_slice_lists_the_shares_it_holds():
     assert others["index"] == -1
     assert others["entries"] == [{"text": "P9", "time": "2:00"}, {"text": "P10", "time": "1:00"}]
     assert (others["time"], others["percent"]) == ("3:00", "5 %")
+
+
+def test_a_bar_lists_the_entries_of_each_project():
+    """Live test of 0.10.3: the bar's tooltip lists the entries, not only the projects."""
+    entries = [
+        replace(entry(1, date(2026, 9, 21), 8, 2), description="Formularz rezerwacji"),
+        replace(entry(2, date(2026, 9, 21), 10, 1), description="Kalendarz dostępności"),
+        replace(entry(3, date(2026, 9, 21), 12, 1, project=2), description="Spotkanie zespołu"),
+    ]
+    summary = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+    parts = present(summary, PL, group="project", today=date(2026, 9, 25))["bars"][0]["parts"]
+    assert [(part["name"], part["entries"]) for part in parts] == [
+        ("Moduł rezerwacji", [{"text": "Formularz rezerwacji", "time": "2:00"},
+                              {"text": "Kalendarz dostępności", "time": "1:00"}]),
+        ("Administracja", [{"text": "Spotkanie zespołu", "time": "1:00"}]),
+    ]  # fmt: skip
+    assert parts[0]["more"] == ""
+
+
+def test_a_month_bar_lists_fewer_entries_a_project():
+    entries = [
+        replace(entry(i, date(2026, 3, 2 + i % 20), 8, 1), description=f"Zadanie {i}") for i in range(8)
+    ]
+    summary = summarize(
+        entries, span_for("year", date(2026, 3, 1), 0), WARSAW, now=NOW, norm=NORM, first_weekday=0
+    )
+    part = present(summary, PL, group="project", today=date(2026, 9, 25))["bars"][2]["parts"][0]
+    assert (len(part["entries"]), part["more"]) == (3, "+ 5 więcej")

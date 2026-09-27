@@ -26,6 +26,7 @@ MAX_RANGE_DAYS = 366  # fetching stops at 5000 entries (10 pages × 500)
 DAY_BARS_LIMIT = 62  # more daily bars do not fit the narrowest window
 RING_SLICES = 8  # more slices are unreadable; the rest go together
 TIP_ITEMS = 10  # descriptions a tooltip lists before "+ n more"
+MONTH_TIP_ITEMS = 3  # a month's bar: fewer a project, or its tooltip would outgrow the window
 _STEPS_MINUTES = (15, 30) + tuple(
     hours * 60
     for hours in (
@@ -74,6 +75,7 @@ class Span:
 class Part:
     key: str  # the project's key ("p7") — bars are always split by project
     seconds: int
+    items: tuple[tuple[str, int], ...] = ()  # (description, seconds), biggest first — the tooltip
 
 
 @dataclass(frozen=True)
@@ -300,12 +302,7 @@ def _shares(counted: list[tuple[date, Entry, int]], group: str) -> tuple[Share, 
         text = " ".join(entry.description.split())  # the same description, however it was spaced
         by_text = items.setdefault(key, {})
         by_text[text] = by_text.get(text, 0) + seconds
-    found = {
-        key: replace(
-            share, items=tuple(sorted(items[key].items(), key=lambda item: (-item[1], sort_key(item[0]))))
-        )
-        for key, share in found.items()
-    }
+    found = {key: replace(share, items=_biggest(items[key])) for key, share in found.items()}
     return tuple(sorted(found.values(), key=lambda share: (-share.seconds, sort_key(share.name))))
 
 
@@ -335,9 +332,13 @@ def _bucket(
     unit: str,
 ) -> Bucket:
     by_project: dict[str, int] = {}
+    texts: dict[str, dict[str, int]] = {}
     for _, entry, seconds in counted:
         key = f"p{entry.project_id}"
         by_project[key] = by_project.get(key, 0) + seconds
+        by_text = texts.setdefault(key, {})
+        text = " ".join(entry.description.split())
+        by_text[text] = by_text.get(text, 0) + seconds
     days_with = len({day for day, _, _ in counted})
     return Bucket(
         first=first,
@@ -345,7 +346,8 @@ def _bucket(
         seconds=sum(by_project.values()),
         # The biggest project of the whole period at the bottom of every bar, the same order everywhere.
         parts=tuple(
-            Part(key, seconds) for key, seconds in sorted(by_project.items(), key=lambda kv: order[kv[0]])
+            Part(key, seconds, _biggest(texts[key]))
+            for key, seconds in sorted(by_project.items(), key=lambda kv: order[kv[0]])
         ),
         norm=norm,  # a day's, or the month's (a day's × its working days until today)
         days_with=days_with,
@@ -391,6 +393,11 @@ def _bar(
                 "seconds": part.seconds,
                 "below": sum(lower.seconds for lower in bucket.parts[:index]),  # where the layer starts
                 "time": short_duration(part.seconds),
+                **_tip(
+                    [(text or t("sumNoDescription"), seconds) for text, seconds in part.items],
+                    t,
+                    MONTH_TIP_ITEMS if summary.unit == "month" else TIP_ITEMS,
+                ),
             }
             for index, part in enumerate(bucket.parts)  # bottom up; the tooltip lists them in this order too
         ],
@@ -425,11 +432,15 @@ def _slices(shares: tuple[Share, ...], total: int, t: Callable[..., str]) -> lis
     return shown
 
 
-def _tip(items: list[tuple[str, int]], t: Callable[..., str]) -> dict[str, Any]:
+def _biggest(by_text: dict[str, int]) -> tuple[tuple[str, int], ...]:
+    return tuple(sorted(by_text.items(), key=lambda item: (-item[1], sort_key(item[0]))))
+
+
+def _tip(items: list[tuple[str, int]], t: Callable[..., str], limit: int = TIP_ITEMS) -> dict[str, Any]:
     """What a tooltip lists: the biggest first, and how many more there are."""
-    more = len(items) - TIP_ITEMS
+    more = len(items) - limit
     return {
-        "entries": [{"text": text, "time": short_duration(seconds)} for text, seconds in items[:TIP_ITEMS]],
+        "entries": [{"text": text, "time": short_duration(seconds)} for text, seconds in items[:limit]],
         "more": t("sumMore", count=more) if more > 0 else "",
     }
 
