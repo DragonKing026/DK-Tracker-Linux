@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-27 13:07
+zaktualizowano: 2026-09-27 13:14
 ---
 
 # Tablica zadań
@@ -25,6 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
+| 0073 | [Plan 7: kalendarz 0.10.5 — wykonanie](W-TRAKCIE/0073-plan7-kalendarz/todo.md) | 🔨 w-trakcie | p1 | [0070](ZROBIONE/0070-plan6-podsumowania/todo.md) ✅ |
 
 ## Do zrobienia
 
