@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-27 13:55
+zaktualizowano: 2026-09-27 13:10
 ---
 
 # Katalog funkcji
@@ -40,7 +40,7 @@ stateDiagram-v2
 | **Test połączenia** | `GET /api/users/me` → komunikat „Połączono jako *alias/username*” albo powód błędu. |
 | **Zapis** | URL obcięty z końcowych `/`. Zapis ustawień **resetuje blokadę billable** (F-09), bo inny serwer/token może mieć uprawnienie. |
 | **Źródło** | `options/options.js`, `lib/api.js#getSettings` |
-| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. **Motyw**: jak w systemie (domyślnie), jasny albo ciemny — dla okna głównego i okienka przy tacce, zmienia się od razu po zapisie. **Token** zapisany w portfelu widać jako stałą maskę „••••” z dopiskiem — nigdy sam token ani jego długość. |
+| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. **Motyw**: jak w systemie (domyślnie), jasny albo ciemny — dla okna głównego i okienka przy tacce, zmienia się od razu po zapisie. **Token** zapisany w portfelu widać jako stałą maskę „••••” z dopiskiem — nigdy sam token ani jego długość. Od 0.10.4 na dole strony **„O programie”**: znak, nazwa, wersja, opis, licencja, link do strony projektu ([0072](../../TODO/W-TRAKCIE/0072-o-programie/todo.md)). |
 | **Różnica w aplikacji** | Token → magazyn sekretów ([Secret Service](../integracje/secret-service.md)), nie plik ustawień. Brak odpowiednika „host permissions” Chrome — Flatpak ma dostęp do sieci przez `--share=network`. |
 
 ## F-02 Ikona w tacce ze stanem
@@ -302,7 +302,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/2026-09-26-okno-glowne-0.10.md),
 [Plan 5](../plany/2026-09-26-plan-5-okno-glowne.md)).
 
-- **Pasek boczny**: Wpisy (0.10.0), Podsumowania (0.10.3, F-36); Kalendarz pojawi się w 0.10.4; na dole Ustawienia —
+- **Pasek boczny**: Wpisy (0.10.0), Podsumowania (0.10.3, F-36); Kalendarz pojawi się w 0.10.5; na dole Ustawienia —
   strona okna głównego (F-01), także z tacki i z okienka; bez konfiguracji okno pokazuje tylko ją. Ostatni wybrany
   widok (Wpisy albo Podsumowania) otwiera się przy następnym uruchomieniu.
 - **Pasek timera**: opis (F-11), projekt z wyszukiwaniem, rodzaj pracy, `$`, start/stop; przy trwającym wpisie zegar,

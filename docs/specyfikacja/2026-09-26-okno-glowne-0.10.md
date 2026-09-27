@@ -4,7 +4,7 @@ tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
 status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-27 13:55
+zaktualizowano: 2026-09-27 13:10
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
@@ -29,9 +29,10 @@ czego brakuje w okienku i w firmowym Kimai: przegląd dni i tygodni, edycję i r
 | **0.10.1** | Poprawki po teście na żywo 0.10.0: tagi z listy, bez stawek, token jako maska, paski przewijania |
 | **0.10.2** | Poprawka: po starcie okno główne na wpisach (zostawało na ustawieniach, zanim token dotarł) |
 | **0.10.3** | Widok **Podsumowania** (okresy, podział, wykres dzienny, średnie, norma) |
-| **0.10.4** | Widok **Kalendarz** (interaktywny: tworzenie, zmiana godzin, przesuwanie) |
+| **0.10.4** | „O programie” z wersją na stronie ustawień (prośba użytkownika po teście 0.10.3) |
+| **0.10.5** | Widok **Kalendarz** (interaktywny: tworzenie, zmiana godzin, przesuwanie) |
 
-Dalsze kroki: 0.10.5… aż do pełnej wersji. Minutnik (GNOME: napis przy ikonie; KDE: widżet panelu) — osobno, w
+Dalsze kroki: 0.10.6… aż do pełnej wersji. Minutnik (GNOME: napis przy ikonie; KDE: widżet panelu) — osobno, w
 [0062](../../TODO/DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md). Jedna specyfikacja, osobny plan na każde wydanie.
 
 ## 3. Decyzje (użytkownik, 2026-09-26)
@@ -148,7 +149,7 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
   zamiast przeglądarki. Kliknięcie powiadomienia otwiera okno główne.
 - **Nowe ustawienia**: ikona w tacce; norma dzienna (0.10.3); zapamiętany rozmiar/pozycja/widok okna głównego.
 
-## 8. Kalendarz (0.10.4)
+## 8. Kalendarz (0.10.5)
 
 - Dzień / tydzień (przełącznik 5/7 dni), ◀ ▶ i „Dziś”; siatka 0–24 przewinięta na godziny pracy; linia „teraz”.
 - Bloki = wpisy w kolorze projektu (opis, czas); trwający rośnie na żywo; nakładające się obok siebie; wyeksportowane z
@@ -190,4 +191,4 @@ kolejkowanie zapisów offline.
   test na żywo.
 - **0.10.3**: podsumowania z okresami, podziałem, wykresem, średnimi i normą; wyniki zgodne z sumami z Kimai dla tego
   samego okresu.
-- **0.10.4**: kalendarz z tworzeniem, zmianą godzin i przesuwaniem wpisów; przyciąganie 15 min, Alt wyłącza.
+- **0.10.5**: kalendarz z tworzeniem, zmianą godzin i przesuwaniem wpisów; przyciąganie 15 min, Alt wyłącza.
