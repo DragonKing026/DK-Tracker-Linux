@@ -107,8 +107,8 @@ def test_totals_billable_and_days_with_entries():
     summary = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
     assert summary.total == 15 * HOUR
     assert summary.billable == 13 * HOUR
-    assert summary.days_with == 2
-    assert summary.avg_day == 7.5 * HOUR  # ÷ days with entries, not ÷ 7
+    assert (summary.days_with, summary.work_days) == (2, 5)
+    assert summary.avg_day == 3 * HOUR  # ÷ working days until today (Monday–Friday), not ÷ days with entries
 
 
 def test_the_running_entry_counts_until_now_on_the_day_it_began():
@@ -130,17 +130,30 @@ def test_entries_outside_the_period_are_left_out():
     assert summary.total == 0
 
 
-def test_one_average_for_any_period_by_the_days_with_entries():
-    """Live test of 0.10.3: one average — hours ÷ days with entries, whatever the period."""
-    entries = [
-        entry(1, date(2026, 9, 1), 8, 8),
-        entry(2, date(2026, 9, 2), 8, 8),
-        entry(3, date(2026, 9, 15), 8, 5),
-    ]
-    for kind in ("month", "year"):
-        span = span_for(kind, date(2026, 9, 1), MONDAY)  # type: ignore[arg-type]
-        summary = summarize(entries, span, WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
-        assert summary.avg_day == 7 * HOUR  # 21 h ÷ 3 days
+def test_the_average_is_per_working_day_so_a_saturday_catches_up():
+    """Live test of 0.10.3: one average — hours ÷ working days (Monday–Friday). Work on a Saturday
+    raises it; counting days with entries would have lowered it."""
+    last_week = shifted(week(), -1, MONDAY)  # 14–20 September, all past
+    entries = [entry(i, date(2026, 9, 14 + i), 8, 7) for i in range(5)] + [entry(9, date(2026, 9, 19), 8, 5)]
+    summary = summarize(entries, last_week, WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+    assert summary.work_days == 5
+    assert summary.avg_day == 8 * HOUR  # 40 h ÷ 5, not ÷ 6 days with entries
+
+
+def test_working_days_of_the_current_period_count_until_today():
+    summary = summarize([entry(1, date(2026, 9, 1), 8, 19)], span_for("month", date(2026, 9, 1), 0), WARSAW,
+                        now=NOW, norm=NORM, first_weekday=0)  # fmt: skip
+    assert summary.work_days == 19  # 1–25 September, today included; the rest of the month is to come
+    future = summarize([], shifted(week(), 1, MONDAY), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+    assert (future.work_days, future.avg_day) == (0, 0)
+
+
+def test_a_weekend_only_period_averages_by_its_days_with_entries():
+    weekend = range_span(date(2026, 9, 19), date(2026, 9, 20))
+    summary = summarize(
+        [entry(1, date(2026, 9, 19), 8, 4)], weekend, WARSAW, now=NOW, norm=NORM, first_weekday=0
+    )
+    assert (summary.work_days, summary.avg_day) == (0, 4 * HOUR)
 
 
 # -- bars ------------------------------------------------------------------------------
@@ -167,7 +180,7 @@ def test_a_week_has_a_bar_a_day_split_by_project():
     assert all(bucket.norm == NORM for bucket in summary.buckets)
 
 
-def test_a_year_has_a_bar_a_month_with_the_norm_times_the_days_with_entries():
+def test_a_year_has_a_bar_a_month_with_the_norm_times_its_working_days():
     entries = [
         entry(1, date(2026, 3, 2), 8, 8),
         entry(2, date(2026, 3, 3), 8, 6),
@@ -179,8 +192,9 @@ def test_a_year_has_a_bar_a_month_with_the_norm_times_the_days_with_entries():
     assert summary.unit == "month"
     assert len(summary.buckets) == 12
     march = summary.buckets[2]
-    assert (march.seconds, march.days_with, march.norm) == (14 * HOUR, 2, 2 * NORM)
-    assert summary.buckets[0].norm == 0
+    assert (march.seconds, march.days_with, march.norm) == (14 * HOUR, 2, 22 * NORM)
+    assert summary.buckets[0].norm == 22 * NORM  # January, no entries: still 22 working days
+    assert summary.buckets[9].norm == 0  # October is still to come
 
 
 def test_a_long_range_has_monthly_bars_a_short_one_daily():
@@ -248,10 +262,10 @@ def test_present_gives_the_view_its_texts():
     summary = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
     view = present(summary, PL, group="project", today=date(2026, 9, 25))
     assert view["empty"] is False
-    assert (view["total"], view["daysWith"]) == ("15:00", "Dni z wpisami: 2")
+    assert (view["total"], view["daysWith"]) == ("15:00", "Dni robocze: 5 · z wpisami: 2")
     assert (view["paid"], view["paidPercent"]) == ("13:00", "87 %")
     assert (view["unpaid"], view["unpaidPercent"]) == ("2:00", "13 %")
-    assert (view["avgDay"], view["norm"], view["normDiff"]) == ("7:30", "8:00", "−0:30")
+    assert (view["avgDay"], view["norm"], view["normDiff"]) == ("3:00", "8:00", "−5:00")
     assert "avgWeek" not in view
     assert view["normLine"] == NORM
     bars = view["bars"]
@@ -337,9 +351,66 @@ def test_present_gives_ready_sentences_and_where_each_slice_starts():
     summary = summarize(entries, month, WARSAW, now=NOW, norm=NORM, first_weekday=0)
     view = present(summary, PL, group="project", today=date(2026, 9, 25))
     assert view["unpaidLine"] == "Niepłatne 2:00 · 25 %"
-    assert view["normText"] == "Norma 8:00 · −4:00"
+    assert view["normText"] == "Norma 8:00 · −7:34"  # 8 h ÷ 19 working days
     assert [round(item["start"], 2) for item in view["slices"]] == [0.0, 0.75]
     assert view["bars"][0]["normText"] == "Norma 8:00"
     year = present(summarize(entries, span_for("year", date(2026, 9, 1), 0), WARSAW, now=NOW, norm=0,
                              first_weekday=0), PL, group="project", today=date(2026, 9, 25))  # fmt: skip
     assert (year["normText"], year["bars"][8]["normText"]) == ("", "")
+
+
+# -- what a slice or a table row holds (live test of 0.10.3: as in Toggl) --------------------
+
+
+def test_each_share_lists_its_entries_by_description_biggest_first():
+    entries = [
+        replace(entry(1, date(2026, 9, 21), 8, 1), description="Formularz  rezerwacji"),
+        replace(
+            entry(2, date(2026, 9, 22), 8, 2), description="Formularz rezerwacji"
+        ),  # the same, spaced alike
+        replace(entry(3, date(2026, 9, 22), 11, 2), description="Kalendarz dostępności"),
+        replace(entry(4, date(2026, 9, 23), 8, 1), description=""),
+        replace(entry(5, date(2026, 9, 23), 10, 1, project=2), description="Spotkanie zespołu"),
+    ]
+    summary = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+    first = summary.shares["project"][0]
+    assert first.items == (
+        ("Formularz rezerwacji", 3 * HOUR),
+        ("Kalendarz dostępności", 2 * HOUR),
+        ("", HOUR),
+    )
+    view = present(summary, PL, group="project", today=date(2026, 9, 25))
+    assert view["shares"][0]["entries"] == [
+        {"text": "Formularz rezerwacji", "time": "3:00"},
+        {"text": "Kalendarz dostępności", "time": "2:00"},
+        {"text": "(bez opisu)", "time": "1:00"},
+    ]
+    assert view["shares"][0]["more"] == ""
+    assert view["slices"][0]["index"] == 0  # a slice points at its row of the table
+
+
+def test_a_long_list_of_entries_is_cut_with_how_many_more():
+    entries = [
+        replace(entry(i, date(2026, 9, 21), 8, 0.5), description=f"Zadanie numer {i}") for i in range(1, 15)
+    ]
+    summary = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+    share = present(summary, PL, group="project", today=date(2026, 9, 25))["shares"][0]
+    assert len(share["entries"]) == 10
+    assert share["more"] == "+ 4 więcej"
+
+
+def test_the_others_slice_lists_the_shares_it_holds():
+    entries = [
+        replace(
+            entry(i, date(2026, 9, 21), 8, 11 - i),
+            project_id=i,
+            project_name=f"P{i}",
+            project_color="#123456",
+        )
+        for i in range(1, 11)
+    ]
+    summary = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+    others = present(summary, PL, group="project", today=date(2026, 9, 25))["slices"][-1]
+    assert others["index"] == -1
+    assert others["entries"] == [{"text": "P9", "time": "2:00"}, {"text": "P10", "time": "1:00"}]
+    assert (others["time"], others["percent"]) == ("3:00", "5 %")

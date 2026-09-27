@@ -10,6 +10,37 @@ ScrollView {
     readonly property var d: app.summaryPage.data
     readonly property bool dim: d.loading && d.loaded  // a refresh: the numbers stay, a little faded
     readonly property string none: "–"  // a new period still loading
+    // The breakdown under the pointer: a table row and its ring slice light up together, with a
+    // tooltip of what they hold (live test of 0.10.3, as in Toggl).
+    property int hotRow: -1
+    property int hotSlice: -1
+    readonly property var slices: d.slices || []
+    readonly property int othersFrom: slices.length && slices[slices.length - 1].index === -1 ? slices.length - 1 : -1
+
+    function sliceOf(row) {
+        for (let i = 0; i < slices.length; i++)
+            if (slices[i].index === row)
+                return i
+        return othersFrom  // a row folded into "Others"
+    }
+    function hover(row, slice, item, x, y) {
+        hotRow = row
+        hotSlice = slice
+        const shown = row >= 0 ? d.shares[row] : slice >= 0 ? slices[slice] : null
+        if (!shown) {
+            leave()
+            return
+        }
+        shareTip.share = shown
+        shareTip.follow(item, x, y)
+    }
+    function leave() {
+        hotRow = -1
+        hotSlice = -1
+        shareTip.close()
+    }
+
+    ShareTip { id: shareTip }
     contentWidth: availableWidth
     clip: true
     background: Rectangle { color: app.palette.bg }
@@ -23,6 +54,7 @@ ScrollView {
     Connections {
         target: app.summaryPage
         function onDataChanged() {
+            page.leave()  // another breakdown or period: what the tooltip held is gone
             rangeFirst.value = page.d.first
             rangeLast.value = page.d.last
         }
@@ -208,6 +240,9 @@ ScrollView {
                     spacing: 24
                     DonutChart {
                         Layout.alignment: Qt.AlignTop
+                        hot: page.hotSlice
+                        onHovered: function (slice, x, y) { page.hover(page.slices[slice].index, slice, this, x, y) }
+                        onUnhovered: page.leave()
                         slices: page.d.slices || []
                         total: page.d.loaded ? page.d.total : page.none
                         caption: app.texts.sumTotal || ""
@@ -229,6 +264,10 @@ ScrollView {
                             model: page.d.shares || []
                             delegate: ShareRow {
                                 required property var modelData
+                                required property int index
+                                row: index
+                                hot: page.hotRow === index || (page.othersFrom >= 0 && page.hotSlice === page.othersFrom
+                                                               && index >= page.othersFrom)
                                 color: modelData.color
                                 name: modelData.name
                                 detail: modelData.detail
@@ -327,10 +366,29 @@ ScrollView {
         property string time: ""
         property string percent: ""
         property string paid: ""
+        property int row: -1
+        property bool hot: false
         Layout.fillWidth: true
         implicitHeight: header ? 28 : 34
+        Rectangle {  // under the pointer, or its slice is
+            anchors.fill: parent
+            anchors.bottomMargin: 1
+            visible: share.hot
+            radius: 4
+            color: app.palette.control
+        }
+        MouseArea {
+            anchors.fill: parent
+            enabled: !share.header
+            hoverEnabled: true
+            acceptedButtons: Qt.NoButton
+            onPositionChanged: function (mouse) { page.hover(share.row, page.sliceOf(share.row), this, mouse.x, mouse.y) }
+            onExited: page.leave()
+        }
         RowLayout {
             anchors.fill: parent
+            anchors.leftMargin: 6
+            anchors.rightMargin: 6
             spacing: 10
             Rectangle {
                 visible: !share.header

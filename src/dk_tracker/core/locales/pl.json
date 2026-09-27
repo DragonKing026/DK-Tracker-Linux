@@ -157,7 +157,6 @@
   "save": "Zapisz",
   "monthsLong": "styczeń,luty,marzec,kwiecień,maj,czerwiec,lipiec,sierpień,wrzesień,październik,listopad,grudzień",
   "sumBarDay": "{weekday} {day}",
-  "sumDaysWith": "Dni z wpisami: {count}",
   "sumPercent": "{value} %",
   "sumNoName": "(bez nazwy)",
   "sumOthers": "Pozostałe",
@@ -172,7 +171,7 @@
   "sumTotal": "Łącznie",
   "sumPaid": "Płatne",
   "sumUnpaidLine": "Niepłatne {time} · {percent}",
-  "sumAvgDay": "Średnio na dzień pracy",
+  "sumAvgDay": "Średnio na dzień roboczy",
   "sumNormLine": "Norma {norm} · {diff}",
   "sumNormTip": "Norma {time}",
   "sumChartDays": "Czas w dniach",
@@ -186,5 +185,8 @@
   "sumColPaid": "W tym płatne",
   "sumEmpty": "Brak wpisów w tym okresie",
   "sumPrevious": "Poprzedni okres",
-  "sumNext": "Następny okres"
+  "sumNext": "Następny okres",
+  "sumNoDescription": "(bez opisu)",
+  "sumMore": "+ {count} więcej",
+  "sumDaysLine": "Dni robocze: {work} · z wpisami: {count}"
 }

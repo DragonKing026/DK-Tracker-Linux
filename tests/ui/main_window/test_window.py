@@ -442,7 +442,7 @@ def test_the_summary_view_has_its_parts_and_shows_when_chosen(window, qtbot):
     qtbot.waitUntil(lambda: view.property("visible") is True)
     assert window.child("entriesView").property("visible") is False
     parts = "viewSummary summaryKind summaryPrevious summaryNext summaryToday tileTotal tilePaid tileAverage"
-    parts += " barChart normLine donutChart summaryGroup shareTable"
+    parts += " barChart normLine donutChart summaryGroup shareTable shareTip"
     for name in parts.split():
         assert window.child(name) is not None, name
     chart = window.child("barChart")

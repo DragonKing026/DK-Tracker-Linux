@@ -157,7 +157,6 @@
   "save": "Save",
   "monthsLong": "January,February,March,April,May,June,July,August,September,October,November,December",
   "sumBarDay": "{weekday} {day}",
-  "sumDaysWith": "Days with entries: {count}",
   "sumPercent": "{value}%",
   "sumNoName": "(no name)",
   "sumOthers": "Others",
@@ -186,5 +185,8 @@
   "sumColPaid": "Billable",
   "sumEmpty": "No entries in this period",
   "sumPrevious": "Previous period",
-  "sumNext": "Next period"
+  "sumNext": "Next period",
+  "sumNoDescription": "(no description)",
+  "sumMore": "+ {count} more",
+  "sumDaysLine": "Working days: {work} · with entries: {count}"
 }

@@ -9,7 +9,7 @@ from __future__ import annotations
 import calendar
 import math
 from collections.abc import Callable, Iterable
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import date, datetime, timedelta, tzinfo
 from typing import Any, Literal
 
@@ -25,6 +25,7 @@ GROUPS: tuple[Group, ...] = ("project", "customer", "activity")
 MAX_RANGE_DAYS = 366  # fetching stops at 5000 entries (10 pages × 500)
 DAY_BARS_LIMIT = 62  # more daily bars do not fit the narrowest window
 RING_SLICES = 8  # more slices are unreadable; the rest go together
+TIP_ITEMS = 10  # descriptions a tooltip lists before "+ n more"
 _STEPS_MINUTES = (15, 30) + tuple(
     hours * 60
     for hours in (
@@ -93,6 +94,7 @@ class Share:
     color: str
     seconds: int
     billable: int
+    items: tuple[tuple[str, int], ...] = ()  # (description, seconds), biggest first — the tooltip (as Toggl)
 
 
 @dataclass(frozen=True)
@@ -102,15 +104,18 @@ class Summary:
     total: int
     billable: int
     days_with: int
+    work_days: int  # Monday–Friday of the period, until today in the current one (no holidays)
     norm: int  # a day's norm in seconds; 0 = none
     buckets: tuple[Bucket, ...]
     shares: dict[str, tuple[Share, ...]] = field(default_factory=dict)
 
     @property
     def avg_day(self) -> float:
-        """The one average, for any period: time ÷ days with entries, not ÷ days of the period
-        (the user after the live test of 0.10.3: no separate weekly or monthly average)."""
-        return self.total / self.days_with if self.days_with else 0
+        """The one average, for any period: time ÷ working days (the user after the live test of
+        0.10.3) — a Saturday's work raises it instead of lowering it. A period without working days
+        (a weekend) falls back to its days with entries."""
+        days = self.work_days or self.days_with
+        return self.total / days if days else 0
 
 
 # -- periods -------------------------------------------------------------------------------
@@ -168,8 +173,16 @@ def summarize(
     shares = {group: _shares(counted, group) for group in ("project", "customer", "activity")}
     order = {share.key: index for index, share in enumerate(shares["project"])}
     days = {day for day, _, _ in counted}
+    today = local_day(now, tz)
     buckets = tuple(
-        _bucket(first, last, [(d, e, s) for d, e, s in counted if first <= d <= last], order, norm, unit)
+        _bucket(
+            first,
+            last,
+            [(d, e, s) for d, e, s in counted if first <= d <= last],
+            order,
+            norm if unit == "day" else norm * _work_days(first, last, today),
+            unit,
+        )  # fmt: skip
         for first, last in _bucket_spans(span, unit)
     )
     return Summary(
@@ -178,6 +191,7 @@ def summarize(
         total=sum(seconds for _, _, seconds in counted),
         billable=sum(seconds for _, entry, seconds in counted if entry.billable),
         days_with=len(days),
+        work_days=_work_days(span.first, span.last, today),
         norm=norm,
         buckets=buckets,
         shares=shares,
@@ -214,7 +228,7 @@ def present(summary: Summary, t: Callable[..., str], *, group: Group, today: dat
         "empty": total == 0,
         "unit": summary.unit,
         "total": short_duration(total),
-        "daysWith": t("sumDaysWith", count=summary.days_with),
+        "daysWith": t("sumDaysLine", work=summary.work_days, count=summary.days_with),
         "paid": short_duration(summary.billable),
         "paidPercent": _percent(summary.billable, total, t),
         "paidFraction": summary.billable / total if total else 0.0,
@@ -222,11 +236,11 @@ def present(summary: Summary, t: Callable[..., str], *, group: Group, today: dat
         "unpaidPercent": _percent(total - summary.billable, total, t),
         "avgDay": short_duration(summary.avg_day),
         "norm": short_duration(norm) if norm else "",
-        "normDiff": _signed(summary.avg_day - norm) if norm and summary.days_with else "",
+        "normDiff": _signed(summary.avg_day - norm) if norm and summary.total else "",
         "normFraction": min(summary.avg_day / norm, 1.0) if norm else 0.0,
         "unpaidLine": t("sumUnpaidLine", time=short_duration(unpaid), percent=_percent(unpaid, total, t)),
         "normText": t("sumNormLine", norm=short_duration(norm), diff=_signed(summary.avg_day - norm))
-        if norm and summary.days_with
+        if norm and summary.total
         else "",
         "normLine": norm if summary.unit == "day" else 0,
         "scaleTop": top,
@@ -245,6 +259,7 @@ def present(summary: Summary, t: Callable[..., str], *, group: Group, today: dat
                 "percent": _percent(share.seconds, total, t),
                 "paid": short_duration(share.billable),
                 "fraction": share.seconds / total if total else 0.0,
+                **_tip([(text or t("sumNoDescription"), seconds) for text, seconds in share.items], t),
             }
             for share in shares
         ],
@@ -270,6 +285,7 @@ def _key_name_color(entry: Entry, group: str) -> tuple[str, str, str, str]:
 
 def _shares(counted: list[tuple[date, Entry, int]], group: str) -> tuple[Share, ...]:
     found: dict[str, Share] = {}
+    items: dict[str, dict[str, int]] = {}
     for _, entry, seconds in counted:
         key, name, detail, color = _key_name_color(entry, group)
         old = found.get(key) or Share(key, name, detail, color, 0, 0)
@@ -281,7 +297,22 @@ def _shares(counted: list[tuple[date, Entry, int]], group: str) -> tuple[Share, 
             old.seconds + seconds,
             old.billable + (seconds if entry.billable else 0),
         )
+        text = " ".join(entry.description.split())  # the same description, however it was spaced
+        by_text = items.setdefault(key, {})
+        by_text[text] = by_text.get(text, 0) + seconds
+    found = {
+        key: replace(
+            share, items=tuple(sorted(items[key].items(), key=lambda item: (-item[1], sort_key(item[0]))))
+        )
+        for key, share in found.items()
+    }
     return tuple(sorted(found.values(), key=lambda share: (-share.seconds, sort_key(share.name))))
+
+
+def _work_days(first: date, last: date, today: date) -> int:
+    """Monday–Friday from `first` to `last`, but not past today (the days to come are not owed yet)."""
+    last = min(last, today)
+    return sum(1 for i in range((last - first).days + 1) if (first + timedelta(days=i)).weekday() < 5)
 
 
 def _bucket_spans(span: Span, unit: str) -> list[tuple[date, date]]:
@@ -316,7 +347,7 @@ def _bucket(
         parts=tuple(
             Part(key, seconds) for key, seconds in sorted(by_project.items(), key=lambda kv: order[kv[0]])
         ),
-        norm=norm if unit == "day" else norm * days_with,
+        norm=norm,  # a day's, or the month's (a day's × its working days until today)
         days_with=days_with,
     )
 
@@ -370,15 +401,37 @@ def _slices(shares: tuple[Share, ...], total: int, t: Callable[..., str]) -> lis
     if not total:
         return []
     shown = [
-        {"name": s.name or t("sumNoName"), "color": s.color, "fraction": s.seconds / total} for s in shares
+        {"name": s.name or t("sumNoName"), "color": s.color, "fraction": s.seconds / total, "index": index}
+        for index, s in enumerate(shares)
     ]
     if len(shown) > RING_SLICES + 1:  # one leftover slice would only rename it
         rest = sum(item["fraction"] for item in shown[RING_SLICES:])
-        shown = [*shown[:RING_SLICES], {"name": t("sumOthers"), "color": "", "fraction": rest}]
+        others = [(s.name or t("sumNoName"), s.seconds) for s in shares[RING_SLICES:]]
+        shown = [
+            *shown[:RING_SLICES],
+            {
+                "name": t("sumOthers"),
+                "color": "",
+                "fraction": rest,
+                "index": -1,
+                "time": short_duration(sum(seconds for _, seconds in others)),
+                "percent": _percent(rest, 1, t),
+                **_tip(others, t),
+            },
+        ]
     start = 0.0
     for item in shown:  # where each slice begins, as a fraction of the ring
         item["start"], start = start, start + item["fraction"]
     return shown
+
+
+def _tip(items: list[tuple[str, int]], t: Callable[..., str]) -> dict[str, Any]:
+    """What a tooltip lists: the biggest first, and how many more there are."""
+    more = len(items) - TIP_ITEMS
+    return {
+        "entries": [{"text": text, "time": short_duration(seconds)} for text, seconds in items[:TIP_ITEMS]],
+        "more": t("sumMore", count=more) if more > 0 else "",
+    }
 
 
 def _percent(part: float, whole: float, t: Callable[..., str]) -> str:

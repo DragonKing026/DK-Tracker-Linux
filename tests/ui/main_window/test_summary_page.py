@@ -127,7 +127,7 @@ def test_the_language_changes_the_texts(page):
     deliver(page, [entry(1, date(2026, 9, 21), 6)])
     page.retranslate(Translator("en"))
     assert page.data["label"] == "21 – 27 Sep 2026"
-    assert page.data["daysWith"] == "Days with entries: 1"
+    assert page.data["daysWith"] == "Working days: 5 · with entries: 1"
 
 
 def test_a_new_week_moves_this_week_along_until_the_user_picks_a_period(page, qtbot):
