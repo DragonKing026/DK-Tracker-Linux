@@ -53,6 +53,10 @@ def test_site_writes_both_files_and_the_project_page(tmp_path):
         "index.html",
         "io.github.dragonking026.DK-Tracker-Linux.flatpakref",
         "okno-ciemny-motyw.png",
+        "okno-glowne-edycja.png",
+        "okno-glowne-kalendarz.png",
+        "okno-glowne-podsumowania.png",
+        "okno-glowne-wpisy.png",
         "strona.css",
         "strona.js",
     ]
@@ -85,6 +89,10 @@ def test_page_links_only_files_the_site_has():
         "strona.js",
         "dk-tracker.svg",
         "okno-ciemny-motyw.png",
+        "okno-glowne-wpisy.png",
+        "okno-glowne-edycja.png",
+        "okno-glowne-podsumowania.png",
+        "okno-glowne-kalendarz.png",
     }
     local = {ref for ref in re.findall(r'(?:href|src)="([^"#:]+)"', index)}
     assert local and local <= published

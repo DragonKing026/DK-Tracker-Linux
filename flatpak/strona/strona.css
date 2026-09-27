@@ -628,11 +628,104 @@ h3 {
   font-variant-numeric: tabular-nums;
 }
 
-.shot figcaption {
+.shot figcaption,
+.stage figcaption {
   margin-top: 12px;
   text-align: center;
   color: var(--muted);
   font-size: 13px;
+}
+
+/* the main window with the quick window over its corner: what the app is, and what is extra */
+
+.hero__text {
+  position: relative;
+  max-width: 760px;
+}
+
+.stage {
+  position: relative;
+  margin: 48px 0 0;
+}
+
+.stage__main img,
+.view__shot img {
+  width: 100%;
+  height: auto;
+}
+
+.stage__quick,
+.stage__corner {
+  display: none;
+}
+
+@media (min-width: 820px) {
+  .stage {
+    margin-right: 9%;
+  }
+
+  .stage__corner {
+    display: inline;
+  }
+
+  .stage__quick {
+    display: block;
+    position: absolute;
+    right: -9%;
+    bottom: -28px;
+    width: 25%;
+  }
+
+  .stage__quick .panel {
+    margin-top: 12px;
+  }
+
+  .stage figcaption {
+    margin-top: 44px;
+  }
+}
+
+.stage figcaption {
+  text-align: left;
+}
+
+/* ---- the three views ---- */
+
+.views {
+  display: grid;
+  gap: 56px;
+}
+
+.view {
+  display: grid;
+  gap: 20px;
+  align-items: center;
+}
+
+.view__text h3 {
+  font-size: 1.35rem;
+  margin-bottom: 10px;
+}
+
+.view__text p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+@media (min-width: 960px) {
+  .view {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: 44px;
+  }
+
+  .view:nth-child(even) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+  }
+
+  .view:nth-child(even) .view__shot {
+    order: 2;
+  }
 }
 
 /* ---- sections ---- */

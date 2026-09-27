@@ -3,8 +3,9 @@
     .venv/bin/python scripts/zrzuty-okna.py [docs/assets/zrzuty]
 
 Renders the window without a display (offscreen) in the dark theme, with made-up customers,
-projects and entries — never real ones. Writes okno-glowne-wpisy.png, okno-glowne-podsumowania.png
-and okno-glowne-kalendarz.png at twice the window's size, so they stay sharp on the page.
+projects and entries — never real ones. Writes okno-glowne-wpisy.png, okno-glowne-edycja.png (the
+edit window over the entries), okno-glowne-podsumowania.png and okno-glowne-kalendarz.png at twice
+the window's size, so they stay sharp on the page.
 """
 
 from __future__ import annotations
@@ -27,7 +28,7 @@ from PySide6.QtWidgets import QApplication  # noqa: E402
 
 from dk_tracker.core.entry_list import build_rows  # noqa: E402
 from dk_tracker.core.i18n import Translator  # noqa: E402
-from dk_tracker.core.models import Activity, Entry, Project, User  # noqa: E402
+from dk_tracker.core.models import Activity, Entry, EntryDetails, Project, Tag, User  # noqa: E402
 from dk_tracker.core.tracker import Snapshot, Totals  # noqa: E402
 from dk_tracker.ui.main_window.bridge import MainBridge  # noqa: E402
 from dk_tracker.ui.main_window.window import MainWindow  # noqa: E402
@@ -146,6 +147,22 @@ def main() -> None:
 
     bridge.show_page("entries")
     shot("okno-glowne-wpisy.png")
+
+    # The edit window of one entry, with tags and a custom field of the server.
+    edited = finished[-2]
+    bridge.set_tags([Tag("rezerwacje", "#3b82f6"), Tag("walidacja", "#22c55e"), Tag("pilne", "#ef4444")])
+    bridge.set_row_activities([Activity(i, name, True, None) for i, (name, _) in ACTIVITIES.items()])
+    bridge.open_editor(
+        EntryDetails(
+            id=edited.id, begin=edited.begin, end=edited.end, project_id=1, activity_id=1,
+            description="Formularz rezerwacji — walidacja dat przyjazdu i wyjazdu, komunikaty błędów",
+            tags=("rezerwacje", "walidacja"), billable=True, exported=False, break_seconds=0,
+            meta=(("Zgłoszenie", "HM-214"),),
+        ),
+        WARSAW,
+    )  # fmt: skip
+    shot("okno-glowne-edycja.png")
+    bridge.close_editor()
 
     summary = bridge.summary
     summary.setPeriod("month")

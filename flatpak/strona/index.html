@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DK Tracker — Kimai w tacce systemowej Linuksa</title>
-<meta name="description" content="DK Tracker: mierzenie czasu w Kimai prosto z tacki systemowej Linuksa (KDE Plasma, GNOME). Flatpak z automatycznymi aktualizacjami.">
+<title>DK Tracker — klient Kimai na pulpit Linuksa</title>
+<meta name="description" content="DK Tracker: czas pracy w Kimai w natywnej aplikacji na Linuksa — wpisy, podsumowania, kalendarz i timer w tacce (KDE Plasma, GNOME). Flatpak z automatycznymi aktualizacjami.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#111827">
 <link rel="canonical" href="{{url}}/">
 <link rel="icon" href="dk-tracker.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
-<meta property="og:title" content="DK Tracker — Kimai w tacce systemowej Linuksa">
-<meta property="og:description" content="Start, stop i wznawianie pomiaru czasu w Kimai bez otwierania przeglądarki.">
+<meta property="og:title" content="DK Tracker — klient Kimai na pulpit Linuksa">
+<meta property="og:description" content="Wpisy, podsumowania i kalendarz Kimai w jednym oknie, a timer zawsze pod ręką w tacce.">
 <meta property="og:url" content="{{url}}/">
-<meta property="og:image" content="{{url}}/okno-ciemny-motyw.png">
+<meta property="og:image" content="{{url}}/okno-glowne-wpisy.png">
 <link rel="stylesheet" href="strona.css">
 <script>
   // Before the first paint: saved choice, else the browser's language / the system theme.
@@ -39,6 +39,7 @@
       <span>DK Tracker</span>
     </a>
     <nav class="nav" aria-label="Menu">
+      <a href="#widoki"><span lang="pl">Widoki</span><span lang="en">Views</span></a>
       <a href="#funkcje"><span lang="pl">Funkcje</span><span lang="en">Features</span></a>
       <a href="#instalacja"><span lang="pl">Instalacja</span><span lang="en">Install</span></a>
       <a href="#konfiguracja"><span lang="pl">Konfiguracja</span><span lang="en">Setup</span></a>
@@ -60,23 +61,24 @@
 
 <main>
   <section class="hero">
-    <div class="wrap hero__grid">
+    <div class="wrap">
       <div class="hero__text">
         <p class="badge">
           <span class="dot" aria-hidden="true"></span>
           <span lang="pl">Beta · wersja {{version}} · {{date}}</span><span lang="en">Beta · version {{version}} · {{date}}</span>
         </p>
         <h1>
-          <span lang="pl">Czas w Kimai<br><em>prosto z tacki systemowej</em></span>
-          <span lang="en">Kimai time tracking<br><em>right from the system tray</em></span>
+          <span lang="pl">Czas pracy w Kimai<br><em>w natywnej aplikacji</em></span>
+          <span lang="en">Your Kimai hours<br><em>in a native desktop app</em></span>
         </h1>
         <p class="lead">
-          <span lang="pl">Start, stop i wznawianie pomiaru czasu bez otwierania przeglądarki. Ikona w tacce pokazuje,
-            jak długo trwa wpis — natywna, linuksowa wersja wtyczki WS Tracker dla KDE Plasma i GNOME.</span>
-          <span lang="en">Start, stop and resume Kimai timesheets without opening the browser. The tray icon shows how
-            long the timer runs — a native Linux take on the WS Tracker browser extension, for KDE Plasma and GNOME.</span>
+          <span lang="pl">Wpisy z całego tygodnia, podsumowania ze średnią i normą dzienną oraz kalendarz, w którym
+            wpis przesuwasz myszą — w jednym oknie, bez karty w przeglądarce. A timer zostaje pod ręką: ikona w tacce
+            pokazuje, ile trwa bieżący wpis.</span>
+          <span lang="en">A week of entries, summaries with a daily average and norm, and a calendar where an entry
+            moves with the mouse — in one window, without a browser tab. The timer stays at hand: the tray icon shows
+            how long the current entry runs.</span>
         </p>
-
         <div class="cmd" data-copy-box>
           <code>flatpak install --user {{url}}/io.github.dragonking026.DK-Tracker-Linux.flatpakref</code>
           <button type="button" class="copy" data-copy>
@@ -101,28 +103,100 @@
         </p>
       </div>
 
-      <figure class="shot">
-        <div class="shot__window">
-          <img src="okno-ciemny-motyw.png" width="480" height="640"
-            alt="Okno DK Tracker przy tacce: trwający wpis, projekt, rodzaj pracy i ostatnie wpisy z sumami dnia">
+      <figure class="stage">
+        <div class="shot__window stage__main">
+          <img src="okno-glowne-wpisy.png" width="1180" height="760"
+            alt="Okno główne DK Tracker: pasek timera z trwającym wpisem, wpisy z bieżącego tygodnia pogrupowane po dniach">
         </div>
-        <div class="panel" aria-hidden="true">
-          <span class="panel__app"></span><span class="panel__app"></span><span class="panel__app"></span>
-          <span class="panel__spacer"></span>
-          <span class="panel__tray">
-            <span class="tray-icon">
-              <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="14" class="ring-bg"/><path d="M18 4a14 14 0 1 1-12.1 7" class="ring"/></svg>
-              <b>47m</b>
+        <div class="stage__quick" aria-hidden="true">
+          <div class="shot__window">
+            <img src="okno-ciemny-motyw.png" width="480" height="640" alt="">
+          </div>
+          <div class="panel">
+            <span class="panel__app"></span><span class="panel__app"></span>
+            <span class="panel__spacer"></span>
+            <span class="panel__tray">
+              <span class="tray-icon">
+                <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="14" class="ring-bg"/><path d="M18 4a14 14 0 1 1-12.1 7" class="ring"/></svg>
+                <b>47m</b>
+              </span>
+              <span class="panel__dot"></span>
             </span>
-            <span class="panel__dot"></span><span class="panel__dot"></span>
-          </span>
-          <span class="panel__clock">14:52</span>
+            <span class="panel__clock">14:52</span>
+          </div>
         </div>
         <figcaption>
-          <span lang="pl">Okno przy ikonie w tacce (ciemny motyw)</span>
-          <span lang="en">The quick window next to the tray icon (dark theme)</span>
+          <span lang="pl">Okno główne z wpisami bieżącego tygodnia<span class="stage__corner"> · w rogu okienko przy
+            ikonie w tacce, do szybkiego startu i stopu</span></span>
+          <span lang="en">The main window with this week's entries<span class="stage__corner"> · in the corner the
+            quick window by the tray icon, to start and stop fast</span></span>
         </figcaption>
       </figure>
+    </div>
+  </section>
+
+  <section id="widoki" class="section">
+    <div class="wrap">
+      <header class="section__head">
+        <p class="eyebrow"><span lang="pl">Widoki</span><span lang="en">Views</span></p>
+        <h2>
+          <span lang="pl">Trzy spojrzenia na ten sam czas pracy</span>
+          <span lang="en">Three ways to look at the same working time</span>
+        </h2>
+      </header>
+      <div class="views">
+        <article class="view">
+          <div class="shot__window view__shot">
+            <img src="okno-glowne-edycja.png" width="1180" height="760" loading="lazy"
+              alt="Okno edycji wpisu nad listą: dzień, godziny, projekt, rodzaj pracy, płatne, opis, tagi i pole własne serwera">
+          </div>
+          <div class="view__text">
+            <h3><span lang="pl">Wpisy</span><span lang="en">Entries</span></h3>
+            <p>
+              <span lang="pl">Tydzień po tygodniu, z sumą każdego dnia. Kliknięcie wpisu otwiera okno edycji ze
+                wszystkim, co pozwala zmienić Twój serwer — godziny, projekt, tagi, pola własne. Czas wpiszesz też
+                ręcznie, a usunięty wpis przez chwilę da się cofnąć.</span>
+              <span lang="en">Week by week, with each day's total. A click on an entry opens an edit window with all
+                your server lets you change — hours, project, tags, custom fields. Time can be typed in by hand, and a
+                deleted entry can be brought back for a moment.</span>
+            </p>
+          </div>
+        </article>
+        <article class="view">
+          <div class="shot__window view__shot">
+            <img src="okno-glowne-podsumowania.png" width="1180" height="760" loading="lazy"
+              alt="Widok Podsumowania: czas łączny, płatny i średnia na dzień roboczy, wykres dni miesiąca, podział na projekty">
+          </div>
+          <div class="view__text">
+            <h3><span lang="pl">Podsumowania</span><span lang="en">Summaries</span></h3>
+            <p>
+              <span lang="pl">Tydzień, miesiąc, rok albo dowolny zakres: ile czasu, ile z tego płatnego i ile średnio
+                na dzień roboczy wobec normy. Wykres dni w kolorach projektów i podział wg projektu, klienta lub
+                rodzaju pracy — po najechaniu widać wpisy, które się na to składają.</span>
+              <span lang="en">A week, a month, a year or any range: how much time, how much of it billable and the
+                average per working day against your norm. A chart of days in project colours and a breakdown by
+                project, customer or activity — hover to see the entries behind it.</span>
+            </p>
+          </div>
+        </article>
+        <article class="view">
+          <div class="shot__window view__shot">
+            <img src="okno-glowne-kalendarz.png" width="1180" height="760" loading="lazy"
+              alt="Widok Kalendarz: tydzień godzin z wpisami jako kolorowymi blokami i linią bieżącej godziny">
+          </div>
+          <div class="view__text">
+            <h3><span lang="pl">Kalendarz</span><span lang="en">Calendar</span></h3>
+            <p>
+              <span lang="pl">Dzień albo tydzień, wpisy jako bloki. Przeciągnij w pustym miejscu, żeby dodać wpis;
+                przeciągnij blok, żeby przenieść go na inną godzinę lub dzień, a krawędź — żeby zmienić jego długość.
+                Wszystko przyciąga się do kwadransów.</span>
+              <span lang="en">A day or a week, entries as blocks. Drag on an empty spot to add an entry; drag a block
+                to move it to another hour or day, or its edge to change how long it lasts. Everything snaps to
+                quarter hours.</span>
+            </p>
+          </div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -131,49 +205,39 @@
       <header class="section__head">
         <p class="eyebrow"><span lang="pl">Funkcje</span><span lang="en">Features</span></p>
         <h2>
-          <span lang="pl">Wszystko, czego potrzeba do mierzenia czasu — bez karty w przeglądarce</span>
-          <span lang="en">Everything you need to track time — without a browser tab</span>
+          <span lang="pl">A do tego wszystko, co robiła wtyczka WS Tracker</span>
+          <span lang="en">Plus everything the WS Tracker extension did</span>
         </h2>
       </header>
       <ul class="features">
         <li class="card">
           <span class="card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M10 2.5h4"/></svg></span>
-          <h3><span lang="pl">Timer w tacce</span><span lang="en">Timer in the tray</span></h3>
+          <h3><span lang="pl">Timer zawsze widoczny</span><span lang="en">A timer always in sight</span></h3>
           <p>
-            <span lang="pl">Ikona pokazuje czas trwającego wpisu (<code>47m</code>, <code>1:22</code>). Z menu: zatrzymaj,
-              wznów ostatni, ustawienia.</span>
-            <span lang="en">The icon shows how long the running entry lasts (<code>47m</code>, <code>1:22</code>). Its menu
-              stops, resumes the last entry or opens the settings.</span>
+            <span lang="pl">Ikona w tacce pokazuje czas trwającego wpisu (<code>47m</code>, <code>1:22</code>); jej menu
+              zatrzymuje, wznawia ostatni wpis i otwiera okno.</span>
+            <span lang="en">The tray icon shows how long the running entry lasts (<code>47m</code>, <code>1:22</code>);
+              its menu stops, resumes the last entry and opens the window.</span>
           </p>
         </li>
         <li class="card">
           <span class="card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="3"/><path d="M8 8.5h8M8 12.5h8M8 16.5h5"/></svg></span>
-          <h3><span lang="pl">Szybkie okno</span><span lang="en">Quick window</span></h3>
+          <h3><span lang="pl">Szybkie okienko</span><span lang="en">Quick window</span></h3>
           <p>
-            <span lang="pl">Opis, projekt z wyszukiwaniem, rodzaj pracy, płatne / niepłatne i godziny „od / do” —
-              jedno kliknięcie w ikonę.</span>
-            <span lang="en">Description, searchable project, activity, billable or not and “from / to” hours — one
-              click on the icon.</span>
+            <span lang="pl">Kliknięcie ikony: opis, projekt, rodzaj pracy i start — albo wznowienie jednego
+              z ostatnich wpisów — bez otwierania całej aplikacji.</span>
+            <span lang="en">One click on the icon: description, project, activity and start — or resume one of the
+              recent entries — without opening the whole app.</span>
           </p>
         </li>
         <li class="card">
-          <span class="card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5.5v13l11-6.5-11-6.5Z"/></svg></span>
-          <h3><span lang="pl">Wznawianie jednym kliknięciem</span><span lang="en">One-click resume</span></h3>
+          <span class="card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+          <h3><span lang="pl">Zasady jak w firmie</span><span lang="en">Your team's rules</span></h3>
           <p>
-            <span lang="pl">Ostatnie wpisy pogrupowane po dniach, z sumami dnia i tygodnia. Wyszukiwanie we wszystkich
-              swoich wpisach w Kimai.</span>
-            <span lang="en">Recent entries grouped by day, with daily and weekly totals. Search across all your
-              entries in Kimai.</span>
-          </p>
-        </li>
-        <li class="card">
-          <span class="card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="3"/><path d="M3 9h18M9 9v10.5"/></svg></span>
-          <h3><span lang="pl">Okno główne</span><span lang="en">Main window</span></h3>
-          <p>
-            <span lang="pl">Wpisy tygodniami i dniami, edycja każdego pola (tagi, stawki, pola własne), dodawanie
-              ręczne i usuwanie z cofnięciem.</span>
-            <span lang="en">Entries by week and day, editing of every field (tags, rates, custom fields), entries added
-              by hand and deleted with undo.</span>
+            <span lang="pl">Te same reguły co wtyczka WS Tracker: sprawdzenie jakości opisu, płatne i niepłatne tak,
+              jak ustawiono je w Kimai.</span>
+            <span lang="en">The same rules as the WS Tracker extension: a check of the description, billable or not
+              as set up in Kimai.</span>
           </p>
         </li>
         <li class="card">
@@ -182,6 +246,16 @@
           <p>
             <span lang="pl">Powiadomienie o timerze, który trwa podejrzanie długo, i o utracie połączenia z Kimai.</span>
             <span lang="en">A notification when a timer runs suspiciously long or the connection to Kimai is lost.</span>
+          </p>
+        </li>
+        <li class="card">
+          <span class="card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="3"/><path d="M3 9h18M9 9v10.5"/></svg></span>
+          <h3><span lang="pl">Z tacką lub bez</span><span lang="en">With a tray or without</span></h3>
+          <p>
+            <span lang="pl">Na KDE Plasma okienko wyskakuje przy ikonie. Na pulpicie bez tacki wszystko zostaje
+              w oknie głównym — tackę można też po prostu wyłączyć.</span>
+            <span lang="en">On KDE Plasma the quick window pops up by the icon. On a desktop without a tray everything
+              stays in the main window — the tray can also simply be turned off.</span>
           </p>
         </li>
         <li class="card">
@@ -253,12 +327,12 @@
       <div class="callouts">
         <p class="callout">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.5v.5"/></svg>
-          <span lang="pl"><strong>GNOME:</strong> ikona w tacce wymaga rozszerzenia
+          <span lang="pl"><strong>GNOME:</strong> okno główne działa od razu; ikona w tacce pojawi się z rozszerzeniem
             <a href="https://extensions.gnome.org/extension/615/appindicator-support/">AppIndicator and KStatusNotifierItem
-            Support</a>. Bez niego DK Tracker działa jako zwykłe okno.</span>
-          <span lang="en"><strong>GNOME:</strong> the tray icon needs the
+            Support</a>.</span>
+          <span lang="en"><strong>GNOME:</strong> the main window works right away; the tray icon appears with the
             <a href="https://extensions.gnome.org/extension/615/appindicator-support/">AppIndicator and KStatusNotifierItem
-            Support</a> extension. Without it DK Tracker works as a regular window.</span>
+            Support</a> extension.</span>
         </p>
         <p class="callout">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5 3 19.5h18L12 3.5Z"/><path d="M12 10v4.5M12 17v.5"/></svg>
@@ -279,10 +353,10 @@
       </header>
       <ol class="numbered">
         <li>
-          <h3><span lang="pl">Otwórz ustawienia</span><span lang="en">Open the settings</span></h3>
+          <h3><span lang="pl">Uruchom z menu programów</span><span lang="en">Start it from the app menu</span></h3>
           <p>
-            <span lang="pl">Kliknij ikonę w tacce → <strong>Otwórz ustawienia</strong>.</span>
-            <span lang="en">Click the tray icon → <strong>Open settings</strong>.</span>
+            <span lang="pl">Za pierwszym razem okno otworzy się na ustawieniach.</span>
+            <span lang="en">The first time, the window opens on the settings.</span>
           </p>
         </li>
         <li>
@@ -295,8 +369,10 @@
         <li>
           <h3><span lang="pl">Sprawdź i zapisz</span><span lang="en">Check and save</span></h3>
           <p>
-            <span lang="pl"><strong>Sprawdź połączenie</strong>, potem <strong>Zapisz</strong> — gotowe.</span>
-            <span lang="en"><strong>Test the connection</strong>, then <strong>Save</strong> — done.</span>
+            <span lang="pl"><strong>Sprawdź połączenie</strong>, potem <strong>Zapisz</strong> — okno przejdzie do
+              Twoich wpisów.</span>
+            <span lang="en"><strong>Test the connection</strong>, then <strong>Save</strong> — the window moves on to
+              your entries.</span>
           </p>
         </li>
       </ol>

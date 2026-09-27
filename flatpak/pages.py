@@ -5,7 +5,7 @@
 writes <site-dir>/dk-tracker.flatpakrepo (adds the remote, updates come through Discover or GNOME
 Software), <site-dir>/io.github.dragonking026.DK-Tracker-Linux.flatpakref (installs the app in one
 command) and the project page: flatpak/strona/ (index.html filled with the address and the newest
-release from the MetaInfo file, strona.css, strona.js), the app icon and the screenshot.
+release from the MetaInfo file, strona.css, strona.js), the app icon and the screenshots.
 The repository itself goes to <site-dir>/repo (flatpak/publikuj.sh copies it).
 Format: https://docs.flatpak.org/en/latest/flatpak-command-reference.html (.flatpakrepo, .flatpakref).
 """
@@ -29,6 +29,10 @@ METAINFO = ROOT / "data" / f"{APP_ID}.metainfo.xml"
 ASSETS = (
     ROOT / "data" / "icons" / "dk-tracker.svg",
     ROOT / "docs" / "assets" / "zrzuty" / "okno-ciemny-motyw.png",
+    ROOT / "docs" / "assets" / "zrzuty" / "okno-glowne-wpisy.png",
+    ROOT / "docs" / "assets" / "zrzuty" / "okno-glowne-edycja.png",
+    ROOT / "docs" / "assets" / "zrzuty" / "okno-glowne-podsumowania.png",
+    ROOT / "docs" / "assets" / "zrzuty" / "okno-glowne-kalendarz.png",
 )
 FLATHUB = "https://dl.flathub.org/repo/flathub.flatpakrepo"  # where the KDE runtime and PySide base come from
 
