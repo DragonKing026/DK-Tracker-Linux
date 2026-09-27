@@ -102,30 +102,15 @@ class Summary:
     total: int
     billable: int
     days_with: int
-    weeks_with: int
-    months_with: int
-    weeks_spanned: int
-    months_spanned: int
     norm: int  # a day's norm in seconds; 0 = none
     buckets: tuple[Bucket, ...]
     shares: dict[str, tuple[Share, ...]] = field(default_factory=dict)
 
     @property
     def avg_day(self) -> float:
-        """Time ÷ days with entries (spec, section 3), not ÷ days of the period."""
+        """The one average, for any period: time ÷ days with entries, not ÷ days of the period
+        (the user after the live test of 0.10.3: no separate weekly or monthly average)."""
         return self.total / self.days_with if self.days_with else 0
-
-    @property
-    def avg_week(self) -> float | None:
-        if self.weeks_spanned <= 1:
-            return None
-        return self.total / self.weeks_with if self.weeks_with else 0
-
-    @property
-    def avg_month(self) -> float | None:
-        if self.months_spanned <= 1:
-            return None
-        return self.total / self.months_with if self.months_with else 0
 
 
 # -- periods -------------------------------------------------------------------------------
@@ -193,12 +178,6 @@ def summarize(
         total=sum(seconds for _, _, seconds in counted),
         billable=sum(seconds for _, entry, seconds in counted if entry.billable),
         days_with=len(days),
-        weeks_with=len({first_day_of_week(day, first_weekday) for day in days}),
-        months_with=len({(day.year, day.month) for day in days}),
-        weeks_spanned=len(
-            {first_day_of_week(span.first + timedelta(days=i), first_weekday) for i in range(span.days)}
-        ),
-        months_spanned=(span.last.year - span.first.year) * 12 + span.last.month - span.first.month + 1,
         norm=norm,
         buckets=buckets,
         shares=shares,
@@ -230,7 +209,6 @@ def present(summary: Summary, t: Callable[..., str], *, group: Group, today: dat
     top, step = nice_scale(highest)
     label_every = 7 if summary.unit == "day" and len(summary.buckets) > 31 else 1
     shares = summary.shares[group]
-    avg_week, avg_month = summary.avg_week, summary.avg_month
     unpaid = total - summary.billable
     return {
         "empty": total == 0,
@@ -246,20 +224,6 @@ def present(summary: Summary, t: Callable[..., str], *, group: Group, today: dat
         "norm": short_duration(norm) if norm else "",
         "normDiff": _signed(summary.avg_day - norm) if norm and summary.days_with else "",
         "normFraction": min(summary.avg_day / norm, 1.0) if norm else 0.0,
-        "avgWeek": short_duration(summary.avg_week) if summary.avg_week is not None else "",
-        "avgMonth": short_duration(summary.avg_month) if summary.avg_month is not None else "",
-        # The fourth tile: the weekly average, and the monthly one under it (or alone in its place).
-        "avgMainLabel": t("sumAvgWeek")
-        if avg_week is not None
-        else t("sumAvgMonth")
-        if avg_month is not None
-        else "",
-        "avgMain": short_duration(avg_week if avg_week is not None else avg_month)
-        if avg_month or avg_week
-        else "",
-        "avgSubLine": t("sumPerMonth", time=short_duration(avg_month))
-        if avg_week is not None and avg_month is not None
-        else "",
         "unpaidLine": t("sumUnpaidLine", time=short_duration(unpaid), percent=_percent(unpaid, total, t)),
         "normText": t("sumNormLine", norm=short_duration(norm), diff=_signed(summary.avg_day - norm))
         if norm and summary.days_with

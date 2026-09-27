@@ -130,25 +130,17 @@ def test_entries_outside_the_period_are_left_out():
     assert summary.total == 0
 
 
-def test_weekly_and_monthly_averages_only_when_the_period_covers_more_than_one():
-    one_week = summarize(
-        [entry(1, date(2026, 9, 21), 8, 8)], week(), WARSAW, now=NOW, norm=NORM, first_weekday=0
-    )
-    assert one_week.avg_week is None
-    assert one_week.avg_month is None
-    month = span_for("month", date(2026, 9, 1), MONDAY)
+def test_one_average_for_any_period_by_the_days_with_entries():
+    """Live test of 0.10.3: one average — hours ÷ days with entries, whatever the period."""
     entries = [
         entry(1, date(2026, 9, 1), 8, 8),
         entry(2, date(2026, 9, 2), 8, 8),
-        entry(3, date(2026, 9, 15), 8, 4),
+        entry(3, date(2026, 9, 15), 8, 5),
     ]
-    summary = summarize(entries, month, WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
-    assert summary.avg_week == 10 * HOUR  # 20 h ÷ 2 weeks with entries (of the 5 the month touches)
-    assert summary.avg_month is None
-    year = summarize(
-        entries, span_for("year", date(2026, 1, 1), 0), WARSAW, now=NOW, norm=NORM, first_weekday=0
-    )
-    assert year.avg_month == 20 * HOUR
+    for kind in ("month", "year"):
+        span = span_for(kind, date(2026, 9, 1), MONDAY)  # type: ignore[arg-type]
+        summary = summarize(entries, span, WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+        assert summary.avg_day == 7 * HOUR  # 21 h ÷ 3 days
 
 
 # -- bars ------------------------------------------------------------------------------
@@ -260,7 +252,7 @@ def test_present_gives_the_view_its_texts():
     assert (view["paid"], view["paidPercent"]) == ("13:00", "87 %")
     assert (view["unpaid"], view["unpaidPercent"]) == ("2:00", "13 %")
     assert (view["avgDay"], view["norm"], view["normDiff"]) == ("7:30", "8:00", "−0:30")
-    assert (view["avgWeek"], view["avgMonth"]) == ("", "")
+    assert "avgWeek" not in view
     assert view["normLine"] == NORM
     bars = view["bars"]
     assert [bar["label"] for bar in bars] == [
@@ -346,12 +338,8 @@ def test_present_gives_ready_sentences_and_where_each_slice_starts():
     view = present(summary, PL, group="project", today=date(2026, 9, 25))
     assert view["unpaidLine"] == "Niepłatne 2:00 · 25 %"
     assert view["normText"] == "Norma 8:00 · −4:00"
-    assert (view["avgMainLabel"], view["avgMain"], view["avgSubLine"]) == ("Średnio na tydzień", "4:00", "")
     assert [round(item["start"], 2) for item in view["slices"]] == [0.0, 0.75]
     assert view["bars"][0]["normText"] == "Norma 8:00"
     year = present(summarize(entries, span_for("year", date(2026, 9, 1), 0), WARSAW, now=NOW, norm=0,
                              first_weekday=0), PL, group="project", today=date(2026, 9, 25))  # fmt: skip
-    assert (year["avgMainLabel"], year["avgMain"], year["avgSubLine"]) == (
-        "Średnio na tydzień", "4:00", "Na miesiąc 8:00",
-    )  # fmt: skip
     assert (year["normText"], year["bars"][8]["normText"]) == ("", "")

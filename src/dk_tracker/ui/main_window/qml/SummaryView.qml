@@ -140,13 +140,6 @@ ScrollView {
                 barColor: app.palette.accent
                 showBar: (page.d.normText || "") !== ""
             }
-            Tile {
-                objectName: "tileLongAverage"
-                visible: (page.d.avgMain || "") !== ""
-                label: page.d.avgMainLabel || ""
-                value: page.d.avgMain || ""
-                note: page.d.avgSubLine || ""
-            }
         }
 
         // -- the bars ------------------------------------------------------------------
