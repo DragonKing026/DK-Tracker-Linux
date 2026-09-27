@@ -2,19 +2,19 @@
 noteId: "0aa1cca8835b43f7a7b6b2785ac30284"
 tytul: "Strona projektu na GitHub Pages — nowy wygląd i workflow „Strona”"
 numer: "0071"
-status: w-trakcie
+status: zrobione
 priorytet: p2
 tags: [todo, strona, github-pages, flatpak]
 zalezy_od: []
 utworzono: 2026-09-27 11:53
-zaktualizowano: 2026-09-27 12:45
-zamknieto:
+zaktualizowano: 2026-09-27 12:36
+zamknieto: 2026-09-27 12:36
 ---
 
 # 0071 — Strona projektu na GitHub Pages — nowy wygląd i workflow „Strona”
 
 > [!info] Status
-> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -43,11 +43,11 @@ opublikować bez wydawania nowej wersji aplikacji.
 - [x] PL i EN z przełącznikiem; domyślnie według języka przeglądarki
 - [x] Komenda instalacji z przyciskiem „kopiuj”, link do `.flatpakref` i `.flatpakrepo`
 - [x] `pages.py` i wydanie publikują nową stronę tak jak dotąd (te same pliki `.flatpakref` / `.flatpakrepo`)
-- [ ] Workflow „Strona” publikuje stronę bez wydania; repozytorium Flatpaka po nim działa (`flatpak remote-ls`,
+- [x] Workflow „Strona” publikuje stronę bez wydania; repozytorium Flatpaka po nim działa (`flatpak remote-ls`,
   `flatpak update`)
 - [x] Dokumentacja zaktualizowana ([wydania](../../../docs/procesy/wydania.md),
   [GitHub Pages](../../../docs/integracje/github-pages.md))
-- [ ] Zmiany zacommitowane małymi krokami
+- [x] Zmiany zacommitowane małymi krokami
 
 ## Kroki
 
@@ -55,7 +55,7 @@ opublikować bez wydawania nowej wersji aplikacji.
 - [x] Szablon strony w repozytorium + `pages.py` go używa, testy
 - [x] Workflow `strona.yml` (mirror repozytorium, podpis summary, wdrożenie)
 - [x] Dokumentacja
-- [ ] Publikacja i sprawdzenie na żywo
+- [x] Publikacja i sprawdzenie na żywo
 
 ## Materiały
 
@@ -84,7 +84,13 @@ Podgląd lokalny (przed publikacją):
 - Dokumentacja: [GitHub Pages](../../../docs/integracje/github-pages.md),
   [GitHub Actions](../../../docs/integracje/github-actions.md), [wydania](../../../docs/procesy/wydania.md).
 - Czeka: push na `main` (za zgodą) i sprawdzenie na żywo.
+- **12:36** Opublikowane (push 1c518f7, run 36312783419): strona i pliki 200, wersja 0.10.2 z tagu; flatpak remote-info
+  na żywo — ten sam commit 7c29725d, podpis OK.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+- Strona projektu na żywo: <https://dragonking026.github.io/DK-Tracker-Linux/> — szablon
+  [flatpak/strona/](../../../flatpak/strona/index.html), generator [pages.py](../../../flatpak/pages.py).
+- Workflow [strona.yml](../../../.github/workflows/strona.yml) — strona bez wydania; opis:
+  [GitHub Pages](../../../docs/integracje/github-pages.md).
+- Na później: zrzut okna głównego i jasnego motywu aplikacji na stronę (dziś jest tylko okno przy tacce, ciemne).
