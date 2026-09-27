@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-27 12:58
+zaktualizowano: 2026-09-27 13:07
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0072 | [O programie i wersja w ustawieniach (0.10.4)](W-TRAKCIE/0072-o-programie/todo.md) | 🔨 w-trakcie | p2 | [0070](ZROBIONE/0070-plan6-podsumowania/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -107,6 +106,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0069 | [Plan 5: okno główne 0.10.0 — wykonanie](ZROBIONE/0069-plan5-okno-glowne/todo.md) | ✅ zrobione | 2026-09-26 19:32 |
 | 0070 | [Plan 6: podsumowania 0.10.3 — wykonanie](ZROBIONE/0070-plan6-podsumowania/todo.md) | ✅ zrobione | 2026-09-27 12:58 |
 | 0071 | [Strona projektu na GitHub Pages — nowy wygląd i workflow „Strona”](ZROBIONE/0071-strona-github-pages/todo.md) | ✅ zrobione | 2026-09-27 12:36 |
+| 0072 | [O programie i wersja w ustawieniach (0.10.4)](ZROBIONE/0072-o-programie/todo.md) | ✅ zrobione | 2026-09-27 13:07 |
 
 <!-- tablica:end -->
 

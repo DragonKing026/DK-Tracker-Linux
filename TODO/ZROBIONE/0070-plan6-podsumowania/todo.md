@@ -100,4 +100,4 @@ Wydane [0.10.3](https://github.com/DragonKing026/DK-Tracker-Linux/releases/tag/v
 (F-36) — okresy, średnia na dzień roboczy wobec normy, wykres słupkowy i podział z dymkami z wpisami. Kod:
 [core/summary.py](../../../src/dk_tracker/core/summary.py),
 [summary_page.py](../../../src/dk_tracker/ui/main_window/summary_page.py), widoki QML. Dalej: „O programie”
-([0072](../../W-TRAKCIE/0072-o-programie/todo.md), 0.10.4), kalendarz (0.10.5).
+([0072](../0072-o-programie/todo.md), 0.10.4), kalendarz (0.10.5).

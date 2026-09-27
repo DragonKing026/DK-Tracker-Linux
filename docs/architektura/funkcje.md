@@ -40,7 +40,7 @@ stateDiagram-v2
 | **Test połączenia** | `GET /api/users/me` → komunikat „Połączono jako *alias/username*” albo powód błędu. |
 | **Zapis** | URL obcięty z końcowych `/`. Zapis ustawień **resetuje blokadę billable** (F-09), bo inny serwer/token może mieć uprawnienie. |
 | **Źródło** | `options/options.js`, `lib/api.js#getSettings` |
-| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. **Motyw**: jak w systemie (domyślnie), jasny albo ciemny — dla okna głównego i okienka przy tacce, zmienia się od razu po zapisie. **Token** zapisany w portfelu widać jako stałą maskę „••••” z dopiskiem — nigdy sam token ani jego długość. Od 0.10.4 na dole strony **„O programie”**: znak, nazwa, wersja, opis, licencja, link do strony projektu ([0072](../../TODO/W-TRAKCIE/0072-o-programie/todo.md)). |
+| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. **Motyw**: jak w systemie (domyślnie), jasny albo ciemny — dla okna głównego i okienka przy tacce, zmienia się od razu po zapisie. **Token** zapisany w portfelu widać jako stałą maskę „••••” z dopiskiem — nigdy sam token ani jego długość. Od 0.10.4 na dole strony **„O programie”**: znak, nazwa, wersja, opis, licencja, link do strony projektu ([0072](../../TODO/ZROBIONE/0072-o-programie/todo.md)). |
 | **Różnica w aplikacji** | Token → magazyn sekretów ([Secret Service](../integracje/secret-service.md)), nie plik ustawień. Brak odpowiednika „host permissions” Chrome — Flatpak ma dostęp do sieci przez `--share=network`. |
 
 ## F-02 Ikona w tacce ze stanem
