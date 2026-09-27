@@ -385,7 +385,7 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
 - Kod: [core/calendar.py](../../src/dk_tracker/core/calendar.py), `Tracker.reschedule` w
   [core/tracker.py](../../src/dk_tracker/core/tracker.py),
   [ui/main_window/calendar_page.py](../../src/dk_tracker/ui/main_window/calendar_page.py), `CalendarView.qml`,
-  `CalendarBlock.qml`, `CalendarPopup.qml`. Zadanie: [0073](../../TODO/W-TRAKCIE/0073-plan7-kalendarz/todo.md).
+  `CalendarBlock.qml`, `CalendarPopup.qml`. Zadanie: [0073](../../TODO/ZROBIONE/0073-plan7-kalendarz/todo.md).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 

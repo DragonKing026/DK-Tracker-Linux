@@ -2,19 +2,19 @@
 noteId: "f2457ebe5b9e4815b0a6468cafa8514e"
 tytul: "Plan 7: kalendarz 0.10.5 — wykonanie"
 numer: "0073"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, ui, qml, okno-glowne, kalendarz, wydanie]
 zalezy_od: ["0070-plan6-podsumowania"]
 utworzono: 2026-09-27 13:13
-zaktualizowano: 2026-09-27 14:10
-zamknieto:
+zaktualizowano: 2026-09-27 13:44
+zamknieto: 2026-09-27 13:44
 ---
 
 # 0073 — Plan 7: kalendarz 0.10.5 — wykonanie
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -36,7 +36,7 @@ Widok **Kalendarz** w oknie głównym według
 - [x] Klik w blok → dymek z „Usuń” i „Wznów”; odmowa Kimai → blok wraca, komunikat
 - [x] Przyciąganie co 15 min, Alt wyłącza
 - [x] Test kontraktowy przesunięcia na inny dzień; galeria w obu motywach; PL/EN; dokumentacja
-- [ ] Test na żywo z użytkownikiem, wydanie 0.10.5
+- [x] Test na żywo z użytkownikiem, wydanie 0.10.5
 
 ## Kroki
 
@@ -46,7 +46,7 @@ Widok **Kalendarz** w oknie głównym według
 - [x] Widok QML: siatka, bloki, przeciąganie, dymek
 - [x] Kontroler
 - [x] Test kontraktowy, galeria, dokumentacja
-- [ ] Wersja i wydanie
+- [x] Wersja i wydanie
 
 ## Materiały
 
@@ -73,7 +73,13 @@ Galeria bez ekranu (`grabWindow`), dane wymyślone — skrypt: [testy/galeria.py
   kontroler (ba51b8f), widok QML (5633ab8), test kontraktowy (d566e80). Galeria: poprawione przewijanie (liczone przed
   znaną wysokością siatki), szary nowy blok (kolor palety to tekst), delegat przysłaniający `grid`. Test klikania i
   przeciągania bloku na prawdziwym QML. Testy: 744 + 19 kontraktowych. Czeka: test na żywo i wydanie 0.10.5.
+- **13:44** Test na żywo OK; wydane 0.10.5 (5307d50, tag v0.10.5), CI i Pages zielone.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu. -->
+Wydane [0.10.5](https://github.com/DragonKing026/DK-Tracker-Linux/releases/tag/v0.10.5): widok Kalendarz (F-37) —
+dzień lub tydzień, bloki wpisów, tworzenie, przesuwanie i zmiana godzin przeciąganiem, dymek z edycją. Kod:
+[core/calendar.py](../../../src/dk_tracker/core/calendar.py),
+[calendar_page.py](../../../src/dk_tracker/ui/main_window/calendar_page.py), widoki QML. Dalej: minutnik
+([0062](../../DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md)), testy GNOME przed 1.0
+([0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)).

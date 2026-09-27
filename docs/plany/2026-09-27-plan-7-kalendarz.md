@@ -2,9 +2,9 @@
 noteId: "355b29ce05f740ae85a670dde77740ff"
 tytul: "Plan 7: kalendarz (0.10.5)"
 tags: [plan, implementacja, okno-glowne, kalendarz, qml, 0.10]
-status: w-trakcie
+status: wykonany
 utworzono: 2026-09-27 13:13
-zaktualizowano: 2026-09-27 13:13
+zaktualizowano: 2026-09-27 14:40
 ---
 
 # Plan 7: kalendarz (0.10.5) — plan implementacji
@@ -14,7 +14,7 @@ godzin z wpisami jako blokami w kolorach projektów, tworzenie wpisu przeciągni
 przesuwanie (także na inny dzień), dymek z edycją, „Usuń” i „Wznów”.
 
 **Specyfikacja:** [0.10, sekcja 8](../specyfikacja/2026-09-26-okno-glowne-0.10.md#8-kalendarz-0105) (i 9, 10, 12).
-Zadanie: [0073](../../TODO/W-TRAKCIE/0073-plan7-kalendarz/todo.md).
+Zadanie: [0073](../../TODO/ZROBIONE/0073-plan7-kalendarz/todo.md).
 
 **Architektura:** jak w podsumowaniach ([Plan 6](2026-09-27-plan-6-podsumowania.md)). Czysty `core/calendar.py`:
 dni widoku, nazwa okresu, bloki (dzień, minuty od–do, kolumna przy nakładaniu), przyciąganie i godziny jako tekst.
