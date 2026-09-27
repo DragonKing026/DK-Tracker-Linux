@@ -154,5 +154,11 @@
   "addEntry": "Add entry",
   "deleteEntry": "Delete",
   "loading": "Loading…",
-  "save": "Save"
+  "save": "Save",
+  "monthsLong": "January,February,March,April,May,June,July,August,September,October,November,December",
+  "sumBarDay": "{weekday} {day}",
+  "sumDaysWith": "Days with entries: {count}",
+  "sumPercent": "{value}%",
+  "sumNoName": "(no name)",
+  "sumOthers": "Others"
 }

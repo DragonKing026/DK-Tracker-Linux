@@ -154,5 +154,11 @@
   "addEntry": "Dodaj wpis",
   "deleteEntry": "Usuń",
   "loading": "Wczytywanie…",
-  "save": "Zapisz"
+  "save": "Zapisz",
+  "monthsLong": "styczeń,luty,marzec,kwiecień,maj,czerwiec,lipiec,sierpień,wrzesień,październik,listopad,grudzień",
+  "sumBarDay": "{weekday} {day}",
+  "sumDaysWith": "Dni z wpisami: {count}",
+  "sumPercent": "{value} %",
+  "sumNoName": "(bez nazwy)",
+  "sumOthers": "Pozostałe"
 }
