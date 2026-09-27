@@ -4,7 +4,7 @@ tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
 status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-27 13:05
+zaktualizowano: 2026-09-27 13:40
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
@@ -45,7 +45,7 @@ Dalsze kroki: 0.10.5… aż do pełnej wersji. Minutnik (GNOME: napis przy ikoni
 | Lista | Przewijanie bez końca (doładowanie kolejnych tygodni) |
 | Kalendarz | Interaktywny jak Toggl; przyciąganie co **15 min**, Alt wyłącza |
 | Podsumowania | Okresy, podział, wykres dzienny, średnie; słupki w kolorach projektów |
-| Średnia na dzień | Czas ÷ **dni z wpisami**; jedna średnia dla każdego okresu, bez osobnej tygodniowej i miesięcznej (test na żywo 0.10.3, 2026-09-27) |
+| Średnia na dzień | Czas ÷ **dni robocze** (pon.–pt., w bieżącym okresie do dziś); jedna średnia dla każdego okresu, bez tygodniowej i miesięcznej (test na żywo 0.10.3, 2026-09-27) |
 | Norma | 8:00 na dzień, do zmiany w ustawieniach (0 = bez normy); porównanie: średnia na dzień wobec normy |
 | Technologia okna | **Qt Quick (QML)** z logiką w Pythonie (wariant B) |
 | Tacka | Tylko gdy system ją ma, **z opcją wyłączenia**; uruchomienie z menu otwiera okno główne |
@@ -118,11 +118,15 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
 ## 6. Podsumowania (0.10.3)
 
 - **Okres**: Tydzień / Miesiąc / Rok / Zakres (dwie daty), strzałki ◀ ▶, domyślnie bieżący tydzień.
-- **Liczby**: czas łączny; płatne/niepłatne (h i %); **średnio na dzień pracy** = czas ÷ liczba dni z wpisami — jedna
-  średnia w każdym okresie (po teście na żywo użytkownik zrezygnował ze średniej na tydzień i na miesiąc); liczba
-  dni z wpisami; porównanie średniej z **normą** (np. „Norma 8:00 · −0:20”).
+- **Liczby**: czas łączny; płatne/niepłatne (h i %); **średnio na dzień roboczy** = czas ÷ liczba **dni roboczych**
+  (pon.–pt.; w bieżącym okresie do dziś włącznie; bez świąt) — jedna średnia w każdym okresie, praca w sobotę ją
+  podnosi (decyzje użytkownika po teście na żywo 2026-09-27: bez średniej na tydzień i na miesiąc, nie ÷ dni z
+  wpisami); liczba dni roboczych i dni z wpisami; porównanie średniej z **normą** (np. „Norma 8:00 · −0:20”).
 - **Wykres słupkowy**: tydzień/miesiąc — słupek na dzień, rok — na miesiąc; słupki podzielone kolorami projektów;
-  linia normy (dzień: norma; miesiąc w widoku roku: norma × dni z wpisami w miesiącu); dymek z rozbiciem.
+  linia normy (dzień: norma; miesiąc w widoku roku: norma × dni robocze miesiąca do dziś); dymek z rozbiciem.
+- **Dymek podziału** (test na żywo 2026-09-27, jak w Togglu): najechanie na wycinek pierścienia albo wiersz tabeli
+  pokazuje, co w nim jest — opisy wpisów z sumą czasu, od największej (10 i „+ N więcej”); wycinek i wiersz
+  podświetlają się razem.
 - **Podział**: wykres kołowy + tabela wg **projektu** (przełącznik: **klient**, **rodzaj pracy**); kolumny: czas,
   udział %, w tym płatne.
 - **Dane**: wpisy okresu pobierane w tle ze stronicowaniem (rok — kilka tysięcy wpisów); liczenie w `summary.py`.

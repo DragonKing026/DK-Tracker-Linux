@@ -100,7 +100,8 @@ build-options:
 - **`QWindow.show()` to na pulpicie `showNormal()`** — wywołane na otwartym, zmaksymalizowanym oknie zdejmuje
   maksymalizację. `MainWindow.show()` otwarte okno tylko podnosi.
 - **Wiersze listy**: przyciski (`$`, ▶, kosz) przejmują kliknięcie, `TapHandler` wiersza dostaje resztę (okno edycji).
-- **`top` jest właściwością `Item`** (i `FINAL`) — własna właściwość o tej nazwie nie ładuje pliku QML
+- **`top`, `left` (i inne nazwy kotwic) są właściwościami `Item`** (`FINAL`) — własna właściwość o tej nazwie nie ładuje
+  pliku QML
   („Cannot override FINAL property”); skala wykresu nazywa się `scaleTop`.
 - **Wykresy bez QtCharts** (podsumowania, 0.10.3): słupki to prostokąty (`topLeftRadius`/`topRightRadius`
   zaokrąglają tylko górę), pierścień to `Shape` z `ShapePath` i

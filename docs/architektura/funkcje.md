@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-27 13:05
+zaktualizowano: 2026-09-27 13:40
 ---
 
 # Katalog funkcji
@@ -341,14 +341,17 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 6](../specyfikacja/2026-09-26-
 - **Okres**: Tydzień (od dnia tygodnia z konta Kimai), Miesiąc, Rok, Zakres (dwa dni, najwyżej 366 dni); ◀ ▶ o jeden
   okres (zakres — o swoją długość), „Dziś” wraca do okresu z dzisiejszym dniem. Na start bieżący tydzień; wybór
   trwa do zamknięcia aplikacji.
-- **Kafelki**: łącznie i dni z wpisami; płatne (h, %) i niepłatne; **średnio na dzień pracy** = czas ÷ **dni z
-  wpisami**, z normą i różnicą („Norma 8:00 · −0:20”) — jedna średnia w każdym okresie (bez tygodniowej i
-  miesięcznej — decyzja użytkownika po teście na żywo).
+- **Kafelki**: łącznie, dni robocze i dni z wpisami; płatne (h, %) i niepłatne; **średnio na dzień roboczy** = czas
+  ÷ **dni robocze** (pon.–pt., w bieżącym okresie do dziś, bez świąt), z normą i różnicą („Norma 8:00 · −0:20”) —
+  jedna średnia w każdym okresie; sobota ją podnosi. Okres bez dni roboczych (sam weekend) — ÷ dni z wpisami.
+  Decyzje użytkownika po teście na żywo.
 - **Wykres słupkowy**: słupek na dzień (tydzień, miesiąc, zakres do 62 dni) albo na miesiąc (rok, dłuższy zakres);
   warstwy w kolorach projektów (kolejność jak w podziale, największy projekt okresu na dole); norma — przerywana
-  linia albo kreska nad słupkiem miesiąca (norma × dni z wpisami); dymek z projektami słupka.
+  linia albo kreska nad słupkiem miesiąca (norma × dni robocze miesiąca do dziś); dymek z projektami słupka.
 - **Podział**: pierścień (8 największych, reszta jako „Pozostałe”) i tabela wg projektu (z klientem), klienta albo
   rodzaju pracy: czas, udział, w tym płatne. Kolory i klient z wpisów (`full=true`, `color-safe` jak w Kimai).
+  Najechanie na wycinek albo wiersz: dymek z opisami wpisów i ich czasem, od największego (10 i „+ N więcej”), jak w
+  Togglu; wycinek i wiersz podświetlają się razem.
 - **Liczenie**: trwający wpis do teraz, każdy wpis w dniu, w którym się zaczął (jak nagłówek „Dziś / Tydz.”); sumy
   zgodne z Kimai dla tego samego okresu (test kontraktowy).
 - **Norma**: ustawienie „Norma dzienna (godziny)”, domyślnie 8, 0 = bez normy.

@@ -4,7 +4,7 @@ tytul: "Plan 6: podsumowania (0.10.3)"
 tags: [plan, implementacja, okno-glowne, podsumowania, qml, 0.10]
 status: w-trakcie
 utworzono: 2026-09-27 11:43
-zaktualizowano: 2026-09-27 13:05
+zaktualizowano: 2026-09-27 13:40
 ---
 
 # Plan 6: podsumowania (0.10.3) — plan implementacji
@@ -48,8 +48,8 @@ flowchart LR
 | R3 | Tydzień od dnia z konta Kimai (`first_weekday`); miesiąc i rok kalendarzowe; zakres — obie daty włącznie, najwyżej **366 dni** | pobieranie ma limit 5000 wpisów (10 stron × 500) |
 | R4 | ◀ ▶ przesuwają o jeden okres; zakres — o swoją długość; przycisk „Dziś” wraca do okresu z dzisiejszym dniem | jak w kalendarzu i w Togglu |
 | R5 | Słupek na dzień: tydzień, miesiąc, zakres do 62 dni; na miesiąc: rok i dłuższy zakres | ponad 62 słupki nie mieszczą się w 616 px |
-| R6 | ~~Średnia na tydzień i na miesiąc~~ — **jedna średnia**: czas ÷ dni z wpisami, „Średnio na dzień pracy” | test na żywo 2026-09-27: użytkownik nie chce osobnych średnich |
-| R7 | Norma na wykresie: przy słupkach dziennych jedna przerywana linia; przy miesięcznych kreska nad każdym słupkiem (norma × dni z wpisami w miesiącu) | spec, sekcja 6 |
+| R6 | ~~Średnia na tydzień i na miesiąc~~ — **jedna średnia**: czas ÷ dni robocze (pon.–pt., do dziś), „Średnio na dzień roboczy” | test na żywo 2026-09-27: jedna średnia; ÷ dni z wpisami obniżało średnią po pracy w sobotę |
+| R7 | Norma na wykresie: przy słupkach dziennych jedna przerywana linia; przy miesięcznych kreska nad każdym słupkiem (norma × dni robocze miesiąca do dziś) | spec, sekcja 6 |
 | R8 | Porównanie z normą: „7:24 / 8:00”, różnica ze znakiem („−0:36”) w kolorze `muted` — bez czerwieni | norma to punkt odniesienia, nie błąd |
 | R9 | Wykres pierścieniowy: 8 największych pozycji, reszta jako „Pozostałe”; tabela — wszystkie | więcej wycinków jest nieczytelne |
 | R10 | Okres i podział pamiętane do końca działania aplikacji, nie w pliku; na start bieżący tydzień | spec: domyślnie bieżący tydzień |
@@ -66,8 +66,8 @@ Kolory i kontrolki z [projektu wyglądu](../architektura/wyglad-okna-glownego.md
 ┌ pasek okresu ─────────────────────────────────────────────────────────────┐
 │ [Tydzień|Miesiąc|Rok|Zakres]   ◀  21 – 27 wrz 2026  ▶  [Dziś]  Wczytywanie… │
 ├ kafelki (karty) ──────────────────────────────────────────────────────────┤
-│ Łącznie 38:15         │ Płatne 30:10 · 79 %         │ Średnio na dzień pracy 7:39 │
-│ 5 dni z wpisami       │ niepłatne 8:05 · 21 %       │ norma 8:00 · −0:21          │
+│ Łącznie 38:15                    │ Płatne 30:10 · 79 %      │ Śr. na dzień roboczy 7:39 │
+│ dni robocze: 5 · z wpisami: 5    │ niepłatne 8:05 · 21 %    │ norma 8:00 · −0:21        │
 ├ karta: wykres słupkowy ───────────────────────────────────────────────────┤
 │ oś godzin, słupki w kolorach projektów, przerywana linia normy, dymek      │
 ├ karta: podział ───────────────────── [Projekt|Klient|Rodzaj pracy] ───────┤
@@ -101,7 +101,7 @@ tests/core/test_summary.py, tests/ui/main_window/test_summary_page.py, test_wind
    z `color`, a bez niego z `color-safe`. Testy w `test_models.py`.
 2. **`core/summary.py`** (TDD) — `span_for`, `shifted`, `range_span`, `span_label`, `summarize`, `nice_scale`,
    `present`. Testy: granice tygodnia z `first_weekday`, miesiąca, roku; przesuwanie; zakres odwrócony i przycięty;
-   trwający wpis na żywo; wpis przez północ w dniu początku; średnia tylko z dni z wpisami; norma przy słupkach
+   trwający wpis na żywo; wpis przez północ w dniu początku; średnia z dni roboczych; norma przy słupkach
    miesięcznych; płatne %; podział
    wg projektu, klienta i rodzaju pracy; „Pozostałe” w pierścieniu; skala osi; pusty okres.
 3. **Norma w ustawieniach** — `Settings.daily_norm_hours = 8.0` (normalizacja ≥ 0), pole w `SettingsForm` i

@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, ui, qml, okno-glowne, podsumowania, wydanie]
 zalezy_od: ["0069-plan5-okno-glowne"]
 utworzono: 2026-09-27 11:41
-zaktualizowano: 2026-09-27 13:05
+zaktualizowano: 2026-09-27 13:40
 zamknieto:
 ---
 
@@ -33,7 +33,7 @@ i wydanie 0.10.3.
 ## Kryteria akceptacji
 
 - [x] Okresy tydzień / miesiąc / rok / zakres, strzałki ◀ ▶, domyślnie bieżący tydzień
-- [x] Czas łączny, płatne/niepłatne (h i %), średnia na dzień pracy, dni z wpisami, norma
+- [x] Czas łączny, płatne/niepłatne (h i %), średnia na dzień roboczy, dni z wpisami, norma
 - [x] Wykres słupkowy w kolorach projektów z normą i dymkiem; podział: wykres kołowy + tabela
   (projekt / klient / rodzaj pracy)
 - [x] Norma dzienna w ustawieniach (0 = bez normy)
@@ -85,6 +85,10 @@ Galeria bez ekranu (`grabWindow`), dane wymyślone — skrypt: [testy/galeria.py
 - **13:05** Test na żywo (użytkownik): średnie opisane niejasno, wystarczy jedna — czas ÷ dni z wpisami (wybór
   użytkownika spośród: dni robocze do dziś, dni z wpisami, wszystkie dni robocze). Kafelek „Średnio na tydzień / na
   miesiąc” usunięty, średnia nazywa się „Średnio na dzień pracy”; specyfikacja, plan (R6) i F-36 poprawione.
+
+- **13:40** Dalej test na żywo: (1) średnia jednak ÷ **dni robocze** (pon.–pt., do dziś) — ÷ dni z wpisami
+  obniżało ją po pracy w sobotę; norma przy miesiącach też z dni roboczych; (2) najechanie na wycinek pierścienia
+  albo wiersz tabeli pokazuje dymek z opisami wpisów i ich czasem, jak w Togglu. Testy: 690.
 
 ## Wynik
 
