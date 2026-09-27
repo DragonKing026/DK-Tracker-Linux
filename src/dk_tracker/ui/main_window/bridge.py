@@ -49,6 +49,7 @@ class MainBridge(QObject):
     editorChanged = Signal()
     tagsChanged = Signal()
     settingsRequested = Signal()
+    pageChosen = Signal(str)  # the user picked a view in the sidebar (remembered, Plan 6)
     windowClosed = Signal()  # the window's own close button (QML's onClosing)
 
     def __init__(self, parent: QObject | None = None) -> None:
@@ -414,6 +415,7 @@ class MainBridge(QObject):
     @Slot(str)
     def showPage(self, page: str) -> None:  # noqa: N802
         self.show_page(page)
+        self.pageChosen.emit(page)
 
     @Slot(int)
     def openEntry(self, entryId: int) -> None:  # noqa: N802, N803

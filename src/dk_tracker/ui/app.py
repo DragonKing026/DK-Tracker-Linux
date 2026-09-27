@@ -11,7 +11,7 @@ import logging
 import time
 from collections.abc import Callable
 from dataclasses import replace
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from typing import Any
 
 from PySide6.QtCore import QObject, QSize, QTimer, QUrl, Signal
@@ -55,6 +55,7 @@ REOPEN_GUARD_SECONDS = 0.4
 SHUTDOWN_SECONDS = 5.0
 JUMP_SECONDS = 120  # wall clock moved more than monotonic time: sleep or a clock change
 EMPTY_WEEKS_LIMIT = 8  # the main list stops loading older weeks after this many empty ones in a row
+VIEWS = ("entries", "summary")  # views of the main window to open again next time (not the settings)
 _ENGLISH = Translator("en")
 
 
@@ -111,6 +112,9 @@ class Controller(QObject):
         self.listener = ClickListener() if listen_for_clicks else None
         # Plan 5: the main window, made on first use (QML takes a moment to load).
         self.main_bridge = MainBridge(self)
+        self.main_bridge.show_page(
+            memory.main_view if memory.main_view in VIEWS else "entries"
+        )  # as last time
         # Settings are a page of the main window (live test of 0.10.0), not a window of their own.
         self.settings_form = self.main_bridge.settings_form
         self.settings_form.retranslate(self.state.t)
@@ -217,6 +221,8 @@ class Controller(QObject):
             lambda project_id: self._main_activities(project_id, deliver=self.main_bridge.set_row_activities)
         )
         main.settingsRequested.connect(self.open_settings)
+        main.pageChosen.connect(self._on_page_chosen)
+        main.summary.loadRequested.connect(self._load_summary)
 
     def _connect_tray(self, tray: Tray) -> None:
         tray.openRequested.connect(self.toggle_popup)
@@ -257,7 +263,7 @@ class Controller(QObject):
             self.refresh_active()
         if self._main_visible():  # opened at start, before the wallet answered
             self._main_catalog()
-            self._reload_entries()
+            self._reload_main()
 
     def _on_secrets_error(self, error: Exception) -> None:
         if isinstance(error, SecretsLocked):
@@ -549,6 +555,8 @@ class Controller(QObject):
             self.popup.apply_theme()
         if previous.show_tray != self._settings.show_tray:
             self._set_tray(self._settings.show_tray)
+        if previous.daily_norm_hours != self._settings.daily_norm_hours:
+            self._reload_summary()
         if self._tracker is None:
             self._on_token(token)
         else:
@@ -603,7 +611,7 @@ class Controller(QObject):
         self._tick.start()
         if self._tracker is not None:
             self._main_catalog()
-            self._reload_entries()
+            self._reload_main()
 
     def _main_visible(self) -> bool:
         return self.main_window is not None and self.main_window.isVisible()
@@ -663,6 +671,11 @@ class Controller(QObject):
             key=f"main-activities-{deliver.__name__}-{project_id}",
         )  # fmt: skip
 
+    def _reload_main(self) -> None:
+        """What the main window shows from Kimai: the list and, when it is open, the summary."""
+        self._reload_entries()
+        self._reload_summary()
+
     def _reload_entries(self) -> None:
         tracker = self._tracker
         if tracker is None or not self._main_visible():
@@ -692,6 +705,42 @@ class Controller(QObject):
 
         self.main_bridge.set_loading(True)
         self.kimai.submit(lambda: tracker.entries(first, today), done, self._main_failed, key="main-entries")
+
+    # -- the summaries (Plan 6) --------------------------------------------------------------
+
+    def _on_page_chosen(self, page: str) -> None:
+        if page in VIEWS:
+            self._remember(main_view=page)
+        self._reload_summary()
+
+    def _reload_summary(self) -> None:
+        if self._tracker is not None and self._main_visible() and self.main_bridge.view["page"] == "summary":
+            self.main_bridge.summary.request()
+
+    def _load_summary(self, first: date, last: date) -> None:
+        tracker, page = self._tracker, self.main_bridge.summary
+        if tracker is None:
+            page.set_loading(False)
+            return
+
+        def done(entries: tuple) -> None:
+            snapshot, now = self.state.snapshot, self._now()
+            listed = {entry.id for entry in entries}
+            # Tracker.entries leaves the running entry out (it sits in the timer bar); it counts here.
+            running = [entry for entry in snapshot.running if entry.id not in listed]
+            page.set_entries(
+                first, last, [*entries, *running], tz=display_zone(snapshot, now.astimezone()), now=now,
+                norm=round(self._settings.daily_norm_hours * 3600),
+            )  # fmt: skip
+
+        def failed(error: Exception) -> None:
+            page.set_loading(False)
+            self._main_failed(error)
+
+        # The period in the key: a quick ◀ ▶ asks for each period, a repeated one is dropped.
+        self.kimai.submit(
+            lambda: tracker.entries(first, last), done, failed, key=f"main-summary-{first}-{last}"
+        )
 
     def _load_more(self) -> None:
         if self._main_term or self._empty_weeks >= EMPTY_WEEKS_LIMIT or self.kimai_pending("main-entries"):
@@ -739,7 +788,7 @@ class Controller(QObject):
         def done(result: tuple[Snapshot, list]) -> None:
             self._apply(result)
             self._main_notice(result[0])
-            self._reload_entries()
+            self._reload_main()
 
         def failed(error: Exception) -> None:
             text = describe(error, self.state.t)
@@ -752,7 +801,7 @@ class Controller(QObject):
             level = logging.INFO if isinstance(error, TrackerError) else logging.WARNING
             log.log(level, "Main window action failed: %s", describe(error, _ENGLISH))
             self.state.update(snapshot=tracker.snapshot)
-            self._reload_entries()  # the row shows again what Kimai has
+            self._reload_main()  # the row shows again what Kimai has
 
         self.kimai.submit(lambda: (job(tracker), tracker.warnings()), done, failed)
 
@@ -800,7 +849,7 @@ class Controller(QObject):
             self._apply(result)
             self.main_bridge.close_editor()
             self._main_notice(result[0])
-            self._reload_entries()
+            self._reload_main()
 
         def failed(error: Exception) -> None:
             self.main_bridge.editor_error(describe(error, self.state.t))  # the window stays open
@@ -846,7 +895,7 @@ class Controller(QObject):
     def _on_poll(self) -> None:
         self.refresh_active()
         if self._main_visible():
-            self._reload_entries()  # changes made elsewhere (the browser) show up within a minute
+            self._reload_main()  # changes made elsewhere (the browser) show up within a minute
 
     def _on_tick(self) -> None:
         if self.popup.isVisible():

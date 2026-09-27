@@ -50,7 +50,7 @@ class FakeDesktop:
 
 
 class Harness:
-    def __init__(self, qtbot, *, settings=None, desktop=None, client=None, tray=True):
+    def __init__(self, qtbot, *, settings=None, desktop=None, client=None, tray=True, memory=None):
         self.client = client or FakeClient()
         self.desktop = desktop or FakeDesktop()
         self.saved_settings = []
@@ -63,7 +63,7 @@ class Harness:
 
         self.controller = Controller(
             settings=settings if settings is not None else Settings(url=URL, language="pl"),
-            memory=Memory(),
+            memory=memory or Memory(),
             desktop=self.desktop,
             client_factory=factory,
             save_settings=self.saved_settings.append,

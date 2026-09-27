@@ -365,3 +365,93 @@ def test_opening_an_entry_brings_the_tags_to_choose(harness):  # noqa: F811
     h.controller.main_bridge.openEntry(2)
     h.settle()
     assert h.controller.main_bridge.tagOptions == [{"name": "frontend", "color": "#9C27B0"}]
+
+
+# -- the summaries (Plan 6) -------------------------------------------------------------
+
+
+def summary_of(h):
+    return h.controller.main_bridge.summary.data
+
+
+def test_the_summary_page_loads_its_period_with_the_running_entry_and_the_norm(harness):  # noqa: F811
+    h = harness(settings=Settings(url=URL, language="pl", daily_norm_hours=7.5))
+    booked(h.client)  # 2 h today and 1 h ten days ago (outside this week)
+    h.client.add(make_entry(9, NOW - timedelta(minutes=30)))  # running for 30 minutes
+    h.controller.refresh_active()
+    h.controller.show_main_window()
+    h.settle()
+    h.controller.main_bridge.showPage("summary")
+    h.settle()
+    data = summary_of(h)
+    assert (data["loaded"], data["loading"]) == (True, False)
+    assert data["total"] == "2:30"
+    assert data["norm"] == "7:30"
+
+
+def test_quick_arrows_end_on_the_last_period_chosen(harness):  # noqa: F811
+    """Review focus 3: an answer for a period clicked past must not stay on screen."""
+    h = opened(harness)
+    page = h.controller.main_bridge.summary
+    h.controller.main_bridge.showPage("summary")
+    page.step(-1)
+    page.step(-1)
+    page.step(1)
+    h.settle()
+    assert (page.data["loading"], page.data["first"]) == (False, "2026-09-14")
+
+
+def test_the_minute_refresh_reloads_the_summary_only_while_it_is_shown(harness):  # noqa: F811
+    h = opened(harness)
+    asked = []
+    h.controller.main_bridge.summary.loadRequested.connect(lambda first, last: asked.append(first))
+    h.controller.main_bridge.showPage("summary")
+    h.settle()
+    h.controller._on_poll()
+    h.settle()
+    assert len(asked) == 2  # the page chosen, then the minute
+    h.controller.main_bridge.showPage("entries")
+    h.controller._on_poll()
+    h.settle()
+    assert len(asked) == 2
+
+
+def test_an_action_refreshes_the_summary(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.showPage("summary")
+    h.settle()
+    assert summary_of(h)["total"] == "2:00"
+    h.controller.main_bridge.editTimes(2, "08:00", "12:00")  # 1 h → 4 h
+    h.settle()
+    assert summary_of(h)["total"] == "5:00"
+
+
+def test_a_failed_summary_load_is_shown_and_stops_loading(harness):  # noqa: F811
+    h = opened(harness)
+    settled(h)  # the list has stopped loading older weeks: the failure is the summary's
+    h.client.fail["range"] = [ApiError(ErrorKind.CONNECTION, 0)]
+    bridge, shown = h.controller.main_bridge, []
+    bridge.viewChanged.connect(lambda: shown.append(bridge.view["error"]))
+    bridge.showPage("summary")
+    h.settle()
+    assert summary_of(h)["loading"] is False
+    assert any(shown)  # the next load that works clears it, as for the list
+
+
+def test_the_chosen_view_is_remembered_and_opens_next_time(harness, qtbot):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.showPage("summary")
+    h.settle()
+    assert h.saved_memory[-1].main_view == "summary"
+    h.controller.main_bridge.showPage("settings")  # the settings page is not a view to come back to
+    h.settle()
+    assert h.saved_memory[-1].main_view == "summary"
+    again = Harness(qtbot, memory=h.saved_memory[-1]).start()
+    try:
+        again.settle()
+        again.controller.show_main_window()
+        again.settle()
+        assert again.controller.main_bridge.view["page"] == "summary"
+        assert summary_of(again)["loaded"] is True
+    finally:
+        again.controller.shutdown()
