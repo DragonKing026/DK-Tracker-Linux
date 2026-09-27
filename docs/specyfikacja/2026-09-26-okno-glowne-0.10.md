@@ -4,7 +4,7 @@ tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
 status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-26 20:08
+zaktualizowano: 2026-09-27 12:45
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
@@ -127,6 +127,8 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
   udział %, w tym płatne.
 - **Dane**: wpisy okresu pobierane w tle ze stronicowaniem (rok — kilka tysięcy wpisów); liczenie w `summary.py`.
 - Wykresy rysowane w QML (bez QtCharts).
+- Rozstrzygnięcia szczegółów (trwający wpis liczony na żywo, granice okresów, słupki dzienne do 62 dni, „Pozostałe” w
+  pierścieniu i inne): [Plan 6](../plany/2026-09-27-plan-6-podsumowania.md#rozstrzygnięcia-względem-specyfikacji).
 
 ## 7. Uruchamianie, tacka, zamykanie (0.10.0)
 

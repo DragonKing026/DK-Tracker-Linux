@@ -4,7 +4,7 @@ tytul: Architektura aplikacji
 tags: [architektura, komponenty, przeplywy]
 status_dokumentu: rdzeń-zaimplementowany
 utworzono: 2026-09-25 17:18
-zaktualizowano: 2026-09-26 17:50
+zaktualizowano: 2026-09-27 12:35
 ---
 
 # Architektura aplikacji
@@ -80,6 +80,7 @@ flowchart TB
 | Stan aplikacji (logika) | [core/tracker.py](../../src/dk_tracker/core/tracker.py) |
 | Ustawienia | [core/settings.py](../../src/dk_tracker/core/settings.py) |
 | Lista tygodni i dni okna głównego (F-35) | [core/entry_list.py](../../src/dk_tracker/core/entry_list.py) — `build_rows` |
+| Podsumowania (F-36) | [core/summary.py](../../src/dk_tracker/core/summary.py) — okres, `summarize`, `present` |
 | Powiadomienia (decyzja) | [core/notification_policy.py](../../src/dk_tracker/core/notification_policy.py) |
 | Teksty | [core/i18n.py](../../src/dk_tracker/core/i18n.py), [locales/](../../src/dk_tracker/core/locales/) |
 
@@ -94,6 +95,7 @@ flowchart TB
 | Ustawienia | [ui/main_window/settings_form.py](../../src/dk_tracker/ui/main_window/settings_form.py), `qml/SettingsView.qml` | F-01, F-13, F-21, F-22 |
 | Sekrety, powiadomienia, autostart | [ui/desktop_bridge.py](../../src/dk_tracker/ui/desktop_bridge.py) → [desktop/](../../src/dk_tracker/desktop/) | F-01, F-21, F-22 |
 | Okno główne | [ui/main_window/](../../src/dk_tracker/ui/main_window/) — `MainWindow` (QML), `MainBridge` (`app`), modele | F-35 |
+| Podsumowania | [ui/main_window/summary_page.py](../../src/dk_tracker/ui/main_window/summary_page.py) — `SummaryPage` (`app.summaryPage`), `qml/SummaryView.qml`, `BarChart.qml`, `DonutChart.qml` | F-36 |
 | Start | [ui/main.py](../../src/dk_tracker/ui/main.py), [`__main__.py`](../../src/dk_tracker/__main__.py) | — |
 
 Wątki (GUI tylko rysuje; tracker i D-Bus mają po jednym wątku — nie są bezpieczne wątkowo):

@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-26 18:22
+zaktualizowano: 2026-09-27 12:30
 ---
 
 # Katalog funkcji
@@ -271,6 +271,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | F-35 | Okno główne: tygodnie i dni, edycja w wierszu, ręczne wpisy, usuwanie z „Cofnij” | prośba użytkownika, wzór Toggl Track | **w 0.10.0** ([szczegóły](#f-35-okno-główne-0100)) |
 | F-33 | Wyszukiwanie we wszystkich wpisach Kimai | prośba użytkownika po teście 0.9.0 | **w 0.9.1** ([szczegóły](#f-33-wyszukiwanie-we-wszystkich-wpisach)) |
 | F-34 | Zmiana projektu i rodzaju pracy trwającego wpisu (wtyczka je blokuje) | prośba użytkownika | **w 0.9.1** ([szczegóły](#f-34-zmiana-projektu-i-rodzaju-pracy-trwającego-wpisu)) |
+| F-36 | Podsumowania: okresy, średnie, norma, wykres słupkowy, podział | prośba użytkownika, wzór Toggl Track | **w 0.10.3** ([szczegóły](#f-36-podsumowania-0103)) |
 
 ## F-33 Wyszukiwanie we wszystkich wpisach
 
@@ -301,8 +302,9 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/2026-09-26-okno-glowne-0.10.md),
 [Plan 5](../plany/2026-09-26-plan-5-okno-glowne.md)).
 
-- **Pasek boczny**: Wpisy (0.10.0); Podsumowania i Kalendarz pojawią się w 0.10.3 i 0.10.4; na dole Ustawienia —
-  strona okna głównego (F-01), także z tacki i z okienka; bez konfiguracji okno pokazuje tylko ją.
+- **Pasek boczny**: Wpisy (0.10.0), Podsumowania (0.10.3, F-36); Kalendarz pojawi się w 0.10.4; na dole Ustawienia —
+  strona okna głównego (F-01), także z tacki i z okienka; bez konfiguracji okno pokazuje tylko ją. Ostatni wybrany
+  widok (Wpisy albo Podsumowania) otwiera się przy następnym uruchomieniu.
 - **Pasek timera**: opis (F-11), projekt z wyszukiwaniem, rodzaj pracy, `$`, start/stop; przy trwającym wpisie zegar,
   „od” i zmiana opisu, projektu i rodzaju pracy (F-07, F-34). Przełącznik ⏱/✎: dzień, od–do i „Dodaj” (ręczny wpis
   w jednym dniu).
@@ -330,6 +332,31 @@ Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/20
 - Kod: [ui/main_window/](../../src/dk_tracker/ui/main_window/),
   [core/entry_list.py](../../src/dk_tracker/core/entry_list.py), `Tracker.entries` / `add_entry` / `edit_entry` /
   `delete_entry` w [core/tracker.py](../../src/dk_tracker/core/tracker.py).
+
+## F-36 Podsumowania (0.10.3)
+
+Widok okna głównego ([specyfikacja 0.10, sekcja 6](../specyfikacja/2026-09-26-okno-glowne-0.10.md#6-podsumowania-0103),
+[Plan 6](../plany/2026-09-27-plan-6-podsumowania.md)).
+
+- **Okres**: Tydzień (od dnia tygodnia z konta Kimai), Miesiąc, Rok, Zakres (dwa dni, najwyżej 366 dni); ◀ ▶ o jeden
+  okres (zakres — o swoją długość), „Dziś” wraca do okresu z dzisiejszym dniem. Na start bieżący tydzień; wybór
+  trwa do zamknięcia aplikacji.
+- **Kafelki**: łącznie i dni z wpisami; płatne (h, %) i niepłatne; średnio na dzień = czas ÷ **dni z wpisami**, z
+  normą i różnicą („Norma 8:00 · −0:21”); średnio na tydzień i na miesiąc (÷ tygodnie i miesiące z wpisami) — tylko
+  gdy okres obejmuje więcej niż jeden tydzień / miesiąc.
+- **Wykres słupkowy**: słupek na dzień (tydzień, miesiąc, zakres do 62 dni) albo na miesiąc (rok, dłuższy zakres);
+  warstwy w kolorach projektów (kolejność jak w podziale, największy projekt okresu na dole); norma — przerywana
+  linia albo kreska nad słupkiem miesiąca (norma × dni z wpisami); dymek z projektami słupka.
+- **Podział**: pierścień (8 największych, reszta jako „Pozostałe”) i tabela wg projektu (z klientem), klienta albo
+  rodzaju pracy: czas, udział, w tym płatne. Kolory i klient z wpisów (`full=true`, `color-safe` jak w Kimai).
+- **Liczenie**: trwający wpis do teraz, każdy wpis w dniu, w którym się zaczął (jak nagłówek „Dziś / Tydz.”); sumy
+  zgodne z Kimai dla tego samego okresu (test kontraktowy).
+- **Norma**: ustawienie „Norma dzienna (godziny)”, domyślnie 8, 0 = bez normy.
+- **Odświeżanie**: co minutę, po każdej zmianie wpisu i po wejściu na stronę; odświeżenie zostawia liczby, nowy okres
+  wczytuje się od pustego widoku; odpowiedź dla okresu, którego już nie widać, jest pomijana.
+- Kod: [core/summary.py](../../src/dk_tracker/core/summary.py),
+  [ui/main_window/summary_page.py](../../src/dk_tracker/ui/main_window/summary_page.py), `SummaryView.qml`,
+  `BarChart.qml`, `DonutChart.qml`. Zadanie: [0070](../../TODO/W-TRAKCIE/0070-plan6-podsumowania/todo.md).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 

@@ -3,7 +3,7 @@ noteId: "58e626bf9a2344179f812d9a43cf1830"
 tytul: Wygląd okna głównego — kolory, kontrolki, układ
 tags: [architektura, ui, qml, wyglad, motyw]
 utworzono: 2026-09-26 18:57
-zaktualizowano: 2026-09-26 18:57
+zaktualizowano: 2026-09-27 12:40
 ---
 
 # Wygląd okna głównego — kolory, kontrolki, układ
@@ -65,6 +65,10 @@ półgrube. Kursor rączki na wszystkim, co się klika.
 | Liczba | `Spin.qml` | [−] pole [+] w jednej ramce |
 | Pasek przewijania | `Scroller.qml` | uchwyt 6 px, zaokrąglony, w kolorze `border` (pod kursorem `border_hover`); widoczny zawsze, gdy jest co przewijać — w każdej liście i stronie |
 | Okno / lista rozwijana | `Panel.qml` | `panel`, ramka `border`, promień 8 |
+| Karta | `Card.qml` | `surface`, ramka `divider`, promień 8 — kafelek z liczbą, wykres, podział (podsumowania) |
+| Przełącznik | `Segmented.qml` | przyciski w jednej ramce jak przycisk (`control`, `border`); wybrany: tekst półgruby i ramka `accent`; między dwoma niewybranymi cienka kreska `border` |
+| Wykres słupkowy | `BarChart.qml` | linie godzin `divider`, podpisy 11 px `muted`; słupki w kolorach projektów, szew 1 px między warstwami, zaokrąglona góra (3 px); norma — linia przerywana `fg` 55 % (słupki dni) albo kreska nad słupkiem (miesiące); kolumna pod kursorem na tle `control`; dziś — podpis `accent` pogrubiony; dymek w `Panel` |
+| Pierścień | `DonutChart.qml` | grubość 24 px, odstęp 1,2° między wycinkami, tor `divider`; w środku suma (20 px pogrubiona) i podpis `muted` |
 | Wiersz formularza | `FormRow.qml` | etykieta z lewej (130 px, w ustawieniach 230 px; długa zawija się), kontrolka z prawej — w oknie edycji i w ustawieniach |
 
 ## Widoki
@@ -80,12 +84,19 @@ półgrube. Kursor rączki na wszystkim, co się klika.
   pola dodatkowe; stopka po linii `divider`: **Usuń** (`danger`, kosz) z lewej, **Anuluj**, **Zapisz**
   (`primary`) z prawej. Kliknięcie obok i Esc zamykają.
 - **Ustawienia**: ten sam `FormRow`, szerokość do 680 px.
+- **Podsumowania** (0.10.3, F-36), marginesy 16 px, odstępy 12 px: pasek okresu (`Segmented` Tydzień / Miesiąc / Rok
+  / Zakres, ◀ nazwa okresu ▶ — przy zakresie dwa `DateField` — i „Dziś”, wyłączone w bieżącym okresie; zawija się
+  w wąskim oknie); rząd kafelków `Card` równej szerokości i wysokości (podpis 12 px `muted`, liczba 22 px
+  pogrubiona, pasek 4 px: płatne — `start`, średnia wobec normy — `accent`, dopisek 12 px `muted`); karta wykresu
+  (240 px); karta podziału (pierścień 176 px, tabela: kropka, nazwa · klient, czas półgruby, udział, w tym płatne).
+  Odświeżenie tego samego okresu: karty na 60 %; nowy okres: „–” w kafelkach i „Wczytywanie…” w kartach.
 
 ## Sprawdzanie
 
 Zrzuty wszystkich widoków w obu motywach (bez ekranu, `QQuickWindow.grabWindow()`) przed pokazaniem: lista, trwający
 wpis, tryb ręczny, okno edycji, okno edycji wyeksportowanego wpisu, kalendarz i lista godzin otwarte, ustawienia,
-błąd i „Cofnij”; do tego szerokość minimalna 800 px.
+błąd i „Cofnij”; podsumowania: tydzień, miesiąc, rok, zakres, dymek, podział wg klienta, pusty okres, wczytywanie; do
+tego szerokość minimalna 800 px.
 
 ## Powiązane
 

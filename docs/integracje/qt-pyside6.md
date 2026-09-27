@@ -5,7 +5,7 @@ tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-26 18:22
+zaktualizowano: 2026-09-27 12:35
 ---
 
 # Qt 6 / PySide6
@@ -100,6 +100,12 @@ build-options:
 - **`QWindow.show()` to na pulpicie `showNormal()`** — wywołane na otwartym, zmaksymalizowanym oknie zdejmuje
   maksymalizację. `MainWindow.show()` otwarte okno tylko podnosi.
 - **Wiersze listy**: przyciski (`$`, ▶, kosz) przejmują kliknięcie, `TapHandler` wiersza dostaje resztę (okno edycji).
+- **`top` jest właściwością `Item`** (i `FINAL`) — własna właściwość o tej nazwie nie ładuje pliku QML
+  („Cannot override FINAL property”); skala wykresu nazywa się `scaleTop`.
+- **Wykresy bez QtCharts** (podsumowania, 0.10.3): słupki to prostokąty (`topLeftRadius`/`topRightRadius`
+  zaokrąglają tylko górę), pierścień to `Shape` z `ShapePath` i
+  [`PathAngleArc`](https://doc.qt.io/qt-6/qml-qtquick-pathanglearc.html) (kąty od godziny 3, zgodnie z ruchem
+  wskazówek), linia normy — `ShapePath.DashLine`. Moduł `QtQuick.Shapes` jest w PySide6 i w runtime KDE.
 - **Zamykanie**: okno QML ma rodzica `MainBridge`, a `MainWindow.dispose()` usuwa okno i silnik od razu
   (`DeferredDelete`) — inaczej przy wyjściu QML zgłasza „app is null”.
 
@@ -123,7 +129,8 @@ pilnuje, by
   [recent.py](../../src/dk_tracker/ui/recent.py) — okno szybkiej obsługi.
 - [main_window/](../../src/dk_tracker/ui/main_window/) — okno główne: `window.py` (silnik QML, ikony
   `image://glyph/…`), `bridge.py` (`MainBridge` jako `app` w kontekście QML), `models.py`,
-  `settings_form.py` (ustawienia jako strona okna), widoki w `qml/`.
+  `settings_form.py` (ustawienia jako strona okna), `summary_page.py` (podsumowania jako `app.summaryPage`),
+  widoki w `qml/`.
 - [placement.py](../../src/dk_tracker/ui/placement.py) — layer-shell / bez ramki / zwykłe okno.
 - [desktop_bridge.py](../../src/dk_tracker/ui/desktop_bridge.py) — usługi D-Bus w wątku, `ClickListener` jako
   `QThread`.
