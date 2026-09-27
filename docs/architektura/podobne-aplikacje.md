@@ -3,12 +3,13 @@ noteId: "65c8faaefb604512b64a50e1133bf0d7"
 tytul: Podobne aplikacje — KimaiTray i KimTrack
 tags: [architektura, konkurencja, funkcje, porownanie]
 utworzono: 2026-09-26 11:42
-zaktualizowano: 2026-09-26 11:42
+zaktualizowano: 2026-09-27 14:55
 ---
 
 # Podobne aplikacje
 
-Inne aplikacje tackowe dla Kimai, co je od nas odróżnia i co warto od nich przejąć. Stan na 2026-09-26 11:42,
+Inne desktopowe klienty Kimai (głównie w tacce), co je od nas odróżnia i co warto od nich przejąć. Stan na 2026-09-26
+11:42,
 sprawdzony w kodzie źródłowym KimaiTray (klon repozytorium) i na stronach wydań. Zadanie:
 [0054](../../TODO/ZROBIONE/0054-podobne-aplikacje/todo.md).
 

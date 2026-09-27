@@ -5,15 +5,15 @@ tags: [integracja, referencja, kimai]
 status_integracji: referencja
 wersja: 1.5.1
 utworzono: 2026-09-25 17:19
-zaktualizowano: 2026-09-25 21:54
+zaktualizowano: 2026-09-27 14:55
 ---
 
 # WS Tracker — wtyczka przeglądarkowa (projekt referencyjny)
 
 > [!info] W skrócie
 > Wtyczka Chrome/Edge/Brave/Firefox (Manifest V3) od Web Systems do mierzenia czasu
-> w Kimai. **Nie jest zależnością** tej aplikacji — to wzorzec funkcji i zachowania,
-> który odtwarzamy natywnie w tacce systemowej.
+> w Kimai. **Nie jest zależnością** tej aplikacji — to wzorzec funkcji i zachowania: jego zasady (walidacja opisu,
+> billable, sumy) obowiązują w oknie głównym i w okienku przy tacce.
 
 - Repozytorium: [github.com/websystemspl/kimai-ws-tracker](https://github.com/websystemspl/kimai-ws-tracker)
   (`git@github.com:websystemspl/kimai-ws-tracker.git`)

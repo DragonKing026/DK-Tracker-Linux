@@ -5,7 +5,7 @@ tags: [integracja, flatpak, portale, dbus]
 status_integracji: planowana
 wersja: xdg-desktop-portal (Background v2, GlobalShortcuts v2)
 utworzono: 2026-09-25 17:23
-zaktualizowano: 2026-09-26 00:13
+zaktualizowano: 2026-09-27 14:55
 ---
 
 # Portale XDG Desktop
@@ -19,7 +19,7 @@ zaktualizowano: 2026-09-26 00:13
 
 | Portal | Po co | Funkcja | Priorytet |
 | --- | --- | --- | --- |
-| **Background** | autostart z sesją, zgoda na działanie w tle, status w tle | F-22 | wysoki — aplikacja tackowa |
+| **Background** | autostart z sesją, zgoda na działanie w tle, status w tle | F-22 | wysoki — timer i przypomnienia działają od zalogowania |
 | **Notification** | powiadomienia (długi timer, błąd połączenia) | F-21 | średni |
 | **OpenURI** | otwarcie „Moje czasy” / tokenów API w przeglądarce | F-08 | wysoki |
 | **Secret** | klucz główny do szyfrowania tokenu | F-01 | wysoki — [osobny dokument](secret-service.md) |

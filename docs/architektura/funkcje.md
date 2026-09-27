@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-27 14:10
+zaktualizowano: 2026-09-27 14:55
 ---
 
 # Katalog funkcji
@@ -257,7 +257,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | --- | --- | --- | --- |
 | F-20 | Menu kontekstowe ikony (prawy klik): stop, wznów ostatni, otwórz okno, otwórz Kimai, ustawienia, zakończ | menu rysuje host tacki, więc zawsze jest przy ikonie | **w 1.0** ([ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md)); menu rysuje Plasma z dbusmenu — sprawdzone |
 | F-21 | Powiadomienia systemowe (portal Notification) | przypomnienie o długim timerze, problemy z połączeniem | **w 1.0** (szczegóły w specyfikacji) |
-| F-22 | Autostart z sesją (portal Background, opcja w ustawieniach) | aplikacja tackowa powinna startować sama | **w 1.0** |
+| F-22 | Autostart z sesją (portal Background, opcja w ustawieniach) | timer w tacce i przypomnienia mają działać od zalogowania | **w 1.0** |
 | F-23 | Wykrywanie bezczynności | propozycja odjęcia czasu nieaktywności; trudne w Flatpaku na Waylandzie (brak portalu czasu bezczynności) | później |
 | F-24 | Globalny skrót klawiszowy (portal GlobalShortcuts) | start/stop bez myszy | później |
 | F-25 | Przypomnienie, gdy żaden timer nie działa | podpatrzone w KimaiTray ([podobne aplikacje](podobne-aplikacje.md)) | później |
