@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-27 12:30
+zaktualizowano: 2026-09-27 13:05
 ---
 
 # Katalog funkcji
@@ -341,9 +341,9 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 6](../specyfikacja/2026-09-26-
 - **Okres**: Tydzień (od dnia tygodnia z konta Kimai), Miesiąc, Rok, Zakres (dwa dni, najwyżej 366 dni); ◀ ▶ o jeden
   okres (zakres — o swoją długość), „Dziś” wraca do okresu z dzisiejszym dniem. Na start bieżący tydzień; wybór
   trwa do zamknięcia aplikacji.
-- **Kafelki**: łącznie i dni z wpisami; płatne (h, %) i niepłatne; średnio na dzień = czas ÷ **dni z wpisami**, z
-  normą i różnicą („Norma 8:00 · −0:21”); średnio na tydzień i na miesiąc (÷ tygodnie i miesiące z wpisami) — tylko
-  gdy okres obejmuje więcej niż jeden tydzień / miesiąc.
+- **Kafelki**: łącznie i dni z wpisami; płatne (h, %) i niepłatne; **średnio na dzień pracy** = czas ÷ **dni z
+  wpisami**, z normą i różnicą („Norma 8:00 · −0:20”) — jedna średnia w każdym okresie (bez tygodniowej i
+  miesięcznej — decyzja użytkownika po teście na żywo).
 - **Wykres słupkowy**: słupek na dzień (tydzień, miesiąc, zakres do 62 dni) albo na miesiąc (rok, dłuższy zakres);
   warstwy w kolorach projektów (kolejność jak w podziale, największy projekt okresu na dole); norma — przerywana
   linia albo kreska nad słupkiem miesiąca (norma × dni z wpisami); dymek z projektami słupka.

@@ -17,7 +17,7 @@ Natywna, linuksowa wersja firmowej wtyczki przeglądarkowej
 
 - okno główne na wzór Toggl Track: wpisy tygodniami i dniami, ręczne dodawanie, okno edycji z tagami, usuwanie z
   „Cofnij”;
-- podsumowania tygodnia, miesiąca, roku lub zakresu: czas płatny i niepłatny, średnie na dzień i tydzień, norma
+- podsumowania tygodnia, miesiąca, roku lub zakresu: czas płatny i niepłatny, średnia na dzień pracy, norma
   dzienna, wykres dni w kolorach projektów, podział wg projektu, klienta i rodzaju pracy;
 - ikona w tacce z czasem trwającego wpisu (`47m`, `1:22`), menu: zatrzymaj, wznów ostatni, ustawienia;
 - okno przy ikonie: opis, projekt (z wyszukiwaniem), rodzaj pracy, płatne / niepłatne, godziny „od / do”;
