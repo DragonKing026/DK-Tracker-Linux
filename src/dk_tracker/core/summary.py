@@ -230,6 +230,8 @@ def present(summary: Summary, t: Callable[..., str], *, group: Group, today: dat
     top, step = nice_scale(highest)
     label_every = 7 if summary.unit == "day" and len(summary.buckets) > 31 else 1
     shares = summary.shares[group]
+    avg_week, avg_month = summary.avg_week, summary.avg_month
+    unpaid = total - summary.billable
     return {
         "empty": total == 0,
         "unit": summary.unit,
@@ -246,6 +248,22 @@ def present(summary: Summary, t: Callable[..., str], *, group: Group, today: dat
         "normFraction": min(summary.avg_day / norm, 1.0) if norm else 0.0,
         "avgWeek": short_duration(summary.avg_week) if summary.avg_week is not None else "",
         "avgMonth": short_duration(summary.avg_month) if summary.avg_month is not None else "",
+        # The fourth tile: the weekly average, and the monthly one under it (or alone in its place).
+        "avgMainLabel": t("sumAvgWeek")
+        if avg_week is not None
+        else t("sumAvgMonth")
+        if avg_month is not None
+        else "",
+        "avgMain": short_duration(avg_week if avg_week is not None else avg_month)
+        if avg_month or avg_week
+        else "",
+        "avgSubLine": t("sumPerMonth", time=short_duration(avg_month))
+        if avg_week is not None and avg_month is not None
+        else "",
+        "unpaidLine": t("sumUnpaidLine", time=short_duration(unpaid), percent=_percent(unpaid, total, t)),
+        "normText": t("sumNormLine", norm=short_duration(norm), diff=_signed(summary.avg_day - norm))
+        if norm and summary.days_with
+        else "",
         "normLine": norm if summary.unit == "day" else 0,
         "scaleTop": top,
         "ticks": [{"seconds": s, "label": short_duration(s)} for s in range(0, top + 1, step)],
@@ -369,6 +387,7 @@ def _bar(
         "total": short_duration(bucket.seconds),
         "seconds": bucket.seconds,
         "norm": bucket.norm,
+        "normText": t("sumNormTip", time=short_duration(bucket.norm)) if bucket.norm else "",
         "today": bucket.first <= today <= bucket.last,
         "parts": [
             {
@@ -388,10 +407,13 @@ def _slices(shares: tuple[Share, ...], total: int, t: Callable[..., str]) -> lis
     shown = [
         {"name": s.name or t("sumNoName"), "color": s.color, "fraction": s.seconds / total} for s in shares
     ]
-    if len(shown) <= RING_SLICES + 1:  # one leftover slice would only rename it
-        return shown
-    rest = sum(item["fraction"] for item in shown[RING_SLICES:])
-    return [*shown[:RING_SLICES], {"name": t("sumOthers"), "color": "", "fraction": rest}]
+    if len(shown) > RING_SLICES + 1:  # one leftover slice would only rename it
+        rest = sum(item["fraction"] for item in shown[RING_SLICES:])
+        shown = [*shown[:RING_SLICES], {"name": t("sumOthers"), "color": "", "fraction": rest}]
+    start = 0.0
+    for item in shown:  # where each slice begins, as a fraction of the ring
+        item["start"], start = start, start + item["fraction"]
+    return shown
 
 
 def _percent(part: float, whole: float, t: Callable[..., str]) -> str:

@@ -332,3 +332,21 @@ def test_many_daily_bars_are_labelled_once_a_week():
                    today=date(2026, 9, 25))["bars"]  # fmt: skip
     shown = [bar["label"] for bar in bars if bar["label"]]
     assert len(shown) == 9
+
+
+def test_present_gives_ready_sentences_and_where_each_slice_starts():
+    entries = [entry(1, date(2026, 9, 1), 8, 6), entry(2, date(2026, 9, 21), 8, 2, billable=False, project=2)]
+    month = span_for("month", date(2026, 9, 1), MONDAY)
+    summary = summarize(entries, month, WARSAW, now=NOW, norm=NORM, first_weekday=0)
+    view = present(summary, PL, group="project", today=date(2026, 9, 25))
+    assert view["unpaidLine"] == "Niepłatne 2:00 · 25 %"
+    assert view["normText"] == "Norma 8:00 · −4:00"
+    assert (view["avgMainLabel"], view["avgMain"], view["avgSubLine"]) == ("Średnio na tydzień", "4:00", "")
+    assert [round(item["start"], 2) for item in view["slices"]] == [0.0, 0.75]
+    assert view["bars"][0]["normText"] == "Norma 8:00"
+    year = present(summarize(entries, span_for("year", date(2026, 9, 1), 0), WARSAW, now=NOW, norm=0,
+                             first_weekday=0), PL, group="project", today=date(2026, 9, 25))  # fmt: skip
+    assert (year["avgMainLabel"], year["avgMain"], year["avgSubLine"]) == (
+        "Średnio na tydzień", "4:00", "Na miesiąc 8:00",
+    )  # fmt: skip
+    assert (year["normText"], year["bars"][8]["normText"]) == ("", "")
