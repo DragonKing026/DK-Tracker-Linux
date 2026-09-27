@@ -58,6 +58,13 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.6" date="2026-09-27">
+      <description>
+        <p>A new description and screenshots: DK Tracker is shown as the Kimai client it has become — the main window
+          with entries, summaries and the calendar — with the tray icon for a quick start and stop. The About page
+          and the app's help say the same.</p>
+      </description>
+    </release>
     <release version="0.10.5" date="2026-09-27">
       <description>
         <p>A calendar in the main window: a day or a week (five or seven days) of hours with the entries as blocks in
