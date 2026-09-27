@@ -88,6 +88,7 @@ def test_the_settings_page_has_its_fields(window, qtbot):
         "settingsTheme",
         "settingsMinDescription",
         "settingsLongTimer",
+        "settingsDailyNorm",
         "settingsAutostart",
         "settingsShowTray",
         "settingsSave",

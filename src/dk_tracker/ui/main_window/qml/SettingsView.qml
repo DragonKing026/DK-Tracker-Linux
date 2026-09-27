@@ -26,6 +26,7 @@ ScrollView {
         theme.currentIndex = Math.max(0, theme.indexOfValue(form.theme))
         minDescription.value = form.minDescription
         longTimer.value = Math.round(form.longTimer * 10)
+        dailyNorm.value = Math.round(form.dailyNorm * 10)
         notifyConnection.checked = form.notifyConnection
         notifyMenu.checked = form.notifyMenu
         autostart.checked = form.autostart
@@ -34,7 +35,7 @@ ScrollView {
     function values() {
         return {
             url: url.text, language: language.currentValue, theme: theme.currentValue, minDescription: minDescription.value,
-            longTimer: longTimer.value / 10, notifyConnection: notifyConnection.checked,
+            longTimer: longTimer.value / 10, dailyNorm: dailyNorm.value / 10, notifyConnection: notifyConnection.checked,
             notifyMenu: notifyMenu.checked, autostart: autostart.checked, showTray: showTray.checked
         }
     }
@@ -162,6 +163,21 @@ ScrollView {
             Item { Layout.fillWidth: true }
         }
         Hint { text: app.texts.optLongTimerHint || "" }
+        FormRow {
+            labelWidth: page.labelWidth
+            label: app.texts.optDailyNorm || ""
+            Spin {  // tenths of an hour, as the long timer
+                id: dailyNorm
+                objectName: "settingsDailyNorm"
+                from: 0
+                to: 240
+                stepSize: 5
+                textFromValue: function (value, locale) { return Number(value / 10).toLocaleString(locale, "f", 1) }
+                valueFromText: function (text, locale) { return Math.round(Number.fromLocaleString(locale, text) * 10) }
+            }
+            Item { Layout.fillWidth: true }
+        }
+        Hint { text: app.texts.optDailyNormHint || "" }
 
         ColumnLayout {
             Layout.leftMargin: page.labelWidth + 12

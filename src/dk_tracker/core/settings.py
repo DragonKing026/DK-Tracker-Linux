@@ -28,6 +28,7 @@ class Settings:
     autostart: bool = False
     show_tray: bool = True  # Plan 5: only where the desktop has a tray; off = the main window alone
     theme: str = "auto"  # auto (the system's) | light | dark — the popup and the main window
+    daily_norm_hours: float = 8.0  # Plan 6: the summaries compare the daily average with it; 0 = none
 
     def normalized(self) -> Settings:
         return replace(
@@ -35,6 +36,7 @@ class Settings:
             url=self.url.strip().rstrip("/"),
             min_description=max(0, int(self.min_description)),
             long_timer_hours=max(0.0, float(self.long_timer_hours)),
+            daily_norm_hours=max(0.0, float(self.daily_norm_hours)),
             theme=self.theme if self.theme in THEMES else "auto",
         )
 

@@ -160,5 +160,7 @@
   "sumDaysWith": "Dni z wpisami: {count}",
   "sumPercent": "{value} %",
   "sumNoName": "(bez nazwy)",
-  "sumOthers": "Pozostałe"
+  "sumOthers": "Pozostałe",
+  "optDailyNorm": "Norma dzienna (godziny)",
+  "optDailyNormHint": "Podsumowania porównują z nią średnią na dzień. 0 — bez normy."
 }

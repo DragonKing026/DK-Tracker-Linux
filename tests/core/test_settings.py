@@ -75,3 +75,8 @@ def test_window_size_is_remembered_with_sensible_defaults(tmp_path):
     path = tmp_path / "state.json"
     save_json(Memory(popup_width=520, popup_height=720), path)
     assert load_json(Memory, path).popup_height == 720
+
+
+def test_the_daily_norm_defaults_to_eight_hours_and_is_never_negative():
+    assert Settings().daily_norm_hours == 8.0
+    assert Settings(daily_norm_hours=-2).normalized().daily_norm_hours == 0.0

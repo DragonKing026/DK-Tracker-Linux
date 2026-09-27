@@ -160,5 +160,7 @@
   "sumDaysWith": "Days with entries: {count}",
   "sumPercent": "{value}%",
   "sumNoName": "(no name)",
-  "sumOthers": "Others"
+  "sumOthers": "Others",
+  "optDailyNorm": "Daily norm (hours)",
+  "optDailyNormHint": "Summaries compare the daily average with it. 0 — no norm."
 }

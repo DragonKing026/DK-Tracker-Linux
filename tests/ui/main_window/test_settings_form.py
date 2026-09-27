@@ -126,3 +126,11 @@ def test_a_stored_token_is_shown_as_a_mask_never_as_itself(form):
     never comes back from the wallet into the window (spec 1.0, section 8)."""
     assert form.form["hasToken"] is True
     assert "token" not in {key.lower() for key in form.form} - {"hastoken", "tokenplaceholder"}
+
+
+def test_the_daily_norm_is_shown_and_saved(form, qtbot):
+    form.load(replace(SAVED, daily_norm_hours=7.5), has_token=True)
+    assert form.form["dailyNorm"] == 7.5
+    with qtbot.waitSignal(form.saveRequested) as sent:
+        form.save(values(dailyNorm=0.0), "")
+    assert sent.args[0].daily_norm_hours == 0.0
