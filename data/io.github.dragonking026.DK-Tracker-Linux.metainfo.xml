@@ -39,6 +39,14 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.5" date="2026-09-27">
+      <description>
+        <p>A calendar in the main window: a day or a week (five or seven days) of hours with the entries as blocks in
+          project colours. Drag on an empty spot to add an entry, drag a block to move it (also to another day) or
+          its edge to change the hour; it snaps to quarter hours, Alt for the exact minute. A click opens a bubble
+          to edit, delete or resume the entry.</p>
+      </description>
+    </release>
     <release version="0.10.4" date="2026-09-27">
       <description>
         <p>The settings page ends with "About": the version, the licence and a link to the project page.</p>
