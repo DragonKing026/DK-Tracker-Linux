@@ -26,6 +26,7 @@ from .timefmt import (
     kimai_stamp,
     local_day,
     start_stamp,
+    wall_clock,
     week_start,
     weekday_index,
     zone,
@@ -366,7 +367,9 @@ class Tracker:
         self._check(text)
         tz = self.kimai_tz()
         noon = datetime.combine(day, time(12), tz)
-        begin_at, end_at = self._wall_clock(noon, begin, tz), self._wall_clock(noon, end, tz)
+        begin_at = self._wall_clock(noon, begin, tz)
+        # "24:00" (the calendar's end of a day) is midnight of the next day.
+        end_at = wall_clock(day, 24 * 60, tz) if end.strip() == "24:00" else self._wall_clock(noon, end, tz)
         if end_at <= begin_at:
             raise TrackerError("errEndBeforeBegin")
         wanted = billable if self._snapshot.billable_allowed else None
@@ -435,6 +438,29 @@ class Tracker:
                 raise TrackerError("errBillableDenied") from error
             raise
         self.refresh_full()  # names, colours and the totals follow from Kimai
+        return self._set(notice="savedEntry")
+
+    def reschedule(self, entry: Entry, day: date, begin: int, end: int) -> Snapshot:
+        """The calendar (Plan 7): a finished entry moved to `day`, from `begin` to `end` minutes after
+        its midnight on the wall clock of Kimai's zone (1440 = the next midnight)."""
+        if entry.exported:
+            raise TrackerError("errExported")
+        if entry.end is None:
+            raise TrackerError("errRunningMove")
+        if end <= begin:
+            raise TrackerError("errEndBeforeBegin")
+        tz = self.kimai_tz()
+        begin_at, end_at = wall_clock(day, begin, tz), wall_clock(day, end, tz)
+        changes: dict[str, object] = {}
+        # The grid has minutes: a side left where it was keeps its seconds (only the other is sent).
+        if begin_at != _to_minute(entry.begin):
+            changes["begin"] = kimai_stamp(begin_at, tz)
+        if end_at != _to_minute(entry.end):
+            changes["end"] = kimai_stamp(end_at, tz)
+        if not changes:
+            return self._snapshot
+        self._client.update(entry.id, changes)
+        self.refresh_full()
         return self._set(notice="savedEntry")
 
     def delete_entry(self, entry: Entry) -> Snapshot:

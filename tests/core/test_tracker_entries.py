@@ -226,3 +226,58 @@ def test_hours_typed_on_a_day_the_clocks_change_are_sent_as_typed(day, begin, en
     )
     [call] = calls(client, "create_entry")
     assert call[4:6] == (f"{day}T{begin}:00", f"{day}T{end}:00")
+
+
+# -- the calendar (Plan 7) -----------------------------------------------------
+
+
+def test_reschedule_moves_an_entry_to_another_day_and_hours():
+    tracker, client, _ = make_tracker()
+    _morning, _afternoon, monday, _earlier = booked(client)
+    tracker.reschedule(monday, FRIDAY, 9 * 60 + 15, 10 * 60 + 45)
+    assert calls(client, "update")[-1] == (
+        "update", 3, {"begin": "2026-09-25T09:15:00", "end": "2026-09-25T10:45:00"},
+    )  # fmt: skip
+
+
+def test_reschedule_to_the_end_of_the_day_ends_at_midnight():
+    tracker, client, _ = make_tracker()
+    morning, *_ = booked(client)
+    tracker.reschedule(morning, FRIDAY, 22 * 60, 24 * 60)
+    assert calls(client, "update")[-1][2]["end"] == "2026-09-26T00:00:00"
+
+
+def test_reschedule_refuses_what_cannot_be():
+    tracker, client, _ = make_tracker()
+    morning, *_ = booked(client)
+    with pytest.raises(TrackerError) as caught:
+        tracker.reschedule(morning, FRIDAY, 10 * 60, 10 * 60)
+    assert caught.value.key == "errEndBeforeBegin"
+    with pytest.raises(TrackerError) as caught:
+        tracker.reschedule(replace(morning, exported=True), FRIDAY, 9 * 60, 10 * 60)
+    assert caught.value.key == "errExported"
+    with pytest.raises(TrackerError) as caught:
+        tracker.reschedule(replace(morning, end=None), FRIDAY, 9 * 60, 10 * 60)
+    assert caught.value.key == "errRunningMove"
+    assert calls(client, "update") == []
+
+
+def test_reschedule_to_the_same_place_sends_nothing():
+    tracker, client, _ = make_tracker()
+    morning, *_ = booked(client)  # 09:04–10:04 in Warsaw
+    tracker.reschedule(morning, FRIDAY, 9 * 60 + 4, 10 * 60 + 4)
+    assert calls(client, "update") == []
+
+
+def test_an_entry_typed_until_24_00_ends_at_midnight():
+    tracker, client, _ = make_tracker()
+    tracker.add_entry(day=FRIDAY, begin="23:00", end="24:00", project_id=1, activity_id=2, description=GOOD,
+                      billable=None)  # fmt: skip
+    assert calls(client, "create_entry")[-1][4:6] == ("2026-09-25T23:00:00", "2026-09-26T00:00:00")
+
+
+def test_reschedule_of_one_side_keeps_the_seconds_of_the_other():
+    tracker, client, _ = make_tracker()
+    morning, *_ = booked(client)  # 09:04:03–10:04:03 in Warsaw
+    tracker.reschedule(morning, FRIDAY, 9 * 60 + 4, 11 * 60)
+    assert calls(client, "update")[-1][2] == {"end": "2026-09-25T11:00:00"}

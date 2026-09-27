@@ -154,7 +154,7 @@ def span_label(span: Span, today: date, t: Callable[..., str]) -> str:
         return f"{_months_long(t)[span.first.month - 1]} {span.first.year}"
     if span.kind == "year":
         return str(span.first.year)
-    return _dates(span.first, span.last, t)
+    return dates_label(span.first, span.last, t)
 
 
 # -- counting ------------------------------------------------------------------------------
@@ -453,7 +453,7 @@ def _signed(seconds: float) -> str:
     return ("−" if seconds < 0 else "+") + short_duration(abs(seconds))
 
 
-def _dates(first: date, last: date, t: Callable[..., str]) -> str:
+def dates_label(first: date, last: date, t: Callable[..., str]) -> str:
     months = t("monthsShort").split(",")
     if first.year != last.year:
         head = f"{first.day} {months[first.month - 1]} {first.year}"

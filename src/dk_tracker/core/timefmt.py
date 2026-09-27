@@ -7,7 +7,7 @@ zone without converting (verified on 2.67.0), so every time we send is computed 
 from __future__ import annotations
 
 import re
-from datetime import date, datetime, timedelta, tzinfo
+from datetime import date, datetime, time, timedelta, tzinfo
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 STAMP = "%Y-%m-%dT%H:%M:%S"
@@ -93,3 +93,10 @@ def at_wall_clock(day: datetime, hhmm_value: str, tz: tzinfo) -> datetime:
 
 def hhmm(moment: datetime, tz: tzinfo) -> str:
     return moment.astimezone(tz).strftime("%H:%M")
+
+
+def wall_clock(day: date, minutes: int, tz: tzinfo) -> datetime:
+    """The moment `minutes` after midnight of `day` on the wall clock (the calendar); 1440 is the next
+    midnight."""
+    days, rest = divmod(minutes, 24 * 60)
+    return datetime.combine(day + timedelta(days=days), time(rest // 60, rest % 60), tz)
