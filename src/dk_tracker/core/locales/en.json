@@ -1,6 +1,6 @@
 {
   "appName": "DK Tracker",
-  "appDescription": "Start, stop and resume Kimai time entries from the system tray.",
+  "appDescription": "A Kimai client for the Linux desktop: entries, summaries, a calendar and a timer in the tray.",
   "settings": "Settings",
   "notConfigured": "The app is not configured yet.",
   "openSettings": "Open settings",
@@ -191,7 +191,7 @@
   "sumDaysLine": "Working days: {work} · with entries: {count}",
   "optVersion": "version {version}",
   "optAbout": "About",
-  "optAboutText": "Time tracking in Kimai from the system tray and a window on the Linux desktop. An independent project, not an official Kimai app.",
+  "optAboutText": "A Kimai client for the Linux desktop: entries, summaries and a calendar in one window, with the timer always at hand in the tray. An independent project, not an official Kimai app.",
   "optLicense": "GPL-3.0-or-later licence · no telemetry — it talks only to your Kimai.",
   "optHomepage": "Project page",
   "errRunningMove": "A running entry cannot be moved — change its start in the timer bar.",

@@ -33,7 +33,7 @@ log = logging.getLogger(__name__)
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(prog="dk-tracker", description="Kimai time tracking in the system tray.")
+    parser = argparse.ArgumentParser(prog="dk-tracker", description="A Kimai client for the Linux desktop.")
     parser.add_argument("--hidden", action="store_true", help="start in the tray without opening the window")
     return parser.parse_args(argv)
 

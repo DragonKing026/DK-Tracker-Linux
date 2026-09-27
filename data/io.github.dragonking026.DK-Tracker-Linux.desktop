@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 Name=DK Tracker
-Comment=Time tracking for Kimai in the system tray
-Comment[pl]=Mierzenie czasu w Kimai z tacki systemowej
+Comment=Kimai time tracking: entries, summaries and a calendar
+Comment[pl]=Czas pracy w Kimai: wpisy, podsumowania i kalendarz
 Exec=dk-tracker
 Icon=io.github.dragonking026.DK-Tracker-Linux
 Terminal=false

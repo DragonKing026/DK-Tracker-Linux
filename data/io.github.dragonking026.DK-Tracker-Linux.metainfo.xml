@@ -4,21 +4,28 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>DK Tracker</name>
-  <summary>Track your Kimai time from the system tray</summary>
-  <summary xml:lang="pl">Mierzenie czasu w Kimai z tacki systemowej</summary>
+  <summary>A Kimai client with a calendar, summaries and a tray timer</summary>
+  <summary xml:lang="pl">Klient Kimai z kalendarzem, podsumowaniami i timerem w tacce</summary>
   <developer id="io.github.dragonking026">
     <name>Artur Ograbek</name>
   </developer>
   <description>
-    <p>Start, stop and resume Kimai timesheets without opening the browser. The tray icon shows how long the timer runs.</p>
-    <p xml:lang="pl">Start, stop i wznawianie pomiaru czasu w Kimai bez otwierania przeglądarki. Ikona w tacce pokazuje, jak długo trwa pomiar.</p>
+    <p>Keep track of your working time in Kimai from a native desktop app instead of a browser tab. The main window
+      shows your entries week by week, sums up any period and lays the entries out in a calendar you can edit with
+      the mouse.</p>
+    <p xml:lang="pl">Czas pracy w Kimai w natywnej aplikacji zamiast karty w przeglądarce. Okno główne pokazuje wpisy
+      tydzień po tygodniu, podsumowuje dowolny okres i układa wpisy w kalendarzu, który poprawia się myszą.</p>
     <ul>
-      <li>Quick window next to the tray icon with the running entry, projects and recent entries</li>
-      <li xml:lang="pl">Okno przy ikonie w tacce z trwającym wpisem, projektami i ostatnimi wpisami</li>
-      <li>Reminders about long timers and lost connection</li>
-      <li xml:lang="pl">Przypomnienia o długim timerze i utracie połączenia</li>
-      <li>The API token is kept in the system wallet</li>
-      <li xml:lang="pl">Token API trzymany w portfelu systemu</li>
+      <li>Entries by week and day: start a timer or add time by hand, edit every option the server has, delete with undo</li>
+      <li xml:lang="pl">Wpisy tygodniami i dniami: timer albo czas wpisany ręcznie, edycja każdej opcji z serwera, usuwanie z cofnięciem</li>
+      <li>Summaries: billable time, the average per working day against a daily norm, a bar chart and a breakdown by project, customer or activity</li>
+      <li xml:lang="pl">Podsumowania: czas płatny, średnia na dzień roboczy wobec normy, wykres słupkowy i podział wg projektu, klienta lub rodzaju pracy</li>
+      <li>A calendar: drag to add an entry, move it to another hour or day, change its length</li>
+      <li xml:lang="pl">Kalendarz: nowy wpis przeciągnięciem, przesuwanie na inną godzinę lub dzień, zmiana długości</li>
+      <li>A tray icon showing how long the timer runs, with a quick window to start and stop</li>
+      <li xml:lang="pl">Ikona w tacce z czasem trwającego wpisu i okienkiem do szybkiego startu i stopu</li>
+      <li>Reminders about long timers and a lost connection; the API token stays in the system wallet</li>
+      <li xml:lang="pl">Przypomnienia o długim timerze i utracie połączenia; token API zostaje w portfelu systemu</li>
     </ul>
   </description>
   <launchable type="desktop-id">io.github.dragonking026.DK-Tracker-Linux.desktop</launchable>
@@ -26,8 +33,20 @@
   <url type="bugtracker">https://github.com/DragonKing026/DK-Tracker-Linux/issues</url>
   <screenshots>
     <screenshot type="default">
+      <image>https://raw.githubusercontent.com/DragonKing026/DK-Tracker-Linux/main/docs/assets/zrzuty/okno-glowne-wpisy.png</image>
+      <caption>The main window: this week's entries and the running timer</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/DragonKing026/DK-Tracker-Linux/main/docs/assets/zrzuty/okno-glowne-podsumowania.png</image>
+      <caption>A month's summary with the daily norm and the breakdown by project</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/DragonKing026/DK-Tracker-Linux/main/docs/assets/zrzuty/okno-glowne-kalendarz.png</image>
+      <caption>The calendar: entries as blocks, moved and resized with the mouse</caption>
+    </screenshot>
+    <screenshot>
       <image>https://raw.githubusercontent.com/DragonKing026/DK-Tracker-Linux/main/docs/assets/zrzuty/okno-ciemny-motyw.png</image>
-      <caption>The quick window next to the tray</caption>
+      <caption>The quick window next to the tray icon</caption>
     </screenshot>
   </screenshots>
   <content_rating type="oars-1.1"/>

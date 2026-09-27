@@ -1,6 +1,6 @@
 {
   "appName": "DK Tracker",
-  "appDescription": "Start, stop i wznawianie pomiaru czasu w Kimai prosto z tacki systemowej.",
+  "appDescription": "Klient Kimai na pulpit Linuksa: wpisy, podsumowania, kalendarz i timer w tacce.",
   "settings": "Ustawienia",
   "notConfigured": "Aplikacja nie jest jeszcze skonfigurowana.",
   "openSettings": "Otwórz ustawienia",
@@ -191,7 +191,7 @@
   "sumDaysLine": "Dni robocze: {work} · z wpisami: {count}",
   "optVersion": "wersja {version}",
   "optAbout": "O programie",
-  "optAboutText": "Mierzenie czasu w Kimai z tacki systemowej i okna na pulpicie Linuksa. Niezależny projekt, nie jest oficjalną aplikacją Kimai.",
+  "optAboutText": "Klient Kimai na pulpit Linuksa: wpisy, podsumowania i kalendarz w jednym oknie, a timer zawsze pod ręką w tacce. Niezależny projekt, nie jest oficjalną aplikacją Kimai.",
   "optLicense": "Licencja GPL-3.0-or-later · bez telemetrii — łączy się tylko z Twoim Kimai.",
   "optHomepage": "Strona projektu",
   "errRunningMove": "Trwającego wpisu nie da się przesunąć — godzinę startu zmienisz na pasku timera.",
