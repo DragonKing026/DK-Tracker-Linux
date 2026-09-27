@@ -87,6 +87,12 @@ ApplicationWindow {
                 visible: app.view.configured && app.view.page === "summary"
             }
 
+            CalendarView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                visible: app.view.configured && app.view.page === "calendar"
+            }
+
             SettingsView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true

@@ -450,3 +450,64 @@ def test_the_summary_view_has_its_parts_and_shows_when_chosen(window, qtbot):
         assert window.child(name) is not None, name
     chart = window.child("barChart")
     assert len(chart.property("bars")) == 7
+
+
+# -- the calendar (Plan 7) ----------------------------------------------------------------
+
+
+def test_the_calendar_view_has_its_parts_and_blocks(window, qtbot):
+    page = window.bridge.calendar
+    page.request()
+    page.set_entries(page.days[0], page.days[-1], [entry(9, 1), entry(11, 2)], tz=WARSAW, now=NOW)
+    window.bridge.showPage("calendar")
+    view = window.child("calendarView")
+    qtbot.waitUntil(lambda: view.property("visible") is True)
+    parts = "viewCalendar calendarMode calendarDays calendarPrevious calendarNext calendarToday calendarGrid"
+    parts += " calendarGhost calendarNow calendarPopup"
+    for name in parts.split():
+        assert window.child(name) is not None, name
+    assert len(page.data["blocks"]) == 2
+
+
+def press_move_release(window, item, steps):
+    """Mouse events in scene coordinates: the first point presses, the last releases."""
+    from PySide6.QtCore import QPointF, Qt
+    from PySide6.QtGui import QMouseEvent
+    from PySide6.QtWidgets import QApplication
+
+    left, none = Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton
+    kinds = [QMouseEvent.Type.MouseButtonPress] + [QMouseEvent.Type.MouseMove] * (len(steps) - 2)
+    kinds.append(QMouseEvent.Type.MouseButtonRelease)
+    # From where the item stood at the press: it moves under the pointer while dragged.
+    points = [item.mapToScene(QPointF(item.width() / 2 + dx, item.height() / 2 + dy)) for dx, dy in steps]
+    for kind, point in zip(kinds, points, strict=True):
+        button = none if kind == QMouseEvent.Type.MouseMove else left
+        held = none if kind == QMouseEvent.Type.MouseButtonRelease else left
+        QApplication.sendEvent(
+            window.window, QMouseEvent(kind, point, point, button, held, Qt.KeyboardModifier.NoModifier)
+        )
+        QApplication.processEvents()
+
+
+def test_a_click_on_a_block_opens_its_bubble_and_a_drag_moves_it(window, qtbot):
+    """Plan 7, review focus 2: a click alone saves nothing."""
+    page = window.bridge.calendar
+    page.request()
+    page.set_entries(page.days[0], page.days[-1], [entry(9, 1)], tz=WARSAW, now=NOW)
+    window.bridge.showPage("calendar")
+    from PySide6.QtCore import QSize
+
+    window.window.resize(QSize(1000, 700))
+    qtbot.waitUntil(lambda: visual_child(window.window.contentItem(), "calendarBlock_1") is not None)
+    qtbot.wait(50)  # the layout after the resize
+    block = visual_child(window.window.contentItem(), "calendarBlock_1")
+    with qtbot.assertNotEmitted(page.moveRequested):
+        press_move_release(window, block, [(0, 0), (0, 0)])
+    popup = window.child("calendarPopup")
+    qtbot.waitUntil(lambda: popup.property("opened") is True)
+    popup.close()
+    with qtbot.waitSignal(page.moveRequested) as moved:
+        press_move_release(window, block, [(0, 0), (0, 10), (0, 48), (0, 48)])  # an hour down
+    entry_id, day, begin, end = moved.args
+    assert (entry_id, day, end - begin) == (1, date(2026, 9, 25), 60)
+    assert begin == 10 * 60

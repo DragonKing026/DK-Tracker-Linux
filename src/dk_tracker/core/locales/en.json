@@ -194,5 +194,11 @@
   "optAboutText": "Time tracking in Kimai from the system tray and a window on the Linux desktop. An independent project, not an official Kimai app.",
   "optLicense": "GPL-3.0-or-later licence · no telemetry — it talks only to your Kimai.",
   "optHomepage": "Project page",
-  "errRunningMove": "A running entry cannot be moved — change its start in the timer bar."
+  "errRunningMove": "A running entry cannot be moved — change its start in the timer bar.",
+  "viewCalendar": "Calendar",
+  "calDay": "Day",
+  "calWeek": "Week",
+  "calFiveDays": "5 days",
+  "calSevenDays": "7 days",
+  "calMore": "More options (edit window)"
 }

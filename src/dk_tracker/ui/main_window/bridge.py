@@ -347,6 +347,21 @@ class MainBridge(QObject):
     def editTimes(self, entryId: int, begin: str, end: str) -> None:  # noqa: N802, N803
         self._edit(entryId, {"begin": begin or None, "end": end or None})
 
+    @Slot(int, str, int, int, bool)
+    def editFields(
+        self, entryId: int, description: str, projectId: int, activityId: int, billable: bool
+    ) -> None:  # noqa: N802, N803
+        """The calendar's bubble: what it shows, in one edit (Kimai hears only what changed)."""
+        self._edit(
+            entryId,
+            {
+                "description": description,
+                "project_id": projectId,
+                "activity_id": activityId,
+                "billable": billable,
+            },
+        )
+
     @Slot(int, bool)
     def setBillable(self, entryId: int, value: bool) -> None:  # noqa: N802, N803
         self._edit(entryId, {"billable": value})

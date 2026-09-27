@@ -17,11 +17,13 @@ from PySide6.QtCore import Property, QObject, Signal, Slot
 
 from dk_tracker.core.calendar import (
     DAY_MINUTES,
+    SNAP_MINUTES,
     Mode,
     day_totals,
     hhmm_of,
     layout,
     shifted,
+    snap,
     span_label,
     view_days,
 )
@@ -193,6 +195,11 @@ class CalendarPage(QObject):
         self._refresh()
         self.moveRequested.emit(entryId, target, begin, end)
 
+    @Slot(float, bool, result=int)
+    def snap(self, minutes: float, exact: bool) -> int:
+        """While dragging: quarter hours, or the exact minute with Alt."""
+        return snap(minutes, 1 if exact else SNAP_MINUTES)
+
     @Slot(bool)
     def setDragging(self, value: bool) -> None:  # noqa: N802
         self._dragging = value
@@ -260,9 +267,7 @@ class CalendarPage(QObject):
             "description": " ".join(entry.description.split()),
             "project": " · ".join(names),
             "color": entry.project_color or "",
-            "hours": f"{hhmm_of(block.start)} – {hhmm_of(block.end)}"
-            if not block.running
-            else f"{hhmm_of(block.start)} –",
+            "hours": f"{hhmm_of(block.start)} – {hhmm_of(block.end)}",  # a running one: until now
             "time": short_duration((block.end - block.start) * 60),
             "running": block.running,
             "exported": entry.exported,

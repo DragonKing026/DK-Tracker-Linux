@@ -194,5 +194,11 @@
   "optAboutText": "Mierzenie czasu w Kimai z tacki systemowej i okna na pulpicie Linuksa. Niezależny projekt, nie jest oficjalną aplikacją Kimai.",
   "optLicense": "Licencja GPL-3.0-or-later · bez telemetrii — łączy się tylko z Twoim Kimai.",
   "optHomepage": "Strona projektu",
-  "errRunningMove": "Trwającego wpisu nie da się przesunąć — godzinę startu zmienisz na pasku timera."
+  "errRunningMove": "Trwającego wpisu nie da się przesunąć — godzinę startu zmienisz na pasku timera.",
+  "viewCalendar": "Kalendarz",
+  "calDay": "Dzień",
+  "calWeek": "Tydzień",
+  "calFiveDays": "5 dni",
+  "calSevenDays": "7 dni",
+  "calMore": "Więcej opcji (okno edycji)"
 }

@@ -1,5 +1,5 @@
-// Views on the left (Toggl-style): Entries, Summaries (0.10.3) and, at the bottom, Settings; the
-// calendar comes next.
+// Views on the left (Toggl-style): Entries, Summaries (0.10.3), Calendar (0.10.5) and, at the
+// bottom, Settings.
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -55,6 +55,15 @@ Rectangle {
             enabled: app.view.configured
             active: app.view.page === "summary"
             onClicked: app.showPage("summary")
+        }
+
+        SideButton {
+            objectName: "viewCalendar"
+            glyph: "calendar"
+            text: app.texts.viewCalendar || ""
+            enabled: app.view.configured
+            active: app.view.page === "calendar"
+            onClicked: app.showPage("calendar")
         }
 
         Item { Layout.fillHeight: true }

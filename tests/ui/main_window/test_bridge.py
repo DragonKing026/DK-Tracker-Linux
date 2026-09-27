@@ -372,3 +372,13 @@ def test_a_calendar_entry_is_deleted_with_the_undo_bar(bridge, qtbot):
         bridge.deleteEntry(77)
     assert sent.args == [77]
     assert bridge.deleted_entry(77) == far
+
+
+def test_the_calendar_bubble_saves_its_fields_in_one_edit(bridge, qtbot):
+    with qtbot.waitSignal(bridge.editRequested) as sent:
+        bridge.editFields(7, "Opis", 2, 1, False)
+    assert sent.args == [7, {"description": "Opis", "project_id": 2, "activity_id": 1, "billable": False}]
+
+
+def test_the_calendar_snaps_through_the_core(bridge):
+    assert (bridge.calendar.snap(452, False), bridge.calendar.snap(452.6, True)) == (450, 453)
