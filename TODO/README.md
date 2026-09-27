@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-27 14:02
+zaktualizowano: 2026-09-27 14:12
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0074 | [Opis DK Tracker jako pełnego klienta Kimai: README, dokumentacja, strona, zrzuty](W-TRAKCIE/0074-opis-pelnej-aplikacji/todo.md) | 🔨 w-trakcie | p1 | [0073](ZROBIONE/0073-plan7-kalendarz/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -109,6 +108,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0071 | [Strona projektu na GitHub Pages — nowy wygląd i workflow „Strona”](ZROBIONE/0071-strona-github-pages/todo.md) | ✅ zrobione | 2026-09-27 12:36 |
 | 0072 | [O programie i wersja w ustawieniach (0.10.4)](ZROBIONE/0072-o-programie/todo.md) | ✅ zrobione | 2026-09-27 13:07 |
 | 0073 | [Plan 7: kalendarz 0.10.5 — wykonanie](ZROBIONE/0073-plan7-kalendarz/todo.md) | ✅ zrobione | 2026-09-27 13:44 |
+| 0074 | [Opis DK Tracker jako pełnego klienta Kimai: README, dokumentacja, strona, zrzuty](ZROBIONE/0074-opis-pelnej-aplikacji/todo.md) | ✅ zrobione | 2026-09-27 14:12 |
 
 <!-- tablica:end -->
 
