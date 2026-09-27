@@ -25,6 +25,11 @@ def _preference(data: dict[str, Any], name: str) -> str:
     return ""
 
 
+def _color(data: dict[str, Any]) -> str | None:
+    """The object's own colour, else Kimai's "color-safe" — the one Kimai itself draws it in."""
+    return data.get("color") or data.get("color-safe") or None
+
+
 def _flag(value: Any) -> bool:
     """A missing flag means yes, as in Kimai: only an explicit false turns billable off."""
     return value is not False
@@ -121,6 +126,11 @@ class Entry:
     activity_name: str | None
     user_language: str | None
     exported: bool = False  # exported (e.g. invoiced) entries are locked: Kimai answers 403
+    # With `full=true` Kimai expands the customer too; the summaries split and colour by them (Plan 6).
+    customer_id: int | None = None
+    customer_name: str | None = None
+    customer_color: str | None = None
+    activity_color: str | None = None
 
     @property
     def running(self) -> bool:
@@ -131,6 +141,7 @@ class Entry:
         project_id, project = _ref(data.get("project"))
         activity_id, activity = _ref(data.get("activity"))
         _, user = _ref(data.get("user"))
+        customer_id, customer = _ref(project.get("customer"))
         end = data.get("end")
         return cls(
             id=data["id"],
@@ -141,11 +152,15 @@ class Entry:
             billable=_flag(data.get("billable")),
             project_id=project_id,
             project_name=project.get("name"),
-            project_color=project.get("color") or None,
+            project_color=_color(project),
             activity_id=activity_id,
             activity_name=activity.get("name"),
             user_language=user.get("language"),
             exported=data.get("exported") is True,
+            customer_id=customer_id,
+            customer_name=customer.get("name"),
+            customer_color=_color(customer),
+            activity_color=_color(activity),
         )
 
 

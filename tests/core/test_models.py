@@ -124,3 +124,40 @@ def test_user_first_weekday_from_preferences():
     }
     assert User.from_api(prefs).first_weekday == "sunday"
     assert User.from_api({"id": 1, "username": "jan"}).first_weekday == "monday"
+
+
+FULL_ENTRY = {  # GET /api/timesheets?full=true on Kimai 2.67 — customer expanded, "color-safe" always set
+    "id": 11,
+    "begin": "2026-09-25T08:00:00+0200",
+    "end": "2026-09-25T09:00:00+0200",
+    "duration": 3600,
+    "project": {
+        "id": 3,
+        "name": "Administracja",
+        "color": None,
+        "color-safe": "#808080",
+        "customer": {"id": 2, "name": "Sprawy wewnętrzne", "color": None, "color-safe": "#2196F3"},
+    },
+    "activity": {"id": 2, "name": "Spotkanie", "color": None, "color-safe": "#718096"},
+}
+
+
+def test_entry_carries_the_customer_and_kimai_colours_for_summaries():
+    entry = Entry.from_api(FULL_ENTRY)
+    assert (entry.customer_id, entry.customer_name, entry.customer_color) == (
+        2,
+        "Sprawy wewnętrzne",
+        "#2196F3",
+    )
+    assert entry.activity_color == "#718096"
+    assert entry.project_color == "#808080"  # no colour of its own: Kimai's "color-safe", as Kimai shows it
+
+
+def test_entry_without_an_expanded_customer_has_none():
+    entry = Entry.from_api(POSTED_ENTRY)
+    assert (entry.customer_id, entry.customer_name, entry.customer_color, entry.activity_color) == (
+        None,
+        None,
+        None,
+        None,
+    )
