@@ -3,7 +3,7 @@ noteId: "947ac69bba214ddcada484a736d2c8fd"
 tytul: Wydania i instalacja
 tags: [proces, wydanie, flatpak]
 utworzono: 2026-09-26 11:58
-zaktualizowano: 2026-09-27 12:40
+zaktualizowano: 2026-09-27 15:40
 ---
 
 # Wydania i instalacja
@@ -67,7 +67,8 @@ Wersje `0.x` wychodzą jako „pre-release” (do 1.0). **Działających wydań 
 się ręcznie (`gh release delete v<wersja> --yes`, bez `--cleanup-tag` — tag zostaje w historii), jak 0.9.0–0.9.3,
 0.10.0 i 0.10.1 ([0067](../../TODO/ZROBIONE/0067-tylko-najnowsze-wydanie/todo.md)). **Wydanie z poprawkami zastępuje
 poprawiane**: po wydaniu 0.10.1 (poprawki błędów 0.10.0) strona 0.10.0 znika od razu (decyzja użytkownika
-2026-09-26). Numeracja: kolejne kroki jednej wersji to
+2026-09-26). Tak samo wydanie, które zmienia tylko opis albo zrzuty: po 0.10.6 (nowy opis w Discover) strona 0.10.5
+zniknęła, bo aplikacja jest w nich ta sama (decyzja użytkownika 2026-09-27). Numeracja: kolejne kroki jednej wersji to
 `0.10.0`, `0.10.1`, `0.10.2`… aż do pełnej wersji. Sekcja „Deployments” na stronie repozytorium to
 publikacje GitHub Pages (repozytorium Flatpaka) — ukrywa się ją na stronie repozytorium: koło zębate przy „About” →
 odznaczyć „Deployments”. **1.0.0** — po testach na GNOME
