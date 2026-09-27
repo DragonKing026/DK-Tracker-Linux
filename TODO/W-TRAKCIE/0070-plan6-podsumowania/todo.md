@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, ui, qml, okno-glowne, podsumowania, wydanie]
 zalezy_od: ["0069-plan5-okno-glowne"]
 utworzono: 2026-09-27 11:41
-zaktualizowano: 2026-09-27 11:45
+zaktualizowano: 2026-09-27 12:45
 zamknieto:
 ---
 
@@ -32,32 +32,43 @@ i wydanie 0.10.3.
 
 ## Kryteria akceptacji
 
-- [ ] Okresy tydzień / miesiąc / rok / zakres, strzałki ◀ ▶, domyślnie bieżący tydzień
-- [ ] Czas łączny, płatne/niepłatne (h i %), średnie na dzień / tydzień / miesiąc, dni z wpisami, norma
-- [ ] Wykres słupkowy w kolorach projektów z normą i dymkiem; podział: wykres kołowy + tabela
+- [x] Okresy tydzień / miesiąc / rok / zakres, strzałki ◀ ▶, domyślnie bieżący tydzień
+- [x] Czas łączny, płatne/niepłatne (h i %), średnie na dzień / tydzień / miesiąc, dni z wpisami, norma
+- [x] Wykres słupkowy w kolorach projektów z normą i dymkiem; podział: wykres kołowy + tabela
   (projekt / klient / rodzaj pracy)
-- [ ] Norma dzienna w ustawieniach (0 = bez normy)
-- [ ] Wyniki zgodne z sumami Kimai dla tego samego okresu (test kontraktowy)
-- [ ] Galeria zrzutów w obu motywach sprawdzona przed pokazaniem; PL/EN
-- [ ] Testy i ruff czyste, dokumentacja zaktualizowana
+- [x] Norma dzienna w ustawieniach (0 = bez normy)
+- [x] Wyniki zgodne z sumami Kimai dla tego samego okresu (test kontraktowy)
+- [x] Galeria zrzutów w obu motywach sprawdzona przed pokazaniem; PL/EN
+- [x] Testy i ruff czyste, dokumentacja zaktualizowana
 - [ ] Test na żywo z użytkownikiem, wydanie 0.10.3 za zgodą użytkownika
 
 ## Kroki
 
-- [ ] Plan 6
-- [ ] `core/summary.py` — liczenie (TDD)
-- [ ] Norma w ustawieniach
-- [ ] Most i modele widoku
-- [ ] Widok QML i pasek boczny
-- [ ] Kontroler: wczytywanie okresu w tle
-- [ ] Test kontraktowy
-- [ ] Galeria zrzutów
-- [ ] Dokumentacja
+- [x] Plan 6
+- [x] `core/summary.py` — liczenie (TDD)
+- [x] Norma w ustawieniach
+- [x] Most i modele widoku
+- [x] Widok QML i pasek boczny
+- [x] Kontroler: wczytywanie okresu w tle
+- [x] Test kontraktowy
+- [x] Galeria zrzutów
+- [x] Dokumentacja
 - [ ] Wersja i wydanie
 
 ## Materiały
 
-Brak.
+Galeria bez ekranu (`grabWindow`), dane wymyślone — skrypt: [testy/galeria.py](testy/galeria.py).
+
+| Stan | Zrzut |
+| --- | --- |
+| Tydzień, ciemny | ![tydzień](zrzuty/ciemny-tydzien.png) |
+| Miesiąc z dymkiem, jasny | ![miesiąc](zrzuty/jasny-miesiac.png) |
+| Rok z dymkiem, ciemny | ![rok](zrzuty/ciemny-rok-dymek.png) |
+| Zakres, jasny | ![zakres](zrzuty/jasny-zakres.png) |
+| Podział wg klienta | ![klient](zrzuty/ciemny-miesiac-klient.png) |
+| Pusty okres | ![pusty](zrzuty/ciemny-pusty.png) |
+| Nowy okres się wczytuje | ![wczytywanie](zrzuty/ciemny-wczytywanie.png) |
+| Okno 800 × 560 | ![800](zrzuty/jasny-800.png) |
 
 ## Dziennik
 
@@ -65,6 +76,12 @@ Brak.
 
 - **11:41** Utworzono zadanie.
 - **11:45** Start. Plan 6 napisany (ebef920).
+
+- **12:45** Zrobione zadania 1–9 planu (TDD): `Entry` z klientem i kolorami (bfeb803), `core/summary.py`
+  (b0f7666, 78ae076), norma w ustawieniach (d6f3e75), `SummaryPage` (9d9b03f), kontroler (d84abda), widok QML
+  (642f7e1), test kontraktowy sum (ef1179b). Galeria przejrzana przed pokazaniem: poprawione nierówne kafelki,
+  kolejność w dymku, podświetlenie pustej kolumny, dni starego okresu pod nazwą nowego przy wczytywaniu. Testy:
+  679 + 18 kontraktowych. Czeka: test na żywo z użytkownikiem i wydanie 0.10.3.
 
 ## Wynik
 
