@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-27 11:41
+zaktualizowano: 2026-09-27 11:45
 ---
 
 # Tablica zadań
@@ -25,6 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
+| 0070 | [Plan 6: podsumowania 0.10.3 — wykonanie](W-TRAKCIE/0070-plan6-podsumowania/todo.md) | 🔨 w-trakcie | p1 | [0069](ZROBIONE/0069-plan5-okno-glowne/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -32,7 +33,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 | 0062 | [0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](ZROBIONE/0056-identyfikator-i-wydawca/todo.md) ✅ |
-| 0070 | [Plan 6: podsumowania 0.10.3 — wykonanie](DO-ZROBIENIA/0070-plan6-podsumowania/todo.md) | 📋 do-zrobienia | p1 | [0069](ZROBIONE/0069-plan5-okno-glowne/todo.md) ✅ |
 
 ## Zrobione
 

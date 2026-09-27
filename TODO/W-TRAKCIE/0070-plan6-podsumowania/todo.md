@@ -2,19 +2,19 @@
 noteId: "c2288cb0e4434bc09f25e23ae16aea64"
 tytul: "Plan 6: podsumowania 0.10.3 — wykonanie"
 numer: "0070"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, ui, qml, okno-glowne, podsumowania, wydanie]
 zalezy_od: ["0069-plan5-okno-glowne"]
 utworzono: 2026-09-27 11:41
-zaktualizowano: 2026-09-27 11:41
+zaktualizowano: 2026-09-27 11:45
 zamknieto:
 ---
 
 # 0070 — Plan 6: podsumowania 0.10.3 — wykonanie
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -64,6 +64,7 @@ Brak.
 ### 2026-09-27
 
 - **11:41** Utworzono zadanie.
+- **11:45** Start. Plan 6 napisany (ebef920).
 
 ## Wynik
 
