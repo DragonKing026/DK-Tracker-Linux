@@ -258,3 +258,41 @@ def test_the_tags_to_choose_are_the_visible_ones(kimai_env, user_tracker):
     assert marker in tags and tags[marker].color.startswith("#")
     assert "kontrakt" not in tags  # made without "visible" by an earlier test: hidden
     admin.close()
+
+
+def test_summary_totals_match_what_kimai_lists_for_the_period(kimai_env, lead_tracker):
+    """0.10.3 acceptance: the summary's time and billable time are Kimai's for the same period."""
+    import httpx
+
+    from dk_tracker.core.summary import span_for, summarize
+
+    project, activity = ids(lead_tracker)
+    day = _free_day(lead_tracker, 5)
+    for begin, end, billable in (
+        ("08:00", "10:15", True),
+        ("11:00", "12:30", False),
+        ("13:00", "13:45", True),
+    ):
+        lead_tracker.add_entry(
+            day=day, begin=begin, end=end, project_id=project, activity_id=activity, description=DESCRIPTION,
+            billable=billable,
+        )  # fmt: skip
+    span = span_for("month", day, 0)
+    tz = lead_tracker.kimai_tz()
+    entries = lead_tracker.entries(span.first, span.last)
+    summary = summarize(entries, span, tz, now=datetime.now(UTC), norm=8 * 3600, first_weekday=0)
+
+    # Kimai's own answer, read without our client: every page of the month, summed as it says.
+    stamp = "%Y-%m-%dT%H:%M:%S"
+    params = {
+        "begin": datetime.combine(span.first, datetime.min.time()).strftime(stamp),
+        "end": datetime.combine(span.last, datetime.max.time()).strftime(stamp),
+        "size": "1000",
+    }
+    headers = {"Authorization": f"Bearer {kimai_env['KIMAI_TEST_LEAD_TOKEN']}"}
+    listed = httpx.get(f"{kimai_env['KIMAI_TEST_URL']}/api/timesheets", params=params, headers=headers).json()
+    finished = [item for item in listed if item.get("end")]
+    assert summary.total == sum(item["duration"] for item in finished)
+    assert summary.billable == sum(item["duration"] for item in finished if item["billable"])
+    assert summary.days_with == len({item["begin"][:10] for item in finished})
+    assert summary.total >= (135 + 90 + 45) * 60
