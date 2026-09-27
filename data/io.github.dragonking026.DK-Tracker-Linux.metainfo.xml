@@ -39,6 +39,14 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.3" date="2026-09-27">
+      <description>
+        <p>Summaries in the main window: a week, month, year or any range of days with the total and billable time,
+          the average per working day against a daily norm (set in the settings), a bar chart of days or months in
+          project colours and a breakdown by project, customer or activity. Hovering a bar, a slice or a row lists
+          the entries it holds.</p>
+      </description>
+    </release>
     <release version="0.10.2" date="2026-09-26">
       <description>
         <p>The main window opens on the entries again; it stayed on the settings when the token came from the
