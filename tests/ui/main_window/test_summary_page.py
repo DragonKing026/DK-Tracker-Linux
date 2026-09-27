@@ -139,3 +139,12 @@ def test_a_new_week_moves_this_week_along_until_the_user_picks_a_period(page, qt
     with qtbot.waitSignal(page.loadRequested) as asked:
         page.today()
     assert asked.args == [date(2026, 10, 5), date(2026, 10, 11)]
+
+
+def test_another_period_starts_blank_while_it_loads(page):
+    """The gallery showed last week's days under this week's name while it loaded."""
+    page.request()
+    deliver(page, [entry(1, date(2026, 9, 21), 6)])
+    page.step(-1)
+    assert (page.data["loaded"], page.data["loading"]) == (False, True)
+    assert "bars" not in page.data

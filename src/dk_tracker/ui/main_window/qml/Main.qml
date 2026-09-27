@@ -81,6 +81,12 @@ ApplicationWindow {
                 visible: app.view.configured && app.view.page === "entries"
             }
 
+            SummaryView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                visible: app.view.configured && app.view.page === "summary"
+            }
+
             SettingsView {
                 Layout.fillWidth: true
                 Layout.fillHeight: true

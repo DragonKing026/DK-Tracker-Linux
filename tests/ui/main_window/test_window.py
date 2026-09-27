@@ -426,3 +426,24 @@ def test_tags_are_chosen_from_a_list(window, qtbot):
     qtbot.waitUntil(lambda: listing is not None and listing.property("count") == 1)  # "pilne": not chosen yet
     picker.setProperty("text", "frontend, pilne")  # what a click on "pilne" does
     qtbot.waitUntil(lambda: listing.property("count") == 0)
+
+
+# -- the summaries (Plan 6) ---------------------------------------------------------------
+
+
+def test_the_summary_view_has_its_parts_and_shows_when_chosen(window, qtbot):
+    page = window.bridge.summary
+    page.request()
+    page.set_entries(
+        page.span.first, page.span.last, [entry(9, 1), entry(11, 2)], tz=WARSAW, now=NOW, norm=8 * 3600
+    )
+    window.bridge.showPage("summary")
+    view = window.child("summaryView")
+    qtbot.waitUntil(lambda: view.property("visible") is True)
+    assert window.child("entriesView").property("visible") is False
+    parts = "viewSummary summaryKind summaryPrevious summaryNext summaryToday tileTotal tilePaid tileAverage"
+    parts += " barChart normLine donutChart summaryGroup shareTable"
+    for name in parts.split():
+        assert window.child(name) is not None, name
+    chart = window.child("barChart")
+    assert len(chart.property("bars")) == 7

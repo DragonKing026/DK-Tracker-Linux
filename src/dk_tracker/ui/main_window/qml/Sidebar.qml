@@ -1,5 +1,5 @@
-// Views on the left (Toggl-style). 0.10.0 has "Entries" and "Settings"; summaries and the calendar
-// come next.
+// Views on the left (Toggl-style): Entries, Summaries (0.10.3) and, at the bottom, Settings; the
+// calendar comes next.
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -46,6 +46,15 @@ Rectangle {
             enabled: app.view.configured
             active: app.view.page === "entries"
             onClicked: app.showPage("entries")
+        }
+
+        SideButton {
+            objectName: "viewSummary"
+            glyph: "chart"
+            text: app.texts.viewSummary || ""
+            enabled: app.view.configured
+            active: app.view.page === "summary"
+            onClicked: app.showPage("summary")
         }
 
         Item { Layout.fillHeight: true }

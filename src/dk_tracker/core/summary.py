@@ -394,9 +394,10 @@ def _bar(
                 "name": projects[part.key].name or t("sumNoName"),
                 "color": projects[part.key].color,
                 "seconds": part.seconds,
+                "below": sum(lower.seconds for lower in bucket.parts[:index]),  # where the layer starts
                 "time": short_duration(part.seconds),
             }
-            for part in bucket.parts  # bottom up; the tooltip lists them in the same order
+            for index, part in enumerate(bucket.parts)  # bottom up; the tooltip lists them in this order too
         ],
     }
 

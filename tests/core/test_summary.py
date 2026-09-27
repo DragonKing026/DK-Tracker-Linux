@@ -167,6 +167,11 @@ def test_a_week_has_a_bar_a_day_split_by_project():
     assert monday.seconds == 3 * HOUR
     # The same stacking order in every bar: the biggest project of the period at the bottom.
     assert [(part.key, part.seconds) for part in monday.parts] == [("p2", HOUR), ("p1", 2 * HOUR)]
+    view = present(summary, PL, group="project", today=date(2026, 9, 25))
+    assert [(part["seconds"], part["below"]) for part in view["bars"][0]["parts"]] == [
+        (HOUR, 0),
+        (2 * HOUR, HOUR),
+    ]
     assert all(bucket.norm == NORM for bucket in summary.buckets)
 
 

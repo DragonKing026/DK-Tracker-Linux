@@ -137,8 +137,9 @@ class SummaryPage(QObject):
 
     def _refresh(self) -> None:
         span, t = self._span, self._t
-        # While the next period loads, the last numbers stay (no flash of an empty view).
-        summary = self._summary
+        # A refresh keeps the numbers on screen (no flash of an empty view); another period's would
+        # sit under the new period's name, so a new period starts blank.
+        summary = self._summary if self._summary is not None and self._summary.span == span else None
         data = present(summary, t, group=self._group, today=self._today) if summary else {}  # type: ignore[arg-type]
         self._data = {
             **data,

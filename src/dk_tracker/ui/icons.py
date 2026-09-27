@@ -60,6 +60,10 @@ _PATHS = {
         '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
         'd="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'
     ),
+    "chart": (  # the summaries (Plan 6): three bars on a base line
+        '<path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+        'd="M4 20h16M7 16v-5M12 16V6M17 16v-8"/>'
+    ),
     "plus": '<path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M12 5v14M5 12h14"/>',
     "check": '<path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/>',
     "clock": (
