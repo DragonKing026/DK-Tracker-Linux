@@ -19,6 +19,7 @@ Natywna, linuksowa wersja firmowej wtyczki przeglądarkowej
   „Cofnij”;
 - podsumowania tygodnia, miesiąca, roku lub zakresu: czas płatny i niepłatny, średnia na dzień roboczy, norma
   dzienna, wykres dni w kolorach projektów, podział wg projektu, klienta i rodzaju pracy;
+- kalendarz dnia lub tygodnia: wpisy jako bloki, nowy wpis przeciągnięciem, przesuwanie i zmiana godzin myszą;
 - ikona w tacce z czasem trwającego wpisu (`47m`, `1:22`), menu: zatrzymaj, wznów ostatni, ustawienia;
 - okno przy ikonie: opis, projekt (z wyszukiwaniem), rodzaj pracy, płatne / niepłatne, godziny „od / do”;
 - ostatnie wpisy pogrupowane po dniach, wznawianie jednym kliknięciem, sumy dnia i tygodnia;

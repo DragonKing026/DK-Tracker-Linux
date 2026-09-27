@@ -5,7 +5,7 @@ tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
 wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-27 12:35
+zaktualizowano: 2026-09-27 14:10
 ---
 
 # Qt 6 / PySide6
@@ -103,6 +103,8 @@ build-options:
 - **`top`, `left` (i inne nazwy kotwic) są właściwościami `Item`** (`FINAL`) — własna właściwość o tej nazwie nie ładuje
   pliku QML
   („Cannot override FINAL property”); skala wykresu nazywa się `scaleTop`.
+- **Delegat przysłania nazwy**: `required property var grid` w delegacie i `grid: grid` przy nim — prawa strona to
+  już właściwość delegata (pusta), nie `id` z zewnątrz; nazwy muszą się różnić (`canvas: grid`, kalendarz 0.10.5).
 - **Wykresy bez QtCharts** (podsumowania, 0.10.3): słupki to prostokąty (`topLeftRadius`/`topRightRadius`
   zaokrąglają tylko górę), pierścień to `Shape` z `ShapePath` i
   [`PathAngleArc`](https://doc.qt.io/qt-6/qml-qtquick-pathanglearc.html) (kąty od godziny 3, zgodnie z ruchem

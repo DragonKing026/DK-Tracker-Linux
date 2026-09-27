@@ -3,7 +3,7 @@ noteId: "58e626bf9a2344179f812d9a43cf1830"
 tytul: Wygląd okna głównego — kolory, kontrolki, układ
 tags: [architektura, ui, qml, wyglad, motyw]
 utworzono: 2026-09-26 18:57
-zaktualizowano: 2026-09-27 13:55
+zaktualizowano: 2026-09-27 14:10
 ---
 
 # Wygląd okna głównego — kolory, kontrolki, układ
@@ -70,6 +70,8 @@ półgrube. Kursor rączki na wszystkim, co się klika.
 | Wykres słupkowy | `BarChart.qml` | linie godzin `divider`, podpisy 11 px `muted`; słupki w kolorach projektów, szew 1 px między warstwami, zaokrąglona góra (3 px); norma — linia przerywana `fg` 55 % (słupki dni) albo kreska nad słupkiem (miesiące); kolumna pod kursorem na tle `control`; dziś — podpis `accent` pogrubiony; dymek (`Popup` w warstwie nad oknem, jak dymek podziału): projekty półgrubo, pod nimi wpisy 12 px z wcięciem |
 | Pierścień | `DonutChart.qml` | grubość 24 px, odstęp 1,2° między wycinkami, tor `divider`; w środku suma (20 px pogrubiona) i podpis `muted`; wycinek pod kursorem o 8 px grubszy, pozostałe na 40 % |
 | Dymek podziału | `ShareTip.qml` | `Popup` w warstwie nad oknem (przewijana strona go nie ucina), obok kursora, nigdy pod nim; nagłówek: kropka, nazwa (zawija się), czas · udział; klient `muted`; linia `divider`; opisy 13 px z czasem `muted` |
+| Blok kalendarza | `CalendarBlock.qml` | tło `bg` z kolorem projektu na 26 % (przeciągany — 42 % i ramka), pasek 3 px w kolorze projektu z lewej, promień 4; opis 12 px półgruby, projekt i godziny 11 px `muted`; kłódka przy wyeksportowanym; kursor: rączka (przesunięcie), strzałki góra–dół (krawędź 6 px) |
+| Dymek kalendarza | `CalendarPopup.qml` | `Popup` w warstwie nad oknem obok bloku, 380 px: godziny, opis, projekt, rodzaj pracy i `$`, linia `divider`, przyciski (Usuń `danger`, ▶, ołówek, Zapisz / Dodaj wpis `primary`) |
 | Wiersz formularza | `FormRow.qml` | etykieta z lewej (130 px, w ustawieniach 230 px; długa zawija się), kontrolka z prawej — w oknie edycji i w ustawieniach |
 
 ## Widoki
@@ -84,7 +86,11 @@ półgrube. Kursor rączki na wszystkim, co się klika.
   `FormRow`: Dzień, Godziny (od – do, czas trwania obok), Projekt, Rodzaj pracy, Płatne (`$` + słowo), Opis, Tagi,
   pola dodatkowe; stopka po linii `divider`: **Usuń** (`danger`, kosz) z lewej, **Anuluj**, **Zapisz**
   (`primary`) z prawej. Kliknięcie obok i Esc zamykają.
-- **Ustawienia**: ten sam `FormRow`, szerokość do 680 px.
+- **Ustawienia**: ten sam `FormRow`, szerokość do 680 px; na dole karta „O programie” (0.10.4).
+- **Kalendarz** (0.10.5, F-37): pasek okresu (`Segmented` Dzień / Tydzień, 5 dni / 7 dni, ◀ nazwa ▶, „Dziś”);
+  nagłówki dni na `surface` (dziś — `accent` pogrubiony) z sumą `muted`; siatka: godziny co 48 px, podpisy 11 px
+  `muted` w kolumnie 56 px, linie `divider`, dziś na tle `surface` 60 %; nowy blok w trakcie przeciągania —
+  `accent` 22 % z ramką; „teraz” — linia 2 px i kropka `danger`.
 - **Podsumowania** (0.10.3, F-36), marginesy 16 px, odstępy 12 px: pasek okresu (`Segmented` Tydzień / Miesiąc / Rok
   / Zakres, ◀ nazwa okresu ▶ — przy zakresie dwa `DateField` — i „Dziś”, wyłączone w bieżącym okresie; zawija się
   w wąskim oknie); rząd kafelków `Card` równej szerokości i wysokości (podpis 12 px `muted`, liczba 22 px

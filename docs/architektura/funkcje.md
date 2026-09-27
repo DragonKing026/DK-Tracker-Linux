@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-27 13:10
+zaktualizowano: 2026-09-27 14:10
 ---
 
 # Katalog funkcji
@@ -272,6 +272,7 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 | F-33 | Wyszukiwanie we wszystkich wpisach Kimai | prośba użytkownika po teście 0.9.0 | **w 0.9.1** ([szczegóły](#f-33-wyszukiwanie-we-wszystkich-wpisach)) |
 | F-34 | Zmiana projektu i rodzaju pracy trwającego wpisu (wtyczka je blokuje) | prośba użytkownika | **w 0.9.1** ([szczegóły](#f-34-zmiana-projektu-i-rodzaju-pracy-trwającego-wpisu)) |
 | F-36 | Podsumowania: okresy, średnie, norma, wykres słupkowy, podział | prośba użytkownika, wzór Toggl Track | **w 0.10.3** ([szczegóły](#f-36-podsumowania-0103)) |
+| F-37 | Kalendarz: tworzenie, przesuwanie i zmiana godzin wpisów przeciąganiem | prośba użytkownika, wzór Toggl Track | **w 0.10.5** ([szczegóły](#f-37-kalendarz-0105)) |
 
 ## F-33 Wyszukiwanie we wszystkich wpisach
 
@@ -302,9 +303,9 @@ Treść nie-JSON przycinana do 200 znaków (bez stack trace'ów w oknie).
 Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/2026-09-26-okno-glowne-0.10.md),
 [Plan 5](../plany/2026-09-26-plan-5-okno-glowne.md)).
 
-- **Pasek boczny**: Wpisy (0.10.0), Podsumowania (0.10.3, F-36); Kalendarz pojawi się w 0.10.5; na dole Ustawienia —
+- **Pasek boczny**: Wpisy (0.10.0), Podsumowania (0.10.3, F-36), Kalendarz (0.10.5, F-37); na dole Ustawienia —
   strona okna głównego (F-01), także z tacki i z okienka; bez konfiguracji okno pokazuje tylko ją. Ostatni wybrany
-  widok (Wpisy albo Podsumowania) otwiera się przy następnym uruchomieniu.
+  widok (Wpisy, Podsumowania albo Kalendarz) otwiera się przy następnym uruchomieniu.
 - **Pasek timera**: opis (F-11), projekt z wyszukiwaniem, rodzaj pracy, `$`, start/stop; przy trwającym wpisie zegar,
   „od” i zmiana opisu, projektu i rodzaju pracy (F-07, F-34). Przełącznik ⏱/✎: dzień, od–do i „Dodaj” (ręczny wpis
   w jednym dniu).
@@ -361,6 +362,30 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 6](../specyfikacja/2026-09-26-
 - Kod: [core/summary.py](../../src/dk_tracker/core/summary.py),
   [ui/main_window/summary_page.py](../../src/dk_tracker/ui/main_window/summary_page.py), `SummaryView.qml`,
   `BarChart.qml`, `DonutChart.qml`. Zadanie: [0070](../../TODO/ZROBIONE/0070-plan6-podsumowania/todo.md).
+
+## F-37 Kalendarz (0.10.5)
+
+Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-okno-glowne-0.10.md#8-kalendarz-0105),
+[Plan 7](../plany/2026-09-27-plan-7-kalendarz.md)).
+
+- **Okres**: Dzień albo Tydzień — 7 dni (od dnia tygodnia z konta Kimai) lub 5 dni (pon.–pt.); ◀ ▶, „Dziś”. Nagłówki
+  dni z sumą dnia. Siatka 0–24 (48 px na godzinę) przewinięta na 7:00 (później, gdy „teraz” by nie było widać);
+  linia „teraz” w dniu dzisiejszym.
+- **Bloki**: wpisy w kolorze projektu (tło przejrzyste, pasek z lewej): opis, projekt · rodzaj pracy, godziny i czas;
+  nakładające się stoją obok siebie; trwający rośnie co minutę; wyeksportowany z kłódką; wpis przez północ — dwa bloki
+  (do 24:00 i od 0:00).
+- **Przeciąganie**: w pustym miejscu — nowy blok i dymek (opis, projekt, rodzaj pracy, `$`, „Dodaj wpis”); środek
+  bloku — przesunięcie (także na inny dzień); krawędź — zmiana godziny początku albo końca; zapis po puszczeniu, blok od
+  razu w nowym miejscu; odmowa Kimai → dni wczytane od nowa (blok wraca) i pasek błędu. Przyciąganie co 15 min, z
+  **Alt** co minutę. Wyeksportowanych, trwających i przechodzących przez północ nie da się przeciągać.
+- **Klik w blok** → dymek: opis, projekt, rodzaj pracy, `$` (Zapisz — jedna zmiana do Kimai), Usuń (pasek „Cofnij”),
+  Wznów, okno edycji; trwający — pola zmieniane jak na pasku timera i „Zatrzymaj”.
+- **Odświeżanie**: co minutę, po akcjach i po wejściu na stronę; w trakcie przeciągania czeka. Bez połączenia bloki
+  widać, przeciąganie wyłączone.
+- Kod: [core/calendar.py](../../src/dk_tracker/core/calendar.py), `Tracker.reschedule` w
+  [core/tracker.py](../../src/dk_tracker/core/tracker.py),
+  [ui/main_window/calendar_page.py](../../src/dk_tracker/ui/main_window/calendar_page.py), `CalendarView.qml`,
+  `CalendarBlock.qml`, `CalendarPopup.qml`. Zadanie: [0073](../../TODO/W-TRAKCIE/0073-plan7-kalendarz/todo.md).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 
