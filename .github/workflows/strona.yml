@@ -1,0 +1,71 @@
+# The project page without a release: GitHub Pages is one deployment holding the page AND the Flatpak
+# repository, so this copies the repository that is online now (verified with the committed public key),
+# signs it again with the same key (flatpak/publikuj.sh) and deploys it together with the new page.
+# The version on the page comes from the newest v* tag, not from an unreleased MetaInfo entry on main.
+# Runs by hand (Actions → Strona → Run workflow) and after a push to main that changes the page.
+# Needs the same secret and Pages setup as wydanie.yml (docs/procesy/wydania.md); actions pinned to commits.
+name: Strona
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - flatpak/strona/**
+      - flatpak/pages.py
+      - data/icons/dk-tracker.svg
+      - docs/assets/zrzuty/okno-ciemny-motyw.png
+permissions:
+  contents: read
+concurrency:
+  group: pages # shared with wydanie.yml: a release and a page update never deploy at the same time
+  cancel-in-progress: false
+env:
+  SITE_URL: https://dragonking026.github.io/DK-Tracker-Linux
+jobs:
+  strona:
+    runs-on: ubuntu-24.04
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11 # ostree, flatpak, gpg (as wydanie.yml)
+      options: --privileged
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0 # the tags: the page shows the released version
+      - name: MetaInfo z ostatniego wydania
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          tag="$(git tag --list 'v*' --sort=-v:refname | head -n 1)"
+          test -n "$tag"
+          git checkout "$tag" -- data/io.github.dragonking026.DK-Tracker-Linux.metainfo.xml
+          echo "Wersja na stronie: $tag"
+      - name: Kopia opublikowanego repozytorium Flatpak
+        run: |
+          ostree --repo=repo init --mode=archive-z2
+          ostree --repo=repo remote add --gpg-import=flatpak/dk-tracker-repo.gpg \
+            --set=gpg-verify-summary=true origin "$SITE_URL/repo/"
+          ostree --repo=repo pull --mirror origin
+          ostree --repo=repo remote delete origin
+          ostree --repo=repo refs
+      - name: Klucz podpisujący repozytorium
+        id: gpg
+        uses: crazy-max/ghaction-import-gpg@e89d40939c28e39f97cf32126055eeae86ba74ec # v6.3.0
+        with:
+          gpg_private_key: ${{ secrets.FLATPAK_GPG_PRIVATE_KEY }}
+      - name: Repozytorium i strona dla GitHub Pages
+        run: flatpak/publikuj.sh repo site "$SITE_URL" "${{ steps.gpg.outputs.fingerprint }}"
+      - uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4.0.0
+        with:
+          path: site
+  pages:
+    needs: strona
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Publikacja na GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5

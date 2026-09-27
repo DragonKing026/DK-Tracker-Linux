@@ -200,12 +200,35 @@ def test_every_action_is_pinned_to_a_commit():
     """A moved tag must not change the code (the release job holds the GPG key); the repo requires it."""
     import re
 
-    for name in ("testy.yml", "wydanie.yml"):
+    for name in ("testy.yml", "wydanie.yml", "strona.yml"):
         for job in workflow(name)["jobs"].values():
             for step in job.get("steps", []):
                 uses = step.get("uses", "")
                 if uses:
                     assert re.fullmatch(r"[\w./-]+@[0-9a-f]{40}", uses), uses
+
+
+def test_page_update_republishes_only_the_repository_signed_with_the_committed_key():
+    """strona.yml copies the online repository; a copy not signed with our key must stop the run."""
+    job = workflow("strona.yml")["jobs"]["strona"]
+    mirror = next(step["run"] for step in job["steps"] if step.get("name", "").startswith("Kopia"))
+    assert "--gpg-import=flatpak/dk-tracker-repo.gpg" in mirror
+    assert "gpg-verify-summary=true" in mirror and "--no-gpg-verify" not in mirror
+    assert "pull --mirror" in mirror
+    publish = next(step["run"] for step in job["steps"] if step.get("name", "").startswith("Repozytorium"))
+    assert publish.startswith("flatpak/publikuj.sh repo site")
+
+
+def test_page_update_and_release_never_deploy_at_the_same_time():
+    assert workflow("strona.yml")["concurrency"]["group"] == workflow("wydanie.yml")["concurrency"]["group"]
+
+
+def test_page_update_gets_write_access_only_where_it_deploys():
+    data = workflow("strona.yml")
+    assert data["permissions"] == {"contents": "read"}
+    assert "permissions" not in data["jobs"]["strona"]  # the job holding the GPG key
+    assert data["jobs"]["pages"]["permissions"] == {"pages": "write", "id-token": "write"}
+    assert data["jobs"]["pages"]["needs"] == "strona"
 
 
 # -- Task 8: the repository signing key (created for the first release) ------------
