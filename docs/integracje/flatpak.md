@@ -5,7 +5,7 @@ tags: [integracja, flatpak, dystrybucja, build]
 status_integracji: planowana
 wersja: Flatpak 1.18 (lokalnie); runtime'y na Flathub stan 2026-09-25
 utworzono: 2026-09-25 17:21
-zaktualizowano: 2026-09-26 11:49
+zaktualizowano: 2026-09-27 12:40
 ---
 
 # Flatpak — format dystrybucji
@@ -87,7 +87,7 @@ identyfikatora, zrzuty ekranu w repozytorium OSTree).
 - [python3-deps.yaml](../../flatpak/python3-deps.yaml) — httpx i jeepney (flatpak-pip-generator).
 - [buduj.sh](../../flatpak/buduj.sh) — budowa lokalna.
 - [publikuj.sh](../../flatpak/publikuj.sh) i [pages.py](../../flatpak/pages.py) — podpis repozytorium OSTree i strona
-  GitHub Pages (`.flatpakrepo`, `.flatpakref`, `index.html`).
+  GitHub Pages (`.flatpakrepo`, `.flatpakref`, strona projektu z [flatpak/strona/](../../flatpak/strona/index.html)).
 - [klucz-gpg.sh](../../flatpak/klucz-gpg.sh) — jednorazowo: klucz podpisujący repozytorium.
 - [.desktop](../../data/io.github.dragonking026.DK-Tracker-Linux.desktop) i
   [MetaInfo](../../data/io.github.dragonking026.DK-Tracker-Linux.metainfo.xml).

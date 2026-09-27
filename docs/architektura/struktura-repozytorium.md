@@ -3,7 +3,7 @@ noteId: "5117ce2da6fb45e692d21f2b5fe80086"
 tytul: Struktura repozytorium
 tags: [architektura, repozytorium]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-26 11:59
+zaktualizowano: 2026-09-27 12:40
 ---
 
 # Struktura repozytorium
@@ -20,11 +20,11 @@ zaktualizowano: 2026-09-26 11:59
 ├── LICENSE                    GPL-3.0-or-later
 ├── .github/
 │   ├── README.md              strona repozytorium na GitHubie (bez frontmattera, treść jak README.md)
-│   └── workflows/             testy.yml (każdy push), wydanie.yml (tag v<wersja> → Flatpak, Pages)
+│   └── workflows/             testy.yml (każdy push), wydanie.yml (tag v<wersja> → Flatpak, Pages), strona.yml (strona bez wydania)
 ├── .gitignore
 ├── pyproject.toml             pakiet dk-tracker, zależności, pytest, ruff
 ├── data/                      .desktop i MetaInfo (AppStream) aplikacji — host i Flatpak
-├── flatpak/                   manifest, python3-deps.yaml, buduj.sh, publikuj.sh + pages.py (Pages), klucz-gpg.sh
+├── flatpak/                   manifest, python3-deps.yaml, buduj.sh, publikuj.sh + pages.py + strona/ (Pages), klucz-gpg.sh
 ├── dist/                      paczki .flatpak z buduj.sh (poza gitem)
 ├── scripts/                   instaluj-dev.sh — .desktop i ikona na hoście na czas rozwoju
 ├── src/dk_tracker/
