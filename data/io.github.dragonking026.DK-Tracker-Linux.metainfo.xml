@@ -39,6 +39,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.4" date="2026-09-27">
+      <description>
+        <p>The settings page ends with "About": the version, the licence and a link to the project page.</p>
+      </description>
+    </release>
     <release version="0.10.3" date="2026-09-27">
       <description>
         <p>Summaries in the main window: a week, month, year or any range of days with the total and billable time,
