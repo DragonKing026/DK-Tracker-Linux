@@ -14,7 +14,7 @@ from typing import Literal
 from .entry_list import first_day_of_week
 from .models import Entry
 from .summary import dates_label
-from .timefmt import elapsed_seconds, local_day
+from .timefmt import elapsed_seconds, local_day, wall_clock
 
 Mode = Literal["day", "week"]
 DAY_MINUTES = 24 * 60
@@ -80,7 +80,7 @@ def layout(entries: Iterable[Entry], days: list[date], tz: tzinfo, now: datetime
             if day in index and stop > start:
                 pieces.append(
                     Block(entry, index[day], start, stop, running=entry.end is None,
-                          continued=day != begin.date(), continues=day != end.date())
+                          continued=day != begin.date(), continues=end > wall_clock(day, DAY_MINUTES, tz))
                 )  # fmt: skip
             day += timedelta(days=1)
     placed: list[Block] = []

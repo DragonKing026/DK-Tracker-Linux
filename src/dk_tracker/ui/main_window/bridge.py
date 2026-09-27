@@ -19,6 +19,7 @@ from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, local_day, sho
 from dk_tracker.core.tracker import Snapshot, live_totals
 
 from ..theme import MAIN_DARK
+from .calendar_page import CalendarPage
 from .models import ActivityModel, EntryListModel, ProjectModel
 from .settings_form import SettingsForm
 from .summary_page import SummaryPage
@@ -60,6 +61,7 @@ class MainBridge(QObject):
         self.rowActivities = ActivityModel(self)
         self.settings_form = SettingsForm(str, self)
         self.summary = SummaryPage(self)  # Plan 6
+        self.calendar = CalendarPage(self)  # Plan 7
         self.undo_ms = UNDO_MS
         # Every key exists from the start: QML warns about a missing one.
         self._view: dict[str, Any] = dict.fromkeys(
@@ -138,6 +140,9 @@ class MainBridge(QObject):
     def _get_summary(self) -> SummaryPage:
         return self.summary
 
+    def _get_calendar(self) -> CalendarPage:
+        return self.calendar
+
     view = Property("QVariantMap", _get_view, notify=viewChanged)
     texts = Property("QVariantMap", _get_texts, notify=textsChanged)
     palette = Property("QVariantMap", _get_palette, notify=paletteChanged)
@@ -149,6 +154,7 @@ class MainBridge(QObject):
     rowActivityList = Property(QObject, _get_row_activities, constant=True)
     settingsForm = Property(QObject, _get_settings_form, constant=True)
     summaryPage = Property(QObject, _get_summary, constant=True)
+    calendarPage = Property(QObject, _get_calendar, constant=True)
     editor = Property("QVariantMap", _get_editor, notify=editorChanged)
     tagOptions = Property("QVariantList", _get_tags, notify=tagsChanged)  # the edit window's tag list
 
@@ -167,6 +173,8 @@ class MainBridge(QObject):
             first_weekday=weekday_index(snapshot.user.first_weekday) if snapshot.user else 0,
             t=t,
         )
+        first_weekday = weekday_index(snapshot.user.first_weekday) if snapshot.user else 0
+        self.calendar.configure(today=local_day(now, tz), first_weekday=first_weekday, t=t, now=now, tz=tz)
         current = snapshot.current
         totals = live_totals(snapshot, now, tz) if snapshot.totals is not None else None
         self._update(
@@ -231,6 +239,10 @@ class MainBridge(QObject):
         """A background load failed; the next load that works clears it (an action's error stays)."""
         self._load_error = text
         self._update(error=self._shown_error())
+
+    def find_entry(self, entry_id: int) -> Entry | None:
+        """An entry of the list or of the calendar (their periods differ)."""
+        return self.entries.entry(entry_id) or self.calendar.entry(entry_id)
 
     def deleted_entry(self, entry_id: int) -> Entry | None:
         """The entry as it was when "Delete" was clicked; the list may have changed since."""
@@ -342,11 +354,12 @@ class MainBridge(QObject):
     @Slot(int)
     def deleteEntry(self, entryId: int) -> None:  # noqa: N802, N803
         self.flush_deletes()  # one undo at a time, as in Toggl
-        entry = self.entries.entry(entryId)
+        entry = self.find_entry(entryId)
         if entry is not None:
             self._doomed[entryId] = entry
         self._pending = entryId
         self.entries.hide_entry(entryId)
+        self.calendar.hide_entry(entryId)
         self._update(undo=self._t("deletedEntry"))
         self._undo_timer.start(self.undo_ms)
 
@@ -356,6 +369,7 @@ class MainBridge(QObject):
             return
         self._undo_timer.stop()
         self.entries.show_entry(self._pending)
+        self.calendar.show_entry(self._pending)
         self._doomed.pop(self._pending, None)
         self._pending = None
         self._update(undo="")
@@ -408,7 +422,7 @@ class MainBridge(QObject):
         self.activitiesRequested.emit(projectId)
 
     def show_page(self, page: str) -> None:
-        """ "entries", "summary" or "settings"; without a configuration there is only the settings page."""
+        """ "entries", "summary", "calendar" or "settings"; without a configuration, the settings only."""
         self._chosen_page = page
         self._update(page=page if self._view["configured"] else "settings")
 

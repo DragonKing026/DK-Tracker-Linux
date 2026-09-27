@@ -347,3 +347,28 @@ def test_a_render_each_second_does_not_redraw_the_summary(bridge, qtbot):
 def test_the_summary_is_a_page(bridge):
     bridge.showPage("summary")
     assert bridge.view["page"] == "summary"
+
+
+# -- the calendar (Plan 7) -----------------------------------------------------------------
+
+
+def test_the_calendar_page_follows_the_day_and_the_clock(bridge):
+    assert bridge.calendarPage is bridge.calendar
+    assert bridge.calendar.days[0] == date(2026, 9, 21)
+    assert bridge.calendar.data["now"] == 18 * 60 + 4
+
+
+def test_a_calendar_entry_is_deleted_with_the_undo_bar(bridge, qtbot):
+    page = bridge.calendar
+    page.request()
+    far = first(9, 77)  # not in the entry list, only in the calendar
+    page.set_entries(page.days[0], page.days[-1], [far], tz=WARSAW, now=NOW)
+    assert bridge.find_entry(77) == far
+    bridge.deleteEntry(77)
+    assert page.data["blocks"] == []
+    bridge.undoDelete()
+    assert len(page.data["blocks"]) == 1
+    with qtbot.waitSignal(bridge.deleteRequested) as sent:
+        bridge.deleteEntry(77)
+    assert sent.args == [77]
+    assert bridge.deleted_entry(77) == far

@@ -151,3 +151,8 @@ def test_minutes_on_the_wall_clock_of_a_day():
 
     assert wall_clock(TODAY, 555, WARSAW) == datetime(2026, 9, 25, 9, 15, tzinfo=WARSAW)
     assert wall_clock(TODAY, 1440, WARSAW) == datetime(2026, 9, 26, 0, 0, tzinfo=WARSAW)
+
+
+def test_an_entry_ending_at_midnight_does_not_go_on():
+    [block] = layout([entry(1, date(2026, 9, 21), 23, 60)], days(), WARSAW, NOW)
+    assert (block.end, block.continues) == (1440, False)

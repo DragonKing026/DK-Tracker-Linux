@@ -455,3 +455,78 @@ def test_the_chosen_view_is_remembered_and_opens_next_time(harness, qtbot):  # n
         assert summary_of(again)["loaded"] is True
     finally:
         again.controller.shutdown()
+
+
+# -- the calendar (Plan 7) ---------------------------------------------------------------
+
+
+def calendar_of(h):
+    return h.controller.main_bridge.calendar
+
+
+def test_the_calendar_loads_its_days_with_the_running_entry(harness):  # noqa: F811
+    h = opened(harness)
+    h.client.add(make_entry(9, NOW - timedelta(minutes=30)))
+    h.controller.refresh_active()
+    h.controller.main_bridge.showPage("calendar")
+    h.settle()
+    blocks = calendar_of(h).data["blocks"]
+    assert {block["id"] for block in blocks} == {1, 2, 9}  # entry 3 is ten days back
+    assert [block["running"] for block in blocks if block["id"] == 9] == [True]
+
+
+def test_a_span_dragged_in_the_calendar_becomes_an_entry(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.showPage("calendar")
+    h.settle()
+    calendar_of(h).create(1, 9 * 60, 10 * 60 + 30, GOOD, 1, 1, None)
+    h.settle()
+    created = [call for call in h.client.calls if call[0] == "create_entry"]
+    assert created[-1][4:6] == ("2026-09-22T09:00:00", "2026-09-22T10:30:00")
+    assert any(block["start"] == 540 and block["day"] == 1 for block in calendar_of(h).data["blocks"])
+
+
+def test_a_block_moved_to_another_day_reaches_kimai(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.showPage("calendar")
+    h.settle()
+    calendar_of(h).move(1, 0, 8 * 60, 9 * 60)
+    h.settle()
+    updates = [call for call in h.client.calls if call[0] == "update"]
+    assert updates[-1] == ("update", 1, {"begin": "2026-09-21T08:00:00", "end": "2026-09-21T09:00:00"})
+    [block] = [block for block in calendar_of(h).data["blocks"] if block["id"] == 1]
+    assert (block["day"], block["start"]) == (0, 480)
+
+
+def test_a_refused_move_puts_the_block_back_with_the_reason(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.showPage("calendar")
+    h.settle()
+    before = [block for block in calendar_of(h).data["blocks"] if block["id"] == 1]
+    h.client.fail["update"] = [ApiError(ErrorKind.FORBIDDEN, 403)]
+    calendar_of(h).move(1, 0, 8 * 60, 9 * 60)
+    h.settle()
+    assert [block for block in calendar_of(h).data["blocks"] if block["id"] == 1] == before
+    assert h.controller.main_bridge.view["error"] != ""
+
+
+def test_a_calendar_entry_is_deleted_resumed_and_edited_like_a_row(harness, qtbot):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.showPage("calendar")
+    h.settle()
+    bridge = h.controller.main_bridge
+    bridge.editDescription(2, f"{GOOD} — poprawione")
+    h.settle()
+    assert [call for call in h.client.calls if call[0] == "update"][-1][2] == {
+        "description": f"{GOOD} — poprawione"
+    }
+    bridge.resume(1)
+    h.settle()
+    assert h.state.snapshot.current is not None
+
+
+def test_the_calendar_is_a_view_to_come_back_to(harness):  # noqa: F811
+    h = opened(harness)
+    h.controller.main_bridge.showPage("calendar")
+    h.settle()
+    assert h.saved_memory[-1].main_view == "calendar"
