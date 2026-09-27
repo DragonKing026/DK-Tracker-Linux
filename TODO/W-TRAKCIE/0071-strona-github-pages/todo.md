@@ -2,7 +2,7 @@
 noteId: "0aa1cca8835b43f7a7b6b2785ac30284"
 tytul: "Strona projektu na GitHub Pages — nowy wygląd i workflow „Strona”"
 numer: "0071"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p2
 tags: [todo, strona, github-pages, flatpak]
 zalezy_od: []
@@ -14,7 +14,7 @@ zamknieto:
 # 0071 — Strona projektu na GitHub Pages — nowy wygląd i workflow „Strona”
 
 > [!info] Status
-> **do zrobienia** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -67,6 +67,7 @@ opublikować bez wydawania nowej wersji aplikacji.
 
 - Utworzono zadanie. Praca w worktree `.claude/worktrees/strona` (gałąź `strona` od `origin/main`), bo główny katalog
   zajmuje inna sesja.
+- **11:53** Start pracy: projekt strony i workflow „Strona”.
 
 ## Wynik
 
