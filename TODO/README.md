@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-27 13:44
+zaktualizowano: 2026-09-27 14:02
 ---
 
 # Tablica zadań
@@ -25,6 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
+| 0074 | [Opis DK Tracker jako pełnego klienta Kimai: README, dokumentacja, strona, zrzuty](W-TRAKCIE/0074-opis-pelnej-aplikacji/todo.md) | 🔨 w-trakcie | p1 | [0073](ZROBIONE/0073-plan7-kalendarz/todo.md) ✅ |
 
 ## Do zrobienia
 
