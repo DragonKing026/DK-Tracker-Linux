@@ -161,7 +161,7 @@
   "sumNoName": "(bez nazwy)",
   "sumOthers": "Pozostałe",
   "optDailyNorm": "Norma dzienna (godziny)",
-  "optDailyNormHint": "Podsumowania porównują z nią średnią na dzień. 0 — bez normy.",
+  "optDailyNormHint": "Podsumowania porównują z nią średnią na dzień roboczy. 0 — bez normy.",
   "viewSummary": "Podsumowania",
   "sumWeek": "Tydzień",
   "sumMonth": "Miesiąc",
@@ -188,5 +188,10 @@
   "sumNext": "Następny okres",
   "sumNoDescription": "(bez opisu)",
   "sumMore": "+ {count} więcej",
-  "sumDaysLine": "Dni robocze: {work} · z wpisami: {count}"
+  "sumDaysLine": "Dni robocze: {work} · z wpisami: {count}",
+  "optVersion": "wersja {version}",
+  "optAbout": "O programie",
+  "optAboutText": "Mierzenie czasu w Kimai z tacki systemowej i okna na pulpicie Linuksa. Niezależny projekt, nie jest oficjalną aplikacją Kimai.",
+  "optLicense": "Licencja GPL-3.0-or-later · bez telemetrii — łączy się tylko z Twoim Kimai.",
+  "optHomepage": "Strona projektu"
 }

@@ -161,7 +161,7 @@
   "sumNoName": "(no name)",
   "sumOthers": "Others",
   "optDailyNorm": "Daily norm (hours)",
-  "optDailyNormHint": "Summaries compare the daily average with it. 0 — no norm.",
+  "optDailyNormHint": "Summaries compare the average per working day with it. 0 — no norm.",
   "viewSummary": "Summaries",
   "sumWeek": "Week",
   "sumMonth": "Month",
@@ -188,5 +188,10 @@
   "sumNext": "Next period",
   "sumNoDescription": "(no description)",
   "sumMore": "+ {count} more",
-  "sumDaysLine": "Working days: {work} · with entries: {count}"
+  "sumDaysLine": "Working days: {work} · with entries: {count}",
+  "optVersion": "version {version}",
+  "optAbout": "About",
+  "optAboutText": "Time tracking in Kimai from the system tray and a window on the Linux desktop. An independent project, not an official Kimai app.",
+  "optLicense": "GPL-3.0-or-later licence · no telemetry — it talks only to your Kimai.",
+  "optHomepage": "Project page"
 }

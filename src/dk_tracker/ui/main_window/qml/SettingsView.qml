@@ -209,7 +209,6 @@ ScrollView {
         Rectangle { Layout.fillWidth: true; Layout.topMargin: 4; implicitHeight: 1; color: app.palette.divider }
 
         RowLayout {
-            Layout.bottomMargin: 24
             spacing: 8
             Btn {
                 objectName: "settingsTest"
@@ -224,6 +223,73 @@ ScrollView {
                 text: app.texts.optSave || ""
                 enabled: !page.form.busy
                 onClicked: app.settingsForm.save(page.values(), token.text)
+            }
+        }
+
+        // About (0.10.4): what this is, which version, the licence and where it lives.
+        Card {
+            objectName: "settingsAbout"
+            Layout.fillWidth: true
+            Layout.bottomMargin: 24
+            implicitHeight: about.implicitHeight + 32
+            RowLayout {
+                id: about
+                x: 16
+                y: 16
+                width: parent.width - 32
+                spacing: 16
+                Image {
+                    Layout.alignment: Qt.AlignTop
+                    source: "image://icons/mark/" + app.palette.fg.toString().slice(1, 7)
+                    sourceSize.width: 48
+                    sourceSize.height: 48
+                }
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 4
+                    Label {
+                        text: app.texts.optAbout || ""
+                        font.pixelSize: 12
+                        color: app.palette.muted
+                    }
+                    RowLayout {
+                        spacing: 10
+                        Label {
+                            text: app.texts.appName || "DK Tracker"
+                            font.pixelSize: 17
+                            font.weight: Font.Bold
+                            color: app.palette.fg
+                        }
+                        Label {
+                            objectName: "settingsVersion"
+                            Layout.alignment: Qt.AlignBaseline
+                            text: (app.texts.optVersion || "{version}").replace("{version}", page.form.version)
+                            color: app.palette.muted
+                        }
+                    }
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.Wrap
+                        text: app.texts.optAboutText || ""
+                        color: app.palette.fg
+                    }
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.Wrap
+                        text: app.texts.optLicense || ""
+                        font.pixelSize: 12
+                        color: app.palette.muted
+                    }
+                    Btn {
+                        objectName: "settingsHomepage"
+                        Layout.topMargin: 6
+                        variant: "flat"
+                        leftPadding: 0
+                        glyph: "external"
+                        text: app.texts.optHomepage || ""
+                        onClicked: Qt.openUrlExternally(page.form.homepage)
+                    }
+                }
             }
         }
     }

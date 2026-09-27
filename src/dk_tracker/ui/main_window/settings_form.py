@@ -14,10 +14,12 @@ from typing import Any
 
 from PySide6.QtCore import Property, QObject, Signal, Slot
 
+from dk_tracker import __version__
 from dk_tracker.core.settings import Settings
 
 LANGUAGES = (("auto", "optLangAuto"), ("pl", "optLangPl"), ("en", "optLangEn"))
 THEMES = (("auto", "optThemeAuto"), ("light", "optThemeLight"), ("dark", "optThemeDark"))
+HOMEPAGE = "https://github.com/DragonKing026/DK-Tracker-Linux"  # as in the MetaInfo
 
 
 class SettingsForm(QObject):
@@ -134,5 +136,7 @@ class SettingsForm(QObject):
             "status": self._status,
             "okStatus": self._status_ok,
             "busy": self._busy,
+            "version": __version__,  # "about" (0.10.4)
+            "homepage": HOMEPAGE,
         }
         self.formChanged.emit()

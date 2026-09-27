@@ -134,3 +134,11 @@ def test_the_daily_norm_is_shown_and_saved(form, qtbot):
     with qtbot.waitSignal(form.saveRequested) as sent:
         form.save(values(dailyNorm=0.0), "")
     assert sent.args[0].daily_norm_hours == 0.0
+
+
+def test_the_about_section_has_the_version_and_the_project_page(form):
+    """0.10.4: the user asked for "about" and the version in the settings."""
+    from dk_tracker import __version__
+
+    assert form.form["version"] == __version__
+    assert form.form["homepage"] == "https://github.com/DragonKing026/DK-Tracker-Linux"
