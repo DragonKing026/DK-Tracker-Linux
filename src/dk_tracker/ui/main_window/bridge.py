@@ -15,12 +15,13 @@ from PySide6.QtCore import Property, QObject, QTimer, Signal, Slot
 from dk_tracker.core.entry_list import ListRow
 from dk_tracker.core.errors import describe
 from dk_tracker.core.models import Activity, Entry, EntryDetails, Project, Tag
-from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, short_duration
+from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, local_day, short_duration, weekday_index
 from dk_tracker.core.tracker import Snapshot, live_totals
 
 from ..theme import MAIN_DARK
 from .models import ActivityModel, EntryListModel, ProjectModel
 from .settings_form import SettingsForm
+from .summary_page import SummaryPage
 
 UNDO_MS = 6000
 
@@ -57,6 +58,7 @@ class MainBridge(QObject):
         self.activities = ActivityModel(self)
         self.rowActivities = ActivityModel(self)
         self.settings_form = SettingsForm(str, self)
+        self.summary = SummaryPage(self)  # Plan 6
         self.undo_ms = UNDO_MS
         # Every key exists from the start: QML warns about a missing one.
         self._view: dict[str, Any] = dict.fromkeys(
@@ -132,6 +134,9 @@ class MainBridge(QObject):
     def _get_settings_form(self) -> SettingsForm:
         return self.settings_form
 
+    def _get_summary(self) -> SummaryPage:
+        return self.summary
+
     view = Property("QVariantMap", _get_view, notify=viewChanged)
     texts = Property("QVariantMap", _get_texts, notify=textsChanged)
     palette = Property("QVariantMap", _get_palette, notify=paletteChanged)
@@ -142,6 +147,7 @@ class MainBridge(QObject):
     activityList = Property(QObject, _get_activities, constant=True)
     rowActivityList = Property(QObject, _get_row_activities, constant=True)
     settingsForm = Property(QObject, _get_settings_form, constant=True)
+    summaryPage = Property(QObject, _get_summary, constant=True)
     editor = Property("QVariantMap", _get_editor, notify=editorChanged)
     tagOptions = Property("QVariantList", _get_tags, notify=tagsChanged)  # the edit window's tag list
 
@@ -155,6 +161,11 @@ class MainBridge(QObject):
             messages = getattr(t, "messages", None)
             self._texts = messages() if messages else {}
             self.textsChanged.emit()
+        self.summary.configure(
+            today=local_day(now, tz),
+            first_weekday=weekday_index(snapshot.user.first_weekday) if snapshot.user else 0,
+            t=t,
+        )
         current = snapshot.current
         totals = live_totals(snapshot, now, tz) if snapshot.totals is not None else None
         self._update(
@@ -396,7 +407,7 @@ class MainBridge(QObject):
         self.activitiesRequested.emit(projectId)
 
     def show_page(self, page: str) -> None:
-        """ "entries" or "settings"; without a configuration there is only the settings page."""
+        """ "entries", "summary" or "settings"; without a configuration there is only the settings page."""
         self._chosen_page = page
         self._update(page=page if self._view["configured"] else "settings")
 

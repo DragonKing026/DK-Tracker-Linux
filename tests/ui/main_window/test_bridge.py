@@ -323,3 +323,27 @@ def test_settings_chosen_by_the_user_stay_through_a_refresh(bridge):
     bridge.show_page("settings")
     bridge.render(SNAPSHOT, configured=True, t=PL, now=NOW, tz=WARSAW)
     assert bridge.view["page"] == "settings"
+
+
+# -- the summaries (Plan 6) ---------------------------------------------------------------
+
+
+def test_the_summary_page_follows_the_day_the_account_and_the_language(bridge, qtbot):
+    assert bridge.summaryPage is bridge.summary
+    assert bridge.summary.span.first == date(2026, 9, 21)  # this week, from Monday
+    sunday_user = replace(CLIENT.user, first_weekday="sunday")
+    bridge.render(
+        replace(SNAPSHOT, user=sunday_user), configured=True, t=Translator("en"), now=NOW, tz=WARSAW
+    )
+    assert bridge.summary.span.first == date(2026, 9, 20)
+    assert bridge.summary.data["label"] == "20 – 26 Sep 2026"
+
+
+def test_a_render_each_second_does_not_redraw_the_summary(bridge, qtbot):
+    with qtbot.assertNotEmitted(bridge.summary.dataChanged):
+        bridge.render(SNAPSHOT, configured=True, t=PL, now=NOW + timedelta(seconds=1), tz=WARSAW)
+
+
+def test_the_summary_is_a_page(bridge):
+    bridge.showPage("summary")
+    assert bridge.view["page"] == "summary"
