@@ -4,7 +4,7 @@ tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
 status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-27 13:40
+zaktualizowano: 2026-09-27 13:55
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
@@ -123,7 +123,9 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
   podnosi (decyzje użytkownika po teście na żywo 2026-09-27: bez średniej na tydzień i na miesiąc, nie ÷ dni z
   wpisami); liczba dni roboczych i dni z wpisami; porównanie średniej z **normą** (np. „Norma 8:00 · −0:20”).
 - **Wykres słupkowy**: tydzień/miesiąc — słupek na dzień, rok — na miesiąc; słupki podzielone kolorami projektów;
-  linia normy (dzień: norma; miesiąc w widoku roku: norma × dni robocze miesiąca do dziś); dymek z rozbiciem.
+  linia normy (dzień: norma; miesiąc w widoku roku: norma × dni robocze miesiąca do dziś); dymek z projektami, a pod
+  każdym jego wpisy (opis i czas;
+  słupek dnia do 10, miesiąca do 3 na projekt).
 - **Dymek podziału** (test na żywo 2026-09-27, jak w Togglu): najechanie na wycinek pierścienia albo wiersz tabeli
   pokazuje, co w nim jest — opisy wpisów z sumą czasu, od największej (10 i „+ N więcej”); wycinek i wiersz
   podświetlają się razem.

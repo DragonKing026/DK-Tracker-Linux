@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-27 13:40
+zaktualizowano: 2026-09-27 13:55
 ---
 
 # Katalog funkcji
@@ -347,7 +347,8 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 6](../specyfikacja/2026-09-26-
   Decyzje użytkownika po teście na żywo.
 - **Wykres słupkowy**: słupek na dzień (tydzień, miesiąc, zakres do 62 dni) albo na miesiąc (rok, dłuższy zakres);
   warstwy w kolorach projektów (kolejność jak w podziale, największy projekt okresu na dole); norma — przerywana
-  linia albo kreska nad słupkiem miesiąca (norma × dni robocze miesiąca do dziś); dymek z projektami słupka.
+  linia albo kreska nad słupkiem miesiąca (norma × dni robocze miesiąca do dziś); dymek z projektami słupka i wpisami
+  każdego z nich (opis i czas; słupek dnia do 10, miesiąca do 3 na projekt).
 - **Podział**: pierścień (8 największych, reszta jako „Pozostałe”) i tabela wg projektu (z klientem), klienta albo
   rodzaju pracy: czas, udział, w tym płatne. Kolory i klient z wpisów (`full=true`, `color-safe` jak w Kimai).
   Najechanie na wycinek albo wiersz: dymek z opisami wpisów i ich czasem, od największego (10 i „+ N więcej”), jak w

@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, ui, qml, okno-glowne, podsumowania, wydanie]
 zalezy_od: ["0069-plan5-okno-glowne"]
 utworzono: 2026-09-27 11:41
-zaktualizowano: 2026-09-27 13:40
+zaktualizowano: 2026-09-27 13:55
 zamknieto:
 ---
 
@@ -89,6 +89,9 @@ Galeria bez ekranu (`grabWindow`), dane wymyślone — skrypt: [testy/galeria.py
 - **13:40** Dalej test na żywo: (1) średnia jednak ÷ **dni robocze** (pon.–pt., do dziś) — ÷ dni z wpisami
   obniżało ją po pracy w sobotę; norma przy miesiącach też z dni roboczych; (2) najechanie na wycinek pierścienia
   albo wiersz tabeli pokazuje dymek z opisami wpisów i ich czasem, jak w Togglu. Testy: 690.
+
+- **13:55** Test na żywo: dymek słupka ma wyliczać wpisy — pod każdym projektem opisy z czasem (dzień do 10,
+  miesiąc do 3 na projekt, żeby zmieścić się w oknie 560 px). Testy: 692.
 
 ## Wynik
 

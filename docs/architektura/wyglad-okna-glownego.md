@@ -3,7 +3,7 @@ noteId: "58e626bf9a2344179f812d9a43cf1830"
 tytul: Wygląd okna głównego — kolory, kontrolki, układ
 tags: [architektura, ui, qml, wyglad, motyw]
 utworzono: 2026-09-26 18:57
-zaktualizowano: 2026-09-27 13:40
+zaktualizowano: 2026-09-27 13:55
 ---
 
 # Wygląd okna głównego — kolory, kontrolki, układ
@@ -67,7 +67,7 @@ półgrube. Kursor rączki na wszystkim, co się klika.
 | Okno / lista rozwijana | `Panel.qml` | `panel`, ramka `border`, promień 8 |
 | Karta | `Card.qml` | `surface`, ramka `divider`, promień 8 — kafelek z liczbą, wykres, podział (podsumowania) |
 | Przełącznik | `Segmented.qml` | przyciski w jednej ramce jak przycisk (`control`, `border`); wybrany: tekst półgruby i ramka `accent`; między dwoma niewybranymi cienka kreska `border` |
-| Wykres słupkowy | `BarChart.qml` | linie godzin `divider`, podpisy 11 px `muted`; słupki w kolorach projektów, szew 1 px między warstwami, zaokrąglona góra (3 px); norma — linia przerywana `fg` 55 % (słupki dni) albo kreska nad słupkiem (miesiące); kolumna pod kursorem na tle `control`; dziś — podpis `accent` pogrubiony; dymek w `Panel` |
+| Wykres słupkowy | `BarChart.qml` | linie godzin `divider`, podpisy 11 px `muted`; słupki w kolorach projektów, szew 1 px między warstwami, zaokrąglona góra (3 px); norma — linia przerywana `fg` 55 % (słupki dni) albo kreska nad słupkiem (miesiące); kolumna pod kursorem na tle `control`; dziś — podpis `accent` pogrubiony; dymek (`Popup` w warstwie nad oknem, jak dymek podziału): projekty półgrubo, pod nimi wpisy 12 px z wcięciem |
 | Pierścień | `DonutChart.qml` | grubość 24 px, odstęp 1,2° między wycinkami, tor `divider`; w środku suma (20 px pogrubiona) i podpis `muted`; wycinek pod kursorem o 8 px grubszy, pozostałe na 40 % |
 | Dymek podziału | `ShareTip.qml` | `Popup` w warstwie nad oknem (przewijana strona go nie ucina), obok kursora, nigdy pod nim; nagłówek: kropka, nazwa (zawija się), czas · udział; klient `muted`; linia `divider`; opisy 13 px z czasem `muted` |
 | Wiersz formularza | `FormRow.qml` | etykieta z lewej (130 px, w ustawieniach 230 px; długa zawija się), kontrolka z prawej — w oknie edycji i w ustawieniach |
