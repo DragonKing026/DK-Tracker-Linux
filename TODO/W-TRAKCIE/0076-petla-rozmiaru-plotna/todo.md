@@ -7,7 +7,7 @@ priorytet: p0
 tags: [todo, bug, okno-przy-tacce, awaria]
 zalezy_od: ["0066-plotno-okna-przy-tacce"]
 utworzono: 2026-09-28 10:30
-zaktualizowano: 2026-09-28 10:30
+zaktualizowano: 2026-09-28 10:42
 zamknieto:
 ---
 
@@ -33,16 +33,16 @@ Kliknięcie ikony w tacce nie wywraca aplikacji (SIGSEGV), gdy zawartość okna 
 
 ## Kryteria akceptacji
 
-- [ ] Test: zawartość wyższa niż panel nie powiększa płótna; panel rośnie do minimum zawartości (w granicach płótna)
+- [x] Test: zawartość wyższa niż panel nie powiększa płótna; panel rośnie do minimum zawartości (w granicach płótna)
 - [ ] Flatpak / system: kliknięcie ikony przy tym stanie nie wywraca aplikacji
-- [ ] Dokumentacja zaktualizowana
-- [ ] Wydanie z poprawką
+- [x] Dokumentacja zaktualizowana
+- [x] Wydanie z poprawką
 
 ## Kroki
 
-- [ ] W trybie płótna układ nie ustala minimum okna (`SetNoConstraint`)
-- [ ] Panel nie niższy niż minimum zawartości; także gdy zawartość rośnie (LayoutRequest)
-- [ ] Wydanie 0.10.8
+- [x] W trybie płótna układ nie ustala minimum okna (`SetNoConstraint`)
+- [x] Panel nie niższy niż minimum zawartości; także gdy zawartość rośnie (LayoutRequest)
+- [x] Wydanie 0.10.8
 
 ## Materiały
 
@@ -55,6 +55,13 @@ Kliknięcie ikony w tacce nie wywraca aplikacji (SIGSEGV), gdy zawartość okna 
 - Utworzono zadanie. Przyczyna ustalona pomiarem w Flatpaku (A/B: z i bez `wantsToBeOnActiveScreen`, kod 0.10.6
   i 0.10.7 w tym samym środowisku — pętla wszędzie).
 - **10:30** Start pracy.
+
+### 2026-09-28 10:42
+
+- Poprawka `1776709` (test pada bez niej), dokumentacja `65ccb9c`
+  ([layer-shell-qt](../../../docs/integracje/layer-shell-qt.md)), wydanie 0.10.8 `22e0671`; strona 0.10.7 usunięta.
+- Zainstalowana 0.10.8 z zapamiętanym stanem użytkownika: pokaż/schowaj ×2 bez awarii (jedna zmiana rozmiaru płótna).
+  Czeka na potwierdzenie prawdziwym kliknięciem ikony.
 
 ## Wynik
 
