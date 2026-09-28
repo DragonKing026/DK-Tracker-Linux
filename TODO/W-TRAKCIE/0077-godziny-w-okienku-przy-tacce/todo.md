@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, okno-przy-tacce, wyglad]
 zalezy_od: []
 utworzono: 2026-09-28 12:43
-zaktualizowano: 2026-09-28 12:43
+zaktualizowano: 2026-09-28 13:10
 zamknieto:
 ---
 
@@ -33,23 +33,30 @@ oknie głównym: godzinę się wybiera, nie wpisuje. Wszystko, co da się klikn�
 
 ## Kryteria akceptacji
 
-- [ ] OD i DO w jednym wierszu razem z podpowiedzią „puste = teraz”
-- [ ] Godzinę wybiera się z listy godzin i minut (jak w oknie głównym); DO da się wyczyścić (= teraz)
-- [ ] Zmiana OD zapisuje godzinę rozpoczęcia, DO jest brane przy stopie — jak dotąd
-- [ ] Kursor rączki nad przyciskami, listami, polami wyboru godziny i wierszami wpisów
-- [ ] Testy i dokumentacja zaktualizowane
+- [x] OD i DO w jednym wierszu razem z podpowiedzią „puste = teraz”
+- [x] Godzinę wybiera się z listy godzin i minut (jak w oknie głównym); DO da się wyczyścić (= teraz)
+- [x] Zmiana OD zapisuje godzinę rozpoczęcia, DO jest brane przy stopie — jak dotąd
+- [x] Kursor rączki nad przyciskami, listami, polami wyboru godziny i wierszami wpisów
+- [x] Testy i dokumentacja zaktualizowane
 - [ ] Zmiany zacommitowane małymi krokami
 
 ## Kroki
 
-- [ ] Widżet wyboru godziny (`TimePicker`) z testami
-- [ ] Wiersz OD/DO w formularzu
-- [ ] Kursor rączki
-- [ ] Dokumentacja
+- [x] Widżet wyboru godziny (`TimePicker`) z testami
+- [x] Wiersz OD/DO w formularzu
+- [x] Kursor rączki
+- [x] Dokumentacja
 
 ## Materiały
 
 ![Przed: pola OD/DO w trzech wierszach, wpisywane](zrzuty/przed-pola-od-do.png)
+
+Po zmianie (render offscreen, ciemny i jasny motyw):
+
+![Po: OD i DO w jednym wierszu, ciemny](zrzuty/po-okno-dark.png)
+![Po: OD i DO w jednym wierszu, jasny](zrzuty/po-okno-light.png)
+![Po: lista godzin i minut, ciemna](zrzuty/po-lista-dark.png)
+![Po: lista godzin i minut, jasna](zrzuty/po-lista-light.png)
 
 ## Dziennik
 
@@ -57,6 +64,13 @@ oknie głównym: godzinę się wybiera, nie wpisuje. Wszystko, co da się klikn�
 
 - Utworzono zadanie.
 - **12:43** Start pracy.
+
+### 2026-09-28 13:10
+
+- `TimePicker` ([time_picker.py](../../../src/dk_tracker/ui/time_picker.py)): przycisk z zegarem, lista godzin
+  i minut, zmiana zgłaszana raz po zamknięciu listy, „Teraz” czyści koniec. OD/DO w jednym wierszu.
+- Kursor rączki: przyciski formularza i nagłówka, listy, wiersze wpisów, lista projektów.
+- Testy: 757 zielonych. Czeka na sprawdzenie przez użytkownika na KDE (lista w warstwie layer-shell).
 
 ## Wynik
 
