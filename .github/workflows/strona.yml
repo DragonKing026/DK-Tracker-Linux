@@ -3,6 +3,8 @@
 # signs it again with the same key (flatpak/publikuj.sh) and deploys it together with the new page.
 # The version on the page comes from the newest v* tag, not from an unreleased MetaInfo entry on main.
 # Runs by hand (Actions → Strona → Run workflow) and after a push to main that changes the page.
+# Not for a commit that carries a v* tag: the release (wydanie.yml) deploys that commit's page itself, and
+# Pages keeps the first deployment of a commit — a page run first would hide the new release (0.10.9).
 # Needs the same secret and Pages setup as wydanie.yml (docs/procesy/wydania.md); actions pinned to commits.
 name: Strona
 on:
@@ -22,7 +24,23 @@ concurrency:
 env:
   SITE_URL: https://dragonking026.github.io/DK-Tracker-Linux
 jobs:
+  wydanie:
+    runs-on: ubuntu-24.04
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 0
+      - name: Czy ten commit to wydanie
+        id: tag
+        run: |
+          tag="$(git tag --points-at HEAD --list 'v*' | head -n 1)"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          if [ -n "$tag" ]; then echo "Commit ma tag $tag — stronę publikuje wydanie."; fi
   strona:
+    needs: wydanie
+    if: needs.wydanie.outputs.tag == ''
     runs-on: ubuntu-24.04
     container:
       image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11 # ostree, flatpak, gpg (as wydanie.yml)

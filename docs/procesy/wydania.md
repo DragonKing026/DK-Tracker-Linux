@@ -60,6 +60,9 @@ Jak wydać nową wersję DK Tracker i jak ją zainstalować. Decyzja o dystrybuc
 6. Sama strona projektu (bez nowej wersji aplikacji) wychodzi workflow **Strona**
    ([strona.yml](../../.github/workflows/strona.yml), [GitHub Pages](../integracje/github-pages.md)): sama po pushu
    zmiany strony na `main` albo `gh workflow run strona.yml`. Nie w trakcie wydania — oba dzielą kolejkę Pages.
+   Commit z tagiem `v*` pomija: jego stronę publikuje wydanie. GitHub Pages zostawia **pierwsze** wdrożenie danego
+   commita — przy 0.10.9 (`main` i tag na tym samym commicie) „Strona” wdrożyła się pierwsza z kopią repozytorium
+   0.10.8 i wydanie nie dotarło do `flatpak update` (naprawione wydaniem 0.10.10).
 7. Sprawdzenie: wydanie na GitHubie z plikiem `io.github.dragonking026.DK-Tracker-Linux-v<wersja>.flatpak`, strona
    <https://dragonking026.github.io/DK-Tracker-Linux/>, `flatpak update` u siebie.
 
