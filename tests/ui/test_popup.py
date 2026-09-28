@@ -352,6 +352,28 @@ def test_grip_on_the_layer_canvas_follows_the_pointer_exactly(window, qtbot):
     assert signal.args == [QSize(482, 512)]
 
 
+def test_layer_canvas_never_grows_when_the_content_is_taller_than_the_panel(window, qtbot):
+    """0076: a panel remembered lower than its content (dragged to 420 px, the form 306 px tall) made
+    the layout grow the canvas, the top margin grow with it, and so on until Wayland had no buffer."""
+    from PySide6.QtCore import QSize
+
+    _, popup = window
+    popup.set_placement("layer")
+    popup.set_preferred_size(QSize(630, 420))
+    popup.header.setMinimumHeight(300)  # the content now needs more than 420 px
+    popup.show()
+    qtbot.wait(50)
+    canvas = layer_canvas(popup)
+    content = popup.layout().minimumSize().height() - popup.layout().contentsMargins().top()
+    assert popup.size() == canvas
+    assert popup.panel_size().height() >= content > 420
+    assert popup.panel_rect().bottom() == canvas.height() - 1
+    popup.header.setMinimumHeight(400)  # grows while open, as a description does line by line
+    qtbot.waitUntil(lambda: popup.panel_size().height() >= content + 100, timeout=1000)
+    assert popup.size() == canvas
+    assert popup.mask().boundingRect() == popup.panel_rect()
+
+
 class FakeScreen:
     def __init__(self, width, height):
         from PySide6.QtCore import QRect

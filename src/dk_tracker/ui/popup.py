@@ -18,6 +18,7 @@ from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QLabel,
+    QLayout,
     QPushButton,
     QSizePolicy,
     QToolButton,
@@ -299,6 +300,13 @@ class QuickWindow(QWidget):
         self._canvas = mode == "layer"
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground, self._canvas)
         self.backdrop.setVisible(self._canvas)
+        # On the canvas the layout's margin follows the canvas size: letting the layout set the window's
+        # minimum grew the canvas, then the margin, and so on until no buffer was left (0076).
+        self.layout().setSizeConstraint(
+            QLayout.SizeConstraint.SetNoConstraint
+            if self._canvas
+            else QLayout.SizeConstraint.SetDefaultConstraint
+        )
         if self._canvas:
             self.setMinimumSize(0, 0)
             self._follow_screen()
@@ -363,14 +371,20 @@ class QuickWindow(QWidget):
         if not self._canvas:
             self.resize(size)
             return
-        self._panel = QSize(size)
         canvas = self._canvas_size()
+        self._panel = size.expandedTo(self._content_minimum()).boundedTo(canvas)
         if self.size() != canvas:
             self.resize(canvas)  # once; the resize event places the panel
         else:
             self._place_panel()
         if self.isVisible() and not self._compact:
             self._size_timer.start(self.size_report_ms)
+
+    def _content_minimum(self) -> QSize:
+        """The least the panel's content needs (the layout's minimum without the canvas margins)."""
+        layout = self.layout()
+        margins = layout.contentsMargins()
+        return layout.minimumSize().shrunkBy(margins)
 
     def _place_panel(self) -> None:
         rect = self.panel_rect()
@@ -436,6 +450,12 @@ class QuickWindow(QWidget):
         super().keyPressEvent(event)
 
     def event(self, event: QEvent) -> bool:
+        if event.type() == QEvent.Type.LayoutRequest and self._canvas:
+            # Content grown taller than the panel (a longer description): the panel grows, not the canvas.
+            result = super().event(event)
+            if self._panel != self._panel.expandedTo(self._content_minimum()).boundedTo(self._canvas_size()):
+                self._set_panel(self._panel)
+            return result
         if event.type() == QEvent.Type.WindowDeactivate and self.hide_on_deactivate:
             # A combo box list is a popup of our own: wait a moment and look again.
             QTimer.singleShot(150, self._hide_if_left)
