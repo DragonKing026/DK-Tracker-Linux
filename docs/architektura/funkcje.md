@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-09-27 14:55
+zaktualizowano: 2026-09-28 13:05
 ---
 
 # Katalog funkcji
@@ -88,7 +88,7 @@ stateDiagram-v2
 ## F-05 Stop timera
 
 - Bez godziny końca → `PATCH /api/timesheets/{id}/stop`.
-- Z wpisaną godziną „do” → `PATCH /api/timesheets/{id}` z `end` (ten sam dzień co
+- Z wybraną godziną „do” → `PATCH /api/timesheets/{id}` z `end` (ten sam dzień co
   początek). Walidacja: koniec > początek (`errEndBeforeBegin`).
 
 Źródło: `popup.js#stopTracking`.
@@ -127,6 +127,13 @@ stateDiagram-v2
 
 Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 Źródło: `popup.js#saveDescription`, `#onBeginChange`, `#onBillableClick`.
+
+- **W aplikacji (prośba użytkownika, poza wtyczką):** początku i końca się nie wpisuje, tylko wybiera — przycisk
+  z zegarem otwiera listę godzin i minut (co 5 min; minuta z Kimai spoza kroku też jest na liście), jak w oknie
+  głównym. Godzina zostawia listę otwartą, minuta ją zamyka; zmiana idzie do Kimai raz, po zamknięciu listy. Koniec
+  czyści przycisk „Teraz”. „Od”, „do” i „puste = teraz” stoją w jednym wierszu —
+  [ui/time_picker.py](../../src/dk_tracker/ui/time_picker.py),
+  [0077](../../TODO/W-TRAKCIE/0077-godziny-w-okienku-przy-tacce/todo.md).
 
 ## F-08 Lista ostatnich wpisów
 

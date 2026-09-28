@@ -4,7 +4,7 @@ tytul: Architektura aplikacji
 tags: [architektura, komponenty, przeplywy]
 status_dokumentu: zaimplementowany
 utworzono: 2026-09-25 17:18
-zaktualizowano: 2026-09-27 14:30
+zaktualizowano: 2026-09-28 13:05
 ---
 
 # Architektura aplikacji
@@ -98,7 +98,7 @@ flowchart TB
 | Stan aplikacji (UI) | [ui/state.py](../../src/dk_tracker/ui/state.py) — `AppState` | wszystkie |
 | Harmonogram, akcje, powiadomienia | [ui/app.py](../../src/dk_tracker/ui/app.py) — `Controller`, [ui/worker.py](../../src/dk_tracker/ui/worker.py) | F-02, F-12, F-20, F-21, F-22 |
 | Tray | [ui/tray.py](../../src/dk_tracker/ui/tray.py), [ui/icons.py](../../src/dk_tracker/ui/icons.py), tekst: [core/presentation.py](../../src/dk_tracker/core/presentation.py) | F-02, F-20 |
-| Okno szybkiej obsługi | [ui/popup.py](../../src/dk_tracker/ui/popup.py), [ui/form.py](../../src/dk_tracker/ui/form.py), [ui/recent.py](../../src/dk_tracker/ui/recent.py), [ui/placement.py](../../src/dk_tracker/ui/placement.py) | F-03…F-10, F-12 |
+| Okno szybkiej obsługi | [ui/popup.py](../../src/dk_tracker/ui/popup.py), [ui/form.py](../../src/dk_tracker/ui/form.py), [ui/recent.py](../../src/dk_tracker/ui/recent.py), [ui/time_picker.py](../../src/dk_tracker/ui/time_picker.py), [ui/placement.py](../../src/dk_tracker/ui/placement.py) | F-03…F-10, F-12 |
 | Ustawienia | [ui/main_window/settings_form.py](../../src/dk_tracker/ui/main_window/settings_form.py), `qml/SettingsView.qml` | F-01, F-13, F-21, F-22 |
 | Sekrety, powiadomienia, autostart | [ui/desktop_bridge.py](../../src/dk_tracker/ui/desktop_bridge.py) → [desktop/](../../src/dk_tracker/desktop/) | F-01, F-21, F-22 |
 | Okno główne | [ui/main_window/](../../src/dk_tracker/ui/main_window/) — `MainWindow` (QML), `MainBridge` (`app`), modele | F-35 |
