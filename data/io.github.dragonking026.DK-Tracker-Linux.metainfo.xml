@@ -58,6 +58,13 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.9" date="2026-09-28">
+      <description>
+        <p>In the window by the tray icon, the start and end times of the running entry sit on one line and are chosen
+          from a list of hours and minutes, as in the main window, instead of being typed. Everything clickable shows
+          a hand cursor.</p>
+      </description>
+    </release>
     <release version="0.10.8" date="2026-09-28">
       <description>
         <p>Fixes a crash on clicking the tray icon when the window by the tray had been made smaller than its
