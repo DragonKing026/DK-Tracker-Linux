@@ -91,7 +91,7 @@ Pełny opis każdej funkcji: [Katalog funkcji](funkcje.md).
 - [x] Ikona w tacce: stan (bezczynny / trwa / błąd) i czas trwającego wpisu
 - [x] Okno szybkiej obsługi przy ikonie (odpowiednik popupu wtyczki)
 - [x] Start / stop timera; wybór projektu (grupowanie po kliencie) i rodzaju pracy; zapamiętanie ostatnich
-- [x] Edycja trwającego wpisu: opis, projekt, rodzaj pracy, godzina rozpoczęcia (wybierana z listy — 0.10.9),
+- [x] Edycja trwającego wpisu: opis, projekt, rodzaj pracy, godzina rozpoczęcia (wybierana z listy — 0.10.10),
   billable
 - [x] Ostatnie wpisy po dniach z sumami; wznawianie; wyszukiwanie we wszystkich wpisach
 - [x] Walidacja jakości opisu; billable jak w Kimai (z obsługą braku uprawnienia)

@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.10" date="2026-09-28">
+      <description>
+        <p>Delivers the changes of 0.10.9, which did not reach the update repository: in the window by the tray icon,
+          the start and end times sit on one line and are chosen from a list; clickable elements show a hand cursor.</p>
+      </description>
+    </release>
     <release version="0.10.9" date="2026-09-28">
       <description>
         <p>In the window by the tray icon, the start and end times of the running entry sit on one line and are chosen
