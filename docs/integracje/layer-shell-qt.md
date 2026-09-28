@@ -5,7 +5,7 @@ tags: [integracja, wayland, kde, ui]
 status_integracji: planowana
 wersja: 6.7.5 (Plasma 6.7.5; moduł we Flatpaku ze źródeł KDE)
 utworzono: 2026-09-25 20:38
-zaktualizowano: 2026-09-28 07:36
+zaktualizowano: 2026-09-28 10:32
 ---
 
 # layer-shell-qt
@@ -69,6 +69,13 @@ w prawym dolnym rogu i maską (`QWidget.setMask` → region wejścia) tylko na p
 powierzchnię ([ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md),
 [0066](../../TODO/ZROBIONE/0066-plotno-okna-przy-tacce/todo.md)). `WA_TranslucentBackground` trzeba ustawić przed
 utworzeniem natywnego okna — robi to `placement.apply` przed `layer-shell`.
+
+> [!warning] Układ nie może ustalać minimum okna
+> Górny i lewy margines układu to „płótno − panel”. Przy domyślnym `SetDefaultConstraint` minimum okna = margines +
+> minimum zawartości, więc panel niższy niż zawartość (zapamiętane 420 px przy formularzu 306 px) powiększał płótno,
+> ono margines i tak bez końca — aż `QWaylandShmBuffer` nie dostał bufora i proces padał (SIGSEGV). Na płótnie układ ma
+> `SetNoConstraint`, a panel nie schodzi poniżej minimum zawartości (także gdy zawartość rośnie — `LayoutRequest`)
+> ([0076](../../TODO/W-TRAKCIE/0076-petla-rozmiaru-plotna/todo.md)).
 
 ## Który monitor
 
