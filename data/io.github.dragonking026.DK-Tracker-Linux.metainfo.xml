@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.8" date="2026-09-28">
+      <description>
+        <p>Fixes a crash on clicking the tray icon when the window by the tray had been made smaller than its
+          content needs: the window now keeps at least the height of its content.</p>
+      </description>
+    </release>
     <release version="0.10.7" date="2026-09-28">
       <description>
         <p>With more than one monitor, the window by the tray icon now opens on the monitor where the icon was clicked,
