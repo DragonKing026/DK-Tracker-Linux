@@ -12,7 +12,7 @@ from collections.abc import Callable
 from datetime import datetime
 
 from PySide6.QtCore import QEvent, QPoint, QPointF, QRect, QSize, Qt, QTimer, Signal
-from PySide6.QtGui import QGuiApplication, QKeyEvent, QMouseEvent, QPainter, QPen, QRegion
+from PySide6.QtGui import QGuiApplication, QKeyEvent, QMouseEvent, QPainter, QPen, QRegion, QScreen
 from PySide6.QtWidgets import (
     QApplication,
     QFrame,
@@ -114,6 +114,7 @@ class QuickWindow(QWidget):
         self.resize(WIDTH, HEIGHT)
         self._preferred = QSize(WIDTH, HEIGHT)  # the user's size; used while there are lists to show
         self._canvas = False  # layer mode: a transparent surface holding the panel bottom-right (0066)
+        self._follows_screen = False
         self._panel = QSize(WIDTH, HEIGHT)  # the visible window inside the canvas
         self._compact: bool | None = None
         self._error_from_refresh = False  # the red strip came from a failed refresh, not from an action
@@ -300,6 +301,7 @@ class QuickWindow(QWidget):
         self.backdrop.setVisible(self._canvas)
         if self._canvas:
             self.setMinimumSize(0, 0)
+            self._follow_screen()
         else:
             self.clearMask()
             self.layout().setContentsMargins(0, 0, 0, 0)
@@ -311,6 +313,27 @@ class QuickWindow(QWidget):
             self._set_panel(self._preferred)
         else:
             self._fit(compact=compact)
+
+    def _follow_screen(self) -> None:
+        """The compositor puts the surface on the monitor clicked (0075); Qt learns it from the
+        surface entering that output and reports a new screen."""
+        if self._follows_screen:
+            return
+        self.winId()
+        self._follows_screen = True
+        self.windowHandle().screenChanged.connect(lambda screen: self.fit_screen(screen))
+
+    def fit_screen(self, screen: QScreen | None) -> None:
+        """Canvas and panel for the monitor the surface is on, which may be smaller than the last."""
+        if not self._canvas or screen is None:
+            return
+        canvas = self._canvas_for(screen)
+        height = self._panel.height() if self._compact else self._preferred.height()
+        self._panel = QSize(self._preferred.width(), height).boundedTo(canvas)
+        if self.size() != canvas:
+            self.resize(canvas)  # the resize event places the panel
+        else:
+            self._place_panel()
 
     def panel_size(self) -> QSize:
         return QSize(self._panel) if self._canvas else self.size()
@@ -329,6 +352,10 @@ class QuickWindow(QWidget):
         screen = self.screen() or QGuiApplication.primaryScreen()
         if screen is None:
             return self._panel
+        return self._canvas_for(screen)
+
+    @staticmethod
+    def _canvas_for(screen: QScreen) -> QSize:
         area = screen.availableGeometry()
         return QSize(area.width() - 2 * SCREEN_MARGIN, area.height() - 2 * SCREEN_MARGIN)
 

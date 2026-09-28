@@ -352,6 +352,44 @@ def test_grip_on_the_layer_canvas_follows_the_pointer_exactly(window, qtbot):
     assert signal.args == [QSize(482, 512)]
 
 
+class FakeScreen:
+    def __init__(self, width, height):
+        from PySide6.QtCore import QRect
+
+        self._area = QRect(2560, 0, width, height)
+
+    def availableGeometry(self):  # noqa: N802 - Qt API
+        return self._area
+
+
+def test_layer_canvas_follows_the_screen_the_compositor_chose(window):
+    """0075: the compositor puts the surface on the clicked monitor; a smaller one must still
+    hold the whole canvas and panel, and a bigger one gets the remembered size back."""
+    from PySide6.QtCore import QRect, QSize
+
+    _, popup = window
+    popup.set_placement("layer")
+    popup.set_preferred_size(QSize(600, 700))
+    popup.show()
+    popup.fit_screen(FakeScreen(1280, 500))
+    assert popup.size() == QSize(1256, 476)
+    assert popup.panel_rect() == QRect(1256 - 600, 0, 600, 476)
+    assert popup.mask().boundingRect() == popup.panel_rect()
+    popup.fit_screen(FakeScreen(1920, 1080))
+    assert popup.size() == QSize(1896, 1056)
+    assert popup.panel_size() == QSize(600, 700)
+
+
+def test_layer_window_follows_its_screen(window):
+    """The surface is made on the output the compositor picks; Qt reports it as a screen change."""
+    _, popup = window
+    popup.set_placement("layer")
+    seen = []
+    popup.fit_screen = seen.append
+    popup.windowHandle().screenChanged.emit(popup.screen())
+    assert seen == [popup.screen()]
+
+
 def test_layer_panel_is_low_while_not_configured(window):
     from PySide6.QtCore import QSize
 
