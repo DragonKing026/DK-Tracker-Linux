@@ -58,6 +58,9 @@ Po zmianie (render offscreen, ciemny i jasny motyw):
 ![Po: lista godzin i minut, ciemna](zrzuty/po-lista-dark.png)
 ![Po: lista godzin i minut, jasna](zrzuty/po-lista-light.png)
 
+[Skrypt zrzutu okienka](prototyp/zrzut-okna.py) — odświeża
+[okno-ciemny-motyw.png](../../../docs/assets/zrzuty/okno-ciemny-motyw.png) (README, Discover, strona).
+
 ## Dziennik
 
 ### 2026-09-28 12:43
