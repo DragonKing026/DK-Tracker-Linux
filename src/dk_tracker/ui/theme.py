@@ -175,8 +175,23 @@ def stylesheet(p: dict[str, str], assets: dict[str, str] | None = None) -> str:
 #billable[on="false"] {{ border-color: {p["muted"]}; background: {p["surface"]}; }}
 #billable[on="false"]:hover {{ background: {p["surface2"]}; }}
 #billable:disabled {{ border-style: dashed; border-color: {p["line"]}; }}
-#times {{ border: 1px solid {p["line"]}; border-radius: 8px; background: {p["surface"]}; }}
-#timesLabel, #hint {{ color: {p["muted"]}; font-size: 11px; }}
+#popup QLabel#timesLabel, #popup QLabel#hint {{ color: {p["muted"]}; font-size: 11px; }}
+#popup QLabel#timesLabel {{ font-weight: 700; }}
+#timePicker {{ border: 1px solid {p["line"]}; border-radius: 8px; background: {p["surface"]}; color: {p["fg"]};
+    min-height: 30px; max-height: 30px; min-width: 76px; padding: 0 8px; font-size: 13px; text-align: left; }}
+#timePicker:hover {{ background: {p["surface2"]}; border-color: {p["muted"]}; }}
+#timePicker:focus {{ border-color: {p["focus"]}; }}
+#timePicker[empty="true"] {{ color: {p["muted"]}; }}
+#timePopup {{ background: {p["bg"]}; border: 1px solid {p["line"]}; border-radius: 8px; }}
+#timePopup QListWidget {{ background: {p["bg"]}; color: {p["fg"]}; border: 0; font-size: 13px; outline: 0; }}
+#timePopup QListWidget::item {{ border-radius: 4px; }}
+#timePopup QListWidget::item:hover {{ background: {p["surface2"]}; }}
+#timePopup QListWidget::item:selected {{ background: {p["surface2"]}; color: {p["accent"]};
+    border: 1px solid {p["accent"]}; }}
+#timeDivider {{ background: {p["line"]}; }}
+#timeClear {{ border: 1px solid {p["line"]}; border-radius: 6px; background: {p["surface"]}; color: {p["fg"]};
+    min-height: 28px; font-size: 12px; }}
+#timeClear:hover {{ background: {p["surface2"]}; }}
 #popup QLineEdit {{ border: 1px solid {p["line"]}; border-radius: 6px; background: {p["bg"]};
     color: {p["fg"]}; min-height: 28px; padding: 0 8px; font-size: 13px; }}
 #popup QLabel#error {{ margin: 0 14px 12px 14px; background: {p["err_bg"]}; color: {p["err_fg"]}; border-radius: 8px; padding: 8px 10px; font-size: 12px; }}

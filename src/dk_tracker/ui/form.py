@@ -12,7 +12,6 @@ from collections.abc import Callable, Iterable
 from datetime import datetime, tzinfo
 
 from PySide6.QtCore import (
-    QRegularExpression,
     QSize,
     Qt,
     QTimer,
@@ -24,16 +23,13 @@ from PySide6.QtGui import (
     QKeyEvent,
     QPainter,
     QPixmap,
-    QRegularExpressionValidator,
     QStandardItem,
 )
 from PySide6.QtWidgets import (
     QComboBox,
     QFrame,
-    QGridLayout,
     QHBoxLayout,
     QLabel,
-    QLineEdit,
     QPlainTextEdit,
     QPushButton,
     QVBoxLayout,
@@ -48,9 +44,9 @@ from dk_tracker.core.tracker import Snapshot
 
 from .icons import glyph
 from .project_picker import ProjectComboBox
+from .time_picker import TimePicker
 
 GREY_DOT = "#9aa0ac"
-_HHMM = QRegularExpression(r"^([01]?\d|2[0-3]):[0-5]\d$")
 
 
 def dot(color: str | None, size: int = 10) -> QIcon:
@@ -118,7 +114,7 @@ class DescriptionEdit(QPlainTextEdit):
 
 class TrackerForm(QWidget):
     startRequested = Signal(object)  # {"project_id", "activity_id", "description", "billable"}
-    stopRequested = Signal(str)  # "HH:MM" typed in "to", or "" for now
+    stopRequested = Signal(str)  # "HH:MM" chosen in "to", or "" for now
     descriptionCommitted = Signal(str, bool)  # text, quiet (the save-while-typing path)
     beginCommitted = Signal(str)
     billableChanged = Signal(bool)  # the running entry's switch
@@ -154,15 +150,12 @@ class TrackerForm(QWidget):
         self.billable = QPushButton(objectName="billable")
         self.billable.setIconSize(QSize(17, 17))
         self.times = QFrame(objectName="times")
-        self.begin = QLineEdit()
-        self.end = QLineEdit()
+        # Chosen from a list, as in the main window (0077); "to" may be cleared back to "now".
+        self.begin = TimePicker()
+        self.end = TimePicker(clearable=True)
         self.from_label = QLabel(objectName="timesLabel")
         self.to_label = QLabel(objectName="timesLabel")
         self.end_hint = QLabel(objectName="hint")
-        for field in (self.begin, self.end):
-            field.setValidator(QRegularExpressionValidator(_HHMM, field))
-            field.setPlaceholderText("--:--")
-            field.setMaxLength(5)
 
         right = QVBoxLayout()
         right.setSpacing(4)
@@ -176,13 +169,16 @@ class TrackerForm(QWidget):
         second.setSpacing(8)
         second.addWidget(self.activity, 1)
         second.addWidget(self.billable)
-        times = QGridLayout(self.times)
-        times.setContentsMargins(11, 10, 11, 10)
-        times.addWidget(self.from_label, 0, 0)
-        times.addWidget(self.to_label, 0, 1)
-        times.addWidget(self.begin, 1, 0)
-        times.addWidget(self.end, 1, 1)
-        times.addWidget(self.end_hint, 2, 0, 1, 2)
+        times = QHBoxLayout(self.times)  # one line: FROM [time]  TO [time]  empty = now
+        times.setContentsMargins(0, 0, 0, 0)
+        times.setSpacing(6)
+        times.addWidget(self.from_label)
+        times.addWidget(self.begin)
+        times.addSpacing(10)
+        times.addWidget(self.to_label)
+        times.addWidget(self.end)
+        times.addWidget(self.end_hint)
+        times.addStretch(1)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(14, 12, 14, 12)
         layout.setSpacing(8)
@@ -200,7 +196,9 @@ class TrackerForm(QWidget):
         self.billable.clicked.connect(self._on_billable)
         self.project.activated.connect(lambda _index: self._on_project(user=True))
         self.activity.activated.connect(lambda _index: self._on_activity())
-        self.begin.editingFinished.connect(self._on_begin)
+        self.begin.edited.connect(lambda _value: self._on_begin())
+        for clickable in (self.toggle, self.project, self.activity, self.billable):
+            clickable.setCursor(Qt.CursorShape.PointingHandCursor)
         self.clock.hide()
         self.times.hide()
         self.retranslate(t)
@@ -295,6 +293,7 @@ class TrackerForm(QWidget):
         self.from_label.setText(t("fromLabel").upper())
         self.to_label.setText(t("toLabel").upper())
         self.end_hint.setText(t("endHint"))
+        self.end.set_clear_text(t("timeNow"))
         if self.project.count():
             self.project.setItemText(0, t("chooseProject"))
         if self.activity.count() and self._running is None:
@@ -308,8 +307,8 @@ class TrackerForm(QWidget):
         typed = self.description.toPlainText() != self._shown_text
         if changed or not typed:
             self._set_text(entry.description)
-        if changed or not self.begin.hasFocus():
-            self.begin.setText(hhmm(entry.begin, self._tz))  # type: ignore[arg-type]
+        if changed or not self.begin.popup.isVisible():
+            self.begin.set_value(hhmm(entry.begin, self._tz))  # type: ignore[arg-type]
         if changed:
             self.end.clear()
         pending = self._pending_project
@@ -379,7 +378,7 @@ class TrackerForm(QWidget):
 
     def _on_toggle(self) -> None:
         if self._running is not None:
-            self.stopRequested.emit(self.end.text().strip() if self.end.hasAcceptableInput() else "")
+            self.stopRequested.emit(self.end.value)
             return
         self.startRequested.emit(
             {
@@ -406,9 +405,9 @@ class TrackerForm(QWidget):
         self.descriptionCommitted.emit(text, quiet)
 
     def _on_begin(self) -> None:
-        if self._running is not None and self.begin.hasAcceptableInput():
-            if self.begin.text() != hhmm(self._running.begin, self._tz):  # type: ignore[arg-type]
-                self.beginCommitted.emit(self.begin.text())
+        if self._running is not None and self.begin.value:
+            if self.begin.value != hhmm(self._running.begin, self._tz):  # type: ignore[arg-type]
+                self.beginCommitted.emit(self.begin.value)
 
     def _on_billable(self) -> None:
         if not self._allowed:

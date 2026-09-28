@@ -212,6 +212,8 @@ class QuickWindow(QWidget):
         self.settings_button.setIcon(glyph("gear", palette["muted"], 17))
         self.close_button.setIcon(glyph("close", palette["muted"], 17))
         self.all_entries.setIcon(glyph("external", palette["accent"], 13))
+        for picker in (self.form.begin, self.form.end):
+            picker.set_icon_color(palette["muted"])
 
     def render(self) -> None:
         state, t = self._state, self._state.t

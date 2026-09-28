@@ -27,6 +27,7 @@
   "fromLabel": "od",
   "toLabel": "do",
   "endHint": "puste = teraz",
+  "timeNow": "Teraz",
   "billableOn": "Płatne dla klienta - kliknij, żeby nie liczyć tego czasu do faktury",
   "billableOff": "Niepłatne (wewnętrzne) - kliknij, żeby policzyć ten czas klientowi",
   "billableChipOn": "płatne",

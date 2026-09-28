@@ -90,14 +90,14 @@ def test_running_entry_keeps_pickers_open_and_shows_times(form):
     assert form.project.isEnabled() and form.activity.isEnabled()
     assert form.toggle.property("state") == "stop"
     assert not form.times.isHidden()
-    assert form.begin.text() == "16:42"  # 14:42 UTC in Warsaw
+    assert form.begin.value == "16:42"  # 14:42 UTC in Warsaw
     assert form.clock.text() == "1:22:00"
     assert form.description.toPlainText() == "Formularz rezerwacji pokoi"
 
 
-def test_stop_sends_the_typed_end(form, qtbot):
+def test_stop_sends_the_chosen_end(form, qtbot):
     form.render(replace(CATALOG, running=(RUNNING,)), WARSAW, NOW)
-    form.end.setText("17:30")
+    form.end.set_value("17:30")
     with qtbot.waitSignal(form.stopRequested) as signal:
         form.toggle.click()
     assert signal.args == ["17:30"]
@@ -145,9 +145,10 @@ def test_billable_on_a_running_entry_is_saved_at_once(form, qtbot):
 
 def test_begin_edit_is_committed(form, qtbot):
     form.render(replace(CATALOG, running=(RUNNING,)), WARSAW, NOW)
-    form.begin.setText("16:30")
+    form.begin.open_list()
     with qtbot.waitSignal(form.beginCommitted) as signal:
-        form.begin.editingFinished.emit()
+        form.begin.popup.hours.picked.emit(16)
+        form.begin.popup.minutes.picked.emit(30)
     assert signal.args == ["16:30"]
 
 
@@ -160,10 +161,10 @@ def test_refresh_keeps_what_the_user_is_typing(form):
 
 def test_stopping_clears_the_form(form):
     form.render(replace(CATALOG, running=(RUNNING,)), WARSAW, NOW)
-    form.end.setText("17:30")
+    form.end.set_value("17:30")
     form.render(CATALOG, WARSAW, NOW)
     assert form.description.toPlainText() == ""
-    assert form.end.text() == ""
+    assert form.end.value == ""
     assert form.times.isHidden()
     assert form.project.isEnabled()
 
@@ -385,3 +386,24 @@ def test_reset_work_shows_the_running_entry_again(form, qtbot):
     form.reset_work()
     assert form.project.currentData() == 1
     assert form.activity.currentData() == 1
+
+
+def test_stop_without_an_end_means_now(form, qtbot):
+    form.render(replace(CATALOG, running=(RUNNING,)), WARSAW, NOW)
+    with qtbot.waitSignal(form.stopRequested) as signal:
+        form.toggle.click()
+    assert signal.args == [""]
+
+
+def test_times_sit_on_one_line_and_clickables_show_a_hand(form):
+    """0077: FROM, TO and the hint in one row; the hand cursor on everything clickable."""
+    form.render(replace(CATALOG, running=(RUNNING,)), WARSAW, NOW)
+    form.resize(440, 400)
+    form.show()
+    tops = {
+        w.mapTo(form, w.rect().center()).y() for w in (form.from_label, form.begin, form.end, form.end_hint)
+    }
+    assert max(tops) - min(tops) <= 2
+    hand = Qt.CursorShape.PointingHandCursor
+    for widget in (form.toggle, form.project, form.activity, form.billable, form.begin, form.end):
+        assert widget.cursor().shape() == hand

@@ -27,6 +27,7 @@
   "fromLabel": "from",
   "toLabel": "to",
   "endHint": "empty = now",
+  "timeNow": "Now",
   "billableOn": "Billable to the client - click to keep these hours off the invoice",
   "billableOff": "Not billable (internal) - click to bill these hours to the client",
   "billableChipOn": "billable",
