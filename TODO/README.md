@@ -25,6 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
+| 0077 | [Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki](W-TRAKCIE/0077-godziny-w-okienku-przy-tacce/todo.md) | 🔨 w-trakcie | p2 | — |
 
 ## Do zrobienia
 
@@ -32,7 +33,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 | 0062 | [0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](ZROBIONE/0056-identyfikator-i-wydawca/todo.md) ✅ |
-| 0077 | [Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki](DO-ZROBIENIA/0077-godziny-w-okienku-przy-tacce/todo.md) | 📋 do-zrobienia | p2 | — |
 
 ## Zrobione
 

@@ -2,7 +2,7 @@
 noteId: "20c73124c6c9436592eda1400646be60"
 tytul: "Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki"
 numer: "0077"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p2
 tags: [todo, okno-przy-tacce, wyglad]
 zalezy_od: []
@@ -14,7 +14,7 @@ zamknieto:
 # 0077 — Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -56,6 +56,7 @@ oknie głównym: godzinę się wybiera, nie wpisuje. Wszystko, co da się klikn�
 ### 2026-09-28 12:43
 
 - Utworzono zadanie.
+- **12:43** Start pracy.
 
 ## Wynik
 
