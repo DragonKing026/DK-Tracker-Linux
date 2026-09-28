@@ -77,7 +77,7 @@ na Waylandzie nie zna pozycji kursora poza własnymi oknami. `wantsToBeOnActiveS
 `get_layer_surface` bez wyjścia, a KWin wybiera **aktywny ekran** (ten z kursorem, czyli z klikniętą ikoną tacki).
 Powierzchnia powstaje od nowa przy każdym pokazaniu okna, więc wybór jest świeży przy każdym kliknięciu
 ([źródło](https://github.com/KDE/layer-shell-qt/blob/v6.7.5/src/qwaylandlayersurface.cpp),
-[0075](../../TODO/W-TRAKCIE/0075-okno-na-ekranie-kliknietej-tacki/todo.md)). Qt poznaje ekran z `wl_surface.enter`
+[0075](../../TODO/ZROBIONE/0075-okno-na-ekranie-kliknietej-tacki/todo.md)). Qt poznaje ekran z `wl_surface.enter`
 i emituje `QWindow.screenChanged`; wtedy `QuickWindow.fit_screen` dopasowuje płótno i panel do obszaru roboczego
 tego monitora. (`screenConfiguration` robi to samo, ale w 6.7.5 jest przestarzała.)
 
