@@ -3,7 +3,7 @@ noteId: "26c430953cad4545a2234350cf834e0b"
 tytul: Przegląd projektu
 tags: [architektura, wizja, zakres]
 utworzono: 2026-09-25 17:16
-zaktualizowano: 2026-09-27 14:20
+zaktualizowano: 2026-09-28 13:40
 ---
 
 # Przegląd projektu
@@ -91,7 +91,8 @@ Pełny opis każdej funkcji: [Katalog funkcji](funkcje.md).
 - [x] Ikona w tacce: stan (bezczynny / trwa / błąd) i czas trwającego wpisu
 - [x] Okno szybkiej obsługi przy ikonie (odpowiednik popupu wtyczki)
 - [x] Start / stop timera; wybór projektu (grupowanie po kliencie) i rodzaju pracy; zapamiętanie ostatnich
-- [x] Edycja trwającego wpisu: opis, projekt, rodzaj pracy, godzina rozpoczęcia, billable
+- [x] Edycja trwającego wpisu: opis, projekt, rodzaj pracy, godzina rozpoczęcia (wybierana z listy — 0.10.9),
+  billable
 - [x] Ostatnie wpisy po dniach z sumami; wznawianie; wyszukiwanie we wszystkich wpisach
 - [x] Walidacja jakości opisu; billable jak w Kimai (z obsługą braku uprawnienia)
 - [x] Polski i angielski bez restartu ([F-13](funkcje.md)); powiadomienia; autostart; menu ikony; paczka Flatpak

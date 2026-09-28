@@ -29,7 +29,8 @@ pokazuje, ile trwa bieżący wpis. Zaczęło się jako linuksowa wersja firmowej
 **Zawsze pod ręką** — gdy pulpit ma tackę systemową (można ją wyłączyć):
 
 - ikona z czasem trwającego wpisu (`47m`, `1:22`) i menu: zatrzymaj, wznów ostatni, otwórz okno;
-- małe okienko przy ikonie do szybkiego startu, zmiany opisu i projektu oraz ostatnich wpisów.
+- małe okienko przy ikonie do szybkiego startu, zmiany opisu, projektu i godzin (wybieranych z listy) oraz ostatnich
+  wpisów.
 
 **Poza tym:** zasady jak we wtyczce (jakość opisu, płatne / niepłatne jak w Kimai), zmiana projektu i rodzaju pracy
 trwającego wpisu, przypomnienie o zbyt długim timerze i utracie połączenia, token API w portfelu systemu
