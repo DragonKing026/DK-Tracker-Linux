@@ -1,6 +1,7 @@
 """Where the quick window appears (ADR-0005).
 
-KDE Plasma on Wayland: a layer-shell surface anchored bottom-right, just above the panel.
+KDE Plasma on Wayland: a layer-shell surface anchored bottom-right, just above the panel, on
+the monitor the compositor finds active (the one clicked).
 Other desktops: a frameless window (the compositor centres it). No tray host: an ordinary
 window with a frame. layer-shell-qt has no Python bindings, so one C++ symbol is called
 through ctypes; in 6.7.5 `Window::get()` turns only that window into a layer surface.
@@ -83,6 +84,9 @@ def _anchor_to_panel(window: QWidget) -> bool:
         layer.setProperty("keyboardInteractivity", _KEYBOARD_ON_DEMAND)
         layer.setProperty("margins", QMargins(0, 0, 12, 12))
         layer.setProperty("scope", "dk-tracker")
+        # Otherwise the surface goes to QWindow::screen(), the primary monitor: let the compositor
+        # pick the active one, where the tray icon was just clicked (0075).
+        layer.setProperty("wantsToBeOnActiveScreen", True)
     except (OSError, AttributeError, RuntimeError, ImportError) as error:
         log.warning("layer-shell unavailable, using a frameless window: %s", error)
         return False
