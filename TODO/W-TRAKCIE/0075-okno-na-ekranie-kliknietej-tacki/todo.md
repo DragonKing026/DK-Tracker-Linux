@@ -2,19 +2,19 @@
 noteId: "95c49cbeb79a45d79051be52f95515e7"
 tytul: "Okno przy tacce na ekranie klikniętej ikony"
 numer: "0075"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, bug, okno-przy-tacce, kde, wayland]
 zalezy_od: ["0066-plotno-okna-przy-tacce"]
 utworzono: 2026-09-28 07:34
-zaktualizowano: 2026-09-28 07:34
+zaktualizowano: 2026-09-28 07:35
 zamknieto:
 ---
 
 # 0075 — Okno przy tacce na ekranie klikniętej ikony
 
 > [!info] Status
-> **do zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -55,6 +55,7 @@ Brak.
 ### 2026-09-28 07:34
 
 - Utworzono zadanie. Przyczyna ustalona w źródle layer-shell-qt 6.7.5 (`qwaylandlayersurface.cpp`).
+- **07:35** Start pracy.
 
 ## Wynik
 
