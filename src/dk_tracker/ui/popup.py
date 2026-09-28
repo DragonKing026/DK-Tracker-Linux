@@ -158,6 +158,7 @@ class QuickWindow(QWidget):
         self.not_configured = QLabel(objectName="notConfigured")
         self.not_configured.setWordWrap(True)
         self.open_settings = QPushButton(objectName="primary")
+        self.open_settings.setCursor(Qt.CursorShape.PointingHandCursor)
         box = QVBoxLayout(self.unconfigured)
         box.setContentsMargins(14, 20, 14, 20)
         box.setSpacing(12)
@@ -494,6 +495,7 @@ class QuickWindow(QWidget):
     def _icon_button(name: str) -> QToolButton:
         button = QToolButton(objectName="iconButton")
         button.setIconSize(QSize(17, 17))
+        button.setCursor(Qt.CursorShape.PointingHandCursor)
         return button
 
     @staticmethod

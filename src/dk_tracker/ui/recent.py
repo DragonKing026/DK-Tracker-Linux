@@ -44,6 +44,7 @@ class EntryRow(QFrame):
         self, entry: Entry, tz: tzinfo, t: Callable[..., str], *, allowed: bool, expanded: bool = False
     ) -> None:
         super().__init__(objectName="entry")
+        self.setCursor(Qt.CursorShape.PointingHandCursor)  # a click unfolds the description
         self.entry = entry
         text = entry_row(entry, tz, t)
         self.marker = marker = QLabel()
@@ -75,6 +76,8 @@ class EntryRow(QFrame):
         self.resume = QToolButton(objectName="resume")
         self.resume.setIcon(glyph("play", "#9aa0ac", 12))
         self.resume.setToolTip(t("resume"))
+        for button in (self.billable, self.resume):
+            button.setCursor(Qt.CursorShape.PointingHandCursor)
 
         grid = QGridLayout(self)
         grid.setContentsMargins(14, 9, 14, 9)

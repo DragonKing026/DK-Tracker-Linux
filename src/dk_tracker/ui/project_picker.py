@@ -99,6 +99,7 @@ class SearchPopup(QFrame):
         self.view = QListView()
         self.view.setModel(self._filter)
         self.view.setUniformItemSizes(True)
+        self.view.viewport().setCursor(Qt.CursorShape.PointingHandCursor)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(6, 6, 6, 6)
         layout.setSpacing(6)
