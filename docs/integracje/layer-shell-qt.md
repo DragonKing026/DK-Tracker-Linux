@@ -5,7 +5,7 @@ tags: [integracja, wayland, kde, ui]
 status_integracji: planowana
 wersja: 6.7.5 (Plasma 6.7.5; moduł we Flatpaku ze źródeł KDE)
 utworzono: 2026-09-25 20:38
-zaktualizowano: 2026-09-26 14:51
+zaktualizowano: 2026-09-28 07:36
 ---
 
 # layer-shell-qt
@@ -34,6 +34,7 @@ layer.setProperty("layer", 2)                      # LayerTop
 layer.setProperty("keyboardInteractivity", 2)      # OnDemand — da się pisać
 layer.setProperty("margins", QMargins(0, 0, 12, 12))
 layer.setProperty("scope", "dk-tracker-popup")
+layer.setProperty("wantsToBeOnActiveScreen", True) # monitor wybiera kompozytor (0075)
 ```
 
 Wynik na Plaśmie 6.7.5: okno 12 px od prawej, tuż nad panelem (kompozytor respektuje strefę
@@ -68,6 +69,17 @@ w prawym dolnym rogu i maską (`QWidget.setMask` → region wejścia) tylko na p
 powierzchnię ([ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md),
 [0066](../../TODO/ZROBIONE/0066-plotno-okna-przy-tacce/todo.md)). `WA_TranslucentBackground` trzeba ustawić przed
 utworzeniem natywnego okna — robi to `placement.apply` przed `layer-shell`.
+
+## Który monitor
+
+Bez ustawień layer-shell-qt podaje kompozytorowi wyjście z `QWindow::screen()` — to zawsze ekran główny, bo aplikacja
+na Waylandzie nie zna pozycji kursora poza własnymi oknami. `wantsToBeOnActiveScreen = true` wysyła
+`get_layer_surface` bez wyjścia, a KWin wybiera **aktywny ekran** (ten z kursorem, czyli z klikniętą ikoną tacki).
+Powierzchnia powstaje od nowa przy każdym pokazaniu okna, więc wybór jest świeży przy każdym kliknięciu
+([źródło](https://github.com/KDE/layer-shell-qt/blob/v6.7.5/src/qwaylandlayersurface.cpp),
+[0075](../../TODO/W-TRAKCIE/0075-okno-na-ekranie-kliknietej-tacki/todo.md)). Qt poznaje ekran z `wl_surface.enter`
+i emituje `QWindow.screenChanged`; wtedy `QuickWindow.fit_screen` dopasowuje płótno i panel do obszaru roboczego
+tego monitora. (`screenConfiguration` robi to samo, ale w 6.7.5 jest przestarzała.)
 
 ## Pułapki
 
