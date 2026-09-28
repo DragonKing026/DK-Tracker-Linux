@@ -1,0 +1,38 @@
+_set_panel PySide6.QtCore.QSize(460, 176) canvas PySide6.QtCore.QSize(2536, 1416) screen DP-6
+set_placement layer
+_set_panel PySide6.QtCore.QSize(460, 176) canvas PySide6.QtCore.QSize(2536, 1416) screen DP-6
+_set_panel PySide6.QtCore.QSize(630, 176) canvas PySide6.QtCore.QSize(2536, 1416) screen DP-6
+_set_panel PySide6.QtCore.QSize(630, 420) canvas PySide6.QtCore.QSize(2536, 1416) screen DP-6
+STEP 0
+  DIAG panel PySide6.QtCore.QSize(630, 420) compact False layout min PySide6.QtCore.QSize(2130, 1455) margins 996 window min PySide6.QtCore.QSize(2130, 1455) constraint SizeConstraint.SetDefaultConstraint
+resizeEvent PySide6.QtCore.QSize(-1, -1) -> PySide6.QtCore.QSize(2536, 1455) visible False
+showEvent size PySide6.QtCore.QSize(2536, 1455) mode layer
+  File "/tmp/claude-1000/-mnt-Programowanie-Moje-Projekty-Kimai-App/48bab7a6-8f12-4884-b7ef-e245f928c6b0/scratchpad/trace_run.py", line 55, in <module>
+    sys.exit(main())
+  File "/app/lib/python3.13/site-packages/dk_tracker/ui/main.py", line 160, in main
+    return app.exec()
+  File "/tmp/claude-1000/-mnt-Programowanie-Moje-Projekty-Kimai-App/48bab7a6-8f12-4884-b7ef-e245f928c6b0/scratchpad/trace_run.py", line 51, in <lambda>
+    QTimer.singleShot(t, lambda i=i: step(i))
+  File "/tmp/claude-1000/-mnt-Programowanie-Moje-Projekty-Kimai-App/48bab7a6-8f12-4884-b7ef-e245f928c6b0/scratchpad/trace_run.py", line 45, in step
+    else: w.show(); w.raise_(); w.activateWindow()
+  File "/app/lib/python3.13/site-packages/dk_tracker/ui/popup.py", line 442, in event
+    return super().event(event)
+  File "/tmp/claude-1000/-mnt-Programowanie-Moje-Projekty-Kimai-App/48bab7a6-8f12-4884-b7ef-e245f928c6b0/scratchpad/trace_run.py", line 37, in show
+    print("showEvent size", self.size(), "mode", self.placement_mode, flush=True); traceback.print_stack(limit=8); return orig_show(self, e)
+resizeEvent PySide6.QtCore.QSize(2536, 1455) -> PySide6.QtCore.QSize(2536, 1515) visible True
+  DIAG panel PySide6.QtCore.QSize(630, 420) compact False layout min PySide6.QtCore.QSize(2232, 1608) margins 1095 window min PySide6.QtCore.QSize(2232, 1608) constraint SizeConstraint.SetDefaultConstraint
+    0 header QFrame min PySide6.QtCore.QSize(326, 48) hint PySide6.QtCore.QSize(326, 48)
+    2 tracker TrackerForm min PySide6.QtCore.QSize(176, 306) hint PySide6.QtCore.QSize(340, 306)
+    6 recentPanel RecentList min PySide6.QtCore.QSize(112, 121) hint PySide6.QtCore.QSize(169, 138)
+    7 allEntries QPushButton min PySide6.QtCore.QSize(224, 38) hint PySide6.QtCore.QSize(224, 38)
+resizeEvent PySide6.QtCore.QSize(2536, 1455) -> PySide6.QtCore.QSize(2536, 1608) visible True
+resizeEvent PySide6.QtCore.QSize(2536, 1515) -> PySide6.QtCore.QSize(2536, 1455) visible True
+resizeEvent PySide6.QtCore.QSize(2536, 1608) -> PySide6.QtCore.QSize(2536, 1701) visible True
+  DIAG panel PySide6.QtCore.QSize(630, 420) compact False layout min PySide6.QtCore.QSize(2232, 1794) margins 1281 window min PySide6.QtCore.QSize(2232, 1794) constraint SizeConstraint.SetDefaultConstraint
+    0 header QFrame min PySide6.QtCore.QSize(326, 48) hint PySide6.QtCore.QSize(326, 48)
+    2 tracker TrackerForm min PySide6.QtCore.QSize(176, 306) hint PySide6.QtCore.QSize(340, 306)
+    6 recentPanel RecentList min PySide6.QtCore.QSize(112, 121) hint PySide6.QtCore.QSize(169, 138)
+    7 allEntries QPushButton min PySide6.QtCore.QSize(224, 38) hint PySide6.QtCore.QSize(224, 38)
+resizeEvent PySide6.QtCore.QSize(2536, 1701) -> PySide6.QtCore.QSize(2536, 1794) visible True
+resizeEvent PySide6.QtCore.QSize(2536, 1794) -> PySide6.QtCore.QSize(2536, 1887) visible True
+resizeEvent PySide6.QtCore.QSize(2536, 1887) -> PySide6.QtCore.QSize(2536, 1980) visible True
