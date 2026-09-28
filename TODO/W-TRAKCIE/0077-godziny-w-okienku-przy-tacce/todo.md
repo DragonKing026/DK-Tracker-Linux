@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, okno-przy-tacce, wyglad]
 zalezy_od: []
 utworzono: 2026-09-28 12:43
-zaktualizowano: 2026-09-28 13:10
+zaktualizowano: 2026-09-28 13:45
 zamknieto:
 ---
 
@@ -74,6 +74,16 @@ Po zmianie (render offscreen, ciemny i jasny motyw):
   i minut, zmiana zgłaszana raz po zamknięciu listy, „Teraz” czyści koniec. OD/DO w jednym wierszu.
 - Kursor rączki: przyciski formularza i nagłówka, listy, wiersze wpisów, lista projektów.
 - Testy: 757 zielonych. Czeka na sprawdzenie przez użytkownika na KDE (lista w warstwie layer-shell).
+
+### 2026-09-28 13:45
+
+- Wydanie 0.10.9 (`f14220e`) nie dotarło do `flatpak update`: `main` i tag na tym samym commicie, workflow Strona
+  wdrożył się pierwszy z kopią repozytorium 0.10.8, a Pages zostawia pierwsze wdrożenie commita. Poprawka
+  `b01c843` (Strona pomija commit z tagiem, [wydania](../../../docs/procesy/wydania.md)), wydanie 0.10.10
+  `5b043ef` z tym samym kodem.
+- Zasada wydań (decyzja użytkownika): zostaje tylko najnowsze 0.10.x — usunięte strony 0.10.2, 0.10.3, 0.10.4,
+  0.10.8, 0.10.9 (tagi zostają).
+- 0.10.10 zainstalowana u użytkownika (`flatpak update`). Czeka na potwierdzenie w działającej aplikacji.
 
 ## Wynik
 
