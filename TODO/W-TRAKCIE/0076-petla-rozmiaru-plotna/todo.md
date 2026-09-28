@@ -2,7 +2,7 @@
 noteId: "ef7876ae9f35445294f486428763a4f6"
 tytul: "Awaria po kliknięciu ikony: pętla rozmiaru płótna"
 numer: "0076"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p0
 tags: [todo, bug, okno-przy-tacce, awaria]
 zalezy_od: ["0066-plotno-okna-przy-tacce"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0076 — Awaria po kliknięciu ikony: pętla rozmiaru płótna
 
 > [!info] Status
-> **do zrobienia** · priorytet **p0** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p0** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -54,6 +54,7 @@ Kliknięcie ikony w tacce nie wywraca aplikacji (SIGSEGV), gdy zawartość okna 
 
 - Utworzono zadanie. Przyczyna ustalona pomiarem w Flatpaku (A/B: z i bez `wantsToBeOnActiveScreen`, kod 0.10.6
   i 0.10.7 w tym samym środowisku — pętla wszędzie).
+- **10:30** Start pracy.
 
 ## Wynik
 
