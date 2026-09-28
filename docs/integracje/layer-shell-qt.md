@@ -75,7 +75,7 @@ utworzeniem natywnego okna — robi to `placement.apply` przed `layer-shell`.
 > minimum zawartości, więc panel niższy niż zawartość (zapamiętane 420 px przy formularzu 306 px) powiększał płótno,
 > ono margines i tak bez końca — aż `QWaylandShmBuffer` nie dostał bufora i proces padał (SIGSEGV). Na płótnie układ ma
 > `SetNoConstraint`, a panel nie schodzi poniżej minimum zawartości (także gdy zawartość rośnie — `LayoutRequest`)
-> ([0076](../../TODO/W-TRAKCIE/0076-petla-rozmiaru-plotna/todo.md)).
+> ([0076](../../TODO/ZROBIONE/0076-petla-rozmiaru-plotna/todo.md)).
 
 ## Który monitor
 

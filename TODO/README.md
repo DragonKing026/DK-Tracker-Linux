@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-09-28 10:30
+zaktualizowano: 2026-09-28 10:57
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0076 | [Awaria po kliknięciu ikony: pętla rozmiaru płótna](W-TRAKCIE/0076-petla-rozmiaru-plotna/todo.md) | 🔨 w-trakcie | p0 | [0066](ZROBIONE/0066-plotno-okna-przy-tacce/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -111,6 +110,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0073 | [Plan 7: kalendarz 0.10.5 — wykonanie](ZROBIONE/0073-plan7-kalendarz/todo.md) | ✅ zrobione | 2026-09-27 13:44 |
 | 0074 | [Opis DK Tracker jako pełnego klienta Kimai: README, dokumentacja, strona, zrzuty](ZROBIONE/0074-opis-pelnej-aplikacji/todo.md) | ✅ zrobione | 2026-09-27 14:12 |
 | 0075 | [Okno przy tacce na ekranie klikniętej ikony](ZROBIONE/0075-okno-na-ekranie-kliknietej-tacki/todo.md) | ✅ zrobione | 2026-09-28 07:40 |
+| 0076 | [Awaria po kliknięciu ikony: pętla rozmiaru płótna](ZROBIONE/0076-petla-rozmiaru-plotna/todo.md) | ✅ zrobione | 2026-09-28 10:57 |
 
 <!-- tablica:end -->
 
