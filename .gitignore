@@ -6,6 +6,9 @@
 # Claude Code — ustawienia lokalne
 .claude/settings.local.json
 
+# VS Code - usteinia lokalne
+.vscode
+
 # Budowanie
 build/
 build-dir/
