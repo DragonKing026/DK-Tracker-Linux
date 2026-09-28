@@ -34,17 +34,17 @@ a nie zawsze na głównym.
 ## Kryteria akceptacji
 
 - [ ] Na KDE Wayland okienko otwiera się na monitorze, na którym kliknięto ikonę
-- [ ] Płótno i panel mieszczą się na tym monitorze (także mniejszym niż główny)
-- [ ] Test jednostkowy: zmiana ekranu okna dopasowuje płótno
-- [ ] Dokumentacja zaktualizowana
+- [x] Płótno i panel mieszczą się na tym monitorze (także mniejszym niż główny)
+- [x] Test jednostkowy: zmiana ekranu okna dopasowuje płótno
+- [x] Dokumentacja zaktualizowana
 - [ ] Zmiany zacommitowane małymi krokami
 
 ## Kroki
 
-- [ ] `placement.py`: `wantsToBeOnActiveScreen = true`
-- [ ] `popup.py`: na `screenChanged` okna płótno i panel dopasowane do nowego ekranu
+- [x] `placement.py`: `wantsToBeOnActiveScreen = true`
+- [x] `popup.py`: na `screenChanged` okna płótno i panel dopasowane do nowego ekranu
 - [ ] Test na dwóch monitorach (ręcznie)
-- [ ] Dokumentacja okna przy tacce
+- [x] Dokumentacja okna przy tacce
 
 ## Materiały
 
@@ -56,6 +56,13 @@ Brak.
 
 - Utworzono zadanie. Przyczyna ustalona w źródle layer-shell-qt 6.7.5 (`qwaylandlayersurface.cpp`).
 - **07:35** Start pracy.
+
+### 2026-09-28 07:37
+
+- `placement.py`: `wantsToBeOnActiveScreen = true` (sprawdzone na żywo: właściwość prawdziwa, nie dynamiczna;
+  okno się pokazuje). `popup.py`: `fit_screen` na `QWindow.screenChanged`. Testy: 746 zielonych.
+- Dokumentacja: [layer-shell-qt](../../../docs/integracje/layer-shell-qt.md), sekcja „Który monitor”.
+- Czeka na test ręczny na dwóch monitorach (ta sesja widzi jeden ekran, DP-6).
 
 ## Wynik
 
