@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.7" date="2026-09-28">
+      <description>
+        <p>With more than one monitor, the window by the tray icon now opens on the monitor where the icon was clicked,
+          sized to fit it, instead of always on the primary one (KDE Plasma).</p>
+      </description>
+    </release>
     <release version="0.10.6" date="2026-09-27">
       <description>
         <p>A new description and screenshots: DK Tracker is shown as the Kimai client it has become — the main window
