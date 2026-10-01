@@ -5,7 +5,7 @@ tags: [integracja, gnome, tray]
 status_integracji: planowana
 wersja: rozszerzenie v66 (GNOME Shell 45–51)
 utworzono: 2026-09-25 17:21
-zaktualizowano: 2026-09-25 20:39
+zaktualizowano: 2026-10-01 15:48
 ---
 
 # GNOME — „AppIndicator and KStatusNotifierItem Support”
@@ -104,6 +104,24 @@ flowchart TD
   minimalizacji), zamiast „znikać” po zamknięciu okna.
 - Tooltipy SNI w GNOME bywają pomijane — kluczowe informacje (czas) muszą być dostępne
   też w oknie/menu.
+
+## Kliknięcia ikony
+
+Rozszerzenie inaczej niż Plasma rozdziela kliknięcia (od 2022, sprawdzone w
+[`indicatorStatusIcon.js`](https://github.com/ubuntu/gnome-shell-extension-appindicator/blob/master/indicatorStatusIcon.js),
+`vfunc_button_press_event`):
+
+| Klik | Gdy ikona ma menu (nasza ma) | Co dostaje aplikacja |
+| --- | --- | --- |
+| lewy, pojedynczy | rozszerzenie czeka na drugi klik, potem pokazuje **menu** | nic |
+| lewy, **podwójny** | wywołuje `Activate` | `ActivationReason.Trigger` → okienko przy tacce |
+| środkowy | wywołuje `SecondaryActivate` | `MiddleClick` — u nas nic (decyzja użytkownika) |
+| prawy | pokazuje menu | nic |
+
+> [!warning] Na GNOME okienko otwiera **podwójny** lewy klik albo pozycja menu „Otwórz okienko”
+> Pojedynczy lewy klik zawsze pokazuje menu, jeśli ikona je ma; bez menu nie robi nic. Aplikacja nie może tego
+> zmienić. Potwierdzone przez użytkownika na GNOME 2026-10-01 (pojedynczy lewy klik = menu) —
+> [0078](../../TODO/W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md).
 
 ## Pułapki
 

@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, testy, gnome]
 zalezy_od: ["0004"]
 utworzono: 2026-09-25 20:39
-zaktualizowano: 2026-09-25 20:39
+zaktualizowano: 2026-10-01 15:48
 zamknieto:
 ---
 
@@ -31,7 +31,9 @@ sprawdził na KDE. Wykonują inne osoby (stacja deweloperska ma tylko KDE) — d
 
 ## Kryteria akceptacji
 
-- [ ] Fedora Workstation (GNOME) **z** rozszerzeniem AppIndicator: ikona, lewy klik → okno, prawy → menu, tooltip
+- [ ] Fedora Workstation (GNOME) **z** rozszerzeniem AppIndicator: ikona, **podwójny** lewy klik → okno (pojedynczy
+  pokazuje menu — tak działa rozszerzenie, [0078](../../W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md)),
+  prawy → menu, tooltip
 - [ ] GNOME **bez** rozszerzenia: aplikacja działa jako zwykłe okno + podpowiedź o rozszerzeniu
 - [ ] Ubuntu (rozszerzenie domyślnie włączone): jak wyżej
 - [ ] Gdzie staje okno, czy chowa się po kliknięciu obok, czy da się pisać, co robi klik ikony przy otwartym oknie
@@ -49,6 +51,12 @@ sprawdził na KDE. Wykonują inne osoby (stacja deweloperska ma tylko KDE) — d
 ### 2026-09-25
 
 - **20:39** Utworzono po prototypie 0004 (GNOME niedostępny na stacji deweloperskiej).
+
+### 2026-10-01 15:48
+
+- Pierwszy test użytkownika na GNOME: pojedynczy lewy klik pokazuje menu jak prawy. To zachowanie rozszerzenia
+  AppIndicator (okienko otwiera podwójny klik) — [GNOME AppIndicator](../../../docs/integracje/gnome-appindicator.md),
+  [0078](../../W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md).
 
 ## Wynik
 

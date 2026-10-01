@@ -5,7 +5,7 @@ tags: [integracja, tray, dbus, kde, gnome]
 status_integracji: planowana
 wersja: specyfikacja freedesktop (draft), w KDE Plasma 5/6
 utworzono: 2026-09-25 17:20
-zaktualizowano: 2026-09-25 23:09
+zaktualizowano: 2026-10-01 15:48
 ---
 
 # StatusNotifierItem (SNI) — ikona w tacce
@@ -45,7 +45,7 @@ sequenceDiagram
 | `IconName` / `IconPixmap` | ikona stanu: bezczynny / trwa / błąd (odpowiednik kolorów badge wtyczki) |
 | `OverlayIconName` | alternatywnie: nakładka stanu na stałą ikonę |
 | `ToolTip` | tytuł + opis (podzbiór HTML): np. „1:22 — Moduł rezerwacji online”, opis wpisu, suma dnia |
-| `ItemIsMenu` | `false` — lewy klik otwiera okno, prawy menu |
+| `ItemIsMenu` | `false` — lewy klik otwiera okno, prawy menu (GNOME: lewy pojedynczy — menu, podwójny — okno; [szczegóły](gnome-appindicator.md#kliknięcia-ikony)) |
 | `Menu` | ścieżka D-Bus obiektu `com.canonical.dbusmenu` (menu kontekstowe) |
 
 ## Uprawnienia Flatpaka
