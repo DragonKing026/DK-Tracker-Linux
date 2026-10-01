@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.12" date="2026-10-01">
+      <description>
+        <p>Times are chosen to the minute: the minute list has every minute instead of steps of five, in the main
+          window and in the window by the tray icon.</p>
+      </description>
+    </release>
     <release version="0.10.11" date="2026-10-01">
       <description>
         <p>The calendar counts seconds: an entry stopped and the next one started within the same minute both show,
