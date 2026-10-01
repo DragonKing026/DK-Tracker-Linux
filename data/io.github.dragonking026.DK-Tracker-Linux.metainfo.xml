@@ -58,6 +58,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.16" date="2026-10-01">
+      <description>
+        <p>Zooming the calendar works with a touchpad too, not only with a mouse wheel.</p>
+      </description>
+    </release>
     <release version="0.10.15" date="2026-10-01">
       <description>
         <p>In the calendar, the mouse wheel alone zooms in and out around the pointer, and dragging with the right

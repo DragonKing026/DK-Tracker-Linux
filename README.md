@@ -12,7 +12,7 @@ pokazuje, ile trwa bieżący wpis. Zaczęło się jako linuksowa wersja firmowej
 
 ![Okno główne DK Tracker: wpisy z bieżącego tygodnia i trwający timer](docs/assets/zrzuty/okno-glowne-wpisy.png)
 
-> **Status:** wersja **0.10.15 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
+> **Status:** wersja **0.10.16 (beta)** — sprawdzona na KDE Plasma 6 (Wayland). GNOME: testy w toku.
 
 ## Co potrafi
 

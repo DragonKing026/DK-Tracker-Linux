@@ -21,7 +21,7 @@ Pierwszym etapem był parytet z wtyczką przeglądarkową
 billable, sumy) obowiązują nadal: [docs/integracje/kimai-ws-tracker.md](docs/integracje/kimai-ws-tracker.md).
 Przegląd: [docs/architektura/przeglad.md](docs/architektura/przeglad.md).
 
-Status: **wydana 0.10.15 (beta)**: rdzeń, integracje desktopowe, interfejs, paczka Flatpak, okno główne, podsumowania,
+Status: **wydana 0.10.16 (beta)**: rdzeń, integracje desktopowe, interfejs, paczka Flatpak, okno główne, podsumowania,
 „O programie” i kalendarz (Plany 1–7); dalej:
 minutnik ([0062](TODO/DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md)), testy GNOME przed 1.0.
 Stos: **Python + PySide6 (Qt 6), Flatpak na `org.kde.Platform` 6.11** —
