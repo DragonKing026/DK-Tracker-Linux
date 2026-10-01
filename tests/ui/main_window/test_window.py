@@ -512,3 +512,50 @@ def test_a_click_on_a_block_opens_its_bubble_and_a_drag_moves_it(window, qtbot):
     entry_id, day, begin, end = moved.args
     assert (entry_id, day, end - begin) == (1, date(2026, 9, 25), 60)
     assert begin == 10 * 60
+
+
+def test_the_wheel_zooms_the_calendar_and_the_right_button_drags_its_hours(window, qtbot):
+    """0079: the wheel alone zooms (the hour under the pointer stays); right-drag scrolls."""
+    from PySide6.QtCore import QPoint, QPointF, QSize, Qt
+    from PySide6.QtGui import QMouseEvent, QWheelEvent
+    from PySide6.QtWidgets import QApplication
+
+    page = window.bridge.calendar
+    page.request()
+    page.set_entries(page.days[0], page.days[-1], [], tz=WARSAW, now=NOW)
+    window.bridge.showPage("calendar")
+    window.window.resize(QSize(1000, 700))
+    qtbot.waitUntil(lambda: visual_child(window.window.contentItem(), "calendarPan") is not None)
+    qtbot.wait(50)
+    pan = visual_child(window.window.contentItem(), "calendarPan")
+    flick = pan.parentItem().parentItem().parentItem()  # grid → content → Flickable
+    at = QPointF(600, 400)
+
+    def hour_at():
+        return (
+            flick.property("contentY") + flick.mapFromScene(at).y() - pan.parentItem().y()
+        ) / page.hourHeight
+
+    before = hour_at()
+    wheel = QWheelEvent(at, at, QPoint(0, 0), QPoint(0, 120), Qt.MouseButton.NoButton,
+                        Qt.KeyboardModifier.NoModifier, Qt.ScrollPhase.NoScrollPhase, False)  # fmt: skip
+    QApplication.sendEvent(window.window, wheel)
+    QApplication.processEvents()
+    assert page.hourHeight == 120
+    assert hour_at() == pytest.approx(before, abs=0.02)
+
+    start = flick.property("contentY")
+    right, none = Qt.MouseButton.RightButton, Qt.MouseButton.NoButton
+    for kind, y, held in [
+        (QMouseEvent.Type.MouseButtonPress, 400, right),
+        (QMouseEvent.Type.MouseMove, 350, right),
+        (QMouseEvent.Type.MouseMove, 300, right),
+        (QMouseEvent.Type.MouseButtonRelease, 300, none),
+    ]:
+        point = QPointF(600, y)
+        QApplication.sendEvent(
+            window.window, QMouseEvent(kind, point, point, right, held, Qt.KeyboardModifier.NoModifier)
+        )
+        QApplication.processEvents()
+    assert flick.property("contentY") == pytest.approx(start + 100)
+    assert page.data["blocks"] == []  # the right button makes no entry

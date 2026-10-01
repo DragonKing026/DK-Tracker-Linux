@@ -145,18 +145,14 @@ Rectangle {
             interactive: false  // the wheel scrolls; dragging makes and moves entries
             onHeightChanged: if (view.scrolled && !view.wheeled) view.scrollToWork()
             ScrollBar.vertical: Scroller { objectName: "calendarScroll" }
-            WheelHandler {
+            function scrollTo(y) { contentY = Math.max(0, Math.min(contentHeight - height, y)) }
+            WheelHandler {  // the wheel zooms; the hour under the pointer stays where it is
                 onWheel: function (event) {
                     view.wheeled = true
-                    if (event.modifiers & Qt.ControlModifier) {  // closer or further, the hour under the pointer stays
-                        const at = parent.mapToItem(flick, point.position.x, point.position.y).y
-                        const minute = (flick.contentY + at - grid.y) / grid.minuteHeight
-                        app.calendarPage.zoom(event.angleDelta.y / 120)
-                        flick.contentY = Math.max(0, Math.min(flick.contentHeight - flick.height,
-                                                              minute * grid.minuteHeight + grid.y - at))
-                        return
-                    }
-                    flick.contentY = Math.max(0, Math.min(flick.contentHeight - flick.height, flick.contentY - event.angleDelta.y))
+                    const at = parent.mapToItem(flick, point.position.x, point.position.y).y
+                    const minute = (flick.contentY + at - grid.y) / grid.minuteHeight
+                    app.calendarPage.zoom(event.angleDelta.y / 120)
+                    flick.scrollTo(minute * grid.minuteHeight + grid.y - at)
                 }
             }
 
@@ -174,6 +170,22 @@ Rectangle {
                     return i >= 0 && i < count ? i : fallback
                 }
 
+                MouseArea {  // the right button drags the hours up and down (the left one makes entries)
+                    objectName: "calendarPan"
+                    anchors.fill: parent
+                    acceptedButtons: Qt.RightButton
+                    cursorShape: pressed ? Qt.ClosedHandCursor : Qt.ArrowCursor
+                    property real fromY: 0
+                    property real fromContent: 0
+                    onPressed: function (event) {
+                        fromY = mapToItem(flick, event.x, event.y).y
+                        fromContent = flick.contentY
+                    }
+                    onPositionChanged: function (event) {
+                        view.wheeled = true
+                        flick.scrollTo(fromContent - (mapToItem(flick, event.x, event.y).y - fromY))
+                    }
+                }
                 Repeater {  // the hours
                     model: 25
                     delegate: Item {
