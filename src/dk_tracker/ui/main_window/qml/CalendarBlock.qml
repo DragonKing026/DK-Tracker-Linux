@@ -23,8 +23,11 @@ Item {
     x: canvas.dayX(day) + (dragging ? 0 : b.column * canvas.columnWidth / b.columns) + 2
     width: (dragging ? canvas.columnWidth : canvas.columnWidth / b.columns) - 4
     y: start * canvas.minuteHeight + 1
-    height: Math.max(14, (end - start) * canvas.minuteHeight - 2)
-    z: dragging ? 5 : 1
+    // As tall as it lasts: a short entry is a thin strip, not a block reaching into the next one (only
+    // entries that really overlap stand side by side); drawn over its neighbour so it can be clicked.
+    readonly property real span: (end - start) * canvas.minuteHeight
+    height: Math.max(4, span - 2)
+    z: dragging ? 5 : span < 16 ? 2 : 1
 
     readonly property color ink: b.color || app.palette.muted
     Rectangle {

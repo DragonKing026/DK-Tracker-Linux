@@ -139,14 +139,13 @@ def test_seconds_count_when_one_entry_stops_and_the_next_starts_in_the_same_minu
     blocks = {block.entry.id: block for block in layout([first, short, nxt], days(), WARSAW, NOW)}
     assert (blocks[1].start, blocks[1].end) == (9 * 3600 + 10, 10 * 3600 + 40)
     assert (blocks[2].start, blocks[2].end) == (10 * 3600 + 40, 10 * 3600 + 55)  # within one minute: kept
-    assert (blocks[1].column, blocks[1].columns) == (0, 1)  # the first and the next: one after another
-    # The short one is drawn taller than 15 s: the next one stands beside it, not over it.
-    assert {blocks[2].column, blocks[3].column} == {0, 1} and blocks[3].columns == 2
+    assert {(block.column, block.columns) for block in blocks.values()} == {(0, 1)}  # one after another
 
 
-def test_blocks_of_half_an_hour_one_after_another_share_no_columns():
-    monday = date(2026, 9, 21)
-    blocks = layout([entry(1, monday, 9, 30), entry(2, monday, 9, 30, start_minute=30)], days(), WARSAW, NOW)
+def test_a_short_entry_and_the_next_one_share_no_columns():
+    monday = date(2026, 9, 21)  # 8:45–8:54 and 8:55–10:23 (the user's screenshot)
+    short, nxt = entry(1, monday, 8, 9, start_minute=45), entry(2, monday, 8, 88, start_minute=55)
+    blocks = layout([short, nxt], days(), WARSAW, NOW)
     assert {(block.column, block.columns) for block in blocks} == {(0, 1)}
 
 

@@ -22,9 +22,6 @@ Mode = Literal["day", "week"]
 DAY_MINUTES = 24 * 60
 DAY_SECONDS = DAY_MINUTES * 60
 SNAP_MINUTES = 15
-# The shortest block CalendarBlock.qml draws is 14 px, about 18 minutes at 48 px an hour: a shorter entry
-# takes that much room in the columns, or the next block would cover it.
-MIN_BLOCK_SECONDS = 18 * 60
 
 
 @dataclass(frozen=True)
@@ -118,17 +115,16 @@ def _columns(blocks: list[Block]) -> list[Block]:
     group_end = -1
     ends: list[int] = []  # when each column of the group is free again
     for block in blocks:
-        reach = max(block.end, block.start + MIN_BLOCK_SECONDS)  # as tall as it is drawn
         if block.start >= group_end:  # nothing open overlaps: the group so far is finished
             placed.extend(_width(group, len(ends)))
-            group, ends, group_end = [], [], reach
+            group, ends, group_end = [], [], block.end
         column = next((i for i, free in enumerate(ends) if free <= block.start), len(ends))
         if column == len(ends):
-            ends.append(reach)
+            ends.append(block.end)
         else:
-            ends[column] = reach
+            ends[column] = block.end
         group.append(Block(**{**block.__dict__, "column": column}))
-        group_end = max(group_end, reach)
+        group_end = max(group_end, block.end)
     placed.extend(_width(group, len(ends)))
     return placed
 
