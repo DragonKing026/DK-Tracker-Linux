@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-10-01 18:48
+zaktualizowano: 2026-10-01 19:20
 ---
 
 # Tablica zadań
@@ -27,7 +27,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0077 | [Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki](W-TRAKCIE/0077-godziny-w-okienku-przy-tacce/todo.md) | 🔨 w-trakcie | p2 | — |
 | 0078 | [Kalendarz liczy sekundy; lewy klik ikony na GNOME](W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md) | 🔨 w-trakcie | p2 | — |
-| 0079 | [Kalendarz: większa skala od 8:00, przybliżanie Ctrl + kółko](W-TRAKCIE/0079-skala-kalendarza/todo.md) | 🔨 w-trakcie | p2 | — |
+| 0079 | [Kalendarz: większa skala od 8:00, przybliżanie kółkiem, przesuwanie prawym](W-TRAKCIE/0079-skala-kalendarza/todo.md) | 🔨 w-trakcie | p2 | — |
 
 ## Do zrobienia
 

@@ -92,7 +92,7 @@ shot("skala-domyslna", QSize(1400, 800))
 def wheel(x, y, notches, ctrl=True):
     pos = QPointF(x, y)
     ev = QWheelEvent(pos, window.window.mapToGlobal(pos), QPoint(0, 0), QPoint(0, 120 * notches),
-                     Qt.MouseButton.NoButton, Qt.KeyboardModifier.ControlModifier if ctrl else Qt.KeyboardModifier.NoModifier,
+                     Qt.MouseButton.NoButton, Qt.KeyboardModifier.NoModifier if ctrl else Qt.KeyboardModifier.NoModifier,
                      Qt.ScrollPhase.NoScrollPhase, False)
     QApplication.sendEvent(window.window, ev)
     pump(10)
@@ -102,3 +102,26 @@ print("hour height", page.hourHeight)
 wheel(700, 500, -4)
 shot("po-oddaleniu", QSize(1400, 800))
 print("hour height", page.hourHeight)
+
+def flick():
+    from PySide6.QtQuick import QQuickItem
+    pan = None
+    def walk(i):
+        nonlocal pan
+        for c in i.childItems():
+            if c.objectName() == "calendarPan": pan = c
+            walk(c)
+    walk(window.window.contentItem())
+    return pan.parentItem().parentItem().parentItem()  # grid -> contentItem -> flick
+f = flick()
+print("contentY before pan", f.property("contentY"))
+def mev(kind, x, y, buttons):
+    pos = QPointF(x, y)
+    QApplication.sendEvent(window.window, QMouseEvent(kind, pos, window.window.mapToGlobal(pos), Qt.MouseButton.RightButton, buttons, Qt.KeyboardModifier.NoModifier))
+    pump(3)
+mev(QMouseEvent.Type.MouseButtonPress, 1300, 500, Qt.MouseButton.RightButton)
+for y in (480, 450, 400, 350, 300):
+    mev(QMouseEvent.Type.MouseMove, 1300, y, Qt.MouseButton.RightButton)
+mev(QMouseEvent.Type.MouseButtonRelease, 1300, 300, Qt.MouseButton.NoButton)
+print("contentY after pan (expect +200)", f.property("contentY"))
+shot("po-przesunieciu", QSize(1400, 800))
