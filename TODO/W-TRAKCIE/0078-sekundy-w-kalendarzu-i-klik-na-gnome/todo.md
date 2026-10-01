@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, kalendarz, gnome, tray]
 zalezy_od: []
 utworzono: 2026-10-01 15:48
-zaktualizowano: 2026-10-01 17:27
+zaktualizowano: 2026-10-01 17:28
 zamknieto:
 ---
 
@@ -79,7 +79,12 @@ Po zmianie (render offscreen, dzień): pierwszy wpis do 10:00:40, pomyłka 15 s,
 
 - Uwaga użytkownika ze zrzutem: „nadal kalendarz jest co do minuty” — układ był już z sekundami, ale godziny i czas
   na blokach pokazywały minuty (`08:34 – 10:58 · 2:24`). Teraz `08:34:12 – 10:58:40 · 2:24:28`; trwający
-  `08:34:12 – teraz`, czas w minutach (blok odświeża się raz na minutę). Zrzut odświeżony. Wydanie 0.10.12.
+  `08:34:12 – teraz`, czas w minutach (blok odświeżany raz na minutę).
+- Użytkownik: „cofnij, pokazywać nie musisz sekund, myślałem, że źle się rysują” — etykiety znów w minutach
+  (`0428f52`, `40b463c`), rysowanie z sekundami zostaje. Zrzut w materiałach pokazuje etykiety z sekundami (stan
+  przed cofnięciem).
+- Użytkownik: „przeskok co 5 minut zamiast co minutę” w wyborze godziny — lista minut co 1 w oknie głównym
+  i w okienku przy tacce. Wydanie 0.10.12.
 
 ## Wynik
 
