@@ -72,6 +72,11 @@ def hhmm_of(minutes: int) -> str:
     return f"{minutes // 60:02d}:{minutes % 60:02d}"
 
 
+def hhmmss_of(seconds: int) -> str:
+    """ "HH:MM:SS" of seconds from midnight; the day's end is "24:00:00"."""
+    return f"{seconds // 3600:02d}:{seconds // 60 % 60:02d}:{seconds % 60:02d}"
+
+
 def layout(entries: Iterable[Entry], days: list[date], tz: tzinfo, now: datetime) -> list[Block]:
     """Blocks of the entries on the days shown; the running one until now."""
     index = {day: i for i, day in enumerate(days)}

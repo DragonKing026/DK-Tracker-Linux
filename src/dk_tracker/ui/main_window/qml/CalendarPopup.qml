@@ -12,8 +12,8 @@ Popup {
     property string kind: "new"  // "new" | "entry" | "running"
     property int entryId: 0
     property int day: 0
-    property int start: 0
-    property int end: 0
+    property real start: 0  // minutes, the seconds as a fraction
+    property real end: 0
     property string hours: ""
     property int projectId: 0
     property int activityId: 0

@@ -56,7 +56,8 @@ def test_blocks_carry_what_a_block_shows(page):
     [block] = page.data["blocks"]
     assert (block["id"], block["day"], block["start"], block["end"]) == (1, 1, 540, 630)
     assert (block["description"], block["project"], block["color"], block["hours"], block["time"]) == (
-        "Formularz rezerwacji", "Moduł rezerwacji · Programowanie", "#008000", "09:00 – 10:30", "1:30",
+        "Formularz rezerwacji", "Moduł rezerwacji · Programowanie", "#008000", "09:00:00 – 10:30:00",
+        "1:30:00",
     )  # fmt: skip
     assert (block["running"], block["exported"], block["movable"]) == (False, False, True)
     assert page.data["days"][1]["total"] == "1:30"
@@ -107,7 +108,7 @@ def test_a_block_keeps_its_seconds_and_a_dragged_edge_leaves_the_other_ones(page
     deliver(page, [make_entry(1, begin, begin + timedelta(minutes=30, seconds=5))])
     [block] = page.data["blocks"]
     assert (block["start"], block["end"]) == pytest.approx((540 + 40 / 60, 570 + 45 / 60))
-    assert (block["hours"], block["time"]) == ("09:00 – 09:30", "0:30")
+    assert (block["hours"], block["time"]) == ("09:00:40 – 09:30:45", "0:30:05")
     with qtbot.waitSignal(page.moveRequested) as asked:
         page.move(1, 1, block["start"], 600)  # only the end dragged, to 10:00
     assert asked.args == [1, date(2026, 9, 22), 540, 600]
@@ -120,6 +121,8 @@ def test_running_exported_and_past_midnight_blocks_do_not_move(page, qtbot):
     running = make_entry(2, NOW - timedelta(hours=1))
     deliver(page, [entry(1, TODAY, 9, 60, exported=True), running, entry(3, date(2026, 9, 21), 23, 120)])
     movable = {(block["id"], block["day"]): block["movable"] for block in page.data["blocks"]}
+    [live] = [block for block in page.data["blocks"] if block["running"]]
+    assert (live["hours"], live["time"]) == ("17:00:00 – teraz", "1:00")  # redrawn once a minute: no seconds
     assert movable == {(1, 4): False, (2, 4): False, (3, 0): False, (3, 1): False}
     with qtbot.assertNotEmitted(page.moveRequested):
         page.move(1, 4, 600, 660)

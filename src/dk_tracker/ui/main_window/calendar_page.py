@@ -22,6 +22,7 @@ from dk_tracker.core.calendar import (
     Mode,
     day_totals,
     hhmm_of,
+    hhmmss_of,
     layout,
     shifted,
     snap,
@@ -30,7 +31,7 @@ from dk_tracker.core.calendar import (
 )
 from dk_tracker.core.i18n import Translator
 from dk_tracker.core.models import Entry
-from dk_tracker.core.timefmt import local_day, short_duration, wall_clock
+from dk_tracker.core.timefmt import clock, local_day, short_duration, wall_clock
 
 
 class CalendarPage(QObject):
@@ -261,8 +262,14 @@ class CalendarPage(QObject):
         }
         self.dataChanged.emit()
 
+    def _hours(self, block: Any) -> str:
+        """With the seconds; a running one ends "now" (redrawn once a minute, its seconds would lag)."""
+        end = self._t("timeNow").lower() if block.running else hhmmss_of(block.end)
+        return f"{hhmmss_of(block.start)} – {end}"
+
     def _block(self, block: Any) -> dict[str, Any]:
         entry: Entry = block.entry
+        length = block.end - block.start
         names = [name for name in (entry.project_name, entry.activity_name) if name]
         return {
             "id": entry.id,
@@ -274,8 +281,8 @@ class CalendarPage(QObject):
             "description": " ".join(entry.description.split()),
             "project": " · ".join(names),
             "color": entry.project_color or "",
-            "hours": f"{hhmm_of(block.start // 60)} – {hhmm_of(block.end // 60)}",  # running: until now
-            "time": short_duration(block.end - block.start),
+            "hours": self._hours(block),
+            "time": short_duration(length) if block.running else clock(length),
             "running": block.running,
             "exported": entry.exported,
             "billable": entry.billable,
