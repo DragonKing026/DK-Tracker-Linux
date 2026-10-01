@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, kalendarz, gnome, tray]
 zalezy_od: []
 utworzono: 2026-10-01 15:48
-zaktualizowano: 2026-10-01 15:48
+zaktualizowano: 2026-10-01 16:05
 zamknieto:
 ---
 
@@ -37,13 +37,13 @@ drugim. Wyjaśnić, czemu na GNOME lewy klik ikony pokazuje menu zamiast okienka
 - [x] Przyczyna zachowania na GNOME ustalona w kodzie rozszerzenia i opisana w dokumentacji
 - [x] Testy i dokumentacja zaktualizowane
 - [ ] Sprawdzone przez użytkownika (kalendarz; podwójny klik na GNOME)
-- [ ] Zmiany zacommitowane małymi krokami
+- [x] Zmiany zacommitowane małymi krokami
 
 ## Kroki
 
 - [x] Sekundy w `layout` i w `CalendarPage`, QML z ułamkiem minuty
 - [x] GNOME: źródło rozszerzenia AppIndicator, dokumentacja
-- [ ] Wydanie
+- [x] Wydanie
 
 ## Materiały
 
@@ -68,6 +68,12 @@ Po zmianie (render offscreen, dzień): pierwszy wpis do 10:00:40, pomyłka 15 s,
   [`indicatorStatusIcon.js`](https://github.com/ubuntu/gnome-shell-extension-appindicator/blob/master/indicatorStatusIcon.js))
   przy ikonie z menu na **pojedynczy** lewy klik pokazuje menu, a `Activate` wysyła dopiero przy **podwójnym**. Bez
   menu pojedynczy klik nie robi nic — aplikacja nie ma na to wpływu.
+
+### 2026-10-01 16:05
+
+- Commity: `2a004be` (kod i testy), `0b25289` (F-37), `b7b81f4` (GNOME w integracjach), `a634d3d` (zadanie).
+- Wydanie 0.10.11 (`v0.10.11`): workflow „Wydanie” zielony, strona wydania 0.10.10 usunięta (tag został),
+  `flatpak update` u siebie → 0.10.11. Czeka na sprawdzenie przez użytkownika.
 
 ## Wynik
 
