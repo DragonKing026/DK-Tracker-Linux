@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.11" date="2026-10-01">
+      <description>
+        <p>The calendar counts seconds: an entry stopped and the next one started within the same minute both show,
+          one under the other, and an entry shorter than a minute gets its own block beside the next one.</p>
+      </description>
+    </release>
     <release version="0.10.10" date="2026-09-28">
       <description>
         <p>Delivers the changes of 0.10.9, which did not reach the update repository: in the window by the tray icon,
