@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-10-01 15:48
+zaktualizowano: 2026-10-01 17:28
 ---
 
 # Katalog funkcji
@@ -129,7 +129,7 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 Źródło: `popup.js#saveDescription`, `#onBeginChange`, `#onBillableClick`.
 
 - **W aplikacji (prośba użytkownika, poza wtyczką):** początku i końca się nie wpisuje, tylko wybiera — przycisk
-  z zegarem otwiera listę godzin i minut (co 5 min; minuta z Kimai spoza kroku też jest na liście), jak w oknie
+  z zegarem otwiera listę godzin i minut (co minutę — 0.10.12), jak w oknie
   głównym. Godzina zostawia listę otwartą, minuta ją zamyka; zmiana idzie do Kimai raz, po zamknięciu listy. Koniec
   czyści przycisk „Teraz”. „Od”, „do” i „puste = teraz” stoją w jednym wierszu —
   [ui/time_picker.py](../../src/dk_tracker/ui/time_picker.py),
@@ -321,7 +321,7 @@ Pełny klient Kimai na wzór Toggl Track ([specyfikacja 0.10](../specyfikacja/20
 - **Wiersz**: opis (do dwóch linii), projekt · rodzaj pracy w kolorze projektu, `$` (zielony — płatne), od–do, czas;
   ▶ wznawia (nowy wpis od teraz z tym samym opisem i projektem), kosz usuwa, wpis wyeksportowany z kłódką.
 - **Okno edycji** (kliknięcie wiersza): wszystkie opcje wpisu z Kimai — dzień (kalendarz), od i do (wybór godziny i
-  minut co 5), czas trwania (tylko do odczytu),
+  minut co 1), czas trwania (tylko do odczytu),
   projekt i rodzaj pracy, opis w wielu liniach (Enter zapisuje, Shift+Enter — nowa linia), tagi (wybór z listy tagów
   Kimai, kafelki w ich kolorach; nowy tag można dopisać),
   `$` (płatne — ikona jak w wierszu), przerwa, pola dodatkowe serwera — to, co ma formularz Kimai (bez stawek);
