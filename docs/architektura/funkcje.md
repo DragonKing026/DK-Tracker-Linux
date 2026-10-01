@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-10-01 17:27
+zaktualizowano: 2026-10-01 15:48
 ---
 
 # Katalog funkcji
@@ -380,9 +380,7 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
   linia „teraz” w dniu dzisiejszym.
 - **Bloki**: wpisy w kolorze projektu (tło przejrzyste, pasek z lewej): opis, projekt · rodzaj pracy, godziny i czas;
   nakładające się stoją obok siebie; trwający rośnie co minutę; wyeksportowany z kłódką; wpis przez północ — dwa bloki
-  (do 24:00 i od 0:00). Bloki liczą **sekundy** — także godziny (GG:MM:SS) i czas na bloku i w dymku; trwający: „od –
-  teraz”, czas w
-  minutach (0.10.12): wpis zamknięty i nowy otwarty w tej samej minucie stoją jeden pod
+  (do 24:00 i od 0:00). Bloki liczą **sekundy**: wpis zamknięty i nowy otwarty w tej samej minucie stoją jeden pod
   drugim, krótszy niż minuta też ma blok, a że rysowany jest na co najmniej 14 px (~18 min), staje obok następnego
   (0.10.11,
   [0078](../../TODO/W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md)).
