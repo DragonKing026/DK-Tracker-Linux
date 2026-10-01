@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.15" date="2026-10-01">
+      <description>
+        <p>In the calendar, the mouse wheel alone zooms in and out around the pointer, and dragging with the right
+          button moves the hours up and down.</p>
+      </description>
+    </release>
     <release version="0.10.14" date="2026-10-01">
       <description>
         <p>The calendar shows the hours larger and starts at 8:00; Ctrl and the mouse wheel zoom in and out around the
