@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, kalendarz, wyglad]
 zalezy_od: []
 utworzono: 2026-10-01 18:48
-zaktualizowano: 2026-10-01 19:20
+zaktualizowano: 2026-10-01 19:40
 zamknieto:
 ---
 
@@ -72,6 +72,15 @@ Po zmianie (render offscreen, 1400 × 800; „teraz” 14:40, więc widok zaczyn
   brak narzędzi do symulacji wejścia). Teraz samo kółko przybliża, prawy przycisk przeciąga godziny (`calendarPan`,
   pod kolumnami dni — lewy dalej rysuje). Test okna: kółko 96 → 120 z godziną pod kursorem w miejscu, prawy
   przycisk o 100 px w górę → widok 100 px dalej, bez nowego wpisu. Wydanie 0.10.15.
+
+### 2026-10-01 19:40
+
+- Użytkownik (0.10.15): „scroll dalej nie działa”, „prawy przycisk działa”. Prawy przycisk to `MouseArea`, kółko —
+  `WheelHandler`, który według [dokumentacji Qt](https://doc.qt.io/qt-6/qml-qtquick-wheelhandler.html)
+  (`acceptedDevices`) domyślnie bierze tylko kółko myszy — przewijanie touchpadem pomija; test offscreen wysyłał
+  zdarzenie „myszy”, więc przechodził. Kółko obsługuje teraz `onWheel` tego samego `MouseArea` (wszystkie
+  urządzenia, `angleDelta` albo `pixelDelta`). Okno zapisuje w logu 5 pierwszych zdarzeń kółka (urządzenie, faza,
+  przesunięcie) — gdyby nadal nie działało. Wydanie 0.10.16.
 
 ## Wynik
 
