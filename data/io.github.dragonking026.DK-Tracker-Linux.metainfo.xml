@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.14" date="2026-10-01">
+      <description>
+        <p>The calendar shows the hours larger and starts at 8:00; Ctrl and the mouse wheel zoom in and out around the
+          pointer, and the scale is remembered.</p>
+      </description>
+    </release>
     <release version="0.10.13" date="2026-10-01">
       <description>
         <p>In the calendar, a short entry is drawn as tall as it lasts, as a thin strip; entries only stand side by
