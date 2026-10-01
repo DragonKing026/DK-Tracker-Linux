@@ -8,6 +8,7 @@ block stands in its new place at once; if Kimai refuses, the controller loads th
 
 from __future__ import annotations
 
+import math
 from collections.abc import Callable, Iterable
 from dataclasses import replace
 from datetime import date, datetime, tzinfo
@@ -178,22 +179,23 @@ class CalendarPage(QObject):
             }
         )
 
-    @Slot(int, int, int, int)
-    def move(self, entryId: int, day: int, begin: int, end: int) -> None:  # noqa: N803
-        """A block let go in a new place (or with a new edge): shown there at once, then saved."""
+    @Slot(int, int, float, float)
+    def move(self, entryId: int, day: int, begin: float, end: float) -> None:  # noqa: N803
+        """A block let go in a new place (or with a new edge): shown there at once, then saved.
+
+        The edges come in minutes with the seconds as a fraction; a dragged edge is on a whole
+        minute, an edge left where it was keeps its seconds (Tracker.reschedule sends only the other)."""
         entry = self.entry(entryId)
-        if entry is None or self._tz is None or not self._movable(entry) or end <= begin:
+        begin_minute, end_minute = math.floor(begin), math.floor(end)
+        if entry is None or self._tz is None or not self._movable(entry) or end_minute <= begin_minute:
             return
         target = self.days[day]
-        moved = replace(
-            entry,
-            begin=wall_clock(target, begin, self._tz),
-            end=wall_clock(target, end, self._tz),
-            duration=(end - begin) * 60,
-        )
+        begin_at = self._at(target, begin_minute, entry.begin)
+        end_at = self._at(target, end_minute, entry.end)  # type: ignore[arg-type]
+        moved = replace(entry, begin=begin_at, end=end_at, duration=int((end_at - begin_at).total_seconds()))
         self._entries = [moved if item.id == entryId else item for item in self._entries]
         self._refresh()
-        self.moveRequested.emit(entryId, target, begin, end)
+        self.moveRequested.emit(entryId, target, begin_minute, end_minute)
 
     @Slot(float, bool, result=int)
     def snap(self, minutes: float, exact: bool) -> int:
@@ -214,6 +216,11 @@ class CalendarPage(QObject):
         self._chosen = True
         self.request()
 
+    def _at(self, day: date, minute: int, was: datetime) -> datetime:
+        """The wall clock of `minute`; the old moment when that is its minute (seconds kept)."""
+        at = wall_clock(day, minute, self._tz)  # type: ignore[arg-type]
+        return was if at == was.astimezone(self._tz).replace(second=0, microsecond=0) else at
+
     def _movable(self, entry: Entry) -> bool:
         """Finished, not invoiced, and on one day (ending at its midnight at the latest)."""
         if entry.end is None or entry.exported or self._tz is None:
@@ -229,10 +236,10 @@ class CalendarPage(QObject):
         tz, now = self._tz, self._now
         totals = day_totals(entries, days, tz, now) if shown else [0] * len(days)  # type: ignore[arg-type]
         blocks = layout(entries, days, tz, now) if shown else []  # type: ignore[arg-type]
-        now_minutes = -1
+        now_minutes: float = -1
         if tz is not None and now is not None and local_day(now, tz) in days:
             local = now.astimezone(tz)
-            now_minutes = local.hour * 60 + local.minute
+            now_minutes = local.hour * 60 + local.minute + local.second / 60
         self._data = {
             "mode": self._mode,
             "workweek": self._workweek,
@@ -260,15 +267,15 @@ class CalendarPage(QObject):
         return {
             "id": entry.id,
             "day": block.day,
-            "start": block.start,
-            "end": block.end,
+            "start": block.start / 60,  # minutes, the seconds as a fraction
+            "end": block.end / 60,
             "column": block.column,
             "columns": block.columns,
             "description": " ".join(entry.description.split()),
             "project": " · ".join(names),
             "color": entry.project_color or "",
-            "hours": f"{hhmm_of(block.start)} – {hhmm_of(block.end)}",  # a running one: until now
-            "time": short_duration((block.end - block.start) * 60),
+            "hours": f"{hhmm_of(block.start // 60)} – {hhmm_of(block.end // 60)}",  # running: until now
+            "time": short_duration(block.end - block.start),
             "running": block.running,
             "exported": entry.exported,
             "billable": entry.billable,

@@ -87,9 +87,9 @@ def days():
     return view_days("week", TODAY, MONDAY, workweek=False)
 
 
-def test_a_block_has_its_day_and_minutes():
+def test_a_block_has_its_day_and_seconds():
     [block] = layout([entry(1, date(2026, 9, 22), 9, 90, start_minute=15)], days(), WARSAW, NOW)
-    assert (block.day, block.start, block.end, block.column, block.columns) == (1, 555, 645, 0, 1)
+    assert (block.day, block.start, block.end, block.column, block.columns) == (1, 555 * 60, 645 * 60, 0, 1)
     assert (block.running, block.continued, block.continues) == (False, False, False)
 
 
@@ -122,13 +122,38 @@ def test_three_in_a_chain_use_the_columns_they_need():
 def test_an_entry_past_midnight_goes_on_into_the_next_day():
     late = entry(1, date(2026, 9, 21), 22, 180)
     first, second = layout([late], days(), WARSAW, NOW)
-    assert (first.day, first.start, first.end, first.continues) == (0, 1320, 1440, True)
-    assert (second.day, second.start, second.end, second.continued) == (1, 0, 60, True)
+    assert (first.day, first.start, first.end, first.continues) == (0, 1320 * 60, 1440 * 60, True)
+    assert (second.day, second.start, second.end, second.continued) == (1, 0, 60 * 60, True)
 
 
 def test_the_running_entry_grows_until_now():
     [block] = layout([entry(1, TODAY, 16, 0, running=True)], days(), WARSAW, NOW)
-    assert (block.day, block.start, block.end, block.running) == (4, 960, 1080, True)
+    assert (block.day, block.start, block.end, block.running) == (4, 960 * 60, 1080 * 60, True)
+
+
+def test_seconds_count_when_one_entry_stops_and_the_next_starts_in_the_same_minute():
+    monday = date(2026, 9, 21)
+    first = make_entry(1, at(monday, 9) + timedelta(seconds=10), at(monday, 10) + timedelta(seconds=40))
+    short = make_entry(2, at(monday, 10) + timedelta(seconds=40), at(monday, 10) + timedelta(seconds=55))
+    nxt = make_entry(3, at(monday, 10) + timedelta(seconds=55), at(monday, 11))
+    blocks = {block.entry.id: block for block in layout([first, short, nxt], days(), WARSAW, NOW)}
+    assert (blocks[1].start, blocks[1].end) == (9 * 3600 + 10, 10 * 3600 + 40)
+    assert (blocks[2].start, blocks[2].end) == (10 * 3600 + 40, 10 * 3600 + 55)  # within one minute: kept
+    assert (blocks[1].column, blocks[1].columns) == (0, 1)  # the first and the next: one after another
+    # The short one is drawn taller than 15 s: the next one stands beside it, not over it.
+    assert {blocks[2].column, blocks[3].column} == {0, 1} and blocks[3].columns == 2
+
+
+def test_blocks_of_half_an_hour_one_after_another_share_no_columns():
+    monday = date(2026, 9, 21)
+    blocks = layout([entry(1, monday, 9, 30), entry(2, monday, 9, 30, start_minute=30)], days(), WARSAW, NOW)
+    assert {(block.column, block.columns) for block in blocks} == {(0, 1)}
+
+
+def test_a_zero_length_entry_still_shows():
+    moment = at(date(2026, 9, 21), 9)
+    [block] = layout([make_entry(1, moment, moment)], days(), WARSAW, NOW)
+    assert block.start == block.end == 9 * 3600
 
 
 def test_entries_of_other_days_are_left_out():
@@ -155,4 +180,4 @@ def test_minutes_on_the_wall_clock_of_a_day():
 
 def test_an_entry_ending_at_midnight_does_not_go_on():
     [block] = layout([entry(1, date(2026, 9, 21), 23, 60)], days(), WARSAW, NOW)
-    assert (block.end, block.continues) == (1440, False)
+    assert (block.end, block.continues) == (1440 * 60, False)

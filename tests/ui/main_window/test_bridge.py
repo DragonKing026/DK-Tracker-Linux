@@ -355,7 +355,7 @@ def test_the_summary_is_a_page(bridge):
 def test_the_calendar_page_follows_the_day_and_the_clock(bridge):
     assert bridge.calendarPage is bridge.calendar
     assert bridge.calendar.days[0] == date(2026, 9, 21)
-    assert bridge.calendar.data["now"] == 18 * 60 + 4
+    assert bridge.calendar.data["now"] == pytest.approx(18 * 60 + 4 + 3 / 60)  # seconds as a fraction
 
 
 def test_a_calendar_entry_is_deleted_with_the_undo_bar(bridge, qtbot):

@@ -14,8 +14,8 @@ Item {
     readonly property bool locked: app.view.offline || !b.movable
     // Where it is drawn: its place, or where the pointer takes it while dragged.
     property int day: b.day
-    property int start: b.start
-    property int end: b.end
+    property real start: b.start  // minutes, the seconds as a fraction
+    property real end: b.end
     property bool dragging: false
     signal opened(var block, var item)
     objectName: "calendarBlock_" + b.id
@@ -92,7 +92,8 @@ Item {
     }
 
     function hhmm(minutes) {
-        return ("0" + Math.floor(minutes / 60)).slice(-2) + ":" + ("0" + minutes % 60).slice(-2)
+        const m = Math.floor(minutes)
+        return ("0" + Math.floor(m / 60)).slice(-2) + ":" + ("0" + m % 60).slice(-2)
     }
     function hoursText() { return hhmm(start) + " – " + hhmm(end) }
 
@@ -102,8 +103,8 @@ Item {
         hoverEnabled: true
         property string mode: ""  // "move" | "top" | "bottom"
         property point from: Qt.point(0, 0)  // in the grid
-        property int fromStart: 0
-        property int fromEnd: 0
+        property real fromStart: 0
+        property real fromEnd: 0
         property int fromDay: 0
         readonly property string edgeUnder: block.locked || block.height < 24 ? "move"
                                           : mouseY < 6 ? "top" : mouseY > height - 6 ? "bottom" : "move"

@@ -1,7 +1,9 @@
 """The main window's calendar (Plan 7, spec 0.10 section 8): the days shown, entries as blocks in a
 grid of minutes, side by side where they overlap, and snapping to quarter hours.
 
-Pure functions; minutes are counted from the start of a day in the zone the window shows.
+Pure functions; minutes are counted from the start of a day in the zone the window shows. Blocks keep
+the seconds: an entry stopped and the next started within the same minute must neither vanish nor
+seem to overlap.
 """
 
 from __future__ import annotations
@@ -18,15 +20,19 @@ from .timefmt import elapsed_seconds, local_day, wall_clock
 
 Mode = Literal["day", "week"]
 DAY_MINUTES = 24 * 60
+DAY_SECONDS = DAY_MINUTES * 60
 SNAP_MINUTES = 15
+# The shortest block CalendarBlock.qml draws is 14 px, about 18 minutes at 48 px an hour: a shorter entry
+# takes that much room in the columns, or the next block would cover it.
+MIN_BLOCK_SECONDS = 18 * 60
 
 
 @dataclass(frozen=True)
 class Block:
     entry: Entry
     day: int  # index into the days shown
-    start: int  # minutes from the day's midnight
-    end: int  # up to 1440
+    start: int  # seconds from the day's midnight
+    end: int  # up to 86400
     column: int = 0  # side by side with the entries it overlaps
     columns: int = 1
     running: bool = False
@@ -75,9 +81,9 @@ def layout(entries: Iterable[Entry], days: list[date], tz: tzinfo, now: datetime
         end = (entry.end or now).astimezone(tz)
         day = begin.date()
         while day <= end.date() and day <= days[-1]:
-            start = _minutes(begin) if day == begin.date() else 0
-            stop = _minutes(end) if day == end.date() else DAY_MINUTES
-            if day in index and stop > start:
+            start = _seconds(begin) if day == begin.date() else 0
+            stop = _seconds(end) if day == end.date() else DAY_SECONDS
+            if day in index and (stop > start or begin == end):  # a zero-length entry still shows
                 pieces.append(
                     Block(entry, index[day], start, stop, running=entry.end is None,
                           continued=day != begin.date(), continues=end > wall_clock(day, DAY_MINUTES, tz))
@@ -101,8 +107,8 @@ def day_totals(entries: Iterable[Entry], days: list[date], tz: tzinfo, now: date
     return [totals[day] for day in days]
 
 
-def _minutes(moment: datetime) -> int:
-    return moment.hour * 60 + moment.minute
+def _seconds(moment: datetime) -> int:
+    return moment.hour * 3600 + moment.minute * 60 + moment.second
 
 
 def _columns(blocks: list[Block]) -> list[Block]:
@@ -112,16 +118,17 @@ def _columns(blocks: list[Block]) -> list[Block]:
     group_end = -1
     ends: list[int] = []  # when each column of the group is free again
     for block in blocks:
+        reach = max(block.end, block.start + MIN_BLOCK_SECONDS)  # as tall as it is drawn
         if block.start >= group_end:  # nothing open overlaps: the group so far is finished
             placed.extend(_width(group, len(ends)))
-            group, ends, group_end = [], [], block.end
+            group, ends, group_end = [], [], reach
         column = next((i for i, free in enumerate(ends) if free <= block.start), len(ends))
         if column == len(ends):
-            ends.append(block.end)
+            ends.append(reach)
         else:
-            ends[column] = block.end
+            ends[column] = reach
         group.append(Block(**{**block.__dict__, "column": column}))
-        group_end = max(group_end, block.end)
+        group_end = max(group_end, reach)
     placed.extend(_width(group, len(ends)))
     return placed
 

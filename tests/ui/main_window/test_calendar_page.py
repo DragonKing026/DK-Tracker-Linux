@@ -101,6 +101,20 @@ def test_a_moved_block_stands_in_its_new_place_at_once(page, qtbot):
     assert (block["day"], block["start"], block["end"]) == (3, 600, 690)
 
 
+def test_a_block_keeps_its_seconds_and_a_dragged_edge_leaves_the_other_ones(page, qtbot):
+    page.request()
+    begin = datetime(2026, 9, 22, 9, 0, 40, tzinfo=WARSAW).astimezone(UTC)
+    deliver(page, [make_entry(1, begin, begin + timedelta(minutes=30, seconds=5))])
+    [block] = page.data["blocks"]
+    assert (block["start"], block["end"]) == pytest.approx((540 + 40 / 60, 570 + 45 / 60))
+    assert (block["hours"], block["time"]) == ("09:00 – 09:30", "0:30")
+    with qtbot.waitSignal(page.moveRequested) as asked:
+        page.move(1, 1, block["start"], 600)  # only the end dragged, to 10:00
+    assert asked.args == [1, date(2026, 9, 22), 540, 600]
+    moved = page.entry(1)
+    assert (moved.begin, moved.duration) == (begin, 59 * 60 + 20)  # 9:00:40 stays
+
+
 def test_running_exported_and_past_midnight_blocks_do_not_move(page, qtbot):
     page.request()
     running = make_entry(2, NOW - timedelta(hours=1))
