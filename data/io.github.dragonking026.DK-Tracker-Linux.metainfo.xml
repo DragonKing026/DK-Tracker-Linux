@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.13" date="2026-10-01">
+      <description>
+        <p>In the calendar, a short entry is drawn as tall as it lasts, as a thin strip; entries only stand side by
+          side when their times really overlap.</p>
+      </description>
+    </release>
     <release version="0.10.12" date="2026-10-01">
       <description>
         <p>Times are chosen to the minute: the minute list has every minute instead of steps of five, in the main
