@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 
 from PySide6.QtCore import QCoreApplication, QEvent, QObject, QSize, QUrl, Signal
@@ -15,6 +16,9 @@ from ..icons import glyph, mark
 from .bridge import MainBridge
 
 QML_DIR = Path(__file__).with_name("qml")
+WHEEL_LOG_LIMIT = 5  # the first wheel events of a run go to the log: what the desktop sends (0079)
+
+log = logging.getLogger(__name__)
 
 
 class _Icons(QQuickImageProvider):
@@ -53,7 +57,21 @@ class MainWindow(QObject):
         if not roots:
             raise RuntimeError("the main window's QML did not load (see the log)")
         self.window = roots[0]
+        self._wheels_logged = 0
+        self.window.installEventFilter(self)
         bridge.windowClosed.connect(self.closed.emit)
+
+    def eventFilter(self, watched: QObject, event: QEvent) -> bool:  # noqa: N802
+        """Only looks: the calendar zooms with the wheel, and a real mouse on KDE sent it nothing once."""
+        if event.type() == QEvent.Type.Wheel and self._wheels_logged < WHEEL_LOG_LIMIT:
+            self._wheels_logged += 1
+            device = event.pointingDevice()
+            log.info(
+                "Wheel: angle %s, pixels %s, phase %s, device %s (%s)",
+                event.angleDelta().toTuple(), event.pixelDelta().toTuple(), event.phase().name,
+                device.name() if device else "?", device.type().name if device else "?",
+            )  # fmt: skip
+        return False
 
     def show(self, size: QSize | None = None) -> None:
         # An open window is only raised: QWindow.show() is showNormal() on a desktop, so it
