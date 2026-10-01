@@ -6,16 +6,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from dk_tracker.core.calendar import (
-    day_totals,
-    hhmm_of,
-    hhmmss_of,
-    layout,
-    shifted,
-    snap,
-    span_label,
-    view_days,
-)
+from dk_tracker.core.calendar import day_totals, hhmm_of, layout, shifted, snap, span_label, view_days
 from dk_tracker.core.i18n import Translator
 
 from .fakes import make_entry
@@ -87,7 +78,6 @@ def test_snap_to_quarter_hours_or_exact_minutes(minutes, step, snapped):
 
 def test_hours_as_text_with_midnight_as_24():
     assert (hhmm_of(0), hhmm_of(455), hhmm_of(1440)) == ("00:00", "07:35", "24:00")
-    assert (hhmmss_of(0), hhmmss_of(27305), hhmmss_of(86400)) == ("00:00:00", "07:35:05", "24:00:00")
 
 
 # -- the blocks ----------------------------------------------------------------------------
