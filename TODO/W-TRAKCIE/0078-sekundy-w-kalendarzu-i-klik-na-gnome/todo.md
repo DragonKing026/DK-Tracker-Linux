@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, kalendarz, gnome, tray]
 zalezy_od: []
 utworzono: 2026-10-01 15:48
-zaktualizowano: 2026-10-01 17:28
+zaktualizowano: 2026-10-01 17:48
 zamknieto:
 ---
 
@@ -52,6 +52,10 @@ Po zmianie (render offscreen, dzień): pierwszy wpis do 10:00:40, pomyłka 15 s,
 
 ![Po: sekundy w kalendarzu](zrzuty/po-sekundy-w-kalendarzu.png)
 
+0.10.13 — krótkie wpisy jako cienkie paski, bez kolumn obok następnego (8:45–8:54, 3 s o 8:55):
+
+![Po: krótkie wpisy jako paski](zrzuty/po-krotkie-paski.png)
+
 [Skrypt zrzutu](testy/zrzut-sekund.py) (na bazie galerii z
 [0073](../../ZROBIONE/0073-plan7-kalendarz/todo.md)).
 
@@ -85,6 +89,12 @@ Po zmianie (render offscreen, dzień): pierwszy wpis do 10:00:40, pomyłka 15 s,
   przed cofnięciem).
 - Użytkownik: „przeskok co 5 minut zamiast co minutę” w wyborze godziny — lista minut co 1 w oknie głównym
   i w okienku przy tacce. Wydanie 0.10.12.
+
+### 2026-10-01 17:48
+
+- Użytkownik (zrzut): „8:54 i 8:55 nadal na siebie nachodzą” — wpis 8:45–8:54 rysowany na 14 px (~18 min), więc
+  układ z 0.10.11 stawiał następny obok, co wyglądało jak nakładanie. Teraz blok ma wysokość swojego czasu (min. 4 px,
+  nad sąsiadem), kolumny tylko dla wpisów nakładających się w czasie. Wydanie 0.10.13.
 
 ## Wynik
 

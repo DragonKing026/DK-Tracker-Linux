@@ -47,10 +47,12 @@ def s(i, h, m, sec, secs, project, text, running=False):
 
 NOW = datetime(2026, 9, 25, 9, 45, 50, tzinfo=UTC)  # 11:45:50
 ENTRIES = [
-    s(1, 9, 0, 10, 3600 + 30, 1, "Pierwszy do 10:00:40"),
+    s(1, 8, 55, 10, 3900 + 30, 1, "Pierwszy 8:55:10–10:00:40"),
     s(2, 10, 0, 40, 15, 3, "Pomyłka 15 s"),
     s(3, 10, 0, 55, 3600 + 45 * 60 - 55 + 20, 2, "Następny od 10:00:55 do 11:45:20"),
     s(4, 11, 45, 30, 0, 4, "Trwający od 11:45:30", running=True),
+    s(5, 8, 45, 0, 9 * 60, 5, "Krótki 8:45–8:54"),
+    s(6, 8, 55, 0, 3, 5, "3 s o 8:55"),
 ]
 app = QApplication([])
 bridge = MainBridge()
