@@ -3,7 +3,7 @@ noteId: "58e626bf9a2344179f812d9a43cf1830"
 tytul: Wygląd okna głównego — kolory, kontrolki, układ
 tags: [architektura, ui, qml, wyglad, motyw]
 utworzono: 2026-09-26 18:57
-zaktualizowano: 2026-09-27 14:10
+zaktualizowano: 2026-10-01 18:47
 ---
 
 # Wygląd okna głównego — kolory, kontrolki, układ
@@ -88,7 +88,9 @@ półgrube. Kursor rączki na wszystkim, co się klika.
   (`primary`) z prawej. Kliknięcie obok i Esc zamykają.
 - **Ustawienia**: ten sam `FormRow`, szerokość do 680 px; na dole karta „O programie” (0.10.4).
 - **Kalendarz** (0.10.5, F-37): pasek okresu (`Segmented` Dzień / Tydzień, 5 dni / 7 dni, ◀ nazwa ▶, „Dziś”);
-  nagłówki dni na `surface` (dziś — `accent` pogrubiony) z sumą `muted`; siatka: godziny co 48 px, podpisy 11 px
+  nagłówki dni na `surface` (dziś — `accent` pogrubiony) z sumą `muted`; siatka: godziny co 96 px (Ctrl + kółko:
+  32–384), od 72 px linia co pół godziny
+  (`divider` 40 %), podpisy 11 px
   `muted` w kolumnie 56 px, linie `divider`, dziś na tle `surface` 60 %; nowy blok w trakcie przeciągania —
   `accent` 22 % z ramką; „teraz” — linia 2 px i kropka `danger`.
 - **Podsumowania** (0.10.3, F-36), marginesy 16 px, odstępy 12 px: pasek okresu (`Segmented` Tydzień / Miesiąc / Rok

@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-10-01 17:48
+zaktualizowano: 2026-10-01 18:47
 ---
 
 # Katalog funkcji
@@ -376,7 +376,9 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
 [Plan 7](../plany/2026-09-27-plan-7-kalendarz.md)).
 
 - **Okres**: Dzień albo Tydzień — 7 dni (od dnia tygodnia z konta Kimai) lub 5 dni (pon.–pt.); ◀ ▶, „Dziś”. Nagłówki
-  dni z sumą dnia. Siatka 0–24 (48 px na godzinę) przewinięta na 7:00 (później, gdy „teraz” by nie było widać);
+  dni z sumą dnia. Siatka 0–24 przewinięta na 8:00 (później, gdy „teraz” by nie było widać); skala
+  96 px na godzinę, **Ctrl + kółko** przybliża i oddala (32–384 px, godzina pod kursorem zostaje na miejscu),
+  zapamiętana między uruchomieniami (0.10.14);
   linia „teraz” w dniu dzisiejszym.
 - **Bloki**: wpisy w kolorze projektu (tło przejrzyste, pasek z lewej): opis, projekt · rodzaj pracy, godziny i czas;
   nakładające się stoją obok siebie; trwający rośnie co minutę; wyeksportowany z kłódką; wpis przez północ — dwa bloki
