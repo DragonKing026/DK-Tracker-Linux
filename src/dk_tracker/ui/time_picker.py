@@ -1,7 +1,6 @@
 """A time chosen, not typed (0077): the widget twin of the main window's TimeField.qml.
 
-A click opens hours and minutes side by side; minutes in steps of 5, and a value from Kimai
-with other minutes (16:21) is on the list too. Picking an hour keeps the list open, picking a
+A click opens hours and minutes side by side, every minute. Picking an hour keeps the list open, picking a
 minute closes it. The choice is reported once, when the list closes, so a change of the start
 time is one request to Kimai, not two.
 """
@@ -137,11 +136,9 @@ class TimePicker(QPushButton):
     def set_clear_text(self, text: str) -> None:
         self.popup.clear_button.setText(text)
 
-    def minute_steps(self) -> list[int]:
-        steps = list(range(0, 60, 5))
-        if self.minute >= 0 and self.minute not in steps:
-            steps = sorted([*steps, self.minute])
-        return steps
+    @staticmethod
+    def minute_steps() -> list[int]:
+        return list(range(60))
 
     def open_list(self) -> None:
         self._before = self._value

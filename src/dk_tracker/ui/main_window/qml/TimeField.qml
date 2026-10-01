@@ -1,5 +1,4 @@
-// A time chosen, not typed: a click opens hours and minutes side by side. Minutes in steps of 5;
-// a value from Kimai with other minutes (16:21) is on the list too.
+// A time chosen, not typed: a click opens hours and minutes side by side, every minute.
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -73,14 +72,7 @@ SelectButton {
             Column {
                 id: minutes
                 objectName: "timeMinutes"
-                model: {
-                    const steps = Array.from({ length: 12 }, (_, i) => i * 5)
-                    if (field.minute >= 0 && steps.indexOf(field.minute) < 0) {
-                        steps.push(field.minute)
-                        steps.sort((a, b) => a - b)
-                    }
-                    return steps
-                }
+                model: Array.from({ length: 60 }, (_, i) => i)
                 chosen: field.minute
                 onPicked: function (m) { field.choose(Math.max(0, field.hour), m); picker.close() }
             }

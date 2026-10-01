@@ -20,14 +20,14 @@ def test_empty_shows_the_placeholder(picker):
     assert picker.text() == PLACEHOLDER
 
 
-def test_hours_and_five_minute_steps(picker):
+def test_hours_and_every_minute(picker):
     picker.open_list()
     assert rows(picker.popup.hours) == [f"{h:02d}" for h in range(24)]
-    assert rows(picker.popup.minutes) == [f"{m:02d}" for m in range(0, 60, 5)]
+    assert rows(picker.popup.minutes) == [f"{m:02d}" for m in range(60)]
     picker.popup.hide()
 
 
-def test_a_kimai_minute_off_the_steps_is_listed(picker):
+def test_any_minute_from_kimai_is_chosen_on_the_list(picker):
     picker.set_value("16:21")
     picker.open_list()
     assert "21" in rows(picker.popup.minutes)
