@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, kalendarz, gnome, tray]
 zalezy_od: []
 utworzono: 2026-10-01 15:48
-zaktualizowano: 2026-10-01 16:05
+zaktualizowano: 2026-10-01 17:27
 zamknieto:
 ---
 
@@ -74,6 +74,12 @@ Po zmianie (render offscreen, dzień): pierwszy wpis do 10:00:40, pomyłka 15 s,
 - Commity: `2a004be` (kod i testy), `0b25289` (F-37), `b7b81f4` (GNOME w integracjach), `a634d3d` (zadanie).
 - Wydanie 0.10.11 (`v0.10.11`): workflow „Wydanie” zielony, strona wydania 0.10.10 usunięta (tag został),
   `flatpak update` u siebie → 0.10.11. Czeka na sprawdzenie przez użytkownika.
+
+### 2026-10-01 17:27
+
+- Uwaga użytkownika ze zrzutem: „nadal kalendarz jest co do minuty” — układ był już z sekundami, ale godziny i czas
+  na blokach pokazywały minuty (`08:34 – 10:58 · 2:24`). Teraz `08:34:12 – 10:58:40 · 2:24:28`; trwający
+  `08:34:12 – teraz`, czas w minutach (blok odświeża się raz na minutę). Zrzut odświeżony. Wydanie 0.10.12.
 
 ## Wynik
 
