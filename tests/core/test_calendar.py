@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from dk_tracker.core.calendar import day_totals, hhmm_of, layout, shifted, snap, span_label, view_days
+from dk_tracker.core.calendar import day_totals, hhmm_of, layout, shifted, snap, span_label, view_days, zoomed
 from dk_tracker.core.i18n import Translator
 
 from .fakes import make_entry
@@ -168,6 +168,11 @@ def test_day_totals_count_each_entry_on_the_day_it_began():
 def test_an_exported_entry_is_kept_with_its_flag():
     [block] = layout([replace(entry(1, TODAY, 9, 60), exported=True)], days(), WARSAW, NOW)
     assert block.entry.exported is True
+
+
+def test_zoom_by_a_quarter_a_notch_within_bounds():
+    assert (zoomed(96, 1), zoomed(96, -1), zoomed(96, 0.5)) == (120, 77, 107)
+    assert (zoomed(40, -5), zoomed(300, 5)) == (32, 384)
 
 
 def test_minutes_on_the_wall_clock_of_a_day():

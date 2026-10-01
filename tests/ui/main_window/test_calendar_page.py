@@ -153,3 +153,14 @@ def test_the_now_line_moves_each_minute_and_only_then(page, qtbot):
     with qtbot.waitSignal(page.dataChanged):
         page.tick(NOW + timedelta(minutes=1))
     assert page.data["now"] == 18 * 60 + 1
+
+
+def test_the_scale_zooms_with_the_wheel_within_bounds_and_is_reported(page, qtbot):
+    assert page.hourHeight == 96
+    with qtbot.waitSignal(page.zoomChanged) as zoomed:
+        page.zoom(1)
+    assert zoomed.args == [120] and page.hourHeight == 120
+    page.zoom(-20)
+    assert page.hourHeight == 32
+    page.set_hour_height(10_000)  # remembered from elsewhere: kept within the bounds
+    assert page.hourHeight == 384

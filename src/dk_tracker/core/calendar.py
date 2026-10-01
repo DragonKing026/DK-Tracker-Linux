@@ -22,6 +22,10 @@ Mode = Literal["day", "week"]
 DAY_MINUTES = 24 * 60
 DAY_SECONDS = DAY_MINUTES * 60
 SNAP_MINUTES = 15
+# The grid's scale: pixels an hour, changed with Ctrl + the wheel (each notch a quarter more or less).
+HOUR_HEIGHT = 96
+HOUR_HEIGHT_MIN, HOUR_HEIGHT_MAX = 32, 384
+ZOOM_STEP = 1.25
 
 
 @dataclass(frozen=True)
@@ -62,6 +66,11 @@ def span_label(days: list[date], today: date, t: Callable[..., str]) -> str:
 def snap(minutes: float, step: int = SNAP_MINUTES) -> int:
     """To the nearest step (1 = the exact minute, with Alt), within the day."""
     return max(0, min(DAY_MINUTES, round(minutes / step) * step))
+
+
+def zoomed(hour_height: int, notches: float) -> int:
+    """The scale after `notches` of the wheel (up = closer), within its bounds."""
+    return max(HOUR_HEIGHT_MIN, min(HOUR_HEIGHT_MAX, round(hour_height * ZOOM_STEP**notches)))
 
 
 def hhmm_of(minutes: int) -> str:

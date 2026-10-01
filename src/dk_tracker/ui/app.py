@@ -119,6 +119,7 @@ class Controller(QObject):
         self.main_bridge.show_page(
             memory.main_view if memory.main_view in VIEWS else "entries"
         )  # as last time
+        self.main_bridge.calendar.set_hour_height(memory.calendar_hour_height)
         # Settings are a page of the main window (live test of 0.10.0), not a window of their own.
         self.settings_form = self.main_bridge.settings_form
         self.settings_form.retranslate(self.state.t)
@@ -230,6 +231,7 @@ class Controller(QObject):
         main.calendar.loadRequested.connect(self._load_calendar)
         main.calendar.addRequested.connect(lambda payload: self._act_main(lambda t: t.add_entry(**payload)))
         main.calendar.moveRequested.connect(self._move_entry)
+        main.calendar.zoomChanged.connect(lambda height: self._remember(calendar_hour_height=height))
 
     def _connect_tray(self, tray: Tray) -> None:
         tray.openRequested.connect(self.toggle_popup)

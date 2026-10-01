@@ -18,6 +18,7 @@ from PySide6.QtCore import Property, QObject, Signal, Slot
 
 from dk_tracker.core.calendar import (
     DAY_MINUTES,
+    HOUR_HEIGHT,
     SNAP_MINUTES,
     Mode,
     day_totals,
@@ -27,6 +28,7 @@ from dk_tracker.core.calendar import (
     snap,
     span_label,
     view_days,
+    zoomed,
 )
 from dk_tracker.core.i18n import Translator
 from dk_tracker.core.models import Entry
@@ -38,6 +40,7 @@ class CalendarPage(QObject):
     loadRequested = Signal(object, object)  # first and last day shown (date)
     addRequested = Signal(dict)  # Tracker.add_entry keywords
     moveRequested = Signal(int, object, int, int)  # entry id, day (date), begin and end minutes
+    zoomChanged = Signal(int)  # pixels an hour, to remember
 
     def __init__(self, parent: QObject | None = None) -> None:
         super().__init__(parent)
@@ -57,12 +60,25 @@ class CalendarPage(QObject):
         self._dragging = False
         self._deferred: tuple[date, date, list[Entry]] | None = None
         self._data: dict[str, Any] = {}
+        self._hour_height = HOUR_HEIGHT
         self._refresh()
 
     def _get_data(self) -> dict[str, Any]:
         return self._data
 
     data = Property("QVariantMap", _get_data, notify=dataChanged)
+
+    def _get_hour_height(self) -> int:
+        return self._hour_height
+
+    hourHeight = Property(int, _get_hour_height, notify=zoomChanged)  # noqa: N815
+
+    def set_hour_height(self, value: int) -> None:
+        """As remembered from last time (within the bounds)."""
+        value = zoomed(value, 0)
+        if value != self._hour_height:
+            self._hour_height = value
+            self.zoomChanged.emit(value)
 
     @property
     def days(self) -> list[date]:
@@ -196,6 +212,11 @@ class CalendarPage(QObject):
         self._entries = [moved if item.id == entryId else item for item in self._entries]
         self._refresh()
         self.moveRequested.emit(entryId, target, begin_minute, end_minute)
+
+    @Slot(float)
+    def zoom(self, notches: float) -> None:
+        """Ctrl + the wheel: closer (up) or further."""
+        self.set_hour_height(zoomed(self._hour_height, notches))
 
     @Slot(float, bool, result=int)
     def snap(self, minutes: float, exact: bool) -> int:

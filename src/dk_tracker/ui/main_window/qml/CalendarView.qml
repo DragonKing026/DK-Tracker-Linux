@@ -11,14 +11,14 @@ Rectangle {
     color: app.palette.bg
     readonly property var d: app.calendarPage.data
     readonly property int gutter: 56  // the hours on the left
-    readonly property real hourHeight: 48
+    readonly property real hourHeight: app.calendarPage.hourHeight  // Ctrl + the wheel
     property bool scrolled: false  // to working hours once, when the view first shows days
     property bool wheeled: false  // the user scrolled: the window's size no longer moves the hours
 
-    // From 7:00; later only when "now" would be out of sight.
+    // From 8:00; later only when "now" would be out of sight.
     function scrollToWork() {
         const shown = flick.height / hourHeight
-        let from = 7
+        let from = 8
         if (d.now >= 0 && d.now / 60 > from + shown - 1)
             from = d.now / 60 - shown + 2
         flick.contentY = Math.max(0, Math.min(flick.contentHeight - flick.height, from * hourHeight))
@@ -148,6 +148,14 @@ Rectangle {
             WheelHandler {
                 onWheel: function (event) {
                     view.wheeled = true
+                    if (event.modifiers & Qt.ControlModifier) {  // closer or further, the hour under the pointer stays
+                        const at = parent.mapToItem(flick, point.position.x, point.position.y).y
+                        const minute = (flick.contentY + at - grid.y) / grid.minuteHeight
+                        app.calendarPage.zoom(event.angleDelta.y / 120)
+                        flick.contentY = Math.max(0, Math.min(flick.contentHeight - flick.height,
+                                                              minute * grid.minuteHeight + grid.y - at))
+                        return
+                    }
                     flick.contentY = Math.max(0, Math.min(flick.contentHeight - flick.height, flick.contentY - event.angleDelta.y))
                 }
             }
@@ -173,6 +181,12 @@ Rectangle {
                         y: index * view.hourHeight
                         width: grid.width
                         Rectangle { x: view.gutter; width: grid.width - view.gutter; height: 1; color: app.palette.divider }
+                        Rectangle {  // half past, once there is room for it
+                            visible: view.hourHeight >= 72 && index < 24
+                            x: view.gutter; y: view.hourHeight / 2
+                            width: grid.width - view.gutter; height: 1
+                            color: app.palette.divider; opacity: 0.4
+                        }
                         Label {
                             visible: index > 0 && index < 24
                             width: view.gutter - 8

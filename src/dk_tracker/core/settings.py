@@ -56,6 +56,7 @@ class Memory:
     main_width: int = 1000  # the main window (Plan 5); Wayland lets no app place its window, so no position
     main_height: int = 700
     main_view: str = "entries"  # entries | summary | calendar
+    calendar_hour_height: int = 96  # the calendar's scale, Ctrl + the wheel (core/calendar.py HOUR_HEIGHT)
 
 
 def _base(variable: str, fallback: Path) -> Path:

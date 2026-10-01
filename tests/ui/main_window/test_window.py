@@ -492,6 +492,7 @@ def press_move_release(window, item, steps):
 def test_a_click_on_a_block_opens_its_bubble_and_a_drag_moves_it(window, qtbot):
     """Plan 7, review focus 2: a click alone saves nothing."""
     page = window.bridge.calendar
+    page.set_hour_height(48)  # the drags below: 48 px an hour
     page.request()
     page.set_entries(page.days[0], page.days[-1], [entry(9, 1)], tz=WARSAW, now=NOW)
     window.bridge.showPage("calendar")
