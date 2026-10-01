@@ -146,14 +146,13 @@ Rectangle {
             onHeightChanged: if (view.scrolled && !view.wheeled) view.scrollToWork()
             ScrollBar.vertical: Scroller { objectName: "calendarScroll" }
             function scrollTo(y) { contentY = Math.max(0, Math.min(contentHeight - height, y)) }
-            WheelHandler {  // the wheel zooms; the hour under the pointer stays where it is
-                onWheel: function (event) {
-                    view.wheeled = true
-                    const at = parent.mapToItem(flick, point.position.x, point.position.y).y
-                    const minute = (flick.contentY + at - grid.y) / grid.minuteHeight
-                    app.calendarPage.zoom(event.angleDelta.y / 120)
-                    flick.scrollTo(minute * grid.minuteHeight + grid.y - at)
-                }
+            // The wheel zooms around the pointer (`calendarPan` below). Not a WheelHandler: it takes only a mouse
+            // wheel by default (acceptedDevices), so a touchpad did nothing on KDE (0.10.14–0.10.15).
+            function zoomAt(at, notches) {
+                view.wheeled = true
+                const minute = (contentY + at - grid.y) / grid.minuteHeight
+                app.calendarPage.zoom(notches)
+                scrollTo(minute * grid.minuteHeight + grid.y - at)
             }
 
             Item {
@@ -170,7 +169,7 @@ Rectangle {
                     return i >= 0 && i < count ? i : fallback
                 }
 
-                MouseArea {  // the right button drags the hours up and down (the left one makes entries)
+                MouseArea {  // the right button drags the hours up and down (the left one makes entries); the wheel zooms
                     objectName: "calendarPan"
                     anchors.fill: parent
                     acceptedButtons: Qt.RightButton
@@ -184,6 +183,11 @@ Rectangle {
                     onPositionChanged: function (event) {
                         view.wheeled = true
                         flick.scrollTo(fromContent - (mapToItem(flick, event.x, event.y).y - fromY))
+                    }
+                    onWheel: function (event) {
+                        const delta = event.angleDelta.y || event.pixelDelta.y
+                        if (delta !== 0)
+                            flick.zoomAt(mapToItem(flick, event.x, event.y).y, delta / 120)
                     }
                 }
                 Repeater {  // the hours
