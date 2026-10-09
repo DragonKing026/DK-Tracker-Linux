@@ -58,6 +58,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.17" date="2026-10-09">
+      <description>
+        <p>Window icons keep their size and place when another screen of the session uses a different scale.</p>
+      </description>
+    </release>
     <release version="0.10.16" date="2026-10-01">
       <description>
         <p>Zooming the calendar works with a touchpad too, not only with a mouse wheel.</p>
