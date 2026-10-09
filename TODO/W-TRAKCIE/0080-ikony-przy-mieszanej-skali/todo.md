@@ -36,15 +36,15 @@ na każdym ekranie, także gdy w sesji jest ekran o innej skali.
 
 ## Kryteria akceptacji
 
-- [ ] Dostawca zwraca pixmapę dokładnie w żądanym rozmiarze (bez skali aplikacji, bez minimum 16 px).
-- [ ] Obrazy ikon w QML mają jawny rozmiar, więc nie rosną nawet przy większej pixmapie.
-- [ ] Test: dostawca zwraca żądany rozmiar.
+- [x] Dostawca zwraca pixmapę dokładnie w żądanym rozmiarze (bez skali aplikacji, bez minimum 16 px).
+- [x] Obrazy ikon w QML mają jawny rozmiar, więc nie rosną nawet przy większej pixmapie.
+- [x] Test: dostawca zwraca żądany rozmiar.
 - [ ] Wydanie z poprawką, sprawdzone u użytkownika.
 
 ## Kroki
 
-- [ ] Dostawca ikon: rysowanie w żądanym rozmiarze.
-- [ ] QML: jawne `width`/`height` ikon.
+- [x] Dostawca ikon: rysowanie w żądanym rozmiarze.
+- [x] QML: jawne `width`/`height` ikon.
 - [ ] Test, zrzuty, wydanie.
 
 ## Materiały
@@ -57,6 +57,14 @@ na każdym ekranie, także gdy w sesji jest ekran o innej skali.
 
 - Utworzono zadanie. Przyczyna ustalona przez `kscreen-doctor -o`: ekran „Telefon” ze skalą 2.
 - **16:34** Start: poprawka dostawcy ikon.
+
+### 2026-10-09 16:50
+
+- Dostawca rysuje dokładnie żądany rozmiar (`glyph_pixmap`, `mark(..., scale=1)`), obrazy w QML mają jawny
+  rozmiar, test `test_icon_provider_returns_exactly_the_requested_size`. Przy okazji: znak DK w pasku bocznym był
+  2× za duży przy każdej skali. Zrzuty w dokumentacji odświeżone, wersja 0.10.17 zacommitowana.
+- Paczka zbudowana; instalacja lokalna odrzucona (zdalne `dk-tracker` wymaga GPG). Czeka na wypchnięcie
+  i `flatpak update` u użytkownika.
 
 ## Wynik
 
