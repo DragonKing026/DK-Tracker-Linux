@@ -3,7 +3,7 @@ noteId: "58e626bf9a2344179f812d9a43cf1830"
 tytul: Wygląd okna głównego — kolory, kontrolki, układ
 tags: [architektura, ui, qml, wyglad, motyw]
 utworzono: 2026-09-26 18:57
-zaktualizowano: 2026-10-01 19:20
+zaktualizowano: 2026-10-09 16:35
 ---
 
 # Wygląd okna głównego — kolory, kontrolki, układ
@@ -22,6 +22,10 @@ jedna drugą ([0069](../../TODO/ZROBIONE/0069-plan5-okno-glowne/todo.md)).
 - **Tekst zawsze czytelny**: wyłączona kontrolka ma tekst `muted` i tło `panel`, nie przezroczystość całości.
 - Kolor jest w adresie każdego rysowanego obrazka (`image://glyph/<nazwa>/<rrggbb>`, `image://icons/mark/<rrggbb>`):
   QML trzyma obrazki według adresu, więc po zmianie motywu stary kolor by został.
+- **Rozmiar ikony**: dostawca obrazków rysuje dokładnie żądany rozmiar (`sourceSize` razy skala ekranu okna), a każdy
+  `Image` z ikoną ma jawny rozmiar (`width`/`height` albo `Layout.preferred*`). Qt Quick pokazuje pixmapę w jej
+  rozmiarze, a `QIcon.pixmap()` rysuje w skali całej sesji: ekran ze skalą 2 obok ekranu 1× powiększał i przesuwał
+  ikony ([0080](../../TODO/W-TRAKCIE/0080-ikony-przy-mieszanej-skali/todo.md)).
 - Motyw jasny albo ciemny: jak w systemie (domyślnie) albo wybrany w ustawieniach (`Settings.theme`: `auto`,
   `light`, `dark`) — ten sam dla okna głównego i okienka przy tacce.
 
