@@ -2,19 +2,19 @@
 noteId: "966633a532224c8ca18386fe5b14c5a1"
 tytul: "Ikony okna przesunięte i za duże przy ekranach o różnej skali"
 numer: "0080"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, wyglad, ikony]
 zalezy_od: []
 utworzono: 2026-10-09 16:33
-zaktualizowano: 2026-10-09 16:34
-zamknieto:
+zaktualizowano: 2026-10-09 17:27
+zamknieto: 2026-10-09 17:27
 ---
 
 # 0080 — Ikony okna przesunięte i za duże przy ekranach o różnej skali
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -39,17 +39,19 @@ na każdym ekranie, także gdy w sesji jest ekran o innej skali.
 - [x] Dostawca zwraca pixmapę dokładnie w żądanym rozmiarze (bez skali aplikacji, bez minimum 16 px).
 - [x] Obrazy ikon w QML mają jawny rozmiar, więc nie rosną nawet przy większej pixmapie.
 - [x] Test: dostawca zwraca żądany rozmiar.
-- [ ] Wydanie z poprawką, sprawdzone u użytkownika.
+- [x] Wydanie z poprawką, sprawdzone u użytkownika.
 
 ## Kroki
 
 - [x] Dostawca ikon: rysowanie w żądanym rozmiarze.
 - [x] QML: jawne `width`/`height` ikon.
-- [ ] Test, zrzuty, wydanie.
+- [x] Test, zrzuty, wydanie.
 
 ## Materiały
 
 ![Przed poprawką: ikony za duże i przesunięte](zrzuty/przed-ikony-przesuniete.png)
+
+![Po 0.10.17: ikony w swoim rozmiarze](zrzuty/po-0-10-17.png)
 
 ## Dziennik
 
@@ -65,7 +67,11 @@ na każdym ekranie, także gdy w sesji jest ekran o innej skali.
   2× za duży przy każdej skali. Zrzuty w dokumentacji odświeżone, wersja 0.10.17 zacommitowana.
 - Paczka zbudowana; instalacja lokalna odrzucona (zdalne `dk-tracker` wymaga GPG). Czeka na wypchnięcie
   i `flatpak update` u użytkownika.
+- **17:27** Użytkownik potwierdził: ikony w porządku w 0.10.17.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+Wydana 0.10.17: dostawca ikon okna rysuje dokładnie żądany rozmiar, obrazy w QML mają jawny rozmiar, test rozmiaru
+w [test_window.py](../../../tests/ui/main_window/test_window.py), reguła w
+[wyglądzie okna głównego](../../../docs/architektura/wyglad-okna-glownego.md). Użytkownik potwierdził po
+`flatpak update`.
