@@ -28,6 +28,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0077 | [Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki](W-TRAKCIE/0077-godziny-w-okienku-przy-tacce/todo.md) | 🔨 w-trakcie | p2 | — |
 | 0078 | [Kalendarz liczy sekundy; lewy klik ikony na GNOME](W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md) | 🔨 w-trakcie | p2 | — |
 | 0079 | [Kalendarz: większa skala od 8:00, przybliżanie kółkiem, przesuwanie prawym](W-TRAKCIE/0079-skala-kalendarza/todo.md) | 🔨 w-trakcie | p2 | — |
+| 0080 | [Ikony okna przesunięte i za duże przy ekranach o różnej skali](W-TRAKCIE/0080-ikony-przy-mieszanej-skali/todo.md) | 🔨 w-trakcie | p1 | — |
 
 ## Do zrobienia
 
@@ -35,7 +36,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 | 0062 | [0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](ZROBIONE/0056-identyfikator-i-wydawca/todo.md) ✅ |
-| 0080 | [Ikony okna przesunięte i za duże przy ekranach o różnej skali](DO-ZROBIENIA/0080-ikony-przy-mieszanej-skali/todo.md) | 📋 do-zrobienia | p1 | — |
 
 ## Zrobione
 

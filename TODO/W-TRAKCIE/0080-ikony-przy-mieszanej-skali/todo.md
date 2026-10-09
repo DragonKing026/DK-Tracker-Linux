@@ -2,19 +2,19 @@
 noteId: "966633a532224c8ca18386fe5b14c5a1"
 tytul: "Ikony okna przesunięte i za duże przy ekranach o różnej skali"
 numer: "0080"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, wyglad, ikony]
 zalezy_od: []
 utworzono: 2026-10-09 16:33
-zaktualizowano: 2026-10-09 16:33
+zaktualizowano: 2026-10-09 16:34
 zamknieto:
 ---
 
 # 0080 — Ikony okna przesunięte i za duże przy ekranach o różnej skali
 
 > [!info] Status
-> **do zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -56,6 +56,7 @@ na każdym ekranie, także gdy w sesji jest ekran o innej skali.
 ### 2026-10-09 16:33
 
 - Utworzono zadanie. Przyczyna ustalona przez `kscreen-doctor -o`: ekran „Telefon” ze skalą 2.
+- **16:34** Start: poprawka dostawcy ikon.
 
 ## Wynik
 
