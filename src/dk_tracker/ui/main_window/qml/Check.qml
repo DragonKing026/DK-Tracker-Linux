@@ -20,6 +20,8 @@ CheckBox {
             source: "image://glyph/check/ffffff"
             sourceSize.width: 13
             sourceSize.height: 13
+            width: 13
+            height: 13
         }
     }
     contentItem: Label {

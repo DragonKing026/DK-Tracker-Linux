@@ -243,6 +243,8 @@ ScrollView {
                     source: "image://icons/mark/" + app.palette.fg.toString().slice(1, 7)
                     sourceSize.width: 48
                     sourceSize.height: 48
+                    Layout.preferredWidth: 48
+                    Layout.preferredHeight: 48
                 }
                 ColumnLayout {
                     Layout.fillWidth: true

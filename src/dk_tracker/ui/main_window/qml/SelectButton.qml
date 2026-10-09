@@ -20,6 +20,8 @@ Button {
             source: select.glyph ? "image://glyph/" + select.glyph + "/" + app.palette.muted.toString().slice(1, 7) : ""
             sourceSize.width: 15
             sourceSize.height: 15
+            Layout.preferredWidth: 15
+            Layout.preferredHeight: 15
         }
         Label {
             Layout.fillWidth: true
@@ -32,6 +34,8 @@ Button {
             source: "image://glyph/chevron_down/" + app.palette.muted.toString().slice(1, 7)
             sourceSize.width: 14
             sourceSize.height: 14
+            Layout.preferredWidth: 14
+            Layout.preferredHeight: 14
         }
     }
     background: Rectangle {

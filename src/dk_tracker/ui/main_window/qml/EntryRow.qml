@@ -85,6 +85,7 @@ Rectangle {
                     visible: row.locked
                     source: "image://glyph/lock/" + app.palette.muted.toString().slice(1, 7)
                     sourceSize.width: 16; sourceSize.height: 16
+                    width: 16; height: 16
                     ToolTip.visible: lockHover.hovered
                     ToolTip.text: app.texts.errExported || ""
                     HoverHandler { id: lockHover }

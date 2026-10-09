@@ -73,6 +73,8 @@ Item {
                 source: "image://glyph/lock/" + app.palette.muted.toString().slice(1, 7)
                 sourceSize.width: 12
                 sourceSize.height: 12
+                Layout.preferredWidth: 12
+                Layout.preferredHeight: 12
             }
         }
         Label {

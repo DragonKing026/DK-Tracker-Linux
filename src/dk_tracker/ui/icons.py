@@ -107,34 +107,43 @@ def app_icon() -> QIcon:
     return icon
 
 
-def mark(color: str, size: int) -> QPixmap:
+def mark(color: str, size: int, scale: int = 2) -> QPixmap:
     """The small WS mark for the window header (0065): the icon's dark tile vanished on a dark
-    header at 18 px, so this one has no tile and draws the letters in the theme's text colour."""
+    header at 18 px, so this one has no tile and draws the letters in the theme's text colour.
+    Drawn at `scale` (2: sharp on scaled screens); the QML image provider asks for 1 (0080)."""
     svg = resources.files("dk_tracker.ui").joinpath("assets", "dk-tracker-znak.svg").read_text()
-    renderer = QSvgRenderer(QByteArray(svg.replace("currentColor", color).encode()))
-    pixmap = QPixmap(size * 2, size * 2)  # drawn at 2x: sharp on scaled screens
-    pixmap.fill(Qt.GlobalColor.transparent)
-    painter = QPainter(pixmap)
-    painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-    renderer.render(painter)
-    painter.end()
-    pixmap.setDevicePixelRatio(2)
+    pixmap = _render(svg.replace("currentColor", color), size * scale, antialias=True)
+    pixmap.setDevicePixelRatio(scale)
     return pixmap
 
 
 def glyph(name: str, color: str, size: int = 20) -> QIcon:
-    svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">{_PATHS[name]}</svg>'
-    renderer = QSvgRenderer(QByteArray(svg.replace("currentColor", color).encode()))
     icon = QIcon()
     for scale in (1, 2):
-        pixmap = QPixmap(size * scale, size * scale)
-        pixmap.fill(Qt.GlobalColor.transparent)
-        painter = QPainter(pixmap)
-        renderer.render(painter)
-        painter.end()
+        pixmap = glyph_pixmap(name, color, size * scale)
         pixmap.setDevicePixelRatio(scale)
         icon.addPixmap(pixmap)
     return icon
+
+
+def glyph_pixmap(name: str, color: str, size: int) -> QPixmap:
+    """One glyph exactly `size` pixels wide. The QML image provider uses it: Qt Quick takes the
+    pixmap's size literally, and QIcon.pixmap() would draw at the largest screen scale of the
+    session — a 2x screen elsewhere made every icon of a 1x window twice too big (0080)."""
+    svg = f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">{_PATHS[name]}</svg>'
+    return _render(svg.replace("currentColor", color), size)
+
+
+def _render(svg: str, size: int, antialias: bool = False) -> QPixmap:
+    renderer = QSvgRenderer(QByteArray(svg.encode()))
+    pixmap = QPixmap(size, size)
+    pixmap.fill(Qt.GlobalColor.transparent)
+    painter = QPainter(pixmap)
+    if antialias:
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+    renderer.render(painter)
+    painter.end()
+    return pixmap
 
 
 def tray_pixmap(kind: str, label: str, size: int) -> QPixmap:

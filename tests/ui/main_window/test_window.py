@@ -559,3 +559,16 @@ def test_the_wheel_zooms_the_calendar_and_the_right_button_drags_its_hours(windo
         QApplication.processEvents()
     assert flick.property("contentY") == pytest.approx(start + 100)
     assert page.data["blocks"] == []  # the right button makes no entry
+
+
+@pytest.mark.parametrize("address", ["chevron_down/9ba2ae", "lock/9ba2ae", "mark/eceef2"])
+@pytest.mark.parametrize("side", [12, 18, 36])
+def test_icon_provider_returns_exactly_the_requested_size(qapp, address, side):
+    """0080: Qt Quick shows the provider's pixmap at its own size, so a 2x screen elsewhere in the
+    session (QIcon.pixmap at the app's scale) or a 16 px minimum made the window's icons too big."""
+    from PySide6.QtCore import QSize
+
+    from dk_tracker.ui.main_window.window import _Icons
+
+    pixmap = _Icons(MainBridge()).requestPixmap(address, QSize(), QSize(side, side))
+    assert (pixmap.width(), pixmap.height(), pixmap.devicePixelRatio()) == (side, side, 1.0)

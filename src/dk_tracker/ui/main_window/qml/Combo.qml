@@ -15,6 +15,8 @@ ComboBox {
         source: "image://glyph/chevron_down/" + app.palette.muted.toString().slice(1, 7)
         sourceSize.width: 14
         sourceSize.height: 14
+        width: 14
+        height: 14
     }
     contentItem: Label {
         leftPadding: 0

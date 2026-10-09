@@ -80,6 +80,8 @@ Popup {
                 source: "image://glyph/clock/" + app.palette.muted.toString().slice(1, 7)
                 sourceSize.width: 15
                 sourceSize.height: 15
+                Layout.preferredWidth: 15
+                Layout.preferredHeight: 15
             }
             Label {
                 objectName: "calendarPopupHours"
@@ -93,6 +95,8 @@ Popup {
                 source: "image://glyph/lock/" + app.palette.muted.toString().slice(1, 7)
                 sourceSize.width: 15
                 sourceSize.height: 15
+                Layout.preferredWidth: 15
+                Layout.preferredHeight: 15
             }
             IconButton {
                 glyph: "close"

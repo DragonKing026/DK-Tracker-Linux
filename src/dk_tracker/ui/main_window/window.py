@@ -12,7 +12,7 @@ from PySide6.QtQml import QQmlApplicationEngine
 from PySide6.QtQuick import QQuickImageProvider
 from PySide6.QtQuickControls2 import QQuickStyle
 
-from ..icons import glyph, mark
+from ..icons import glyph_pixmap, mark
 from .bridge import MainBridge
 
 QML_DIR = Path(__file__).with_name("qml")
@@ -29,11 +29,13 @@ class _Icons(QQuickImageProvider):
         self._bridge = bridge
 
     def requestPixmap(self, id: str, size: QSize, requested: QSize) -> QPixmap:  # noqa: A002, N802
-        side = max(requested.width(), requested.height(), 16)
+        # Exactly the requested size (sourceSize times the window's scale): Qt Quick shows the
+        # pixmap at its own size, so anything bigger pushed the icons out of place (0080).
+        side = max(requested.width(), requested.height()) or 16
         name, _, color = id.partition("/")
         if name == "mark":  # the colour is in the address: a theme change must not reuse a cached one
-            return mark(f"#{color}" if color else self._bridge.palette.get("fg", "#eceef2"), side)
-        return glyph(name, f"#{color or 'eceef2'}", side).pixmap(side, side)
+            return mark(f"#{color}" if color else self._bridge.palette.get("fg", "#eceef2"), side, 1)
+        return glyph_pixmap(name, f"#{color or 'eceef2'}", side)
 
 
 class MainWindow(QObject):

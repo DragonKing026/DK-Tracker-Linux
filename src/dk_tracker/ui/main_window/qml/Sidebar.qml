@@ -30,6 +30,8 @@ Rectangle {
                 source: "image://icons/mark/" + app.palette.fg.toString().slice(1, 7)
                 sourceSize.width: 26
                 sourceSize.height: 26
+                Layout.preferredWidth: 26
+                Layout.preferredHeight: 26
             }
             Label {
                 text: app.texts.appName || "DK Tracker"
@@ -91,6 +93,8 @@ Rectangle {
                 source: "image://glyph/" + side.glyph + "/" + (side.active ? app.palette.fg : app.palette.muted).toString().slice(1, 7)
                 sourceSize.width: 18
                 sourceSize.height: 18
+                Layout.preferredWidth: 18
+                Layout.preferredHeight: 18
             }
             Label {
                 Layout.fillWidth: true

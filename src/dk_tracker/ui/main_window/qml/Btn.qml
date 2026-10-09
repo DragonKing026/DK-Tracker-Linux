@@ -28,6 +28,8 @@ Button {
                 source: button.glyph ? "image://glyph/" + button.glyph + "/" + button.ink.toString().slice(1, 7) : ""
                 sourceSize.width: 15
                 sourceSize.height: 15
+                width: 15
+                height: 15
             }
             Label {
                 anchors.verticalCenter: parent.verticalCenter

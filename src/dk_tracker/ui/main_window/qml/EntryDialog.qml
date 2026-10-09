@@ -110,6 +110,8 @@ Popup {
                     source: "image://glyph/lock/" + app.palette.muted.toString().slice(1, 7)
                     sourceSize.width: 16
                     sourceSize.height: 16
+                    Layout.preferredWidth: 16
+                    Layout.preferredHeight: 16
                 }
                 Label {
                     Layout.fillWidth: true
