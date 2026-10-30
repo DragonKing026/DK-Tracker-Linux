@@ -392,6 +392,9 @@ class QuickWindow(QWidget):
     def _place_panel(self) -> None:
         rect = self.panel_rect()
         self.layout().setContentsMargins(rect.left(), rect.top(), 0, 0)
+        # Now, not on the next LayoutRequest: a new canvas is painted whole once, and children still
+        # where the old margins put them stay on the screen — later paints are clipped to the mask (#1).
+        self.layout().activate()
         self.backdrop.setGeometry(rect)
         self.backdrop.lower()
         self.setMask(QRegion(rect))  # input region: beside the panel, clicks reach the desktop

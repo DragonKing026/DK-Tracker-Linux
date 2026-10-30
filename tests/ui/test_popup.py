@@ -402,6 +402,19 @@ def test_layer_canvas_follows_the_screen_the_compositor_chose(window):
     assert popup.panel_size() == QSize(600, 700)
 
 
+def test_a_new_canvas_is_painted_with_the_panel_already_in_place(window):
+    """Issue #1: the surface moved to a bigger monitor and the whole new canvas was painted with the
+    header still at the old margins, stretched to the edge; later paints are clipped to the mask,
+    so those pixels stayed on the screen. The children must move before that first paint."""
+    _, popup = window
+    popup.set_placement("layer")
+    popup.show()
+    popup.fit_screen(FakeScreen(2560, 1440))  # no event loop between the resize and its paint
+    panel = popup.panel_rect()
+    assert popup.header.mapTo(popup, QPoint(0, 0)) == panel.topLeft()
+    assert popup.header.width() == panel.width()
+
+
 def test_layer_window_follows_its_screen(window):
     """The surface is made on the output the compositor picks; Qt reports it as a screen change."""
     _, popup = window
