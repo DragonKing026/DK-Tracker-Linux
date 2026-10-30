@@ -1,0 +1,18 @@
+config {'trackingMode': 'default', 'defaultBeginTime': 'now', 'activeEntriesHardLimit': 1, 'isAllowFutureTimes': True, 'isAllowOverlapping': True}
+1. today: start (now - 1 s), /stop, start again right after
+  stop at 2026-10-30T13:24:37
+  A: begin=2026-10-30T13:24:00+0000 end=2026-10-30T13:25:00+0000 duration=60
+  B running: begin=2026-10-30T13:24:36+0000 end=None duration=0
+  B stopped: begin=2026-10-30T13:24:00+0000 end=2026-10-30T13:25:00+0000 duration=60
+2. PATCH end = now with seconds (rounded too?)
+  end sent 2026-10-30T13:24:36
+  A: begin=2026-10-30T13:19:00+0000 end=2026-10-30T13:25:00+0000 duration=360
+3. fix: PATCH end = (now - 1 s) floored to the minute, then start (now - 1 s)
+  A: begin=2026-10-30T13:19:00+0000 end=2026-10-30T13:24:00+0000 duration=300
+  B: begin=2026-10-30T13:24:00+0000 end=2026-10-30T13:25:00+0000 duration=60
+4. floored end before the begin (an entry within one minute)
+  end sent 2026-10-30T13:24:00
+  A: HTTP 400 {"code":400,"message":"Validation Failed","errors":{"errors":["The end date must not be earlier than the start date.","Duration cannot be negative."],"children":{"begin":{},"end":{},"project":{},"activity":{},"description":{},"user":{},"tags":{}}}}
+5. start while another runs (hard limit 1: does Kimai stop the old one, and where?)
+  A: begin=2026-10-30T13:19:00+0000 end=2026-10-30T13:25:00+0000 duration=360
+  B: begin=2026-10-30T13:24:36+0000 end=None duration=0

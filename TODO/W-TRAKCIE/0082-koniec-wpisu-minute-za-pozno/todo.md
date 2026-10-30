@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, blad, kimai, kalendarz]
 zalezy_od: []
 utworzono: 2026-10-30 14:19
-zaktualizowano: 2026-10-30 14:22
+zaktualizowano: 2026-10-30 14:28
 zamknieto:
 ---
 
@@ -32,18 +32,26 @@ wpisy stoją jeden za drugim i nie nachodzą na siebie.
 
 ## Kryteria akceptacji
 
-- [ ] Zasady zaokrąglania sprawdzone w dokumentacji Kimai (z linkiem).
-- [ ] Błąd odtworzony na lokalnym Kimai (`tests/kimai/kimai-testowe.sh up`), wynik w `testy/`.
-- [ ] Poprawka i test regresji (jednostkowy i kontraktowy na lokalnym Kimai).
-- [ ] Dokumentacja zaktualizowana.
+- [x] Zasady zaokrąglania sprawdzone w dokumentacji Kimai (z linkiem) —
+      [Kimai API: zaokrąglanie](../../../docs/integracje/kimai-api.md#zaokrąglanie-czasów).
+- [x] Błąd odtworzony na lokalnym Kimai (`tests/kimai/kimai-testowe.sh up`), wynik w `testy/`.
+- [x] Poprawka i test regresji (jednostkowy i kontraktowy na lokalnym Kimai).
+- [x] Dokumentacja zaktualizowana.
 
 ## Kroki
 
-- [ ] Dokumentacja zaokrąglania (Context7 / kimai.org).
-- [ ] Odtworzenie: start, stop, start na lokalnym Kimai.
-- [ ] Wybór poprawki, test, kod, docs.
+- [x] Dokumentacja zaokrąglania (Context7 / kimai.org).
+- [x] Odtworzenie: start, stop, start na lokalnym Kimai.
+- [x] Wybór poprawki, test, kod, docs.
 
 ## Materiały
+
+- [odtworz_zaokraglanie.py](testy/odtworz_zaokraglanie.py) — pięć scenariuszy na lokalnym Kimai (konto `jan`, UTC):
+  `/stop` i start zaraz po nim, PATCH `end` z sekundami, PATCH `end` na pełnej minucie, koniec przed początkiem,
+  start przy trwającym wpisie.
+- [odtworzenie-kimai-2.67.log](testy/odtworzenie-kimai-2.67.log) — wynik: `/stop` o 13:24:37 → koniec 13:25:00,
+  następny wpis → początek 13:24:00 (minuta nakładania); `end` 13:24:00 zostaje; koniec przed początkiem → 400;
+  automatyczne zatrzymanie przez serwer też zaokrągla w górę.
 
 ## Dziennik
 
@@ -51,5 +59,21 @@ wpisy stoją jeden za drugim i nie nachodzą na siebie.
 
 - Utworzono zadanie.
 - **14:22** Start pracy: dokumentacja zaokrąglania i odtworzenie na lokalnym Kimai.
+
+### 2026-10-30 14:28
+
+- Dokumentacja Kimai ([configurations](https://www.kimai.org/documentation/configurations.html)) i kod 2.67.0
+  (`DurationCalculator`, `DefaultRounding`): tryb `default` — begin w dół, end w górę do minuty, przy każdym zapisie
+  zakończonego wpisu (także PATCH z `end` i automatyczny stop). Hipoteza z rozpoznania potwierdzona na żywo.
+- Poprawka (9aa2098): stop „teraz” i wznowienie wysyłają PATCH z `end` = „teraz − 1 s” zaokrąglone w dół do minuty;
+  ta sama chwila co `begin` startu, więc koniec nigdy nie wypada po początku następnego wpisu — także w pierwszej
+  sekundzie minuty. Wpis w obrębie jednej minuty: `/stop` (inaczej 400).
+- Testy: jednostkowe w [test_tracker_actions.py](../../../tests/core/test_tracker_actions.py) (stop, wpis
+  w jednej minucie, wznowienie dla sekund 0,4–59,9) i kontraktowy
+  `test_a_resumed_entry_begins_where_the_stopped_one_ended` — bez poprawki nie przechodzi (koniec 13:27, początek
+  13:26). Wszystkie testy: 780 + 20 kontraktowych zielone. Docs: 7f67aa2.
+- Czego poprawka nie obejmie: automatycznego zatrzymania przez Kimai (start w innym kliencie) i innej reguły
+  zaokrąglania na serwerze (np. co 5 min) — opisane w [Kimai API](../../../docs/integracje/kimai-api.md).
+- Poprawka gotowa, czeka na wydanie.
 
 ## Wynik
