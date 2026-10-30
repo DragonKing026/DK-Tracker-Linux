@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, blad, okienko, layer-shell]
 zalezy_od: []
 utworzono: 2026-10-30 14:19
-zaktualizowano: 2026-10-30 14:21
+zaktualizowano: 2026-10-30 14:59
 zamknieto:
 ---
 
@@ -71,5 +71,9 @@ kawałki nagłówka, formularza ani listy z wcześniejszej klatki.
 - Poprawka: `layout().activate()` w `_place_panel` (3947a70), test
   `test_a_new_canvas_is_painted_with_the_panel_already_in_place` — bez poprawki nie przechodzi. Docs: 0cff17c.
 - Poprawka gotowa, czeka na wydanie. Issue #1 zamknięte z odnośnikiem do 3947a70.
+
+### 2026-10-30 14:59
+
+- Wydane w 0.10.18 (46a116f, tag `v0.10.18`); `flatpak update` je widzi. Czeka na potwierdzenie u użytkownika.
 
 ## Wynik

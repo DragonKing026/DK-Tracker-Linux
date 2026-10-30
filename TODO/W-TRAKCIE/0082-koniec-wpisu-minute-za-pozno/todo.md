@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, blad, kimai, kalendarz]
 zalezy_od: []
 utworzono: 2026-10-30 14:19
-zaktualizowano: 2026-10-30 14:28
+zaktualizowano: 2026-10-30 14:59
 zamknieto:
 ---
 
@@ -75,5 +75,9 @@ wpisy stoją jeden za drugim i nie nachodzą na siebie.
 - Czego poprawka nie obejmie: automatycznego zatrzymania przez Kimai (start w innym kliencie) i innej reguły
   zaokrąglania na serwerze (np. co 5 min) — opisane w [Kimai API](../../../docs/integracje/kimai-api.md).
 - Poprawka gotowa, czeka na wydanie.
+
+### 2026-10-30 14:59
+
+- Wydane w 0.10.18 (46a116f, tag `v0.10.18`); `flatpak update` je widzi. Czeka na potwierdzenie u użytkownika.
 
 ## Wynik
