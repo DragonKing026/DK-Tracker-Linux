@@ -1,0 +1,21 @@
+mode layer size QSize(1896, 1056) panel QRect(1196, 406, 700, 650)
+Resize  header@ QPoint(1196, 406) 700 margins 1196 406
+Show  header@ QPoint(1196, 406) 700 margins 1196 406
+LayoutRequest  header@ QPoint(1196, 406) 700 margins 1196 406
+UpdateRequest  header@ QPoint(1196, 406) 700 margins 1196 406
+Paint region=QRect(0, 0, 1896, 1056) header@ QPoint(1196, 406) 700 margins 1196 406
+Resize  header@ QPoint(1196, 406) 1340 margins 1196 406
+Paint region=QRect(0, 0, 2536, 1416) header@ QPoint(1836, 766) 700 margins 1836 766
+LayoutRequest  header@ QPoint(1836, 766) 700 margins 1836 766
+UpdateRequest  header@ QPoint(1836, 766) 700 margins 1836 766
+UpdateRequest  header@ QPoint(1836, 766) 700 margins 1836 766
+Paint region=QRect(1836, 766, 700, 650) header@ QPoint(1836, 766) 700 margins 1836 766
+UpdateRequest  header@ QPoint(1836, 766) 700 margins 1836 766
+Paint region=QRect(1836, 766, 700, 650) header@ QPoint(1836, 766) 700 margins 1836 766
+--- shrink
+LayoutRequest  header@ QPoint(2036, 936) 500 margins 2036 936
+UpdateRequest  header@ QPoint(2036, 936) 500 margins 2036 936
+Paint region=QRect(1836, 766, 700, 650) header@ QPoint(2036, 936) 500 margins 2036 936
+UpdateRequest  header@ QPoint(2036, 936) 500 margins 2036 936
+Paint region=QRect(2036, 936, 500, 480) header@ QPoint(2036, 936) 500 margins 2036 936
+UpdateRequest  header@ QPoint(2036, 936) 500 margins 2036 936

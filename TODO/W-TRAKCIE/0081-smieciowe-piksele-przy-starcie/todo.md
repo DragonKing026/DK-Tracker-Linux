@@ -7,7 +7,7 @@ priorytet: p1
 tags: [todo, blad, okienko, layer-shell]
 zalezy_od: []
 utworzono: 2026-10-30 14:19
-zaktualizowano: 2026-10-30 14:20
+zaktualizowano: 2026-10-30 14:21
 zamknieto:
 ---
 
@@ -35,18 +35,25 @@ kawałki nagłówka, formularza ani listy z wcześniejszej klatki.
 
 ## Kryteria akceptacji
 
-- [ ] Przyczyna potwierdzona na prawdziwej sesji Wayland (dziennik malowania).
-- [ ] Poprawka w [popup.py](../../../src/dk_tracker/ui/popup.py) i test regresji, który bez niej nie przechodzi.
-- [ ] Dokumentacja ([layer-shell-qt](../../../docs/integracje/layer-shell-qt.md)) zaktualizowana.
+- [x] Przyczyna potwierdzona na prawdziwej sesji Wayland (dziennik malowania).
+- [x] Poprawka w [popup.py](../../../src/dk_tracker/ui/popup.py) i test regresji, który bez niej nie przechodzi.
+- [x] Dokumentacja ([layer-shell-qt](../../../docs/integracje/layer-shell-qt.md)) zaktualizowana.
 - [ ] Issue #1 zamknięte z odnośnikiem do commita.
 
 ## Kroki
 
-- [ ] Odtworzenie: skrypt z filtrem zdarzeń na płótnie (Resize, LayoutRequest, Paint).
-- [ ] Poprawka i test.
+- [x] Odtworzenie: skrypt z filtrem zdarzeń na płótnie (Resize, LayoutRequest, Paint).
+- [x] Poprawka i test.
 - [ ] Dokumentacja, commit, zamknięcie issue.
 
 ## Materiały
+
+- [odtworz_malowanie_plotna.py](testy/odtworz_malowanie_plotna.py) — okienko w trybie layer z filtrem zdarzeń:
+  każde `Resize`, `LayoutRequest` i `Paint` z położeniem nagłówka i marginesami układu.
+- [malowanie-przed.log](testy/malowanie-przed.log) — bez poprawki: po `Resize` płótna (kompozytor przeniósł
+  powierzchnię na monitor 2560×1440) całe płótno jest malowane z nagłówkiem w starym miejscu (1196, 406) i szerokości
+  1340 px, a marginesy mówią już (1836, 766). Następne malowania obejmują tylko panel.
+- [malowanie-po.log](testy/malowanie-po.log) — z poprawką: to samo malowanie ma nagłówek w panelu (1836, 766), 700 px.
 
 ## Dziennik
 
@@ -54,5 +61,15 @@ kawałki nagłówka, formularza ani listy z wcześniejszej klatki.
 
 - Utworzono zadanie.
 - **14:20** Start pracy: odtworzenie na sesji Wayland.
+
+### 2026-10-30 14:21
+
+- Przyczyna: maska (`setMask`) przycina malowanie do panelu, a płótno jest malowane całe tylko raz po zmianie rozmiaru
+  (`fit_screen` po `screenChanged`). W tym malowaniu dzieci stały jeszcze tam, gdzie postawiły je stare marginesy —
+  nowe działały dopiero po `LayoutRequest`. Zmniejszanie panelu uchwytem jest w porządku (Qt odmalowuje stary prostokąt
+  panelu).
+- Poprawka: `layout().activate()` w `_place_panel` (3947a70), test
+  `test_a_new_canvas_is_painted_with_the_panel_already_in_place` — bez poprawki nie przechodzi. Docs: 0cff17c.
+- Poprawka gotowa, czeka na wydanie.
 
 ## Wynik
