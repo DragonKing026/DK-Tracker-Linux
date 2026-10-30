@@ -85,7 +85,7 @@ Maska ma też skutek przy rysowaniu, nie tylko przy kliknięciach:
 > układu działają jednak dopiero po `LayoutRequest`, a to malowanie przychodzi wcześniej — nagłówek, formularz i lista
 > zostawały w starym miejscu, rozciągnięte do prawej krawędzi, i nic ich już nie zamalowywało
 > ([issue #1](https://github.com/DragonKing026/DK-Tracker-Linux/issues/1),
-> [0081](../../TODO/W-TRAKCIE/0081-smieciowe-piksele-przy-starcie/todo.md)). Dlatego `_place_panel` po zmianie
+> [0081](../../TODO/ZROBIONE/0081-smieciowe-piksele-przy-starcie/todo.md)). Dlatego `_place_panel` po zmianie
 > marginesów od razu wywołuje `layout().activate()`.
 
 ## Który monitor

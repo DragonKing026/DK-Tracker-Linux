@@ -2,19 +2,19 @@
 noteId: "00ae916f75594921b0a7814450317a7f"
 tytul: "Kalendarz: większa skala od 8:00, przybliżanie kółkiem, przesuwanie prawym"
 numer: "0079"
-status: w-trakcie
+status: zrobione
 priorytet: p2
 tags: [todo, kalendarz, wyglad]
 zalezy_od: []
 utworzono: 2026-10-01 18:48
-zaktualizowano: 2026-10-01 19:40
-zamknieto:
+zaktualizowano: 2026-10-30 15:32
+zamknieto: 2026-10-30 15:32
 ---
 
 # 0079 — Kalendarz: większa skala od 8:00, przybliżanie kółkiem, przesuwanie prawym
 
 > [!info] Status
-> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -38,7 +38,7 @@ myszy z Ctrl.
 - [x] Skala zapamiętana między uruchomieniami
 - [x] Linie co pół godziny przy większej skali
 - [x] Testy i dokumentacja zaktualizowane
-- [ ] Sprawdzone przez użytkownika
+- [x] Sprawdzone przez użytkownika
 
 ## Kroki
 
@@ -82,6 +82,11 @@ Po zmianie (render offscreen, 1400 × 800; „teraz” 14:40, więc widok zaczyn
   urządzenia, `angleDelta` albo `pixelDelta`). Okno zapisuje w logu 5 pierwszych zdarzeń kółka (urządzenie, faza,
   przesunięcie) — gdyby nadal nie działało. Wydanie 0.10.16.
 
+### 2026-10-30
+
+- **15:32** Potwierdzone przez użytkownika w działającej aplikacji.
+
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+Kalendarz: większa skala od 8:00, przybliżanie kółkiem i touchpadem, przesuwanie prawym przyciskiem; wydane w
+0.10.14–0.10.16, potwierdzone przez użytkownika 2026-10-30.

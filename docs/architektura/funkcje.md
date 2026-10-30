@@ -90,7 +90,7 @@ stateDiagram-v2
 - Bez godziny końca → `PATCH /api/timesheets/{id}` z `end` = „teraz − 1 s” zaokrąglone **w dół do pełnej minuty**
   (tak samo przy wznowieniu, F-10). Kimai domyślnie zaokrągla koniec w górę, a początek w dół, więc koniec
   z sekundami (np. z `/stop`) nachodził o minutę na wpis rozpoczęty zaraz po nim
-  ([0082](../../TODO/W-TRAKCIE/0082-koniec-wpisu-minute-za-pozno/todo.md),
+  ([0082](../../TODO/ZROBIONE/0082-koniec-wpisu-minute-za-pozno/todo.md),
   [zaokrąglanie](../integracje/kimai-api.md#zaokrąglanie-czasów)). Wpis krótszy niż ta minuta (koniec wypadłby przed
   początkiem — Kimai odrzuca) → `PATCH /api/timesheets/{id}/stop`. Różnica względem wtyczki, która zawsze używa `/stop`.
 - Z wybraną godziną „do” → `PATCH /api/timesheets/{id}` z `end` (ten sam dzień co
@@ -138,7 +138,7 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
   głównym. Godzina zostawia listę otwartą, minuta ją zamyka; zmiana idzie do Kimai raz, po zamknięciu listy. Koniec
   czyści przycisk „Teraz”. „Od”, „do” i „puste = teraz” stoją w jednym wierszu —
   [ui/time_picker.py](../../src/dk_tracker/ui/time_picker.py),
-  [0077](../../TODO/W-TRAKCIE/0077-godziny-w-okienku-przy-tacce/todo.md).
+  [0077](../../TODO/ZROBIONE/0077-godziny-w-okienku-przy-tacce/todo.md).
 
 ## F-08 Lista ostatnich wpisów
 
@@ -392,7 +392,7 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
   drugim, krótki ma wysokość swojego czasu (co najmniej 4 px, nad sąsiadem); obok siebie stoją tylko wpisy, które
   naprawdę się nakładają (0.10.13)
   (0.10.11,
-  [0078](../../TODO/W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md)).
+  [0078](../../TODO/ZROBIONE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md)).
 - **Przeciąganie**: w pustym miejscu — nowy blok i dymek (opis, projekt, rodzaj pracy, `$`, „Dodaj wpis”); środek
   bloku — przesunięcie (także na inny dzień); krawędź — zmiana godziny początku albo końca; zapis po puszczeniu, blok od
   razu w nowym miejscu; odmowa Kimai → dni wczytane od nowa (blok wraca) i pasek błędu. Przyciąganie co 15 min, z

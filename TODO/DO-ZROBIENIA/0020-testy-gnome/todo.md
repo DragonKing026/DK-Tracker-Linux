@@ -32,7 +32,7 @@ sprawdził na KDE. Wykonują inne osoby (stacja deweloperska ma tylko KDE) — d
 ## Kryteria akceptacji
 
 - [ ] Fedora Workstation (GNOME) **z** rozszerzeniem AppIndicator: ikona, **podwójny** lewy klik → okno (pojedynczy
-  pokazuje menu — tak działa rozszerzenie, [0078](../../W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md)),
+  pokazuje menu — tak działa rozszerzenie, [0078](../../ZROBIONE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md)),
   prawy → menu, tooltip
 - [ ] GNOME **bez** rozszerzenia: aplikacja działa jako zwykłe okno + podpowiedź o rozszerzeniu
 - [ ] Ubuntu (rozszerzenie domyślnie włączone): jak wyżej
@@ -56,7 +56,7 @@ sprawdził na KDE. Wykonują inne osoby (stacja deweloperska ma tylko KDE) — d
 
 - Pierwszy test użytkownika na GNOME: pojedynczy lewy klik pokazuje menu jak prawy. To zachowanie rozszerzenia
   AppIndicator (okienko otwiera podwójny klik) — [GNOME AppIndicator](../../../docs/integracje/gnome-appindicator.md),
-  [0078](../../W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md).
+  [0078](../../ZROBIONE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md).
 
 ## Wynik
 

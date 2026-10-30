@@ -2,19 +2,19 @@
 noteId: "20c73124c6c9436592eda1400646be60"
 tytul: "Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki"
 numer: "0077"
-status: w-trakcie
+status: zrobione
 priorytet: p2
 tags: [todo, okno-przy-tacce, wyglad]
 zalezy_od: []
 utworzono: 2026-09-28 12:43
-zaktualizowano: 2026-09-28 13:45
-zamknieto:
+zaktualizowano: 2026-10-30 15:32
+zamknieto: 2026-10-30 15:32
 ---
 
 # 0077 — Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki
 
 > [!info] Status
-> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -38,7 +38,7 @@ oknie głównym: godzinę się wybiera, nie wpisuje. Wszystko, co da się klikn�
 - [x] Zmiana OD zapisuje godzinę rozpoczęcia, DO jest brane przy stopie — jak dotąd
 - [x] Kursor rączki nad przyciskami, listami, polami wyboru godziny i wierszami wpisów
 - [x] Testy i dokumentacja zaktualizowane
-- [ ] Zmiany zacommitowane małymi krokami
+- [x] Zmiany zacommitowane małymi krokami
 
 ## Kroki
 
@@ -85,6 +85,11 @@ Po zmianie (render offscreen, ciemny i jasny motyw):
   0.10.8, 0.10.9 (tagi zostają).
 - 0.10.10 zainstalowana u użytkownika (`flatpak update`). Czeka na potwierdzenie w działającej aplikacji.
 
+### 2026-10-30
+
+- **15:32** Potwierdzone przez użytkownika w działającej aplikacji.
+
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+Okienko przy tacce: godziny OD/DO wybierane z listy w jednym wierszu, kursor rączki; wydane w 0.10.10, potwierdzone
+przez użytkownika 2026-10-30.

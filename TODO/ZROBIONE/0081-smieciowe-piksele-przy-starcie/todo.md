@@ -2,19 +2,19 @@
 noteId: "b7b4a8ff666847a083d482df171f5cc4"
 tytul: "Śmieciowe piksele okienka przy tacce po starcie (issue #1)"
 numer: "0081"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, blad, okienko, layer-shell]
 zalezy_od: []
 utworzono: 2026-10-30 14:19
-zaktualizowano: 2026-10-30 14:59
-zamknieto:
+zaktualizowano: 2026-10-30 15:32
+zamknieto: 2026-10-30 15:32
 ---
 
 # 0081 — Śmieciowe piksele okienka przy tacce po starcie (issue #1)
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -28,10 +28,10 @@ kawałki nagłówka, formularza ani listy z wcześniejszej klatki.
   prawej krawędzi drugi nagłówek z formularzem i listą, a w przezroczystych miejscach — okna pod spodem.
   Zrzutu nie kopiujemy do repo (są na nim cudze dane z powiadomienia).
 - Tryb layer to przezroczyste płótno na cały obszar roboczy z panelem w rogu i maską tylko na panelu
-  ([0066](../../ZROBIONE/0066-plotno-okna-przy-tacce/todo.md),
+  ([0066](../0066-plotno-okna-przy-tacce/todo.md),
   [layer-shell-qt](../../../docs/integracje/layer-shell-qt.md)). Po pokazaniu kompozytor kładzie powierzchnię
   na kliknięty monitor, a `fit_screen` zmienia rozmiar płótna
-  ([0075](../../ZROBIONE/0075-okno-na-ekranie-kliknietej-tacki/todo.md)).
+  ([0075](../0075-okno-na-ekranie-kliknietej-tacki/todo.md)).
 
 ## Kryteria akceptacji
 
@@ -75,5 +75,10 @@ kawałki nagłówka, formularza ani listy z wcześniejszej klatki.
 ### 2026-10-30 14:59
 
 - Wydane w 0.10.18 (46a116f, tag `v0.10.18`); `flatpak update` je widzi. Czeka na potwierdzenie u użytkownika.
+- **15:32** Potwierdzone przez użytkownika w działającej aplikacji.
 
 ## Wynik
+
+Okienko przy tacce nie zostawia śmieciowych pikseli po przeniesieniu na inny monitor (3947a70, docs 0cff17c, test
+regresji). Issue #1 zamknięte; zrzut z danymi osobowymi usunięty z treści i historii issue. Wydane w 0.10.18,
+potwierdzone przez użytkownika 2026-10-30.

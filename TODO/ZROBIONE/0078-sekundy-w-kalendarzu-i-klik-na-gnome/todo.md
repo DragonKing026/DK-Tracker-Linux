@@ -2,19 +2,19 @@
 noteId: "5d4e3b4545104193a6ca9d8d61e5c10b"
 tytul: "Kalendarz liczy sekundy; lewy klik ikony na GNOME"
 numer: "0078"
-status: w-trakcie
+status: zrobione
 priorytet: p2
 tags: [todo, kalendarz, gnome, tray]
 zalezy_od: []
 utworzono: 2026-10-01 15:48
-zaktualizowano: 2026-10-01 17:48
-zamknieto:
+zaktualizowano: 2026-10-30 15:32
+zamknieto: 2026-10-30 15:32
 ---
 
 # 0078 — Kalendarz liczy sekundy; lewy klik ikony na GNOME
 
 > [!info] Status
-> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -36,7 +36,7 @@ drugim. Wyjaśnić, czemu na GNOME lewy klik ikony pokazuje menu zamiast okienka
 - [x] Przeciągnięta krawędź jest na pełnej minucie, druga zachowuje sekundy
 - [x] Przyczyna zachowania na GNOME ustalona w kodzie rozszerzenia i opisana w dokumentacji
 - [x] Testy i dokumentacja zaktualizowane
-- [ ] Sprawdzone przez użytkownika (kalendarz; podwójny klik na GNOME)
+- [x] Sprawdzone przez użytkownika (kalendarz; podwójny klik na GNOME)
 - [x] Zmiany zacommitowane małymi krokami
 
 ## Kroki
@@ -57,7 +57,7 @@ Po zmianie (render offscreen, dzień): pierwszy wpis do 10:00:40, pomyłka 15 s,
 ![Po: krótkie wpisy jako paski](zrzuty/po-krotkie-paski.png)
 
 [Skrypt zrzutu](testy/zrzut-sekund.py) (na bazie galerii z
-[0073](../../ZROBIONE/0073-plan7-kalendarz/todo.md)).
+[0073](../0073-plan7-kalendarz/todo.md)).
 
 ## Dziennik
 
@@ -96,6 +96,12 @@ Po zmianie (render offscreen, dzień): pierwszy wpis do 10:00:40, pomyłka 15 s,
   układ z 0.10.11 stawiał następny obok, co wyglądało jak nakładanie. Teraz blok ma wysokość swojego czasu (min. 4 px,
   nad sąsiadem), kolumny tylko dla wpisów nakładających się w czasie. Wydanie 0.10.13.
 
+### 2026-10-30
+
+- **15:32** Potwierdzone przez użytkownika w działającej aplikacji.
+
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+Kalendarz liczy sekundy, krótkie wpisy rysowane jako paski bez fałszywego nakładania (0.10.11–0.10.13), potwierdzone
+przez użytkownika 2026-10-30. Podwójny klik ikony na GNOME sprawdzi [0020](../../DO-ZROBIENIA/0020-testy-gnome/todo.md)
+— bez sesji GNOME nie da się go teraz potwierdzić.

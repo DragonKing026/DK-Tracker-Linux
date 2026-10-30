@@ -183,13 +183,13 @@ i [REST API](https://www.kimai.org/documentation/rest-api.html):
   automatycznym zatrzymaniu poprzedniego wpisu (`activeEntriesHardLimit: 1`). `DefaultRounding.roundEnd` daje
   `ts − ts % 60 + 60`, więc koniec na pełnej minucie zostaje bez zmian.
 - **Sprawdzone na żywo** (Kimai 2.67.0,
-  [log](../../TODO/W-TRAKCIE/0082-koniec-wpisu-minute-za-pozno/testy/odtworzenie-kimai-2.67.log)): stop przez
+  [log](../../TODO/ZROBIONE/0082-koniec-wpisu-minute-za-pozno/testy/odtworzenie-kimai-2.67.log)): stop przez
   `/stop` o 13:24:23 → koniec 13:25:00; wpis rozpoczęty zaraz potem → po stopie początek 13:24:00, czyli **minuta
   nakładania**. PATCH z `end` 13:24:22 → też 13:25:00. PATCH z `end` 13:24:00 → 13:24:00. Koniec przed początkiem
   (wpis w obrębie jednej minuty) → **400** „The end date must not be earlier than the start date”.
 - Dlatego stop „teraz” wysyła `end` = „teraz − 1 s” zaokrąglone w dół do minuty — z tej samej chwili, z której
   start liczy `begin`, więc koniec nigdy nie wypada po początku następnego wpisu. `/stop` tylko dla wpisu krótszego
-  niż ta minuta ([0082](../../TODO/W-TRAKCIE/0082-koniec-wpisu-minute-za-pozno/todo.md)).
+  niż ta minuta ([0082](../../TODO/ZROBIONE/0082-koniec-wpisu-minute-za-pozno/todo.md)).
 - Nie mamy wpływu na **automatyczne** zatrzymanie przez Kimai (start w wtyczce albo panelu, gdy w aplikacji trwa
   wpis): koniec idzie wtedy w górę i wpisy mogą nachodzić na siebie o minutę.
 - Przy innej regule serwera (np. co 5 minut albo tryb `closest`) koniec i tak zaokrągla serwer — poprawka

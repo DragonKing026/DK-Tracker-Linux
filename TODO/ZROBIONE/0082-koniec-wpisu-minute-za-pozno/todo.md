@@ -2,19 +2,19 @@
 noteId: "90eea3e4898e4913abcbef352fe2441a"
 tytul: "Koniec wpisu zapisany o minutę za późno — nakładanie na osi czasu"
 numer: "0082"
-status: w-trakcie
+status: zrobione
 priorytet: p1
 tags: [todo, blad, kimai, kalendarz]
 zalezy_od: []
 utworzono: 2026-10-30 14:19
-zaktualizowano: 2026-10-30 14:59
-zamknieto:
+zaktualizowano: 2026-10-30 15:32
+zamknieto: 2026-10-30 15:32
 ---
 
 # 0082 — Koniec wpisu zapisany o minutę za późno — nakładanie na osi czasu
 
 > [!info] Status
-> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -79,5 +79,11 @@ wpisy stoją jeden za drugim i nie nachodzą na siebie.
 ### 2026-10-30 14:59
 
 - Wydane w 0.10.18 (46a116f, tag `v0.10.18`); `flatpak update` je widzi. Czeka na potwierdzenie u użytkownika.
+- **15:32** Potwierdzone przez użytkownika w działającej aplikacji.
 
 ## Wynik
+
+Stop i wznowienie zapisują koniec na pełnej minucie, więc wpisy nie nachodzą na siebie w kalendarzu (9aa2098, docs
+7f67aa2, testy jednostkowe i kontraktowy). Poza zasięgiem: automatyczne zatrzymanie przez Kimai przy starcie w innym
+kliencie i inna reguła zaokrąglania serwera — opisane w [Kimai API](../../../docs/integracje/kimai-api.md). Wydane w
+0.10.18, potwierdzone przez użytkownika 2026-10-30.

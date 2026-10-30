@@ -121,7 +121,7 @@ Rozszerzenie inaczej niż Plasma rozdziela kliknięcia (od 2022, sprawdzone w
 > [!warning] Na GNOME okienko otwiera **podwójny** lewy klik albo pozycja menu „Otwórz okienko”
 > Pojedynczy lewy klik zawsze pokazuje menu, jeśli ikona je ma; bez menu nie robi nic. Aplikacja nie może tego
 > zmienić. Potwierdzone przez użytkownika na GNOME 2026-10-01 (pojedynczy lewy klik = menu) —
-> [0078](../../TODO/W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md).
+> [0078](../../TODO/ZROBIONE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md).
 
 ## Pułapki
 

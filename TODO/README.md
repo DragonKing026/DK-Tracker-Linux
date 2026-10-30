@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-10-30 14:22
+zaktualizowano: 2026-10-30 15:32
 ---
 
 # Tablica zadań
@@ -25,11 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0077 | [Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki](W-TRAKCIE/0077-godziny-w-okienku-przy-tacce/todo.md) | 🔨 w-trakcie | p2 | — |
-| 0078 | [Kalendarz liczy sekundy; lewy klik ikony na GNOME](W-TRAKCIE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md) | 🔨 w-trakcie | p2 | — |
-| 0079 | [Kalendarz: większa skala od 8:00, przybliżanie kółkiem, przesuwanie prawym](W-TRAKCIE/0079-skala-kalendarza/todo.md) | 🔨 w-trakcie | p2 | — |
-| 0081 | [Śmieciowe piksele okienka przy tacce po starcie (issue #1)](W-TRAKCIE/0081-smieciowe-piksele-przy-starcie/todo.md) | 🔨 w-trakcie | p1 | — |
-| 0082 | [Koniec wpisu zapisany o minutę za późno — nakładanie na osi czasu](W-TRAKCIE/0082-koniec-wpisu-minute-za-pozno/todo.md) | 🔨 w-trakcie | p1 | — |
 
 ## Do zrobienia
 
@@ -116,7 +111,12 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0074 | [Opis DK Tracker jako pełnego klienta Kimai: README, dokumentacja, strona, zrzuty](ZROBIONE/0074-opis-pelnej-aplikacji/todo.md) | ✅ zrobione | 2026-09-27 14:12 |
 | 0075 | [Okno przy tacce na ekranie klikniętej ikony](ZROBIONE/0075-okno-na-ekranie-kliknietej-tacki/todo.md) | ✅ zrobione | 2026-09-28 07:40 |
 | 0076 | [Awaria po kliknięciu ikony: pętla rozmiaru płótna](ZROBIONE/0076-petla-rozmiaru-plotna/todo.md) | ✅ zrobione | 2026-09-28 10:57 |
+| 0077 | [Okienko przy tacce: godziny OD/DO z listy, w jednym wierszu; kursor rączki](ZROBIONE/0077-godziny-w-okienku-przy-tacce/todo.md) | ✅ zrobione | 2026-10-30 15:32 |
+| 0078 | [Kalendarz liczy sekundy; lewy klik ikony na GNOME](ZROBIONE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md) | ✅ zrobione | 2026-10-30 15:32 |
+| 0079 | [Kalendarz: większa skala od 8:00, przybliżanie kółkiem, przesuwanie prawym](ZROBIONE/0079-skala-kalendarza/todo.md) | ✅ zrobione | 2026-10-30 15:32 |
 | 0080 | [Ikony okna przesunięte i za duże przy ekranach o różnej skali](ZROBIONE/0080-ikony-przy-mieszanej-skali/todo.md) | ✅ zrobione | 2026-10-09 17:27 |
+| 0081 | [Śmieciowe piksele okienka przy tacce po starcie (issue #1)](ZROBIONE/0081-smieciowe-piksele-przy-starcie/todo.md) | ✅ zrobione | 2026-10-30 15:32 |
+| 0082 | [Koniec wpisu zapisany o minutę za późno — nakładanie na osi czasu](ZROBIONE/0082-koniec-wpisu-minute-za-pozno/todo.md) | ✅ zrobione | 2026-10-30 15:32 |
 
 <!-- tablica:end -->
 
