@@ -76,6 +76,25 @@ def test_stop_and_totals(user_tracker):
     assert any(entry.description == DESCRIPTION for entry in snapshot.recent)
 
 
+def test_a_resumed_entry_begins_where_the_stopped_one_ended(kimai_env, user_tracker):
+    """0082: Kimai rounds an end up and a begin down to the minute (default rounding). Stopped by
+    /stop, the entry ended a minute after the next one, started right away, began."""
+    project, activity = ids(user_tracker)
+    first = user_tracker.start(
+        project_id=project, activity_id=activity, description=DESCRIPTION, billable=None
+    ).current
+    client = KimaiClient(kimai_env["KIMAI_TEST_URL"], kimai_env["KIMAI_TEST_USER_TOKEN"])
+    earlier = (datetime.now(UTC) - timedelta(minutes=5)).strftime("%Y-%m-%dT%H:%M:%S")  # jan is in UTC
+    client.update(first.id, {"begin": earlier})
+    user_tracker.refresh_full()
+    second = user_tracker.resume(first).current
+    user_tracker.stop()  # the second entry is rounded once it stops
+    first, second = client.entry_details(first.id), client.entry_details(second.id)
+    assert first.end.second == 0
+    assert first.end <= second.begin
+    assert second.begin - first.end < timedelta(minutes=1)
+
+
 def test_stopping_a_stopped_entry_is_not_an_error(kimai_env, user_tracker):
     project, activity = ids(user_tracker)
     entry = user_tracker.start(

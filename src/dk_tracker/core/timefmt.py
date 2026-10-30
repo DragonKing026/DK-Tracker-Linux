@@ -34,6 +34,16 @@ def start_stamp(now: datetime, tz: tzinfo) -> str:
     return kimai_stamp(now - timedelta(seconds=1), tz)
 
 
+def stop_moment(now: datetime) -> datetime:
+    """The end of an entry stopped "now": the start's moment rounded down to the minute.
+
+    Kimai's default rounding takes an end up and a begin down to the full minute, so an end with
+    seconds overlapped the entry started right after it by a minute (0082). An end on the full
+    minute is kept; from the same "now − 1 s" it is never later than the next begin.
+    """
+    return (now - timedelta(seconds=1)).replace(second=0, microsecond=0)
+
+
 def elapsed_seconds(begin: datetime, now: datetime) -> int:
     return max(0, int((now - begin).total_seconds()))
 

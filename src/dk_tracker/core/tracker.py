@@ -26,6 +26,7 @@ from .timefmt import (
     kimai_stamp,
     local_day,
     start_stamp,
+    stop_moment,
     wall_clock,
     week_start,
     weekday_index,
@@ -245,8 +246,17 @@ class Tracker:
                 raise TrackerError("errEndBeforeBegin")
             self._client.update(current.id, {"end": kimai_stamp(end_at, tz)})
         else:
-            self._client.stop(current.id)
+            self._stop_now(current)
         return self.refresh_full()
+
+    def _stop_now(self, current: Entry) -> None:
+        """An end on the full minute, so Kimai does not round it up past the next begin (0082).
+        Within the minute the entry began that end would precede it (400): Kimai's /stop then."""
+        end = stop_moment(self._now())
+        if end <= current.begin:
+            self._client.stop(current.id)
+        else:
+            self._client.update(current.id, {"end": kimai_stamp(end, self.kimai_tz())})
 
     def resume(self, entry: Entry) -> Snapshot:
         """F-10. Checked first, so a refused resume never stops the running entry."""
@@ -254,7 +264,7 @@ class Tracker:
         self._check(entry.description.strip())
         current = self._snapshot.current
         if current is not None:
-            self._client.stop(current.id)
+            self._stop_now(current)
         # Repeating an entry repeats how it was billed, not the project default.
         try:
             return self.start(

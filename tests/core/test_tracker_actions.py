@@ -87,13 +87,45 @@ def test_start_timeout_before_save_is_an_error():
     assert len(starts(client)) == 1
 
 
-def test_stop_now():
+def test_stop_now_sends_the_end_rounded_down_to_the_minute():
+    """0082: /stop lets Kimai round the end up (18:04:03 → 18:05), so the entry started right after
+    (begin rounded down to 18:04) overlapped it by a minute. The end goes as 18:04:00 instead."""
     tracker, client, _ = make_tracker()
     running = client.add(make_entry(1, NOW - timedelta(hours=1)))
     tracker.refresh_active()
     snapshot = tracker.stop()
+    assert ("update", running.id, {"end": "2026-09-25T18:04:00"}) in client.calls
+    assert not any(call[0] == "stop" for call in client.calls)
+    assert snapshot.running == ()
+
+
+def test_stop_within_the_minute_it_began_is_left_to_kimai():
+    """A rounded-down end before the begin is refused (400, checked on Kimai 2.67): /stop instead."""
+    tracker, client, _ = make_tracker()
+    running = client.add(make_entry(1, NOW - timedelta(seconds=2)))  # 18:04:01
+    tracker.refresh_active()
+    snapshot = tracker.stop()
     assert ("stop", running.id) in client.calls
     assert snapshot.running == ()
+
+
+def kimai_floor(stamp):
+    """Kimai's default rounding of a begin: down to the full minute."""
+    return stamp[:-2] + "00"
+
+
+@pytest.mark.parametrize("second", [0.4, 1, 3, 30, 59.9])
+def test_resumed_entry_never_begins_before_the_previous_one_ended(second):
+    """0082: whatever the second, the stopped entry ends no later than the next one begins once
+    Kimai has rounded both — also in the first second of a minute, where "now − 1 s" is the minute before."""
+    tracker, client, _ = make_tracker()
+    client.now = NOW.replace(second=0) + timedelta(seconds=second)
+    old = client.add(make_entry(1, NOW - timedelta(days=1), NOW - timedelta(hours=20)))
+    current = client.add(make_entry(2, NOW - timedelta(minutes=10)))
+    tracker.refresh_full()
+    tracker.resume(old)
+    end = next(call[2]["end"] for call in client.calls if call[:2] == ("update", current.id))
+    assert end <= kimai_floor(starts(client)[-1][4])
 
 
 def test_stop_with_end_time_in_account_zone():
@@ -137,7 +169,7 @@ def test_resume_switches_and_repeats_billable():
     current = client.add(make_entry(2, NOW - timedelta(minutes=10)))
     tracker.refresh_full()
     snapshot = tracker.resume(old)
-    assert ("stop", current.id) in client.calls
+    assert ("update", current.id, {"end": "2026-09-25T18:04:00"}) in client.calls
     assert starts(client)[-1][1:4] == (old.project_id, old.activity_id, old.description)
     assert starts(client)[-1][5] is False
     assert snapshot.current.description == old.description
