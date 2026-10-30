@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-10-01 19:20
+zaktualizowano: 2026-10-30 14:27
 ---
 
 # Katalog funkcji
@@ -87,7 +87,12 @@ stateDiagram-v2
 
 ## F-05 Stop timera
 
-- Bez godziny końca → `PATCH /api/timesheets/{id}/stop`.
+- Bez godziny końca → `PATCH /api/timesheets/{id}` z `end` = „teraz − 1 s” zaokrąglone **w dół do pełnej minuty**
+  (tak samo przy wznowieniu, F-10). Kimai domyślnie zaokrągla koniec w górę, a początek w dół, więc koniec
+  z sekundami (np. z `/stop`) nachodził o minutę na wpis rozpoczęty zaraz po nim
+  ([0082](../../TODO/W-TRAKCIE/0082-koniec-wpisu-minute-za-pozno/todo.md),
+  [zaokrąglanie](../integracje/kimai-api.md#zaokrąglanie-czasów)). Wpis krótszy niż ta minuta (koniec wypadłby przed
+  początkiem — Kimai odrzuca) → `PATCH /api/timesheets/{id}/stop`. Różnica względem wtyczki, która zawsze używa `/stop`.
 - Z wybraną godziną „do” → `PATCH /api/timesheets/{id}` z `end` (ten sam dzień co
   początek). Walidacja: koniec > początek (`errEndBeforeBegin`).
 
@@ -175,7 +180,7 @@ Po udanym zapisie — krótki (2 s) zielony komunikat „Zapisano…”.
 
 - ▶ na wierszu kopiuje opis, projekt, czynność i **billable tego wpisu** (nie domyślne
   projektu) do formularza i startuje.
-- Jeśli coś trwa — najpierw zatrzymuje bieżący wpis (przełączenie timera).
+- Jeśli coś trwa — najpierw zatrzymuje bieżący wpis (przełączenie timera), z końcem na pełnej minucie jak w F-05.
 - Ukryta czynność (np. kubełek importu z Togglа) nie jest ustawiana, bo nie ma jej na liście.
 
 Źródło: `popup.js#resume`.

@@ -5,7 +5,7 @@ tags: [integracja, kimai, api, http]
 status_integracji: w-uzyciu
 wersja: Kimai 2.x — firma 2.65.0; testowane na 2.65.0 i 2.67.0
 utworzono: 2026-09-25 17:19
-zaktualizowano: 2026-09-26 18:22
+zaktualizowano: 2026-10-30 14:27
 ---
 
 # Kimai REST API
@@ -49,7 +49,7 @@ Pełna, interaktywna dokumentacja jest na każdej instancji pod **`/api/doc`**
 | POST | `/api/timesheets` | start: `begin`, `project`, `activity`, `description`, `[billable]` | F-04 |
 | POST | `/api/timesheets` | ręczny wpis: `begin` i `end` (czas zegarowy w strefie Kimai), `project`, `activity`, `description`, `[billable]` | F-35 |
 | DELETE | `/api/timesheets/{id}` | usunięcie wpisu (po czasie na „Cofnij”) | F-35 |
-| PATCH | `/api/timesheets/{id}/stop` | stop „teraz”; na już zatrzymanym wpisie zwraca 200 (sprawdzone) | F-05 |
+| PATCH | `/api/timesheets/{id}/stop` | stop „teraz” wpisu krótszego niż minuta (dłuższy: PATCH z `end`, patrz [zaokrąglanie](#zaokrąglanie-czasów)); na już zatrzymanym wpisie zwraca 200 (sprawdzone) | F-05 |
 | PATCH | `/api/timesheets/{id}` | częściowa edycja: `description`, `begin`, `end`, `billable`, `project` + `activity` (trwający wpis); `begin`/`end`, `project` + `activity`, `tags` (lista po przecinku) zakończonego wpisu | F-05, F-07, F-09, F-34, F-35 |
 | GET | `/api/timesheets/{id}` | okno edycji: wszystkie opcje wpisu — `tags`, `metaFields`, `break`; stawek (`fixedRate`, `hourlyRate`) aplikacja nie pokazuje — patrz niżej | F-35 |
 | GET | `/api/tags/find?name=` | tagi do wyboru w oknie edycji: pusty `name` daje wszystkie **widoczne** (z kolorem `color-safe`); ukrytych nie ma (`/api/tags` to starsza, przestarzała lista samych nazw) | F-35 |
@@ -168,7 +168,32 @@ i [REST API](https://www.kimai.org/documentation/rest-api.html):
 - Zasada w aplikacji: **wszystkie godziny wysyłane do Kimai liczymy w strefie
   `/api/users/me → timezone`**. Przy różnicy stref pokazujemy ostrzeżenie.
 - Kimai **zaokrągla** czasy do pełnych minut przy stopie i auto-stopie (ustawienie
-  serwera) — nie porównujemy czasów co do sekundy.
+  serwera) — nie porównujemy czasów co do sekundy. Szczegóły niżej.
+
+## Zaokrąglanie czasów
+
+([źródło](https://www.kimai.org/documentation/configurations.html),
+[local.yaml](https://www.kimai.org/documentation/local-yaml.html))
+
+- Reguła domyślna (`kimai.timesheet.rounding.default`): `begin: 1`, `end: 1`, `duration: 0`, tryb **`default`** —
+  początek **w dół**, koniec **w górę** do pełnej minuty. Inne tryby: `closest`, `floor`, `ceil`; reguły można
+  ustawić w panelu (System → Ustawienia) albo w `local.yaml`.
+- Zaokrąglanie dotyczy tylko **zakończonych** wpisów: trwający ma początek z sekundami aż do stopu. W Kimai 2.67
+  robi to `DurationCalculator` przy **każdym** zapisie wpisu z `end` — przy `/stop`, przy PATCH z `end` i przy
+  automatycznym zatrzymaniu poprzedniego wpisu (`activeEntriesHardLimit: 1`). `DefaultRounding.roundEnd` daje
+  `ts − ts % 60 + 60`, więc koniec na pełnej minucie zostaje bez zmian.
+- **Sprawdzone na żywo** (Kimai 2.67.0,
+  [log](../../TODO/W-TRAKCIE/0082-koniec-wpisu-minute-za-pozno/testy/odtworzenie-kimai-2.67.log)): stop przez
+  `/stop` o 13:24:23 → koniec 13:25:00; wpis rozpoczęty zaraz potem → po stopie początek 13:24:00, czyli **minuta
+  nakładania**. PATCH z `end` 13:24:22 → też 13:25:00. PATCH z `end` 13:24:00 → 13:24:00. Koniec przed początkiem
+  (wpis w obrębie jednej minuty) → **400** „The end date must not be earlier than the start date”.
+- Dlatego stop „teraz” wysyła `end` = „teraz − 1 s” zaokrąglone w dół do minuty — z tej samej chwili, z której
+  start liczy `begin`, więc koniec nigdy nie wypada po początku następnego wpisu. `/stop` tylko dla wpisu krótszego
+  niż ta minuta ([0082](../../TODO/W-TRAKCIE/0082-koniec-wpisu-minute-za-pozno/todo.md)).
+- Nie mamy wpływu na **automatyczne** zatrzymanie przez Kimai (start w wtyczce albo panelu, gdy w aplikacji trwa
+  wpis): koniec idzie wtedy w górę i wpisy mogą nachodzić na siebie o minutę.
+- Przy innej regule serwera (np. co 5 minut albo tryb `closest`) koniec i tak zaokrągla serwer — poprawka
+  gwarantuje brak nakładania przy regule domyślnej.
 
 ## Link do panelu
 
