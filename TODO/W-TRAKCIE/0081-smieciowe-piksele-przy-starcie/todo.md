@@ -38,13 +38,13 @@ kawałki nagłówka, formularza ani listy z wcześniejszej klatki.
 - [x] Przyczyna potwierdzona na prawdziwej sesji Wayland (dziennik malowania).
 - [x] Poprawka w [popup.py](../../../src/dk_tracker/ui/popup.py) i test regresji, który bez niej nie przechodzi.
 - [x] Dokumentacja ([layer-shell-qt](../../../docs/integracje/layer-shell-qt.md)) zaktualizowana.
-- [ ] Issue #1 zamknięte z odnośnikiem do commita.
+- [x] Issue #1 zamknięte z odnośnikiem do commita.
 
 ## Kroki
 
 - [x] Odtworzenie: skrypt z filtrem zdarzeń na płótnie (Resize, LayoutRequest, Paint).
 - [x] Poprawka i test.
-- [ ] Dokumentacja, commit, zamknięcie issue.
+- [x] Dokumentacja, commit, zamknięcie issue.
 
 ## Materiały
 
@@ -70,6 +70,6 @@ kawałki nagłówka, formularza ani listy z wcześniejszej klatki.
   panelu).
 - Poprawka: `layout().activate()` w `_place_panel` (3947a70), test
   `test_a_new_canvas_is_painted_with_the_panel_already_in_place` — bez poprawki nie przechodzi. Docs: 0cff17c.
-- Poprawka gotowa, czeka na wydanie.
+- Poprawka gotowa, czeka na wydanie. Issue #1 zamknięte z odnośnikiem do 3947a70.
 
 ## Wynik
