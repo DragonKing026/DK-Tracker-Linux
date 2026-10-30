@@ -2,19 +2,19 @@
 noteId: "b7b4a8ff666847a083d482df171f5cc4"
 tytul: "Śmieciowe piksele okienka przy tacce po starcie (issue #1)"
 numer: "0081"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, blad, okienko, layer-shell]
 zalezy_od: []
 utworzono: 2026-10-30 14:19
-zaktualizowano: 2026-10-30 14:19
+zaktualizowano: 2026-10-30 14:20
 zamknieto:
 ---
 
 # 0081 — Śmieciowe piksele okienka przy tacce po starcie (issue #1)
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -53,5 +53,6 @@ kawałki nagłówka, formularza ani listy z wcześniejszej klatki.
 ### 2026-10-30 14:19
 
 - Utworzono zadanie.
+- **14:20** Start pracy: odtworzenie na sesji Wayland.
 
 ## Wynik
