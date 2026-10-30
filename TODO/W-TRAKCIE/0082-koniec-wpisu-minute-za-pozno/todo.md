@@ -2,19 +2,19 @@
 noteId: "90eea3e4898e4913abcbef352fe2441a"
 tytul: "Koniec wpisu zapisany o minutę za późno — nakładanie na osi czasu"
 numer: "0082"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, blad, kimai, kalendarz]
 zalezy_od: []
 utworzono: 2026-10-30 14:19
-zaktualizowano: 2026-10-30 14:19
+zaktualizowano: 2026-10-30 14:22
 zamknieto:
 ---
 
 # 0082 — Koniec wpisu zapisany o minutę za późno — nakładanie na osi czasu
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -50,5 +50,6 @@ wpisy stoją jeden za drugim i nie nachodzą na siebie.
 ### 2026-10-30 14:19
 
 - Utworzono zadanie.
+- **14:22** Start pracy: dokumentacja zaokrąglania i odtworzenie na lokalnym Kimai.
 
 ## Wynik
