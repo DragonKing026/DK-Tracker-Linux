@@ -58,6 +58,12 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.18" date="2026-10-30">
+      <description>
+        <p>Stopping an entry ends it on the full minute, so in the calendar it no longer overlaps the entry started right after it.</p>
+        <p>The quick window by the tray no longer leaves stray pixels beside it when it opens on another monitor.</p>
+      </description>
+    </release>
     <release version="0.10.17" date="2026-10-09">
       <description>
         <p>Window icons keep their size and place when another screen of the session uses a different scale.</p>
