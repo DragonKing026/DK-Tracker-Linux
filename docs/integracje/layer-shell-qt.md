@@ -5,7 +5,7 @@ tags: [integracja, wayland, kde, ui]
 status_integracji: planowana
 wersja: 6.7.5 (Plasma 6.7.5; moduł we Flatpaku ze źródeł KDE)
 utworzono: 2026-09-25 20:38
-zaktualizowano: 2026-09-28 10:32
+zaktualizowano: 2026-10-30 14:21
 ---
 
 # layer-shell-qt
@@ -76,6 +76,17 @@ utworzeniem natywnego okna — robi to `placement.apply` przed `layer-shell`.
 > ono margines i tak bez końca — aż `QWaylandShmBuffer` nie dostał bufora i proces padał (SIGSEGV). Na płótnie układ ma
 > `SetNoConstraint`, a panel nie schodzi poniżej minimum zawartości (także gdy zawartość rośnie — `LayoutRequest`)
 > ([0076](../../TODO/ZROBIONE/0076-petla-rozmiaru-plotna/todo.md)).
+
+Maska ma też skutek przy rysowaniu, nie tylko przy kliknięciach:
+
+> [!warning] Maska przycina też malowanie
+> Po `setMask` Qt maluje okno tylko w obrębie maski: poza panelem płótno jest czyszczone (przezroczyste) wyłącznie
+> wtedy, gdy Qt maluje całe płótno, czyli raz po zmianie jego rozmiaru (`fit_screen` na innym monitorze). Nowe marginesy
+> układu działają jednak dopiero po `LayoutRequest`, a to malowanie przychodzi wcześniej — nagłówek, formularz i lista
+> zostawały w starym miejscu, rozciągnięte do prawej krawędzi, i nic ich już nie zamalowywało
+> ([issue #1](https://github.com/DragonKing026/DK-Tracker-Linux/issues/1),
+> [0081](../../TODO/W-TRAKCIE/0081-smieciowe-piksele-przy-starcie/todo.md)). Dlatego `_place_panel` po zmianie
+> marginesów od razu wywołuje `layout().activate()`.
 
 ## Który monitor
 
