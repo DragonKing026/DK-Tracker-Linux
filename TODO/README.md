@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-10-31 12:45
+zaktualizowano: 2026-10-31 12:49
 ---
 
 # Tablica zadań
@@ -25,6 +25,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
+| 0084 | [Scorecard: przypięte zależności, podpisane wydania, fuzzing](W-TRAKCIE/0084-scorecard-pinned-signed-fuzzing/todo.md) | 🔨 w-trakcie | p3 | — |
 
 ## Do zrobienia
 
