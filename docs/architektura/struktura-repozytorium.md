@@ -20,7 +20,10 @@ zaktualizowano: 2026-09-27 12:40
 ├── LICENSE                    GPL-3.0-or-later
 ├── .github/
 │   ├── README.md              strona repozytorium na GitHubie (bez frontmattera, treść jak README.md)
-│   └── workflows/             testy.yml (każdy push), wydanie.yml (tag v<wersja> → Flatpak, Pages), strona.yml (strona bez wydania)
+│   ├── SECURITY.md            polityka bezpieczeństwa (bez frontmattera)
+│   ├── dependabot.yml         tygodniowe aktualizacje przypiętych akcji
+│   └── workflows/             testy.yml (każdy push), wydanie.yml (tag v<wersja> → Flatpak, Pages), strona.yml (strona bez wydania),
+│                              codeql.yml, security.yml (gitleaks, zizmor), scorecard.yml
 ├── .gitignore
 ├── pyproject.toml             pakiet dk-tracker, zależności, pytest, ruff
 ├── data/                      .desktop i MetaInfo (AppStream) aplikacji — host i Flatpak
