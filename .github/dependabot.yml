@@ -1,0 +1,14 @@
+# Weekly updates of the GitHub Actions pinned to commits, in one pull request.
+# No pip ecosystem on purpose: pyproject.toml holds only version ranges, and the Flatpak build installs the
+# dependencies offline from the pinned sources in flatpak/python3-deps.yaml, which Dependabot cannot update.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns: ["*"]
