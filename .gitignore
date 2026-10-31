@@ -33,3 +33,6 @@ target/
 
 # Dolphin: folder icon (local, absolute path)
 .directory
+
+# Worktree agentów (git worktree)
+.claude/worktrees/
