@@ -28,7 +28,8 @@ zaktualizowano: 2026-10-31 12:25
 
 ## Audyty bezpieczeństwa
 
-Zestaw jak w repozytorium commit-sentry. Wszystkie trzy workflowy mają `permissions: contents: read` na górze,
+Zestaw jak w repozytorium commit-sentry. Nowe workflowy mają `permissions: contents: read` na górze (Scorecard:
+`read-all`, jak wymaga akcja),
 szersze uprawnienia (`security-events: write`, `id-token: write`) tylko w zadaniu, które ich potrzebuje,
 `persist-credentials: false` w checkoucie i `timeout-minutes`.
 
