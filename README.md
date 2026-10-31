@@ -5,6 +5,11 @@ tags: [readme, projekt]
 
 # DK Tracker
 
+[![Testy](https://github.com/DragonKing026/DK-Tracker-Linux/actions/workflows/testy.yml/badge.svg)](https://github.com/DragonKing026/DK-Tracker-Linux/actions/workflows/testy.yml)
+[![CodeQL](https://github.com/DragonKing026/DK-Tracker-Linux/actions/workflows/codeql.yml/badge.svg)](https://github.com/DragonKing026/DK-Tracker-Linux/actions/workflows/codeql.yml)
+[![Security](https://github.com/DragonKing026/DK-Tracker-Linux/actions/workflows/security.yml/badge.svg)](https://github.com/DragonKing026/DK-Tracker-Linux/actions/workflows/security.yml)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/DragonKing026/DK-Tracker-Linux/badge)](https://scorecard.dev/viewer/?uri=github.com/DragonKing026/DK-Tracker-Linux)
+
 Klient [Kimai](https://www.kimai.org/) na pulpit Linuksa: cały czas pracy w jednym oknie — lista wpisów, podsumowania
 i kalendarz — bez karty w przeglądarce. Timer uruchomisz i zatrzymasz z okna albo z ikony w tacce systemowej, która
 pokazuje, ile trwa bieżący wpis. Zaczęło się jako linuksowa wersja firmowej wtyczki
