@@ -55,8 +55,10 @@ Jak wydać nową wersję DK Tracker i jak ją zainstalować. Decyzja o dystrybuc
    gh run watch                      # testy i wydanie
    ```
 
-5. Kolejność w workflow: testy → budowa i podpis → Pages → dopiero wtedy wydanie na GitHubie. Gdy publikacja na
-   Pages się nie uda, wydania nie ma; po naprawie przyczyny wystarczy **Re-run failed jobs** w zakładce Actions.
+5. Kolejność w workflow: testy → budowa i podpis → poświadczenie pochodzenia paczki → Pages → dopiero wtedy wydanie na
+   GitHubie. Pages czeka na poświadczenie, żeby nic nie wyszło
+   online bez niego. Gdy publikacja na Pages się nie uda, wydania nie ma; po naprawie przyczyny wystarczy **Re-run
+   failed jobs** w zakładce Actions.
 6. Sama strona projektu (bez nowej wersji aplikacji) wychodzi workflow **Strona**
    ([strona.yml](../../.github/workflows/strona.yml), [GitHub Pages](../integracje/github-pages.md)): sama po pushu
    zmiany strony na `main` albo `gh workflow run strona.yml`. Nie w trakcie wydania — oba dzielą kolejkę Pages.

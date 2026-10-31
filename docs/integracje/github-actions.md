@@ -67,7 +67,8 @@ szersze uprawnienia (`security-events: write`, `id-token: write`) tylko w zadani
   `<paczka>.flatpak.sigstore.json` — tej nazwy szuka Scorecard (Signed-Releases; `.sigstore.json` daje 8/10,
   10/10 tylko przy `.intoto.jsonl` z `slsa-github-generator`, którego nie da się przypiąć do SHA, a repozytorium
   tego wymaga). Zadanie ma `id-token: write` i `attestations: write`, nie ma klucza GPG. Wynik w Scorecard rośnie
-  dopiero po następnym wydaniu (liczy ostatnie pięć).
+  dopiero po następnym wydaniu (liczy ostatnie pięć). Zadanie `pages` czeka na `poswiadczenie`, więc bez poświadczenia
+  nic nie trafia na Pages ani do wydania.
 - **Zgłaszanie podatności** — [SECURITY.md](../../.github/SECURITY.md): prywatne zgłoszenia GitHuba, wspierane tylko
   najnowsze wydanie.
 
@@ -93,14 +94,16 @@ flowchart LR
     DEP --> REL[action-gh-release<br/>plik .flatpak]
 ```
 
-Zadanie `flatpak` działa w kontenerze `ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11@sha256:b0a8a2ac…` z `--privileged` — tym
+Zadanie `flatpak` działa w kontenerze `ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11@sha256:b0a8a2ac…` z
+`--privileged` — tym
 samym obrazem co lokalna budowa ([buduj.sh](../../flatpak/buduj.sh),
 [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md));
 spójność pilnuje test `test_release_builds_in_the_same_container_as_the_local_script`
 ([test_pakiet.py](../../tests/test_pakiet.py)).
 
 Obraz jest przypięty do digestu indeksu (tag zostaje dla czytelności) w trzech miejscach naraz: `wydanie.yml`,
-`strona.yml` i `buduj.sh` (Scorecard, Pinned-Dependencies; test `test_release_builds_in_the_same_container_as_the_local_script`
+`strona.yml` i `buduj.sh` (Scorecard, Pinned-Dependencies; test
+`test_release_builds_in_the_same_container_as_the_local_script`
 pilnuje zgodności). **Dependabot go nie podbije** — ekosystem `docker` czyta tylko Dockerfile, compose i manifesty
 Kubernetesa, nie `container:` w workflowach ani skrypt powłoki. Aktualizacja ręczna: sprawdzić nowy obraz, potem
 

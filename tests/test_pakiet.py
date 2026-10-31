@@ -172,7 +172,7 @@ def test_release_waits_for_the_tests():
 def test_release_is_created_only_after_the_repository_is_on_pages():
     """A release pointing at a .flatpakref that is not online yet would install nothing."""
     jobs = workflow("wydanie.yml")["jobs"]
-    assert jobs["pages"]["needs"] == "flatpak"
+    assert set(jobs["pages"]["needs"]) == {"flatpak", "poswiadczenie"}
     assert "pages" in jobs["wydanie"]["needs"]
     assert not any("action-gh-release" in step.get("uses", "") for step in jobs["flatpak"]["steps"])
 

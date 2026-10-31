@@ -65,7 +65,7 @@ jobs:
           path: io.github.dragonking026.DK-Tracker-Linux-${{ github.ref_name }}.flatpak
           if-no-files-found: error
   pages:
-    needs: flatpak
+    needs: [flatpak, poswiadczenie] # nothing goes online without the provenance attestation
     runs-on: ubuntu-24.04
     permissions:
       pages: write
