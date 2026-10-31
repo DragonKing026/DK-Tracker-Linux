@@ -1,0 +1,6 @@
+# Extra inputs of requirements-ci.txt next to pyproject.toml (extras dev and ui); the file with hashes is for
+# `pip install --require-hashes` (docs/integracje/github-actions.md). Regenerate:
+#   uv pip compile pyproject.toml requirements-ci.in --extra dev --extra ui --generate-hashes \
+#     --python-version 3.13 --python-platform x86_64-manylinux_2_39 -o requirements-ci.txt
+setuptools>=77  # build backend: the project is installed with --no-build-isolation
+atheris>=3  # fuzzing harness (fuzz/); Linux x86-64 wheels only
