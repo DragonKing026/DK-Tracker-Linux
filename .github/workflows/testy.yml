@@ -33,6 +33,10 @@ jobs:
         run: pytest --cov=dk_tracker.core --cov-fail-under=90
         env:
           QT_QPA_PLATFORM: offscreen
+      - name: Fuzzing (Atheris, 30 s) czystych funkcji rdzenia
+        run: python fuzz/fuzz_core.py -max_total_time=30
+        env:
+          QT_QPA_PLATFORM: offscreen
       - name: Dokumentacja
         run: |
           python3 .claude/skills/sprawdz-linki/linki.py sprawdz
