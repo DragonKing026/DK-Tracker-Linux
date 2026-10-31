@@ -21,3 +21,15 @@ updates:
     groups:
       python-ci:
         patterns: ["*"]
+    # Upper bounds of pyproject.toml: a newer major would not install in the app, so it is not proposed.
+    ignore:
+      - dependency-name: "pyside6*"
+        versions: [">=6.12"]
+      - dependency-name: "shiboken6"
+        versions: [">=6.12"]
+      - dependency-name: "ruff"
+        versions: [">=0.17"]
+      - dependency-name: "httpx"
+        versions: [">=1"]
+      - dependency-name: "jeepney"
+        versions: [">=1"]

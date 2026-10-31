@@ -44,7 +44,9 @@ szersze uprawnienia (`security-events: write`, `id-token: write`) tylko w zadani
   publikacja wyniku wymaga publicznego repozytorium.
 - **Dependabot** ([dependabot.yml](../../.github/dependabot.yml)) — co tydzień po jednym pull requeście: z przypiętymi
   akcjami i z zależnościami CI w `requirements-ci.txt` (`cooldown` 7 dni). Flatpak instaluje zależności offline
-  z przypiętych źródeł w `flatpak/python3-deps.yaml`, których Dependabot nie zaktualizuje.
+  z przypiętych źródeł w `flatpak/python3-deps.yaml`, których Dependabot nie zaktualizuje. Wpis `pip` ma `ignore` dla wersji poza górnymi granicami z `pyproject.toml`
+  (`pyside6*` i `shiboken6` od 6.12, `ruff` od 0.17, `httpx` i `jeepney` od 1.0) — nowa wersja główna nie
+  zainstalowałaby się w aplikacji; po zmianie granicy w `pyproject.toml` popraw też `ignore`.
 - **Zależności CI z sumami** — [testy.yml](../../.github/workflows/testy.yml) instaluje
   `pip install --require-hashes -r requirements-ci.txt`, potem sam projekt `pip install --no-deps
   --no-build-isolation -e .` (Scorecard, Pinned-Dependencies, uznaje tylko instalację z sumami; zakresy z
