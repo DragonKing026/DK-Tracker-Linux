@@ -7,7 +7,7 @@ priorytet: p3
 tags: [todo, ci, bezpieczenstwo]
 zalezy_od: []
 utworzono: 2026-10-31 12:50
-zaktualizowano: 2026-10-31 13:15
+zaktualizowano: 2026-10-31 13:04
 zamknieto:
 ---
 
@@ -52,9 +52,11 @@ Brak.
 
 ### 2026-10-31 13:04
 
-- Po recenzji: obraz kontenera Flatpak przypięty do digestu `sha256:b0a8a2ac…` (indeks OCI tagu `kde-6.11`, `skopeo`) w `wydanie.yml`, `strona.yml`, `buduj.sh`; `pages` czeka na `poswiadczenie`; `ignore` w Dependabocie dla górnych granic z `pyproject.toml`; scalono `origin/main`.
+- Po recenzji: obraz kontenera Flatpak przypięty do digestu `sha256:b0a8a2ac…` (indeks OCI tagu `kde-6.11`, `skopeo`) w
+  `wydanie.yml`, `strona.yml`, `buduj.sh`; `pages` czeka na `poswiadczenie`; `ignore` w Dependabocie dla górnych granic
+  z `pyproject.toml`; scalono `origin/main`.
 
-### 2026-10-31 13:15
+### 2026-10-31 12:58
 
 - Zależności CI z sumami (`requirements-ci.txt`, uv), Dependabot pip, `testy.yml` z `--require-hashes`.
 - `wydanie.yml`: zadanie `poswiadczenie` (attest-build-provenance v4.2.2), bundle jako `*.flatpak.sigstore.json`.

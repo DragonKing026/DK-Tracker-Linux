@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-10-31 12:56
+zaktualizowano: 2026-10-31 13:04
 ---
 
 # Tablica zadań

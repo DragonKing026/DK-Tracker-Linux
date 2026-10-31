@@ -146,7 +146,9 @@ def test_release_builds_in_the_same_container_as_the_local_script():
 
     script = (ROOT / "flatpak" / "buduj.sh").read_text(encoding="utf-8")
     local_image = re.search(r"^IMAGE=(\S+)$", script, re.M).group(1)
-    assert re.search(r":kde-6\.11@sha256:[0-9a-f]{64}$", local_image)  # tag for people, digest for the registry
+    assert re.search(
+        r":kde-6\.11@sha256:[0-9a-f]{64}$", local_image
+    )  # tag for people, digest for the registry
     job = workflow("wydanie.yml")["jobs"]["flatpak"]
     assert job["container"]["image"] == local_image
     assert workflow("strona.yml")["jobs"]["strona"]["container"]["image"] == local_image
