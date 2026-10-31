@@ -10,7 +10,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 APP=io.github.dragonking026.DK-Tracker-Linux
-IMAGE=ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11
+IMAGE=ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11@sha256:b0a8a2acb9e420dd0e3e083ff552bea5a817e17e41532f1d2287ff49ef9aae0e
 CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/dk-tracker-flatpak"
 VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' "$ROOT/pyproject.toml")"
 BUNDLE="$APP-$VERSION.flatpak"
