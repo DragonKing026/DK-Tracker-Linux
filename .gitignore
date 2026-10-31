@@ -36,3 +36,4 @@ target/
 
 # Worktree agentów (git worktree)
 .claude/worktrees/
+.hypothesis/
