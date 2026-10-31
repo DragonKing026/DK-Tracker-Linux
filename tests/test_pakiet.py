@@ -171,7 +171,7 @@ def test_release_is_created_only_after_the_repository_is_on_pages():
     """A release pointing at a .flatpakref that is not online yet would install nothing."""
     jobs = workflow("wydanie.yml")["jobs"]
     assert jobs["pages"]["needs"] == "flatpak"
-    assert jobs["wydanie"]["needs"] == "pages"
+    assert "pages" in jobs["wydanie"]["needs"]
     assert not any("action-gh-release" in step.get("uses", "") for step in jobs["flatpak"]["steps"])
 
 
@@ -181,6 +181,11 @@ def test_only_the_jobs_that_need_them_get_write_permissions():
     jobs = data["jobs"]
     assert jobs["pages"]["permissions"] == {"pages": "write", "id-token": "write"}
     assert jobs["wydanie"]["permissions"] == {"contents": "write"}
+    assert jobs["poswiadczenie"]["permissions"] == {
+        "contents": "read",
+        "id-token": "write",
+        "attestations": "write",
+    }
     assert "permissions" not in jobs["flatpak"]  # the job holding the GPG key keeps read-only access
 
 
@@ -267,3 +272,14 @@ def test_the_main_windows_qml_is_part_of_the_package():
     ]
     assert data["dk_tracker.ui.main_window"] == ["qml/*.qml"]
     assert (ROOT / "src" / "dk_tracker" / "ui" / "main_window" / "qml" / "Main.qml").is_file()
+
+
+def test_release_carries_a_provenance_bundle_named_for_scorecard():
+    """Signed-Releases looks at asset names: <bundle>.sigstore.json counts as a signature."""
+    jobs = workflow("wydanie.yml")["jobs"]
+    assert jobs["poswiadczenie"]["needs"] == "flatpak"
+    assert "poswiadczenie" in jobs["wydanie"]["needs"]
+    release = next(step for step in jobs["wydanie"]["steps"] if "action-gh-release" in step.get("uses", ""))
+    files = release["with"]["files"].split()
+    assert any(name.endswith(".flatpak") for name in files)
+    assert any(name.endswith(".flatpak.sigstore.json") for name in files)
