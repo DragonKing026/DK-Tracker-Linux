@@ -32,6 +32,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: Czy ten commit to wydanie
         id: tag
         run: |
@@ -49,6 +50,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           fetch-depth: 0 # the tags: the page shows the released version
+          persist-credentials: false
       - name: MetaInfo z ostatniego wydania
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"

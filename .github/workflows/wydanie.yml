@@ -16,7 +16,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   testy:
-    uses: ./.github/workflows/testy.yml
+    # The './' form is asserted by tests/test_pakiet.py; the '$/' form would change nothing here.
+    uses: ./.github/workflows/testy.yml # zizmor: ignore[self-repository]
   flatpak:
     needs: [testy]
     runs-on: ubuntu-24.04
@@ -26,6 +27,8 @@ jobs:
       options: --privileged
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          persist-credentials: false
       - name: Tag zgodny z wersją w pyproject.toml
         run: |
           version="$(sed -n 's/^version = "\(.*\)"/\1/p' pyproject.toml)"
