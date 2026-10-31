@@ -42,7 +42,7 @@ flowchart LR
 | jeepney | D-Bus → Secret Service (token) | planowana ([ADR-0004](../decyzje/0004-architektura-rdzen-python-ui-qt.md)) | [jeepney](jeepney.md) |
 | layer-shell-qt | okno przy tacce na KDE (Wayland) | planowana ([ADR-0005](../decyzje/0005-okno-przy-tacce-na-kde.md)) | [layer-shell-qt](layer-shell-qt.md) |
 | Kimai w Dockerze | środowisko testów kontraktowych | planowana | [kimai-docker](kimai-docker.md) |
-| GitHub Actions | testy i wydanie po tagu | w użyciu ([ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md)) | [github-actions](github-actions.md) |
+| GitHub Actions | testy, wydanie po tagu, audyty bezpieczeństwa | w użyciu ([ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md)) | [github-actions](github-actions.md) |
 | GitHub Pages | repozytorium Flatpaka z aktualizacjami | w użyciu ([ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md)) | [github-pages](github-pages.md) |
 
 > [!note] Narzędzia deweloperskie

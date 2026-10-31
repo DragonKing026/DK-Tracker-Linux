@@ -1,11 +1,11 @@
 ---
 noteId: "bf2d2fabf984496cbc731b1f3c66b604"
 tytul: GitHub Actions
-tags: [integracja, ci, wydanie, github]
+tags: [integracja, ci, wydanie, github, bezpieczenstwo]
 status_integracji: w-uzyciu
-wersja: "akcje: checkout@v4, setup-python@v5, flatpak-builder@v6, ghaction-import-gpg@v6, upload-pages-artifact@v3, deploy-pages@v4, action-gh-release@v2"
+wersja: "akcje: checkout@v4 i v7, setup-python@v5, flatpak-builder@v6, ghaction-import-gpg@v6, upload-pages-artifact@v3, deploy-pages@v4, action-gh-release@v2"
 utworzono: 2026-09-26 11:57
-zaktualizowano: 2026-09-27 12:40
+zaktualizowano: 2026-10-31 12:25
 ---
 
 # GitHub Actions
@@ -13,6 +13,7 @@ zaktualizowano: 2026-09-27 12:40
 > [!info] W skrócie
 > CI repozytorium na GitHubie: testy przy każdym pushu na `main` i pull requeście, a po tagu `v<wersja>` —
 > podpisana paczka Flatpak, repozytorium Flatpaka na [GitHub Pages](github-pages.md) i wydanie z plikiem `.flatpak`.
+> Do tego audyty bezpieczeństwa: CodeQL, gitleaks, zizmor i OpenSSF Scorecard ([niżej](#audyty-bezpieczeństwa)).
 
 ## Do czego używamy
 
@@ -21,6 +22,39 @@ zaktualizowano: 2026-09-27 12:40
 | [testy.yml](../../.github/workflows/testy.yml) | push na `main`, pull request | `ruff format --check`, `ruff check`, `pytest` (Qt offscreen), linki, frontmatter, markdownlint |
 | [wydanie.yml](../../.github/workflows/wydanie.yml) | tag `v*` | testy (`testy.yml` jako `workflow_call`), zgodność tagu z `pyproject.toml`, walidacja MetaInfo, klucz GPG, budowa i podpis, Pages, na końcu wydanie |
 | [strona.yml](../../.github/workflows/strona.yml) | ręcznie; push na `main` zmieniający stronę | kopia opublikowanego repozytorium Flatpaka (weryfikacja kluczem), ponowny podpis, nowa strona na Pages — bez wydania ([GitHub Pages](github-pages.md)) |
+| [codeql.yml](../../.github/workflows/codeql.yml) | każdy push, pull request, co tydzień | analiza statyczna kodu Pythona (CodeQL), wyniki w Security → Code scanning |
+| [security.yml](../../.github/workflows/security.yml) | każdy push, pull request, co tydzień | gitleaks (sekrety w całej historii) i zizmor (audyt workflowów) |
+| [scorecard.yml](../../.github/workflows/scorecard.yml) | push na `main`, zmiana reguł gałęzi, co tydzień | ocena OpenSSF Scorecard, publikowana na scorecard.dev |
+
+## Audyty bezpieczeństwa
+
+Zestaw jak w repozytorium commit-sentry. Wszystkie trzy workflowy mają `permissions: contents: read` na górze,
+szersze uprawnienia (`security-events: write`, `id-token: write`) tylko w zadaniu, które ich potrzebuje,
+`persist-credentials: false` w checkoucie i `timeout-minutes`.
+
+- **CodeQL** — język `python`, `build-mode: none` (Python nie wymaga budowy). Kod QML i skrypty powłoki poza zakresem.
+- **gitleaks 8.30.1** — pobierany z wydania z weryfikacją sumy SHA-256 (suma z `gitleaks_8.30.1_checksums.txt`),
+  skanuje całą historię (`fetch-depth: 0`). Fałszywy alarm: `Fingerprint` w `.gitleaksignore`, nie wyłączanie kroku.
+- **zizmor 1.30.1** — `pipx run zizmor==1.30.1 --offline --min-severity low .github/workflows`; to samo uruchomisz
+  lokalnie. Wyjątek zizmor tylko komentarzem `# zizmor: ignore[<reguła>]` z uzasadnieniem (np. `self-repository`
+  w `wydanie.yml`: forma `./` jest sprawdzana testem pakietu).
+- **Scorecard** — wynik i odznaka na
+  [scorecard.dev](https://scorecard.dev/viewer/?uri=github.com/DragonKing026/DK-Tracker-Linux);
+  publikacja wyniku wymaga publicznego repozytorium.
+- **Dependabot** ([dependabot.yml](../../.github/dependabot.yml)) — co tydzień jeden pull request z aktualizacją
+  przypiętych akcji (`cooldown` 7 dni). Ekosystemu `pip` nie włączono: `pyproject.toml` ma tylko przedziały wersji,
+  a Flatpak instaluje zależności offline z przypiętych źródeł w `flatpak/python3-deps.yaml`, których Dependabot
+  nie zaktualizuje.
+- **Zgłaszanie podatności** — [SECURITY.md](../../.github/SECURITY.md): prywatne zgłoszenia GitHuba, wspierane tylko
+  najnowsze wydanie.
+
+> [!warning]
+>
+> - Ustawienie repozytorium zezwala tylko na akcje GitHuba i wymienione wyjątki (patrz „Przypięte akcje”).
+>   `ossf/scorecard-action` nie jest akcją GitHuba — **trzeba ją dopisać do dozwolonych** w Settings → Actions →
+>   General, inaczej `scorecard.yml` nie ruszy. `github/codeql-action` jest akcją GitHuba.
+> - Pull requesty Dependabota zmieniają przypięcia akcji także w `wydanie.yml` i `strona.yml` (zadania z kluczem
+>   GPG): przeglądaj je jak zmianę kodu, nie scalaj na ślepo.
 
 ## Jak to działa
 
@@ -79,6 +113,9 @@ wołała go po tagu). Pilnuje tego `test_every_action_is_pinned_to_a_commit`
 | Akcja | Wersja | Commit |
 | --- | --- | --- |
 | actions/checkout | v4.4.0 | `11d5960a326750d5838078e36cf38b85af677262` |
+| actions/checkout (codeql, security, scorecard) | v7.0.1 | `3d3c42e5aac5ba805825da76410c181273ba90b1` |
+| github/codeql-action (init, analyze, upload-sarif) | v4.38.3 | `24c54180a607b1449ed407dd24f251e4e9147c8d` |
+| ossf/scorecard-action | v2.5.0 | `fa7117db83c52d787ae5a89f350999701505d78e` |
 | actions/setup-python | v5.6.0 | `a26af69be951a213d495a4c3e4e4022e16d87065` |
 | actions/upload-pages-artifact | v4.0.0 | `7b1f4a764d45c48632c6b24a0339c27f5614fb0b` |
 | actions/deploy-pages | v4.0.5 | `d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e` |
@@ -88,7 +125,8 @@ wołała go po tagu). Pilnuje tego `test_every_action_is_pinned_to_a_commit`
 | flatpak/flatpak-github-actions/flatpak-builder | v6.8 | `79327416609af08178ad73b352877e51450790b3` |
 | softprops/action-gh-release | v2.6.2 | `3bb12739c298aeb8a4eeaf626c5b8d85266b0e65` |
 
-Aktualizacja ręczna: przejrzeć zmiany między wersjami w repozytorium akcji, potem
+Aktualizacje proponuje Dependabot (co tydzień jeden pull request). Ręcznie: przejrzeć zmiany między wersjami w
+repozytorium akcji, potem
 
 ```bash
 gh api repos/<właściciel>/<akcja>/commits/<nowy-tag> --jq .sha
@@ -108,12 +146,16 @@ są przypięte do SHA.
 > - Tag niezgodny z wersją w `pyproject.toml` zatrzymuje wydanie przed budową.
 > - `repo-dir` i `state-dir` akcji muszą być na tej samej partycji (README akcji).
 > - Kontener wymaga `--privileged` (bubblewrap w flatpak-builder).
-> - Workflowy sprawdzamy lokalnie [actionlint](https://github.com/rhysd/actionlint) (`docker run rhysd/actionlint`).
+> - Workflowy sprawdzamy lokalnie [actionlint](https://github.com/rhysd/actionlint) (`docker run rhysd/actionlint`
+  albo `actionlint`) i `zizmor --offline --min-severity low .github/workflows`.
 
 ## Gdzie w kodzie
 
 - [.github/workflows/testy.yml](../../.github/workflows/testy.yml)
 - [.github/workflows/wydanie.yml](../../.github/workflows/wydanie.yml)
+- [.github/workflows/codeql.yml](../../.github/workflows/codeql.yml),
+  [security.yml](../../.github/workflows/security.yml), [scorecard.yml](../../.github/workflows/scorecard.yml)
+- [.github/dependabot.yml](../../.github/dependabot.yml), [.github/SECURITY.md](../../.github/SECURITY.md)
 - [flatpak/publikuj.sh](../../flatpak/publikuj.sh)
 
 ## Dokumentacja
@@ -127,3 +169,4 @@ są przypięte do SHA.
 - [GitHub Pages](github-pages.md), [Flatpak](flatpak.md)
 - [ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md)
 - Zadanie [0051](../../TODO/ZROBIONE/0051-plan4-github-actions/todo.md)
+- Zadanie [0083](../../TODO/W-TRAKCIE/0083-ci-z-audytami-bezpieczenstwa/todo.md) — audyty bezpieczeństwa
