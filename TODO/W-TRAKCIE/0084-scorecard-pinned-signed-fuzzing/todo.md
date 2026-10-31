@@ -50,6 +50,10 @@ Brak.
 
 ## Dziennik
 
+### 2026-10-31 13:04
+
+- Po recenzji: obraz kontenera Flatpak przypięty do digestu `sha256:b0a8a2ac…` (indeks OCI tagu `kde-6.11`, `skopeo`) w `wydanie.yml`, `strona.yml`, `buduj.sh`; `pages` czeka na `poswiadczenie`; `ignore` w Dependabocie dla górnych granic z `pyproject.toml`; scalono `origin/main`.
+
 ### 2026-10-31 13:15
 
 - Zależności CI z sumami (`requirements-ci.txt`, uv), Dependabot pip, `testy.yml` z `--require-hashes`.
@@ -60,7 +64,6 @@ Brak.
 ### 2026-10-31 12:50
 
 - Utworzono zadanie.
-- **12:49** Start pracy w worktree zadanie/335-scorecard.
 - **12:49** Start pracy w worktree zadanie/335-scorecard.
 
 ## Wynik
