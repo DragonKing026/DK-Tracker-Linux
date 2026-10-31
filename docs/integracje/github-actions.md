@@ -5,7 +5,7 @@ tags: [integracja, ci, wydanie, github, bezpieczenstwo]
 status_integracji: w-uzyciu
 wersja: "akcje: checkout@v4 i v7, setup-python@v5, flatpak-builder@v6, ghaction-import-gpg@v6, upload-pages-artifact@v3, deploy-pages@v4, action-gh-release@v2"
 utworzono: 2026-09-26 11:57
-zaktualizowano: 2026-10-31 12:25
+zaktualizowano: 2026-10-31 13:10
 ---
 
 # GitHub Actions
@@ -19,8 +19,8 @@ zaktualizowano: 2026-10-31 12:25
 
 | Workflow | Kiedy | Co robi |
 | --- | --- | --- |
-| [testy.yml](../../.github/workflows/testy.yml) | push na `main`, pull request | `ruff format --check`, `ruff check`, `pytest` (Qt offscreen), linki, frontmatter, markdownlint |
-| [wydanie.yml](../../.github/workflows/wydanie.yml) | tag `v*` | testy (`testy.yml` jako `workflow_call`), zgodność tagu z `pyproject.toml`, walidacja MetaInfo, klucz GPG, budowa i podpis, Pages, na końcu wydanie |
+| [testy.yml](../../.github/workflows/testy.yml) | push na `main`, pull request | instalacja z sumami, `ruff format --check`, `ruff check`, `pytest` (Qt offscreen), 30 s fuzzingu Atheris, linki, frontmatter, markdownlint |
+| [wydanie.yml](../../.github/workflows/wydanie.yml) | tag `v*` | testy (`testy.yml` jako `workflow_call`), zgodność tagu z `pyproject.toml`, walidacja MetaInfo, klucz GPG, budowa i podpis, Pages, poświadczenie pochodzenia paczki, na końcu wydanie |
 | [strona.yml](../../.github/workflows/strona.yml) | ręcznie; push na `main` zmieniający stronę | kopia opublikowanego repozytorium Flatpaka (weryfikacja kluczem), ponowny podpis, nowa strona na Pages — bez wydania ([GitHub Pages](github-pages.md)) |
 | [codeql.yml](../../.github/workflows/codeql.yml) | każdy push, pull request, co tydzień | analiza statyczna kodu Pythona (CodeQL), wyniki w Security → Code scanning |
 | [security.yml](../../.github/workflows/security.yml) | każdy push, pull request, co tydzień | gitleaks (sekrety w całej historii) i zizmor (audyt workflowów) |
@@ -42,10 +42,32 @@ szersze uprawnienia (`security-events: write`, `id-token: write`) tylko w zadani
 - **Scorecard** — wynik i odznaka na
   [scorecard.dev](https://scorecard.dev/viewer/?uri=github.com/DragonKing026/DK-Tracker-Linux);
   publikacja wyniku wymaga publicznego repozytorium.
-- **Dependabot** ([dependabot.yml](../../.github/dependabot.yml)) — co tydzień jeden pull request z aktualizacją
-  przypiętych akcji (`cooldown` 7 dni). Ekosystemu `pip` nie włączono: `pyproject.toml` ma tylko przedziały wersji,
-  a Flatpak instaluje zależności offline z przypiętych źródeł w `flatpak/python3-deps.yaml`, których Dependabot
-  nie zaktualizuje.
+- **Dependabot** ([dependabot.yml](../../.github/dependabot.yml)) — co tydzień po jednym pull requeście: z przypiętymi
+  akcjami i z zależnościami CI w `requirements-ci.txt` (`cooldown` 7 dni). Flatpak instaluje zależności offline
+  z przypiętych źródeł w `flatpak/python3-deps.yaml`, których Dependabot nie zaktualizuje.
+- **Zależności CI z sumami** — [testy.yml](../../.github/workflows/testy.yml) instaluje
+  `pip install --require-hashes -r requirements-ci.txt`, potem sam projekt `pip install --no-deps
+  --no-build-isolation -e .` (Scorecard, Pinned-Dependencies, uznaje tylko instalację z sumami; zakresy z
+  `pyproject.toml` nie wystarczą). Plik jest generowany z [pyproject.toml](../../pyproject.toml) (extras `dev`, `ui`)
+  i [requirements-ci.in](../../requirements-ci.in) (`setuptools`, `atheris`) dla Pythona 3.13 na Linuxie x86-64:
+
+  ```bash
+  uv pip compile pyproject.toml requirements-ci.in --extra dev --extra ui --generate-hashes \
+    --python-version 3.13 --python-platform x86_64-manylinux_2_39 -o requirements-ci.txt
+  ```
+
+  Zmiana przedziału w `pyproject.toml` wymaga ponownego wygenerowania pliku.
+- **Fuzzing** — [fuzz/fuzz_core.py](../../fuzz/fuzz_core.py) (Atheris/libFuzzer) wywołuje czyste funkcje rdzenia
+  (czas, opis wpisu, sortowanie) na losowych bajtach; `testy.yml` uruchamia go na 30 s. Lokalnie:
+  `python fuzz/fuzz_core.py -max_total_time=60` (Linux x86-64, `atheris` z `requirements-ci.txt`). Scorecard
+  (Fuzzing) dla Pythona rozpoznaje tylko `import atheris`. Obok są testy właściwości Hypothesis
+  ([test_properties.py](../../tests/core/test_properties.py)), uruchamiane z resztą `pytest`.
+- **Podpisane wydania** — zadanie `poswiadczenie` w `wydanie.yml` tworzy poświadczenie pochodzenia paczki
+  (`actions/attest-build-provenance`, Sigstore) i dołącza je do wydania jako
+  `<paczka>.flatpak.sigstore.json` — tej nazwy szuka Scorecard (Signed-Releases; `.sigstore.json` daje 8/10,
+  10/10 tylko przy `.intoto.jsonl` z `slsa-github-generator`, którego nie da się przypiąć do SHA, a repozytorium
+  tego wymaga). Zadanie ma `id-token: write` i `attestations: write`, nie ma klucza GPG. Wynik w Scorecard rośnie
+  dopiero po następnym wydaniu (liczy ostatnie pięć).
 - **Zgłaszanie podatności** — [SECURITY.md](../../.github/SECURITY.md): prywatne zgłoszenia GitHuba, wspierane tylko
   najnowsze wydanie.
 
@@ -99,6 +121,8 @@ Użyte akcje:
 - `wydanie.yml`: domyślnie tylko `contents: read`; `pages: write` i `id-token: write` ma wyłącznie zadanie `pages`,
   `contents: write` — zadanie `wydanie`. Zadanie z kluczem GPG nie ma uprawnień zapisu. Tak samo `strona.yml`:
   zapis Pages tylko w zadaniu `pages`.
+- `poswiadczenie` w `wydanie.yml`: `contents: read`, `id-token: write`, `attestations: write` (akcja GitHuba, więc
+  mieści się w dozwolonych akcjach repozytorium).
 - Ustawienia repozytorium → Pages → źródło **GitHub Actions** ([github-pages](github-pages.md)).
 
 ## Przypięte akcje
@@ -122,6 +146,7 @@ wołała go po tagu). Pilnuje tego `test_every_action_is_pinned_to_a_commit`
 | actions/deploy-pages | v4.0.5 | `d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e` |
 | actions/upload-artifact | v4.6.2 | `ea165f8d65b6e75b540449e92b4886f43607fa02` |
 | actions/download-artifact | v4.3.0 | `d3f86a106a0bac45b974a628896c90dbdf5c8093` |
+| actions/attest-build-provenance | v4.2.2 | `4d101475d8b20a2381f78447822ac1eab6504dd8` |
 | crazy-max/ghaction-import-gpg | v6.3.0 | `e89d40939c28e39f97cf32126055eeae86ba74ec` |
 | flatpak/flatpak-github-actions/flatpak-builder | v6.8 | `79327416609af08178ad73b352877e51450790b3` |
 | softprops/action-gh-release | v2.6.2 | `3bb12739c298aeb8a4eeaf626c5b8d85266b0e65` |
@@ -157,6 +182,7 @@ są przypięte do SHA.
 - [.github/workflows/codeql.yml](../../.github/workflows/codeql.yml),
   [security.yml](../../.github/workflows/security.yml), [scorecard.yml](../../.github/workflows/scorecard.yml)
 - [.github/dependabot.yml](../../.github/dependabot.yml), [.github/SECURITY.md](../../.github/SECURITY.md)
+- [requirements-ci.in](../../requirements-ci.in), [fuzz/fuzz_core.py](../../fuzz/fuzz_core.py)
 - [flatpak/publikuj.sh](../../flatpak/publikuj.sh)
 
 ## Dokumentacja
@@ -171,3 +197,4 @@ są przypięte do SHA.
 - [ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md)
 - Zadanie [0051](../../TODO/ZROBIONE/0051-plan4-github-actions/todo.md)
 - Zadanie [0083](../../TODO/ZROBIONE/0083-ci-z-audytami-bezpieczenstwa/todo.md) — audyty bezpieczeństwa
+- Zadanie [0084](../../TODO/W-TRAKCIE/0084-scorecard-pinned-signed-fuzzing/todo.md) — sumy, poświadczenia, fuzzing

@@ -3,7 +3,7 @@ noteId: "947ac69bba214ddcada484a736d2c8fd"
 tytul: Wydania i instalacja
 tags: [proces, wydanie, flatpak]
 utworzono: 2026-09-26 11:58
-zaktualizowano: 2026-09-28 13:05
+zaktualizowano: 2026-10-31 13:10
 ---
 
 # Wydania i instalacja
@@ -82,6 +82,21 @@ flowchart LR
     V[wersja + MetaInfo] --> T[pytest] --> C[commit] --> G[tag v…] --> P[push za zgodą]
     P --> A[wydanie.yml] --> R[wydanie + Pages] --> U[flatpak update u ludzi]
 ```
+
+## Sprawdzenie pochodzenia pobranego pliku
+
+Do każdego wydania (od następnego po 0084) dołączony jest plik `<paczka>.flatpak.sigstore.json` — poświadczenie
+Sigstore, że paczkę zbudował workflow [wydanie.yml](../../.github/workflows/wydanie.yml) z tego repozytorium. Z
+[GitHub CLI](https://cli.github.com/manual/gh_attestation_verify):
+
+```bash
+gh attestation verify io.github.dragonking026.DK-Tracker-Linux-v<wersja>.flatpak \
+  --repo DragonKing026/DK-Tracker-Linux \
+  --bundle io.github.dragonking026.DK-Tracker-Linux-v<wersja>.flatpak.sigstore.json
+```
+
+Polecenie sprawdza sumę pliku, podpis i to, że zbudował go ten workflow. Instalacja z repozytorium Flatpaka
+(zalecana) jest weryfikowana kluczem GPG repozytorium i tego kroku nie wymaga.
 
 ## Instalacja dla ludzi
 

@@ -21,11 +21,13 @@ zaktualizowano: 2026-09-27 12:40
 ├── .github/
 │   ├── README.md              strona repozytorium na GitHubie (bez frontmattera, treść jak README.md)
 │   ├── SECURITY.md            polityka bezpieczeństwa (bez frontmattera)
-│   ├── dependabot.yml         tygodniowe aktualizacje przypiętych akcji
+│   ├── dependabot.yml         tygodniowe aktualizacje: przypięte akcje i zależności CI (pip)
 │   └── workflows/             testy.yml (każdy push), wydanie.yml (tag v<wersja> → Flatpak, Pages), strona.yml (strona bez wydania),
 │                              codeql.yml, security.yml (gitleaks, zizmor), scorecard.yml
 ├── .gitignore
 ├── pyproject.toml             pakiet dk-tracker, zależności, pytest, ruff
+├── requirements-ci.in/.txt    zależności CI z sumami SHA-256 (uv pip compile), instalacja z --require-hashes
+├── fuzz/                      fuzz_core.py — harness Atheris czystych funkcji rdzenia (30 s w testy.yml)
 ├── data/                      .desktop i MetaInfo (AppStream) aplikacji — host i Flatpak
 ├── flatpak/                   manifest, python3-deps.yaml, buduj.sh, publikuj.sh + pages.py + strona/ (Pages), klucz-gpg.sh
 ├── dist/                      paczki .flatpak z buduj.sh (poza gitem)
@@ -36,7 +38,7 @@ zaktualizowano: 2026-09-27 12:40
 │   ├── desktop/               D-Bus na jeepney bez Qt: sekrety, powiadomienia, autostart (plan 2)
 │   └── ui/                    Qt Widgets i Qt Quick: tacka, okienko, okno główne (QML), ustawienia, kontroler (plany 3, 5)
 ├── tests/
-│   ├── core/                  testy rdzenia (pytest, MockTransport, FakeClient)
+│   ├── core/                  testy rdzenia (pytest, MockTransport, FakeClient; test_properties.py — Hypothesis)
 │   ├── desktop/               testy D-Bus (FakeBus) + `-m desktop` na prawdziwej sesji
 │   ├── kimai/                 Kimai w Dockerze + testy kontraktowe
 │   ├── ui/                    testy interfejsu (pytest-qt, `offscreen`)
