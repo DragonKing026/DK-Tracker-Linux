@@ -73,7 +73,7 @@ Wszystkie materiały zadania leżą w jego folderze (podfoldery tworzone, gdy s�
   workflowach
   tylko `persist-credentials: false` i wyjątek zizmor `self-repository`. Czeka: push, pierwsze przebiegi na GitHubie,
   dopisanie `ossf/scorecard-action` do dozwolonych akcji w ustawieniach repozytorium.
-- 2026-10-31 12:53 — push na `main` (c894023) za zgodą użytkownika; `ossf/scorecard-action@*` dopisane do dozwolonych
+- 2026-10-31 12:43 — push na `main` (c894023) za zgodą użytkownika; `ossf/scorecard-action@*` dopisane do dozwolonych
   akcji, ochrona `main` (bez force-push i usuwania, bez wymogu PR), prywatne zgłoszenia, alerty Dependabota, secret
   scanning z push protection. Pierwszy przebieg Testy czerwony: `test_readme` wymaga tej samej treści w obu README —
   odznaki dopisane też do `README.md` (2d9d261). Na 2d9d261 zielone: Testy, CodeQL, Security, Scorecard.
