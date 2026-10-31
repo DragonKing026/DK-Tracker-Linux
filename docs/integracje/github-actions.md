@@ -170,4 +170,4 @@ są przypięte do SHA.
 - [GitHub Pages](github-pages.md), [Flatpak](flatpak.md)
 - [ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md)
 - Zadanie [0051](../../TODO/ZROBIONE/0051-plan4-github-actions/todo.md)
-- Zadanie [0083](../../TODO/W-TRAKCIE/0083-ci-z-audytami-bezpieczenstwa/todo.md) — audyty bezpieczeństwa
+- Zadanie [0083](../../TODO/ZROBIONE/0083-ci-z-audytami-bezpieczenstwa/todo.md) — audyty bezpieczeństwa

@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-10-31 12:23
+zaktualizowano: 2026-10-31 12:45
 ---
 
 # Tablica zadań
@@ -25,7 +25,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
-| 0083 | [CI z audytami bezpieczeństwa](W-TRAKCIE/0083-ci-z-audytami-bezpieczenstwa/todo.md) | 🔨 w-trakcie | p2 | — |
 
 ## Do zrobienia
 
@@ -118,6 +117,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0080 | [Ikony okna przesunięte i za duże przy ekranach o różnej skali](ZROBIONE/0080-ikony-przy-mieszanej-skali/todo.md) | ✅ zrobione | 2026-10-09 17:27 |
 | 0081 | [Śmieciowe piksele okienka przy tacce po starcie (issue #1)](ZROBIONE/0081-smieciowe-piksele-przy-starcie/todo.md) | ✅ zrobione | 2026-10-30 15:32 |
 | 0082 | [Koniec wpisu zapisany o minutę za późno — nakładanie na osi czasu](ZROBIONE/0082-koniec-wpisu-minute-za-pozno/todo.md) | ✅ zrobione | 2026-10-30 15:32 |
+| 0083 | [CI z audytami bezpieczeństwa](ZROBIONE/0083-ci-z-audytami-bezpieczenstwa/todo.md) | ✅ zrobione | 2026-10-31 12:45 |
 
 <!-- tablica:end -->
 
