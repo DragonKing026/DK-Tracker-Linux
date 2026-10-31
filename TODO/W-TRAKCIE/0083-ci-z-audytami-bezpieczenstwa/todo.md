@@ -2,7 +2,7 @@
 noteId: "93fbe2f6ba694705af074e8b2fd01bce"
 tytul: "CI z audytami bezpieczeństwa"
 numer: "0083"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p2
 tags: [todo, ci, bezpieczenstwo]
 zalezy_od: []
@@ -14,7 +14,7 @@ zamknieto:
 # 0083 — CI z audytami bezpieczeństwa
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -64,6 +64,7 @@ Wszystkie materiały zadania leżą w jego folderze (podfoldery tworzone, gdy s�
 ### 2026-10-31 12:23
 
 - Utworzono zadanie.
+- **12:23** Start pracy: worktree ci/audyty.
 
 ## Wynik
 
