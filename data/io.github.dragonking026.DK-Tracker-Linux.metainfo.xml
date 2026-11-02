@@ -58,6 +58,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.19" date="2026-11-02">
+      <description>
+        <p>The app starts again after the KDE runtime update to Qt 6.11.3, which made it exit with an import error at launch.</p>
+      </description>
+    </release>
     <release version="0.10.18" date="2026-10-30">
       <description>
         <p>Stopping an entry ends it on the full minute, so in the calendar it no longer overlaps the entry started right after it.</p>
