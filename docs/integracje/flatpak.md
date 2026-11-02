@@ -5,7 +5,7 @@ tags: [integracja, flatpak, dystrybucja, build]
 status_integracji: planowana
 wersja: Flatpak 1.18 (lokalnie); runtime'y na Flathub stan 2026-09-25
 utworzono: 2026-09-25 17:21
-zaktualizowano: 2026-11-02 17:00
+zaktualizowano: 2026-11-02 17:13
 ---
 
 # Flatpak — format dystrybucji
@@ -123,7 +123,7 @@ na GitHubie i podpisane repozytorium na GitHub Pages** (aktualizacje przez `flat
 >   którego symbole zawierają wersję łatkową (`QtPrivate_6_11_2`). Gałąź runtime'u `6.11` aktualizuje się u użytkownika
 >   niezależnie od paczki, więc po przejściu runtime'u na nowszą łatkę Qt aplikacja kończy się przy starcie
 >   (`ImportError: … undefined symbol … Qt_6_PRIVATE_API`). Naprawa to nowe wydanie, gdy na Flathubie jest już BaseApp
->   z tą samą wersją Qt ([0085](../../TODO/W-TRAKCIE/0085-flatpak-qt-6-11-3/todo.md)). Przy 6.11.3 BaseApp pojawiła się
+>   z tą samą wersją Qt ([0085](../../TODO/ZROBIONE/0085-flatpak-qt-6-11-3/todo.md)). Przy 6.11.3 BaseApp pojawiła się
 >   ponad dobę po runtime'ie.
 
 ## Sprawdzone w prototypie 0004 (2026-09-25 20:39)

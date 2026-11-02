@@ -2,19 +2,19 @@
 noteId: "25749b01df9d49e9aa9e3766e4dedac1"
 tytul: "Flatpak nie startuje po aktualizacji runtime'u do Qt 6.11.3"
 numer: "0085"
-status: w-trakcie
+status: zrobione
 priorytet: p0
 tags: [todo, flatpak, wydanie, blad]
 zalezy_od: []
 utworzono: 2026-11-02 16:45
-zaktualizowano: 2026-11-02 16:45
-zamknieto:
+zaktualizowano: 2026-11-02 17:13
+zamknieto: 2026-11-02 17:13
 ---
 
 # 0085 — Flatpak nie startuje po aktualizacji runtime'u do Qt 6.11.3
 
 > [!info] Status
-> **w-trakcie** · priorytet **p0** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p0** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -44,17 +44,17 @@ Powiązane: [Flatpak](../../../docs/integracje/flatpak.md), [Qt i PySide6](../..
 
 ## Kryteria akceptacji
 
-- [ ] Paczka zbudowana z obecnych zależności startuje na runtime z Qt 6.11.3
-- [ ] Wydana nowa wersja, `flatpak update` u użytkownika naprawia aplikację
-- [ ] Ryzyko powtórki opisane w dokumentacji integracji
-- [ ] Zmiany zacommitowane małymi krokami
+- [x] Paczka zbudowana z obecnych zależności startuje na runtime z Qt 6.11.3
+- [x] Wydana nowa wersja, `flatpak update` u użytkownika naprawia aplikację
+- [x] Ryzyko powtórki opisane w dokumentacji integracji
+- [x] Zmiany zacommitowane małymi krokami
 
 ## Kroki
 
-- [ ] Sprawdzić lokalnym buildem, że nowa BaseApp usuwa błąd
-- [ ] Wersja 0.10.19, MetaInfo, testy
-- [ ] Opis ryzyka w [Flatpak](../../../docs/integracje/flatpak.md)
-- [ ] Wydanie i sprawdzenie u użytkownika
+- [x] Sprawdzić lokalnym buildem, że nowa BaseApp usuwa błąd
+- [x] Wersja 0.10.19, MetaInfo, testy
+- [x] Opis ryzyka w [Flatpak](../../../docs/integracje/flatpak.md)
+- [x] Wydanie i sprawdzenie u użytkownika
 
 ## Materiały
 
@@ -66,7 +66,14 @@ Brak.
 
 - Utworzono zadanie. Przyczyna ustalona z `flatpak info`, historii Flathuba i zawartości paczki.
 - **16:45** Start pracy.
+- **17:13** Wydano 0.10.19 (workflow zielony). Po flatpak update: 0.10.19, PySide 6.11.3, Qt 6.11.3, aplikacja działa po
+  15 s.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+Wydana [0.10.19](https://github.com/DragonKing026/DK-Tracker-Linux/releases/tag/v0.10.19) z PySide6 6.11.3, zbudowana na
+nowej BaseApp, bez zmian
+w kodzie aplikacji. Po `flatpak update` paczka z repozytorium startuje na Qt 6.11.3. Commity: `abb4220`, `e7e0d0f`.
+Pułapka opisana w [dokumentacji Flatpaka](../../../docs/integracje/flatpak.md). Zapobieganie powtórce:
+[0086](../../DO-ZROBIENIA/0086-flatpak-straznik-qt/todo.md),
+[issue #3](https://github.com/DragonKing026/DK-Tracker-Linux/issues/3).
