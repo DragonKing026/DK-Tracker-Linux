@@ -2,7 +2,7 @@
 noteId: "25749b01df9d49e9aa9e3766e4dedac1"
 tytul: "Flatpak nie startuje po aktualizacji runtime'u do Qt 6.11.3"
 numer: "0085"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p0
 tags: [todo, flatpak, wydanie, blad]
 zalezy_od: []
@@ -14,7 +14,7 @@ zamknieto:
 # 0085 — Flatpak nie startuje po aktualizacji runtime'u do Qt 6.11.3
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p0** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p0** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -65,6 +65,7 @@ Brak.
 ### 2026-11-02 16:45
 
 - Utworzono zadanie. Przyczyna ustalona z `flatpak info`, historii Flathuba i zawartości paczki.
+- **16:45** Start pracy.
 
 ## Wynik
 

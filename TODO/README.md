@@ -26,6 +26,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0084 | [Scorecard: przypięte zależności, podpisane wydania, fuzzing](W-TRAKCIE/0084-scorecard-pinned-signed-fuzzing/todo.md) | 🔨 w-trakcie | p3 | — |
+| 0085 | [Flatpak nie startuje po aktualizacji runtime'u do Qt 6.11.3](W-TRAKCIE/0085-flatpak-qt-6-11-3/todo.md) | 🔨 w-trakcie | p0 | — |
 
 ## Do zrobienia
 
@@ -33,7 +34,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 | 0062 | [0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](ZROBIONE/0056-identyfikator-i-wydawca/todo.md) ✅ |
-| 0085 | [Flatpak nie startuje po aktualizacji runtime'u do Qt 6.11.3](DO-ZROBIENIA/0085-flatpak-qt-6-11-3/todo.md) | 📋 do-zrobienia | p0 | — |
 
 ## Zrobione
 
