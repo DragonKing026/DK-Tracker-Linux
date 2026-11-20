@@ -67,6 +67,7 @@ SelectButton {
                 delegate: Rectangle {
                     required property var model
                     readonly property bool chosen: field.value !== "" && field.iso(model.date) === field.value
+                    readonly property string holiday: app.holidays[field.iso(model.date)] || ""  // a public holiday's name
                     implicitWidth: 36
                     implicitHeight: 32
                     radius: 4
@@ -78,9 +79,12 @@ SelectButton {
                         anchors.centerIn: parent
                         text: model.day
                         font.weight: parent.chosen ? Font.Bold : Font.Normal
-                        color: parent.chosen ? app.palette.accent : model.month === grid.month ? app.palette.fg : app.palette.placeholder
+                        color: parent.chosen ? app.palette.accent : parent.holiday !== "" ? app.palette.holiday
+                             : model.month === grid.month ? app.palette.fg : app.palette.placeholder
                     }
                     HoverHandler { id: dayHover; cursorShape: Qt.PointingHandCursor }
+                    ToolTip.visible: dayHover.hovered && holiday !== ""
+                    ToolTip.text: holiday
                 }
                 onClicked: function (date) { field.value = field.iso(date); field.edited(); picker.close() }
             }

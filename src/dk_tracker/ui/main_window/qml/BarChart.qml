@@ -100,7 +100,7 @@ Item {
                 text: column.bar.label
                 font.pixelSize: 11
                 font.weight: column.bar.today ? Font.Bold : Font.Normal
-                color: column.bar.today ? app.palette.accent : app.palette.muted
+                color: column.bar.today ? app.palette.accent : column.bar.holiday ? app.palette.holiday : app.palette.muted
             }
             MouseArea {
                 anchors.fill: parent
@@ -186,6 +186,15 @@ Item {
                     font.weight: Font.DemiBold
                     color: app.palette.fg
                 }
+            }
+            Label {  // a daily bar on a public holiday
+                visible: text !== ""
+                Layout.fillWidth: true
+                text: tip.bar ? tip.bar.holiday : ""
+                font.pixelSize: 12
+                font.weight: Font.DemiBold
+                color: app.palette.holiday
+                elide: Text.ElideRight
             }
             Repeater {
                 // The biggest of this bar first (the layers keep the period's order).

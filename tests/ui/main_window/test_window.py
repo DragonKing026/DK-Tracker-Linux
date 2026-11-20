@@ -89,6 +89,8 @@ def test_the_settings_page_has_its_fields(window, qtbot):
         "settingsMinDescription",
         "settingsLongTimer",
         "settingsDailyNorm",
+        "settingsHolidayCountry",
+        "settingsHolidaySync",
         "settingsAbout",
         "settingsVersion",
         "settingsHomepage",
@@ -572,3 +574,78 @@ def test_icon_provider_returns_exactly_the_requested_size(qapp, address, side):
 
     pixmap = _Icons(MainBridge()).requestPixmap(address, QSize(), QSize(side, side))
     assert (pixmap.width(), pixmap.height(), pixmap.devicePixelRatio()) == (side, side, 1.0)
+
+
+# -- public holidays (task 0088) ----------------------------------------------------------
+
+
+def test_the_sync_button_works_only_for_the_saved_country(window, qtbot):
+    from dk_tracker.core.settings import Settings
+
+    form = window.bridge.settings_form
+    form.retranslate(PL)
+    form.load(Settings(url="https://kimai.test", language="pl", holiday_country="PL"), has_token=True)
+    window.bridge.show_page("settings")
+    combo, button = window.child("settingsHolidayCountry"), window.child("settingsHolidaySync")
+    qtbot.waitUntil(lambda: combo.property("currentValue") == "PL")
+    assert button.property("enabled") is True and button.property("tip") == "Synchronizuj"
+    with qtbot.waitSignal(form.syncHolidaysRequested):
+        button.clicked.emit()
+    combo.setProperty("currentIndex", 0)  # "none"
+    assert combo.property("currentValue") == "" and button.property("enabled") is False
+    combo.setProperty("currentIndex", combo.property("count") - 1)  # another country, not saved yet
+    assert button.property("enabled") is False
+    form.show_holiday_status("Synchronizacja…", ok=True, busy=True)
+    combo.setProperty("currentIndex", combo.indexOfValue("PL"))
+    assert button.property("enabled") is False  # not while it is fetching
+    assert window.child("settingsHolidayStatus").property("text") == "Synchronizacja…"
+
+
+def test_the_calendar_heads_name_a_holiday_and_make_room_for_it(window, qtbot):
+    from dk_tracker.core.holidays import Holiday, HolidayData
+
+    page = window.bridge.calendar
+    page.request()
+    page.set_entries(page.days[0], page.days[-1], [entry(9, 1)], tz=WARSAW, now=NOW)
+    window.bridge.showPage("calendar")
+    view = window.child("calendarView")
+    qtbot.waitUntil(lambda: view.property("visible") is True)
+    assert page.data["holidaysOn"] is False
+    window.bridge.set_holidays(
+        HolidayData("PL", "x", (Holiday(date(2026, 9, 23), "Święto Wiosny", "Spring"),)), "PL"
+    )
+    assert page.data["holidaysOn"] is True
+    labels = []
+
+    def collect(item):
+        for child in item.childItems():
+            if child.objectName() == "calendarHoliday":
+                labels.append(child)
+            collect(child)
+
+    qtbot.waitUntil(lambda: (labels.clear(), collect(window.window.contentItem()), len(labels) == 7)[-1])
+    assert sorted(label.property("text").strip() for label in labels) == [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "Święto Wiosny",
+    ]
+    assert all(label.property("visible") for label in labels)
+
+
+def test_the_date_pickers_know_the_holidays(window):
+    from dk_tracker.core.holidays import Holiday, HolidayData
+
+    window.bridge.set_holidays(
+        HolidayData("PL", "x", (Holiday(date(2026, 9, 23), "Święto Wiosny", "Spring"),)), "PL"
+    )
+    assert window.bridge.holidays == {"2026-09-23": "Święto Wiosny"}
+    window.bridge.render(
+        Snapshot(user=FakeClient().user), configured=True, t=Translator("en"), now=NOW, tz=WARSAW
+    )
+    assert window.bridge.holidays == {"2026-09-23": "Spring"}
+    window.bridge.set_holidays(HolidayData(), "")
+    assert window.bridge.holidays == {}

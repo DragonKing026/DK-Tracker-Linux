@@ -34,6 +34,7 @@ class MainBridge(QObject):
     paletteChanged = Signal()
     rowErrorsChanged = Signal()
     projectsChanged = Signal()
+    holidaysChanged = Signal()
     # -- to the controller
     startRequested = Signal(dict)
     stopRequested = Signal()
@@ -87,6 +88,9 @@ class MainBridge(QObject):
         self._palette: dict[str, str] = dict(MAIN_DARK)  # QML reads colours from the first frame
         self._row_errors: dict[str, str] = {}
         self._projects_version = 0
+        self._holidays = HolidayData()
+        self._holiday_country = ""
+        self._holiday_days: dict[str, str] = {}
         self._editor: dict[str, Any] = {"open": False, "error": "", "busy": False}
         self._tags: list[dict[str, str]] = []
         self._chosen_page = "entries"  # what the user picked in the sidebar
@@ -107,6 +111,9 @@ class MainBridge(QObject):
 
     def _get_texts(self) -> dict[str, str]:
         return self._texts
+
+    def _get_holidays(self) -> dict[str, str]:
+        return self._holiday_days
 
     def _get_palette(self) -> dict[str, str]:
         return self._palette
@@ -147,6 +154,7 @@ class MainBridge(QObject):
     view = Property("QVariantMap", _get_view, notify=viewChanged)
     texts = Property("QVariantMap", _get_texts, notify=textsChanged)
     palette = Property("QVariantMap", _get_palette, notify=paletteChanged)
+    holidays = Property("QVariantMap", _get_holidays, notify=holidaysChanged)  # "RRRR-MM-DD" → name
     rowErrors = Property("QVariantMap", _get_row_errors, notify=rowErrorsChanged)
     projectsVersion = Property(int, _get_projects_version, notify=projectsChanged)  # names re-read
     entryList = Property(QObject, _get_entries, constant=True)
@@ -166,6 +174,7 @@ class MainBridge(QObject):
     ) -> None:
         if t is not self._t:
             self._t = t
+            self._show_holidays()
             messages = getattr(t, "messages", None)
             self._texts = messages() if messages else {}
             self.textsChanged.emit()
@@ -226,8 +235,16 @@ class MainBridge(QObject):
 
     def set_holidays(self, data: HolidayData, country: str) -> None:
         """The public holidays in force (task 0088): marked in the calendar, not working days."""
+        self._holidays, self._holiday_country = data, country
+        self._show_holidays()
         self.summary.set_holidays(data, country)
         self.calendar.set_holidays(data, country)
+
+    def _show_holidays(self) -> None:
+        """The days for QML's date pickers, named in the interface language."""
+        names = self._holidays.names(getattr(self._t, "language", "en"), self._holiday_country)
+        self._holiday_days = {day.isoformat(): name for day, name in names.items()}
+        self.holidaysChanged.emit()
 
     def set_palette(self, palette: dict[str, str]) -> None:
         self._palette = dict(palette)
