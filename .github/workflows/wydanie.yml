@@ -25,6 +25,10 @@ jobs:
       # The same image as flatpak/buduj.sh: Flatpak 1.18.1, freedesktop 26.08 SDK, appstreamcli, linter.
       image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-26.08@sha256:6ed6921bb5a9e1a916989971844f159b854b7b225880c381fa34f7a158863039
       options: --privileged
+    env:
+      # The image's preinstalled runtimes sit in a read-only image layer and fail to update ("Invalid cross-device
+      # link", release 0.10.20); a fresh, empty system installation downloads the current ones instead.
+      FLATPAK_SYSTEM_DIR: /tmp/flatpak-system
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -45,6 +49,10 @@ jobs:
         uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd # v7.0.0
         with:
           gpg_private_key: ${{ secrets.FLATPAK_GPG_PRIVATE_KEY }}
+      - name: Repozytorium Flathub w świeżej instalacji
+        run: |
+          flatpak remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
       - name: Budowa Flatpaka
         uses: flatpak/flatpak-github-actions/flatpak-builder@79327416609af08178ad73b352877e51450790b3 # v6.8
         with:
