@@ -60,6 +60,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.24" date="2026-11-20">
+      <description>
+        <p>Calendar: it opens at the hour of the earliest entry of the days shown, not at the empty night hours. Summaries: "days with entries" instead of the ambiguous "with entries".</p>
+      </description>
+    </release>
     <release version="0.10.23" date="2026-11-20">
       <description>
         <p>Calendar: every entry shows at least its title. A short entry is drawn over the next one, whose title starts below it, and the grid zooms out only as far as every entry keeps its line.</p>
