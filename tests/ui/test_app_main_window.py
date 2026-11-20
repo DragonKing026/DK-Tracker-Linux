@@ -88,6 +88,7 @@ def test_with_a_tray_closing_the_main_window_keeps_the_app_running(harness, qtbo
     with qtbot.assertNotEmitted(h.controller.quitRequested):
         h.controller.main_window.window.close()
     assert not h.controller.main_window.isVisible()
+    h.settle()  # the size is saved on the Kimai worker thread; without this it raced (CI, release 0.10.20)
     assert h.saved_memory[-1].main_width > 0  # the size is remembered
 
 
