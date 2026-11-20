@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-11-20 13:09
+zaktualizowano: 2026-11-20 13:13
 ---
 
 # Tablica zadań
@@ -26,7 +26,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0084 | [Scorecard: przypięte zależności, podpisane wydania, fuzzing](W-TRAKCIE/0084-scorecard-pinned-signed-fuzzing/todo.md) | 🔨 w-trakcie | p3 | — |
-| 0090 | [Każdy wpis w kalendarzu z czytelnym tytułem](W-TRAKCIE/0090-wiersz-tytulu-w-kalendarzu/todo.md) | 🔨 w-trakcie | p2 | [0089](ZROBIONE/0089-kolko-przewija-kalendarz/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -125,6 +124,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0087 | [Dependabot gubi zależności z pyproject.toml w requirements-ci.txt](ZROBIONE/0087-dependabot-requirements-ci/todo.md) | ✅ zrobione | 2026-11-20 10:19 |
 | 0088 | [Święta państwowe w Kalendarzu i Podsumowaniach](ZROBIONE/0088-swieta-panstwowe/todo.md) | ✅ zrobione | 2026-11-20 12:39 |
 | 0089 | [Kółko przewija kalendarz, Alt + kółko przybliża](ZROBIONE/0089-kolko-przewija-kalendarz/todo.md) | ✅ zrobione | 2026-11-20 12:58 |
+| 0090 | [Każdy wpis w kalendarzu z czytelnym tytułem](ZROBIONE/0090-wiersz-tytulu-w-kalendarzu/todo.md) | ✅ zrobione | 2026-11-20 13:13 |
 
 <!-- tablica:end -->
 

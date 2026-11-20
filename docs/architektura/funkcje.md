@@ -395,7 +395,7 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
   (do 24:00 i od 0:00). Bloki liczą **sekundy**: wpis zamknięty i nowy otwarty w tej samej minucie stoją jeden pod
   drugim; obok siebie stoją tylko wpisy, które naprawdę się nakładają (0.10.11–0.10.13,
   [0078](../../TODO/ZROBIONE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md)).
-- **Wiersz tytułu** (0.10.23, [0090](../../TODO/W-TRAKCIE/0090-wiersz-tytulu-w-kalendarzu/todo.md)): blok ma wysokość
+- **Wiersz tytułu** (0.10.23, [0090](../../TODO/ZROBIONE/0090-wiersz-tytulu-w-kalendarzu/todo.md)): blok ma wysokość
   swojego czasu, ale co najmniej 22 px — wiersz opisu. Krótszy wpis jest rysowany nad następnym, a tytuł następnego
   zaczyna się pod nim (także w łańcuchu krótkich). Skala oddala się najwyżej do tej, przy której każdy wpis ma swoje
   22 px; wpis za krótki na wiersz nawet przy 384 px na godzinę (poniżej ok. 3,5 min) jej nie ogranicza. Zapamiętana
