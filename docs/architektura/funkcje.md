@@ -384,7 +384,8 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
 
 - **Okres**: Dzień albo Tydzień — 7 dni (od dnia tygodnia z konta Kimai) lub 5 dni (pon.–pt.); ◀ ▶, „Dziś”. Nagłówki
   dni z sumą dnia. Siatka 0–24 przewinięta na 8:00 (później, gdy „teraz” by nie było widać); skala
-  96 px na godzinę, **Alt + kółko** przybliża i oddala (32–384 px, godzina pod kursorem zostaje na miejscu), samo
+  96 px na godzinę, **Alt + kółko** przybliża i oddala (32–384 px, godzina pod kursorem zostaje na miejscu; oddala
+  najwyżej do skali, przy której każdy wpis ma wiersz tytułu — niżej), samo
   **kółko** (ząbek — pół godziny) i przeciągany **prawy przycisk** przesuwają godziny,
   zapamiętana między uruchomieniami (0.10.14, prawy przycisk od 0.10.15, kółko przewija od 0.10.22);
   linia „teraz” w dniu dzisiejszym.
@@ -392,10 +393,13 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
 - **Bloki**: wpisy w kolorze projektu (tło przejrzyste, pasek z lewej): opis, projekt · rodzaj pracy, godziny i czas;
   nakładające się stoją obok siebie; trwający rośnie co minutę; wyeksportowany z kłódką; wpis przez północ — dwa bloki
   (do 24:00 i od 0:00). Bloki liczą **sekundy**: wpis zamknięty i nowy otwarty w tej samej minucie stoją jeden pod
-  drugim, krótki ma wysokość swojego czasu (co najmniej 4 px, nad sąsiadem); obok siebie stoją tylko wpisy, które
-  naprawdę się nakładają (0.10.13)
-  (0.10.11,
+  drugim; obok siebie stoją tylko wpisy, które naprawdę się nakładają (0.10.11–0.10.13,
   [0078](../../TODO/ZROBIONE/0078-sekundy-w-kalendarzu-i-klik-na-gnome/todo.md)).
+- **Wiersz tytułu** (0.10.23, [0090](../../TODO/W-TRAKCIE/0090-wiersz-tytulu-w-kalendarzu/todo.md)): blok ma wysokość
+  swojego czasu, ale co najmniej 22 px — wiersz opisu. Krótszy wpis jest rysowany nad następnym, a tytuł następnego
+  zaczyna się pod nim (także w łańcuchu krótkich). Skala oddala się najwyżej do tej, przy której każdy wpis ma swoje
+  22 px; wpis za krótki na wiersz nawet przy 384 px na godzinę (poniżej ok. 3,5 min) jej nie ogranicza. Zapamiętana
+  zostaje skala wybrana kółkiem, więc w tygodniu bez krótkich wpisów siatka znów oddala się dalej.
 - **Przeciąganie**: w pustym miejscu — nowy blok i dymek (opis, projekt, rodzaj pracy, `$`, „Dodaj wpis”); środek
   bloku — przesunięcie (także na inny dzień); krawędź — zmiana godziny początku albo końca; zapis po puszczeniu, blok od
   razu w nowym miejscu; odmowa Kimai → dni wczytane od nowa (blok wraca) i pasek błędu. Przyciąganie co 15 min, z

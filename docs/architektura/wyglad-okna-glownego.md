@@ -98,7 +98,8 @@ półgrube. Kursor rączki na wszystkim, co się klika.
   32–384), od 72 px linia co pół godziny
   (`divider` 40 %), podpisy 11 px
   `muted` w kolumnie 56 px, linie `divider`, dziś na tle `surface` 60 %; nowy blok w trakcie przeciągania —
-  `accent` 22 % z ramką; „teraz” — linia 2 px i kropka `danger`. Święto (0088): trzecia linia nagłówka — nazwa 11 px
+  `accent` 22 % z ramką; „teraz” — linia 2 px i kropka `danger`. Blok co najmniej 22 px (opis 12 px pogrubiony);
+  krótszy nad następnym, tytuł następnego pod nim (0090). Święto (0088): trzecia linia nagłówka — nazwa 11 px
   w `holiday`, przycięta; tło nagłówka i kolumny `holiday_bg` (bursztyn z kanałem alfa: linie godzin przebijają);
   `holiday` na ciemnym `#e0a458`, na jasnym `#a85a00`.
 - **Podsumowania** (0.10.3, F-36), marginesy 16 px, odstępy 12 px: pasek okresu (`Segmented` Tydzień / Miesiąc / Rok
