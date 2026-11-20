@@ -2,7 +2,7 @@
 noteId: "24d8789388df48c987cf537a7f79e1ad"
 tytul: "Kalendarz otwiera się na pierwszym wpisie"
 numer: "0091"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p2
 tags: [todo, kalendarz]
 zalezy_od: ["0090-wiersz-tytulu-w-kalendarzu"]
@@ -14,7 +14,7 @@ zamknieto:
 # 0091 — Kalendarz otwiera się na pierwszym wpisie
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -51,6 +51,7 @@ Brak.
 ### 2026-11-20 13:54
 
 - Utworzono zadanie.
+- **13:54** Start pracy.
 
 ## Wynik
 
