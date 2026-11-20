@@ -1,3 +1,3 @@
 """DK Tracker — a Kimai client for the Linux desktop: entries, summaries, a calendar and a tray timer."""
 
-__version__ = "0.10.20"
+__version__ = "0.10.21"

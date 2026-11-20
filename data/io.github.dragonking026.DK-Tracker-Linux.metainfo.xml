@@ -22,6 +22,8 @@
       <li xml:lang="pl">Podsumowania: czas płatny, średnia na dzień roboczy wobec normy, wykres słupkowy i podział wg projektu, klienta lub rodzaju pracy</li>
       <li>A calendar: drag to add an entry, move it to another hour or day, change its length</li>
       <li xml:lang="pl">Kalendarz: nowy wpis przeciągnięciem, przesuwanie na inną godzinę lub dzień, zmiana długości</li>
+      <li>Public holidays of a chosen country, marked in the calendar and left out of working days</li>
+      <li xml:lang="pl">Święta państwowe wybranego kraju, zaznaczone w kalendarzu i pomijane w dniach roboczych</li>
       <li>A tray icon showing how long the timer runs, with a quick window to start and stop</li>
       <li xml:lang="pl">Ikona w tacce z czasem trwającego wpisu i okienkiem do szybkiego startu i stopu</li>
       <li>Reminders about long timers and a lost connection; the API token stays in the system wallet</li>
@@ -58,6 +60,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.21" date="2026-11-20">
+      <description>
+        <p>Public holidays: choose a country in Settings and the app fetches its public holidays (from date.nager.at, only when you pick the country or press Synchronize). Holidays are marked in the Calendar and no longer count as working days in Summaries.</p>
+      </description>
+    </release>
     <release version="0.10.20" date="2026-11-20">
       <description>
         <p>Qt now ships inside the package, so updates of the system runtime can no longer stop the app from starting. The package moved to the freedesktop runtime and is smaller to download.</p>

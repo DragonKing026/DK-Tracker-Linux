@@ -25,6 +25,7 @@ pokazuje, ile trwa bieżący wpis. Zaczęło się jako linuksowa wersja firmowej
   najechaniu widać wpisy, z których składa się słupek czy pozycja.
 - **Kalendarz** dnia lub tygodnia: wpisy jako bloki, nowy wpis przeciągnięciem myszy, przesuwanie (także na inny
   dzień) i zmiana godzin za krawędź, z przyciąganiem co kwadrans.
+- **Święta państwowe** wybranego kraju: zaznaczone w kalendarzu, nie liczą się jako dni robocze w podsumowaniach.
 
 **Zawsze pod ręką** — gdy pulpit ma tackę systemową (można ją wyłączyć):
 
@@ -34,7 +35,8 @@ pokazuje, ile trwa bieżący wpis. Zaczęło się jako linuksowa wersja firmowej
 
 **Poza tym:** zasady jak we wtyczce (jakość opisu, płatne / niepłatne jak w Kimai), zmiana projektu i rodzaju pracy
 trwającego wpisu, przypomnienie o zbyt długim timerze i utracie połączenia, token API w portfelu systemu
-(KWallet / GNOME Keyring), autostart, motyw jasny i ciemny, polski i angielski. Łączy się wyłącznie z Twoim Kimai.
+(KWallet / GNOME Keyring), autostart, motyw jasny i ciemny, polski i angielski. Łączy się wyłącznie z Twoim Kimai (i z
+date.nager.at, gdy wybierzesz kraj świąt).
 
 | Podsumowania | Kalendarz |
 | --- | --- |
