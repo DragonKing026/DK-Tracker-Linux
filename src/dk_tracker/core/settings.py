@@ -11,6 +11,8 @@ import os
 from dataclasses import asdict, dataclass, fields, replace
 from pathlib import Path
 
+from .holiday_countries import CODES
+
 APP_DIR = "dk-tracker"
 
 
@@ -29,6 +31,7 @@ class Settings:
     show_tray: bool = True  # Plan 5: only where the desktop has a tray; off = the main window alone
     theme: str = "auto"  # auto (the system's) | light | dark — the popup and the main window
     daily_norm_hours: float = 8.0  # Plan 6: the summaries compare the daily average with it; 0 = none
+    holiday_country: str = ""  # task 0088: ISO code of the country whose public holidays count; "" = none
 
     def normalized(self) -> Settings:
         return replace(
@@ -38,6 +41,9 @@ class Settings:
             long_timer_hours=max(0.0, float(self.long_timer_hours)),
             daily_norm_hours=max(0.0, float(self.daily_norm_hours)),
             theme=self.theme if self.theme in THEMES else "auto",
+            holiday_country=self.holiday_country.strip().upper()
+            if self.holiday_country.strip().upper() in CODES
+            else "",
         )
 
     def warnings(self) -> list[str]:
@@ -70,6 +76,11 @@ def config_path() -> Path:
 
 def state_path() -> Path:
     return _base("XDG_STATE_HOME", Path.home() / ".local" / "state") / APP_DIR / "state.json"
+
+
+def holidays_path() -> Path:
+    """The public holidays last fetched (core/holidays.py), next to the app state."""
+    return state_path().with_name("holidays.json")
 
 
 def load_json[T](cls: type[T], path: Path) -> T:
