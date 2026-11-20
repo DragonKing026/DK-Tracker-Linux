@@ -2,19 +2,19 @@
 noteId: "a03fbe53f8384175b06b39eaf5ee63cc"
 tytul: "Dependabot gubi zależności z pyproject.toml w requirements-ci.txt"
 numer: "0087"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p1
 tags: [todo, ci, zaleznosci]
 zalezy_od: []
 utworzono: 2026-11-20 10:10
-zaktualizowano: 2026-11-20 10:10
+zaktualizowano: 2026-11-20 10:11
 zamknieto:
 ---
 
 # 0087 — Dependabot gubi zależności z pyproject.toml w requirements-ci.txt
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p1** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p1** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -54,6 +54,7 @@ Brak.
 ### 2026-11-20 10:10
 
 - Utworzono zadanie.
+- **10:11** Start pracy: zależności CI w jednym pliku wejściowym.
 
 ## Wynik
 
