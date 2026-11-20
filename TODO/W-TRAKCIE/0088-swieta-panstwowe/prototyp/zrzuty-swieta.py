@@ -118,6 +118,11 @@ def main() -> None:
         bridge.show_page("summary")
         shot(f"podsumowania-swieta-{theme}.png")
 
+    # The date picker last: a QML popup stays open and would cover the next theme's calendar.
+    for theme, palette in (("ciemny", MAIN_DARK), ("jasny", MAIN_LIGHT)):
+        bridge.set_palette(palette)
+        summary = bridge.summary
+        bridge.show_page("summary")
         # Zakres: kalendarzyk wyboru daty z zaznaczonym świętem (11 listopada).
         summary.setPeriod("range")
         summary.set_entries(
