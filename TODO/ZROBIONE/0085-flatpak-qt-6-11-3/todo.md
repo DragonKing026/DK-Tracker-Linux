@@ -75,5 +75,5 @@ Wydana [0.10.19](https://github.com/DragonKing026/DK-Tracker-Linux/releases/tag/
 nowej BaseApp, bez zmian
 w kodzie aplikacji. Po `flatpak update` paczka z repozytorium startuje na Qt 6.11.3. Commity: `abb4220`, `e7e0d0f`.
 Pułapka opisana w [dokumentacji Flatpaka](../../../docs/integracje/flatpak.md). Zapobieganie powtórce:
-[0086](../../W-TRAKCIE/0086-flatpak-straznik-qt/todo.md),
+[0086](../0086-flatpak-straznik-qt/todo.md),
 [issue #3](https://github.com/DragonKing026/DK-Tracker-Linux/issues/3).

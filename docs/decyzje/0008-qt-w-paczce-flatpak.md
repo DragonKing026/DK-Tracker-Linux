@@ -58,7 +58,7 @@ w wheelu). Rozwiązanie: nagłówki i pliki CMake z oficjalnych binariów Qt tej
 
 - Paczka rośnie (Qt w środku); nieużywane części Qt usuwa `cleanup` manifestu.
 - Łatki bezpieczeństwa Qt przychodzą z nowym wydaniem PySide6 — pilnuje ich strażnik w CI
-  ([0086](../../TODO/W-TRAKCIE/0086-flatpak-straznik-qt/todo.md)).
+  ([0086](../../TODO/ZROBIONE/0086-flatpak-straznik-qt/todo.md)).
 - Wersja wheela PySide6 i oficjalnych binariów Qt w manifeście musi być ta sama — pilnuje test pakietu.
 - Python w paczce pochodzi z runtime'u freedesktop (26.08: Python 3.14).
 
@@ -66,4 +66,4 @@ w wheelu). Rozwiązanie: nagłówki i pliki CMake z oficjalnych binariów Qt tej
 
 - [Flatpak](../integracje/flatpak.md), [Qt / PySide6](../integracje/qt-pyside6.md),
   [layer-shell-qt](../integracje/layer-shell-qt.md)
-- Zadanie [0086](../../TODO/W-TRAKCIE/0086-flatpak-straznik-qt/todo.md)
+- Zadanie [0086](../../TODO/ZROBIONE/0086-flatpak-straznik-qt/todo.md)
