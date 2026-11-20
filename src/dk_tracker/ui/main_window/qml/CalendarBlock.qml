@@ -23,11 +23,13 @@ Item {
     x: canvas.dayX(day) + (dragging ? 0 : b.column * canvas.columnWidth / b.columns) + 2
     width: (dragging ? canvas.columnWidth : canvas.columnWidth / b.columns) - 4
     y: start * canvas.minuteHeight + 1
-    // As tall as it lasts: a short entry is a thin strip, not a block reaching into the next one (only
-    // entries that really overlap stand side by side); drawn over its neighbour so it can be clicked.
+    // As tall as it lasts, but at least its title's line (0090): a shorter entry reaches over the next one,
+    // drawn above it, and that one's title starts below (b.inset, core/calendar.py `titled`). Only entries
+    // that really overlap stand side by side. Dragged, it is as tall as it lasts and a line.
     readonly property real span: (end - start) * canvas.minuteHeight
-    height: Math.max(4, span - 2)
-    z: dragging ? 5 : span < 16 ? 2 : 1
+    readonly property real inset: dragging ? 0 : b.inset
+    height: Math.max(span, dragging ? 22 : b.height) - 2
+    z: dragging ? 5 : b.height > span + 0.5 ? 3 - b.start / 1440 : 1  // the earlier of two reaching ones above
 
     readonly property color ink: b.color || app.palette.muted
     Rectangle {
@@ -52,7 +54,7 @@ Item {
         anchors.fill: parent
         anchors.leftMargin: 8
         anchors.rightMargin: 4
-        anchors.topMargin: 2
+        anchors.topMargin: 2 + block.inset
         anchors.bottomMargin: 2
         spacing: 0
         clip: true
@@ -78,7 +80,7 @@ Item {
             }
         }
         Label {
-            visible: block.height > 34
+            visible: block.height - block.inset > 34
             Layout.fillWidth: true
             text: block.b.project
             elide: Text.ElideRight
@@ -86,7 +88,7 @@ Item {
             color: app.palette.muted
         }
         Label {
-            visible: block.height > 50
+            visible: block.height - block.inset > 50
             Layout.fillWidth: true
             text: block.dragging ? block.hoursText() : block.b.hours + "  ·  " + block.b.time
             elide: Text.ElideRight

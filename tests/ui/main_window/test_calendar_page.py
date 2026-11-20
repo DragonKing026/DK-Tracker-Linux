@@ -187,3 +187,24 @@ def test_holidays_of_another_country_or_none_mark_nothing(page):
     assert {day["holiday"] for day in page.data["days"]} == {""}
     page.set_holidays(HolidayData(), "")
     assert {day["holiday"] for day in page.data["days"]} == {""}
+
+
+def test_the_scale_shown_goes_no_further_out_than_the_shortest_entry_keeps_its_line(page, qtbot):
+    """0090: a 10-minute entry needs 132 px an hour for its title; the chosen scale is still remembered."""
+    page.set_hour_height(48)
+    assert page.hourHeight == 48
+    page.request()
+    first = page.days[0]
+    begin = datetime(first.year, first.month, first.day, 9, 0, tzinfo=WARSAW)
+    short = make_entry(1, begin, begin + timedelta(minutes=10))
+    with qtbot.waitSignal(page.scaleChanged):
+        page.set_entries(page.days[0], page.days[-1], [short], tz=WARSAW, now=NOW)
+    assert page.hourHeight == 132
+    [block] = page.data["blocks"]
+    assert (block["inset"], block["height"]) == (0, 22)
+    with qtbot.assertNotEmitted(page.zoomChanged):
+        page.set_entries(page.days[0], page.days[-1], [short], tz=WARSAW, now=NOW)
+    page.zoom(-1)  # at the floor: the scale shown stays, the choice goes further out
+    assert page.hourHeight == 132
+    page.zoom(1)
+    assert page.hourHeight == 165

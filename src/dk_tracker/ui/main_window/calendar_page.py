@@ -28,7 +28,9 @@ from dk_tracker.core.calendar import (
     shifted,
     snap,
     span_label,
+    titled,
     view_days,
+    zoom_floor,
     zoomed,
 )
 from dk_tracker.core.holidays import HolidayData
@@ -42,7 +44,8 @@ class CalendarPage(QObject):
     loadRequested = Signal(object, object)  # first and last day shown (date)
     addRequested = Signal(dict)  # Tracker.add_entry keywords
     moveRequested = Signal(int, object, int, int)  # entry id, day (date), begin and end minutes
-    zoomChanged = Signal(int)  # pixels an hour, to remember
+    zoomChanged = Signal(int)  # pixels an hour as chosen, to remember
+    scaleChanged = Signal()  # the scale shown: the chosen one, or further in so every entry has its line
 
     def __init__(self, parent: QObject | None = None) -> None:
         super().__init__(parent)
@@ -62,7 +65,9 @@ class CalendarPage(QObject):
         self._dragging = False
         self._deferred: tuple[date, date, list[Entry]] | None = None
         self._data: dict[str, Any] = {}
-        self._hour_height = HOUR_HEIGHT
+        self._hour_height = HOUR_HEIGHT  # chosen
+        self._floor = 0  # the furthest out the entries shown allow (0090)
+        self._scale = HOUR_HEIGHT  # the scale QML was last told
         self._holidays = HolidayData()
         self._holiday_country = ""
         self._refresh()
@@ -73,16 +78,17 @@ class CalendarPage(QObject):
     data = Property("QVariantMap", _get_data, notify=dataChanged)
 
     def _get_hour_height(self) -> int:
-        return self._hour_height
+        return max(self._hour_height, self._floor)
 
-    hourHeight = Property(int, _get_hour_height, notify=zoomChanged)  # noqa: N815
+    hourHeight = Property(int, _get_hour_height, notify=scaleChanged)  # noqa: N815
 
     def set_hour_height(self, value: int) -> None:
-        """As remembered from last time (within the bounds)."""
+        """As remembered from last time (within the bounds); shown no further out than the entries allow."""
         value = zoomed(value, 0)
         if value != self._hour_height:
             self._hour_height = value
             self.zoomChanged.emit(value)
+            self._refresh()
 
     @property
     def days(self) -> list[date]:
@@ -224,8 +230,8 @@ class CalendarPage(QObject):
 
     @Slot(float)
     def zoom(self, notches: float) -> None:
-        """Alt + the wheel: closer (up) or further."""
-        self.set_hour_height(zoomed(self._hour_height, notches))
+        """Alt + the wheel: closer (up) or further, from the scale shown."""
+        self.set_hour_height(zoomed(self.hourHeight, notches))
 
     @Slot(float, bool, result=int)
     def snap(self, minutes: float, exact: bool) -> int:
@@ -269,6 +275,8 @@ class CalendarPage(QObject):
         tz, now = self._tz, self._now
         totals = day_totals(entries, days, tz, now) if shown else [0] * len(days)  # type: ignore[arg-type]
         blocks = layout(entries, days, tz, now) if shown else []  # type: ignore[arg-type]
+        self._floor = zoom_floor(blocks)
+        blocks = titled(blocks, self.hourHeight)
         names = holiday_names(days, self._holidays.names(self._language(), self._holiday_country))
         now_minutes: float = -1
         if tz is not None and now is not None and local_day(now, tz) in days:
@@ -295,6 +303,9 @@ class CalendarPage(QObject):
             ],
             "blocks": [self._block(block) for block in blocks],
         }
+        if self.hourHeight != self._scale:
+            self._scale = self.hourHeight
+            self.scaleChanged.emit()
         self.dataChanged.emit()
 
     def _block(self, block: Any) -> dict[str, Any]:
@@ -307,6 +318,8 @@ class CalendarPage(QObject):
             "end": block.end / 60,
             "column": block.column,
             "columns": block.columns,
+            "inset": block.inset,  # pixels at the scale shown: where its title starts
+            "height": block.height,  # pixels: at least the inset and a line
             "description": " ".join(entry.description.split()),
             "project": " · ".join(names),
             "color": entry.project_color or "",

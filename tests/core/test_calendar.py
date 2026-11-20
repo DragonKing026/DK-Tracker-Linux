@@ -6,7 +6,18 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from dk_tracker.core.calendar import day_totals, hhmm_of, layout, shifted, snap, span_label, view_days, zoomed
+from dk_tracker.core.calendar import (
+    day_totals,
+    hhmm_of,
+    layout,
+    shifted,
+    snap,
+    span_label,
+    titled,
+    view_days,
+    zoom_floor,
+    zoomed,
+)
 from dk_tracker.core.i18n import Translator
 
 from .fakes import make_entry
@@ -185,3 +196,50 @@ def test_minutes_on_the_wall_clock_of_a_day():
 def test_an_entry_ending_at_midnight_does_not_go_on():
     [block] = layout([entry(1, date(2026, 9, 21), 23, 60)], days(), WARSAW, NOW)
     assert (block.end, block.continues) == (1440 * 60, False)
+
+
+# -- a line for every title (0090) -------------------------------------------------------------
+
+
+def test_the_scale_goes_out_only_as_far_as_the_shortest_entry_keeps_its_line():
+    monday = date(2026, 9, 21)
+    assert zoom_floor(layout([entry(1, monday, 9, 120)], days(), WARSAW, NOW)) == 32  # long ones: no limit
+    blocks = layout([entry(1, monday, 9, 120), entry(2, monday, 12, 10)], days(), WARSAW, NOW)
+    assert zoom_floor(blocks) == 132  # 10 minutes: 22 px at 132 px an hour
+
+
+def test_an_entry_too_short_for_a_line_even_at_the_closest_does_not_hold_the_scale():
+    monday = date(2026, 9, 21)
+    blocks = layout([entry(1, monday, 9, 1), entry(2, monday, 10, 0)], days(), WARSAW, NOW)  # 1 min, 0 min
+    assert zoom_floor(blocks) == 32
+
+
+def test_a_short_entry_gets_its_line_and_the_next_title_starts_below_it():
+    monday = date(2026, 9, 21)  # 9:00–9:01, then 9:05–10:00 and 10:00–11:00 at 96 px an hour
+    blocks = layout(
+        [entry(1, monday, 9, 1), entry(2, monday, 9, 55, start_minute=5), entry(3, monday, 10, 60)],
+        days(),
+        WARSAW,
+        NOW,
+    )
+    placed = {block.entry.id: block for block in titled(blocks, 96)}
+    assert {(block.column, block.columns) for block in placed.values()} == {(0, 1)}  # still one after another
+    assert (placed[1].inset, placed[1].height) == (0, 22)  # 1.6 px of time, a line drawn
+    assert placed[2].inset == pytest.approx(22 - 8)  # 9:05 is 8 px below 9:00
+    assert placed[2].height == pytest.approx(88)  # its own 55 minutes, more than the inset and a line
+    assert (placed[3].inset, placed[3].height) == (0, 96)
+
+
+def test_a_chain_of_short_entries_pushes_each_title_below_the_one_before():
+    monday = date(2026, 9, 21)  # three one-minute entries a minute apart, at 60 px an hour
+    blocks = layout([entry(i, monday, 9, 1, start_minute=2 * i) for i in range(3)], days(), WARSAW, NOW)
+    tops = [(block.start / 3600 * 60 + block.inset) for block in titled(blocks, 60)]
+    assert tops == pytest.approx([540, 562, 584])  # each title a line below the one before
+
+
+def test_entries_side_by_side_do_not_push_each_other():
+    monday = date(2026, 9, 21)
+    blocks = layout([entry(1, monday, 9, 120), entry(2, monday, 9, 1, start_minute=30)], days(), WARSAW, NOW)
+    placed = {block.entry.id: block for block in titled(blocks, 96)}
+    assert {block.entry.id: block.column for block in blocks} == {1: 0, 2: 1}
+    assert placed[1].inset == 0 and placed[2].inset == 0  # the long one is beside it, not above it

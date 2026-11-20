@@ -8,6 +8,7 @@ seem to overlap.
 
 from __future__ import annotations
 
+import math
 from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, tzinfo
@@ -26,6 +27,9 @@ SNAP_MINUTES = 15
 HOUR_HEIGHT = 96
 HOUR_HEIGHT_MIN, HOUR_HEIGHT_MAX = 32, 384
 ZOOM_STEP = 1.25
+# A block is at least this tall (pixels): one line, its title. A shorter entry is drawn over the next one,
+# whose title starts below it; the scale goes no further out than each entry that can have the line has it.
+TITLE_HEIGHT = 22
 
 
 @dataclass(frozen=True)
@@ -39,6 +43,8 @@ class Block:
     running: bool = False
     continued: bool = False  # began the day before (past midnight)
     continues: bool = False  # goes on into the next day
+    inset: float = 0  # pixels of its top under a shorter entry drawn over it: its title starts below them
+    height: float = 0  # pixels drawn: its length, but at least the inset and a line (`titled`)
 
 
 def view_days(mode: Mode, anchor: date, first_weekday: int, *, workweek: bool) -> list[date]:
@@ -106,6 +112,33 @@ def layout(entries: Iterable[Entry], days: list[date], tz: tzinfo, now: datetime
             _columns(sorted((b for b in pieces if b.day == day_index), key=lambda b: (b.start, -b.end)))
         )
     return placed
+
+
+def zoom_floor(blocks: Iterable[Block], line: int = TITLE_HEIGHT) -> int:
+    """The furthest scale at which every block has its line; one too short for it even at the closest
+    (about 3 minutes) does not hold the scale back."""
+    needs = [line * 3600 / length for block in blocks if (length := block.end - block.start) > 0]
+    return max([HOUR_HEIGHT_MIN, *(math.ceil(need) for need in needs if need <= HOUR_HEIGHT_MAX)])
+
+
+def titled(blocks: Iterable[Block], hour_height: float, line: int = TITLE_HEIGHT) -> list[Block]:
+    """Each block at least a line tall at this scale; one reaching over a later one (in the same day and
+    columns) pushes that one's title below it, and that one grows to keep its line."""
+    done: list[Block] = []
+    for block in sorted(blocks, key=lambda b: (b.day, b.start, -b.end)):
+        top = block.start / 3600 * hour_height
+        left, right = block.column / block.columns, (block.column + 1) / block.columns
+        above = [
+            other.start / 3600 * hour_height + other.height
+            for other in done
+            if other.day == block.day
+            and other.column / other.columns < right
+            and left < (other.column + 1) / other.columns
+        ]
+        inset = max([0.0, *(bottom - top for bottom in above)])
+        span = (block.end - block.start) / 3600 * hour_height
+        done.append(Block(**{**block.__dict__, "inset": inset, "height": max(span, inset + line)}))
+    return done
 
 
 def day_totals(entries: Iterable[Entry], days: list[date], tz: tzinfo, now: datetime) -> list[int]:
