@@ -5,12 +5,16 @@ tags: [adr, flatpak, build, docker]
 status: zaakceptowana
 zastapiona_przez:
 utworzono: 2026-09-25 20:37
-zaktualizowano: 2026-09-26 11:49
+zaktualizowano: 2026-11-20 10:42
 ---
 
 # ADR-0006: Paczkę Flatpak budujemy w kontenerze, nie na hoście
 
 Uzupełnia [ADR-0002](0002-stos-python-pyside6.md) (stos i baza `io.qt.PySide.BaseApp`).
+
+> [!note] Od ADR-0008
+> Manifest nie ma już `base:` ([ADR-0008](0008-qt-w-paczce-flatpak.md)), więc regresja Flatpaka opisana niżej go nie
+> dotyczy. Kontener zostaje: ten sam obraz lokalnie i w CI (`freedesktop-26.08`), z linterem i `appstreamcli`.
 
 ## Kontekst
 

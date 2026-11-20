@@ -5,10 +5,14 @@ tags: [adr, stos, qt, python, flatpak]
 status: zaakceptowana
 zastapiona_przez:
 utworzono: 2026-09-25 17:27
-zaktualizowano: 2026-09-25 17:56
+zaktualizowano: 2026-11-20 10:42
 ---
 
 # ADR-0002: Python + PySide6 (Qt 6) na runtime KDE
+
+> [!note] Runtime zmieniony
+> Stos (Python + PySide6) obowiązuje. Runtime `org.kde.Platform` z bazą `io.qt.PySide.BaseApp` zastąpił
+> `org.freedesktop.Platform` z Qt w paczce — [ADR-0008](0008-qt-w-paczce-flatpak.md).
 
 ## Kontekst
 
