@@ -3,7 +3,8 @@
 ## Wspierane wersje
 
 Poprawki bezpieczeństwa wychodzą tylko w **najnowszym wydaniu** DK Tracker. Starsze wersje nie dostają łatek —
-zaktualizuj przez Flatpaka (`flatpak update`) albo z [wydań](https://github.com/DragonKing026/DK-Tracker-Linux/releases).
+zaktualizuj przez Flatpaka (`flatpak update`) albo z
+[wydań](https://github.com/DragonKing026/DK-Tracker-Linux/releases).
 
 ## Zgłaszanie podatności
 
