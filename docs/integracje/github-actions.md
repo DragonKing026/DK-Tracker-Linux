@@ -125,10 +125,16 @@ skopeo inspect --raw docker://ghcr.io/flathub-infra/flatpak-github-actions:freed
 Digest z 2026-11-20: tag `freedesktop-26.08`, indeks OCI, pobrany z ghcr.io przez `skopeo`
 ([ADR-0008](../decyzje/0008-qt-w-paczce-flatpak.md); wcześniej `kde-6.11`).
 
+> [!warning] Runtime'y z obrazu
+> Obraz ma preinstalowane runtime'y z dnia swojej budowy, w warstwie obrazu — Flatpak nie umie ich zaktualizować ani
+> odinstalować (`Invalid cross-device link`; wydanie 0.10.20 padło na budowie). Dlatego zadania z Flatpakiem mają
+> `FLATPAK_SYSTEM_DIR: /tmp/flatpak-system` (pusta instalacja systemowa) i krok dodający Flathub; akcja pobiera aktualne
+> runtime'y. Lokalnie `buduj.sh` ma ten sam efekt dzięki osobnemu `HOME` w cache.
+
 ## Strażnik Qt
 
 [straznik.yml](../../.github/workflows/straznik.yml) (zadanie
-[0086](../../TODO/W-TRAKCIE/0086-flatpak-straznik-qt/todo.md)) pilnuje, żeby wydana paczka zawsze startowała
+[0086](../../TODO/ZROBIONE/0086-flatpak-straznik-qt/todo.md)) pilnuje, żeby wydana paczka zawsze startowała
 ([ADR-0008](../decyzje/0008-qt-w-paczce-flatpak.md)). Dwa zadania, oba w obrazie budującym:
 
 - **`dzialanie`** — instaluje aplikację z naszego repozytorium Flatpaka (jak użytkownik) na najnowszym runtime'ie
