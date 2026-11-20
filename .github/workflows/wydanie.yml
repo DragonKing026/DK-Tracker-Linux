@@ -22,8 +22,8 @@ jobs:
     needs: [testy]
     runs-on: ubuntu-24.04
     container:
-      # The same image as flatpak/buduj.sh: Flatpak 1.18.1, KDE 6.11 SDK, appstreamcli, linter.
-      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11@sha256:b0a8a2acb9e420dd0e3e083ff552bea5a817e17e41532f1d2287ff49ef9aae0e
+      # The same image as flatpak/buduj.sh: Flatpak 1.18.1, freedesktop 26.08 SDK, appstreamcli, linter.
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-26.08@sha256:6ed6921bb5a9e1a916989971844f159b854b7b225880c381fa34f7a158863039
       options: --privileged
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

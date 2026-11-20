@@ -80,11 +80,48 @@ def manifest() -> dict:
     return yaml.safe_load((ROOT / "flatpak" / f"{APP_ID}.yml").read_text(encoding="utf-8"))
 
 
-def test_manifest_builds_on_the_kde_runtime_with_pyside():
+def test_manifest_carries_qt_on_a_runtime_without_qt():
+    """ADR-0008: a runtime update must not touch the Qt PySide6 binds to."""
     data = manifest()
     assert data["id"] == APP_ID
-    assert (data["runtime"], data["runtime-version"]) == ("org.kde.Platform", "6.11")
-    assert (data["base"], data["base-version"]) == ("io.qt.PySide.BaseApp", "6.11")
+    assert (data["runtime"], data["sdk"]) == ("org.freedesktop.Platform", "org.freedesktop.Sdk")
+    assert "base" not in data
+
+
+def module(name: str) -> dict:
+    return next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == name)
+
+
+def test_bundled_pyside_and_qt_headers_are_one_version_within_pyproject():
+    import re
+
+    from packaging.requirements import Requirement
+
+    wheels = {
+        m.group(1): m.group(2)
+        for source in module("pyside6")["sources"]
+        if (
+            m := re.search(
+                r"/(shiboken6|pyside6_essentials)-([0-9.]+)-cp\d+-abi3-manylinux_[0-9_]+_x86_64\.whl$",
+                source["url"],
+            )
+        )
+    }
+    assert set(wheels) == {"shiboken6", "pyside6_essentials"}
+    (version,) = set(wheels.values())
+    (ui,) = map(Requirement, PYPROJECT["optional-dependencies"]["ui"])
+    assert ui.specifier.contains(version), (ui, version)
+    qt = {re.search(r"/(\d+\.\d+\.\d+)-0-\d+qt", s["url"]).group(1) for s in module("qt-sdk")["sources"]}
+    assert qt == {version}  # layer-shell-qt must link against exactly the bundled Qt
+
+
+def test_layer_shell_finds_qt_in_the_bundled_python():
+    import re
+
+    opts = module("layer-shell-qt")["config-opts"]
+    rpath = next(o for o in opts if o.startswith("-DCMAKE_INSTALL_RPATH="))
+    assert re.fullmatch(r"-DCMAKE_INSTALL_RPATH=/app/lib/python3\.\d+/site-packages/PySide6/Qt/lib", rpath)
+    assert rpath.split("=", 1)[1] in module("layer-shell-qt")["build-options"]["env"]["LD_LIBRARY_PATH"]
 
 
 def test_permissions_are_exactly_those_of_the_specification():
@@ -127,7 +164,7 @@ def test_bundled_python_libraries_satisfy_pyproject():
 
 
 def test_build_does_not_copy_the_virtualenv_or_git():
-    app = next(m for m in manifest()["modules"] if isinstance(m, dict) and m["name"] == "dk-tracker")
+    app = module("dk-tracker")
     skipped = set(app["sources"][0]["skip"])
     assert {".venv", ".git"} <= skipped
 
@@ -146,9 +183,10 @@ def test_release_builds_in_the_same_container_as_the_local_script():
 
     script = (ROOT / "flatpak" / "buduj.sh").read_text(encoding="utf-8")
     local_image = re.search(r"^IMAGE=(\S+)$", script, re.M).group(1)
+    runtime = manifest()["runtime-version"]
     assert re.search(
-        r":kde-6\.11@sha256:[0-9a-f]{64}$", local_image
-    )  # tag for people, digest for the registry
+        rf":freedesktop-{re.escape(runtime)}@sha256:[0-9a-f]{{64}}$", local_image
+    )  # tag for people (the runtime's SDK), digest for the registry
     job = workflow("wydanie.yml")["jobs"]["flatpak"]
     assert job["container"]["image"] == local_image
     assert workflow("strona.yml")["jobs"]["strona"]["container"]["image"] == local_image

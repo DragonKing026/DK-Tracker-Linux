@@ -1,10 +1,12 @@
+# Source URLs and install paths cannot be wrapped.
+# yamllint disable rule:line-length
 # DK Tracker as a Flatpak. Built in the flathub-infra container (flatpak/buduj.sh, GitHub Actions).
+# Qt travels inside the package (PySide6 wheels from PyPI carry their own Qt): the runtime has no Qt, so a runtime
+# update cannot break the private Qt API PySide6 binds to (ADR-0008, issue #3).
 id: io.github.dragonking026.DK-Tracker-Linux
-runtime: org.kde.Platform
-runtime-version: '6.11'
-sdk: org.kde.Sdk
-base: io.qt.PySide.BaseApp
-base-version: '6.11'
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
 command: dk-tracker
 finish-args:
   - --share=network # only the Kimai address the user types (no telemetry)
@@ -14,23 +16,107 @@ finish-args:
   - --device=dri
   - --talk-name=org.kde.StatusNotifierWatcher # tray icon (KDE, GNOME AppIndicator)
   - --talk-name=org.freedesktop.secrets # API token in KWallet / GNOME Keyring
-cleanup-commands:
-  - /app/cleanup-BaseApp.sh
-build-options:
-  env:
-    BASEAPP_REMOVE_WEBENGINE: '1'
+cleanup:
+  - /include
+  - /lib/cmake
+  - /lib/pkgconfig
+  - /share/ECM
+  - /share/doc
+  - /qt-sdk
 modules:
-  # Not in org.kde.Platform; built against the runtime's Qt (private QtWaylandClient API).
+  - python3-deps.yaml
+  # QtNetwork (and with it every Qt library of the wheels) links libgssapi_krb5, which org.freedesktop.Platform
+  # does not carry. Client libraries only.
+  - name: krb5
+    subdir: src
+    # configure hard-codes -Werror=discarded-qualifiers, and the SDK's GCC (C23: strchr returns const) trips it in
+    # 1.22.2 (ccbase.c); a warning only. A make variable on the command line overrides the generated one.
+    make-args:
+      - WARN_CFLAGS=-Wall
+    config-opts:
+      - --disable-static
+      - --without-system-verto
+      - --without-keyutils
+      - --without-ldap
+      - --disable-rpath
+    cleanup:
+      - /bin
+      - /sbin
+      - /share/man
+      - /share/examples
+      - /var
+    sources:
+      - type: archive
+        url: https://kerberos.org/dist/krb5/1.22/krb5-1.22.2.tar.gz
+        sha256: 3243ffbc8ea4d4ac22ddc7dd2a1dc54c57874c40648b60ff97009763554eaf13
+  # Qt itself: the wheels bundle Qt (libraries, QML modules, Wayland and XCB plugins, ICU).
+  # The developer tools and plugins the app never loads are removed; the self-check proves the rest starts.
+  - name: pyside6
+    buildsystem: simple
+    build-commands:
+      - pip3 install --no-index --no-deps --prefix=${FLATPAK_DEST} shiboken6-*.whl pyside6_essentials-*.whl
+      - >-
+        cd ${FLATPAK_DEST}/lib/python3.*/site-packages/PySide6 &&
+        rm -rf assistant designer linguist lrelease lupdate qmlformat qmllint qmlls qmltyperegistrar qmlimportscanner
+        qmlcachegen qsb balsam balsamui svgtoqml metaobjectdump.py project_lib project scripts/project_lib
+        *.pyi typesystems glue include QtDesigner.abi3.so QtHelp.abi3.so
+        Qt/plugins/designer Qt/plugins/sqldrivers Qt/plugins/qmltooling Qt/plugins/qmllint
+        Qt/plugins/wayland-graphics-integration-server
+        Qt/lib/libQt6Designer*.so.6 Qt/lib/libQt6Help.so.6 Qt/lib/libQt6WaylandCompositor*.so.6
+        Qt/lib/libQt6WaylandEglCompositorHwIntegration.so.6
+    sources:
+      - type: file
+        url: https://files.pythonhosted.org/packages/7c/4a/696e3a9ed26436b1b41ca22dd21e7bce214ba1a1e1dea5c84b5627444c65/shiboken6-6.11.3-cp310-abi3-manylinux_2_34_x86_64.whl
+        sha256: e601c957011345c741b88f661a12486f478db881d6777bdf37e3dc7a8d3387c6
+      - type: file
+        url: https://files.pythonhosted.org/packages/91/23/9692f9b9a7cf89c0e8b99da228a728064aa827dc115b5dc974156bcf14fc/pyside6_essentials-6.11.3-cp310-abi3-manylinux_2_34_x86_64.whl
+        sha256: c6a5c3b58bf55aef6e09a7de690ff6133335014ab81a7f22f56363ea08e8f6a3
+  # Build-only: headers and CMake files of the official Qt binaries the wheels are made from, so that
+  # layer-shell-qt links against exactly the Qt inside the package. Removed by the cleanup above.
+  - name: qt-sdk
+    buildsystem: simple
+    build-commands:
+      - mkdir -p ${FLATPAK_DEST}/qt-sdk
+      - for f in *.7z; do bsdtar -xf "$f" -C ${FLATPAK_DEST}/qt-sdk; done
+    sources:
+      - type: file
+        url: https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_6113/qt6_6113/qt.qt6.6113.linux_gcc_64/6.11.3-0-202610220312qtbase-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z
+        sha256: ce282da4d8a83dc216ed96b715202872d655177189c16205dc5fab09b41a9f09
+      - type: file
+        url: https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_6113/qt6_6113/qt.qt6.6113.linux_gcc_64/6.11.3-0-202610220312qtdeclarative-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z
+        sha256: 424a4012edd475e21c108df6e297ab034cb786ec91f5fe451d20e3a5540e486d
+      - type: file
+        url: https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_6113/qt6_6113/qt.qt6.6113.linux_gcc_64/6.11.3-0-202610220312qtwayland-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z
+        sha256: 510a61a415699e83a9d0431c7e3d4621e50776c7f57aefbe0f9a841132e2dd99
+  - name: extra-cmake-modules
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DBUILD_TESTING=OFF
+      - -DBUILD_DOC=OFF
+    sources:
+      - type: archive
+        url: https://download.kde.org/stable/frameworks/6.31/extra-cmake-modules-6.31.0.tar.xz
+        sha256: 8f74af329e4c918358bfe54316f8cf4d530c28444595a3e2fb15075f72877f17
+  # Not in any runtime; uses the private QtWaylandClient API, so it is built against the bundled Qt and finds it
+  # at run time through RUNPATH. The plugin goes next to Qt's own Wayland shell plugins.
   - name: layer-shell-qt
     buildsystem: cmake-ninja
+    build-options:
+      env:
+        # qtwaylandscanner and the other Qt build tools need Qt's ICU, which only the wheel carries.
+        LD_LIBRARY_PATH: /app/qt-sdk/lib:/app/lib/python3.14/site-packages/PySide6/Qt/lib
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DBUILD_TESTING=OFF
+      - -DCMAKE_PREFIX_PATH=/app/qt-sdk
+      - -DCMAKE_INSTALL_RPATH=/app/lib/python3.14/site-packages/PySide6/Qt/lib
+    post-install:
+      - mv ${FLATPAK_DEST}/lib/plugins/wayland-shell-integration/liblayer-shell.so
+        ${FLATPAK_DEST}/lib/python3.14/site-packages/PySide6/Qt/plugins/wayland-shell-integration/
     sources:
       - type: archive
         url: https://download.kde.org/stable/plasma/6.7.5/layer-shell-qt-6.7.5.tar.xz
         sha256: ccdcfec7081ca956f7a52c9113a4df3a226575bfbe98b56a2a9a4d7d7e19e8f0
-  - python3-deps.yaml
   - name: dk-tracker
     buildsystem: simple
     build-commands:

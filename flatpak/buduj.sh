@@ -4,13 +4,13 @@
 #   flatpak/buduj.sh              → dist/io.github.dragonking026.DK-Tracker-Linux-<version>.flatpak (+ OSTree repo in the cache)
 #   flatpak/buduj.sh --zainstaluj → the same, then `flatpak install --user --bundle` on this computer
 #
-# Why a container: Fedora 44's Flatpak 1.18.2 cannot build with a `base:` app (flatpak#6818, ADR-0006);
-# the flathub-infra image carries Flatpak 1.18.1 and the KDE 6.11 SDK, plus appstreamcli and the linter.
-# Downloads (runtime, PySide base) and build state are cached in ~/.cache/dk-tracker-flatpak.
+# Why a container: the same flatpak-builder, linter and appstreamcli locally and in GitHub Actions (ADR-0006, ADR-0008);
+# the flathub-infra image carries the freedesktop 26.08 SDK the manifest builds on.
+# Downloads (runtime, SDK, wheels, Qt headers) and build state are cached in ~/.cache/dk-tracker-flatpak.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 APP=io.github.dragonking026.DK-Tracker-Linux
-IMAGE=ghcr.io/flathub-infra/flatpak-github-actions:kde-6.11@sha256:b0a8a2acb9e420dd0e3e083ff552bea5a817e17e41532f1d2287ff49ef9aae0e
+IMAGE=ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-26.08@sha256:6ed6921bb5a9e1a916989971844f159b854b7b225880c381fa34f7a158863039
 CACHE="${XDG_CACHE_HOME:-$HOME/.cache}/dk-tracker-flatpak"
 VERSION="$(sed -n 's/^version = "\(.*\)"/\1/p' "$ROOT/pyproject.toml")"
 BUNDLE="$APP-$VERSION.flatpak"
