@@ -190,6 +190,8 @@ def test_release_builds_in_the_same_container_as_the_local_script():
     job = workflow("wydanie.yml")["jobs"]["flatpak"]
     assert job["container"]["image"] == local_image
     assert workflow("strona.yml")["jobs"]["strona"]["container"]["image"] == local_image
+    for job_name, guard_job in workflow("straznik.yml")["jobs"].items():
+        assert guard_job["container"]["image"] == local_image, job_name
     builder = next(step for step in job["steps"] if "flatpak-builder" in step.get("uses", ""))
     assert builder["with"]["manifest-path"] == f"flatpak/{APP_ID}.yml"
 

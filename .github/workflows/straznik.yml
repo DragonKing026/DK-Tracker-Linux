@@ -1,0 +1,123 @@
+# Style of the other workflows: actionlint and zizmor check them.
+# yamllint disable rule:line-length rule:document-start rule:truthy rule:comments
+# Qt guard (0086, ADR-0008), every day:
+#  - dzialanie: installs the published app from our Flatpak repository on the newest runtime and runs its self-check
+#    (python3 -m dk_tracker.ui.selfcheck); a failure opens an issue — users would see the same.
+#  - aktualizacja: a newer PySide6 patch release on PyPI (the Qt inside the package) → flatpak/straznik.py moves the
+#    manifest, the package is built and self-checked here, and the change goes to a pull request (or, when the
+#    repository does not let Actions create pull requests, a branch plus an issue). The release stays manual.
+# A pull request opened with GITHUB_TOKEN starts no other workflow, hence the build and the self-check in this job.
+name: Straznik Qt
+on:
+  schedule:
+    - cron: "17 5 * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: straznik
+  cancel-in-progress: false
+env:
+  APP: io.github.dragonking026.DK-Tracker-Linux
+  REPO_FILE: https://dragonking026.github.io/DK-Tracker-Linux/dk-tracker.flatpakrepo
+jobs:
+  dzialanie:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    container:
+      # The same image as flatpak/buduj.sh (tests/test_pakiet.py keeps them equal).
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-26.08@sha256:6ed6921bb5a9e1a916989971844f159b854b7b225880c381fa34f7a158863039
+      options: --privileged
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Instalacja wydanej paczki z repozytorium projektu
+        run: |
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak remote-add --user --if-not-exists dk-tracker "$REPO_FILE"
+          flatpak install --user -y --noninteractive dk-tracker "$APP"
+          flatpak info --user "$APP"
+      - name: Samotest aplikacji
+        run: |
+          set -o pipefail
+          flatpak run --command=python3 "$APP" -m dk_tracker.ui.selfcheck 2>&1 | tee samotest.txt
+      - name: Issue o niedziałającej paczce
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Strażnik: wydana paczka nie startuje na aktualnym runtime"
+          if gh issue list -R "$GITHUB_REPOSITORY" --state open --search "in:title $title" --json number -q '.[0].number' | grep -q .; then
+            exit 0
+          fi
+          {
+            echo "The daily guard installed the published package on the newest runtime and the self-check failed."
+            echo; echo "Run: $RUN_URL"; echo; echo '```text'; tail -40 samotest.txt 2>/dev/null; echo '```'
+          } > body.md
+          gh issue create -R "$GITHUB_REPOSITORY" --title "$title" --body-file body.md --milestone "Flatpak packaging"
+  aktualizacja:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-26.08@sha256:6ed6921bb5a9e1a916989971844f159b854b7b225880c381fa34f7a158863039
+      options: --privileged
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Nowsze PySide6 na PyPI
+        id: nowe
+        run: |
+          set +e
+          python3 flatpak/straznik.py aktualizuj
+          code=$?
+          set -e
+          if [ "$code" = 10 ]; then
+            echo "wersja=$(python3 -c 'import sys; sys.path.insert(0, "flatpak"); import straznik; print(straznik.bundled_version(straznik.MANIFEST.read_text()))')" >> "$GITHUB_OUTPUT"
+          elif [ "$code" != 0 ]; then
+            exit "$code"
+          fi
+      - name: Czy gałąź już istnieje
+        if: steps.nowe.outputs.wersja
+        id: galaz
+        env:
+          WERSJA: ${{ steps.nowe.outputs.wersja }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="straznik/pyside6-$WERSJA"
+          echo "nazwa=$branch" >> "$GITHUB_OUTPUT"
+          if gh api "repos/$GITHUB_REPOSITORY/branches/$branch" > /dev/null 2>&1; then
+            echo "jest=1" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Budowa i samotest nowej paczki
+        if: steps.nowe.outputs.wersja && !steps.galaz.outputs.jest
+        run: |
+          flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+          flatpak-builder --user --install-deps-from=flathub --install --force-clean --disable-rofiles-fuse \
+            build "flatpak/$APP.yml"
+          flatpak run --command=python3 "$APP" -m dk_tracker.ui.selfcheck
+      - name: Pull request (albo gałąź i issue)
+        if: steps.nowe.outputs.wersja && !steps.galaz.outputs.jest
+        env:
+          WERSJA: ${{ steps.nowe.outputs.wersja }}
+          BRANCH: ${{ steps.galaz.outputs.nazwa }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --global --add safe.directory "$PWD"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git add "flatpak/$APP.yml"
+          git commit -m "build(flatpak): Qt w paczce z PySide6 $WERSJA (strażnik)"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$BRANCH"
+          title="build(flatpak): Qt w paczce z PySide6 $WERSJA"
+          body="The Qt guard moved the bundled PySide6 and Qt headers to $WERSJA; the package was built and passed its self-check in this run. Merge, then release a new version (docs/procesy/wydania.md)."
+          gh pr create -R "$GITHUB_REPOSITORY" --head "$BRANCH" --title "$title" --body "$body" \
+            || gh issue create -R "$GITHUB_REPOSITORY" --title "$title" --milestone "Flatpak packaging" \
+                 --body "$body Branch: $BRANCH (Actions may not open pull requests in this repository)."
