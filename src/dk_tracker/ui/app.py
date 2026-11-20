@@ -19,6 +19,7 @@ from PySide6.QtGui import QDesktopServices, QGuiApplication
 
 from dk_tracker.core.entry_list import build_rows, first_day_of_week
 from dk_tracker.core.errors import TrackerError, describe
+from dk_tracker.core.holidays import HolidayData, HolidayService, describe_error
 from dk_tracker.core.i18n import Translator, resolve_language, system_locale
 from dk_tracker.core.models import Entry, EntryDetails
 from dk_tracker.core.notification_policy import (
@@ -80,6 +81,7 @@ class Controller(QObject):
         tray_available: bool,
         window_mode: str,
         listen_for_clicks: bool = True,
+        holidays: HolidayService | None = None,
     ) -> None:
         super().__init__()
         self._settings = settings.normalized()
@@ -106,6 +108,11 @@ class Controller(QObject):
         self.state = AppState(self._settings, self._translator(self._settings.language))
         self.kimai = Worker("kimai", self)
         self.dbus = Worker("desktop", self)
+        self.holiday_worker = Worker("holidays", self)  # its own thread: Nager.Date must not hold Kimai up
+        self._holiday_service = holidays
+        self._holidays = holidays.load() if holidays is not None else HolidayData()
+        self._holiday_syncs = 0  # fetches running
+        self._holiday_error: Exception | None = None
         self.popup = QuickWindow(self.state, now)
         self.mode = placement.apply(self.popup, window_mode)
         self.popup.set_preferred_size(QSize(memory.popup_width, memory.popup_height))
@@ -125,6 +132,8 @@ class Controller(QObject):
         self.settings_form.retranslate(self.state.t)
         self.settings_form.saveRequested.connect(self.save_settings)
         self.settings_form.testRequested.connect(self._test_connection)
+        self.settings_form.syncHolidaysRequested.connect(self.sync_holidays)
+        self._apply_holidays()
         self.main_window: MainWindow | None = None
         self._editing_details: EntryDetails | None = None  # the entry open in the edit window
         self._weeks = 1  # weeks the main list shows, this one included
@@ -172,6 +181,7 @@ class Controller(QObject):
             log.warning("Kimai did not answer the last actions before quitting")
         self.dbus.submit(self._desktop.close)
         self.dbus.finish(timeout=SHUTDOWN_SECONDS)
+        self.holiday_worker.finish(timeout=1)  # a fetch under way is not worth waiting for
 
     @property
     def catalog_loaded(self) -> bool:
@@ -179,7 +189,7 @@ class Controller(QObject):
 
     def idle(self) -> bool:
         """No job waits for an answer (tests wait for this)."""
-        return not self.kimai.busy and not self.dbus.busy
+        return not self.kimai.busy and not self.dbus.busy and not self.holiday_worker.busy
 
     # -- wiring ------------------------------------------------------------------------
 
@@ -499,6 +509,7 @@ class Controller(QObject):
         in_wallet = bool(self._token) or (self.state.secrets_problem is not None and bool(self._settings.url))
         self.settings_form.load(self._settings, has_token=in_wallet)
         self.settings_form.set_secrets_problem(self.state.secrets_problem)
+        self._show_holiday_status()
         self.popup.hide()
         self.main_bridge.show_page("settings")
         self.show_main_window()
@@ -566,6 +577,9 @@ class Controller(QObject):
             self._set_tray(self._settings.show_tray)
         if previous.daily_norm_hours != self._settings.daily_norm_hours:
             self._reload_summary()
+        if previous.holiday_country != self._settings.holiday_country:
+            self._holiday_country_changed()
+        self._show_holiday_status()  # also the language may have changed
         if self._tracker is None:
             self._on_token(token)
         else:
@@ -583,6 +597,62 @@ class Controller(QObject):
         self.state.update(configured=True)
         if dialog is not None:
             dialog.show_status(t("optSaved"), ok=True)
+
+    # -- public holidays (task 0088) ---------------------------------------------------------
+
+    def _holiday_country_changed(self) -> None:
+        """A country saved fetches its holidays at once; "none" deletes them and fetches nothing."""
+        self._holiday_error = None
+        service = self._holiday_service
+        if self._settings.holiday_country:
+            self._apply_holidays()  # the old country's days stop counting until the new one's arrive
+            self.sync_holidays()
+            return
+        if service is not None:
+            self.holiday_worker.submit(service.clear)  # after any fetch still running, so none comes back
+        self._holidays = HolidayData()
+        self._apply_holidays()
+
+    def sync_holidays(self) -> None:
+        """Fetch the saved country's holidays again; success replaces what was kept, failure keeps it."""
+        service, country, now = self._holiday_service, self._settings.holiday_country, self._now()
+        if service is None or not country:
+            return
+        self._holiday_error = None
+        self._holiday_syncs += 1
+
+        def done(data: HolidayData) -> None:
+            self._holiday_syncs -= 1
+            if data.country == self._settings.holiday_country:  # not an answer for a country given up since
+                self._holidays = data
+                self._apply_holidays()
+            self._show_holiday_status()
+
+        def failed(error: Exception) -> None:
+            self._holiday_syncs -= 1
+            if country == self._settings.holiday_country:
+                self._holiday_error = error
+            self._show_holiday_status()
+
+        self.holiday_worker.submit(lambda: service.sync(country, now), done, failed)
+        self._show_holiday_status()
+
+    def _apply_holidays(self) -> None:
+        self.main_bridge.set_holidays(self._holidays, self._settings.holiday_country)
+
+    def _show_holiday_status(self) -> None:
+        """Under the country field: fetching, the time of the last fetch, or why it failed."""
+        t, country = self.state.t, self._settings.holiday_country
+        if self._holiday_syncs:
+            self.settings_form.show_holiday_status(t("optHolidaysSyncing"), ok=True, busy=True)
+        elif self._holiday_error is not None and country:
+            err = describe_error(self._holiday_error, t)
+            self.settings_form.show_holiday_status(t("optHolidaysFailed", err=err), ok=False, busy=False)
+        elif country and self._holidays.country == country and self._holidays.synced:
+            text = t("optHolidaysSynced", time=self._holidays.synced)
+            self.settings_form.show_holiday_status(text, ok=True, busy=False)
+        else:
+            self.settings_form.show_holiday_status("", ok=True, busy=False)
 
     def _settings_failed(self, error: Exception) -> None:
         self.settings_form.set_busy(False)

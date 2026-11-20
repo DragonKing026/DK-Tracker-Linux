@@ -27,6 +27,7 @@ ScrollView {
         minDescription.value = form.minDescription
         longTimer.value = Math.round(form.longTimer * 10)
         dailyNorm.value = Math.round(form.dailyNorm * 10)
+        holidayCountry.currentIndex = Math.max(0, holidayCountry.indexOfValue(form.holidayCountry))
         notifyConnection.checked = form.notifyConnection
         notifyMenu.checked = form.notifyMenu
         autostart.checked = form.autostart
@@ -35,7 +36,8 @@ ScrollView {
     function values() {
         return {
             url: url.text, language: language.currentValue, theme: theme.currentValue, minDescription: minDescription.value,
-            longTimer: longTimer.value / 10, dailyNorm: dailyNorm.value / 10, notifyConnection: notifyConnection.checked,
+            longTimer: longTimer.value / 10, dailyNorm: dailyNorm.value / 10, holidayCountry: holidayCountry.currentValue,
+            notifyConnection: notifyConnection.checked,
             notifyMenu: notifyMenu.checked, autostart: autostart.checked, showTray: showTray.checked
         }
     }
@@ -178,6 +180,35 @@ ScrollView {
             Item { Layout.fillWidth: true }
         }
         Hint { text: app.texts.optDailyNormHint || "" }
+        FormRow {
+            labelWidth: page.labelWidth
+            label: app.texts.optHolidays || ""
+            Combo {
+                id: holidayCountry
+                objectName: "settingsHolidayCountry"
+                Layout.preferredWidth: 280
+                model: page.form.holidayCountries
+                textRole: "label"
+                valueRole: "code"
+            }
+            IconButton {
+                objectName: "settingsHolidaySync"
+                glyph: "sync"
+                tip: app.texts.optHolidaysSync || ""
+                // The saved country only: a country just picked is fetched by "Save" (its change is the trigger).
+                enabled: !page.form.holidayBusy && page.form.holidayCountry !== ""
+                         && holidayCountry.currentValue === page.form.holidayCountry
+                onClicked: app.settingsForm.syncHolidays()
+            }
+            Item { Layout.fillWidth: true }
+        }
+        Hint { text: app.texts.optHolidaysHint || "" }
+        Hint {
+            objectName: "settingsHolidayStatus"
+            visible: page.form.holidayStatus !== ""
+            text: page.form.holidayStatus
+            color: page.form.holidayOk ? app.palette.muted : app.palette.danger
+        }
 
         ColumnLayout {
             Layout.leftMargin: page.labelWidth + 12

@@ -142,3 +142,43 @@ def test_the_about_section_has_the_version_and_the_project_page(form):
 
     assert form.form["version"] == __version__
     assert form.form["homepage"] == "https://github.com/DragonKing026/DK-Tracker-Linux"
+
+
+# -- the holiday country (task 0088) ---------------------------------------------------------
+
+
+def test_the_country_list_starts_with_none_then_goes_by_name(form):
+    countries = form.form["holidayCountries"]
+    assert countries[0] == {"code": "", "label": "brak"}
+    labels = [country["label"] for country in countries[1:]]
+    assert len(labels) == 204 and labels == sorted(labels, key=str.casefold)
+    assert {"code": "PL", "label": "Poland"} in countries
+
+
+def test_the_country_is_saved_with_the_rest(form, qtbot):
+    assert form.form["holidayCountry"] == ""
+    with qtbot.waitSignal(form.saveRequested) as signal:
+        form.save(values(holidayCountry="pl"), "")
+    assert signal.args[0].holiday_country == "PL"
+    with qtbot.waitSignal(form.saveRequested) as signal:
+        form.save(values(holidayCountry="ZZ"), "")  # unknown: none
+    assert signal.args[0].holiday_country == ""
+
+
+def test_a_save_without_the_field_keeps_the_saved_country(qtbot):
+    made = SettingsForm(Translator("pl"))
+    made.load(replace(SAVED, holiday_country="DE"), has_token=True)
+    with qtbot.waitSignal(made.saveRequested) as signal:
+        made.save(values(), "")
+    assert signal.args[0].holiday_country == "DE"
+
+
+def test_the_sync_button_and_the_status(form, qtbot):
+    with qtbot.waitSignal(form.syncHolidaysRequested):
+        form.syncHolidays()
+    form.show_holiday_status("Synchronizacja…", ok=True, busy=True)
+    assert (form.form["holidayStatus"], form.form["holidayOk"], form.form["holidayBusy"]) == (
+        "Synchronizacja…", True, True,
+    )  # fmt: skip
+    form.load(SAVED, has_token=True)  # loading the fields does not wipe the fetch's state
+    assert form.form["holidayBusy"] is True

@@ -25,7 +25,15 @@ from PySide6.QtCore import (
 from PySide6.QtNetwork import QLocalServer, QLocalSocket
 from PySide6.QtWidgets import QApplication
 
-from dk_tracker.core.settings import Memory, Settings, config_path, load_json, save_json, state_path
+from dk_tracker.core.settings import (
+    Memory,
+    Settings,
+    config_path,
+    holidays_path,
+    load_json,
+    save_json,
+    state_path,
+)
 
 APP_ID = "io.github.dragonking026.DK-Tracker-Linux"
 TRAY_WAIT_MS = 30_000  # at login the tray host may register after the autostarted app
@@ -129,6 +137,7 @@ def main(argv: list[str] | None = None) -> int:
     if not instance.claim():
         return 0  # the running instance opens its window
 
+    from dk_tracker.core.holidays import HolidayService
     from dk_tracker.core.kimai_client import KimaiClient
 
     from . import placement
@@ -146,6 +155,7 @@ def main(argv: list[str] | None = None) -> int:
         client_factory=lambda url, token: KimaiClient(url, token),
         save_settings=lambda value: save_json(value, config_path()),
         save_memory=lambda value: save_json(value, state_path()),
+        holidays=HolidayService(holidays_path()),
         tray_available=tray_available,
         window_mode=placement.detect_mode(app.platformName(), tray_available),
     )

@@ -50,7 +50,9 @@ class FakeDesktop:
 
 
 class Harness:
-    def __init__(self, qtbot, *, settings=None, desktop=None, client=None, tray=True, memory=None):
+    def __init__(
+        self, qtbot, *, settings=None, desktop=None, client=None, tray=True, memory=None, holidays=None
+    ):
         self.client = client or FakeClient()
         self.desktop = desktop or FakeDesktop()
         self.saved_settings = []
@@ -72,6 +74,7 @@ class Harness:
             tray_available=tray,
             window_mode="frameless" if tray else "window",
             listen_for_clicks=False,
+            holidays=holidays,
         )
         qtbot.addWidget(self.controller.popup)
         self.qtbot = qtbot

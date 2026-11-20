@@ -15,6 +15,7 @@ from typing import Any
 from PySide6.QtCore import Property, QObject, Signal, Slot
 
 from dk_tracker import __version__
+from dk_tracker.core.holiday_countries import COUNTRIES
 from dk_tracker.core.settings import Settings
 
 LANGUAGES = (("auto", "optLangAuto"), ("pl", "optLangPl"), ("en", "optLangEn"))
@@ -25,6 +26,7 @@ HOMEPAGE = "https://github.com/DragonKing026/DK-Tracker-Linux"  # as in the Meta
 class SettingsForm(QObject):
     saveRequested = Signal(object, object)  # Settings, new token or None to keep the stored one
     testRequested = Signal(str, str)  # address, token as typed ("" = the stored one)
+    syncHolidaysRequested = Signal()  # ↻: fetch the saved country's holidays again (task 0088)
     formChanged = Signal()
     loaded = Signal()  # the fields take the values again (typing does not come back through `form`)
 
@@ -37,6 +39,7 @@ class SettingsForm(QObject):
         self._url = ""
         self._form: dict[str, Any] = {}
         self._status, self._status_ok, self._busy = "", True, False
+        self._holiday_status, self._holiday_ok, self._holiday_busy = "", True, False
         self.load(Settings(), has_token=False)
 
     def _get_form(self) -> dict[str, Any]:
@@ -51,6 +54,11 @@ class SettingsForm(QObject):
         self._status = ""
         self._refresh()
         self.loaded.emit()
+
+    def show_holiday_status(self, text: str, *, ok: bool, busy: bool) -> None:
+        """Under the country field: "Synchronized …", "Synchronizing…" or what went wrong."""
+        self._holiday_status, self._holiday_ok, self._holiday_busy = text, ok, busy
+        self._refresh()
 
     def set_secrets_problem(self, key: str | None) -> None:
         self._secrets_problem = key
@@ -90,6 +98,7 @@ class SettingsForm(QObject):
             min_description=int(values.get("minDescription", 0)),
             long_timer_hours=float(values.get("longTimer", 0.0)),
             daily_norm_hours=float(values.get("dailyNorm", 8.0)),
+            holiday_country=str(values.get("holidayCountry", self._loaded.holiday_country)),
             notify_connection=bool(values.get("notifyConnection", True)),
             notify_menu_actions=bool(values.get("notifyMenu", True)),
             autostart=bool(values.get("autostart", False)),
@@ -104,6 +113,10 @@ class SettingsForm(QObject):
             self.show_status(self._t("optTokenRequired"), ok=False)
             return
         self.saveRequested.emit(settings, token or None)
+
+    @Slot()
+    def syncHolidays(self) -> None:  # noqa: N802
+        self.syncHolidaysRequested.emit()
 
     @Slot(str, str)
     def test(self, url: str, token: str) -> None:
@@ -124,6 +137,11 @@ class SettingsForm(QObject):
             "minDescription": s.min_description,
             "longTimer": s.long_timer_hours,
             "dailyNorm": s.daily_norm_hours,
+            "holidayCountry": s.holiday_country,
+            "holidayCountries": self._countries(),
+            "holidayStatus": self._holiday_status,
+            "holidayOk": self._holiday_ok,
+            "holidayBusy": self._holiday_busy,
             "notifyConnection": s.notify_connection,
             "notifyMenu": s.notify_menu_actions,
             "autostart": s.autostart,
@@ -140,3 +158,11 @@ class SettingsForm(QObject):
             "homepage": HOMEPAGE,
         }
         self.formChanged.emit()
+
+    def _countries(self) -> list[dict[str, str]]:
+        """ "None" first, then the countries by name. Qt knows no country names but English, so they are
+        Nager.Date's own (the interface language does not change them)."""
+        named = sorted(COUNTRIES, key=lambda country: country[1].casefold())
+        return [{"code": "", "label": self._t("optHolidaysNone")}] + [
+            {"code": code, "label": name} for code, name in named
+        ]
