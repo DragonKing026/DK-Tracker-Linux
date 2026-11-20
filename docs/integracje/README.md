@@ -3,7 +3,7 @@ noteId: "818b377efb214ce0a09fb41703946dfa"
 tytul: Integracje — indeks
 tags: [integracja, indeks]
 utworzono: 2026-09-25 17:23
-zaktualizowano: 2026-09-25 18:06
+zaktualizowano: 2026-11-20 12:31
 ---
 
 # Integracje
@@ -22,6 +22,7 @@ flowchart LR
     APP --> FP[Flatpak]
     APP --> QT[Qt 6 / PySide6]
     APP --> HX[httpx] --> K
+    HX --> ND[Nager.Date]
     APP --> JP[jeepney] --> SEC
     QT --> SNI
     REF[WS Tracker<br/>wzorzec] -. inspiracja .-> APP
@@ -44,6 +45,7 @@ flowchart LR
 | Kimai w Dockerze | środowisko testów kontraktowych | planowana | [kimai-docker](kimai-docker.md) |
 | GitHub Actions | testy, wydanie po tagu, audyty bezpieczeństwa | w użyciu ([ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md)) | [github-actions](github-actions.md) |
 | GitHub Pages | repozytorium Flatpaka z aktualizacjami | w użyciu ([ADR-0007](../decyzje/0007-dystrybucja-repozytorium-flatpak-na-github-pages.md)) | [github-pages](github-pages.md) |
+| Nager.Date | święta państwowe (Kalendarz, Podsumowania) | w użyciu ([ADR-0009](../decyzje/0009-swieta-z-nager-date.md)) | [nager-date](nager-date.md) |
 
 > [!note] Narzędzia deweloperskie
 > pytest, pytest-qt i flatpak-pip-generator są opisane w dokumentach bibliotek, których
