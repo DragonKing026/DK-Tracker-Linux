@@ -2,19 +2,19 @@
 noteId: "cfe8810cb23947eaa959912018b9e68d"
 tytul: "Wyraźny podpis „dni z wpisami” w podsumowaniach"
 numer: "0092"
-status: w-trakcie
+status: zrobione
 priorytet: p3
 tags: [todo, podsumowania]
 zalezy_od: []
 utworzono: 2026-11-20 13:55
-zaktualizowano: 2026-11-20 13:55
-zamknieto:
+zaktualizowano: 2026-11-20 13:56
+zamknieto: 2026-11-20 13:56
 ---
 
 # 0092 — Wyraźny podpis „dni z wpisami” w podsumowaniach
 
 > [!info] Status
-> **w-trakcie** · priorytet **p3** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p3** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -28,12 +28,12 @@ Kafelek „Łącznie” nie sugeruje liczby wpisów tam, gdzie liczy dni.
 
 ## Kryteria akceptacji
 
-- [ ] Podpis „Dni robocze: 5 · dni z wpisami: 5” (en: „Working days: 5 · days with entries: 5”).
-- [ ] Testy zaktualizowane, wydanie.
+- [x] Podpis „Dni robocze: 5 · dni z wpisami: 5” (en: „Working days: 5 · days with entries: 5”).
+- [x] Testy zaktualizowane, wydanie.
 
 ## Kroki
 
-- [ ] `sumDaysLine` w `pl.json` i `en.json`, testy.
+- [x] `sumDaysLine` w `pl.json` i `en.json`, testy.
 
 ## Materiały
 
@@ -45,7 +45,8 @@ Brak.
 
 - Utworzono zadanie.
 - **13:55** Start pracy.
+- **13:56** Podpis 9a43abf, wersja 0.10.24; pytest 874 zielonych.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+- Podpis „Dni robocze: N · dni z wpisami: N” (`9a43abf`). Wydanie 0.10.24.

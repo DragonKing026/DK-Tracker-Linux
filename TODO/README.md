@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-11-20 13:55
+zaktualizowano: 2026-11-20 13:56
 ---
 
 # Tablica zadań
@@ -26,8 +26,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0084 | [Scorecard: przypięte zależności, podpisane wydania, fuzzing](W-TRAKCIE/0084-scorecard-pinned-signed-fuzzing/todo.md) | 🔨 w-trakcie | p3 | — |
-| 0091 | [Kalendarz otwiera się na pierwszym wpisie](W-TRAKCIE/0091-kalendarz-od-pierwszego-wpisu/todo.md) | 🔨 w-trakcie | p2 | [0090](ZROBIONE/0090-wiersz-tytulu-w-kalendarzu/todo.md) ✅ |
-| 0092 | [Wyraźny podpis „dni z wpisami” w podsumowaniach](W-TRAKCIE/0092-podpis-dni-z-wpisami/todo.md) | 🔨 w-trakcie | p3 | — |
 
 ## Do zrobienia
 
@@ -127,6 +125,8 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0088 | [Święta państwowe w Kalendarzu i Podsumowaniach](ZROBIONE/0088-swieta-panstwowe/todo.md) | ✅ zrobione | 2026-11-20 12:39 |
 | 0089 | [Kółko przewija kalendarz, Alt + kółko przybliża](ZROBIONE/0089-kolko-przewija-kalendarz/todo.md) | ✅ zrobione | 2026-11-20 12:58 |
 | 0090 | [Każdy wpis w kalendarzu z czytelnym tytułem](ZROBIONE/0090-wiersz-tytulu-w-kalendarzu/todo.md) | ✅ zrobione | 2026-11-20 13:13 |
+| 0091 | [Kalendarz otwiera się na pierwszym wpisie](ZROBIONE/0091-kalendarz-od-pierwszego-wpisu/todo.md) | ✅ zrobione | 2026-11-20 13:56 |
+| 0092 | [Wyraźny podpis „dni z wpisami” w podsumowaniach](ZROBIONE/0092-podpis-dni-z-wpisami/todo.md) | ✅ zrobione | 2026-11-20 13:56 |
 
 <!-- tablica:end -->
 
