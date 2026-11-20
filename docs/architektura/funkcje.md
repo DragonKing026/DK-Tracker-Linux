@@ -384,9 +384,9 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
 
 - **Okres**: Dzień albo Tydzień — 7 dni (od dnia tygodnia z konta Kimai) lub 5 dni (pon.–pt.); ◀ ▶, „Dziś”. Nagłówki
   dni z sumą dnia. Siatka 0–24 przewinięta na 8:00 (później, gdy „teraz” by nie było widać); skala
-  96 px na godzinę, **kółko** przybliża i oddala (32–384 px, godzina pod kursorem zostaje na miejscu), **prawy
-  przycisk** przeciągany przesuwa godziny,
-  zapamiętana między uruchomieniami (0.10.14, kółko i prawy przycisk od 0.10.15);
+  96 px na godzinę, **Alt + kółko** przybliża i oddala (32–384 px, godzina pod kursorem zostaje na miejscu), samo
+  **kółko** (ząbek — pół godziny) i przeciągany **prawy przycisk** przesuwają godziny,
+  zapamiętana między uruchomieniami (0.10.14, prawy przycisk od 0.10.15, kółko przewija od 0.10.22);
   linia „teraz” w dniu dzisiejszym.
 - **Święta**: dzień ze świętem ma w nagłówku nazwę i podbarwioną kolumnę — [F-38](#f-38-święta-państwowe).
 - **Bloki**: wpisy w kolorze projektu (tło przejrzyste, pasek z lewej): opis, projekt · rodzaj pracy, godziny i czas;

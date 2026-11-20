@@ -94,7 +94,7 @@ półgrube. Kursor rączki na wszystkim, co się klika.
   `Combo` 280 px i `IconButton` ↻ (ikona `sync`, podpowiedź „Synchronizuj”), pod nimi podpowiedź i status (`muted`,
   błąd `danger`).
 - **Kalendarz** (0.10.5, F-37): pasek okresu (`Segmented` Dzień / Tydzień, 5 dni / 7 dni, ◀ nazwa ▶, „Dziś”);
-  nagłówki dni na `surface` (dziś — `accent` pogrubiony) z sumą `muted`; siatka: godziny co 96 px (kółko:
+  nagłówki dni na `surface` (dziś — `accent` pogrubiony) z sumą `muted`; siatka: godziny co 96 px (Alt + kółko:
   32–384), od 72 px linia co pół godziny
   (`divider` 40 %), podpisy 11 px
   `muted` w kolumnie 56 px, linie `divider`, dziś na tle `surface` 60 %; nowy blok w trakcie przeciągania —
