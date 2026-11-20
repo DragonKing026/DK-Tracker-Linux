@@ -383,7 +383,9 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
 [Plan 7](../plany/2026-09-27-plan-7-kalendarz.md)).
 
 - **Okres**: Dzień albo Tydzień — 7 dni (od dnia tygodnia z konta Kimai) lub 5 dni (pon.–pt.); ◀ ▶, „Dziś”. Nagłówki
-  dni z sumą dnia. Siatka 0–24 przewinięta na 8:00 (później, gdy „teraz” by nie było widać); skala
+  dni z sumą dnia. Siatka 0–24 przewinięta na pełną godzinę najwcześniejszego wpisu widocznych dni, ponownie przy
+  zmianie okresu (0.10.24, [0091](../../TODO/W-TRAKCIE/0091-kalendarz-od-pierwszego-wpisu/todo.md)); bez wpisów na 8:00
+  (później, gdy „teraz” by nie było widać); skala
   96 px na godzinę, **Alt + kółko** przybliża i oddala (32–384 px, godzina pod kursorem zostaje na miejscu; oddala
   najwyżej do skali, przy której każdy wpis ma wiersz tytułu — niżej), samo
   **kółko** (ząbek — pół godziny) i przeciągany **prawy przycisk** przesuwają godziny,
