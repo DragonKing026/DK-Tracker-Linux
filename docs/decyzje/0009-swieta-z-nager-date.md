@@ -46,5 +46,5 @@ domyślnie kraj „brak” — wtedy aplikacja nadal łączy się tylko z Kimai.
 
 ## Powiązane
 
-- [Zadanie 0088 — święta państwowe](../../TODO/W-TRAKCIE/0088-swieta-panstwowe/todo.md)
+- [Zadanie 0088 — święta państwowe](../../TODO/ZROBIONE/0088-swieta-panstwowe/todo.md)
 - [Nager.Date](../integracje/nager-date.md)

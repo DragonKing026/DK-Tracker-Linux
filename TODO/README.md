@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-11-20 12:23
+zaktualizowano: 2026-11-20 12:39
 ---
 
 # Tablica zadań
@@ -26,7 +26,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0084 | [Scorecard: przypięte zależności, podpisane wydania, fuzzing](W-TRAKCIE/0084-scorecard-pinned-signed-fuzzing/todo.md) | 🔨 w-trakcie | p3 | — |
-| 0088 | [Święta państwowe w Kalendarzu i Podsumowaniach](W-TRAKCIE/0088-swieta-panstwowe/todo.md) | 🔨 w-trakcie | p2 | — |
 
 ## Do zrobienia
 
@@ -123,6 +122,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0085 | [Flatpak nie startuje po aktualizacji runtime'u do Qt 6.11.3](ZROBIONE/0085-flatpak-qt-6-11-3/todo.md) | ✅ zrobione | 2026-11-02 17:13 |
 | 0086 | [Ochrona paczki przed aktualizacją Qt w runtime](ZROBIONE/0086-flatpak-straznik-qt/todo.md) | ✅ zrobione | 2026-11-20 11:42 |
 | 0087 | [Dependabot gubi zależności z pyproject.toml w requirements-ci.txt](ZROBIONE/0087-dependabot-requirements-ci/todo.md) | ✅ zrobione | 2026-11-20 10:19 |
+| 0088 | [Święta państwowe w Kalendarzu i Podsumowaniach](ZROBIONE/0088-swieta-panstwowe/todo.md) | ✅ zrobione | 2026-11-20 12:39 |
 
 <!-- tablica:end -->
 

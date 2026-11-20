@@ -2,19 +2,19 @@
 noteId: "21bc84e3ba1545138a710c7afe833fbf"
 tytul: "Święta państwowe w Kalendarzu i Podsumowaniach"
 numer: "0088"
-status: w-trakcie
+status: zrobione
 priorytet: p2
 tags: [todo, swieta, kalendarz, podsumowania, ustawienia]
 zalezy_od: []
 utworzono: 2026-11-20 12:21
-zaktualizowano: 2026-11-20 12:40
-zamknieto:
+zaktualizowano: 2026-11-20 12:39
+zamknieto: 2026-11-20 12:39
 ---
 
 # 0088 — Święta państwowe w Kalendarzu i Podsumowaniach
 
 > [!info] Status
-> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **zrobione** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -85,7 +85,19 @@ skryptem [prototyp/zrzuty-swieta.py](prototyp/zrzuty-swieta.py):
   ([F-38](../../../docs/architektura/funkcje.md#f-38-święta-państwowe)),
   zrzuty w obu motywach. Decyzje: dane innego kraju niż wybrany nie są używane; ↻ działa tylko dla zapisanego kraju
   (nowy kraj pobiera „Zapisz”); osobny worker „holidays”; nazwy krajów po angielsku (Qt nie zna polskich).
+- **12:39** Gotowe: rdzeń, Ustawienia, Kalendarz, Podsumowania, dokumentacja; testy 867 zielone, sprawdzenie na
+  prawdziwym API; wydanie 0.10.21.
 
 ## Wynik
 
-<!-- Wypełniane przy zamknięciu: co powstało, gdzie, co zostało na później. -->
+- Rdzeń: [holidays.py](../../../src/dk_tracker/core/holidays.py) (pobranie z Nager.Date, filtr `global` i `Public`,
+  atomowy zapis `holidays.json`), lista 204 krajów w
+  [holiday_countries.py](../../../src/dk_tracker/core/holiday_countries.py).
+- Ustawienia: pole „Święta — kraj” (domyślnie brak), pobranie po zapisaniu kraju, przycisk ↻ „Synchronizuj”, status
+  pod polem.
+- Kalendarz: nazwa święta w nagłówku dnia i podbarwiona kolumna; kalendarzyk daty i słupki Podsumowań też je zaznaczają.
+- Podsumowania: święto w dzień roboczy nie jest dniem roboczym (średnia, norma).
+- Sprawdzone na prawdziwym API: PL — 42 święta z 3 lat, DE — 27 (bez regionalnych), kod nieznany → błąd i dane bez
+  zmian.
+- Na później: nazwy krajów są po angielsku (Qt 6.11 nie daje nazw terytoriów w języku interfejsu).
+- Wydanie: 0.10.21.

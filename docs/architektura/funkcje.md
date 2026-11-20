@@ -414,7 +414,7 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
 
 Święta wybranego kraju: zaznaczone w Kalendarzu, nieliczone jako dni robocze w Podsumowaniach
 ([ADR-0009](../decyzje/0009-swieta-z-nager-date.md), [Nager.Date](../integracje/nager-date.md),
-[zadanie 0088](../../TODO/W-TRAKCIE/0088-swieta-panstwowe/todo.md)).
+[zadanie 0088](../../TODO/ZROBIONE/0088-swieta-panstwowe/todo.md)).
 
 - **Ustawienia**: pole „Święta — kraj” (domyślnie **brak** — wtedy aplikacja nie łączy się z Nager.Date) z listą 204
   krajów zapisaną w kodzie (nazwy po angielsku, „brak” na górze), obok przycisk **↻ „Synchronizuj”**. Zapisanie nowego

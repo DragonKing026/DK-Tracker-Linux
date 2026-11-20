@@ -97,5 +97,5 @@ Polski, więc nie ma z czego ich przetłumaczyć.
 ## Powiązane
 
 - [ADR-0009 — święta z Nager.Date](../decyzje/0009-swieta-z-nager-date.md)
-- [Zadanie 0088 — święta państwowe](../../TODO/W-TRAKCIE/0088-swieta-panstwowe/todo.md)
+- [Zadanie 0088 — święta państwowe](../../TODO/ZROBIONE/0088-swieta-panstwowe/todo.md)
 - [httpx](httpx.md)
