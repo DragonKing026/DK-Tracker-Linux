@@ -2,19 +2,19 @@
 noteId: "98905b2d99174488a84b2a6a6bcee756"
 tytul: "Każdy wpis w kalendarzu z czytelnym tytułem"
 numer: "0090"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p2
 tags: [todo, kalendarz]
 zalezy_od: ["0089-kolko-przewija-kalendarz"]
 utworzono: 2026-11-20 13:08
-zaktualizowano: 2026-11-20 13:08
+zaktualizowano: 2026-11-20 13:09
 zamknieto:
 ---
 
 # 0090 — Każdy wpis w kalendarzu z czytelnym tytułem
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -60,6 +60,7 @@ Przed zmianą — ucięte tytuły krótkich wpisów przy małej skali:
 ### 2026-11-20 13:08
 
 - Utworzono zadanie.
+- **13:09** Start pracy.
 
 ## Wynik
 

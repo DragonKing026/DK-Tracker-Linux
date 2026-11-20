@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-11-20 13:08
+zaktualizowano: 2026-11-20 13:09
 ---
 
 # Tablica zadań
@@ -26,6 +26,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0084 | [Scorecard: przypięte zależności, podpisane wydania, fuzzing](W-TRAKCIE/0084-scorecard-pinned-signed-fuzzing/todo.md) | 🔨 w-trakcie | p3 | — |
+| 0090 | [Każdy wpis w kalendarzu z czytelnym tytułem](W-TRAKCIE/0090-wiersz-tytulu-w-kalendarzu/todo.md) | 🔨 w-trakcie | p2 | [0089](ZROBIONE/0089-kolko-przewija-kalendarz/todo.md) ✅ |
 
 ## Do zrobienia
 
@@ -33,7 +34,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | --- | --- | --- | --- | --- |
 | 0020 | [Testy ręczne na GNOME (tacka, okno, Flatpak)](DO-ZROBIENIA/0020-testy-gnome/todo.md) | 📋 do-zrobienia | p2 | [0004](ZROBIONE/0004-prototyp-tacki-i-okna/todo.md) ✅ |
 | 0062 | [0.9.2: pełna aplikacja „DK Tracker”, tacka jako opcja — do omówienia](DO-ZROBIENIA/0062-aplikacja-ws-tracker/todo.md) | 💡 pomysl | p2 | [0056](ZROBIONE/0056-identyfikator-i-wydawca/todo.md) ✅ |
-| 0090 | [Każdy wpis w kalendarzu z czytelnym tytułem](DO-ZROBIENIA/0090-wiersz-tytulu-w-kalendarzu/todo.md) | 📋 do-zrobienia | p2 | [0089](ZROBIONE/0089-kolko-przewija-kalendarz/todo.md) ✅ |
 
 ## Zrobione
 
