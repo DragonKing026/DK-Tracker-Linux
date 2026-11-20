@@ -7,7 +7,7 @@ priorytet: p2
 tags: [todo, swieta, kalendarz, podsumowania, ustawienia]
 zalezy_od: []
 utworzono: 2026-11-20 12:21
-zaktualizowano: 2026-11-20 12:23
+zaktualizowano: 2026-11-20 12:40
 zamknieto:
 ---
 
@@ -44,25 +44,34 @@ w Podsumowaniach (średnia dzienna i norma).
 
 ## Kryteria akceptacji
 
-- [ ] Kraj w Ustawieniach (domyślnie brak), pobranie przy wyborze i przyciskiem ↻ „Synchronizuj”, nadpisanie danych
-- [ ] Święta zaznaczone w Kalendarzu (nazwa w nagłówku dnia)
-- [ ] Podsumowania nie liczą świąt jako dni roboczych
-- [ ] Testy rdzenia (parsowanie, filtr `global`, dni robocze) bez sieci; pokrycie rdzenia ≥ 90%
-- [ ] ADR, plik integracji, zmiana zasady 11 w AGENTS.md, dokumentacja widoków
-- [ ] Zmiany zacommitowane małymi krokami
+- [x] Kraj w Ustawieniach (domyślnie brak), pobranie przy wyborze i przyciskiem ↻ „Synchronizuj”, nadpisanie danych
+- [x] Święta zaznaczone w Kalendarzu (nazwa w nagłówku dnia)
+- [x] Podsumowania nie liczą świąt jako dni roboczych
+- [x] Testy rdzenia (parsowanie, filtr `global`, dni robocze) bez sieci; pokrycie rdzenia ≥ 90%
+- [x] ADR, plik integracji, zmiana zasady 11 w AGENTS.md, dokumentacja widoków
+- [x] Zmiany zacommitowane małymi krokami
 
 ## Kroki
 
-- [ ] ADR + [AGENTS.md](../../../AGENTS.md) (zasada 11) + plik integracji Nager.Date
-- [ ] Rdzeń: `core/holidays.py` (klient, zapis, zapytania), lista krajów
-- [ ] Podsumowania: dni robocze bez świąt
-- [ ] Ustawienia: kraj + ↻ Synchronizuj
-- [ ] Kalendarz: oznaczenie świąt
-- [ ] Dokumentacja architektury i widoków
+- [x] ADR + [AGENTS.md](../../../AGENTS.md) (zasada 11) + plik integracji Nager.Date
+- [x] Rdzeń: `core/holidays.py` (klient, zapis, zapytania), lista krajów
+- [x] Podsumowania: dni robocze bez świąt
+- [x] Ustawienia: kraj + ↻ Synchronizuj
+- [x] Kalendarz: oznaczenie świąt
+- [x] Dokumentacja architektury i widoków
 
 ## Materiały
 
-Brak.
+Zrzuty offscreen w obu motywach (dane zmyślone, święta wpisane z ręki, Polska, tydzień z 2026-11-11), generowane
+skryptem [prototyp/zrzuty-swieta.py](prototyp/zrzuty-swieta.py):
+
+| Widok | Ciemny | Jasny |
+| --- | --- | --- |
+| Ustawienia — po synchronizacji | [zrzut](zrzuty/ustawienia-swieta-ok-ciemny.png) | [zrzut](zrzuty/ustawienia-swieta-ok-jasny.png) |
+| Ustawienia — błąd pobrania | [zrzut](zrzuty/ustawienia-swieta-blad-ciemny.png) | [zrzut](zrzuty/ustawienia-swieta-blad-jasny.png) |
+| Kalendarz tygodnia ze świętem | [zrzut](zrzuty/kalendarz-swieta-ciemny.png) | [zrzut](zrzuty/kalendarz-swieta-jasny.png) |
+| Podsumowania tygodnia ze świętem | [zrzut](zrzuty/podsumowania-swieta-ciemny.png) | [zrzut](zrzuty/podsumowania-swieta-jasny.png) |
+| Kalendarzyk wyboru daty (Zakres) | [zrzut](zrzuty/kalendarzyk-swieta-ciemny.png) | [zrzut](zrzuty/kalendarzyk-swieta-jasny.png) |
 
 ## Dziennik
 
@@ -70,6 +79,12 @@ Brak.
 
 - Utworzono zadanie.
 - **12:23** Start pracy: rdzeń, Podsumowania, Ustawienia, Kalendarz.
+- **12:40** Zrobione (do sprawdzenia przez koordynatora): rdzeń (`core/holidays.py`, lista krajów), Podsumowania
+  (dni robocze i norma bez świąt), Ustawienia (pole kraju, ↻, status), Kalendarz (nazwa w nagłówku, tło kolumny),
+  słupki Podsumowań i kalendarzyk daty, dokumentacja
+  ([F-38](../../../docs/architektura/funkcje.md#f-38-święta-państwowe)),
+  zrzuty w obu motywach. Decyzje: dane innego kraju niż wybrany nie są używane; ↻ działa tylko dla zapisanego kraju
+  (nowy kraj pobiera „Zapisz”); osobny worker „holidays”; nazwy krajów po angielsku (Qt nie zna polskich).
 
 ## Wynik
 
