@@ -2,19 +2,19 @@
 noteId: "f415fb7f99f94a3e9173f2f08e203ad7"
 tytul: "Kółko przewija kalendarz, Alt + kółko przybliża"
 numer: "0089"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p2
 tags: [todo, kalendarz]
 zalezy_od: ["0079-skala-kalendarza"]
 utworzono: 2026-11-20 12:55
-zaktualizowano: 2026-11-20 12:55
+zaktualizowano: 2026-11-20 12:56
 zamknieto:
 ---
 
 # 0089 — Kółko przewija kalendarz, Alt + kółko przybliża
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -53,6 +53,7 @@ Brak.
 ### 2026-11-20 12:55
 
 - Utworzono zadanie.
+- **12:56** Start pracy.
 
 ## Wynik
 
