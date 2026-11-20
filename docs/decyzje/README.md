@@ -21,6 +21,7 @@ Statusy: `proponowana` → `zaakceptowana` / `odrzucona`; później ewentualnie 
 | [0006](0006-budowanie-flatpaka-w-kontenerze.md) | Budowanie Flatpaka w kontenerze (Debian, Flatpak 1.16) | zaakceptowana | 2026-09-25 20:37 |
 | [0007](0007-dystrybucja-repozytorium-flatpak-na-github-pages.md) | Dystrybucja: repozytorium Flatpaka na GitHub Pages + wydania na GitHubie | zaakceptowana | 2026-09-26 10:23 |
 | [0008](0008-qt-w-paczce-flatpak.md) | Qt w paczce: PySide6 z PyPI na `org.freedesktop.Platform` | zaakceptowana | 2026-11-20 10:29 |
+| [0009](0009-swieta-z-nager-date.md) | Święta państwowe z Nager.Date — drugi dozwolony adres | zaakceptowana | 2026-11-20 12:33 |
 
 > [!todo] Decyzje oczekujące
 >

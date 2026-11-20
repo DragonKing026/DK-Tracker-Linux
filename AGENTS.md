@@ -82,7 +82,8 @@ Pełny opis struktury: [docs/architektura/struktura-repozytorium.md](docs/archit
    dokumentacji. Szczegóły: [docs/procesy/zadania.md](docs/procesy/zadania.md).
 10. **Sekrety**: token API Kimai nigdy nie trafia do repo, logów ani plików konfiguracyjnych
    w czystym tekście — tylko do magazynu sekretów systemu (Secret Service / portal).
-11. **Bez telemetrii.** Aplikacja łączy się wyłącznie z adresem Kimai podanym przez użytkownika.
+11. **Bez telemetrii.** Aplikacja łączy się wyłącznie z adresem Kimai podanym przez użytkownika oraz — tylko gdy
+   użytkownik wybierze kraj świąt — z Nager.Date ([ADR-0009](docs/decyzje/0009-swieta-z-nager-date.md)).
 
 ## 4. Konwencje dokumentów (Obsidian)
 
