@@ -60,6 +60,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.23" date="2026-11-20">
+      <description>
+        <p>Calendar: every entry shows at least its title. A short entry is drawn over the next one, whose title starts below it, and the grid zooms out only as far as every entry keeps its line.</p>
+      </description>
+    </release>
     <release version="0.10.22" date="2026-11-20">
       <description>
         <p>Calendar: the mouse wheel and the touchpad now scroll the hours; Alt + the wheel zooms in and out.</p>
