@@ -23,6 +23,7 @@ from dk_tracker.core.calendar import (
     Mode,
     day_totals,
     hhmm_of,
+    holiday_names,
     layout,
     shifted,
     snap,
@@ -30,6 +31,7 @@ from dk_tracker.core.calendar import (
     view_days,
     zoomed,
 )
+from dk_tracker.core.holidays import HolidayData
 from dk_tracker.core.i18n import Translator
 from dk_tracker.core.models import Entry
 from dk_tracker.core.timefmt import local_day, short_duration, wall_clock
@@ -61,6 +63,8 @@ class CalendarPage(QObject):
         self._deferred: tuple[date, date, list[Entry]] | None = None
         self._data: dict[str, Any] = {}
         self._hour_height = HOUR_HEIGHT
+        self._holidays = HolidayData()
+        self._holiday_country = ""
         self._refresh()
 
     def _get_data(self) -> dict[str, Any]:
@@ -129,6 +133,11 @@ class CalendarPage(QObject):
 
     def set_loading(self, loading: bool) -> None:
         self._loading = loading
+        self._refresh()
+
+    def set_holidays(self, data: HolidayData, country: str) -> None:
+        """The public holidays of the chosen country (task 0088); data of another country counts for none."""
+        self._holidays, self._holiday_country = data, country
         self._refresh()
 
     def entry(self, entry_id: int) -> Entry | None:
@@ -249,6 +258,9 @@ class CalendarPage(QObject):
         begin, end = entry.begin.astimezone(self._tz), entry.end.astimezone(self._tz)
         return end <= wall_clock(begin.date(), DAY_MINUTES, self._tz)
 
+    def _language(self) -> str:
+        return getattr(self._t, "language", "en")
+
     def _refresh(self) -> None:
         t, days = self._t, self.days
         weekdays = t("weekdaysShort").split(",")
@@ -257,6 +269,7 @@ class CalendarPage(QObject):
         tz, now = self._tz, self._now
         totals = day_totals(entries, days, tz, now) if shown else [0] * len(days)  # type: ignore[arg-type]
         blocks = layout(entries, days, tz, now) if shown else []  # type: ignore[arg-type]
+        names = holiday_names(days, self._holidays.names(self._language(), self._holiday_country))
         now_minutes: float = -1
         if tz is not None and now is not None and local_day(now, tz) in days:
             local = now.astimezone(tz)
@@ -275,8 +288,9 @@ class CalendarPage(QObject):
                     "label": t("sumBarDay", weekday=weekdays[day.weekday()], day=day.day),
                     "total": short_duration(total) if total else "",
                     "today": day == self._today,
+                    "holiday": holiday,  # the name; "" on an ordinary day
                 }
-                for day, total in zip(days, totals, strict=True)
+                for day, total, holiday in zip(days, totals, names, strict=True)
             ],
             "blocks": [self._block(block) for block in blocks],
         }

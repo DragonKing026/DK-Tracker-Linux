@@ -6,6 +6,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
+from dk_tracker.core.holidays import Holiday, HolidayData
 from dk_tracker.core.i18n import Translator
 from dk_tracker.ui.main_window.calendar_page import CalendarPage
 
@@ -164,3 +165,25 @@ def test_the_scale_zooms_with_the_wheel_within_bounds_and_is_reported(page, qtbo
     assert page.hourHeight == 32
     page.set_hour_height(10_000)  # remembered from elsewhere: kept within the bounds
     assert page.hourHeight == 384
+
+
+# -- public holidays (task 0088) -------------------------------------------------------------
+
+HOLIDAYS = HolidayData("PL", "2026-09-20 10:00", (Holiday(date(2026, 9, 23), "Święto Wiosny", "Spring Day"),))
+
+
+def test_a_holiday_names_its_day_in_the_interface_language(page):
+    deliver(page, [])
+    assert [day["holiday"] for day in page.data["days"]] == [""] * 7
+    page.set_holidays(HOLIDAYS, "PL")
+    assert [day["holiday"] for day in page.data["days"]] == ["", "", "Święto Wiosny", "", "", "", ""]
+    page.configure(today=TODAY, first_weekday=0, t=Translator("en"), now=NOW, tz=WARSAW)
+    assert page.data["days"][2]["holiday"] == "Spring Day"
+
+
+def test_holidays_of_another_country_or_none_mark_nothing(page):
+    deliver(page, [])
+    page.set_holidays(HOLIDAYS, "DE")
+    assert {day["holiday"] for day in page.data["days"]} == {""}
+    page.set_holidays(HolidayData(), "")
+    assert {day["holiday"] for day in page.data["days"]} == {""}

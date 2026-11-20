@@ -14,6 +14,7 @@ from PySide6.QtCore import Property, QObject, QTimer, Signal, Slot
 
 from dk_tracker.core.entry_list import ListRow
 from dk_tracker.core.errors import describe
+from dk_tracker.core.holidays import HolidayData
 from dk_tracker.core.models import Activity, Entry, EntryDetails, Project, Tag
 from dk_tracker.core.timefmt import clock, elapsed_seconds, hhmm, local_day, short_duration, weekday_index
 from dk_tracker.core.tracker import Snapshot, live_totals
@@ -222,6 +223,11 @@ class MainBridge(QObject):
         """The activities for the project picked in a row's popup; the timer bar keeps its own."""
         self.rowActivities.set_activities(activities)
         self._loaded()
+
+    def set_holidays(self, data: HolidayData, country: str) -> None:
+        """The public holidays in force (task 0088): marked in the calendar, not working days."""
+        self.summary.set_holidays(data, country)
+        self.calendar.set_holidays(data, country)
 
     def set_palette(self, palette: dict[str, str]) -> None:
         self._palette = dict(palette)

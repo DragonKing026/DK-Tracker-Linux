@@ -8,7 +8,7 @@ seem to overlap.
 
 from __future__ import annotations
 
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, tzinfo
 from typing import Literal
@@ -48,6 +48,11 @@ def view_days(mode: Mode, anchor: date, first_weekday: int, *, workweek: bool) -
     first = first_day_of_week(anchor, first_weekday)
     week = [first + timedelta(days=i) for i in range(7)]
     return sorted(day for day in week if day.weekday() < 5) if workweek else week
+
+
+def holiday_names(days: list[date], holidays: Mapping[date, str]) -> list[str]:
+    """The public holiday of each day shown ("" for an ordinary day)."""
+    return [holidays.get(day, "") for day in days]
 
 
 def shifted(mode: Mode, anchor: date, steps: int) -> date:
