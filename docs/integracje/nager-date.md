@@ -5,7 +5,7 @@ tags: [integracja, swieta, api]
 status_integracji: w-uzyciu
 wersja: API v3
 utworzono: 2026-11-20 12:31
-zaktualizowano: 2026-11-20 12:31
+zaktualizowano: 2026-11-20 12:35
 ---
 
 # Nager.Date — święta państwowe
@@ -70,7 +70,22 @@ sequenceDiagram
 
 ## Gdzie w kodzie
 
-- Uzupełniane przy implementacji ([zadanie 0088](../../TODO/W-TRAKCIE/0088-swieta-panstwowe/todo.md)).
+- [core/holidays.py](../../src/dk_tracker/core/holidays.py) — `HolidayService` (pobranie trzech lat, `httpx` z
+  `MockTransport` w testach), `parse_year` (filtr `global` i `Public`), `merge_days` (złączone nazwy tego samego
+  dnia), odczyt i atomowy zapis `holidays.json`, `describe_error`.
+- [core/holiday_countries.py](../../src/dk_tracker/core/holiday_countries.py) — lista 204 krajów (zapis stanu z
+  2026-11-20 12:31).
+- [core/settings.py](../../src/dk_tracker/core/settings.py) — `Settings.holiday_country`, `holidays_path()` (plik
+  obok `state.json`).
+- [ui/app.py](../../src/dk_tracker/ui/app.py) — `Controller.sync_holidays` i własny worker „holidays”;
+  [ui/main_window/settings_form.py](../../src/dk_tracker/ui/main_window/settings_form.py) i `SettingsView.qml` — pole
+  kraju, ↻ „Synchronizuj”, status pod polem.
+- [core/summary.py](../../src/dk_tracker/core/summary.py) — dni robocze i norma bez świąt;
+  [core/calendar.py](../../src/dk_tracker/core/calendar.py) i `CalendarView.qml` — nazwa święta w nagłówku dnia.
+- Opis zachowania: [F-38](../architektura/funkcje.md#f-38-święta-państwowe).
+
+Nazwy krajów w liście Ustawień są po angielsku (jak w Nager.Date): Qt (`QLocale`) zna polskie nazwy tylko dla
+Polski, więc nie ma z czego ich przetłumaczyć.
 
 ## Dokumentacja
 

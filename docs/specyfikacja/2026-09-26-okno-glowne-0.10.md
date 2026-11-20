@@ -4,7 +4,7 @@ tytul: Specyfikacja DK Tracker 0.10 — okno główne
 tags: [specyfikacja, projekt, 0.10, okno-glowne, qml]
 status: zaakceptowana
 utworzono: 2026-09-26 16:03
-zaktualizowano: 2026-09-27 13:10
+zaktualizowano: 2026-11-20 12:35
 ---
 
 # Specyfikacja DK Tracker 0.10 — okno główne
@@ -132,6 +132,9 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
   podświetlają się razem.
 - **Podział**: wykres kołowy + tabela wg **projektu** (przełącznik: **klient**, **rodzaj pracy**); kolumny: czas,
   udział %, w tym płatne.
+- **Święta** (zadanie 0088): gdy w Ustawieniach wybrano kraj, święto w dzień roboczy nie jest dniem roboczym — wypada
+  z dzielnika średniej i z normy (słupek dnia: 0; miesiąc: norma × dni robocze bez świąt); praca w święto podnosi
+  średnią jak praca w sobotę. Bez kraju bez zmian. [F-38](../architektura/funkcje.md#f-38-święta-państwowe).
 - **Dane**: wpisy okresu pobierane w tle ze stronicowaniem (rok — kilka tysięcy wpisów); liczenie w `summary.py`.
 - Wykresy rysowane w QML (bez QtCharts).
 - Rozstrzygnięcia szczegółów (trwający wpis liczony na żywo, granice okresów, słupki dzienne do 62 dni, „Pozostałe” w
@@ -147,7 +150,8 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
   okienka.
 - **Menu tacki**: nowa pozycja „Otwórz DK Tracker”. Link „Wszystkie moje wpisy” w okienku otwiera **okno główne**
   zamiast przeglądarki. Kliknięcie powiadomienia otwiera okno główne.
-- **Nowe ustawienia**: ikona w tacce; norma dzienna (0.10.3); zapamiętany rozmiar/pozycja/widok okna głównego.
+- **Nowe ustawienia**: ikona w tacce; norma dzienna (0.10.3); zapamiętany rozmiar/pozycja/widok okna głównego;
+  „Święta — kraj” z przyciskiem ↻ (zadanie 0088, [F-38](../architektura/funkcje.md#f-38-święta-państwowe)).
 
 ## 8. Kalendarz (0.10.5)
 
@@ -159,6 +163,8 @@ Wpisy, Podsumowania, Kalendarz (widoki z kolejnych wydań pojawiają się, gdy s
   odmowa Kimai → blok wraca, komunikat.
 - **Klik w blok** → ten sam dymek z „Usuń” i „Wznów”.
 - Przyciąganie co 15 min; **Alt** wyłącza (dokładna minuta).
+- **Święta** (zadanie 0088): dzień ze świętem wybranego kraju ma w nagłówku nazwę i podbarwioną kolumnę
+  ([F-38](../architektura/funkcje.md#f-38-święta-państwowe)).
 
 ## 9. Błędy
 

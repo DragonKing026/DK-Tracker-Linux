@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-11-20 10:42
+zaktualizowano: 2026-11-20 12:35
 ---
 
 # Katalog funkcji
@@ -40,7 +40,7 @@ stateDiagram-v2
 | **Test połączenia** | `GET /api/users/me` → komunikat „Połączono jako *alias/username*” albo powód błędu. |
 | **Zapis** | URL obcięty z końcowych `/`. Zapis ustawień **resetuje blokadę billable** (F-09), bo inny serwer/token może mieć uprawnienie. |
 | **Źródło** | `options/options.js`, `lib/api.js#getSettings` |
-| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. **Motyw**: jak w systemie (domyślnie), jasny albo ciemny — dla okna głównego i okienka przy tacce, zmienia się od razu po zapisie. **Token** zapisany w portfelu widać jako stałą maskę „••••” z dopiskiem — nigdy sam token ani jego długość. Od 0.10.4 na dole strony **„O programie”**: znak, nazwa, wersja, opis, licencja, link do strony projektu ([0072](../../TODO/ZROBIONE/0072-o-programie/todo.md)). |
+| **Od 0.10.0** | Ustawienia to strona okna głównego (F-35), nie osobne okno. **Motyw**: jak w systemie (domyślnie), jasny albo ciemny — dla okna głównego i okienka przy tacce, zmienia się od razu po zapisie. **Token** zapisany w portfelu widać jako stałą maskę „••••” z dopiskiem — nigdy sam token ani jego długość. Od 0.10.4 na dole strony **„O programie”**: znak, nazwa, wersja, opis, licencja, link do strony projektu ([0072](../../TODO/ZROBIONE/0072-o-programie/todo.md)). **Święta — kraj** z przyciskiem ↻ „Synchronizuj”: [F-38](#f-38-święta-państwowe). |
 | **Różnica w aplikacji** | Token → magazyn sekretów ([Secret Service](../integracje/secret-service.md)), nie plik ustawień. Brak odpowiednika „host permissions” Chrome — Flatpak ma dostęp do sieci przez `--share=network`. |
 
 ## F-02 Ikona w tacce ze stanem
@@ -369,6 +369,8 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 6](../specyfikacja/2026-09-26-
 - **Liczenie**: trwający wpis do teraz, każdy wpis w dniu, w którym się zaczął (jak nagłówek „Dziś / Tydz.”); sumy
   zgodne z Kimai dla tego samego okresu (test kontraktowy).
 - **Norma**: ustawienie „Norma dzienna (godziny)”, domyślnie 8, 0 = bez normy.
+- **Święta**: gdy w Ustawieniach wybrano kraj, święto w dzień roboczy nie jest dniem roboczym (średnia, norma słupka i
+  miesiąca) — [F-38](#f-38-święta-państwowe).
 - **Odświeżanie**: co minutę, po każdej zmianie wpisu i po wejściu na stronę; odświeżenie zostawia liczby, nowy okres
   wczytuje się od pustego widoku; odpowiedź dla okresu, którego już nie widać, jest pomijana.
 - Kod: [core/summary.py](../../src/dk_tracker/core/summary.py),
@@ -386,6 +388,7 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
   przycisk** przeciągany przesuwa godziny,
   zapamiętana między uruchomieniami (0.10.14, kółko i prawy przycisk od 0.10.15);
   linia „teraz” w dniu dzisiejszym.
+- **Święta**: dzień ze świętem ma w nagłówku nazwę i podbarwioną kolumnę — [F-38](#f-38-święta-państwowe).
 - **Bloki**: wpisy w kolorze projektu (tło przejrzyste, pasek z lewej): opis, projekt · rodzaj pracy, godziny i czas;
   nakładające się stoją obok siebie; trwający rośnie co minutę; wyeksportowany z kłódką; wpis przez północ — dwa bloki
   (do 24:00 i od 0:00). Bloki liczą **sekundy**: wpis zamknięty i nowy otwarty w tej samej minucie stoją jeden pod
@@ -406,6 +409,33 @@ Widok okna głównego ([specyfikacja 0.10, sekcja 8](../specyfikacja/2026-09-26-
   [core/tracker.py](../../src/dk_tracker/core/tracker.py),
   [ui/main_window/calendar_page.py](../../src/dk_tracker/ui/main_window/calendar_page.py), `CalendarView.qml`,
   `CalendarBlock.qml`, `CalendarPopup.qml`. Zadanie: [0073](../../TODO/ZROBIONE/0073-plan7-kalendarz/todo.md).
+
+## F-38 Święta państwowe
+
+Święta wybranego kraju: zaznaczone w Kalendarzu, nieliczone jako dni robocze w Podsumowaniach
+([ADR-0009](../decyzje/0009-swieta-z-nager-date.md), [Nager.Date](../integracje/nager-date.md),
+[zadanie 0088](../../TODO/W-TRAKCIE/0088-swieta-panstwowe/todo.md)).
+
+- **Ustawienia**: pole „Święta — kraj” (domyślnie **brak** — wtedy aplikacja nie łączy się z Nager.Date) z listą 204
+  krajów zapisaną w kodzie (nazwy po angielsku, „brak” na górze), obok przycisk **↻ „Synchronizuj”**. Zapisanie nowego
+  kraju pobiera jego święta od razu; ↻ pobiera ponownie dla zapisanego kraju (nieaktywny przy „brak”, przy kraju
+  jeszcze niezapisanym i w trakcie pobierania). Pod polem: „Zsynchronizowano RRRR-MM-DD GG:MM” albo powód błędu.
+- **Pobranie**: rok poprzedni, bieżący i następny; tylko `global: true` z `Public` w `types`; dwa święta jednego dnia
+  — nazwy złączone „ · ”. Zapis w `holidays.json` obok `state.json` (kraj, czas synchronizacji, lista z `localName` i
+  `name`); **każde udane pobranie nadpisuje całość**, bez historii. Błąd (sieć, 404, zły JSON) zostawia zapisane dane
+  bez zmian; wybór „brak” usuwa plik. Dane innego kraju niż wybrany nie są używane (np. po nieudanej zmianie kraju).
+  Pobranie na osobnym workerze (nie blokuje wywołań Kimai), nic w tle ani przy starcie.
+- **Nazwa święta**: `name` przy języku interfejsu angielskim, w innym razie `localName`.
+- **Kalendarz** (F-37): dzień ze świętem ma w nagłówku nazwę (przyciętą, pełna w podpowiedzi) i podbarwioną kolumnę
+  (tokeny motywu `holiday`, `holiday_bg`); po wyborze kraju nagłówki mają trzecią linię na nazwę.
+- **Podsumowania** (F-36): święto w dzień roboczy nie jest dniem roboczym — wypada z dzielnika średniej dziennej, z
+  normy
+  słupka dnia (0) i z normy miesiąca (norma dnia × dni robocze bez świąt). Praca w święto podnosi średnią jak praca w
+  sobotę. Podpis słupka święta w kolorze święta, nazwa w dymku. Bez kraju liczy się jak dotąd.
+- **Kalendarzyk wyboru daty**: dzień ze świętem w kolorze święta, z podpowiedzią.
+- **Odświeżanie**: po synchronizacji i po wyborze „brak” strony przeliczają się od razu, bez ponownego pytania Kimai.
+- Kod: [core/holidays.py](../../src/dk_tracker/core/holidays.py), `core/holiday_countries.py`;
+  szczegóły w [Nager.Date](../integracje/nager-date.md#gdzie-w-kodzie).
 
 ## F-21 Powiadomienia — szczegóły (1.0)
 

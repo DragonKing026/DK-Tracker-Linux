@@ -3,7 +3,7 @@ noteId: "58e626bf9a2344179f812d9a43cf1830"
 tytul: Wygląd okna głównego — kolory, kontrolki, układ
 tags: [architektura, ui, qml, wyglad, motyw]
 utworzono: 2026-09-26 18:57
-zaktualizowano: 2026-10-09 16:35
+zaktualizowano: 2026-11-20 12:35
 ---
 
 # Wygląd okna głównego — kolory, kontrolki, układ
@@ -90,13 +90,17 @@ półgrube. Kursor rączki na wszystkim, co się klika.
   `FormRow`: Dzień, Godziny (od – do, czas trwania obok), Projekt, Rodzaj pracy, Płatne (`$` + słowo), Opis, Tagi,
   pola dodatkowe; stopka po linii `divider`: **Usuń** (`danger`, kosz) z lewej, **Anuluj**, **Zapisz**
   (`primary`) z prawej. Kliknięcie obok i Esc zamykają.
-- **Ustawienia**: ten sam `FormRow`, szerokość do 680 px; na dole karta „O programie” (0.10.4).
+- **Ustawienia**: ten sam `FormRow`, szerokość do 680 px; na dole karta „O programie” (0.10.4). „Święta — kraj”:
+  `Combo` 280 px i `IconButton` ↻ (ikona `sync`, podpowiedź „Synchronizuj”), pod nimi podpowiedź i status (`muted`,
+  błąd `danger`).
 - **Kalendarz** (0.10.5, F-37): pasek okresu (`Segmented` Dzień / Tydzień, 5 dni / 7 dni, ◀ nazwa ▶, „Dziś”);
   nagłówki dni na `surface` (dziś — `accent` pogrubiony) z sumą `muted`; siatka: godziny co 96 px (kółko:
   32–384), od 72 px linia co pół godziny
   (`divider` 40 %), podpisy 11 px
   `muted` w kolumnie 56 px, linie `divider`, dziś na tle `surface` 60 %; nowy blok w trakcie przeciągania —
-  `accent` 22 % z ramką; „teraz” — linia 2 px i kropka `danger`.
+  `accent` 22 % z ramką; „teraz” — linia 2 px i kropka `danger`. Święto (0088): trzecia linia nagłówka — nazwa 11 px
+  w `holiday`, przycięta; tło nagłówka i kolumny `holiday_bg` (bursztyn z kanałem alfa: linie godzin przebijają);
+  `holiday` na ciemnym `#e0a458`, na jasnym `#a85a00`.
 - **Podsumowania** (0.10.3, F-36), marginesy 16 px, odstępy 12 px: pasek okresu (`Segmented` Tydzień / Miesiąc / Rok
   / Zakres, ◀ nazwa okresu ▶ — przy zakresie dwa `DateField` — i „Dziś”, wyłączone w bieżącym okresie; zawija się
   w wąskim oknie); rząd kafelków `Card` równej szerokości i wysokości (podpis 12 px `muted`, liczba 22 px
