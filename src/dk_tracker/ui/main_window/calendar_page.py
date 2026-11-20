@@ -224,7 +224,7 @@ class CalendarPage(QObject):
 
     @Slot(float)
     def zoom(self, notches: float) -> None:
-        """Ctrl + the wheel: closer (up) or further."""
+        """Alt + the wheel: closer (up) or further."""
         self.set_hour_height(zoomed(self._hour_height, notches))
 
     @Slot(float, bool, result=int)

@@ -11,7 +11,7 @@ Rectangle {
     color: app.palette.bg
     readonly property var d: app.calendarPage.data
     readonly property int gutter: 56  // the hours on the left
-    readonly property real hourHeight: app.calendarPage.hourHeight  // Ctrl + the wheel
+    readonly property real hourHeight: app.calendarPage.hourHeight  // Alt + the wheel
     property bool scrolled: false  // to working hours once, when the view first shows days
     property bool wheeled: false  // the user scrolled: the window's size no longer moves the hours
 
@@ -168,7 +168,7 @@ Rectangle {
             onHeightChanged: if (view.scrolled && !view.wheeled) view.scrollToWork()
             ScrollBar.vertical: Scroller { objectName: "calendarScroll" }
             function scrollTo(y) { contentY = Math.max(0, Math.min(contentHeight - height, y)) }
-            // The wheel zooms around the pointer (`calendarPan` below). Not a WheelHandler: it takes only a mouse
+            // Alt + the wheel zooms around the pointer (`calendarPan` below). Not a WheelHandler: it takes only a mouse
             // wheel by default (acceptedDevices), so a touchpad did nothing on KDE (0.10.14–0.10.15).
             function zoomAt(at, notches) {
                 view.wheeled = true
@@ -191,7 +191,8 @@ Rectangle {
                     return i >= 0 && i < count ? i : fallback
                 }
 
-                MouseArea {  // the right button drags the hours up and down (the left one makes entries); the wheel zooms
+                // Right-drag and the wheel scroll the hours (the left button makes entries); Alt + the wheel zooms.
+                MouseArea {
                     objectName: "calendarPan"
                     anchors.fill: parent
                     acceptedButtons: Qt.RightButton
@@ -207,9 +208,20 @@ Rectangle {
                         flick.scrollTo(fromContent - (mapToItem(flick, event.x, event.y).y - fromY))
                     }
                     onWheel: function (event) {
-                        const delta = event.angleDelta.y || event.pixelDelta.y
-                        if (delta !== 0)
-                            flick.zoomAt(mapToItem(flick, event.x, event.y).y, delta / 120)
+                        if (event.modifiers & Qt.AltModifier) {
+                            // Qt may turn Alt + the wheel sideways (angleDelta.x), so either axis zooms.
+                            const notches = (event.angleDelta.y || event.angleDelta.x) / 120
+                            if (notches !== 0)
+                                flick.zoomAt(mapToItem(flick, event.x, event.y).y, notches)
+                            return
+                        }
+                        // A touchpad gives pixels; a mouse wheel notches of 120, each half an hour (at least 48 px).
+                        const step = event.pixelDelta.y
+                            || event.angleDelta.y / 120 * Math.max(48, view.hourHeight / 2)
+                        if (step !== 0) {
+                            view.wheeled = true
+                            flick.scrollTo(flick.contentY - step)
+                        }
                     }
                 }
                 Repeater {  // the hours

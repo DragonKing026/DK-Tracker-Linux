@@ -22,7 +22,7 @@ Mode = Literal["day", "week"]
 DAY_MINUTES = 24 * 60
 DAY_SECONDS = DAY_MINUTES * 60
 SNAP_MINUTES = 15
-# The grid's scale: pixels an hour, changed with Ctrl + the wheel (each notch a quarter more or less).
+# The grid's scale: pixels an hour, changed with Alt + the wheel (each notch a quarter more or less).
 HOUR_HEIGHT = 96
 HOUR_HEIGHT_MIN, HOUR_HEIGHT_MAX = 32, 384
 ZOOM_STEP = 1.25

@@ -516,8 +516,8 @@ def test_a_click_on_a_block_opens_its_bubble_and_a_drag_moves_it(window, qtbot):
     assert begin == 10 * 60
 
 
-def test_the_wheel_zooms_the_calendar_and_the_right_button_drags_its_hours(window, qtbot):
-    """0079: the wheel alone zooms (the hour under the pointer stays); right-drag scrolls."""
+def test_the_wheel_scrolls_the_calendar_alt_wheel_zooms_and_the_right_button_drags(window, qtbot):
+    """0089: wheel scrolls; Alt + the wheel zooms (the hour under the pointer stays), right-drag too."""
     from PySide6.QtCore import QPoint, QPointF, QSize, Qt
     from PySide6.QtGui import QMouseEvent, QWheelEvent
     from PySide6.QtWidgets import QApplication
@@ -538,12 +538,23 @@ def test_the_wheel_zooms_the_calendar_and_the_right_button_drags_its_hours(windo
             flick.property("contentY") + flick.mapFromScene(at).y() - pan.parentItem().y()
         ) / page.hourHeight
 
+    def wheel(angle, modifiers=Qt.KeyboardModifier.NoModifier):
+        event = QWheelEvent(at, at, QPoint(0, 0), angle, Qt.MouseButton.NoButton, modifiers,
+                            Qt.ScrollPhase.NoScrollPhase, False)  # fmt: skip
+        QApplication.sendEvent(window.window, event)
+        QApplication.processEvents()
+
+    top = flick.property("contentY")
+    wheel(QPoint(0, -120))  # down a notch: half an hour further, the scale as it was
+    assert page.hourHeight == 96
+    assert flick.property("contentY") == pytest.approx(top + 48)
+
     before = hour_at()
-    wheel = QWheelEvent(at, at, QPoint(0, 0), QPoint(0, 120), Qt.MouseButton.NoButton,
-                        Qt.KeyboardModifier.NoModifier, Qt.ScrollPhase.NoScrollPhase, False)  # fmt: skip
-    QApplication.sendEvent(window.window, wheel)
-    QApplication.processEvents()
+    wheel(QPoint(0, 120), Qt.KeyboardModifier.AltModifier)
     assert page.hourHeight == 120
+    assert hour_at() == pytest.approx(before, abs=0.02)
+    wheel(QPoint(120, 0), Qt.KeyboardModifier.AltModifier)  # Alt turned the wheel sideways
+    assert page.hourHeight == 150
     assert hour_at() == pytest.approx(before, abs=0.02)
 
     start = flick.property("contentY")
