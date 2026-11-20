@@ -3,7 +3,7 @@ noteId: "4e19ba9a67884984964e334472d5e850"
 tytul: Katalog funkcji
 tags: [architektura, funkcje, wymagania]
 utworzono: 2026-09-25 17:17
-zaktualizowano: 2026-10-30 14:27
+zaktualizowano: 2026-11-20 10:42
 ---
 
 # Katalog funkcji
@@ -232,7 +232,7 @@ polska i angielska.**
 | Element | Jak tłumaczymy |
 | --- | --- |
 | Okno, menu tacki, tooltip, ustawienia, komunikaty błędów, powiadomienia N-01…N-03 | własne teksty w `core/i18n` — pliki PL i EN, klucze przeniesione z `_locales` wtyczki i uzupełnione o nowe (menu, powiadomienia, autostart) |
-| Standardowe elementy Qt (przyciski „OK/Anuluj”, menu kontekstowe pól tekstowych) | `QTranslator` z `qtbase_<lang>.qm` z katalogu tłumaczeń Qt. Runtime `org.kde.Platform` 6.11 zawiera `translations/qtbase_pl.qm` (sprawdzone 2026-09-25) |
+| Standardowe elementy Qt (przyciski „OK/Anuluj”, menu kontekstowe pól tekstowych) | `QTranslator` z `qtbase_<lang>.qm` z katalogu tłumaczeń Qt. W paczce są w Qt z koła PySide6 (`PySide6/Qt/translations/qtbase_pl.qm`, [ADR-0008](../decyzje/0008-qt-w-paczce-flatpak.md)) |
 | Nazwy dni i daty na liście wpisów | locale wybranego języka (`QLocale`) |
 | Plik `.desktop` (nazwa, komentarz) | klucze `Name[pl]`, `Comment[pl]` |
 | MetaInfo (AppStream: opis, podsumowanie) | `xml:lang="pl"` |

@@ -74,7 +74,7 @@ DK Tracker działa na każdym pulpicie jako zwykłe okno. Ikona w tacce na GNOME
   [1.0 — parytet z wtyczką](docs/specyfikacja/2026-09-25-kimai-tray-1.0.md)
 - [Plany](docs/plany/README.md) · [zadania](TODO/README.md)
 - Zasady pracy (także dla agentów AI): [AGENTS.md](AGENTS.md)
-- Stos: Python 3.13, PySide6 (Qt 6), Flatpak na `org.kde.Platform` 6.11
+- Stos: Python 3.13, PySide6 (Qt 6), Flatpak na `org.freedesktop.Platform` 26.08 z Qt w paczce
 
 ## Licencja
 
