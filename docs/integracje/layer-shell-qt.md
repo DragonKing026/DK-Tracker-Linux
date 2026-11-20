@@ -5,7 +5,7 @@ tags: [integracja, wayland, kde, ui]
 status_integracji: planowana
 wersja: 6.7.5 (Plasma 6.7.5; moduł we Flatpaku ze źródeł KDE)
 utworzono: 2026-09-25 20:38
-zaktualizowano: 2026-10-30 14:21
+zaktualizowano: 2026-11-20 10:41
 ---
 
 # layer-shell-qt
@@ -43,22 +43,18 @@ panelu); lokalnie i we Flatpaku. Szczegóły:
 
 ## Flatpak
 
-Biblioteki **nie ma** w `org.kde.Platform` 6.10/6.11. Moduł manifestu budowany ze źródeł KDE
-pod Qt runtime'u (wymaga prywatnego API QtWaylandClient — dlatego nie działa z Qt z paczek pip):
+Biblioteki nie ma w żadnym runtime'ie. Od 0.10.20 Qt jest w paczce
+([ADR-0008](../decyzje/0008-qt-w-paczce-flatpak.md)), więc `layer-shell-qt` budujemy na Qt z koła PySide6:
 
-```yaml
-- name: layer-shell-qt
-  buildsystem: cmake-ninja
-  config-opts: [-DCMAKE_BUILD_TYPE=Release, -DBUILD_TESTING=OFF]
-  sources:
-    - type: archive
-      url: https://download.kde.org/stable/plasma/6.7.5/layer-shell-qt-6.7.5.tar.xz
-      sha256: ccdcfec7081ca956f7a52c9113a4df3a226575bfbe98b56a2a9a4d7d7e19e8f0
-```
+- nagłówki i pliki CMake bierzemy z oficjalnych binariów Qt **tej samej wersji** (moduł `qt-sdk`, tylko na czas
+  budowy) — z tej samej kompilacji powstają koła, więc symbole prywatnego API QtWaylandClient się zgadzają;
+- `-DCMAKE_INSTALL_RPATH=/app/lib/python3.14/site-packages/PySide6/Qt/lib` — biblioteka ładuje Qt z koła;
+- wtyczka `liblayer-shell.so` trafia do `PySide6/Qt/plugins/wayland-shell-integration/` (katalog wtyczek Qt z koła),
+  `libLayerShellQtInterface.so.6` do `/app/lib` (tam szuka jej `ctypes`);
+- potrzebuje też `extra-cmake-modules` (moduł manifestu) oraz `wayland-scanner` i `wayland-protocols` z SDK.
 
-Wtyczka trafia do `/app/lib/plugins/wayland-shell-integration/liblayer-shell.so`
-(`QT_PLUGIN_PATH` runtime'u obejmuje `/app/lib/plugins`). Budowa:
-[ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
+Do 0.10.19 moduł był budowany na Qt z `org.kde.Platform` — i psuł się razem z PySide6 przy łatce Qt w runtime'ie.
+Moduły i źródła: [Flatpak](flatpak.md#qt-w-paczce-adr-0008).
 
 ## Zmiana rozmiaru: płótno zamiast zmiany powierzchni
 
@@ -115,10 +111,10 @@ tego monitora. (`screenConfiguration` robi to samo, ale w 6.7.5 jest przestarza�
 > - GNOME (Mutter) nie udostępnia `layer-shell` aplikacjom — tam ścieżka bezramkowa.
 > - Kliknięcie ikony w tacce przy otwartym oknie nie dociera do aplikacji (Plasma) — okno
 >   zamyka przycisk, `Esc` albo klik obok.
-> - **Qt z pip nie wystarczy**: biblioteka systemowa wymaga `Qt_6.11_PRIVATE_API`, którego nie eksportuje Qt z koła
->   PySide6 —
->   `CDLL` rzuca `OSError`, aplikacja przechodzi na okno bez ramki. Na żywo uruchamiamy systemowym Pythonem, we Flatpaku
->   moduł jest budowany na Qt runtime'u.
+> - **Systemowa biblioteka nie działa z Qt z koła**: `layer-shell-qt` z dystrybucji (np. Fedory) wymaga
+>   `Qt_6.11_PRIVATE_API` systemowego Qt, którego nie eksportuje Qt z koła PySide6 — `CDLL` rzuca `OSError`,
+>   aplikacja przechodzi na okno bez ramki. Na żywo z `.venv` uruchamiamy więc systemowym Pythonem; we Flatpaku moduł
+>   jest budowany na nagłówkach Qt z tej samej kompilacji co koło.
 
 ## Gdzie w kodzie
 

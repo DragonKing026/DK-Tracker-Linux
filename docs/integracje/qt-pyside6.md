@@ -3,9 +3,9 @@ noteId: "a623b049c34a473c8ef446e883fc9922"
 tytul: Qt 6 / PySide6
 tags: [integracja, qt, python, ui, tray]
 status_integracji: w-uzyciu
-wersja: PySide6 6.11 (lokalnie 6.11.2), Python 3.14 lokalnie; Flatpak io.qt.PySide.BaseApp//6.11
+wersja: PySide6 6.11.3; Flatpak — koła PyPI z Qt w środku na org.freedesktop.Platform 26.08 (Python 3.14)
 utworzono: 2026-09-25 17:28
-zaktualizowano: 2026-09-27 14:10
+zaktualizowano: 2026-11-20 10:40
 ---
 
 # Qt 6 / PySide6
@@ -54,24 +54,16 @@ flowchart LR
 
 ## Flatpak
 
-Baza [io.qt.PySide.BaseApp](https://github.com/flathub/io.qt.PySide.BaseApp):
+Qt jest w paczce ([ADR-0008](../decyzje/0008-qt-w-paczce-flatpak.md)): koła `shiboken6` i `pyside6-essentials` z PyPI
+niosą własne Qt (biblioteki, QML, wtyczki platform Wayland/XCB, `xdg-desktop-portal`, ICU, tłumaczenia), a paczka stoi
+na `org.freedesktop.Platform`, który Qt nie ma. Aktualizacja runtime'u nie dotyka więc prywatnego API Qt, z którym
+PySide6 jest związany. Moduły i ich źródła: [Flatpak](flatpak.md#qt-w-paczce-adr-0008).
 
-```yaml
-runtime: org.kde.Platform
-runtime-version: '6.11'
-sdk: org.kde.Sdk
-base: io.qt.PySide.BaseApp
-base-version: '6.11'
-cleanup-commands:
-  - /app/cleanup-BaseApp.sh        # wymagane przez bazę
-build-options:
-  env:
-    BASEAPP_REMOVE_WEBENGINE: '1'  # nie potrzebujemy WebEngine
-```
-
-- Baza zawiera wszystkie moduły PySide6 poza Qt6Quick3D, Qt6SerialBus,
-  Qt6DataVisualization, Qt6Graphs i Qt6HttpServer.
-- Utrzymywane gałęzie: 6.7–6.11.
+- `pyside6-essentials` ma wszystkie moduły aplikacji (Core, Gui, Network, Qml, Quick, QuickControls2, Svg, Widgets);
+  `pyside6-addons` nie jest potrzebny.
+- Do 0.10.19 paczka korzystała z bazy [io.qt.PySide.BaseApp](https://github.com/flathub/io.qt.PySide.BaseApp) na
+  `org.kde.Platform` 6.11 — aktualizacja runtime'u do Qt 6.11.3 wyłączyła ją
+  ([0085](../../TODO/ZROBIONE/0085-flatpak-qt-6-11-3/todo.md)).
 
 ## Testy
 
@@ -84,10 +76,12 @@ build-options:
 >
 > - Na Waylandzie aplikacja nie ustawia pozycji okna
 >   ([Wayland and Qt](https://doc.qt.io/qt-6/wayland-and-qt.html)).
-> - `layer-shell-qt` (panele i popupy zakotwiczone w KDE) nie wchodzi w skład
->   `org.kde.Platform` 6.10/6.11 — sprawdzone lokalnie 2026-09-25.
-> - Wersja Pythona w runtime KDE może różnić się od lokalnej (3.14). Testy uruchamiamy
->   też w Flatpaku.
+> - `layer-shell-qt` (panele i popupy zakotwiczone w KDE) nie wchodzi w skład żadnego runtime'u — w paczce
+>   budujemy go na nagłówkach Qt tej samej wersji co koło ([layer-shell-qt](layer-shell-qt.md)).
+> - Qt z koła linkuje `libgssapi_krb5.so.2` (QtNetwork), którego `org.freedesktop.Platform` nie ma — paczka buduje
+>   MIT krb5. Brak biblioteki kończy się `ImportError` przy pierwszym imporcie Qt; łapie to samotest
+>   (`python3 -m dk_tracker.ui.selfcheck`).
+> - Python w paczce pochodzi z runtime'u (26.08: 3.14), CI testuje na 3.13 — koła PySide6 są `abi3`.
 
 - **QML**: `checked` w `Button` jest `FINAL` — własna właściwość musi mieć inną nazwę (`active`). Brak klucza w mapie
   `QVariantMap` to tylko ostrzeżenie w QML — `MainBridge` zakłada wszystkie klucze od startu, a test pada na każdym
@@ -148,10 +142,10 @@ pilnuje, by
   lewy klik = `Trigger`, prawy klik obsługuje host (menu z `setContextMenu` eksportowane przez dbusmenu).
 - Okno `Qt.Tool | FramelessWindowHint`: KWin stawia je na środku; `WindowDeactivate` po kliknięciu obok działa.
 - `layer-shell-qt` z PySide: bez wiązań, przez `ctypes` + `setProperty` — [layer-shell-qt](layer-shell-qt.md).
-- Budowa Flatpaka z `io.qt.PySide.BaseApp` na Fedorze 44 wymaga kontenera —
+- Budowa Flatpaka z `io.qt.PySide.BaseApp` na Fedorze 44 wymagała kontenera —
   [ADR-0006](../decyzje/0006-budowanie-flatpaka-w-kontenerze.md).
-  Alternatywa: PySide6 z PyPI (`pyside6-essentials` + `shiboken6`, 80 MB) — działa, ale z własnym Qt (bez
-  `layer-shell-qt`).
+  Alternatywa: PySide6 z PyPI (`pyside6-essentials` + `shiboken6`, 80 MB) — działa, ale z własnym Qt (wtedy bez
+  `layer-shell-qt`; od [ADR-0008](../decyzje/0008-qt-w-paczce-flatpak.md) z nim).
 
 ## Dokumentacja
 
@@ -159,7 +153,9 @@ pilnuje, by
 - [PySide6 — QSystemTrayIcon](https://doc.qt.io/qtforpython-6/PySide6/QtWidgets/QSystemTrayIcon.html)
 - [Qt 6 — QSystemTrayIcon (uwagi o platformach)](https://doc.qt.io/qt-6/qsystemtrayicon.html)
 - [Wayland and Qt](https://doc.qt.io/qt-6/wayland-and-qt.html)
-- [Flathub: io.qt.PySide.BaseApp](https://github.com/flathub/io.qt.PySide.BaseApp)
+- [Flathub: io.qt.PySide.BaseApp](https://github.com/flathub/io.qt.PySide.BaseApp) (do 0.10.19)
+- [PyPI: pyside6-essentials](https://pypi.org/project/PySide6-Essentials/)
+- [Oficjalne binaria Qt (repozytorium instalatora online)](https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/)
 - [pytest-qt](https://pytest-qt.readthedocs.io/)
 
 ## Powiązane
