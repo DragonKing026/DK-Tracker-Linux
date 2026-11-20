@@ -5,7 +5,7 @@ tags: [integracja, ci, wydanie, github, bezpieczenstwo]
 status_integracji: w-uzyciu
 wersja: "akcje: checkout@v4 i v7, setup-python@v5, flatpak-builder@v6, ghaction-import-gpg@v6, upload-pages-artifact@v3, deploy-pages@v4, action-gh-release@v2"
 utworzono: 2026-09-26 11:57
-zaktualizowano: 2026-10-31 13:10
+zaktualizowano: 2026-11-20 10:12
 ---
 
 # GitHub Actions
@@ -51,15 +51,20 @@ szersze uprawnienia (`security-events: write`, `id-token: write`) tylko w zadani
 - **Zależności CI z sumami** — [testy.yml](../../.github/workflows/testy.yml) instaluje
   `pip install --require-hashes -r requirements-ci.txt`, potem sam projekt `pip install --no-deps
   --no-build-isolation -e .` (Scorecard, Pinned-Dependencies, uznaje tylko instalację z sumami; zakresy z
-  `pyproject.toml` nie wystarczą). Plik jest generowany z [pyproject.toml](../../pyproject.toml) (extras `dev`, `ui`)
-  i [requirements-ci.in](../../requirements-ci.in) (`setuptools`, `atheris`) dla Pythona 3.13 na Linuxie x86-64:
+  `pyproject.toml` nie wystarczą). Plik jest generowany z jednego wejścia,
+  [requirements-ci.in](../../requirements-ci.in), dla Pythona 3.13 na Linuxie x86-64:
 
   ```bash
-  uv pip compile pyproject.toml requirements-ci.in --extra dev --extra ui --generate-hashes \
+  uv pip compile requirements-ci.in --generate-hashes \
     --python-version 3.13 --python-platform x86_64-manylinux_2_39 -o requirements-ci.txt
   ```
 
-  Zmiana przedziału w `pyproject.toml` wymaga ponownego wygenerowania pliku.
+  `requirements-ci.in` powtarza zależności z [pyproject.toml](../../pyproject.toml) (główne, extras `dev` i `ui`)
+  i dodaje `setuptools` oraz `atheris`. Dependabot kompiluje tylko pliki `.in`: gdy wejściem był też
+  `pyproject.toml`, wygenerował plik bez jego zależności i testy padły
+  ([0087](../../TODO/W-TRAKCIE/0087-dependabot-requirements-ci/todo.md)). Zgodność zakresów z `pyproject.toml`
+  sprawdza [test_requirements_ci.py](../../tests/test_requirements_ci.py). Zmiana przedziału w `pyproject.toml`
+  wymaga tej samej zmiany w `requirements-ci.in` i ponownego wygenerowania pliku.
 - **Fuzzing** — [fuzz/fuzz_core.py](../../fuzz/fuzz_core.py) (Atheris/libFuzzer) wywołuje czyste funkcje rdzenia
   (czas, opis wpisu, sortowanie) na losowych bajtach; `testy.yml` uruchamia go na 30 s. Lokalnie:
   `python fuzz/fuzz_core.py -max_total_time=60` (Linux x86-64, `atheris` z `requirements-ci.txt`). Scorecard
