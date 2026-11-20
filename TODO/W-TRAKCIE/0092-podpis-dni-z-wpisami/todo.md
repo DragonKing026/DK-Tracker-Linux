@@ -2,7 +2,7 @@
 noteId: "cfe8810cb23947eaa959912018b9e68d"
 tytul: "Wyraźny podpis „dni z wpisami” w podsumowaniach"
 numer: "0092"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p3
 tags: [todo, podsumowania]
 zalezy_od: []
@@ -14,7 +14,7 @@ zamknieto:
 # 0092 — Wyraźny podpis „dni z wpisami” w podsumowaniach
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p3** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p3** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -44,6 +44,7 @@ Brak.
 ### 2026-11-20 13:55
 
 - Utworzono zadanie.
+- **13:55** Start pracy.
 
 ## Wynik
 
