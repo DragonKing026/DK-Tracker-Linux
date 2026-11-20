@@ -64,6 +64,8 @@ MAIN_DARK = {
     "start": "#2ea043",
     "danger": "#e5534b",
     "danger_bg": "#3a2124",
+    "holiday": "#e0a458",  # public holidays (task 0088): the name in a day's head …
+    "holiday_bg": "#1ff59e0b",  # … and the faint tint of its column (with alpha: the hour lines show through)
 }
 MAIN_LIGHT = {
     "bg": "#ffffff",
@@ -83,6 +85,8 @@ MAIN_LIGHT = {
     "start": "#1a7f37",
     "danger": "#cf222e",
     "danger_bg": "#fdecec",
+    "holiday": "#a85a00",
+    "holiday_bg": "#26f59e0b",
 }
 PROJECT_NONE = "line"  # palette key of the grey dot when no project is chosen
 

@@ -102,32 +102,54 @@ Rectangle {
         // -- the days' heads ------------------------------------------------------------
         Rectangle {
             Layout.fillWidth: true
-            implicitHeight: 44
+            implicitHeight: view.d.holidaysOn ? 60 : 44  // a third line for the holiday's name, once a country is set
             color: app.palette.surface
             Rectangle { anchors.bottom: parent.bottom; width: parent.width; height: 1; color: app.palette.divider }
             Repeater {
                 model: view.d.days || []
-                delegate: Column {
+                delegate: Item {
+                    id: head
                     required property var modelData
                     required property int index
                     x: grid.dayX(index)
                     width: grid.columnWidth
-                    anchors.verticalCenter: parent.verticalCenter
-                    Label {
+                    height: parent.height - 1  // above the rule below
+                    Rectangle { anchors.fill: parent; visible: head.modelData.holiday !== ""; color: app.palette.holiday_bg }
+                    Column {
                         width: parent.width
-                        horizontalAlignment: Text.AlignHCenter
-                        text: modelData.label
-                        font.pixelSize: 13
-                        font.weight: modelData.today ? Font.Bold : Font.DemiBold
-                        color: modelData.today ? app.palette.accent : app.palette.fg
+                        anchors.verticalCenter: parent.verticalCenter
+                        Label {
+                            width: parent.width
+                            horizontalAlignment: Text.AlignHCenter
+                            text: head.modelData.label
+                            font.pixelSize: 13
+                            font.weight: head.modelData.today ? Font.Bold : Font.DemiBold
+                            color: head.modelData.today ? app.palette.accent : app.palette.fg
+                        }
+                        Label {
+                            width: parent.width
+                            horizontalAlignment: Text.AlignHCenter
+                            text: head.modelData.total || " "
+                            font.pixelSize: 11
+                            color: app.palette.muted
+                        }
+                        Label {  // the public holiday's name, cut short; the whole of it in the tooltip
+                            objectName: "calendarHoliday"
+                            visible: view.d.holidaysOn
+                            width: parent.width
+                            leftPadding: 6
+                            rightPadding: 6
+                            horizontalAlignment: Text.AlignHCenter
+                            elide: Text.ElideRight
+                            text: head.modelData.holiday || " "
+                            font.pixelSize: 11
+                            font.weight: Font.DemiBold
+                            color: app.palette.holiday
+                        }
                     }
-                    Label {
-                        width: parent.width
-                        horizontalAlignment: Text.AlignHCenter
-                        text: modelData.total || " "
-                        font.pixelSize: 11
-                        color: app.palette.muted
-                    }
+                    HoverHandler { id: headHover }
+                    ToolTip.visible: headHover.hovered && head.modelData.holiday !== ""
+                    ToolTip.text: head.modelData.holiday
                 }
             }
         }
@@ -223,6 +245,7 @@ Rectangle {
                         x: grid.dayX(index)
                         width: grid.columnWidth
                         height: grid.height
+                        Rectangle { anchors.fill: parent; visible: column.modelData.holiday !== ""; color: app.palette.holiday_bg }
                         Rectangle { anchors.fill: parent; visible: column.modelData.today; color: app.palette.surface; opacity: 0.6 }
                         Rectangle { width: 1; height: parent.height; color: app.palette.divider }
 

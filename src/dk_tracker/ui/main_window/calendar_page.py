@@ -281,6 +281,7 @@ class CalendarPage(QObject):
             "isToday": self._today in days,
             "loading": self._loading,
             "loaded": shown,
+            "holidaysOn": bool(self._holiday_country),  # a country is set: the heads have room for a name
             "now": now_minutes,
             "days": [
                 {
