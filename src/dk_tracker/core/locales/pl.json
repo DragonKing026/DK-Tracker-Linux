@@ -200,7 +200,7 @@
   "sumNext": "Następny okres",
   "sumNoDescription": "(bez opisu)",
   "sumMore": "+ {count} więcej",
-  "sumDaysLine": "Dni robocze: {work} · z wpisami: {count}",
+  "sumDaysLine": "Dni robocze: {work} · dni z wpisami: {count}",
   "optVersion": "wersja {version}",
   "optAbout": "O programie",
   "optAboutText": "Klient Kimai na pulpit Linuksa: wpisy, podsumowania i kalendarz w jednym oknie, a timer zawsze pod ręką w tacce. Niezależny projekt, nie jest oficjalną aplikacją Kimai.",

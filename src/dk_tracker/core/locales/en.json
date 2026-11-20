@@ -200,7 +200,7 @@
   "sumNext": "Next period",
   "sumNoDescription": "(no description)",
   "sumMore": "+ {count} more",
-  "sumDaysLine": "Working days: {work} · with entries: {count}",
+  "sumDaysLine": "Working days: {work} · days with entries: {count}",
   "optVersion": "version {version}",
   "optAbout": "About",
   "optAboutText": "A Kimai client for the Linux desktop: entries, summaries and a calendar in one window, with the timer always at hand in the tray. An independent project, not an official Kimai app.",

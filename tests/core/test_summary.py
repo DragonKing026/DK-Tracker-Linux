@@ -262,7 +262,7 @@ def test_present_gives_the_view_its_texts():
     summary = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
     view = present(summary, PL, group="project", today=date(2026, 9, 25))
     assert view["empty"] is False
-    assert (view["total"], view["daysWith"]) == ("15:00", "Dni robocze: 5 · z wpisami: 2")
+    assert (view["total"], view["daysWith"]) == ("15:00", "Dni robocze: 5 · dni z wpisami: 2")
     assert (view["paid"], view["paidPercent"]) == ("13:00", "87 %")
     assert (view["unpaid"], view["unpaidPercent"]) == ("2:00", "13 %")
     assert (view["avgDay"], view["norm"], view["normDiff"]) == ("3:00", "8:00", "−5:00")

@@ -128,7 +128,7 @@ def test_the_language_changes_the_texts(page):
     deliver(page, [entry(1, date(2026, 9, 21), 6)])
     page.retranslate(Translator("en"))
     assert page.data["label"] == "21 – 27 Sep 2026"
-    assert page.data["daysWith"] == "Working days: 5 · with entries: 1"
+    assert page.data["daysWith"] == "Working days: 5 · days with entries: 1"
 
 
 def test_a_new_week_moves_this_week_along_until_the_user_picks_a_period(page, qtbot):
@@ -159,14 +159,14 @@ HOLIDAYS = HolidayData("PL", "2026-09-20 10:00", (Holiday(date(2026, 9, 23), "Ś
 def test_a_holiday_is_counted_at_once_without_asking_for_entries_again(page, qtbot):
     page.request()
     deliver(page, [entry(1, date(2026, 9, 21), 8)])
-    assert page.data["daysWith"] == "Dni robocze: 5 · z wpisami: 1"
+    assert page.data["daysWith"] == "Dni robocze: 5 · dni z wpisami: 1"
     with qtbot.assertNotEmitted(page.loadRequested):
         page.set_holidays(HOLIDAYS, "PL")
-    assert page.data["daysWith"] == "Dni robocze: 4 · z wpisami: 1"
+    assert page.data["daysWith"] == "Dni robocze: 4 · dni z wpisami: 1"
     assert page.data["avgDay"] == "2:00"
     assert page.data["bars"][2]["holiday"] == "Święto Wiosny" and page.data["bars"][2]["normText"] == ""
     page.set_holidays(HolidayData(), "")  # "none": as before
-    assert page.data["daysWith"] == "Dni robocze: 5 · z wpisami: 1"
+    assert page.data["daysWith"] == "Dni robocze: 5 · dni z wpisami: 1"
     assert page.data["bars"][2]["holiday"] == ""
 
 
@@ -174,7 +174,7 @@ def test_holidays_of_another_country_do_not_count(page):
     page.request()
     deliver(page, [entry(1, date(2026, 9, 21), 8)])
     page.set_holidays(HOLIDAYS, "DE")
-    assert page.data["daysWith"] == "Dni robocze: 5 · z wpisami: 1"
+    assert page.data["daysWith"] == "Dni robocze: 5 · dni z wpisami: 1"
 
 
 def test_holidays_set_before_the_entries_arrive_count_and_the_name_follows_the_language(page):
