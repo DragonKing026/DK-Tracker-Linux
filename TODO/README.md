@@ -3,7 +3,7 @@ noteId: "cac7a114c5cb4e29b37b72cfb350f540"
 tytul: Tablica zadań
 tags: [todo, tablica]
 utworzono: 2026-09-25 17:14
-zaktualizowano: 2026-11-20 10:11
+zaktualizowano: 2026-11-20 10:19
 ---
 
 # Tablica zadań
@@ -26,7 +26,6 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | Nr | Zadanie | Status | Priorytet | Zależy od |
 | --- | --- | --- | --- | --- |
 | 0084 | [Scorecard: przypięte zależności, podpisane wydania, fuzzing](W-TRAKCIE/0084-scorecard-pinned-signed-fuzzing/todo.md) | 🔨 w-trakcie | p3 | — |
-| 0087 | [Dependabot gubi zależności z pyproject.toml w requirements-ci.txt](W-TRAKCIE/0087-dependabot-requirements-ci/todo.md) | 🔨 w-trakcie | p1 | — |
 
 ## Do zrobienia
 
@@ -122,6 +121,7 @@ przenoszony (skill [zmien-status-zadania](../.claude/skills/zmien-status-zadania
 | 0082 | [Koniec wpisu zapisany o minutę za późno — nakładanie na osi czasu](ZROBIONE/0082-koniec-wpisu-minute-za-pozno/todo.md) | ✅ zrobione | 2026-10-30 15:32 |
 | 0083 | [CI z audytami bezpieczeństwa](ZROBIONE/0083-ci-z-audytami-bezpieczenstwa/todo.md) | ✅ zrobione | 2026-10-31 12:45 |
 | 0085 | [Flatpak nie startuje po aktualizacji runtime'u do Qt 6.11.3](ZROBIONE/0085-flatpak-qt-6-11-3/todo.md) | ✅ zrobione | 2026-11-02 17:13 |
+| 0087 | [Dependabot gubi zależności z pyproject.toml w requirements-ci.txt](ZROBIONE/0087-dependabot-requirements-ci/todo.md) | ✅ zrobione | 2026-11-20 10:19 |
 
 <!-- tablica:end -->
 

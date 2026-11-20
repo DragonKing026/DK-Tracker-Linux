@@ -62,7 +62,7 @@ szersze uprawnienia (`security-events: write`, `id-token: write`) tylko w zadani
   `requirements-ci.in` powtarza zależności z [pyproject.toml](../../pyproject.toml) (główne, extras `dev` i `ui`)
   i dodaje `setuptools` oraz `atheris`. Dependabot kompiluje tylko pliki `.in`: gdy wejściem był też
   `pyproject.toml`, wygenerował plik bez jego zależności i testy padły
-  ([0087](../../TODO/W-TRAKCIE/0087-dependabot-requirements-ci/todo.md)). Zgodność zakresów z `pyproject.toml`
+  ([0087](../../TODO/ZROBIONE/0087-dependabot-requirements-ci/todo.md)). Zgodność zakresów z `pyproject.toml`
   sprawdza [test_requirements_ci.py](../../tests/test_requirements_ci.py). Zmiana przedziału w `pyproject.toml`
   wymaga tej samej zmiany w `requirements-ci.in` i ponownego wygenerowania pliku.
 - **Fuzzing** — [fuzz/fuzz_core.py](../../fuzz/fuzz_core.py) (Atheris/libFuzzer) wywołuje czyste funkcje rdzenia
