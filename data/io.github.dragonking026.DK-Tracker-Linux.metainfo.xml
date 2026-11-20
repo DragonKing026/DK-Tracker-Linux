@@ -60,6 +60,11 @@
     <control>keyboard</control>
   </supports>
   <releases>
+    <release version="0.10.22" date="2026-11-20">
+      <description>
+        <p>Calendar: the mouse wheel and the touchpad now scroll the hours; Alt + the wheel zooms in and out.</p>
+      </description>
+    </release>
     <release version="0.10.21" date="2026-11-20">
       <description>
         <p>Public holidays: choose a country in Settings and the app fetches its public holidays (from date.nager.at, only when you pick the country or press Synchronize). Holidays are marked in the Calendar and no longer count as working days in Summaries.</p>
