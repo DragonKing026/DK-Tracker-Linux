@@ -5,6 +5,7 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
+from dk_tracker.core.holidays import Holiday, HolidayData
 from dk_tracker.core.i18n import Translator
 from dk_tracker.ui.main_window.summary_page import SummaryPage
 
@@ -148,3 +149,46 @@ def test_another_period_starts_blank_while_it_loads(page):
     page.step(-1)
     assert (page.data["loaded"], page.data["loading"]) == (False, True)
     assert "bars" not in page.data
+
+
+# -- public holidays (task 0088) -------------------------------------------------------------
+
+HOLIDAYS = HolidayData("PL", "2026-09-20 10:00", (Holiday(date(2026, 9, 23), "Święto Wiosny", "Spring Day"),))
+
+
+def test_a_holiday_is_counted_at_once_without_asking_for_entries_again(page, qtbot):
+    page.request()
+    deliver(page, [entry(1, date(2026, 9, 21), 8)])
+    assert page.data["daysWith"] == "Dni robocze: 5 · z wpisami: 1"
+    with qtbot.assertNotEmitted(page.loadRequested):
+        page.set_holidays(HOLIDAYS, "PL")
+    assert page.data["daysWith"] == "Dni robocze: 4 · z wpisami: 1"
+    assert page.data["avgDay"] == "2:00"
+    assert page.data["bars"][2]["holiday"] == "Święto Wiosny" and page.data["bars"][2]["normText"] == ""
+    page.set_holidays(HolidayData(), "")  # "none": as before
+    assert page.data["daysWith"] == "Dni robocze: 5 · z wpisami: 1"
+    assert page.data["bars"][2]["holiday"] == ""
+
+
+def test_holidays_of_another_country_do_not_count(page):
+    page.request()
+    deliver(page, [entry(1, date(2026, 9, 21), 8)])
+    page.set_holidays(HOLIDAYS, "DE")
+    assert page.data["daysWith"] == "Dni robocze: 5 · z wpisami: 1"
+
+
+def test_holidays_set_before_the_entries_arrive_count_and_the_name_follows_the_language(page):
+    page.set_holidays(HOLIDAYS, "PL")  # nothing received yet: nothing to recount, nothing breaks
+    page.request()
+    deliver(page, [entry(1, date(2026, 9, 21), 8)])
+    assert page.data["bars"][2]["holiday"] == "Święto Wiosny"
+    page.retranslate(Translator("en"))
+    assert page.data["bars"][2]["holiday"] == "Spring Day"
+
+
+def test_a_new_period_does_not_wear_the_old_ones_holidays(page):
+    page.request()
+    deliver(page, [entry(1, date(2026, 9, 21), 8)])
+    page.step(1)  # the next week's entries are on their way
+    page.set_holidays(HOLIDAYS, "PL")
+    assert page.data["loaded"] is False

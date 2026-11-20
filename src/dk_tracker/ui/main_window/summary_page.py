@@ -13,6 +13,7 @@ from typing import Any
 
 from PySide6.QtCore import Property, QObject, Signal, Slot
 
+from dk_tracker.core.holidays import HolidayData
 from dk_tracker.core.i18n import Translator
 from dk_tracker.core.models import Entry
 from dk_tracker.core.summary import (
@@ -43,6 +44,9 @@ class SummaryPage(QObject):
         self._group = "project"
         self._summary: Summary | None = None
         self._loading = False
+        self._counted: tuple[list[Entry], tzinfo, datetime, int] | None = None  # what the summary was made of
+        self._holidays = HolidayData()
+        self._holiday_country = ""
         self._data: dict[str, Any] = {}
         self._refresh()
 
@@ -64,7 +68,7 @@ class SummaryPage(QObject):
         self._today, self._first_weekday, self._t = today, first_weekday, t
         if not self._chosen:  # "this week" as the app started: a new day or account setting moves it
             self._span = span_for("week", today, first_weekday)
-        self._refresh()
+        self._recount()
 
     def request(self) -> None:
         """Ask for the entries of the period shown (a change, the minute's refresh, an edit)."""
@@ -77,9 +81,8 @@ class SummaryPage(QObject):
     ) -> None:
         if (first, last) != (self._span.first, self._span.last):
             return  # the user has moved on; the answer for the new period is on its way
-        self._summary = summarize(
-            entries, self._span, tz, now=now, norm=norm, first_weekday=self._first_weekday
-        )
+        self._counted = (list(entries), tz, now, norm)
+        self._summary = self._make()
         self._loading = False
         self._refresh()
 
@@ -87,9 +90,14 @@ class SummaryPage(QObject):
         self._loading = loading
         self._refresh()
 
+    def set_holidays(self, data: HolidayData, country: str) -> None:
+        """The public holidays of the chosen country (task 0088): no working days, counted again at once."""
+        self._holidays, self._holiday_country = data, country
+        self._recount()
+
     def retranslate(self, t: Callable[..., str]) -> None:
         self._t = t
-        self._refresh()
+        self._recount()
 
     # -- from QML ----------------------------------------------------------------------------
 
@@ -134,6 +142,27 @@ class SummaryPage(QObject):
         self._chosen = True
         self._span = span
         self.request()
+
+    def _make(self) -> Summary:
+        """The summary of the entries last received, with the holidays now in force."""
+        entries, tz, now, norm = self._counted  # type: ignore[misc]
+        language = getattr(self._t, "language", "en")
+        return summarize(
+            entries,
+            self._span,
+            tz,
+            now=now,
+            norm=norm,
+            first_weekday=self._first_weekday,
+            holidays=self._holidays.names(language, self._holiday_country),
+        )
+
+    def _recount(self) -> None:
+        """A change of holidays, language or week start: counted again from the same entries (no new
+        request), but only while the period shown is the one they were fetched for."""
+        if self._counted is not None and self._summary is not None and self._summary.span == self._span:
+            self._summary = self._make()
+        self._refresh()
 
     def _refresh(self) -> None:
         span, t = self._span, self._t

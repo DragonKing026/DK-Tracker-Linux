@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import calendar
 import math
-from collections.abc import Callable, Iterable
+from collections.abc import Callable, Iterable, Mapping
 from dataclasses import dataclass, field, replace
 from datetime import date, datetime, timedelta, tzinfo
 from typing import Any, Literal
@@ -84,8 +84,9 @@ class Bucket:
     last: date
     seconds: int = 0
     parts: tuple[Part, ...] = ()
-    norm: int = 0  # the norm for this bar: a day's, or a day's × days with entries in the month
+    norm: int = 0  # the norm for this bar: a day's (none on a holiday), or a day's × the month's working days
     days_with: int = 0
+    holiday: str = ""  # a daily bar on a public holiday: its name
 
 
 @dataclass(frozen=True)
@@ -106,7 +107,7 @@ class Summary:
     total: int
     billable: int
     days_with: int
-    work_days: int  # Monday–Friday of the period, until today in the current one (no holidays)
+    work_days: int  # Monday–Friday of the period without public holidays, until today in the current one
     norm: int  # a day's norm in seconds; 0 = none
     buckets: tuple[Bucket, ...]
     shares: dict[str, tuple[Share, ...]] = field(default_factory=dict)
@@ -161,9 +162,20 @@ def span_label(span: Span, today: date, t: Callable[..., str]) -> str:
 
 
 def summarize(
-    entries: Iterable[Entry], span: Span, tz: tzinfo, *, now: datetime, norm: int, first_weekday: int
+    entries: Iterable[Entry],
+    span: Span,
+    tz: tzinfo,
+    *,
+    now: datetime,
+    norm: int,
+    first_weekday: int,
+    holidays: Mapping[date, str] | None = None,
 ) -> Summary:
-    """Entries of the period (a running one counts until `now`), each on the day it began."""
+    """Entries of the period (a running one counts until `now`), each on the day it began.
+
+    `holidays` (day → name): a public holiday is no working day — it leaves the average's divisor and
+    the norm; work on it still counts, so it raises the average as work on a Saturday does."""
+    holidays = holidays or {}
     unit: Literal["day", "month"] = "day" if span.kind != "year" and span.days <= DAY_BARS_LIMIT else "month"
     counted: list[tuple[date, Entry, int]] = []
     for entry in entries:
@@ -182,8 +194,10 @@ def summarize(
             last,
             [(d, e, s) for d, e, s in counted if first <= d <= last],
             order,
-            norm if unit == "day" else norm * _work_days(first, last, today),
-            unit,
+            (0 if first in holidays else norm)
+            if unit == "day"
+            else norm * _work_days(first, last, today, holidays),
+            holidays.get(first, "") if unit == "day" else "",
         )  # fmt: skip
         for first, last in _bucket_spans(span, unit)
     )
@@ -193,7 +207,7 @@ def summarize(
         total=sum(seconds for _, _, seconds in counted),
         billable=sum(seconds for _, entry, seconds in counted if entry.billable),
         days_with=len(days),
-        work_days=_work_days(span.first, span.last, today),
+        work_days=_work_days(span.first, span.last, today, holidays),
         norm=norm,
         buckets=buckets,
         shares=shares,
@@ -306,10 +320,12 @@ def _shares(counted: list[tuple[date, Entry, int]], group: str) -> tuple[Share, 
     return tuple(sorted(found.values(), key=lambda share: (-share.seconds, sort_key(share.name))))
 
 
-def _work_days(first: date, last: date, today: date) -> int:
-    """Monday–Friday from `first` to `last`, but not past today (the days to come are not owed yet)."""
+def _work_days(first: date, last: date, today: date, holidays: Mapping[date, str]) -> int:
+    """Monday–Friday from `first` to `last` without public holidays, but not past today (the days to
+    come are not owed yet)."""
     last = min(last, today)
-    return sum(1 for i in range((last - first).days + 1) if (first + timedelta(days=i)).weekday() < 5)
+    days = (first + timedelta(days=i) for i in range((last - first).days + 1))
+    return sum(1 for day in days if day.weekday() < 5 and day not in holidays)
 
 
 def _bucket_spans(span: Span, unit: str) -> list[tuple[date, date]]:
@@ -329,7 +345,7 @@ def _bucket(
     counted: list[tuple[date, Entry, int]],
     order: dict[str, int],
     norm: int,
-    unit: str,
+    holiday: str,
 ) -> Bucket:
     by_project: dict[str, int] = {}
     texts: dict[str, dict[str, int]] = {}
@@ -350,6 +366,7 @@ def _bucket(
             for key, seconds in sorted(by_project.items(), key=lambda kv: order[kv[0]])
         ),
         norm=norm,  # a day's, or the month's (a day's × its working days until today)
+        holiday=holiday,
         days_with=days_with,
     )
 
@@ -384,6 +401,7 @@ def _bar(
         "total": short_duration(bucket.seconds),
         "seconds": bucket.seconds,
         "norm": bucket.norm,
+        "holiday": bucket.holiday,
         "normText": t("sumNormTip", time=short_duration(bucket.norm)) if bucket.norm else "",
         "today": bucket.first <= today <= bucket.last,
         "parts": [

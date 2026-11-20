@@ -442,3 +442,52 @@ def test_a_month_bar_lists_fewer_entries_a_project():
     )
     part = present(summary, PL, group="project", today=date(2026, 9, 25))["bars"][2]["parts"][0]
     assert (len(part["entries"]), part["more"]) == (3, "+ 5 więcej")
+
+
+# -- public holidays (task 0088) -------------------------------------------------------------
+
+HOLIDAY = date(2026, 9, 23)  # a Wednesday of the week above
+HOLIDAYS = {HOLIDAY: "Święto"}
+
+
+def test_a_holiday_is_no_working_day_and_leaves_the_average():
+    entries = [entry(1, date(2026, 9, 21), 8, 8), entry(2, date(2026, 9, 22), 8, 8)]
+    plain = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+    kept = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY, holidays=HOLIDAYS)
+    assert (plain.work_days, kept.work_days) == (5, 4)
+    assert (plain.avg_day, kept.avg_day) == (16 * HOUR / 5, 4 * HOUR)
+
+
+def test_work_on_a_holiday_raises_the_average_as_a_saturdays_does():
+    entries = [entry(1, date(2026, 9, 21), 8, 8), entry(2, HOLIDAY, 8, 4)]
+    summary = summarize(entries, week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY, holidays=HOLIDAYS)
+    assert (summary.work_days, summary.days_with, summary.avg_day) == (4, 2, 3 * HOUR)
+
+
+def test_a_holidays_bar_has_no_norm_and_carries_its_name():
+    summary = summarize([], week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY, holidays=HOLIDAYS)
+    assert [bucket.norm for bucket in summary.buckets] == [NORM, NORM, 0, NORM, NORM, NORM, NORM]
+    assert [bucket.holiday for bucket in summary.buckets].count("Święto") == 1
+    bars = present(summary, PL, group="project", today=date(2026, 9, 25))["bars"]
+    assert (bars[2]["holiday"], bars[2]["norm"], bars[2]["normText"]) == ("Święto", 0, "")
+    assert bars[1]["holiday"] == "" and bars[1]["normText"] == "Norma 8:00"
+
+
+def test_a_months_norm_counts_working_days_without_holidays():
+    month = span_for("month", date(2026, 9, 1), MONDAY)
+    plain = summarize([], month, WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY)
+    kept = summarize([], month, WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY, holidays=HOLIDAYS)
+    assert (plain.work_days, kept.work_days) == (19, 18)  # until today, the 25th
+    year = span_for("year", date(2026, 1, 1), MONDAY)
+    months = summarize([], year, WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY, holidays=HOLIDAYS)
+    assert months.buckets[8].norm == 18 * NORM and months.buckets[8].holiday == ""
+
+
+def test_a_holiday_at_the_weekend_or_to_come_changes_nothing():
+    holidays = {date(2026, 9, 26): "Sobota", date(2026, 9, 28): "Jutro"}
+    summary = summarize([], week(), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY, holidays=holidays)
+    assert summary.work_days == 5
+    next_week = summarize(
+        [], shifted(week(), 1, MONDAY), WARSAW, now=NOW, norm=NORM, first_weekday=MONDAY, holidays=holidays
+    )
+    assert next_week.work_days == 0  # still to come
