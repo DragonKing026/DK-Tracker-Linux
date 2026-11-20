@@ -660,3 +660,30 @@ def test_the_date_pickers_know_the_holidays(window):
     assert window.bridge.holidays == {"2026-09-23": "Spring"}
     window.bridge.set_holidays(HolidayData(), "")
     assert window.bridge.holidays == {}
+
+
+def test_the_calendar_opens_at_the_earliest_entry_and_again_for_another_week(window, qtbot):
+    """0091: from the full hour of the first entry of the days shown; a refresh leaves the view alone."""
+    from PySide6.QtCore import QSize
+    from PySide6.QtWidgets import QApplication
+
+    page = window.bridge.calendar
+    window.window.resize(QSize(1000, 700))
+    window.bridge.showPage("calendar")
+    page.request()
+    entries = [entry(13, 1), replace(entry(10, 2), begin=entry(10, 2).begin + timedelta(minutes=20))]
+    page.set_entries(page.days[0], page.days[-1], entries, tz=WARSAW, now=NOW)
+    qtbot.waitUntil(lambda: visual_child(window.window.contentItem(), "calendarGrid") is not None)
+    flick = visual_child(window.window.contentItem(), "calendarGrid")
+    qtbot.waitUntil(
+        lambda: flick.property("contentY") == pytest.approx(10 * page.hourHeight)
+    )  # 10:20 → 10:00
+
+    flick.setProperty("contentY", 0)
+    page.set_entries(page.days[0], page.days[-1], entries, tz=WARSAW, now=NOW)  # the same week again
+    QApplication.processEvents()
+    assert flick.property("contentY") == 0
+
+    page.step(-1)  # a week with no entries: from 8:00
+    page.set_entries(page.days[0], page.days[-1], [], tz=WARSAW, now=NOW)
+    qtbot.waitUntil(lambda: flick.property("contentY") == pytest.approx(8 * page.hourHeight))

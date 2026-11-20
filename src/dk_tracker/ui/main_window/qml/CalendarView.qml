@@ -12,22 +12,36 @@ Rectangle {
     readonly property var d: app.calendarPage.data
     readonly property int gutter: 56  // the hours on the left
     readonly property real hourHeight: app.calendarPage.hourHeight  // Alt + the wheel
-    property bool scrolled: false  // to working hours once, when the view first shows days
+    property bool scrolled: false  // to the first entry once the days shown are loaded
+    property string scrolledFor: ""  // the days it was for: another period scrolls again, a refresh does not
     property bool wheeled: false  // the user scrolled: the window's size no longer moves the hours
+    readonly property string period: d.loaded ? (d.days || []).map(day => day.date).join(",") : ""
 
-    // From 8:00; later only when "now" would be out of sight.
+    // From the full hour of the earliest entry of the days shown (0091); with none, from 8:00, later only
+    // when "now" would be out of sight.
     function scrollToWork() {
-        const shown = flick.height / hourHeight
+        const starts = (d.blocks || []).map(b => b.start)
         let from = 8
-        if (d.now >= 0 && d.now / 60 > from + shown - 1)
-            from = d.now / 60 - shown + 2
+        if (starts.length > 0) {
+            from = Math.floor(Math.min(...starts) / 60)
+        } else {
+            const shown = flick.height / hourHeight
+            if (d.now >= 0 && d.now / 60 > from + shown - 1)
+                from = d.now / 60 - shown + 2
+        }
         flick.contentY = Math.max(0, Math.min(flick.contentHeight - flick.height, from * hourHeight))
         scrolled = true
+        scrolledFor = period
+        wheeled = false
     }
     onVisibleChanged: if (visible && d.loaded) scrollToWork()
     Connections {
         target: app.calendarPage
-        function onDataChanged() { if (!view.scrolled && view.d.loaded && view.visible) view.scrollToWork() }
+        function onDataChanged() { Qt.callLater(view.scrollToNewPeriod) }  // once `d` and the scale are new
+    }
+    function scrollToNewPeriod() {
+        if (period !== "" && period !== scrolledFor && visible)
+            scrollToWork()
     }
 
     ColumnLayout {
