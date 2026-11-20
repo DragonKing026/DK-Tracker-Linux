@@ -70,7 +70,7 @@ sequenceDiagram
 
 ## Gdzie w kodzie
 
-- Uzupełniane przy implementacji ([zadanie 0088](../../TODO/DO-ZROBIENIA/0088-swieta-panstwowe/todo.md)).
+- Uzupełniane przy implementacji ([zadanie 0088](../../TODO/W-TRAKCIE/0088-swieta-panstwowe/todo.md)).
 
 ## Dokumentacja
 
@@ -82,5 +82,5 @@ sequenceDiagram
 ## Powiązane
 
 - [ADR-0009 — święta z Nager.Date](../decyzje/0009-swieta-z-nager-date.md)
-- [Zadanie 0088 — święta państwowe](../../TODO/DO-ZROBIENIA/0088-swieta-panstwowe/todo.md)
+- [Zadanie 0088 — święta państwowe](../../TODO/W-TRAKCIE/0088-swieta-panstwowe/todo.md)
 - [httpx](httpx.md)

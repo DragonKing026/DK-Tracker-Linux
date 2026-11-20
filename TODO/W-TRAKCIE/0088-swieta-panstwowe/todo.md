@@ -2,19 +2,19 @@
 noteId: "21bc84e3ba1545138a710c7afe833fbf"
 tytul: "Święta państwowe w Kalendarzu i Podsumowaniach"
 numer: "0088"
-status: do-zrobienia
+status: w-trakcie
 priorytet: p2
 tags: [todo, swieta, kalendarz, podsumowania, ustawienia]
 zalezy_od: []
 utworzono: 2026-11-20 12:21
-zaktualizowano: 2026-11-20 12:21
+zaktualizowano: 2026-11-20 12:23
 zamknieto:
 ---
 
 # 0088 — Święta państwowe w Kalendarzu i Podsumowaniach
 
 > [!info] Status
-> **do-zrobienia** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -69,6 +69,7 @@ Brak.
 ### 2026-11-20 12:21
 
 - Utworzono zadanie.
+- **12:23** Start pracy: rdzeń, Podsumowania, Ustawienia, Kalendarz.
 
 ## Wynik
 
