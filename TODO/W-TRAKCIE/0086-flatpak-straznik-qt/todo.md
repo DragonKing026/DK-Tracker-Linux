@@ -2,19 +2,19 @@
 noteId: "b09f0e89c9744d95b369a3b6d6f9fad2"
 tytul: "Ochrona paczki przed aktualizacją Qt w runtime"
 numer: "0086"
-status: pomysl
+status: w-trakcie
 priorytet: p2
 tags: [todo, flatpak, ci]
 zalezy_od: ["0085-flatpak-qt-6-11-3"]
 utworzono: 2026-11-02 17:13
-zaktualizowano: 2026-11-02 17:13
+zaktualizowano: 2026-11-20 10:21
 zamknieto:
 ---
 
 # 0086 — Ochrona paczki przed aktualizacją Qt w runtime
 
 > [!info] Status
-> **pomysl** · priorytet **p2** · [← tablica zadań](../../README.md)
+> **w-trakcie** · priorytet **p2** · [← tablica zadań](../../README.md)
 
 ## Cel
 
@@ -48,6 +48,11 @@ Brak.
 ### 2026-11-02 17:13
 
 - Utworzono zadanie.
+
+### 2026-11-20
+
+- **10:21** Decyzja użytkownika: oba warianty — Qt dołączone do paczki (PySide6 z PyPI na org.freedesktop.Platform) i
+  strażnik w CI. Start od weryfikacji wheela PySide6.
 
 ## Wynik
 
