@@ -1,6 +1,25 @@
-# Extra inputs of requirements-ci.txt next to pyproject.toml (extras dev and ui); the file with hashes is for
-# `pip install --require-hashes` (docs/integracje/github-actions.md). Regenerate:
-#   uv pip compile pyproject.toml requirements-ci.in --extra dev --extra ui --generate-hashes \
+# Inputs of requirements-ci.txt; the file with hashes is for `pip install --require-hashes`
+# (docs/integracje/github-actions.md). Dependabot compiles only this file, so it repeats every dependency of
+# pyproject.toml (main, extras dev and ui) — tests/test_requirements_ci.py keeps them in sync. Regenerate:
+#   uv pip compile requirements-ci.in --generate-hashes \
 #     --python-version 3.13 --python-platform x86_64-manylinux_2_39 -o requirements-ci.txt
+
+# pyproject.toml: dependencies
+httpx>=0.28,<1
+jeepney>=0.9,<1
+
+# pyproject.toml: extra dev
+pytest>=8
+pytest-cov>=5
+ruff>=0.16,<0.17
+pytest-qt>=4.4
+pyyaml>=6
+packaging>=24
+hypothesis>=6
+
+# pyproject.toml: extra ui
+PySide6>=6.11,<6.12
+
+# CI only
 setuptools>=77  # build backend: the project is installed with --no-build-isolation
 atheris>=3  # fuzzing harness (fuzz/); Linux x86-64 wheels only

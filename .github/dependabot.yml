@@ -1,5 +1,5 @@
 # Weekly updates, each ecosystem in one pull request: the GitHub Actions pinned to commits, and the CI
-# dependencies pinned by hash in requirements-ci.txt (compiled from pyproject.toml and requirements-ci.in).
+# dependencies pinned by hash in requirements-ci.txt (compiled from requirements-ci.in alone).
 # The Flatpak build installs its dependencies offline from flatpak/python3-deps.yaml, which Dependabot cannot update.
 version: 2
 updates:
